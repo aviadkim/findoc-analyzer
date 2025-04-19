@@ -1,0 +1,171 @@
+name: Deploy to Google Cloud Run
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'DevDocs/**'
+      - 'ai_feedback_learning.py'
+      - 'ai_enhanced_processor.py'
+      - 'web_interface.py'
+      - '.github/workflows/deploy.yml'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      PROJECT_ID: github-456508
+      REGION: me-west1
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Authenticate to Google Cloud
+      uses: google-github-actions/auth@v2
+      with:
+        project_id: github-456508
+        credentials_json: ${{ secrets.GCP_SA_KEY }}
+
+    - name: Set up Cloud SDK
+      uses: google-github-actions/setup-gcloud@v2
+
+    - name: Authenticate Docker to Google Cloud
+      run: gcloud auth configure-docker
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+
+    - name: Install frontend dependencies
+      run: |
+        cd DevDocs/frontend
+        npm install
+        npm install @chakra-ui/react @emotion/react @emotion/styled framer-motion react-router-dom --save
+
+    - name: Create temporary component files
+      run: |
+        cd DevDocs/frontend
+
+        # Create temporary RouterWrapper.js
+        mkdir -p components
+        echo 'import React from "react";' > components/RouterWrapper.js
+        echo 'const RouterWrapper = ({ children }) => { return <>{children}</>; };' >> components/RouterWrapper.js
+        echo 'export default RouterWrapper;' >> components/RouterWrapper.js
+
+        # Create temporary ChakraWrapper.js
+        echo 'import React from "react";' > components/ChakraWrapper.js
+        echo 'const ChakraWrapper = ({ children }) => { return <>{children}</>; };' >> components/ChakraWrapper.js
+        echo 'export default ChakraWrapper;' >> components/ChakraWrapper.js
+
+        # Create temporary DataExportTool.js
+        echo 'import React from "react";' > components/DataExportTool.js
+        echo 'const DataExportTool = () => { return <div>Data Export Tool</div>; };' >> components/DataExportTool.js
+        echo 'export default DataExportTool;' >> components/DataExportTool.js
+
+        # Create temporary DocumentComparisonTool.js
+        echo 'import React from "react";' > components/DocumentComparisonTool.js
+        echo 'const DocumentComparisonTool = () => { return <div>Document Comparison Tool</div>; };' >> components/DocumentComparisonTool.js
+        echo 'export default DocumentComparisonTool;' >> components/DocumentComparisonTool.js
+
+        # Create temporary FinancialAdvisorTool.js
+        echo 'import React from "react";' > components/FinancialAdvisorTool.js
+        echo 'const FinancialAdvisorTool = () => { return <div>Financial Advisor Tool</div>; };' >> components/FinancialAdvisorTool.js
+        echo 'export default FinancialAdvisorTool;' >> components/FinancialAdvisorTool.js
+
+        # Create temporary FinancialAnalysisDashboard.js
+        echo 'import React from "react";' > components/FinancialAnalysisDashboard.js
+        echo 'const FinancialAnalysisDashboard = () => { return <div>Financial Analysis Dashboard</div>; };' >> components/FinancialAnalysisDashboard.js
+        echo 'export default FinancialAnalysisDashboard;' >> components/FinancialAnalysisDashboard.js
+
+        # Create temporary FinancialAnalysisPage.js
+        mkdir -p pages
+        echo 'import React from "react";' > pages/FinancialAnalysisPage.js
+        echo 'const FinancialAnalysisPage = () => { return <div>Financial Analysis Page</div>; };' >> pages/FinancialAnalysisPage.js
+        echo 'export default FinancialAnalysisPage;' >> pages/FinancialAnalysisPage.js
+
+    - name: Build frontend
+      run: |
+        cd DevDocs/frontend
+        npm run build
+
+    - name: Build and push DevDocs image
+      run: |
+        docker build -t me-west1-docker.pkg.dev/github-456508/devdocs/devdocs-app:${{ github.sha }}-v2 -f ./DevDocs/simple-static/Dockerfile ./DevDocs/simple-static
+        docker push me-west1-docker.pkg.dev/github-456508/devdocs/devdocs-app:${{ github.sha }}-v2
+
+    - name: Build and push MCP server image
+      run: |
+        docker build -t me-west1-docker.pkg.dev/github-456508/devdocs/devdocs-mcp-server:${{ github.sha }} -f ./DevDocs/Dockerfile.simple ./DevDocs
+        docker push me-west1-docker.pkg.dev/github-456508/devdocs/devdocs-mcp-server:${{ github.sha }}
+
+    # Deploy DevDocs to Cloud Run
+    - name: Deploy DevDocs to Cloud Run
+      run: |
+        echo "Deploying DevDocs app with Supabase key from GitHub secrets"
+
+        # Deploy the simple static website with redirect to proper UI
+        gcloud run deploy devdocs-app \
+          --source ./DevDocs/simple-static \
+          --region me-west1 \
+          --platform managed \
+          --allow-unauthenticated \
+          --set-env-vars=PORT=3002,OPENROUTER_API_KEY=${{ secrets.OPENROUTER_API_KEY }}
+
+        # Build and push the Docker image for the proper UI
+        docker build -t me-west1-docker.pkg.dev/github-456508/devdocs/devdocs-proper-ui:${{ github.sha }} -f ./DevDocs/frontend/Dockerfile.nextjs-proper ./DevDocs/frontend
+        docker push me-west1-docker.pkg.dev/github-456508/devdocs/devdocs-proper-ui:${{ github.sha }}
+
+        # Deploy the proper UI to Google Cloud Run
+        gcloud run deploy devdocs-proper-ui \
+          --image me-west1-docker.pkg.dev/github-456508/devdocs/devdocs-proper-ui:${{ github.sha }} \
+          --region me-west1 \
+          --platform managed \
+          --allow-unauthenticated \
+          --port=3002 \
+          --set-env-vars=NODE_ENV=production,PORT=3002,NEXT_PUBLIC_SUPABASE_URL=https://dnjnsotemnfrjlotgved.supabase.co,NEXT_PUBLIC_SUPABASE_ANON_KEY=${{ secrets.SUPABASE_ANON_KEY }},OPENROUTER_API_KEY=${{ secrets.OPENROUTER_API_KEY }}
+
+    # Deploy MCP server to Cloud Run
+    - name: Deploy MCP server to Cloud Run
+      run: |
+        echo "Deploying MCP server with API keys from GitHub secrets"
+        gcloud run deploy devdocs-mcp-server \
+          --image me-west1-docker.pkg.dev/github-456508/devdocs/devdocs-mcp-server:${{ github.sha }} \
+          --region me-west1 \
+          --platform managed \
+          --allow-unauthenticated \
+          --port=8080 \
+          --command="node" \
+          --args="server.js" \
+          --set-env-vars=GOOGLE_CLOUD_PROJECT_ID=github-456508,MCP_API_KEY=${{ secrets.MCP_API_KEY }},PORT=8080,SUPABASE_URL=https://dnjnsotemnfrjlotgved.supabase.co,SUPABASE_KEY=${{ secrets.SUPABASE_ANON_KEY }},OPENROUTER_API_KEY=${{ secrets.OPENROUTER_API_KEY }}
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+
+    - name: Install Python dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        pip install requests python-dotenv pdfplumber
+
+    - name: Build and push AI Enhanced Processor image
+      run: |
+        docker build -t me-west1-docker.pkg.dev/github-456508/devdocs/ai-enhanced-processor:${{ github.sha }} -f Dockerfile.ai-processor .
+        docker push me-west1-docker.pkg.dev/github-456508/devdocs/ai-enhanced-processor:${{ github.sha }}
+
+    - name: Deploy AI Enhanced Processor to Cloud Run
+      run: |
+        echo "Deploying AI Enhanced Processor with OpenRouter API key from GitHub secrets"
+        gcloud run deploy ai-enhanced-processor \
+          --image me-west1-docker.pkg.dev/github-456508/devdocs/ai-enhanced-processor:${{ github.sha }} \
+          --region me-west1 \
+          --platform managed \
+          --allow-unauthenticated \
+          --port=8081 \
+          --command="python3" \
+          --args="web_interface.py" \
+          --set-env-vars=GOOGLE_CLOUD_PROJECT_ID=github-456508,OPENROUTER_API_KEY=${{ secrets.OPENROUTER_API_KEY }},PORT=8081,SUPABASE_URL=https://dnjnsotemnfrjlotgved.supabase.co,SUPABASE_KEY=${{ secrets.SUPABASE_ANON_KEY }}
