@@ -1,0 +1,3 @@
+This is a placeholder for the FinDoc Analyzer UI screenshot.
+Please replace this file with an actual screenshot of the FinDoc Analyzer UI with the dark sidebar.
+The screenshot should show the main dashboard with all the navigation options visible in the sidebar.
