@@ -5,8 +5,24 @@ import os
 import sys
 import json
 import pandas as pd
+import numpy as np
 from pathlib import Path
 from datetime import datetime
+
+# Helper function to convert numpy types to Python types for JSON serialization
+def convert_numpy_types(obj):
+    if isinstance(obj, dict):
+        return {k: convert_numpy_types(v) for k, v in obj.items()}
+    elif isinstance(obj, list):
+        return [convert_numpy_types(item) for item in obj]
+    elif isinstance(obj, np.integer):
+        return int(obj)
+    elif isinstance(obj, np.floating):
+        return float(obj)
+    elif isinstance(obj, np.ndarray):
+        return convert_numpy_types(obj.tolist())
+    else:
+        return obj
 
 # Add the parent directory to the path so we can import the backend modules
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -111,7 +127,7 @@ def test_isin_extractor(securities_df, api_key=None):
 def test_financial_table_detector(securities_df, api_key=None):
     """Test FinancialTableDetectorAgent."""
     try:
-        from DevDocs.backend.agents.financial_table_detector_agent import FinancialTableDetectorAgent
+        from DevDocs.backend.agents.financial_table_detector_agent_fixed import FinancialTableDetectorAgent
 
         print("\n=== Testing FinancialTableDetectorAgent ===\n")
 
@@ -145,13 +161,29 @@ def test_financial_table_detector(securities_df, api_key=None):
         cv2.putText(image, "Weight", (940, 40), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 0), 2)
 
         # Add data (top 5 securities by value)
+        # First, ensure the securities_df has the required columns
+        if 'Value' in securities_df.columns and 'value' not in securities_df.columns:
+            securities_df['value'] = securities_df['Value']
+        if 'ISIN' in securities_df.columns and 'isin' not in securities_df.columns:
+            securities_df['isin'] = securities_df['ISIN']
+        if 'Name' in securities_df.columns and 'description' not in securities_df.columns:
+            securities_df['description'] = securities_df['Name']
+        if 'Price' in securities_df.columns and 'price' not in securities_df.columns:
+            securities_df['price'] = securities_df['Price']
+
+        # Add weight column if it doesn't exist
+        if 'weight' not in securities_df.columns:
+            total_value = securities_df['value'].sum()
+            securities_df['weight'] = (securities_df['value'] / total_value * 100).round(2)
+
+        # Sort and get top 5 securities
         top_securities = securities_df.sort_values(by="value", ascending=False).head(5)
         for i, (_, security) in enumerate(top_securities.iterrows()):
             y = 90 + i * 50
-            cv2.putText(image, security["isin"], (60, y), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0), 1)
+            cv2.putText(image, str(security["isin"]), (60, y), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0), 1)
 
             # Truncate description to fit
-            desc = security["description"]
+            desc = str(security["description"])
             if len(desc) > 20:
                 desc = desc[:17] + "..."
             cv2.putText(image, desc, (280, y), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0), 1)
@@ -181,7 +213,7 @@ def test_financial_table_detector(securities_df, api_key=None):
 def test_financial_data_analyzer(securities_df, api_key=None):
     """Test FinancialDataAnalyzerAgent."""
     try:
-        from DevDocs.backend.agents.financial_data_analyzer_agent import FinancialDataAnalyzerAgent
+        from DevDocs.backend.agents.financial_data_analyzer_agent_fixed import FinancialDataAnalyzerAgent
 
         print("\n=== Testing FinancialDataAnalyzerAgent ===\n")
 
@@ -190,6 +222,28 @@ def test_financial_data_analyzer(securities_df, api_key=None):
 
         # Create the agent
         agent = FinancialDataAnalyzerAgent(api_key=api_key)
+
+        # First, ensure the securities_df has the required columns
+        if 'Value' in securities_df.columns and 'value' not in securities_df.columns:
+            securities_df['value'] = securities_df['Value']
+        if 'ISIN' in securities_df.columns and 'isin' not in securities_df.columns:
+            securities_df['isin'] = securities_df['ISIN']
+        if 'Name' in securities_df.columns and 'description' not in securities_df.columns:
+            securities_df['description'] = securities_df['Name']
+        if 'Price' in securities_df.columns and 'price' not in securities_df.columns:
+            securities_df['price'] = securities_df['Price']
+        if 'Currency' in securities_df.columns and 'currency' not in securities_df.columns:
+            securities_df['currency'] = securities_df['Currency']
+
+        # Add weight column if it doesn't exist
+        if 'weight' not in securities_df.columns:
+            total_value = securities_df['value'].sum()
+            securities_df['weight'] = (securities_df['value'] / total_value * 100).round(2)
+
+        # Add type column if it doesn't exist
+        if 'type' not in securities_df.columns:
+            # Assign a default type based on ISIN country code
+            securities_df['type'] = securities_df['isin'].apply(lambda x: 'Equity' if x.startswith('US') else 'Bond')
 
         # Create a sample financial document
         document = {
@@ -217,7 +271,7 @@ def test_financial_data_analyzer(securities_df, api_key=None):
                 "type": security["type"],
                 "isin": security["isin"],
                 "description": security["description"],
-                "currency": security["currency"],
+                "currency": security.get("currency", "USD"),
                 "price": security["price"],
                 "value": security["value"],
                 "weight": security["weight"]
@@ -252,12 +306,34 @@ def test_financial_data_analyzer(securities_df, api_key=None):
 def test_document_merge(securities_df, api_key=None):
     """Test DocumentMergeAgent."""
     try:
-        from DevDocs.backend.agents.document_merge_agent import DocumentMergeAgent
+        from DevDocs.backend.agents.document_merge_agent_fixed import DocumentMergeAgent
 
         print("\n=== Testing DocumentMergeAgent ===\n")
 
         # Create the agent
         agent = DocumentMergeAgent()
+
+        # First, ensure the securities_df has the required columns
+        if 'Value' in securities_df.columns and 'value' not in securities_df.columns:
+            securities_df['value'] = securities_df['Value']
+        if 'ISIN' in securities_df.columns and 'isin' not in securities_df.columns:
+            securities_df['isin'] = securities_df['ISIN']
+        if 'Name' in securities_df.columns and 'description' not in securities_df.columns:
+            securities_df['description'] = securities_df['Name']
+        if 'Price' in securities_df.columns and 'price' not in securities_df.columns:
+            securities_df['price'] = securities_df['Price']
+        if 'Currency' in securities_df.columns and 'currency' not in securities_df.columns:
+            securities_df['currency'] = securities_df['Currency']
+
+        # Add weight column if it doesn't exist
+        if 'weight' not in securities_df.columns:
+            total_value = securities_df['value'].sum()
+            securities_df['weight'] = (securities_df['value'] / total_value * 100).round(2)
+
+        # Add type column if it doesn't exist
+        if 'type' not in securities_df.columns:
+            # Assign a default type based on ISIN country code
+            securities_df['type'] = securities_df['isin'].apply(lambda x: 'Equity' if x.startswith('US') else 'Bond')
 
         # Create sample documents
         documents = []
@@ -288,7 +364,7 @@ def test_document_merge(securities_df, api_key=None):
                 "type": security["type"],
                 "isin": security["isin"],
                 "description": security["description"],
-                "currency": security["currency"],
+                "currency": security.get("currency", "USD"),
                 "price": security["price"],
                 "value": security["value"],
                 "weight": security["weight"]
@@ -321,7 +397,7 @@ def test_document_merge(securities_df, api_key=None):
         documents.append(asset_allocation_doc)
 
         # Merge the documents
-        result = agent.merge_documents(documents)
+        result = agent.merge_documents(documents, merge_strategy='comprehensive')
 
         print("DocumentMergeAgent test result:")
         if "merge_date" in result:
@@ -418,7 +494,7 @@ def main():
     # Save the result
     isin_path = output_dir / "isin_extractor_result.json"
     with open(isin_path, "w", encoding="utf-8") as f:
-        json.dump(isin_result, f, indent=2)
+        json.dump(convert_numpy_types(isin_result), f, indent=2)
 
     # Test FinancialTableDetectorAgent
     table_result = test_financial_table_detector(securities_df, api_key)
@@ -433,7 +509,7 @@ def main():
                 clean_result[k] = "image data (not serialized)"
             else:
                 clean_result[k] = v
-        json.dump(clean_result, f, indent=2)
+        json.dump(convert_numpy_types(clean_result), f, indent=2)
 
     # Test FinancialDataAnalyzerAgent
     analyzer_result = test_financial_data_analyzer(securities_df, api_key)
@@ -441,7 +517,7 @@ def main():
     # Save the result
     analyzer_path = output_dir / "financial_data_analyzer_result.json"
     with open(analyzer_path, "w", encoding="utf-8") as f:
-        json.dump(analyzer_result, f, indent=2)
+        json.dump(convert_numpy_types(analyzer_result), f, indent=2)
 
     # Test DocumentMergeAgent
     merge_result = test_document_merge(securities_df, api_key)
@@ -449,7 +525,7 @@ def main():
     # Save the result
     merge_path = output_dir / "document_merge_result.json"
     with open(merge_path, "w", encoding="utf-8") as f:
-        json.dump(merge_result, f, indent=2)
+        json.dump(convert_numpy_types(merge_result), f, indent=2)
 
     # Create a summary report
     summary = {
@@ -468,7 +544,7 @@ def main():
     # Save the summary
     summary_path = output_dir / "test_summary.json"
     with open(summary_path, "w", encoding="utf-8") as f:
-        json.dump(summary, f, indent=2)
+        json.dump(convert_numpy_types(summary), f, indent=2)
 
     print("\nTest Summary:")
     print(f"Test date: {summary['test_date']}")
