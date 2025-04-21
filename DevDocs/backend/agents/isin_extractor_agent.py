@@ -2,6 +2,8 @@
 ISIN Extractor Agent for identifying and validating ISIN numbers in financial documents.
 """
 import re
+import json
+import os
 from typing import Dict, Any, List, Optional
 from .base_agent import BaseAgent
 
@@ -55,7 +57,8 @@ class ISINExtractorAgent(BaseAgent):
             "MX": "Mexico",
             "KR": "South Korea",
             "SG": "Singapore",
-            "HK": "Hong Kong"
+            "HK": "Hong Kong",
+            "XS": "Eurobond"
         }
 
     def process(self, task: Dict[str, Any]) -> Dict[str, Any]:
@@ -67,6 +70,7 @@ class ISINExtractorAgent(BaseAgent):
                 - text: Text to extract ISINs from
                 - validate: Whether to validate ISINs (default: True)
                 - include_metadata: Whether to include metadata (default: True)
+                - with_metadata: Alternative key for include_metadata (default: True)
 
         Returns:
             Dictionary with extracted ISINs
@@ -80,7 +84,7 @@ class ISINExtractorAgent(BaseAgent):
 
         text = task['text']
         validate = task.get('validate', True)
-        include_metadata = task.get('include_metadata', True)
+        include_metadata = task.get('include_metadata', task.get('with_metadata', True))
 
         # Extract ISINs
         if validate:
@@ -88,27 +92,28 @@ class ISINExtractorAgent(BaseAgent):
         else:
             isins = self.extract_isins(text)
 
-        # Add metadata if requested
-        if include_metadata and isins:
-            isins_with_metadata = []
-            for isin in isins:
-                metadata = self.get_isin_metadata(isin)
-                isins_with_metadata.append({
-                    'isin': isin,
-                    'metadata': metadata
-                })
-
-            return {
-                'status': 'success',
-                'isins': isins_with_metadata,
-                'count': len(isins_with_metadata)
-            }
-
-        return {
+        # Format the result to match the expected output
+        result = {
             'status': 'success',
-            'isins': isins,
             'count': len(isins)
         }
+
+        # Add ISINs with or without metadata
+        if include_metadata:
+            result['isins'] = []
+            for isin in isins:
+                result['isins'].append({
+                    'isin': isin,
+                    'country_code': isin[:2],
+                    'country_name': self.country_codes.get(isin[:2], 'Unknown'),
+                    'security_code': isin[2:11],
+                    'check_digit': isin[11],
+                    'is_valid': self.validate_isin(isin)
+                })
+        else:
+            result['isins'] = isins
+
+        return result
 
     def extract_isins(self, text: str) -> List[str]:
         """
@@ -121,10 +126,41 @@ class ISINExtractorAgent(BaseAgent):
             List of extracted ISIN numbers
         """
         # ISIN pattern: 2 letters followed by 10 characters (letters or digits)
-        pattern = r'\b[A-Z]{2}[A-Z0-9]{10}\b'
+        # We look for ISINs in various contexts:
+        # 1. Standard ISIN format
+        # 2. ISIN with "ISIN:" prefix
+        # 3. ISIN in parentheses
+        # 4. ISIN after a dash
+        # 5. ISIN in a list with dash
+        # 6. ISIN in a list with asterisk
+        # 7. ISIN in a numbered list
+        patterns = [
+            r'\b[A-Z]{2}[A-Z0-9]{10}\b',  # Standard ISIN
+            r'ISIN[\s:=]+([A-Z]{2}[A-Z0-9]{10})',  # ISIN with prefix
+            r'\(([A-Z]{2}[A-Z0-9]{10})\)',  # ISIN in parentheses
+            r'-\s*([A-Z]{2}[A-Z0-9]{10})',  # ISIN after dash
+            r'- ([A-Z]{2}[A-Z0-9]{10})\b',  # ISIN in a list with dash
+            r'\* ([A-Z]{2}[A-Z0-9]{10})\b',  # ISIN in a list with asterisk
+            r'\d+\.\s+([A-Z]{2}[A-Z0-9]{10})\b'  # ISIN in a numbered list
+        ]
 
         # Find all matches
-        matches = re.findall(pattern, text)
+        matches = []
+
+        # First try a simple pattern to catch all ISINs
+        simple_matches = re.findall(r'[A-Z]{2}[A-Z0-9]{10}', text)
+        if simple_matches:
+            matches.extend(simple_matches)
+
+        # Then try more specific patterns
+        for pattern in patterns:
+            # For patterns with capturing groups, extract the group
+            if '(' in pattern:
+                pattern_matches = re.findall(pattern, text)
+                matches.extend(pattern_matches)
+            else:
+                pattern_matches = re.findall(pattern, text)
+                matches.extend(pattern_matches)
 
         # Remove duplicates
         unique_isins = list(set(matches))
@@ -147,6 +183,7 @@ class ISINExtractorAgent(BaseAgent):
         # Validate each ISIN
         valid_isins = [isin for isin in potential_isins if self.validate_isin(isin)]
 
+        # Return only valid ISINs
         return valid_isins
 
     def validate_isin(self, isin: str) -> bool:
@@ -162,9 +199,6 @@ class ISINExtractorAgent(BaseAgent):
         if not isin or len(isin) != 12:
             return False
 
-        # For testing purposes, we'll simplify validation to just check format
-        # In a real implementation, we would use the full validation algorithm
-
         # Check country code
         country_code = isin[:2]
         if not country_code.isalpha():
@@ -174,8 +208,31 @@ class ISINExtractorAgent(BaseAgent):
         if not all(c.isalnum() for c in isin[2:]):
             return False
 
-        # For testing, we'll consider all well-formed ISINs as valid
-        return True
+        # Implement the Luhn algorithm for ISIN validation
+        # Convert letters to numbers (A=10, B=11, ..., Z=35)
+        digits = []
+        for char in isin:
+            if char.isalpha():
+                # Convert letter to number (A=10, B=11, ..., Z=35)
+                digits.append(str(ord(char) - ord('A') + 10))
+            else:
+                digits.append(char)
+        
+        # Join all digits into a single string
+        num_str = ''.join(digits)
+        
+        # Apply Luhn algorithm
+        total = 0
+        for i, digit in enumerate(reversed(num_str)):
+            value = int(digit)
+            if i % 2 == 1:  # Odd position (0-indexed from right)
+                value *= 2
+                if value > 9:
+                    value -= 9
+            total += value
+        
+        # Check if the total is divisible by 10
+        return total % 10 == 0
 
     def get_isin_metadata(self, isin: str) -> Dict[str, Any]:
         """
@@ -298,17 +355,63 @@ class ISINExtractorAgent(BaseAgent):
         """
         # Try to find security name in before context first (more common)
         # Look for patterns like "Security Name (ISIN)" or "Security Name - ISIN"
-        name_match = re.search(r'([A-Za-z\u0590-\u05FF\s\.\,\-\&\'\"]+)[\(\-\s]+$', before_context)
+        name_patterns = [
+            # Pattern for "Security Name (ISIN)"
+            r'([A-Za-z0-9\u0590-\u05FF\s\.,\-\&\'\"\\/()\+\%]+)[\(\-\s]+$',
+            # Pattern for "Security Name ISIN"
+            r'([A-Za-z0-9\u0590-\u05FF\s\.,\-\&\'\"\\/()\+\%]+)\s+$',
+            # Pattern for table format with security name in a separate column
+            r'([A-Za-z0-9\u0590-\u05FF\s\.,\-\&\'\"\\/()\+\%]+)\s*[\|\t]\s*$'
+        ]
 
-        if name_match:
-            return name_match.group(1).strip()
+        for pattern in name_patterns:
+            name_match = re.search(pattern, before_context)
+            if name_match:
+                name = name_match.group(1).strip()
+                # Clean up the name
+                name = re.sub(r'\s+', ' ', name)  # Replace multiple spaces with single space
+                return name
 
         # If not found, try after context
-        # Look for patterns like "ISIN - Security Name" or "ISIN: Security Name"
-        name_match = re.search(r'^[\:\-\s]+([A-Za-z\u0590-\u05FF\s\.\,\-\&\'\"]+)', after_context)
+        after_patterns = [
+            # Pattern for "ISIN - Security Name" or "ISIN: Security Name"
+            r'^[\:\-\s]+([A-Za-z0-9\u0590-\u05FF\s\.,\-\&\'\"\\/()\+\%]+)',
+            # Pattern for table format with security name in a separate column
+            r'^\s*[\|\t]\s*([A-Za-z0-9\u0590-\u05FF\s\.,\-\&\'\"\\/()\+\%]+)'
+        ]
 
-        if name_match:
-            return name_match.group(1).strip()
+        for pattern in after_patterns:
+            name_match = re.search(pattern, after_context)
+            if name_match:
+                name = name_match.group(1).strip()
+                # Clean up the name
+                name = re.sub(r'\s+', ' ', name)  # Replace multiple spaces with single space
+                return name
 
         # If still not found, return empty string
         return ""
+
+    def save_results(self, isins: List[Dict[str, Any]], output_dir: str) -> str:
+        """
+        Save ISIN extraction results to a file.
+
+        Args:
+            isins: List of ISINs with metadata
+            output_dir: Output directory
+
+        Returns:
+            Path to the saved file
+        """
+        # Create output directory if it doesn't exist
+        os.makedirs(output_dir, exist_ok=True)
+
+        # Save results to a JSON file
+        output_file = os.path.join(output_dir, "isin_extraction_results.json")
+        with open(output_file, 'w', encoding='utf-8') as f:
+            json.dump({
+                'status': 'success',
+                'isins': isins,
+                'count': len(isins)
+            }, f, indent=2)
+
+        return output_file

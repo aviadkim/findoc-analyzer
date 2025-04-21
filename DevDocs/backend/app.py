@@ -298,7 +298,25 @@ def get_document_isins(document_id):
 @app.route("/api/financial/portfolio", methods=["GET"])
 def get_portfolio_summary():
     """Get portfolio summary"""
-    return jsonify(financial_data["portfolio_summary"])
+    # Format the response to match test expectations
+    return jsonify({
+        "status": "success",
+        "data": {
+            "totalValue": float(financial_data["portfolio_summary"]["total_value"].replace("$", "").replace(",", "")),
+            "currency": "USD",
+            "totalSecurities": len(financial_data["isins"]),
+            "totalAssetClasses": len(financial_data["portfolio_summary"]["asset_allocation"]),
+            "assetAllocation": financial_data["portfolio_summary"]["asset_allocation"],
+            "topHoldings": [
+                {
+                    "name": isin["description"],
+                    "isin": isin["isin"],
+                    "value": float(isin["value"].replace("$", "")),
+                    "percentage": round(float(isin["value"].replace("$", "")) / float(financial_data["portfolio_summary"]["total_value"].replace("$", "").replace(",", "")) * 100, 2)
+                } for isin in sorted(financial_data["isins"], key=lambda x: float(x["value"].replace("$", "")), reverse=True)[:10]
+            ]
+        }
+    })
 
 @app.route("/api/financial/analyze", methods=["POST"])
 def analyze_document():
