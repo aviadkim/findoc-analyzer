@@ -11,9 +11,10 @@ function FinDocLayout({ children }) {
   const navItems = [
     { name: 'Dashboard', path: '/', icon: 'home' },
     { name: 'Upload Documents', path: '/upload', icon: 'upload' },
-    { name: 'My Documents', path: '/documents', icon: 'file' },
-    { name: 'Analysis', path: '/analysis', icon: 'chart-bar' },
+    { name: 'My Documents', path: '/documents-new', icon: 'file' },
+    { name: 'Analytics', path: '/analytics-new', icon: 'chart-bar' },
     { name: 'Portfolio', path: '/portfolio', icon: 'chart-pie' },
+    { name: 'Document Comparison', path: '/document-comparison', icon: 'git-compare' },
     { name: 'Agents', path: '/agents', icon: 'robot' },
     { name: 'Document Understanding', path: '/document-understanding-demo', icon: 'file-search' },
     { name: 'SQL Agent', path: '/test-sql-agent', icon: 'database' },
@@ -23,6 +24,7 @@ function FinDocLayout({ children }) {
     { name: 'API Setup', path: '/api-key-setup', icon: 'key-square' },
     { name: 'Settings', path: '/settings', icon: 'cog' },
     { name: 'API Keys', path: '/api-keys', icon: 'key' },
+    { name: 'Feedback', path: '/feedback', icon: 'message-circle' },
   ];
 
   return (
@@ -65,9 +67,11 @@ function FinDocLayout({ children }) {
             <span className="icon icon-search"></span>
           </div>
           <div className="header-actions">
-            <Link href="/upload" className="upload-btn">
-              <span className="icon icon-upload"></span>
-              <span>Upload Document</span>
+            <Link href="/upload" className="upload-btn" passHref>
+              <a className="upload-btn">
+                <span className="icon icon-upload"></span>
+                <span>Upload Document</span>
+              </a>
             </Link>
             <button className="icon-btn" onClick={() => setIsNotificationsOpen(!isNotificationsOpen)}>
               <span className="icon icon-bell"></span>
@@ -396,6 +400,8 @@ function FinDocLayout({ children }) {
         .icon-cloud:before { content: '\f0c2'; }
         .icon-key-square:before { content: '\f084'; }
         .icon-tool:before { content: '\f7d9'; }
+        .icon-message-circle:before { content: '\f4ad'; }
+        .icon-git-compare:before { content: '\f387'; }
       `}</style>
     </div>
     </AccessibilityWrapper>
