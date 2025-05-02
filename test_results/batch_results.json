@@ -1,0 +1,68 @@
+[
+  {
+    "success": false,
+    "error": "Upload failed with status code 401",
+    "pdf_name": "investment_statement.pdf",
+    "processing_time": 2.6796791553497314
+  },
+  {
+    "success": false,
+    "error": "Upload failed with status code 401",
+    "pdf_name": "goldman_portfolio.pdf",
+    "processing_time": 2.6873557567596436
+  },
+  {
+    "success": false,
+    "error": "Upload failed with status code 401",
+    "pdf_name": "portfolio_statement_1.pdf",
+    "processing_time": 0.13765859603881836
+  },
+  {
+    "success": false,
+    "error": "Upload failed with status code 401",
+    "pdf_name": "messos_portfolio.pdf",
+    "processing_time": 0.1460866928100586
+  },
+  {
+    "success": false,
+    "error": "Upload failed with status code 401",
+    "pdf_name": "portfolio_statement_3.pdf",
+    "processing_time": 0.133575439453125
+  },
+  {
+    "success": false,
+    "error": "Upload failed with status code 401",
+    "pdf_name": "portfolio_statement_2.pdf",
+    "processing_time": 0.13895654678344727
+  },
+  {
+    "success": false,
+    "error": "Upload failed with status code 401",
+    "pdf_name": "portfolio_statement_5.pdf",
+    "processing_time": 0.14361929893493652
+  },
+  {
+    "success": false,
+    "error": "Upload failed with status code 401",
+    "pdf_name": "portfolio_statement_4.pdf",
+    "processing_time": 0.14650726318359375
+  },
+  {
+    "success": false,
+    "error": "Upload failed with status code 401",
+    "pdf_name": "sample_investment_statement.pdf",
+    "processing_time": 0.1390824317932129
+  },
+  {
+    "success": false,
+    "error": "Upload failed with status code 401",
+    "pdf_name": "sample_portfolio.pdf",
+    "processing_time": 0.14357733726501465
+  },
+  {
+    "success": false,
+    "error": "Upload failed with status code 401",
+    "pdf_name": "simple_account_statement.pdf",
+    "processing_time": 0.1441497802734375
+  }
+]

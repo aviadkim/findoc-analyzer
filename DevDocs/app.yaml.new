@@ -1,0 +1,28 @@
+runtime: nodejs18
+service: default
+
+env: standard
+instance_class: F2
+
+handlers:
+  # Serve static files from the Next.js build
+  - url: /_next/static
+    static_dir: frontend/.next/static
+    secure: always
+
+  # Serve public files
+  - url: /public
+    static_dir: frontend/public
+    secure: always
+
+  # Serve all other requests with the Next.js server
+  - url: /.*
+    secure: always
+    script: auto
+
+env_variables:
+  NODE_ENV: "production"
+  PORT: "8080"
+  NEXT_PUBLIC_API_URL: "https://findoc-deploy.ey.r.appspot.com"
+  NEXT_PUBLIC_SUPABASE_URL: "https://dnjnsotemnfrjlotgved.supabase.co"
+  NEXT_PUBLIC_SUPABASE_ANON_KEY: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRuam5zb3RlbW5mcmpsb3RndmVkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTI4NTI0MDAsImV4cCI6MjAyODQyODQwMH0.placeholder-key"

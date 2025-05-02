@@ -1,0 +1,492 @@
+[
+  {
+    "url": "https://findoc-deploy.ey.r.appspot.com/",
+    "name": "01-dashboard",
+    "elementResults": [
+      {
+        "selector": ".sidebar",
+        "description": "Sidebar",
+        "exists": true,
+        "visible": true,
+        "interaction": null
+      },
+      {
+        "selector": ".sidebar-logo",
+        "description": "Sidebar Logo",
+        "exists": false,
+        "visible": false,
+        "interaction": null
+      },
+      {
+        "selector": ".sidebar-nav",
+        "description": "Sidebar Navigation",
+        "exists": true,
+        "visible": true,
+        "interaction": null
+      },
+      {
+        "selector": ".main-content",
+        "description": "Main Content",
+        "exists": true,
+        "visible": true,
+        "interaction": null
+      },
+      {
+        "selector": ".dashboard-page",
+        "description": "Dashboard Page",
+        "exists": false,
+        "visible": false,
+        "interaction": null
+      },
+      {
+        "selector": ".dashboard-content",
+        "description": "Dashboard Content",
+        "exists": false,
+        "visible": false,
+        "interaction": null
+      },
+      {
+        "selector": ".dashboard-card",
+        "description": "Dashboard Card",
+        "exists": false,
+        "visible": false,
+        "interaction": null
+      },
+      {
+        "selector": ".page-title",
+        "description": "Page Title",
+        "exists": false,
+        "visible": false,
+        "interaction": null
+      },
+      {
+        "selector": ".sidebar-nav a[href=\"/documents-new\"]",
+        "description": "Documents Link",
+        "exists": false,
+        "visible": false,
+        "interaction": {
+          "type": "click",
+          "result": null
+        }
+      }
+    ]
+  },
+  {
+    "url": "https://findoc-deploy.ey.r.appspot.com/documents-new",
+    "name": "02-documents",
+    "elementResults": [
+      {
+        "selector": ".documents-page",
+        "description": "Documents Page",
+        "exists": false,
+        "visible": false,
+        "interaction": null
+      },
+      {
+        "selector": ".page-header",
+        "description": "Page Header",
+        "exists": false,
+        "visible": false,
+        "interaction": null
+      },
+      {
+        "selector": ".page-title",
+        "description": "Page Title",
+        "exists": false,
+        "visible": false,
+        "interaction": null
+      },
+      {
+        "selector": ".document-grid",
+        "description": "Document Grid",
+        "exists": true,
+        "visible": true,
+        "interaction": null
+      },
+      {
+        "selector": ".document-card",
+        "description": "Document Card",
+        "exists": true,
+        "visible": true,
+        "interaction": null
+      },
+      {
+        "selector": ".document-card-header",
+        "description": "Document Card Header",
+        "exists": true,
+        "visible": true,
+        "interaction": null
+      },
+      {
+        "selector": ".document-card-body",
+        "description": "Document Card Body",
+        "exists": false,
+        "visible": false,
+        "interaction": null
+      },
+      {
+        "selector": ".document-card-footer",
+        "description": "Document Card Footer",
+        "exists": true,
+        "visible": true,
+        "interaction": null
+      },
+      {
+        "selector": ".upload-btn",
+        "description": "Upload Button",
+        "exists": true,
+        "visible": true,
+        "interaction": {
+          "type": "click",
+          "result": "success"
+        }
+      }
+    ]
+  },
+  {
+    "url": "https://findoc-deploy.ey.r.appspot.com/analytics-new",
+    "name": "03-analytics",
+    "elementResults": [
+      {
+        "selector": ".analytics-page",
+        "description": "Analytics Page",
+        "exists": false,
+        "visible": false,
+        "interaction": null
+      },
+      {
+        "selector": ".page-header",
+        "description": "Page Header",
+        "exists": false,
+        "visible": false,
+        "interaction": null
+      },
+      {
+        "selector": ".page-title",
+        "description": "Page Title",
+        "exists": false,
+        "visible": false,
+        "interaction": null
+      },
+      {
+        "selector": ".chart-container",
+        "description": "Chart Container",
+        "exists": true,
+        "visible": true,
+        "interaction": null
+      },
+      {
+        "selector": ".chart-placeholder",
+        "description": "Chart Placeholder",
+        "exists": false,
+        "visible": false,
+        "interaction": null
+      }
+    ]
+  },
+  {
+    "url": "https://findoc-deploy.ey.r.appspot.com/feedback",
+    "name": "04-feedback",
+    "elementResults": [
+      {
+        "selector": ".feedback-page",
+        "description": "Feedback Page",
+        "exists": false,
+        "visible": false,
+        "interaction": null
+      },
+      {
+        "selector": ".page-title",
+        "description": "Page Title",
+        "exists": false,
+        "visible": false,
+        "interaction": null
+      },
+      {
+        "selector": ".page-description",
+        "description": "Page Description",
+        "exists": false,
+        "visible": false,
+        "interaction": null
+      },
+      {
+        "selector": ".feedback-form",
+        "description": "Feedback Form",
+        "exists": false,
+        "visible": false,
+        "interaction": null
+      },
+      {
+        "selector": ".form-group",
+        "description": "Form Group",
+        "exists": false,
+        "visible": false,
+        "interaction": null
+      },
+      {
+        "selector": "#name",
+        "description": "Name Input",
+        "exists": false,
+        "visible": false,
+        "interaction": {
+          "type": "input",
+          "result": null
+        }
+      },
+      {
+        "selector": "#email",
+        "description": "Email Input",
+        "exists": false,
+        "visible": false,
+        "interaction": {
+          "type": "input",
+          "result": null
+        }
+      },
+      {
+        "selector": "#feedbackType",
+        "description": "Feedback Type Select",
+        "exists": false,
+        "visible": false,
+        "interaction": {
+          "type": "select",
+          "result": null
+        }
+      },
+      {
+        "selector": ".rating-container",
+        "description": "Rating Container",
+        "exists": false,
+        "visible": false,
+        "interaction": null
+      },
+      {
+        "selector": ".rating-btn",
+        "description": "Rating Button",
+        "exists": false,
+        "visible": false,
+        "interaction": {
+          "type": "click",
+          "result": null
+        }
+      },
+      {
+        "selector": "#message",
+        "description": "Message Textarea",
+        "exists": false,
+        "visible": false,
+        "interaction": {
+          "type": "input",
+          "result": null
+        }
+      },
+      {
+        "selector": ".submit-btn",
+        "description": "Submit Button",
+        "exists": false,
+        "visible": false,
+        "interaction": null
+      }
+    ]
+  },
+  {
+    "url": "https://findoc-deploy.ey.r.appspot.com/document-comparison",
+    "name": "05-document-comparison",
+    "elementResults": [
+      {
+        "selector": ".document-comparison-page",
+        "description": "Document Comparison Page",
+        "exists": false,
+        "visible": false,
+        "interaction": null
+      },
+      {
+        "selector": ".page-title",
+        "description": "Page Title",
+        "exists": false,
+        "visible": false,
+        "interaction": null
+      },
+      {
+        "selector": ".page-description",
+        "description": "Page Description",
+        "exists": false,
+        "visible": false,
+        "interaction": null
+      },
+      {
+        "selector": ".comparison-container",
+        "description": "Comparison Container",
+        "exists": false,
+        "visible": false,
+        "interaction": null
+      },
+      {
+        "selector": ".document-selection",
+        "description": "Document Selection",
+        "exists": false,
+        "visible": false,
+        "interaction": null
+      },
+      {
+        "selector": ".selection-header",
+        "description": "Selection Header",
+        "exists": false,
+        "visible": false,
+        "interaction": null
+      },
+      {
+        "selector": ".search-box",
+        "description": "Search Box",
+        "exists": true,
+        "visible": true,
+        "interaction": null
+      },
+      {
+        "selector": ".document-list",
+        "description": "Document List",
+        "exists": false,
+        "visible": false,
+        "interaction": null
+      },
+      {
+        "selector": ".document-item",
+        "description": "Document Item",
+        "exists": false,
+        "visible": false,
+        "interaction": {
+          "type": "click",
+          "result": null
+        }
+      },
+      {
+        "selector": ".selection-actions",
+        "description": "Selection Actions",
+        "exists": false,
+        "visible": false,
+        "interaction": null
+      },
+      {
+        "selector": ".compare-btn",
+        "description": "Compare Button",
+        "exists": false,
+        "visible": false,
+        "interaction": null
+      },
+      {
+        "selector": ".comparison-results",
+        "description": "Comparison Results",
+        "exists": false,
+        "visible": false,
+        "interaction": null
+      }
+    ]
+  },
+  {
+    "url": "https://findoc-deploy.ey.r.appspot.com/upload",
+    "name": "06-upload",
+    "elementResults": [
+      {
+        "selector": ".upload-page",
+        "description": "Upload Page",
+        "exists": false,
+        "visible": false,
+        "interaction": null
+      },
+      {
+        "selector": ".page-title",
+        "description": "Page Title",
+        "exists": false,
+        "visible": false,
+        "interaction": null
+      },
+      {
+        "selector": ".page-description",
+        "description": "Page Description",
+        "exists": false,
+        "visible": false,
+        "interaction": null
+      },
+      {
+        "selector": ".upload-container",
+        "description": "Upload Container",
+        "exists": false,
+        "visible": false,
+        "interaction": null
+      },
+      {
+        "selector": ".upload-area",
+        "description": "Upload Area",
+        "exists": false,
+        "visible": false,
+        "interaction": null
+      },
+      {
+        "selector": ".upload-icon",
+        "description": "Upload Icon",
+        "exists": false,
+        "visible": false,
+        "interaction": null
+      },
+      {
+        "selector": ".upload-btn",
+        "description": "Upload Button",
+        "exists": true,
+        "visible": true,
+        "interaction": null
+      },
+      {
+        "selector": "#file-input",
+        "description": "File Input",
+        "exists": false,
+        "visible": false,
+        "interaction": null
+      },
+      {
+        "selector": ".upload-options",
+        "description": "Upload Options",
+        "exists": false,
+        "visible": false,
+        "interaction": null
+      },
+      {
+        "selector": "#document-type",
+        "description": "Document Type Select",
+        "exists": false,
+        "visible": false,
+        "interaction": {
+          "type": "select",
+          "result": null
+        }
+      },
+      {
+        "selector": ".checkbox-group",
+        "description": "Checkbox Group",
+        "exists": false,
+        "visible": false,
+        "interaction": null
+      },
+      {
+        "selector": "#extract-text",
+        "description": "Extract Text Checkbox",
+        "exists": false,
+        "visible": false,
+        "interaction": null
+      },
+      {
+        "selector": ".upload-history",
+        "description": "Upload History",
+        "exists": false,
+        "visible": false,
+        "interaction": null
+      },
+      {
+        "selector": ".upload-table",
+        "description": "Upload Table",
+        "exists": false,
+        "visible": false,
+        "interaction": null
+      }
+    ]
+  }
+]

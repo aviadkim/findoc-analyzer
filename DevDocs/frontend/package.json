@@ -11,7 +11,9 @@
     "test:watch": "jest --watch",
     "test:ci": "jest --ci",
     "test:coverage": "jest --coverage",
-    "dev:test": "node ../scripts/run-tests.js"
+    "dev:test": "node ../scripts/run-tests.js",
+    "gae:build": "next build",
+    "gae:start": "next start -p 8080"
   },
   "dependencies": {
     "@chakra-ui/alert": "^2.2.2",

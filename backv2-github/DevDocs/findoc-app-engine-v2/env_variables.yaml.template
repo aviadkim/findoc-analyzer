@@ -1,0 +1,19 @@
+# Environment variables for FinDoc Analyzer
+# Copy this file to env_variables.yaml and fill in the values
+
+env_variables:
+  # API Keys (these will be managed through Secret Manager in production)
+  # GEMINI_API_KEY: "your-gemini-api-key"
+  # OPENAI_API_KEY: "your-openai-api-key"
+  
+  # Database configuration
+  # DB_HOST: "your-db-host"
+  # DB_USER: "your-db-user"
+  # DB_PASSWORD: "your-db-password"
+  # DB_NAME: "your-db-name"
+  
+  # JWT Secret
+  # JWT_SECRET: "your-jwt-secret"
+  
+  # Storage configuration
+  # STORAGE_BUCKET: "your-storage-bucket"

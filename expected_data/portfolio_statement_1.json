@@ -1,0 +1,78 @@
+{
+  "document_type": "portfolio_statement",
+  "securities": [
+    {
+      "name": "APPLE INC 2.4% 03/05/2023",
+      "isin": "US037833AK68",
+      "type": "Bond",
+      "sector": "Corporate",
+      "region": "North America",
+      "quantity": 23009.44,
+      "price": 90.3172277506664,
+      "value": 2078148.8328952934,
+      "weight": 23.81502002676398,
+      "currency": "CHF"
+    },
+    {
+      "name": "AMAZON.COM INC",
+      "isin": "US0231351067",
+      "type": "Equity",
+      "sector": "Consumer",
+      "region": "North America",
+      "quantity": 2373,
+      "price": 634.4050674091429,
+      "value": 1505443.2249618962,
+      "weight": 17.2514620129748,
+      "currency": "CHF"
+    },
+    {
+      "name": "FRANCE 0.5% 25/05/2040",
+      "isin": "FR0013515806",
+      "type": "Bond",
+      "sector": "Government",
+      "region": "Europe",
+      "quantity": 8015.85,
+      "price": 106.09261869200854,
+      "value": 850422.5175423367,
+      "weight": 9.745607133462748,
+      "currency": "JPY"
+    },
+    {
+      "name": "US TREASURY 2.5% 15/02/2045",
+      "isin": "US912810RK35",
+      "type": "Bond",
+      "sector": "Government",
+      "region": "North America",
+      "quantity": 24007.25,
+      "price": 95.87911262298601,
+      "value": 2301793.826518181,
+      "weight": 26.377935315469834,
+      "currency": "USD"
+    },
+    {
+      "name": "ALPHABET INC-CL A",
+      "isin": "US02079K3059",
+      "type": "Equity",
+      "sector": "Technology",
+      "region": "North America",
+      "quantity": 17810,
+      "price": 111.75817552337011,
+      "value": 1990413.1060712216,
+      "weight": 22.809975511328627,
+      "currency": "USD"
+    }
+  ],
+  "portfolio_summary": {
+    "total_value": 8726221.507988928,
+    "currency": "USD",
+    "valuation_date": "26.01.2025"
+  },
+  "asset_allocation": {
+    "Fixed Income": {
+      "percentage": 59.94
+    },
+    "Equity": {
+      "percentage": 40.06
+    }
+  }
+}

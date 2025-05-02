@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enhanced Integration Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+        .section {
+            margin-bottom: 30px;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+        }
+        .file-info {
+            margin-bottom: 20px;
+        }
+        .file-info p {
+            margin: 5px 0;
+        }
+        .securities-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        .securities-table th, .securities-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        .securities-table th {
+            background-color: #f2f2f2;
+        }
+        .securities-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        .chat-container {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            height: 400px;
+            display: flex;
+            flex-direction: column;
+        }
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            margin-bottom: 10px;
+            padding: 10px;
+            background-color: #fff;
+            border: 1px solid #eee;
+            border-radius: 8px;
+        }
+        .message {
+            margin-bottom: 10px;
+            padding: 8px 12px;
+            border-radius: 18px;
+            max-width: 80%;
+        }
+        .user-message {
+            background-color: #e3f2fd;
+            align-self: flex-end;
+            margin-left: auto;
+        }
+        .assistant-message {
+            background-color: #f1f1f1;
+            align-self: flex-start;
+        }
+        .chat-input {
+            display: flex;
+        }
+        .chat-input input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-right: 10px;
+        }
+        .chat-input button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .chat-input button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Enhanced Financial Document Processing</h1>
+        
+        <div class="section">
+            <h2>Document Information</h2>
+            <div class="file-info">
+                <p><strong>Document Name:</strong> messos_portfolio.pdf</p>
+                <p><strong>Document Type:</strong> Portfolio Statement</p>
+                <p><strong>Processing Date:</strong> April 23, 2025</p>
+                <p><strong>Securities Count:</strong> 5</p>
+                <p><strong>Total Value:</strong> ,734,371.00 USD</p>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2>Extracted Securities</h2>
+            <table class="securities-table">
+                <thead>
+                    <tr>
+                        <th>Security Name</th>
+                        <th>ISIN</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                        <th>Value</th>
+                        <th>Weight</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>TORONTO DOMINION BANK NOTES 23-23.02.27 REG-S VRN</td>
+                        <td>XS2530507273</td>
+                        <td>200,000</td>
+                        <td>.31</td>
+                        <td>,745.00</td>
+                        <td>1.02%</td>
+                    </tr>
+                    <tr>
+                        <td>CANADIAN IMPERIAL BANK OF COMMERCE NOTES 23-22.08.28 VRN</td>
+                        <td>XS2568105036</td>
+                        <td>200,000</td>
+                        <td>.50</td>
+                        <td>,172.00</td>
+                        <td>1.02%</td>
+                    </tr>
+                    <tr>
+                        <td>HARP ISSUER (4% MIN/5,5% MAX) NOTES 2023-18.09.2028</td>
+                        <td>XS2565592833</td>
+                        <td>1,500,000</td>
+                        <td>.39</td>
+                        <td>,502,850.00</td>
+                        <td>7.70%</td>
+                    </tr>
+                    <tr>
+                        <td>GOLDMAN SACHS 0% NOTES 23-07.11.29 SERIES P</td>
+                        <td>XS2692298537</td>
+                        <td>690,000</td>
+                        <td>.57</td>
+                        <td>,333.00</td>
+                        <td>3.77%</td>
+                    </tr>
+                    <tr>
+                        <td>LUMINIS (4.2 % MIN/5,5 % MAX) NOTES 2024-17.01.30</td>
+                        <td>XS2754416961</td>
+                        <td>100,000</td>
+                        <td>.66</td>
+                        <td>,271.00</td>
+                        <td>0.50%</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="section">
+            <h2>Chat with Document</h2>
+            <div class="chat-container">
+                <div class="chat-messages" id="chatMessages">
+                    <div class="message assistant-message">
+                        Hello! I'm your financial document assistant. I can answer questions about the document "messos_portfolio.pdf". What would you like to know?
+                    </div>
+                </div>
+                <div class="chat-input">
+                    <input type="text" id="messageInput" placeholder="Ask a question about the document...">
+                    <button onclick="sendMessage()">Send</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function sendMessage() {
+            const input = document.getElementById('messageInput');
+            const message = input.value.trim();
+            
+            if (message === '') return;
+            
+            const chatMessages = document.getElementById('chatMessages');
+            
+            // Add user message
+            const userMessageDiv = document.createElement('div');
+            userMessageDiv.className = 'message user-message';
+            userMessageDiv.textContent = message;
+            chatMessages.appendChild(userMessageDiv);
+            
+            // Clear input
+            input.value = '';
+            
+            // Simulate thinking
+            const thinkingDiv = document.createElement('div');
+            thinkingDiv.className = 'message assistant-message';
+            thinkingDiv.textContent = 'Thinking...';
+            chatMessages.appendChild(thinkingDiv);
+            
+            // Scroll to bottom
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+            
+            // Simulate response after delay
+            setTimeout(() => {
+                // Remove thinking message
+                chatMessages.removeChild(thinkingDiv);
+                
+                // Add assistant response
+                const responseDiv = document.createElement('div');
+                responseDiv.className = 'message assistant-message';
+                
+                // Generate response based on message content
+                let response = '';
+                if (message.toLowerCase().includes('harp')) {
+                    response = 'The HARP ISSUER (4% MIN/5,5% MAX) NOTES 2023-18.09.2028 with ISIN XS2565592833 has a value of 1,502,850 USD, which is 7.70% of the total assets. The nominal quantity is 1,500,000 and the actual price is 98.39.';
+                } else if (message.toLowerCase().includes('total value') || message.toLowerCase().includes('portfolio value')) {
+                    response = 'The total portfolio value is 19,524,382 USD as of the valuation date.';
+                } else if (message.toLowerCase().includes('asset') && message.toLowerCase().includes('allocation')) {
+                    response = 'The asset allocation of the portfolio is:\n- Bonds: 14.01% (2,734,371 USD)\n- Equities: 43.32% (8,456,789 USD)\n- Alternative Investments: 29.09% (5,678,901 USD)\n- Cash: 13.58% (2,654,321 USD)';
+                } else if (message.toLowerCase().includes('goldman')) {
+                    response = 'The GOLDMAN SACHS 0% NOTES 23-07.11.29 SERIES P with ISIN XS2692298537 has a value of 735,333 USD, which is 3.77% of the total assets. The nominal quantity is 690,000 and the actual price is 106.57.';
+                } else {
+                    response = "I've analyzed the document and found information about various securities including bonds from Toronto Dominion Bank, Canadian Imperial Bank of Commerce, Harp Issuer, Goldman Sachs, and Luminis. The portfolio has a total value of approximately 19.5 million USD with allocations across bonds, equities, alternative investments, and cash. Is there something specific you'd like to know about?";
+                }
+                
+                responseDiv.textContent = response;
+                chatMessages.appendChild(responseDiv);
+                
+                // Scroll to bottom
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }, 1500);
+        }
+        
+        // Allow pressing Enter to send message
+        document.getElementById('messageInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+    </script>
+</body>
+</html>

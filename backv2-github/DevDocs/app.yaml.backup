@@ -1,0 +1,31 @@
+runtime: nodejs18
+service: findoc-app
+env: standard
+instance_class: F2
+
+handlers:
+  # Serve static files
+  - url: /static
+    static_dir: frontend/public
+    secure: always
+
+  # Serve all other requests with the app
+  - url: /.*
+    secure: always
+    script: auto
+
+env_variables:
+  NODE_ENV: "production"
+  # The Gemini API key will be set using Secret Manager
+  # GEMINI_API_KEY: "placeholder-will-be-replaced"
+  API_URL: "https://findoc-app.appspot.com"
+  PORT: "8080"
+  UPLOAD_FOLDER: "/tmp/uploads"
+  TEMP_FOLDER: "/tmp/temp"
+  RESULTS_FOLDER: "/tmp/results"
+
+automatic_scaling:
+  min_instances: 1
+  max_instances: 10
+  min_idle_instances: 1
+  max_concurrent_requests: 50

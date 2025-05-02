@@ -1,0 +1,56 @@
+{
+  "document_path": "sample_documents/messos_portfolio.pdf",
+  "securities_count": 5,
+  "securities": [
+    {
+      "isin": "XS2530507273",
+      "security_name": "TORONTO DOMINION BANK NOTES 23-23.02.27 REG-S VRN",
+      "quantity": 200000,
+      "currency": "USD",
+      "weight": 1.02,
+      "price": 99.308,
+      "acquisition_price": 100.2,
+      "value": 198745
+    },
+    {
+      "isin": "XS2568105036",
+      "security_name": "CANADIAN IMPERIAL BANK OF COMMERCE NOTES 23-22.08.28 VRN",
+      "quantity": 200000,
+      "weight": 1.02,
+      "price": 99.5002,
+      "acquisition_price": 100.2,
+      "value": 199172,
+      "currency": "USD"
+    },
+    {
+      "isin": "XS2565592833",
+      "security_name": "HARP ISSUER (4% MIN/5,5% MAX) NOTES 2023-18.09.2028",
+      "quantity": 150000,
+      "weight": 7.7,
+      "price": 98.39,
+      "acquisition_price": 99.099,
+      "value": 150285,
+      "currency": "USD"
+    },
+    {
+      "isin": "XS2692298537",
+      "security_name": "GOLDMAN SACHS 0% NOTES 23-07.11.29 SERIES P",
+      "quantity": 690000,
+      "weight": 3.77,
+      "price": 106.57,
+      "acquisition_price": 100.1,
+      "value": 735333,
+      "currency": "USD"
+    },
+    {
+      "isin": "XS2754416961",
+      "security_name": "LUMINIS (4.2 % MIN/5,5 % MAX) NOTES 2024-17.01.30",
+      "quantity": 100000,
+      "currency": "USD",
+      "weight": 0.5,
+      "price": 97.66,
+      "acquisition_price": 100.2,
+      "value": 98271
+    }
+  ]
+}

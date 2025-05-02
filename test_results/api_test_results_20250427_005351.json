@@ -1,0 +1,42 @@
+{
+    "summary":  {
+                    "failed":  2,
+                    "skipped":  1,
+                    "total":  5,
+                    "passed":  2
+                },
+    "endTime":  "2025-04-27T00:53:53",
+    "tests":  [
+                  {
+                      "status":  "passed",
+                      "timestamp":  "2025-04-27T00:53:51",
+                      "name":  "API Health Check",
+                      "details":  "{\"success\":true,\"message\":\"FinDoc Analyzer API is running\",\"version\":\"1.0.0\",\"timestamp\":\"2025-04-26T21:53:51.733Z\"}"
+                  },
+                  {
+                      "status":  "passed",
+                      "timestamp":  "2025-04-27T00:53:52",
+                      "name":  "Scan1 Status Check",
+                      "details":  "{\"success\":true,\"data\":{\"available\":false,\"version\":\"1.0.0\",\"name\":\"Scan1\",\"description\":\"Enhanced PDF processing with securities extraction\",\"features\":[\"Table extraction\",\"ISIN detection\",\"Securities extraction\",\"Portfolio summary extraction\",\"Asset allocation extraction\",\"Special handling for known securities (Goldman Sachs, etc.)\"],\"python\":{\"version\":\"Python 3.10.12\",\"command\":\"python3\",\"packages\":\"chardet==4.0.0\"},\"gemini_api_key_available\":true,\"temp_directory_exists\":false,\"environment\":{\"node_version\":\"v18.20.7\",\"platform\":\"linux\",\"arch\":\"x64\"}}}"
+                  },
+                  {
+                      "status":  "failed",
+                      "timestamp":  "2025-04-27T00:53:52",
+                      "name":  "Gemini API Key Verification",
+                      "details":  "Unexpected response: {\"success\":false,\"data\":{\"available\":false,\"message\":\"Default Gemini API key is invalid\",\"error\":\"[GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent: [400 Bad Request] API key not valid. Please pass a valid API key. [{\\\"@type\\\":\\\"type.googleapis.com/google.rpc.ErrorInfo\\\",\\\"reason\\\":\\\"API_KEY_INVALID\\\",\\\"domain\\\":\\\"googleapis.com\\\",\\\"metadata\\\":{\\\"service\\\":\\\"generativelanguage.googleapis.com\\\"}},{\\\"@type\\\":\\\"type.googleapis.com/google.rpc.LocalizedMessage\\\",\\\"locale\\\":\\\"en-US\\\",\\\"message\\\":\\\"API key not valid. Please pass a valid API key.\\\"}]\"}}"
+                  },
+                  {
+                      "status":  "failed",
+                      "timestamp":  "2025-04-27T00:53:53",
+                      "name":  "User Registration",
+                      "details":  "The remote server returned an error: (500) Internal Server Error."
+                  },
+                  {
+                      "status":  "skipped",
+                      "timestamp":  "2025-04-27T00:53:53",
+                      "name":  "Authenticated Tests",
+                      "details":  "No authentication token available"
+                  }
+              ],
+    "startTime":  "2025-04-27T00:53:51"
+}

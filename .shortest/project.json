@@ -1,0 +1,19 @@
+{
+  "metadata": {
+    "timestamp": 1745851766028,
+    "version": 2,
+    "git": {
+      "branch": "main",
+      "commit": "a6ac0a755251978a88b5012c288fadff00dbce2c"
+    }
+  },
+  "data": {
+    "frameworks": [
+      {
+        "id": "next",
+        "name": "Next.js",
+        "dirPath": "C:\\Users\\aviad\\OneDrive\\Desktop\\backv2-main\\DevDocs\\frontend\\minimal-next-app"
+      }
+    ]
+  }
+}

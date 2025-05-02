@@ -1,0 +1,19 @@
+FROM node:18-alpine
+
+# Set working directory
+WORKDIR /app
+
+# Copy package.json and package-lock.json
+COPY backv2-github/DevDocs/frontend/package*.json ./
+
+# Install dependencies
+RUN npm install
+
+# Copy frontend source code
+COPY backv2-github/DevDocs/frontend/ ./
+
+# Expose port
+EXPOSE 3000
+
+# Start the application in development mode
+CMD ["npm", "run", "dev"]

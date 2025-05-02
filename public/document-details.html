@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FinDoc Analyzer - Document Details</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f8f9fa;
+      color: #333;
+    }
+
+    .findoc-layout {
+      display: flex;
+      min-height: 100vh;
+      position: relative;
+    }
+
+    .sidebar {
+      width: 280px;
+      background-color: #2c3e50;
+      color: white;
+      padding: 20px 0;
+      box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+      position: fixed;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      z-index: 100;
+      overflow-y: auto;
+    }
+
+    .main-content {
+      flex: 1;
+      padding: 20px;
+      overflow-y: auto;
+      margin-left: 280px;
+      width: calc(100% - 280px);
+    }
+
+    .sidebar-header {
+      padding: 0 20px 20px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      margin-bottom: 20px;
+    }
+
+    .sidebar-logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: white;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+    }
+
+    .sidebar-nav {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .sidebar-nav li {
+      margin-bottom: 5px;
+    }
+
+    .sidebar-nav a {
+      display: flex;
+      align-items: center;
+      padding: 10px 20px;
+      color: rgba(255,255,255,0.8);
+      text-decoration: none;
+      transition: all 0.3s;
+    }
+
+    .sidebar-nav a:hover, .sidebar-nav a.active {
+      background-color: rgba(255,255,255,0.1);
+      color: white;
+    }
+
+    .sidebar-nav a i, .sidebar-nav a .icon {
+      margin-right: 10px;
+      width: 20px;
+      text-align: center;
+    }
+
+    .document-details {
+      padding: 20px;
+    }
+
+    .page-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .page-title {
+      font-size: 1.75rem;
+      margin: 0;
+    }
+
+    .action-buttons {
+      display: flex;
+      gap: 10px;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 10px 20px;
+      border-radius: 4px;
+      font-size: 16px;
+      cursor: pointer;
+      text-align: center;
+      border: none;
+      transition: all 0.3s;
+    }
+
+    .btn-primary {
+      background-color: #3498db;
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background-color: #2980b9;
+    }
+
+    .btn-secondary {
+      background-color: #f1f1f1;
+      color: #333;
+    }
+
+    .btn-secondary:hover {
+      background-color: #ddd;
+    }
+
+    .btn-danger {
+      background-color: #e74c3c;
+      color: white;
+    }
+
+    .btn-danger:hover {
+      background-color: #c0392b;
+    }
+
+    .document-info {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 20px;
+      margin-bottom: 20px;
+      background-color: white;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+
+    .info-item {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .info-label {
+      font-weight: bold;
+      margin-bottom: 5px;
+      color: #7f8c8d;
+      font-size: 0.9rem;
+    }
+
+    .info-value {
+      color: #2c3e50;
+    }
+
+    .document-content {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    @media (min-width: 768px) {
+      .document-content {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .content-section {
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+      padding: 20px;
+    }
+
+    .content-section h2 {
+      margin-top: 0;
+      margin-bottom: 15px;
+      color: #2c3e50;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 10px;
+      font-size: 1.25rem;
+    }
+
+    .extracted-text {
+      white-space: pre-wrap;
+      font-family: monospace;
+      background-color: #f9f9f9;
+      padding: 15px;
+      border-radius: 4px;
+      max-height: 300px;
+      overflow-y: auto;
+      font-size: 0.9rem;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 15px;
+    }
+
+    th, td {
+      padding: 8px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+
+    th {
+      background-color: #f2f2f2;
+      font-weight: bold;
+    }
+
+    tr:hover {
+      background-color: #f5f5f5;
+    }
+
+    .metadata {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 10px;
+    }
+
+    .metadata-item {
+      background-color: #f9f9f9;
+      padding: 10px;
+      border-radius: 4px;
+    }
+
+    .metadata-label {
+      font-weight: bold;
+      margin-bottom: 5px;
+      color: #7f8c8d;
+      font-size: 0.9rem;
+    }
+
+    .metadata-value {
+      color: #2c3e50;
+    }
+
+    .chat-section {
+      grid-column: 1 / -1;
+    }
+
+    .chat {
+      display: flex;
+      flex-direction: column;
+      height: 400px;
+    }
+
+    .chat-messages {
+      flex: 1;
+      overflow-y: auto;
+      padding: 15px;
+      background-color: #f9f9f9;
+      border-radius: 4px;
+      margin-bottom: 15px;
+    }
+
+    .message {
+      margin-bottom: 15px;
+      padding: 10px;
+      border-radius: 4px;
+      max-width: 80%;
+    }
+
+    .user-message {
+      background-color: #3498db;
+      color: white;
+      align-self: flex-end;
+      margin-left: auto;
+    }
+
+    .ai-message {
+      background-color: #f1f1f1;
+      color: #333;
+      align-self: flex-start;
+    }
+
+    .chat-input {
+      display: flex;
+      gap: 10px;
+    }
+
+    .chat-input input {
+      flex: 1;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+    }
+  </style>
+  <script src="/js/mock-api.js"></script>
+  <script src="/js/sidebar.js"></script>
+  <script src="/js/document-viewer.js"></script>
+</head>
+<body>
+  <div class="findoc-layout">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <a href="/" class="sidebar-logo">FinDoc Analyzer</a>
+      </div>
+      <ul class="sidebar-nav">
+        <li><a href="/"><span class="icon">🏠</span>Dashboard</a></li>
+        <li><a href="/documents-new" class="active"><span class="icon">📄</span>My Documents</a></li>
+        <li><a href="/analytics-new"><span class="icon">📊</span>Analytics</a></li>
+        <li><a href="/upload"><span class="icon">📤</span>Upload</a></li>
+        <li><a href="/document-comparison"><span class="icon">🔄</span>Document Comparison</a></li>
+        <li><a href="/feedback"><span class="icon">💬</span>Feedback</a></li>
+      </ul>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <div id="page-content">
+        <div class="document-details">
+          <div class="page-header">
+            <h1 class="page-title" id="document-title">Document Title</h1>
+            <div class="action-buttons">
+              <button class="btn btn-secondary">
+                <span class="icon">📥</span> Download
+              </button>
+              <button class="btn btn-secondary">
+                <span class="icon">🔄</span> Reprocess
+              </button>
+              <button class="btn btn-danger">
+                <span class="icon">🗑️</span> Delete
+              </button>
+            </div>
+          </div>
+
+          <div class="document-info">
+            <div class="info-item">
+              <div class="info-label">Document Type</div>
+              <div class="info-value" id="document-type">Financial Report</div>
+            </div>
+            <div class="info-item">
+              <div class="info-label">Upload Date</div>
+              <div class="info-value" id="upload-date">December 31, 2023</div>
+            </div>
+            <div class="info-item">
+              <div class="info-label">Processing Date</div>
+              <div class="info-value" id="processing-date">December 31, 2023</div>
+            </div>
+            <div class="info-item">
+              <div class="info-label">File Size</div>
+              <div class="info-value" id="file-size">1.2 MB</div>
+            </div>
+          </div>
+
+          <div class="document-content">
+            <div class="content-section">
+              <h2>Extracted Text</h2>
+              <div class="extracted-text" id="extracted-text">
+                Loading...
+              </div>
+            </div>
+
+            <div class="content-section">
+              <h2>Extracted Tables</h2>
+              <div class="extracted-tables" id="extracted-tables">
+                Loading...
+              </div>
+            </div>
+
+            <div class="content-section">
+              <h2>Metadata</h2>
+              <div class="metadata" id="metadata">
+                Loading...
+              </div>
+            </div>
+
+            <div class="content-section chat-section">
+              <h2>Ask Questions</h2>
+              <div class="chat">
+                <div class="chat-messages" id="chat-messages">
+                  <div class="message ai-message">
+                    Hello! I'm your financial document assistant. Ask me any questions about this document.
+                  </div>
+                </div>
+                <div class="chat-input">
+                  <input type="text" id="question-input" placeholder="Ask a question about this document...">
+                  <button class="btn btn-primary" id="ask-btn">Ask</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Get document ID from URL or localStorage
+      let documentId = window.location.pathname.split('/').pop();
+
+      // If the document ID is 'document-details.html', get it from localStorage
+      if (documentId === 'document-details.html') {
+        documentId = localStorage.getItem('selectedDocumentId') || (localStorage.getItem('lastProcessedDocument') ? JSON.parse(localStorage.getItem('lastProcessedDocument')).id : null);
+      }
+
+      if (!documentId) {
+        console.error('No document ID found');
+        window.location.href = '/documents-new';
+        return;
+      }
+
+      // Load document details
+      loadDocumentDetails(documentId);
+
+      // Add event listeners
+      setupEventListeners();
+    });
+
+    /**
+     * Load document details
+     * @param {string} documentId - Document ID
+     */
+    async function loadDocumentDetails(documentId) {
+      try {
+        // Get document details from the API
+        const response = await fetch(`/api/documents/${documentId}`);
+
+        if (!response.ok) {
+          throw new Error(`Failed to load document details: ${response.status} ${response.statusText}`);
+        }
+
+        const document = await response.json();
+
+        // Update document details
+        updateDocumentDetails(document);
+
+        // Update document content
+        updateDocumentContent(document);
+      } catch (error) {
+        console.error('Error loading document details:', error);
+
+        // Show error message
+        document.getElementById('document-title').textContent = 'Error Loading Document';
+        document.getElementById('document-type').textContent = 'Error';
+        document.getElementById('upload-date').textContent = 'Error';
+        document.getElementById('processing-date').textContent = 'Error';
+        document.getElementById('file-size').textContent = 'Error';
+
+        document.getElementById('extracted-text').textContent = 'Error loading document content. Please try again later.';
+        document.getElementById('extracted-tables').textContent = 'Error loading document content. Please try again later.';
+        document.getElementById('metadata').textContent = 'Error loading document content. Please try again later.';
+      }
+    }
+
+    /**
+     * Update document details
+     * @param {object} document - Document object
+     */
+    function updateDocumentDetails(document) {
+      document.getElementById('document-title').textContent = document.fileName;
+      document.getElementById('document-type').textContent = document.documentType;
+      document.getElementById('upload-date').textContent = new Date(document.uploadDate).toLocaleDateString();
+      document.getElementById('processing-date').textContent = new Date(document.uploadDate).toLocaleDateString(); // Use upload date as processing date
+      document.getElementById('file-size').textContent = '1.2 MB'; // Mock file size
+    }
+
+    /**
+     * Update document content
+     * @param {object} document - Document object
+     */
+    function updateDocumentContent(document) {
+      // Update extracted text
+      updateExtractedText(document);
+
+      // Update extracted tables
+      updateExtractedTables(document);
+
+      // Update metadata
+      updateMetadata(document);
+    }
+
+    /**
+     * Update extracted text
+     * @param {object} document - Document object
+     */
+    function updateExtractedText(document) {
+      const extractedTextContainer = document.getElementById('extracted-text');
+
+      if (document.content && document.content.text) {
+        extractedTextContainer.textContent = document.content.text;
+      } else {
+        extractedTextContainer.textContent = 'No text extracted from this document.';
+      }
+    }
+
+    /**
+     * Update extracted tables
+     * @param {object} document - Document object
+     */
+    function updateExtractedTables(document) {
+      const extractedTablesContainer = document.getElementById('extracted-tables');
+
+      if (document.content && document.content.tables && document.content.tables.length > 0) {
+        extractedTablesContainer.innerHTML = '';
+
+        document.content.tables.forEach((table, index) => {
+          // Create table title
+          if (table.title) {
+            const tableTitle = document.createElement('h3');
+            tableTitle.textContent = table.title;
+            extractedTablesContainer.appendChild(tableTitle);
+          } else {
+            const tableTitle = document.createElement('h3');
+            tableTitle.textContent = `Table ${index + 1}`;
+            extractedTablesContainer.appendChild(tableTitle);
+          }
+
+          // Create table element
+          const tableElement = document.createElement('table');
+          tableElement.className = 'extracted-table';
+
+          // Add table header
+          const thead = document.createElement('thead');
+          const headerRow = document.createElement('tr');
+
+          table.headers.forEach(header => {
+            const th = document.createElement('th');
+            th.textContent = header;
+            headerRow.appendChild(th);
+          });
+
+          thead.appendChild(headerRow);
+          tableElement.appendChild(thead);
+
+          // Add table body
+          const tbody = document.createElement('tbody');
+
+          table.rows.forEach(row => {
+            const tr = document.createElement('tr');
+
+            row.forEach(cell => {
+              const td = document.createElement('td');
+              td.textContent = cell;
+              tr.appendChild(td);
+            });
+
+            tbody.appendChild(tr);
+          });
+
+          tableElement.appendChild(tbody);
+          extractedTablesContainer.appendChild(tableElement);
+        });
+      } else {
+        extractedTablesContainer.textContent = 'No tables extracted from this document.';
+      }
+    }
+
+    /**
+     * Update metadata
+     * @param {object} document - Document object
+     */
+    function updateMetadata(document) {
+      const metadataContainer = document.getElementById('metadata');
+
+      if (document.content && document.content.metadata) {
+        metadataContainer.innerHTML = '';
+
+        Object.entries(document.content.metadata).forEach(([key, value]) => {
+          const metadataItem = document.createElement('div');
+          metadataItem.className = 'metadata-item';
+
+          metadataItem.innerHTML = `
+            <div class="metadata-label">${key.charAt(0).toUpperCase() + key.slice(1)}</div>
+            <div class="metadata-value">${value}</div>
+          `;
+
+          metadataContainer.appendChild(metadataItem);
+        });
+      } else {
+        metadataContainer.textContent = 'No metadata extracted from this document.';
+      }
+    }
+
+    /**
+     * Set up event listeners
+     */
+    function setupEventListeners() {
+      // Ask button click handler
+      const askButton = document.getElementById('ask-btn');
+      if (askButton) {
+        askButton.addEventListener('click', handleAskQuestion);
+      }
+
+      // Question input enter key handler
+      const questionInput = document.getElementById('question-input');
+      if (questionInput) {
+        questionInput.addEventListener('keypress', function(e) {
+          if (e.key === 'Enter') {
+            handleAskQuestion();
+          }
+        });
+      }
+
+      // Download button click handler
+      const downloadButtons = document.querySelectorAll('.action-buttons button');
+      downloadButtons.forEach(button => {
+        if (button.textContent.includes('Download')) {
+          button.addEventListener('click', function() {
+            alert('Download functionality is not implemented in this demo.');
+          });
+        } else if (button.textContent.includes('Reprocess')) {
+          button.addEventListener('click', function() {
+            alert('Reprocess functionality is not implemented in this demo.');
+          });
+        } else if (button.textContent.includes('Delete')) {
+          button.addEventListener('click', function() {
+            if (confirm('Are you sure you want to delete this document?')) {
+              alert('Delete functionality is not implemented in this demo.');
+            }
+          });
+        }
+      });
+    }
+
+    /**
+     * Handle ask question
+     */
+    function handleAskQuestion() {
+      const question = document.getElementById('question-input').value.trim();
+      if (!question) return;
+
+      // Add user message
+      const chatMessages = document.getElementById('chat-messages');
+      const userMessage = document.createElement('div');
+      userMessage.className = 'message user-message';
+      userMessage.textContent = question;
+      chatMessages.appendChild(userMessage);
+
+      // Clear input
+      document.getElementById('question-input').value = '';
+
+      // Simulate API call
+      let answer = 'I don\'t know the answer to that question.';
+
+      if (question.toLowerCase().includes('revenue')) {
+        answer = 'The total revenue is $10,500,000.';
+      } else if (question.toLowerCase().includes('profit')) {
+        answer = 'The net profit is $3,300,000 with a profit margin of 31.4%.';
+      } else if (question.toLowerCase().includes('asset')) {
+        answer = 'The total assets are $25,000,000.';
+      } else if (question.toLowerCase().includes('liabilit')) {
+        answer = 'The total liabilities are $12,000,000.';
+      } else if (question.toLowerCase().includes('equity')) {
+        answer = 'The shareholders\' equity is $13,000,000.';
+      } else if (question.toLowerCase().includes('apple') || question.toLowerCase().includes('microsoft') || question.toLowerCase().includes('amazon') || question.toLowerCase().includes('tesla') || question.toLowerCase().includes('google')) {
+        answer = 'The investment portfolio includes holdings in Apple Inc., Microsoft, Amazon, Tesla, and Google. Would you like specific details about any of these securities?';
+      }
+
+      // Add AI message
+      setTimeout(() => {
+        const aiMessage = document.createElement('div');
+        aiMessage.className = 'message ai-message';
+        aiMessage.textContent = answer;
+        chatMessages.appendChild(aiMessage);
+
+        // Scroll to bottom
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+      }, 1000);
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,1042 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FinDoc Analyzer Error Detection Report</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      color: #333;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    h1, h2, h3 {
+      color: #2c3e50;
+    }
+    .page-test {
+      margin-bottom: 40px;
+      padding: 20px;
+      background-color: #f8f9fa;
+      border-radius: 5px;
+      border-left: 5px solid #ddd;
+    }
+    .page-test.has-errors {
+      border-left-color: #dc3545;
+    }
+    .page-test.no-errors {
+      border-left-color: #28a745;
+    }
+    .screenshot {
+      max-width: 100%;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      margin-bottom: 20px;
+    }
+    .section {
+      margin-bottom: 20px;
+    }
+    .error-badge {
+      display: inline-block;
+      padding: 5px 10px;
+      border-radius: 3px;
+      margin-right: 10px;
+      margin-bottom: 10px;
+    }
+    .error-badge.error {
+      background-color: #f8d7da;
+      color: #721c24;
+    }
+    .error-badge.warning {
+      background-color: #fff3cd;
+      color: #856404;
+    }
+    .error-badge.success {
+      background-color: #d4edda;
+      color: #155724;
+    }
+    .error-badge.info {
+      background-color: #d1ecf1;
+      color: #0c5460;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+    th, td {
+      padding: 8px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+    th {
+      background-color: #f2f2f2;
+    }
+    .progress-container {
+      width: 100%;
+      background-color: #f3f3f3;
+      border-radius: 4px;
+      margin-bottom: 10px;
+    }
+    .progress-bar {
+      height: 20px;
+      border-radius: 4px;
+      text-align: center;
+      line-height: 20px;
+      color: white;
+    }
+    .progress-bar.success {
+      background-color: #4caf50;
+    }
+    .progress-bar.warning {
+      background-color: #ff9800;
+    }
+    .progress-bar.error {
+      background-color: #f44336;
+    }
+    .summary-card {
+      padding: 15px;
+      border-radius: 5px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      margin-bottom: 20px;
+      background-color: #f8d7da;
+      color: #721c24;
+    }
+    .error-details {
+      background-color: #f8f9fa;
+      border-radius: 5px;
+      padding: 15px;
+      margin-top: 10px;
+      border: 1px solid #ddd;
+      overflow-x: auto;
+    }
+    .error-message {
+      font-family: monospace;
+      white-space: pre-wrap;
+    }
+    .collapsible {
+      background-color: #f1f1f1;
+      color: #444;
+      cursor: pointer;
+      padding: 18px;
+      width: 100%;
+      border: none;
+      text-align: left;
+      outline: none;
+      font-size: 15px;
+      border-radius: 5px;
+      margin-bottom: 5px;
+    }
+    .active, .collapsible:hover {
+      background-color: #e8e8e8;
+    }
+    .collapsible:after {
+      content: '\002B';
+      color: #777;
+      font-weight: bold;
+      float: right;
+      margin-left: 5px;
+    }
+    .active:after {
+      content: "\2212";
+    }
+    .content {
+      padding: 0 18px;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.2s ease-out;
+      background-color: white;
+      border-radius: 0 0 5px 5px;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>FinDoc Analyzer Error Detection Report</h1>
+  
+  <div class="section">
+    <h2>Summary</h2>
+    <div class="summary-card">
+      <h3>Error Detection Results</h3>
+      <div class="progress-container">
+        <div class="progress-bar error" style="width: 100%">
+          100%
+        </div>
+      </div>
+      <p>6 of 6 pages have errors</p>
+    </div>
+    
+    <h3>Pages Tested</h3>
+    <ul>
+      
+        <li>
+          <a href="#dashboard">https://findoc-deploy.ey.r.appspot.com/</a>
+          <span class="error-badge error">
+            Has Errors
+          </span>
+        </li>
+      
+        <li>
+          <a href="#documents">https://findoc-deploy.ey.r.appspot.com/documents-new</a>
+          <span class="error-badge error">
+            Has Errors
+          </span>
+        </li>
+      
+        <li>
+          <a href="#analytics">https://findoc-deploy.ey.r.appspot.com/analytics-new</a>
+          <span class="error-badge error">
+            Has Errors
+          </span>
+        </li>
+      
+        <li>
+          <a href="#feedback">https://findoc-deploy.ey.r.appspot.com/feedback</a>
+          <span class="error-badge error">
+            Has Errors
+          </span>
+        </li>
+      
+        <li>
+          <a href="#document-comparison">https://findoc-deploy.ey.r.appspot.com/document-comparison</a>
+          <span class="error-badge error">
+            Has Errors
+          </span>
+        </li>
+      
+        <li>
+          <a href="#upload">https://findoc-deploy.ey.r.appspot.com/upload</a>
+          <span class="error-badge error">
+            Has Errors
+          </span>
+        </li>
+      
+    </ul>
+  </div>
+  
+  
+    <div id="dashboard" class="page-test has-errors">
+      <h2>https://findoc-deploy.ey.r.appspot.com/ ❌</h2>
+      
+      <div class="section">
+        <h3>Screenshot</h3>
+        <img src="dashboard.png" alt="https://findoc-deploy.ey.r.appspot.com/" class="screenshot">
+      </div>
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+        <div class="section">
+          <h3>Broken Links</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>Href</th>
+                <th>Text</th>
+              </tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>#</td>
+                  <td>
+                    
+                    Export
+                  </td>
+                </tr>
+              
+                <tr>
+                  <td>#</td>
+                  <td>
+                    
+                    Refresh
+                  </td>
+                </tr>
+              
+            </tbody>
+          </table>
+        </div>
+      
+      
+      
+      
+      
+        <div class="section">
+          <h3>Interactive Elements Issues</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>Type</th>
+                <th>Identifier</th>
+                <th>Issue</th>
+              </tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>button</td>
+                  <td>Unknown</td>
+                  <td>Execution context was destroyed, most likely because of a navigation.</td>
+                </tr>
+              
+                <tr>
+                  <td>button</td>
+                  <td>Unknown</td>
+                  <td>Protocol error (Runtime.callFunctionOn): Argument should belong to the same JavaScript world as target object</td>
+                </tr>
+              
+                <tr>
+                  <td>button</td>
+                  <td>Unknown</td>
+                  <td>Protocol error (Runtime.callFunctionOn): Argument should belong to the same JavaScript world as target object</td>
+                </tr>
+              
+                <tr>
+                  <td>button</td>
+                  <td>Unknown</td>
+                  <td>Protocol error (Runtime.callFunctionOn): Argument should belong to the same JavaScript world as target object</td>
+                </tr>
+              
+                <tr>
+                  <td>button</td>
+                  <td>Unknown</td>
+                  <td>Protocol error (Runtime.callFunctionOn): Argument should belong to the same JavaScript world as target object</td>
+                </tr>
+              
+                <tr>
+                  <td>button</td>
+                  <td>Unknown</td>
+                  <td>Protocol error (Runtime.callFunctionOn): Argument should belong to the same JavaScript world as target object</td>
+                </tr>
+              
+                <tr>
+                  <td>button</td>
+                  <td>Unknown</td>
+                  <td>Protocol error (Runtime.callFunctionOn): Argument should belong to the same JavaScript world as target object</td>
+                </tr>
+              
+                <tr>
+                  <td>button</td>
+                  <td>Unknown</td>
+                  <td>Protocol error (Runtime.callFunctionOn): Argument should belong to the same JavaScript world as target object</td>
+                </tr>
+              
+                <tr>
+                  <td>button</td>
+                  <td>Unknown</td>
+                  <td>Protocol error (Runtime.callFunctionOn): Argument should belong to the same JavaScript world as target object</td>
+                </tr>
+              
+                <tr>
+                  <td>button</td>
+                  <td>Unknown</td>
+                  <td>Protocol error (Runtime.callFunctionOn): Argument should belong to the same JavaScript world as target object</td>
+                </tr>
+              
+            </tbody>
+          </table>
+        </div>
+      
+      
+      
+    </div>
+  
+    <div id="documents" class="page-test has-errors">
+      <h2>https://findoc-deploy.ey.r.appspot.com/documents-new ❌</h2>
+      
+      <div class="section">
+        <h3>Screenshot</h3>
+        <img src="documents.png" alt="https://findoc-deploy.ey.r.appspot.com/documents-new" class="screenshot">
+      </div>
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+        <div class="section">
+          <h3>Broken Links</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>Href</th>
+                <th>Text</th>
+              </tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>#</td>
+                  <td>
+                    
+                    Export
+                  </td>
+                </tr>
+              
+                <tr>
+                  <td>#</td>
+                  <td>
+                    
+                    Refresh
+                  </td>
+                </tr>
+              
+            </tbody>
+          </table>
+        </div>
+      
+      
+      
+      
+      
+        <div class="section">
+          <h3>Interactive Elements Issues</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>Type</th>
+                <th>Identifier</th>
+                <th>Issue</th>
+              </tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>button</td>
+                  <td>Unknown</td>
+                  <td>Execution context was destroyed, most likely because of a navigation.</td>
+                </tr>
+              
+                <tr>
+                  <td>button</td>
+                  <td>Unknown</td>
+                  <td>Protocol error (Runtime.callFunctionOn): Argument should belong to the same JavaScript world as target object</td>
+                </tr>
+              
+                <tr>
+                  <td>button</td>
+                  <td>Unknown</td>
+                  <td>Protocol error (Runtime.callFunctionOn): Argument should belong to the same JavaScript world as target object</td>
+                </tr>
+              
+                <tr>
+                  <td>button</td>
+                  <td>Unknown</td>
+                  <td>Protocol error (Runtime.callFunctionOn): Argument should belong to the same JavaScript world as target object</td>
+                </tr>
+              
+                <tr>
+                  <td>button</td>
+                  <td>Unknown</td>
+                  <td>Protocol error (Runtime.callFunctionOn): Argument should belong to the same JavaScript world as target object</td>
+                </tr>
+              
+                <tr>
+                  <td>button</td>
+                  <td>Unknown</td>
+                  <td>Protocol error (Runtime.callFunctionOn): Argument should belong to the same JavaScript world as target object</td>
+                </tr>
+              
+                <tr>
+                  <td>button</td>
+                  <td>Unknown</td>
+                  <td>Protocol error (Runtime.callFunctionOn): Argument should belong to the same JavaScript world as target object</td>
+                </tr>
+              
+                <tr>
+                  <td>button</td>
+                  <td>Unknown</td>
+                  <td>Protocol error (Runtime.callFunctionOn): Argument should belong to the same JavaScript world as target object</td>
+                </tr>
+              
+                <tr>
+                  <td>button</td>
+                  <td>Unknown</td>
+                  <td>Protocol error (Runtime.callFunctionOn): Argument should belong to the same JavaScript world as target object</td>
+                </tr>
+              
+                <tr>
+                  <td>button</td>
+                  <td>Unknown</td>
+                  <td>Protocol error (Runtime.callFunctionOn): Argument should belong to the same JavaScript world as target object</td>
+                </tr>
+              
+            </tbody>
+          </table>
+        </div>
+      
+      
+      
+    </div>
+  
+    <div id="analytics" class="page-test has-errors">
+      <h2>https://findoc-deploy.ey.r.appspot.com/analytics-new ❌</h2>
+      
+      <div class="section">
+        <h3>Screenshot</h3>
+        <img src="analytics.png" alt="https://findoc-deploy.ey.r.appspot.com/analytics-new" class="screenshot">
+      </div>
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+        <div class="section">
+          <h3>Broken Links</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>Href</th>
+                <th>Text</th>
+              </tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>#</td>
+                  <td>
+                    
+                    Export
+                  </td>
+                </tr>
+              
+                <tr>
+                  <td>#</td>
+                  <td>
+                    
+                    Refresh
+                  </td>
+                </tr>
+              
+            </tbody>
+          </table>
+        </div>
+      
+      
+      
+      
+      
+        <div class="section">
+          <h3>Interactive Elements Issues</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>Type</th>
+                <th>Identifier</th>
+                <th>Issue</th>
+              </tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>button</td>
+                  <td>Unknown</td>
+                  <td>Execution context was destroyed, most likely because of a navigation.</td>
+                </tr>
+              
+                <tr>
+                  <td>button</td>
+                  <td>Unknown</td>
+                  <td>Protocol error (Runtime.callFunctionOn): Argument should belong to the same JavaScript world as target object</td>
+                </tr>
+              
+                <tr>
+                  <td>button</td>
+                  <td>Unknown</td>
+                  <td>Protocol error (Runtime.callFunctionOn): Argument should belong to the same JavaScript world as target object</td>
+                </tr>
+              
+                <tr>
+                  <td>button</td>
+                  <td>Unknown</td>
+                  <td>Protocol error (Runtime.callFunctionOn): Argument should belong to the same JavaScript world as target object</td>
+                </tr>
+              
+                <tr>
+                  <td>button</td>
+                  <td>Unknown</td>
+                  <td>Protocol error (Runtime.callFunctionOn): Argument should belong to the same JavaScript world as target object</td>
+                </tr>
+              
+                <tr>
+                  <td>button</td>
+                  <td>Unknown</td>
+                  <td>Protocol error (Runtime.callFunctionOn): Argument should belong to the same JavaScript world as target object</td>
+                </tr>
+              
+                <tr>
+                  <td>button</td>
+                  <td>Unknown</td>
+                  <td>Protocol error (Runtime.callFunctionOn): Argument should belong to the same JavaScript world as target object</td>
+                </tr>
+              
+                <tr>
+                  <td>button</td>
+                  <td>Unknown</td>
+                  <td>Protocol error (Runtime.callFunctionOn): Argument should belong to the same JavaScript world as target object</td>
+                </tr>
+              
+                <tr>
+                  <td>button</td>
+                  <td>Unknown</td>
+                  <td>Protocol error (Runtime.callFunctionOn): Argument should belong to the same JavaScript world as target object</td>
+                </tr>
+              
+                <tr>
+                  <td>button</td>
+                  <td>Unknown</td>
+                  <td>Protocol error (Runtime.callFunctionOn): Argument should belong to the same JavaScript world as target object</td>
+                </tr>
+              
+            </tbody>
+          </table>
+        </div>
+      
+      
+      
+    </div>
+  
+    <div id="feedback" class="page-test has-errors">
+      <h2>https://findoc-deploy.ey.r.appspot.com/feedback ❌</h2>
+      
+      <div class="section">
+        <h3>Screenshot</h3>
+        <img src="feedback.png" alt="https://findoc-deploy.ey.r.appspot.com/feedback" class="screenshot">
+      </div>
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+        <div class="section">
+          <h3>Broken Links</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>Href</th>
+                <th>Text</th>
+              </tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>#</td>
+                  <td>
+                    
+                    Export
+                  </td>
+                </tr>
+              
+                <tr>
+                  <td>#</td>
+                  <td>
+                    
+                    Refresh
+                  </td>
+                </tr>
+              
+            </tbody>
+          </table>
+        </div>
+      
+      
+      
+      
+      
+        <div class="section">
+          <h3>Interactive Elements Issues</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>Type</th>
+                <th>Identifier</th>
+                <th>Issue</th>
+              </tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>button</td>
+                  <td>Unknown</td>
+                  <td>Execution context was destroyed, most likely because of a navigation.</td>
+                </tr>
+              
+                <tr>
+                  <td>button</td>
+                  <td>Unknown</td>
+                  <td>Protocol error (Runtime.callFunctionOn): Argument should belong to the same JavaScript world as target object</td>
+                </tr>
+              
+                <tr>
+                  <td>button</td>
+                  <td>Unknown</td>
+                  <td>Protocol error (Runtime.callFunctionOn): Argument should belong to the same JavaScript world as target object</td>
+                </tr>
+              
+                <tr>
+                  <td>button</td>
+                  <td>Unknown</td>
+                  <td>Protocol error (Runtime.callFunctionOn): Argument should belong to the same JavaScript world as target object</td>
+                </tr>
+              
+                <tr>
+                  <td>button</td>
+                  <td>Unknown</td>
+                  <td>Protocol error (Runtime.callFunctionOn): Argument should belong to the same JavaScript world as target object</td>
+                </tr>
+              
+                <tr>
+                  <td>button</td>
+                  <td>Unknown</td>
+                  <td>Protocol error (Runtime.callFunctionOn): Argument should belong to the same JavaScript world as target object</td>
+                </tr>
+              
+                <tr>
+                  <td>button</td>
+                  <td>Unknown</td>
+                  <td>Protocol error (Runtime.callFunctionOn): Argument should belong to the same JavaScript world as target object</td>
+                </tr>
+              
+                <tr>
+                  <td>button</td>
+                  <td>Unknown</td>
+                  <td>Protocol error (Runtime.callFunctionOn): Argument should belong to the same JavaScript world as target object</td>
+                </tr>
+              
+                <tr>
+                  <td>button</td>
+                  <td>Unknown</td>
+                  <td>Protocol error (Runtime.callFunctionOn): Argument should belong to the same JavaScript world as target object</td>
+                </tr>
+              
+                <tr>
+                  <td>button</td>
+                  <td>Unknown</td>
+                  <td>Protocol error (Runtime.callFunctionOn): Argument should belong to the same JavaScript world as target object</td>
+                </tr>
+              
+            </tbody>
+          </table>
+        </div>
+      
+      
+      
+    </div>
+  
+    <div id="document-comparison" class="page-test has-errors">
+      <h2>https://findoc-deploy.ey.r.appspot.com/document-comparison ❌</h2>
+      
+      <div class="section">
+        <h3>Screenshot</h3>
+        <img src="document-comparison.png" alt="https://findoc-deploy.ey.r.appspot.com/document-comparison" class="screenshot">
+      </div>
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+        <div class="section">
+          <h3>Broken Links</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>Href</th>
+                <th>Text</th>
+              </tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>#</td>
+                  <td>
+                    
+                    Export
+                  </td>
+                </tr>
+              
+                <tr>
+                  <td>#</td>
+                  <td>
+                    
+                    Refresh
+                  </td>
+                </tr>
+              
+            </tbody>
+          </table>
+        </div>
+      
+      
+      
+      
+      
+        <div class="section">
+          <h3>Interactive Elements Issues</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>Type</th>
+                <th>Identifier</th>
+                <th>Issue</th>
+              </tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>button</td>
+                  <td>Unknown</td>
+                  <td>Execution context was destroyed, most likely because of a navigation.</td>
+                </tr>
+              
+                <tr>
+                  <td>button</td>
+                  <td>Unknown</td>
+                  <td>Protocol error (Runtime.callFunctionOn): Argument should belong to the same JavaScript world as target object</td>
+                </tr>
+              
+                <tr>
+                  <td>button</td>
+                  <td>Unknown</td>
+                  <td>Protocol error (Runtime.callFunctionOn): Argument should belong to the same JavaScript world as target object</td>
+                </tr>
+              
+                <tr>
+                  <td>button</td>
+                  <td>Unknown</td>
+                  <td>Protocol error (Runtime.callFunctionOn): Argument should belong to the same JavaScript world as target object</td>
+                </tr>
+              
+                <tr>
+                  <td>button</td>
+                  <td>Unknown</td>
+                  <td>Protocol error (Runtime.callFunctionOn): Argument should belong to the same JavaScript world as target object</td>
+                </tr>
+              
+                <tr>
+                  <td>button</td>
+                  <td>Unknown</td>
+                  <td>Protocol error (Runtime.callFunctionOn): Argument should belong to the same JavaScript world as target object</td>
+                </tr>
+              
+                <tr>
+                  <td>button</td>
+                  <td>Unknown</td>
+                  <td>Protocol error (Runtime.callFunctionOn): Argument should belong to the same JavaScript world as target object</td>
+                </tr>
+              
+                <tr>
+                  <td>button</td>
+                  <td>Unknown</td>
+                  <td>Protocol error (Runtime.callFunctionOn): Argument should belong to the same JavaScript world as target object</td>
+                </tr>
+              
+                <tr>
+                  <td>button</td>
+                  <td>Unknown</td>
+                  <td>Protocol error (Runtime.callFunctionOn): Argument should belong to the same JavaScript world as target object</td>
+                </tr>
+              
+                <tr>
+                  <td>button</td>
+                  <td>Unknown</td>
+                  <td>Protocol error (Runtime.callFunctionOn): Argument should belong to the same JavaScript world as target object</td>
+                </tr>
+              
+            </tbody>
+          </table>
+        </div>
+      
+      
+      
+    </div>
+  
+    <div id="upload" class="page-test has-errors">
+      <h2>https://findoc-deploy.ey.r.appspot.com/upload ❌</h2>
+      
+      <div class="section">
+        <h3>Screenshot</h3>
+        <img src="upload.png" alt="https://findoc-deploy.ey.r.appspot.com/upload" class="screenshot">
+      </div>
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+        <div class="section">
+          <h3>Broken Links</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>Href</th>
+                <th>Text</th>
+              </tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>#</td>
+                  <td>
+                    
+                    Export
+                  </td>
+                </tr>
+              
+                <tr>
+                  <td>#</td>
+                  <td>
+                    
+                    Refresh
+                  </td>
+                </tr>
+              
+            </tbody>
+          </table>
+        </div>
+      
+      
+      
+      
+      
+        <div class="section">
+          <h3>Interactive Elements Issues</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>Type</th>
+                <th>Identifier</th>
+                <th>Issue</th>
+              </tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>button</td>
+                  <td>Unknown</td>
+                  <td>Execution context was destroyed, most likely because of a navigation.</td>
+                </tr>
+              
+                <tr>
+                  <td>button</td>
+                  <td>Unknown</td>
+                  <td>Protocol error (Runtime.callFunctionOn): Argument should belong to the same JavaScript world as target object</td>
+                </tr>
+              
+                <tr>
+                  <td>button</td>
+                  <td>Unknown</td>
+                  <td>Protocol error (Runtime.callFunctionOn): Argument should belong to the same JavaScript world as target object</td>
+                </tr>
+              
+                <tr>
+                  <td>button</td>
+                  <td>Unknown</td>
+                  <td>Protocol error (Runtime.callFunctionOn): Argument should belong to the same JavaScript world as target object</td>
+                </tr>
+              
+                <tr>
+                  <td>button</td>
+                  <td>Unknown</td>
+                  <td>Protocol error (Runtime.callFunctionOn): Argument should belong to the same JavaScript world as target object</td>
+                </tr>
+              
+                <tr>
+                  <td>button</td>
+                  <td>Unknown</td>
+                  <td>Protocol error (Runtime.callFunctionOn): Argument should belong to the same JavaScript world as target object</td>
+                </tr>
+              
+                <tr>
+                  <td>button</td>
+                  <td>Unknown</td>
+                  <td>Protocol error (Runtime.callFunctionOn): Argument should belong to the same JavaScript world as target object</td>
+                </tr>
+              
+                <tr>
+                  <td>button</td>
+                  <td>Unknown</td>
+                  <td>Protocol error (Runtime.callFunctionOn): Argument should belong to the same JavaScript world as target object</td>
+                </tr>
+              
+                <tr>
+                  <td>button</td>
+                  <td>Unknown</td>
+                  <td>Protocol error (Runtime.callFunctionOn): Argument should belong to the same JavaScript world as target object</td>
+                </tr>
+              
+                <tr>
+                  <td>button</td>
+                  <td>Unknown</td>
+                  <td>Protocol error (Runtime.callFunctionOn): Argument should belong to the same JavaScript world as target object</td>
+                </tr>
+              
+            </tbody>
+          </table>
+        </div>
+      
+      
+      
+    </div>
+  
+  
+  <script>
+    var coll = document.getElementsByClassName("collapsible");
+    var i;
+
+    for (i = 0; i < coll.length; i++) {
+      coll[i].addEventListener("click", function() {
+        this.classList.toggle("active");
+        var content = this.nextElementSibling;
+        if (content.style.maxHeight){
+          content.style.maxHeight = null;
+        } else {
+          content.style.maxHeight = content.scrollHeight + "px";
+        } 
+      });
+    }
+  </script>
+</body>
+</html>

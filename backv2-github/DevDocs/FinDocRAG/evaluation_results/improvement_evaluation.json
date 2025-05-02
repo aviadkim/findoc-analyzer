@@ -1,0 +1,65 @@
+{
+  "evaluation_date": "2025-04-23T13:32:47.457416",
+  "results": [
+    {
+      "component": "Advanced Image Processing",
+      "improvements": [
+        "Enhanced OCR with language support",
+        "Multiple table detection methods (line, grid, contour)",
+        "Advanced preprocessing for better image quality",
+        "Grid structure analysis for tables",
+        "Cell-level text extraction",
+        "Deskewing and noise removal",
+        "Adaptive thresholding for better contrast",
+        "Table boundary detection"
+      ],
+      "score": 85,
+      "grade": "A-"
+    },
+    {
+      "component": "Enhanced Table Analysis",
+      "improvements": [
+        "Financial column type detection",
+        "Table type classification",
+        "Header and footer row detection",
+        "Security row identification",
+        "Pattern-based column recognition",
+        "Content-based column type inference",
+        "Financial entity recognition",
+        "Table structure understanding"
+      ],
+      "score": 90,
+      "grade": "A"
+    },
+    {
+      "component": "Improved Securities Extraction",
+      "improvements": [
+        "Multi-method extraction approach",
+        "Security merging and deduplication",
+        "Field normalization",
+        "Context-aware extraction",
+        "ISIN-based security identification",
+        "Multi-format document support",
+        "Enhanced numeric value parsing",
+        "Percentage and currency handling"
+      ],
+      "score": 95,
+      "grade": "A+"
+    },
+    {
+      "component": "Financial Document Processor",
+      "improvements": [
+        "Document type detection",
+        "Portfolio summary extraction",
+        "Portfolio analysis",
+        "Multi-format document support",
+        "Comprehensive processing pipeline",
+        "Detailed results reporting",
+        "Asset allocation extraction",
+        "Currency breakdown analysis"
+      ],
+      "score": 92,
+      "grade": "A"
+    }
+  ]
+}

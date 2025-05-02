@@ -1,0 +1,261 @@
+{
+  "document_type": "portfolio_statement",
+  "securities": [
+    {
+      "name": "ASML HOLDING NV",
+      "isin": "NL0010273215",
+      "type": "Equity",
+      "sector": "Technology",
+      "region": "Europe",
+      "quantity": 67,
+      "price": 993.6450908663711,
+      "value": 66574.22108804686,
+      "weight": 5.346842031726332,
+      "currency": "JPY"
+    },
+    {
+      "name": "GOLDMAN SACHS 0% NOTES 23-07.11.29 SERIES P",
+      "isin": "XS2692298537",
+      "type": "Bond",
+      "sector": "Corporate",
+      "region": "North America",
+      "quantity": 181.26,
+      "price": 97.57459956800106,
+      "value": 17686.371917695873,
+      "weight": 1.4139761346923936,
+      "currency": "EUR"
+    },
+    {
+      "name": "ISHARES CORE EURO STOXX 50 ETF",
+      "isin": "IE0008471009",
+      "type": "Fund",
+      "sector": "Equity",
+      "region": "Europe",
+      "quantity": 25,
+      "price": 605.2309087016974,
+      "value": 15130.772717542437,
+      "weight": 1.229495230963562,
+      "currency": "USD"
+    },
+    {
+      "name": "VISA INC-CLASS A",
+      "isin": "US92826C8394",
+      "type": "Equity",
+      "sector": "Financial",
+      "region": "North America",
+      "quantity": 381,
+      "price": 195.7435740911072,
+      "value": 74578.30172871184,
+      "weight": 5.968665465248316,
+      "currency": "JPY"
+    },
+    {
+      "name": "AMAZON.COM INC 2.5% 29/11/2022",
+      "isin": "US023135AJ58",
+      "type": "Bond",
+      "sector": "Corporate",
+      "region": "North America",
+      "quantity": 1000.43,
+      "price": 109.07191730270898,
+      "value": 109118.81822714914,
+      "weight": 8.723655904025994,
+      "currency": "CHF"
+    },
+    {
+      "name": "TORONTO DOMINION BANK NOTES 23-23.02.27 REG-S VRN",
+      "isin": "XS2530507273",
+      "type": "Bond",
+      "sector": "Corporate",
+      "region": "North America",
+      "quantity": 387.61,
+      "price": 99.3776110736609,
+      "value": 38519.7558282617,
+      "weight": 3.0795283433044958,
+      "currency": "GBP"
+    },
+    {
+      "name": "TESLA INC",
+      "isin": "US88160R1014",
+      "type": "Equity",
+      "sector": "Consumer",
+      "region": "North America",
+      "quantity": 371,
+      "price": 146.15370437627857,
+      "value": 54223.02432359935,
+      "weight": 4.337151038691871,
+      "currency": "JPY"
+    },
+    {
+      "name": "LVMH MOET HENNESSY LOUIS VUI",
+      "isin": "FR0000121014",
+      "type": "Equity",
+      "sector": "Consumer",
+      "region": "Europe",
+      "quantity": 3302,
+      "price": 30.509162581088738,
+      "value": 100741.254842755,
+      "weight": 8.054812799279487,
+      "currency": "USD"
+    },
+    {
+      "name": "VANGUARD TOTAL BOND MARKET ETF",
+      "isin": "US9219378356",
+      "type": "Fund",
+      "sector": "Bond",
+      "region": "North America",
+      "quantity": 105,
+      "price": 973.8854083658024,
+      "value": 102257.96787840925,
+      "weight": 8.19291533951164,
+      "currency": "CHF"
+    },
+    {
+      "name": "ISHARES CORE MSCI EMERGING MARKETS ETF",
+      "isin": "US46434G1031",
+      "type": "Fund",
+      "sector": "Equity",
+      "region": "Emerging Markets",
+      "quantity": 14,
+      "price": 733.6340636725093,
+      "value": 10270.876891415131,
+      "weight": 0.8455053568568391,
+      "currency": "CHF"
+    },
+    {
+      "name": "APPLE INC 2.4% 03/05/2023",
+      "isin": "US037833AK68",
+      "type": "Bond",
+      "sector": "Corporate",
+      "region": "North America",
+      "quantity": 339.41,
+      "price": 97.60901189999429,
+      "value": 33129.47472897706,
+      "weight": 2.6485550783624334,
+      "currency": "USD"
+    },
+    {
+      "name": "ALPHABET INC-CL A",
+      "isin": "US02079K3059",
+      "type": "Equity",
+      "sector": "Technology",
+      "region": "North America",
+      "quantity": 125,
+      "price": 321.8903694122917,
+      "value": 40236.29617653646,
+      "weight": 3.2164931984861913,
+      "currency": "EUR"
+    },
+    {
+      "name": "ROCHE HOLDING AG-GENUSSCHEIN",
+      "isin": "CH0012032048",
+      "type": "Equity",
+      "sector": "Healthcare",
+      "region": "Europe",
+      "quantity": 229,
+      "price": 475.4688079333178,
+      "value": 108882.35701672977,
+      "weight": 8.71481169767761,
+      "currency": "JPY"
+    },
+    {
+      "name": "GERMANY 0% 15/08/2050",
+      "isin": "DE0001102481",
+      "type": "Bond",
+      "sector": "Government",
+      "region": "Europe",
+      "quantity": 466.67,
+      "price": 103.42062441251342,
+      "value": 48263.30279458764,
+      "weight": 3.8584553483350583,
+      "currency": "JPY"
+    },
+    {
+      "name": "AMAZON.COM INC",
+      "isin": "US0231351067",
+      "type": "Equity",
+      "sector": "Consumer",
+      "region": "North America",
+      "quantity": 98,
+      "price": 659.7768896679243,
+      "value": 64658.13518745657,
+      "weight": 5.174950497750183,
+      "currency": "CHF"
+    },
+    {
+      "name": "NVIDIA CORP",
+      "isin": "US67066G1040",
+      "type": "Equity",
+      "sector": "Technology",
+      "region": "North America",
+      "quantity": 966,
+      "price": 77.4865563112048,
+      "value": 74852.01339662384,
+      "weight": 5.98229812443588,
+      "currency": "JPY"
+    },
+    {
+      "name": "NESTLE SA-REG",
+      "isin": "CH0038863350",
+      "type": "Equity",
+      "sector": "Consumer",
+      "region": "Europe",
+      "quantity": 436,
+      "price": 160.436082046907,
+      "value": 69950.13177245145,
+      "weight": 5.586318718508635,
+      "currency": "USD"
+    },
+    {
+      "name": "APPLE INC",
+      "isin": "US0378331005",
+      "type": "Equity",
+      "sector": "Technology",
+      "region": "North America",
+      "quantity": 122,
+      "price": 178.6653119210278,
+      "value": 21797.168054365393,
+      "weight": 1.7355162110096127,
+      "currency": "GBP"
+    },
+    {
+      "name": "JPMORGAN CHASE & CO",
+      "isin": "US46625H1005",
+      "type": "Equity",
+      "sector": "Financial",
+      "region": "North America",
+      "quantity": 137,
+      "price": 594.9955069127632,
+      "value": 81514.38444704855,
+      "weight": 6.534452319120241,
+      "currency": "USD"
+    },
+    {
+      "name": "US TREASURY 1.875% 15/02/2051",
+      "isin": "US912810SL35",
+      "type": "Bond",
+      "sector": "Government",
+      "region": "North America",
+      "quantity": 1077.02,
+      "price": 108.65452461441956,
+      "value": 117023.09610022214,
+      "weight": 9.35560116201322,
+      "currency": "USD"
+    }
+  ],
+  "portfolio_summary": {
+    "total_value": 1249407.7251185854,
+    "currency": "USD",
+    "valuation_date": "11.11.2024"
+  },
+  "asset_allocation": {
+    "Equity": {
+      "percentage": 60.65
+    },
+    "Fixed Income": {
+      "percentage": 29.08
+    },
+    "Fund": {
+      "percentage": 10.27
+    }
+  }
+}

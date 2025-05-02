@@ -1,0 +1,25 @@
+# Core dependencies
+flask==2.3.3
+flask-cors==4.0.0
+gunicorn==21.2.0
+
+# Google Agent Technologies
+google-generativeai==0.3.1
+python-dotenv==1.0.0
+requests==2.31.0
+pydantic==2.5.2
+
+# Document processing
+pymupdf==1.23.8
+pdf2image==1.16.3
+pytesseract==0.3.10
+pandas==2.1.1
+numpy==1.26.0
+
+# Table extraction
+camelot-py==0.11.0
+tabula-py==2.8.2
+opencv-python-headless==4.8.1.78
+
+# Excel processing
+openpyxl==3.1.2

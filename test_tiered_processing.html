@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tiered PDF Processing Test</title>
+    <script src="https://mozilla.github.io/pdf.js/build/pdf.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1, h2, h3 {
+            color: #333;
+        }
+        .section {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        #result {
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: #f9f9f9;
+            white-space: pre-wrap;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        .status {
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 4px;
+        }
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .info {
+            background-color: #e2f0fb;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .tier {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        .tier-1 {
+            background-color: #28a745;
+            color: white;
+        }
+        .tier-2 {
+            background-color: #ffc107;
+            color: black;
+        }
+        .tier-3 {
+            background-color: #dc3545;
+            color: white;
+        }
+        #pdf-preview {
+            width: 100%;
+            height: 300px;
+            border: 1px solid #ddd;
+            margin-top: 10px;
+        }
+        .metrics {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .metric {
+            flex: 1;
+            min-width: 150px;
+            padding: 10px;
+            background-color: #f5f5f5;
+            border-radius: 4px;
+            text-align: center;
+        }
+        .metric-value {
+            font-size: 24px;
+            font-weight: bold;
+            margin: 5px 0;
+        }
+        .metric-label {
+            font-size: 12px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <h1>Tiered PDF Processing Test</h1>
+    
+    <div class="section">
+        <h2>Step 1: Upload PDF</h2>
+        <p>Select a PDF file to analyze and process:</p>
+        <input type="file" id="pdf-file" accept=".pdf">
+        <div id="upload-status"></div>
+    </div>
+    
+    <div class="section" id="analysis-section" style="display: none;">
+        <h2>Step 2: Document Analysis</h2>
+        <button id="analyze-btn">Analyze Document</button>
+        <div id="analysis-status"></div>
+        
+        <div class="metrics" id="metrics" style="display: none;">
+            <div class="metric">
+                <div class="metric-value" id="page-count">-</div>
+                <div class="metric-label">Pages</div>
+            </div>
+            <div class="metric">
+                <div class="metric-value" id="file-size">-</div>
+                <div class="metric-label">File Size</div>
+            </div>
+            <div class="metric">
+                <div class="metric-value" id="text-count">-</div>
+                <div class="metric-label">Text Elements</div>
+            </div>
+            <div class="metric">
+                <div class="metric-value" id="image-count">-</div>
+                <div class="metric-label">Images</div>
+            </div>
+        </div>
+        
+        <div id="tier-result" style="margin-top: 20px; display: none;">
+            <h3>Processing Tier:</h3>
+            <div id="tier-badge"></div>
+            <p id="tier-explanation"></p>
+        </div>
+    </div>
+    
+    <div class="section" id="processing-section" style="display: none;">
+        <h2>Step 3: Document Processing</h2>
+        <button id="process-btn">Process Document</button>
+        <div id="processing-status"></div>
+        
+        <div id="processing-result" style="display: none;">
+            <h3>Processing Results:</h3>
+            <div id="extracted-data"></div>
+        </div>
+    </div>
+    
+    <div id="result"></div>
+    
+    <script>
+        // Initialize PDF.js
+        const pdfjsLib = window['pdfjs-dist/build/pdf'];
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://mozilla.github.io/pdf.js/build/pdf.worker.js';
+        
+        // Store the PDF file
+        let pdfFile = null;
+        let pdfData = null;
+        let processingTier = null;
+        
+        // Handle file upload
+        document.getElementById('pdf-file').addEventListener('change', (event) => {
+            const file = event.target.files[0];
+            if (file && file.type === 'application/pdf') {
+                pdfFile = file;
+                document.getElementById('upload-status').innerHTML = `
+                    <div class="status success">
+                        File "${file.name}" (${formatFileSize(file.size)}) uploaded successfully.
+                    </div>
+                `;
+                document.getElementById('analysis-section').style.display = 'block';
+            } else {
+                document.getElementById('upload-status').innerHTML = `
+                    <div class="status error">
+                        Please select a valid PDF file.
+                    </div>
+                `;
+            }
+        });
+        
+        // Analyze document
+        document.getElementById('analyze-btn').addEventListener('click', async () => {
+            if (!pdfFile) {
+                document.getElementById('analysis-status').innerHTML = `
+                    <div class="status error">
+                        Please upload a PDF file first.
+                    </div>
+                `;
+                return;
+            }
+            
+            try {
+                document.getElementById('analysis-status').innerHTML = `
+                    <div class="status info">
+                        Analyzing document...
+                    </div>
+                `;
+                
+                // Read the PDF file
+                const arrayBuffer = await readFileAsArrayBuffer(pdfFile);
+                
+                // Load the PDF document
+                const pdf = await pdfjsLib.getDocument(arrayBuffer).promise;
+                
+                // Get document info
+                const numPages = pdf.numPages;
+                const fileSize = pdfFile.size;
+                
+                // Count text and image elements (simplified)
+                let textCount = 0;
+                let imageCount = 0;
+                
+                // Process first page to estimate content
+                const page = await pdf.getPage(1);
+                const textContent = await page.getTextContent();
+                textCount = textContent.items.length;
+                
+                // Simulate image detection (in a real implementation, we would analyze the page objects)
+                const operatorList = await page.getOperatorList();
+                imageCount = Math.floor(operatorList.fnArray.length / 100); // Very rough approximation
+                
+                // Update metrics
+                document.getElementById('page-count').textContent = numPages;
+                document.getElementById('file-size').textContent = formatFileSize(fileSize);
+                document.getElementById('text-count').textContent = textCount;
+                document.getElementById('image-count').textContent = imageCount;
+                document.getElementById('metrics').style.display = 'flex';
+                
+                // Determine processing tier
+                determineTier(numPages, fileSize, textCount, imageCount);
+                
+                // Store PDF data for processing
+                pdfData = {
+                    numPages,
+                    fileSize,
+                    textCount,
+                    imageCount
+                };
+                
+                // Show processing section
+                document.getElementById('processing-section').style.display = 'block';
+                
+                // Update status
+                document.getElementById('analysis-status').innerHTML = `
+                    <div class="status success">
+                        Document analysis completed successfully.
+                    </div>
+                `;
+            } catch (error) {
+                console.error('Error:', error);
+                document.getElementById('analysis-status').innerHTML = `
+                    <div class="status error">
+                        Error analyzing document: ${error.message}
+                    </div>
+                `;
+            }
+        });
+        
+        // Process document
+        document.getElementById('process-btn').addEventListener('click', async () => {
+            if (!pdfData || !processingTier) {
+                document.getElementById('processing-status').innerHTML = `
+                    <div class="status error">
+                        Please analyze the document first.
+                    </div>
+                `;
+                return;
+            }
+            
+            try {
+                document.getElementById('processing-status').innerHTML = `
+                    <div class="status info">
+                        Processing document using Tier ${processingTier}...
+                    </div>
+                `;
+                
+                // Simulate processing based on tier
+                let processingResult;
+                
+                switch (processingTier) {
+                    case 1:
+                        // Tier 1: Browser-based processing (fast)
+                        processingResult = await simulateBrowserProcessing(pdfFile, pdfData);
+                        break;
+                    case 2:
+                        // Tier 2: Server-based processing (medium)
+                        processingResult = await simulateServerProcessing(pdfFile, pdfData);
+                        break;
+                    case 3:
+                        // Tier 3: Cloud-based processing (comprehensive)
+                        processingResult = await simulateCloudProcessing(pdfFile, pdfData);
+                        break;
+                }
+                
+                // Display processing results
+                document.getElementById('extracted-data').innerHTML = `
+                    <h4>Extracted Data:</h4>
+                    <pre>${JSON.stringify(processingResult, null, 2)}</pre>
+                `;
+                document.getElementById('processing-result').style.display = 'block';
+                
+                // Update status
+                document.getElementById('processing-status').innerHTML = `
+                    <div class="status success">
+                        Document processing completed successfully using Tier ${processingTier}.
+                    </div>
+                `;
+                
+                // Log full results
+                document.getElementById('result').textContent = JSON.stringify({
+                    documentInfo: pdfData,
+                    processingTier,
+                    processingResult
+                }, null, 2);
+            } catch (error) {
+                console.error('Error:', error);
+                document.getElementById('processing-status').innerHTML = `
+                    <div class="status error">
+                        Error processing document: ${error.message}
+                    </div>
+                `;
+            }
+        });
+        
+        // Helper function to read file as ArrayBuffer
+        function readFileAsArrayBuffer(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onload = () => resolve(reader.result);
+                reader.onerror = reject;
+                reader.readAsArrayBuffer(file);
+            });
+        }
+        
+        // Helper function to format file size
+        function formatFileSize(bytes) {
+            if (bytes < 1024) return bytes + ' bytes';
+            if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(2) + ' KB';
+            return (bytes / (1024 * 1024)).toFixed(2) + ' MB';
+        }
+        
+        // Determine processing tier based on document complexity
+        function determineTier(numPages, fileSize, textCount, imageCount) {
+            // Calculate complexity score (simplified)
+            const pageFactor = numPages <= 5 ? 1 : numPages <= 20 ? 2 : 3;
+            const sizeFactor = fileSize <= 1000000 ? 1 : fileSize <= 5000000 ? 2 : 3;
+            const contentFactor = textCount <= 100 ? 1 : textCount <= 500 ? 2 : 3;
+            const imageFactor = imageCount <= 2 ? 1 : imageCount <= 10 ? 2 : 3;
+            
+            const complexityScore = (pageFactor + sizeFactor + contentFactor + imageFactor) / 4;
+            
+            // Determine tier
+            if (complexityScore <= 1.5) {
+                processingTier = 1; // Browser-based processing
+                tierDescription = "Simple document that can be processed directly in the browser. Fast and efficient.";
+                tierClass = "tier-1";
+            } else if (complexityScore <= 2.5) {
+                processingTier = 2; // Server-based processing
+                tierDescription = "Medium complexity document that requires server-side processing. Good balance of speed and accuracy.";
+                tierClass = "tier-2";
+            } else {
+                processingTier = 3; // Cloud-based processing
+                tierDescription = "Complex document that requires advanced cloud processing. Highest accuracy for complex layouts.";
+                tierClass = "tier-3";
+            }
+            
+            // Update UI
+            document.getElementById('tier-badge').innerHTML = `
+                <span class="tier ${tierClass}">Tier ${processingTier}</span>
+            `;
+            document.getElementById('tier-explanation').textContent = tierDescription;
+            document.getElementById('tier-result').style.display = 'block';
+        }
+        
+        // Simulate browser-based processing
+        async function simulateBrowserProcessing(file, data) {
+            // Simulate processing delay
+            await new Promise(resolve => setTimeout(resolve, 1000));
+            
+            // Return simulated results
+            return {
+                documentType: "Investment Portfolio Statement",
+                metadata: {
+                    title: file.name,
+                    author: "System",
+                    creationDate: new Date().toISOString()
+                },
+                content: {
+                    text: "Simulated extracted text from browser processing...",
+                    tables: [
+                        {
+                            title: "Securities",
+                            headers: ["Name", "ISIN", "Quantity", "Value"],
+                            rows: [
+                                ["APPLE INC", "US0378331005", "500", "$85,000.00"],
+                                ["MICROSOFT CORP", "US5949181045", "300", "$102,000.00"]
+                            ]
+                        }
+                    ]
+                },
+                processingDetails: {
+                    tier: 1,
+                    duration: "1.2 seconds",
+                    accuracy: "85%"
+                }
+            };
+        }
+        
+        // Simulate server-based processing
+        async function simulateServerProcessing(file, data) {
+            // Simulate processing delay
+            await new Promise(resolve => setTimeout(resolve, 2000));
+            
+            // Return simulated results
+            return {
+                documentType: "Investment Portfolio Statement",
+                metadata: {
+                    title: file.name,
+                    author: "System",
+                    creationDate: new Date().toISOString(),
+                    keywords: ["investment", "portfolio", "securities"]
+                },
+                content: {
+                    text: "Simulated extracted text from server processing with more detail...",
+                    tables: [
+                        {
+                            title: "Securities",
+                            headers: ["Name", "ISIN", "Quantity", "Value", "Weight"],
+                            rows: [
+                                ["APPLE INC", "US0378331005", "500", "$85,000.00", "6.8%"],
+                                ["MICROSOFT CORP", "US5949181045", "300", "$102,000.00", "8.16%"],
+                                ["AMAZON.COM INC", "US0231351067", "100", "$95,000.00", "7.6%"]
+                            ]
+                        },
+                        {
+                            title: "Asset Allocation",
+                            headers: ["Asset Class", "Percentage"],
+                            rows: [
+                                ["Equity", "45%"],
+                                ["Fixed Income", "30%"],
+                                ["Cash", "15%"],
+                                ["Alternative", "10%"]
+                            ]
+                        }
+                    ],
+                    entities: [
+                        { type: "company", name: "APPLE INC", isin: "US0378331005" },
+                        { type: "company", name: "MICROSOFT CORP", isin: "US5949181045" },
+                        { type: "company", name: "AMAZON.COM INC", isin: "US0231351067" }
+                    ]
+                },
+                processingDetails: {
+                    tier: 2,
+                    duration: "3.5 seconds",
+                    accuracy: "92%"
+                }
+            };
+        }
+        
+        // Simulate cloud-based processing
+        async function simulateCloudProcessing(file, data) {
+            // Simulate processing delay
+            await new Promise(resolve => setTimeout(resolve, 3000));
+            
+            // Return simulated results
+            return {
+                documentType: "Investment Portfolio Statement",
+                metadata: {
+                    title: file.name,
+                    author: "System",
+                    creationDate: new Date().toISOString(),
+                    keywords: ["investment", "portfolio", "securities", "financial", "statement"],
+                    confidence: 0.98
+                },
+                content: {
+                    text: "Comprehensive extracted text from cloud processing with highest detail and accuracy...",
+                    tables: [
+                        {
+                            title: "Securities Holdings",
+                            headers: ["Name", "ISIN", "Quantity", "Value", "Weight"],
+                            rows: [
+                                ["APPLE INC", "US0378331005", "500", "$85,000.00", "6.8%"],
+                                ["MICROSOFT CORP", "US5949181045", "300", "$102,000.00", "8.16%"],
+                                ["AMAZON.COM INC", "US0231351067", "100", "$95,000.00", "7.6%"],
+                                ["US TREASURY 2.5% 15/02/2045", "US912810RK35", "200,000", "$198,000.00", "15.84%"],
+                                ["GOLDMAN SACHS 0% NOTES 23-07.11.29", "XS2692298537", "150,000", "$147,000.00", "11.76%"]
+                            ]
+                        },
+                        {
+                            title: "Asset Allocation",
+                            headers: ["Asset Class", "Percentage"],
+                            rows: [
+                                ["Equity", "45%"],
+                                ["Fixed Income", "30%"],
+                                ["Cash", "15%"],
+                                ["Alternative", "10%"]
+                            ]
+                        },
+                        {
+                            title: "Portfolio Summary",
+                            headers: ["Metric", "Value"],
+                            rows: [
+                                ["Total Value", "USD 1,250,000.00"],
+                                ["Currency", "USD"],
+                                ["Valuation Date", "28.02.2025"]
+                            ]
+                        }
+                    ],
+                    entities: [
+                        { type: "company", name: "APPLE INC", isin: "US0378331005", sector: "Technology", region: "North America" },
+                        { type: "company", name: "MICROSOFT CORP", isin: "US5949181045", sector: "Technology", region: "North America" },
+                        { type: "company", name: "AMAZON.COM INC", isin: "US0231351067", sector: "Consumer", region: "North America" },
+                        { type: "bond", name: "US TREASURY 2.5% 15/02/2045", isin: "US912810RK35", issuer: "US Treasury", maturity: "2045-02-15" },
+                        { type: "bond", name: "GOLDMAN SACHS 0% NOTES 23-07.11.29", isin: "XS2692298537", issuer: "Goldman Sachs", maturity: "2029-11-07" }
+                    ],
+                    relationships: [
+                        { entity1: "APPLE INC", relation: "part_of", entity2: "Technology Sector" },
+                        { entity1: "MICROSOFT CORP", relation: "part_of", entity2: "Technology Sector" },
+                        { entity1: "AMAZON.COM INC", relation: "part_of", entity2: "Consumer Sector" }
+                    ],
+                    summary: "This is an investment portfolio statement dated February 28, 2025, with a total value of USD 1,250,000.00. The portfolio consists of stocks (45%), bonds (30%), cash (15%), and alternative investments (10%). Major holdings include Microsoft, Apple, Amazon, US Treasury bonds, and Goldman Sachs notes."
+                },
+                analysis: {
+                    portfolioMetrics: {
+                        totalValue: 1250000,
+                        currency: "USD",
+                        assetAllocation: {
+                            equity: 0.45,
+                            fixedIncome: 0.30,
+                            cash: 0.15,
+                            alternative: 0.10
+                        },
+                        topHoldings: [
+                            { name: "US TREASURY 2.5% 15/02/2045", percentage: 0.1584 },
+                            { name: "GOLDMAN SACHS 0% NOTES 23-07.11.29", percentage: 0.1176 },
+                            { name: "MICROSOFT CORP", percentage: 0.0816 }
+                        ],
+                        sectorExposure: {
+                            technology: 0.1496,
+                            consumer: 0.076,
+                            government: 0.1584,
+                            financial: 0.1176
+                        }
+                    },
+                    insights: [
+                        "The portfolio has a significant allocation to technology stocks (14.96%).",
+                        "Fixed income is dominated by government and investment-grade corporate bonds.",
+                        "The portfolio is well-diversified across asset classes."
+                    ]
+                },
+                processingDetails: {
+                    tier: 3,
+                    duration: "8.2 seconds",
+                    accuracy: "98%",
+                    aiModelsUsed: ["DocumentAI", "FinBERT", "TableTransformer"]
+                }
+            };
+        }
+    </script>
+</body>
+</html>

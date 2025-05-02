@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FinDoc Analyzer Test Report</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      color: #333;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    h1, h2, h3 {
+      color: #2c3e50;
+    }
+    .page-test {
+      margin-bottom: 40px;
+      padding: 20px;
+      background-color: #f8f9fa;
+      border-radius: 5px;
+    }
+    .screenshot {
+      max-width: 100%;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      margin-bottom: 20px;
+    }
+    .section {
+      margin-bottom: 20px;
+    }
+    .result-badge {
+      display: inline-block;
+      padding: 5px 10px;
+      border-radius: 3px;
+      margin-right: 10px;
+      margin-bottom: 10px;
+    }
+    .result-badge.success {
+      background-color: #d4edda;
+      color: #155724;
+    }
+    .result-badge.failure {
+      background-color: #f8d7da;
+      color: #721c24;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+    th, td {
+      padding: 8px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+    th {
+      background-color: #f2f2f2;
+    }
+  </style>
+</head>
+<body>
+  <h1>FinDoc Analyzer Test Report</h1>
+  
+  <div class="section">
+    <h2>Summary</h2>
+    <p>This report documents the results of testing the FinDoc Analyzer application after deployment.</p>
+    
+    <h3>Pages Tested</h3>
+    <ul>
+      <li><a href="#homepage">https://findoc-deploy.ey.r.appspot.com/</a> - ✅ Pass</li><li><a href="#documents-new">https://findoc-deploy.ey.r.appspot.com/documents-new</a> - ✅ Pass</li><li><a href="#analytics-new">https://findoc-deploy.ey.r.appspot.com/analytics-new</a> - ✅ Pass</li><li><a href="#feedback">https://findoc-deploy.ey.r.appspot.com/feedback</a> - ✅ Pass</li><li><a href="#document-comparison">https://findoc-deploy.ey.r.appspot.com/document-comparison</a> - ✅ Pass</li>
+    </ul>
+  </div>
+  
+  
+    <div id="homepage" class="page-test">
+      <h2>https://findoc-deploy.ey.r.appspot.com/</h2>
+      
+      <div class="section">
+        <h3>Screenshot</h3>
+        <img src="01-homepage.png" alt="https://findoc-deploy.ey.r.appspot.com/" class="screenshot">
+      </div>
+      
+      <div class="section">
+        <h3>Title</h3>
+        <p>
+          <span class="result-badge success">
+            Pass
+          </span>
+          Expected: Homepage to include "undefined"
+          <br>
+          Actual: "FinDoc Analyzer - Financial Document Analysis"
+        </p>
+      </div>
+      
+      <div class="section">
+        <h3>Elements</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Selector</th>
+              <th>Result</th>
+            </tr>
+          </thead>
+          <tbody>
+            
+              <tr>
+                <td>.sidebar</td>
+                <td>
+                  <span class="result-badge success">
+                    Found
+                  </span>
+                </td>
+              </tr>
+            
+              <tr>
+                <td>.main-content</td>
+                <td>
+                  <span class="result-badge success">
+                    Found
+                  </span>
+                </td>
+              </tr>
+            
+              <tr>
+                <td>.dashboard-header</td>
+                <td>
+                  <span class="result-badge failure">
+                    Not Found
+                  </span>
+                </td>
+              </tr>
+            
+          </tbody>
+        </table>
+      </div>
+    </div>
+  
+    <div id="documents-new" class="page-test">
+      <h2>https://findoc-deploy.ey.r.appspot.com/documents-new</h2>
+      
+      <div class="section">
+        <h3>Screenshot</h3>
+        <img src="documents-new.png" alt="https://findoc-deploy.ey.r.appspot.com/documents-new" class="screenshot">
+      </div>
+      
+      <div class="section">
+        <h3>Title</h3>
+        <p>
+          <span class="result-badge success">
+            Pass
+          </span>
+          Expected: documents-new to include "undefined"
+          <br>
+          Actual: "FinDoc Analyzer - Financial Document Analysis"
+        </p>
+      </div>
+      
+      <div class="section">
+        <h3>Elements</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Selector</th>
+              <th>Result</th>
+            </tr>
+          </thead>
+          <tbody>
+            
+              <tr>
+                <td>.documents-page</td>
+                <td>
+                  <span class="result-badge failure">
+                    Not Found
+                  </span>
+                </td>
+              </tr>
+            
+              <tr>
+                <td>.document-grid</td>
+                <td>
+                  <span class="result-badge success">
+                    Found
+                  </span>
+                </td>
+              </tr>
+            
+              <tr>
+                <td>.document-card</td>
+                <td>
+                  <span class="result-badge success">
+                    Found
+                  </span>
+                </td>
+              </tr>
+            
+          </tbody>
+        </table>
+      </div>
+    </div>
+  
+    <div id="analytics-new" class="page-test">
+      <h2>https://findoc-deploy.ey.r.appspot.com/analytics-new</h2>
+      
+      <div class="section">
+        <h3>Screenshot</h3>
+        <img src="analytics-new.png" alt="https://findoc-deploy.ey.r.appspot.com/analytics-new" class="screenshot">
+      </div>
+      
+      <div class="section">
+        <h3>Title</h3>
+        <p>
+          <span class="result-badge success">
+            Pass
+          </span>
+          Expected: analytics-new to include "undefined"
+          <br>
+          Actual: "FinDoc Analyzer - Financial Document Analysis"
+        </p>
+      </div>
+      
+      <div class="section">
+        <h3>Elements</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Selector</th>
+              <th>Result</th>
+            </tr>
+          </thead>
+          <tbody>
+            
+              <tr>
+                <td>.analytics-page</td>
+                <td>
+                  <span class="result-badge failure">
+                    Not Found
+                  </span>
+                </td>
+              </tr>
+            
+              <tr>
+                <td>.analytics-header</td>
+                <td>
+                  <span class="result-badge failure">
+                    Not Found
+                  </span>
+                </td>
+              </tr>
+            
+              <tr>
+                <td>.chart-container</td>
+                <td>
+                  <span class="result-badge success">
+                    Found
+                  </span>
+                </td>
+              </tr>
+            
+          </tbody>
+        </table>
+      </div>
+    </div>
+  
+    <div id="feedback" class="page-test">
+      <h2>https://findoc-deploy.ey.r.appspot.com/feedback</h2>
+      
+      <div class="section">
+        <h3>Screenshot</h3>
+        <img src="feedback.png" alt="https://findoc-deploy.ey.r.appspot.com/feedback" class="screenshot">
+      </div>
+      
+      <div class="section">
+        <h3>Title</h3>
+        <p>
+          <span class="result-badge success">
+            Pass
+          </span>
+          Expected: feedback to include "undefined"
+          <br>
+          Actual: "FinDoc Analyzer - Financial Document Analysis"
+        </p>
+      </div>
+      
+      <div class="section">
+        <h3>Elements</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Selector</th>
+              <th>Result</th>
+            </tr>
+          </thead>
+          <tbody>
+            
+              <tr>
+                <td>.feedback-page</td>
+                <td>
+                  <span class="result-badge failure">
+                    Not Found
+                  </span>
+                </td>
+              </tr>
+            
+              <tr>
+                <td>.feedback-form</td>
+                <td>
+                  <span class="result-badge failure">
+                    Not Found
+                  </span>
+                </td>
+              </tr>
+            
+              <tr>
+                <td>.rating-container</td>
+                <td>
+                  <span class="result-badge failure">
+                    Not Found
+                  </span>
+                </td>
+              </tr>
+            
+          </tbody>
+        </table>
+      </div>
+    </div>
+  
+    <div id="document-comparison" class="page-test">
+      <h2>https://findoc-deploy.ey.r.appspot.com/document-comparison</h2>
+      
+      <div class="section">
+        <h3>Screenshot</h3>
+        <img src="document-comparison.png" alt="https://findoc-deploy.ey.r.appspot.com/document-comparison" class="screenshot">
+      </div>
+      
+      <div class="section">
+        <h3>Title</h3>
+        <p>
+          <span class="result-badge success">
+            Pass
+          </span>
+          Expected: document-comparison to include "undefined"
+          <br>
+          Actual: "FinDoc Analyzer - Financial Document Analysis"
+        </p>
+      </div>
+      
+      <div class="section">
+        <h3>Elements</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Selector</th>
+              <th>Result</th>
+            </tr>
+          </thead>
+          <tbody>
+            
+              <tr>
+                <td>.document-comparison-page</td>
+                <td>
+                  <span class="result-badge failure">
+                    Not Found
+                  </span>
+                </td>
+              </tr>
+            
+              <tr>
+                <td>.comparison-container</td>
+                <td>
+                  <span class="result-badge failure">
+                    Not Found
+                  </span>
+                </td>
+              </tr>
+            
+              <tr>
+                <td>.document-selection</td>
+                <td>
+                  <span class="result-badge failure">
+                    Not Found
+                  </span>
+                </td>
+              </tr>
+            
+          </tbody>
+        </table>
+      </div>
+    </div>
+  
+</body>
+</html>

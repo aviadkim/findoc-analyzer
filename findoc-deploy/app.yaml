@@ -1,0 +1,18 @@
+runtime: nodejs18
+env: standard
+instance_class: F2
+
+handlers:
+  # Serve static files
+  - url: /static
+    static_dir: static
+    secure: always
+
+  # Serve all other requests with the app
+  - url: /.*
+    secure: always
+    script: auto
+
+env_variables:
+  NODE_ENV: "production"
+  PORT: "8080"

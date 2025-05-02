@@ -1,0 +1,17 @@
+{
+  "name": "findoc-analyzer-tests",
+  "version": "1.0.0",
+  "description": "Tests for FinDoc Analyzer application",
+  "main": "run-micro-tests.js",
+  "scripts": {
+    "test": "node ../run-micro-tests.js",
+    "create-pdf": "node create-test-pdf.js",
+    "test:website": "node test-01-website-access.js",
+    "test:upload": "node test-04-document-upload.js",
+    "test:chat": "node test-15-document-chat.js"
+  },
+  "dependencies": {
+    "playwright": "^1.40.0",
+    "pdf-lib": "^1.17.1"
+  }
+}

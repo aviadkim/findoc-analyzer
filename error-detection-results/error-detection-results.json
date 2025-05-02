@@ -1,0 +1,1453 @@
+[
+  {
+    "url": "https://findoc-deploy.ey.r.appspot.com/",
+    "name": "dashboard",
+    "screenshotPath": "C:\\Users\\aviad\\OneDrive\\Desktop\\backv2-main\\error-detection-results\\dashboard.png",
+    "errors": [],
+    "consoleMessages": [],
+    "networkErrors": [],
+    "visibleErrors": [],
+    "brokenImages": [],
+    "brokenLinks": [
+      {
+        "href": "#",
+        "text": "\n                    \n                    Export\n                  "
+      },
+      {
+        "href": "#",
+        "text": "\n                    \n                    Refresh\n                  "
+      }
+    ],
+    "emptyContainers": [],
+    "overlappingElements": [
+      {
+        "element1": {
+          "tagName": "ASIDE",
+          "className": "sidebar",
+          "id": "sidebar",
+          "text": "FinDoc Analyzer\nDashboard\nDocuments\nAnalytics\nFina"
+        },
+        "element2": {
+          "tagName": "MAIN",
+          "className": "main-content",
+          "id": "",
+          "text": "Upload Document\nAB\nDashboard\nDocuments\n24\n12% from"
+        }
+      },
+      {
+        "element1": {
+          "tagName": "ASIDE",
+          "className": "sidebar",
+          "id": "sidebar",
+          "text": "FinDoc Analyzer\nDashboard\nDocuments\nAnalytics\nFina"
+        },
+        "element2": {
+          "tagName": "HEADER",
+          "className": "main-header",
+          "id": "",
+          "text": "Upload Document\nAB"
+        }
+      },
+      {
+        "element1": {
+          "tagName": "ASIDE",
+          "className": "sidebar",
+          "id": "sidebar",
+          "text": "FinDoc Analyzer\nDashboard\nDocuments\nAnalytics\nFina"
+        },
+        "element2": {
+          "tagName": "DIV",
+          "className": "page-content",
+          "id": "",
+          "text": "Dashboard\nDocuments\n24\n12% from last month\nProcess"
+        }
+      },
+      {
+        "element1": {
+          "tagName": "DIV",
+          "className": "sidebar-header",
+          "id": "",
+          "text": "FinDoc Analyzer"
+        },
+        "element2": {
+          "tagName": "NAV",
+          "className": "sidebar-nav",
+          "id": "",
+          "text": "Dashboard\nDocuments\nAnalytics\nFinancial Analysis\nP"
+        }
+      },
+      {
+        "element1": {
+          "tagName": "DIV",
+          "className": "sidebar-header",
+          "id": "",
+          "text": "FinDoc Analyzer"
+        },
+        "element2": {
+          "tagName": "MAIN",
+          "className": "main-content",
+          "id": "",
+          "text": "Upload Document\nAB\nDashboard\nDocuments\n24\n12% from"
+        }
+      },
+      {
+        "element1": {
+          "tagName": "DIV",
+          "className": "sidebar-header",
+          "id": "",
+          "text": "FinDoc Analyzer"
+        },
+        "element2": {
+          "tagName": "HEADER",
+          "className": "main-header",
+          "id": "",
+          "text": "Upload Document\nAB"
+        }
+      },
+      {
+        "element1": {
+          "tagName": "DIV",
+          "className": "sidebar-header",
+          "id": "",
+          "text": "FinDoc Analyzer"
+        },
+        "element2": {
+          "tagName": "DIV",
+          "className": "page-content",
+          "id": "",
+          "text": "Dashboard\nDocuments\n24\n12% from last month\nProcess"
+        }
+      },
+      {
+        "element1": {
+          "tagName": "NAV",
+          "className": "sidebar-nav",
+          "id": "",
+          "text": "Dashboard\nDocuments\nAnalytics\nFinancial Analysis\nP"
+        },
+        "element2": {
+          "tagName": "MAIN",
+          "className": "main-content",
+          "id": "",
+          "text": "Upload Document\nAB\nDashboard\nDocuments\n24\n12% from"
+        }
+      },
+      {
+        "element1": {
+          "tagName": "NAV",
+          "className": "sidebar-nav",
+          "id": "",
+          "text": "Dashboard\nDocuments\nAnalytics\nFinancial Analysis\nP"
+        },
+        "element2": {
+          "tagName": "DIV",
+          "className": "page-content",
+          "id": "",
+          "text": "Dashboard\nDocuments\n24\n12% from last month\nProcess"
+        }
+      },
+      {
+        "element1": {
+          "tagName": "UL",
+          "className": "",
+          "id": "",
+          "text": "Dashboard\nDocuments\nAnalytics\nFinancial Analysis\nP"
+        },
+        "element2": {
+          "tagName": "DIV",
+          "className": "sidebar-footer",
+          "id": "",
+          "text": "AB\nAviad B.\nAdministrator"
+        }
+      }
+    ],
+    "interactiveElementsResults": [
+      {
+        "type": "button",
+        "text": "",
+        "success": true
+      },
+      {
+        "type": "button",
+        "text": "",
+        "success": true
+      },
+      {
+        "type": "button",
+        "text": "AB",
+        "success": true
+      },
+      {
+        "type": "button",
+        "text": "",
+        "success": true
+      },
+      {
+        "type": "button",
+        "text": "View All",
+        "success": true
+      },
+      {
+        "type": "button",
+        "error": "Execution context was destroyed, most likely because of a navigation.",
+        "success": false
+      },
+      {
+        "type": "button",
+        "error": "Protocol error (Runtime.callFunctionOn): Argument should belong to the same JavaScript world as target object",
+        "success": false
+      },
+      {
+        "type": "button",
+        "error": "Protocol error (Runtime.callFunctionOn): Argument should belong to the same JavaScript world as target object",
+        "success": false
+      },
+      {
+        "type": "button",
+        "error": "Protocol error (Runtime.callFunctionOn): Argument should belong to the same JavaScript world as target object",
+        "success": false
+      },
+      {
+        "type": "button",
+        "error": "Protocol error (Runtime.callFunctionOn): Argument should belong to the same JavaScript world as target object",
+        "success": false
+      },
+      {
+        "type": "button",
+        "error": "Protocol error (Runtime.callFunctionOn): Argument should belong to the same JavaScript world as target object",
+        "success": false
+      },
+      {
+        "type": "button",
+        "error": "Protocol error (Runtime.callFunctionOn): Argument should belong to the same JavaScript world as target object",
+        "success": false
+      },
+      {
+        "type": "button",
+        "error": "Protocol error (Runtime.callFunctionOn): Argument should belong to the same JavaScript world as target object",
+        "success": false
+      },
+      {
+        "type": "button",
+        "error": "Protocol error (Runtime.callFunctionOn): Argument should belong to the same JavaScript world as target object",
+        "success": false
+      },
+      {
+        "type": "button",
+        "error": "Protocol error (Runtime.callFunctionOn): Argument should belong to the same JavaScript world as target object",
+        "success": false
+      }
+    ],
+    "hasErrors": true
+  },
+  {
+    "url": "https://findoc-deploy.ey.r.appspot.com/documents-new",
+    "name": "documents",
+    "screenshotPath": "C:\\Users\\aviad\\OneDrive\\Desktop\\backv2-main\\error-detection-results\\documents.png",
+    "errors": [],
+    "consoleMessages": [],
+    "networkErrors": [],
+    "visibleErrors": [],
+    "brokenImages": [],
+    "brokenLinks": [
+      {
+        "href": "#",
+        "text": "\n                    \n                    Export\n                  "
+      },
+      {
+        "href": "#",
+        "text": "\n                    \n                    Refresh\n                  "
+      }
+    ],
+    "emptyContainers": [],
+    "overlappingElements": [
+      {
+        "element1": {
+          "tagName": "ASIDE",
+          "className": "sidebar",
+          "id": "sidebar",
+          "text": "FinDoc Analyzer\nDashboard\nDocuments\nAnalytics\nFina"
+        },
+        "element2": {
+          "tagName": "MAIN",
+          "className": "main-content",
+          "id": "",
+          "text": "Upload Document\nAB\nDashboard\nDocuments\n24\n12% from"
+        }
+      },
+      {
+        "element1": {
+          "tagName": "ASIDE",
+          "className": "sidebar",
+          "id": "sidebar",
+          "text": "FinDoc Analyzer\nDashboard\nDocuments\nAnalytics\nFina"
+        },
+        "element2": {
+          "tagName": "HEADER",
+          "className": "main-header",
+          "id": "",
+          "text": "Upload Document\nAB"
+        }
+      },
+      {
+        "element1": {
+          "tagName": "ASIDE",
+          "className": "sidebar",
+          "id": "sidebar",
+          "text": "FinDoc Analyzer\nDashboard\nDocuments\nAnalytics\nFina"
+        },
+        "element2": {
+          "tagName": "DIV",
+          "className": "page-content",
+          "id": "",
+          "text": "Dashboard\nDocuments\n24\n12% from last month\nProcess"
+        }
+      },
+      {
+        "element1": {
+          "tagName": "DIV",
+          "className": "sidebar-header",
+          "id": "",
+          "text": "FinDoc Analyzer"
+        },
+        "element2": {
+          "tagName": "NAV",
+          "className": "sidebar-nav",
+          "id": "",
+          "text": "Dashboard\nDocuments\nAnalytics\nFinancial Analysis\nP"
+        }
+      },
+      {
+        "element1": {
+          "tagName": "DIV",
+          "className": "sidebar-header",
+          "id": "",
+          "text": "FinDoc Analyzer"
+        },
+        "element2": {
+          "tagName": "MAIN",
+          "className": "main-content",
+          "id": "",
+          "text": "Upload Document\nAB\nDashboard\nDocuments\n24\n12% from"
+        }
+      },
+      {
+        "element1": {
+          "tagName": "DIV",
+          "className": "sidebar-header",
+          "id": "",
+          "text": "FinDoc Analyzer"
+        },
+        "element2": {
+          "tagName": "HEADER",
+          "className": "main-header",
+          "id": "",
+          "text": "Upload Document\nAB"
+        }
+      },
+      {
+        "element1": {
+          "tagName": "DIV",
+          "className": "sidebar-header",
+          "id": "",
+          "text": "FinDoc Analyzer"
+        },
+        "element2": {
+          "tagName": "DIV",
+          "className": "page-content",
+          "id": "",
+          "text": "Dashboard\nDocuments\n24\n12% from last month\nProcess"
+        }
+      },
+      {
+        "element1": {
+          "tagName": "NAV",
+          "className": "sidebar-nav",
+          "id": "",
+          "text": "Dashboard\nDocuments\nAnalytics\nFinancial Analysis\nP"
+        },
+        "element2": {
+          "tagName": "MAIN",
+          "className": "main-content",
+          "id": "",
+          "text": "Upload Document\nAB\nDashboard\nDocuments\n24\n12% from"
+        }
+      },
+      {
+        "element1": {
+          "tagName": "NAV",
+          "className": "sidebar-nav",
+          "id": "",
+          "text": "Dashboard\nDocuments\nAnalytics\nFinancial Analysis\nP"
+        },
+        "element2": {
+          "tagName": "DIV",
+          "className": "page-content",
+          "id": "",
+          "text": "Dashboard\nDocuments\n24\n12% from last month\nProcess"
+        }
+      },
+      {
+        "element1": {
+          "tagName": "UL",
+          "className": "",
+          "id": "",
+          "text": "Dashboard\nDocuments\nAnalytics\nFinancial Analysis\nP"
+        },
+        "element2": {
+          "tagName": "DIV",
+          "className": "sidebar-footer",
+          "id": "",
+          "text": "AB\nAviad B.\nAdministrator"
+        }
+      }
+    ],
+    "interactiveElementsResults": [
+      {
+        "type": "button",
+        "text": "",
+        "success": true
+      },
+      {
+        "type": "button",
+        "text": "",
+        "success": true
+      },
+      {
+        "type": "button",
+        "text": "AB",
+        "success": true
+      },
+      {
+        "type": "button",
+        "text": "",
+        "success": true
+      },
+      {
+        "type": "button",
+        "text": "View All",
+        "success": true
+      },
+      {
+        "type": "button",
+        "error": "Execution context was destroyed, most likely because of a navigation.",
+        "success": false
+      },
+      {
+        "type": "button",
+        "error": "Protocol error (Runtime.callFunctionOn): Argument should belong to the same JavaScript world as target object",
+        "success": false
+      },
+      {
+        "type": "button",
+        "error": "Protocol error (Runtime.callFunctionOn): Argument should belong to the same JavaScript world as target object",
+        "success": false
+      },
+      {
+        "type": "button",
+        "error": "Protocol error (Runtime.callFunctionOn): Argument should belong to the same JavaScript world as target object",
+        "success": false
+      },
+      {
+        "type": "button",
+        "error": "Protocol error (Runtime.callFunctionOn): Argument should belong to the same JavaScript world as target object",
+        "success": false
+      },
+      {
+        "type": "button",
+        "error": "Protocol error (Runtime.callFunctionOn): Argument should belong to the same JavaScript world as target object",
+        "success": false
+      },
+      {
+        "type": "button",
+        "error": "Protocol error (Runtime.callFunctionOn): Argument should belong to the same JavaScript world as target object",
+        "success": false
+      },
+      {
+        "type": "button",
+        "error": "Protocol error (Runtime.callFunctionOn): Argument should belong to the same JavaScript world as target object",
+        "success": false
+      },
+      {
+        "type": "button",
+        "error": "Protocol error (Runtime.callFunctionOn): Argument should belong to the same JavaScript world as target object",
+        "success": false
+      },
+      {
+        "type": "button",
+        "error": "Protocol error (Runtime.callFunctionOn): Argument should belong to the same JavaScript world as target object",
+        "success": false
+      }
+    ],
+    "hasErrors": true
+  },
+  {
+    "url": "https://findoc-deploy.ey.r.appspot.com/analytics-new",
+    "name": "analytics",
+    "screenshotPath": "C:\\Users\\aviad\\OneDrive\\Desktop\\backv2-main\\error-detection-results\\analytics.png",
+    "errors": [],
+    "consoleMessages": [],
+    "networkErrors": [],
+    "visibleErrors": [],
+    "brokenImages": [],
+    "brokenLinks": [
+      {
+        "href": "#",
+        "text": "\n                    \n                    Export\n                  "
+      },
+      {
+        "href": "#",
+        "text": "\n                    \n                    Refresh\n                  "
+      }
+    ],
+    "emptyContainers": [],
+    "overlappingElements": [
+      {
+        "element1": {
+          "tagName": "ASIDE",
+          "className": "sidebar",
+          "id": "sidebar",
+          "text": "FinDoc Analyzer\nDashboard\nDocuments\nAnalytics\nFina"
+        },
+        "element2": {
+          "tagName": "MAIN",
+          "className": "main-content",
+          "id": "",
+          "text": "Upload Document\nAB\nDashboard\nDocuments\n24\n12% from"
+        }
+      },
+      {
+        "element1": {
+          "tagName": "ASIDE",
+          "className": "sidebar",
+          "id": "sidebar",
+          "text": "FinDoc Analyzer\nDashboard\nDocuments\nAnalytics\nFina"
+        },
+        "element2": {
+          "tagName": "HEADER",
+          "className": "main-header",
+          "id": "",
+          "text": "Upload Document\nAB"
+        }
+      },
+      {
+        "element1": {
+          "tagName": "ASIDE",
+          "className": "sidebar",
+          "id": "sidebar",
+          "text": "FinDoc Analyzer\nDashboard\nDocuments\nAnalytics\nFina"
+        },
+        "element2": {
+          "tagName": "DIV",
+          "className": "page-content",
+          "id": "",
+          "text": "Dashboard\nDocuments\n24\n12% from last month\nProcess"
+        }
+      },
+      {
+        "element1": {
+          "tagName": "DIV",
+          "className": "sidebar-header",
+          "id": "",
+          "text": "FinDoc Analyzer"
+        },
+        "element2": {
+          "tagName": "NAV",
+          "className": "sidebar-nav",
+          "id": "",
+          "text": "Dashboard\nDocuments\nAnalytics\nFinancial Analysis\nP"
+        }
+      },
+      {
+        "element1": {
+          "tagName": "DIV",
+          "className": "sidebar-header",
+          "id": "",
+          "text": "FinDoc Analyzer"
+        },
+        "element2": {
+          "tagName": "MAIN",
+          "className": "main-content",
+          "id": "",
+          "text": "Upload Document\nAB\nDashboard\nDocuments\n24\n12% from"
+        }
+      },
+      {
+        "element1": {
+          "tagName": "DIV",
+          "className": "sidebar-header",
+          "id": "",
+          "text": "FinDoc Analyzer"
+        },
+        "element2": {
+          "tagName": "HEADER",
+          "className": "main-header",
+          "id": "",
+          "text": "Upload Document\nAB"
+        }
+      },
+      {
+        "element1": {
+          "tagName": "DIV",
+          "className": "sidebar-header",
+          "id": "",
+          "text": "FinDoc Analyzer"
+        },
+        "element2": {
+          "tagName": "DIV",
+          "className": "page-content",
+          "id": "",
+          "text": "Dashboard\nDocuments\n24\n12% from last month\nProcess"
+        }
+      },
+      {
+        "element1": {
+          "tagName": "NAV",
+          "className": "sidebar-nav",
+          "id": "",
+          "text": "Dashboard\nDocuments\nAnalytics\nFinancial Analysis\nP"
+        },
+        "element2": {
+          "tagName": "MAIN",
+          "className": "main-content",
+          "id": "",
+          "text": "Upload Document\nAB\nDashboard\nDocuments\n24\n12% from"
+        }
+      },
+      {
+        "element1": {
+          "tagName": "NAV",
+          "className": "sidebar-nav",
+          "id": "",
+          "text": "Dashboard\nDocuments\nAnalytics\nFinancial Analysis\nP"
+        },
+        "element2": {
+          "tagName": "DIV",
+          "className": "page-content",
+          "id": "",
+          "text": "Dashboard\nDocuments\n24\n12% from last month\nProcess"
+        }
+      },
+      {
+        "element1": {
+          "tagName": "UL",
+          "className": "",
+          "id": "",
+          "text": "Dashboard\nDocuments\nAnalytics\nFinancial Analysis\nP"
+        },
+        "element2": {
+          "tagName": "DIV",
+          "className": "sidebar-footer",
+          "id": "",
+          "text": "AB\nAviad B.\nAdministrator"
+        }
+      }
+    ],
+    "interactiveElementsResults": [
+      {
+        "type": "button",
+        "text": "",
+        "success": true
+      },
+      {
+        "type": "button",
+        "text": "",
+        "success": true
+      },
+      {
+        "type": "button",
+        "text": "AB",
+        "success": true
+      },
+      {
+        "type": "button",
+        "text": "",
+        "success": true
+      },
+      {
+        "type": "button",
+        "text": "View All",
+        "success": true
+      },
+      {
+        "type": "button",
+        "error": "Execution context was destroyed, most likely because of a navigation.",
+        "success": false
+      },
+      {
+        "type": "button",
+        "error": "Protocol error (Runtime.callFunctionOn): Argument should belong to the same JavaScript world as target object",
+        "success": false
+      },
+      {
+        "type": "button",
+        "error": "Protocol error (Runtime.callFunctionOn): Argument should belong to the same JavaScript world as target object",
+        "success": false
+      },
+      {
+        "type": "button",
+        "error": "Protocol error (Runtime.callFunctionOn): Argument should belong to the same JavaScript world as target object",
+        "success": false
+      },
+      {
+        "type": "button",
+        "error": "Protocol error (Runtime.callFunctionOn): Argument should belong to the same JavaScript world as target object",
+        "success": false
+      },
+      {
+        "type": "button",
+        "error": "Protocol error (Runtime.callFunctionOn): Argument should belong to the same JavaScript world as target object",
+        "success": false
+      },
+      {
+        "type": "button",
+        "error": "Protocol error (Runtime.callFunctionOn): Argument should belong to the same JavaScript world as target object",
+        "success": false
+      },
+      {
+        "type": "button",
+        "error": "Protocol error (Runtime.callFunctionOn): Argument should belong to the same JavaScript world as target object",
+        "success": false
+      },
+      {
+        "type": "button",
+        "error": "Protocol error (Runtime.callFunctionOn): Argument should belong to the same JavaScript world as target object",
+        "success": false
+      },
+      {
+        "type": "button",
+        "error": "Protocol error (Runtime.callFunctionOn): Argument should belong to the same JavaScript world as target object",
+        "success": false
+      },
+      {
+        "type": "input",
+        "id": "Search documents, reports, etc.",
+        "success": true
+      }
+    ],
+    "hasErrors": true
+  },
+  {
+    "url": "https://findoc-deploy.ey.r.appspot.com/feedback",
+    "name": "feedback",
+    "screenshotPath": "C:\\Users\\aviad\\OneDrive\\Desktop\\backv2-main\\error-detection-results\\feedback.png",
+    "errors": [],
+    "consoleMessages": [],
+    "networkErrors": [],
+    "visibleErrors": [],
+    "brokenImages": [],
+    "brokenLinks": [
+      {
+        "href": "#",
+        "text": "\n                    \n                    Export\n                  "
+      },
+      {
+        "href": "#",
+        "text": "\n                    \n                    Refresh\n                  "
+      }
+    ],
+    "emptyContainers": [],
+    "overlappingElements": [
+      {
+        "element1": {
+          "tagName": "ASIDE",
+          "className": "sidebar",
+          "id": "sidebar",
+          "text": "FinDoc Analyzer\nDashboard\nDocuments\nAnalytics\nFina"
+        },
+        "element2": {
+          "tagName": "MAIN",
+          "className": "main-content",
+          "id": "",
+          "text": "Upload Document\nAB\nDashboard\nDocuments\n24\n12% from"
+        }
+      },
+      {
+        "element1": {
+          "tagName": "ASIDE",
+          "className": "sidebar",
+          "id": "sidebar",
+          "text": "FinDoc Analyzer\nDashboard\nDocuments\nAnalytics\nFina"
+        },
+        "element2": {
+          "tagName": "HEADER",
+          "className": "main-header",
+          "id": "",
+          "text": "Upload Document\nAB"
+        }
+      },
+      {
+        "element1": {
+          "tagName": "ASIDE",
+          "className": "sidebar",
+          "id": "sidebar",
+          "text": "FinDoc Analyzer\nDashboard\nDocuments\nAnalytics\nFina"
+        },
+        "element2": {
+          "tagName": "DIV",
+          "className": "page-content",
+          "id": "",
+          "text": "Dashboard\nDocuments\n24\n12% from last month\nProcess"
+        }
+      },
+      {
+        "element1": {
+          "tagName": "DIV",
+          "className": "sidebar-header",
+          "id": "",
+          "text": "FinDoc Analyzer"
+        },
+        "element2": {
+          "tagName": "NAV",
+          "className": "sidebar-nav",
+          "id": "",
+          "text": "Dashboard\nDocuments\nAnalytics\nFinancial Analysis\nP"
+        }
+      },
+      {
+        "element1": {
+          "tagName": "DIV",
+          "className": "sidebar-header",
+          "id": "",
+          "text": "FinDoc Analyzer"
+        },
+        "element2": {
+          "tagName": "MAIN",
+          "className": "main-content",
+          "id": "",
+          "text": "Upload Document\nAB\nDashboard\nDocuments\n24\n12% from"
+        }
+      },
+      {
+        "element1": {
+          "tagName": "DIV",
+          "className": "sidebar-header",
+          "id": "",
+          "text": "FinDoc Analyzer"
+        },
+        "element2": {
+          "tagName": "HEADER",
+          "className": "main-header",
+          "id": "",
+          "text": "Upload Document\nAB"
+        }
+      },
+      {
+        "element1": {
+          "tagName": "DIV",
+          "className": "sidebar-header",
+          "id": "",
+          "text": "FinDoc Analyzer"
+        },
+        "element2": {
+          "tagName": "DIV",
+          "className": "page-content",
+          "id": "",
+          "text": "Dashboard\nDocuments\n24\n12% from last month\nProcess"
+        }
+      },
+      {
+        "element1": {
+          "tagName": "NAV",
+          "className": "sidebar-nav",
+          "id": "",
+          "text": "Dashboard\nDocuments\nAnalytics\nFinancial Analysis\nP"
+        },
+        "element2": {
+          "tagName": "MAIN",
+          "className": "main-content",
+          "id": "",
+          "text": "Upload Document\nAB\nDashboard\nDocuments\n24\n12% from"
+        }
+      },
+      {
+        "element1": {
+          "tagName": "NAV",
+          "className": "sidebar-nav",
+          "id": "",
+          "text": "Dashboard\nDocuments\nAnalytics\nFinancial Analysis\nP"
+        },
+        "element2": {
+          "tagName": "DIV",
+          "className": "page-content",
+          "id": "",
+          "text": "Dashboard\nDocuments\n24\n12% from last month\nProcess"
+        }
+      },
+      {
+        "element1": {
+          "tagName": "UL",
+          "className": "",
+          "id": "",
+          "text": "Dashboard\nDocuments\nAnalytics\nFinancial Analysis\nP"
+        },
+        "element2": {
+          "tagName": "DIV",
+          "className": "sidebar-footer",
+          "id": "",
+          "text": "AB\nAviad B.\nAdministrator"
+        }
+      }
+    ],
+    "interactiveElementsResults": [
+      {
+        "type": "button",
+        "text": "",
+        "success": true
+      },
+      {
+        "type": "button",
+        "text": "",
+        "success": true
+      },
+      {
+        "type": "button",
+        "text": "AB",
+        "success": true
+      },
+      {
+        "type": "button",
+        "text": "",
+        "success": true
+      },
+      {
+        "type": "button",
+        "text": "View All",
+        "success": true
+      },
+      {
+        "type": "button",
+        "error": "Execution context was destroyed, most likely because of a navigation.",
+        "success": false
+      },
+      {
+        "type": "button",
+        "error": "Protocol error (Runtime.callFunctionOn): Argument should belong to the same JavaScript world as target object",
+        "success": false
+      },
+      {
+        "type": "button",
+        "error": "Protocol error (Runtime.callFunctionOn): Argument should belong to the same JavaScript world as target object",
+        "success": false
+      },
+      {
+        "type": "button",
+        "error": "Protocol error (Runtime.callFunctionOn): Argument should belong to the same JavaScript world as target object",
+        "success": false
+      },
+      {
+        "type": "button",
+        "error": "Protocol error (Runtime.callFunctionOn): Argument should belong to the same JavaScript world as target object",
+        "success": false
+      },
+      {
+        "type": "button",
+        "error": "Protocol error (Runtime.callFunctionOn): Argument should belong to the same JavaScript world as target object",
+        "success": false
+      },
+      {
+        "type": "button",
+        "error": "Protocol error (Runtime.callFunctionOn): Argument should belong to the same JavaScript world as target object",
+        "success": false
+      },
+      {
+        "type": "button",
+        "error": "Protocol error (Runtime.callFunctionOn): Argument should belong to the same JavaScript world as target object",
+        "success": false
+      },
+      {
+        "type": "button",
+        "error": "Protocol error (Runtime.callFunctionOn): Argument should belong to the same JavaScript world as target object",
+        "success": false
+      },
+      {
+        "type": "button",
+        "error": "Protocol error (Runtime.callFunctionOn): Argument should belong to the same JavaScript world as target object",
+        "success": false
+      }
+    ],
+    "hasErrors": true
+  },
+  {
+    "url": "https://findoc-deploy.ey.r.appspot.com/document-comparison",
+    "name": "document-comparison",
+    "screenshotPath": "C:\\Users\\aviad\\OneDrive\\Desktop\\backv2-main\\error-detection-results\\document-comparison.png",
+    "errors": [],
+    "consoleMessages": [],
+    "networkErrors": [],
+    "visibleErrors": [],
+    "brokenImages": [],
+    "brokenLinks": [
+      {
+        "href": "#",
+        "text": "\n                    \n                    Export\n                  "
+      },
+      {
+        "href": "#",
+        "text": "\n                    \n                    Refresh\n                  "
+      }
+    ],
+    "emptyContainers": [],
+    "overlappingElements": [
+      {
+        "element1": {
+          "tagName": "ASIDE",
+          "className": "sidebar",
+          "id": "sidebar",
+          "text": "FinDoc Analyzer\nDashboard\nDocuments\nAnalytics\nFina"
+        },
+        "element2": {
+          "tagName": "MAIN",
+          "className": "main-content",
+          "id": "",
+          "text": "Upload Document\nAB\nDashboard\nDocuments\n24\n12% from"
+        }
+      },
+      {
+        "element1": {
+          "tagName": "ASIDE",
+          "className": "sidebar",
+          "id": "sidebar",
+          "text": "FinDoc Analyzer\nDashboard\nDocuments\nAnalytics\nFina"
+        },
+        "element2": {
+          "tagName": "HEADER",
+          "className": "main-header",
+          "id": "",
+          "text": "Upload Document\nAB"
+        }
+      },
+      {
+        "element1": {
+          "tagName": "ASIDE",
+          "className": "sidebar",
+          "id": "sidebar",
+          "text": "FinDoc Analyzer\nDashboard\nDocuments\nAnalytics\nFina"
+        },
+        "element2": {
+          "tagName": "DIV",
+          "className": "page-content",
+          "id": "",
+          "text": "Dashboard\nDocuments\n24\n12% from last month\nProcess"
+        }
+      },
+      {
+        "element1": {
+          "tagName": "DIV",
+          "className": "sidebar-header",
+          "id": "",
+          "text": "FinDoc Analyzer"
+        },
+        "element2": {
+          "tagName": "NAV",
+          "className": "sidebar-nav",
+          "id": "",
+          "text": "Dashboard\nDocuments\nAnalytics\nFinancial Analysis\nP"
+        }
+      },
+      {
+        "element1": {
+          "tagName": "DIV",
+          "className": "sidebar-header",
+          "id": "",
+          "text": "FinDoc Analyzer"
+        },
+        "element2": {
+          "tagName": "MAIN",
+          "className": "main-content",
+          "id": "",
+          "text": "Upload Document\nAB\nDashboard\nDocuments\n24\n12% from"
+        }
+      },
+      {
+        "element1": {
+          "tagName": "DIV",
+          "className": "sidebar-header",
+          "id": "",
+          "text": "FinDoc Analyzer"
+        },
+        "element2": {
+          "tagName": "HEADER",
+          "className": "main-header",
+          "id": "",
+          "text": "Upload Document\nAB"
+        }
+      },
+      {
+        "element1": {
+          "tagName": "DIV",
+          "className": "sidebar-header",
+          "id": "",
+          "text": "FinDoc Analyzer"
+        },
+        "element2": {
+          "tagName": "DIV",
+          "className": "page-content",
+          "id": "",
+          "text": "Dashboard\nDocuments\n24\n12% from last month\nProcess"
+        }
+      },
+      {
+        "element1": {
+          "tagName": "NAV",
+          "className": "sidebar-nav",
+          "id": "",
+          "text": "Dashboard\nDocuments\nAnalytics\nFinancial Analysis\nP"
+        },
+        "element2": {
+          "tagName": "MAIN",
+          "className": "main-content",
+          "id": "",
+          "text": "Upload Document\nAB\nDashboard\nDocuments\n24\n12% from"
+        }
+      },
+      {
+        "element1": {
+          "tagName": "NAV",
+          "className": "sidebar-nav",
+          "id": "",
+          "text": "Dashboard\nDocuments\nAnalytics\nFinancial Analysis\nP"
+        },
+        "element2": {
+          "tagName": "DIV",
+          "className": "page-content",
+          "id": "",
+          "text": "Dashboard\nDocuments\n24\n12% from last month\nProcess"
+        }
+      },
+      {
+        "element1": {
+          "tagName": "UL",
+          "className": "",
+          "id": "",
+          "text": "Dashboard\nDocuments\nAnalytics\nFinancial Analysis\nP"
+        },
+        "element2": {
+          "tagName": "DIV",
+          "className": "sidebar-footer",
+          "id": "",
+          "text": "AB\nAviad B.\nAdministrator"
+        }
+      }
+    ],
+    "interactiveElementsResults": [
+      {
+        "type": "button",
+        "text": "",
+        "success": true
+      },
+      {
+        "type": "button",
+        "text": "",
+        "success": true
+      },
+      {
+        "type": "button",
+        "text": "AB",
+        "success": true
+      },
+      {
+        "type": "button",
+        "text": "",
+        "success": true
+      },
+      {
+        "type": "button",
+        "text": "View All",
+        "success": true
+      },
+      {
+        "type": "button",
+        "error": "Execution context was destroyed, most likely because of a navigation.",
+        "success": false
+      },
+      {
+        "type": "button",
+        "error": "Protocol error (Runtime.callFunctionOn): Argument should belong to the same JavaScript world as target object",
+        "success": false
+      },
+      {
+        "type": "button",
+        "error": "Protocol error (Runtime.callFunctionOn): Argument should belong to the same JavaScript world as target object",
+        "success": false
+      },
+      {
+        "type": "button",
+        "error": "Protocol error (Runtime.callFunctionOn): Argument should belong to the same JavaScript world as target object",
+        "success": false
+      },
+      {
+        "type": "button",
+        "error": "Protocol error (Runtime.callFunctionOn): Argument should belong to the same JavaScript world as target object",
+        "success": false
+      },
+      {
+        "type": "button",
+        "error": "Protocol error (Runtime.callFunctionOn): Argument should belong to the same JavaScript world as target object",
+        "success": false
+      },
+      {
+        "type": "button",
+        "error": "Protocol error (Runtime.callFunctionOn): Argument should belong to the same JavaScript world as target object",
+        "success": false
+      },
+      {
+        "type": "button",
+        "error": "Protocol error (Runtime.callFunctionOn): Argument should belong to the same JavaScript world as target object",
+        "success": false
+      },
+      {
+        "type": "button",
+        "error": "Protocol error (Runtime.callFunctionOn): Argument should belong to the same JavaScript world as target object",
+        "success": false
+      },
+      {
+        "type": "button",
+        "error": "Protocol error (Runtime.callFunctionOn): Argument should belong to the same JavaScript world as target object",
+        "success": false
+      }
+    ],
+    "hasErrors": true
+  },
+  {
+    "url": "https://findoc-deploy.ey.r.appspot.com/upload",
+    "name": "upload",
+    "screenshotPath": "C:\\Users\\aviad\\OneDrive\\Desktop\\backv2-main\\error-detection-results\\upload.png",
+    "errors": [],
+    "consoleMessages": [],
+    "networkErrors": [],
+    "visibleErrors": [],
+    "brokenImages": [],
+    "brokenLinks": [
+      {
+        "href": "#",
+        "text": "\n                    \n                    Export\n                  "
+      },
+      {
+        "href": "#",
+        "text": "\n                    \n                    Refresh\n                  "
+      }
+    ],
+    "emptyContainers": [],
+    "overlappingElements": [
+      {
+        "element1": {
+          "tagName": "ASIDE",
+          "className": "sidebar",
+          "id": "sidebar",
+          "text": "FinDoc Analyzer\nDashboard\nDocuments\nAnalytics\nFina"
+        },
+        "element2": {
+          "tagName": "MAIN",
+          "className": "main-content",
+          "id": "",
+          "text": "Upload Document\nAB\nDashboard\nDocuments\n24\n12% from"
+        }
+      },
+      {
+        "element1": {
+          "tagName": "ASIDE",
+          "className": "sidebar",
+          "id": "sidebar",
+          "text": "FinDoc Analyzer\nDashboard\nDocuments\nAnalytics\nFina"
+        },
+        "element2": {
+          "tagName": "HEADER",
+          "className": "main-header",
+          "id": "",
+          "text": "Upload Document\nAB"
+        }
+      },
+      {
+        "element1": {
+          "tagName": "ASIDE",
+          "className": "sidebar",
+          "id": "sidebar",
+          "text": "FinDoc Analyzer\nDashboard\nDocuments\nAnalytics\nFina"
+        },
+        "element2": {
+          "tagName": "DIV",
+          "className": "page-content",
+          "id": "",
+          "text": "Dashboard\nDocuments\n24\n12% from last month\nProcess"
+        }
+      },
+      {
+        "element1": {
+          "tagName": "DIV",
+          "className": "sidebar-header",
+          "id": "",
+          "text": "FinDoc Analyzer"
+        },
+        "element2": {
+          "tagName": "NAV",
+          "className": "sidebar-nav",
+          "id": "",
+          "text": "Dashboard\nDocuments\nAnalytics\nFinancial Analysis\nP"
+        }
+      },
+      {
+        "element1": {
+          "tagName": "DIV",
+          "className": "sidebar-header",
+          "id": "",
+          "text": "FinDoc Analyzer"
+        },
+        "element2": {
+          "tagName": "MAIN",
+          "className": "main-content",
+          "id": "",
+          "text": "Upload Document\nAB\nDashboard\nDocuments\n24\n12% from"
+        }
+      },
+      {
+        "element1": {
+          "tagName": "DIV",
+          "className": "sidebar-header",
+          "id": "",
+          "text": "FinDoc Analyzer"
+        },
+        "element2": {
+          "tagName": "HEADER",
+          "className": "main-header",
+          "id": "",
+          "text": "Upload Document\nAB"
+        }
+      },
+      {
+        "element1": {
+          "tagName": "DIV",
+          "className": "sidebar-header",
+          "id": "",
+          "text": "FinDoc Analyzer"
+        },
+        "element2": {
+          "tagName": "DIV",
+          "className": "page-content",
+          "id": "",
+          "text": "Dashboard\nDocuments\n24\n12% from last month\nProcess"
+        }
+      },
+      {
+        "element1": {
+          "tagName": "NAV",
+          "className": "sidebar-nav",
+          "id": "",
+          "text": "Dashboard\nDocuments\nAnalytics\nFinancial Analysis\nP"
+        },
+        "element2": {
+          "tagName": "MAIN",
+          "className": "main-content",
+          "id": "",
+          "text": "Upload Document\nAB\nDashboard\nDocuments\n24\n12% from"
+        }
+      },
+      {
+        "element1": {
+          "tagName": "NAV",
+          "className": "sidebar-nav",
+          "id": "",
+          "text": "Dashboard\nDocuments\nAnalytics\nFinancial Analysis\nP"
+        },
+        "element2": {
+          "tagName": "DIV",
+          "className": "page-content",
+          "id": "",
+          "text": "Dashboard\nDocuments\n24\n12% from last month\nProcess"
+        }
+      },
+      {
+        "element1": {
+          "tagName": "UL",
+          "className": "",
+          "id": "",
+          "text": "Dashboard\nDocuments\nAnalytics\nFinancial Analysis\nP"
+        },
+        "element2": {
+          "tagName": "DIV",
+          "className": "sidebar-footer",
+          "id": "",
+          "text": "AB\nAviad B.\nAdministrator"
+        }
+      }
+    ],
+    "interactiveElementsResults": [
+      {
+        "type": "button",
+        "text": "",
+        "success": true
+      },
+      {
+        "type": "button",
+        "text": "",
+        "success": true
+      },
+      {
+        "type": "button",
+        "text": "AB",
+        "success": true
+      },
+      {
+        "type": "button",
+        "text": "",
+        "success": true
+      },
+      {
+        "type": "button",
+        "text": "View All",
+        "success": true
+      },
+      {
+        "type": "button",
+        "error": "Execution context was destroyed, most likely because of a navigation.",
+        "success": false
+      },
+      {
+        "type": "button",
+        "error": "Protocol error (Runtime.callFunctionOn): Argument should belong to the same JavaScript world as target object",
+        "success": false
+      },
+      {
+        "type": "button",
+        "error": "Protocol error (Runtime.callFunctionOn): Argument should belong to the same JavaScript world as target object",
+        "success": false
+      },
+      {
+        "type": "button",
+        "error": "Protocol error (Runtime.callFunctionOn): Argument should belong to the same JavaScript world as target object",
+        "success": false
+      },
+      {
+        "type": "button",
+        "error": "Protocol error (Runtime.callFunctionOn): Argument should belong to the same JavaScript world as target object",
+        "success": false
+      },
+      {
+        "type": "button",
+        "error": "Protocol error (Runtime.callFunctionOn): Argument should belong to the same JavaScript world as target object",
+        "success": false
+      },
+      {
+        "type": "button",
+        "error": "Protocol error (Runtime.callFunctionOn): Argument should belong to the same JavaScript world as target object",
+        "success": false
+      },
+      {
+        "type": "button",
+        "error": "Protocol error (Runtime.callFunctionOn): Argument should belong to the same JavaScript world as target object",
+        "success": false
+      },
+      {
+        "type": "button",
+        "error": "Protocol error (Runtime.callFunctionOn): Argument should belong to the same JavaScript world as target object",
+        "success": false
+      },
+      {
+        "type": "button",
+        "error": "Protocol error (Runtime.callFunctionOn): Argument should belong to the same JavaScript world as target object",
+        "success": false
+      }
+    ],
+    "hasErrors": true
+  }
+]

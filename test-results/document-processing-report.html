@@ -1,0 +1,238 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document Processing Test Report</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      color: #333;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    
+    h1, h2, h3 {
+      color: #2c3e50;
+    }
+    
+    .summary {
+      display: flex;
+      justify-content: space-between;
+      background-color: #f8f9fa;
+      padding: 20px;
+      border-radius: 5px;
+      margin-bottom: 20px;
+    }
+    
+    .summary-item {
+      text-align: center;
+    }
+    
+    .summary-item h2 {
+      margin: 0;
+      font-size: 2rem;
+    }
+    
+    .summary-label {
+      font-size: 0.9rem;
+      color: #666;
+    }
+    
+    .test-list {
+      list-style: none;
+      padding: 0;
+    }
+    
+    .test-item {
+      background-color: #fff;
+      border-radius: 5px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+      margin-bottom: 15px;
+      overflow: hidden;
+    }
+    
+    .test-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 20px;
+      background-color: #f8f9fa;
+      border-bottom: 1px solid #eee;
+    }
+    
+    .test-name {
+      font-weight: 500;
+      font-size: 1.1rem;
+      margin: 0;
+    }
+    
+    .test-status {
+      font-size: 0.9rem;
+      padding: 3px 8px;
+      border-radius: 3px;
+      color: white;
+    }
+    
+    .status-passed {
+      background-color: #28a745;
+    }
+    
+    .status-failed {
+      background-color: #dc3545;
+    }
+    
+    .status-skipped {
+      background-color: #6c757d;
+    }
+    
+    .test-content {
+      padding: 15px 20px;
+    }
+    
+    .test-error {
+      background-color: #f8d7da;
+      color: #721c24;
+      padding: 10px;
+      border-radius: 3px;
+      margin-top: 10px;
+      font-family: monospace;
+      white-space: pre-wrap;
+    }
+    
+    .test-reason {
+      background-color: #e2e3e5;
+      color: #383d41;
+      padding: 10px;
+      border-radius: 3px;
+      margin-top: 10px;
+    }
+    
+    .test-time {
+      color: #6c757d;
+      font-size: 0.9rem;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Document Processing Test Report</h1>
+  
+  <div class="summary">
+    <div class="summary-item">
+      <h2>5</h2>
+      <div class="summary-label">Total Tests</div>
+    </div>
+    <div class="summary-item">
+      <h2>1</h2>
+      <div class="summary-label">Passed</div>
+    </div>
+    <div class="summary-item">
+      <h2>4</h2>
+      <div class="summary-label">Failed</div>
+    </div>
+    <div class="summary-item">
+      <h2>0</h2>
+      <div class="summary-label">Skipped</div>
+    </div>
+    <div class="summary-item">
+      <h2>3s</h2>
+      <div class="summary-label">Duration</div>
+    </div>
+  </div>
+  
+  <h2>Test Results</h2>
+  
+  <ul class="test-list">
+    
+      <li class="test-item">
+        <div class="test-header">
+          <h3 class="test-name">Process a PDF document</h3>
+          <span class="test-status status-failed">FAILED</span>
+        </div>
+        <div class="test-content">
+          <div class="test-error">bad XRef entry</div>
+          
+          <div class="test-time">
+            Started: 2025-04-29T07:21:20.325Z<br>
+            Ended: 2025-04-29T07:21:23.564Z<br>
+            Duration: 3s
+          </div>
+        </div>
+      </li>
+    
+      <li class="test-item">
+        <div class="test-header">
+          <h3 class="test-name">Process an Excel document</h3>
+          <span class="test-status status-failed">FAILED</span>
+        </div>
+        <div class="test-content">
+          <div class="test-error">Skipping Excel test - cannot create binary Excel file in this environment</div>
+          
+          <div class="test-time">
+            Started: 2025-04-29T07:21:23.565Z<br>
+            Ended: 2025-04-29T07:21:23.565Z<br>
+            Duration: 0s
+          </div>
+        </div>
+      </li>
+    
+      <li class="test-item">
+        <div class="test-header">
+          <h3 class="test-name">Process a CSV document</h3>
+          <span class="test-status status-passed">PASSED</span>
+        </div>
+        <div class="test-content">
+          
+          
+          <div class="test-time">
+            Started: 2025-04-29T07:21:23.565Z<br>
+            Ended: 2025-04-29T07:21:23.573Z<br>
+            Duration: 0s
+          </div>
+        </div>
+      </li>
+    
+      <li class="test-item">
+        <div class="test-header">
+          <h3 class="test-name">Extract securities from document content</h3>
+          <span class="test-status status-failed">FAILED</span>
+        </div>
+        <div class="test-content">
+          <div class="test-error">Apple name should be correct
+[32mactual[39m [31mexpected[39m
+
+[39m'[39m[32mU[39m[31mA[39m[31mp[39m[31mp[39m[31ml[39m[31me[39m[31m [39m[31mI[39m[39mn[39m[32mk[39m[32mn[39m[32mo[39m[32mw[39m[32mn[39m[31mc[39m[31m.[39m[39m'[39m
+</div>
+          
+          <div class="test-time">
+            Started: 2025-04-29T07:21:23.574Z<br>
+            Ended: 2025-04-29T07:21:23.578Z<br>
+            Duration: 0s
+          </div>
+        </div>
+      </li>
+    
+      <li class="test-item">
+        <div class="test-header">
+          <h3 class="test-name">Generate financial summary from document content</h3>
+          <span class="test-status status-failed">FAILED</span>
+        </div>
+        <div class="test-content">
+          <div class="test-error">Summary should have metrics</div>
+          
+          <div class="test-time">
+            Started: 2025-04-29T07:21:23.579Z<br>
+            Ended: 2025-04-29T07:21:23.667Z<br>
+            Duration: 0s
+          </div>
+        </div>
+      </li>
+    
+  </ul>
+</body>
+</html>
+  

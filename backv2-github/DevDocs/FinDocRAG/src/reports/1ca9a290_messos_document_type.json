@@ -1,0 +1,40 @@
+{
+  "document_type": "portfolio_statement",
+  "confidence": 61.111111111111114,
+  "features": {
+    "portfolio_statement": {
+      "keyword_count": 7,
+      "pattern_matches": 1,
+      "score": 5.5
+    },
+    "transaction_report": {
+      "keyword_count": 0,
+      "pattern_matches": 0,
+      "score": 0.0
+    },
+    "performance_report": {
+      "keyword_count": 2,
+      "pattern_matches": 0,
+      "score": 1.0
+    },
+    "account_statement": {
+      "keyword_count": 2,
+      "pattern_matches": 0,
+      "score": 1.0
+    },
+    "tax_document": {
+      "keyword_count": 3,
+      "pattern_matches": 0,
+      "score": 1.5
+    }
+  },
+  "metadata": {
+    "filename": "1ca9a290_messos.pdf",
+    "filesize": 634059,
+    "pages": 20,
+    "title": "",
+    "author": "",
+    "creation_date": "",
+    "modification_date": ""
+  }
+}

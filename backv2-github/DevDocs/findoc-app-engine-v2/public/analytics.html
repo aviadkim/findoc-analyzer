@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Analytics - FinDoc Analyzer</title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <h1>FinDoc Analyzer</h1>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/analytics.html">Analytics</a></li>
+        <li><a href="/financial.html">Financial Analysis</a></li>
+        <li><a href="/reports.html">Reports</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <h2>Analytics Dashboard</h2>
+    <div id="analytics-content">
+      <p>Loading analytics data...</p>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2023 FinDoc Analyzer. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // Fetch analytics data
+    fetch('/api/visualizations/dashboard')
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          const content = document.getElementById('analytics-content');
+          content.innerHTML = `
+            <div class="stats">
+              <div class="stat">
+                <h3>Documents</h3>
+                <p>${data.data.counts.documents}</p>
+              </div>
+              <div class="stat">
+                <h3>Processed</h3>
+                <p>${data.data.counts.processed}</p>
+              </div>
+              <div class="stat">
+                <h3>Portfolios</h3>
+                <p>${data.data.counts.portfolios}</p>
+              </div>
+              <div class="stat">
+                <h3>Total Value</h3>
+                <p>$${data.data.counts.totalPortfolioValue.toLocaleString()}</p>
+              </div>
+            </div>
+            <h3>Recent Documents</h3>
+            <ul>
+              ${data.data.recentDocuments.map(doc => `
+                <li>${doc.name} (${doc.type}) - ${doc.status}</li>
+              `).join('')}
+            </ul>
+          `;
+        } else {
+          console.error('Error fetching analytics data:', data.error);
+        }
+      })
+      .catch(error => {
+        console.error('Error fetching analytics data:', error);
+      });
+  </script>
+</body>
+</html>

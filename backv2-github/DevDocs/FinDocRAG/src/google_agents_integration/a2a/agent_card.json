@@ -1,0 +1,36 @@
+{
+  "name": "FinDocRAG",
+  "description": "A financial document processing and analysis agent",
+  "version": "1.0.0",
+  "contact": {
+    "name": "FinDocRAG Support",
+    "url": "https://findocrag.example.com/support"
+  },
+  "capabilities": {
+    "streaming": true,
+    "pushNotifications": true
+  },
+  "skills": [
+    {
+      "name": "document_processing",
+      "description": "Process financial documents to extract structured data"
+    },
+    {
+      "name": "financial_analysis",
+      "description": "Analyze financial data to provide insights and recommendations"
+    },
+    {
+      "name": "query_answering",
+      "description": "Answer questions about financial documents"
+    }
+  ],
+  "endpoint": {
+    "url": "https://api.findocrag.example.com/a2a"
+  },
+  "authentication": {
+    "type": "bearer"
+  },
+  "ui": {
+    "supportedFormats": ["text", "file", "data"]
+  }
+}

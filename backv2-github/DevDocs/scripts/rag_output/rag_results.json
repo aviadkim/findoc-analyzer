@@ -1,0 +1,37 @@
+{
+  "document_type": "portfolio_statement",
+  "total_value": 19510599,
+  "currency": "USD",
+  "securities": [
+    {
+      "name": "Bonds",
+      "identifier": "10211442",
+      "quantity": null,
+      "value": 11558957
+    },
+    {
+      "name": "Structured products (Bonds)",
+      "identifier": null,
+      "quantity": null,
+      "value": 6112507
+    },
+    {
+      "name": "Equities",
+      "identifier": "27406",
+      "quantity": null,
+      "value": 27406
+    }
+  ],
+  "asset_allocation": {
+    "Bonds": 59.24,
+    "Structured products": 40.24,
+    "Equities": 0.14,
+    "Other assets": 0.13,
+    "Liquidity": 0.25
+  },
+  "metrics": {},
+  "isins": [
+    "10211442",
+    "27406"
+  ]
+}

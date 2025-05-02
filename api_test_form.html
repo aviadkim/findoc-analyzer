@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Test Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1, h2 {
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input[type="text"],
+        input[type="password"],
+        textarea {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .section {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        #result {
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: #f9f9f9;
+            white-space: pre-wrap;
+        }
+        .status {
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 4px;
+        }
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+    </style>
+</head>
+<body>
+    <h1>API Test Form</h1>
+    
+    <div class="section">
+        <h2>Health Check</h2>
+        <button id="health-btn">Test Health Endpoint</button>
+        <div id="health-status"></div>
+    </div>
+    
+    <div class="section">
+        <h2>Custom API Request</h2>
+        <div class="form-group">
+            <label for="method">Method:</label>
+            <select id="method">
+                <option value="GET">GET</option>
+                <option value="POST">POST</option>
+                <option value="PUT">PUT</option>
+                <option value="DELETE">DELETE</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="endpoint">Endpoint:</label>
+            <input type="text" id="endpoint" placeholder="e.g., /api/health">
+        </div>
+        <div class="form-group">
+            <label for="headers">Headers (JSON):</label>
+            <textarea id="headers" rows="5" placeholder='{"Content-Type": "application/json"}'></textarea>
+        </div>
+        <div class="form-group">
+            <label for="body">Body (JSON):</label>
+            <textarea id="body" rows="5" placeholder='{"key": "value"}'></textarea>
+        </div>
+        <button id="request-btn">Send Request</button>
+        <div id="request-status"></div>
+    </div>
+    
+    <div id="result"></div>
+    
+    <script>
+        // Set status function
+        function setStatus(elementId, message, isSuccess) {
+            const statusElement = document.getElementById(elementId);
+            statusElement.innerHTML = `<div class="status ${isSuccess ? 'success' : 'error'}">${message}</div>`;
+        }
+        
+        // Display result function
+        function displayResult(data) {
+            const resultElement = document.getElementById('result');
+            resultElement.textContent = typeof data === 'string' ? data : JSON.stringify(data, null, 2);
+        }
+        
+        // Health check function
+        document.getElementById('health-btn').addEventListener('click', async () => {
+            try {
+                const response = await fetch('https://findoc-deploy.ey.r.appspot.com/api/health');
+                const data = await response.json();
+                
+                setStatus('health-status', 'Health check successful!', true);
+                displayResult(data);
+            } catch (error) {
+                console.error('Error:', error);
+                setStatus('health-status', `Error: ${error.message}`, false);
+                displayResult(`Error: ${error.message}`);
+            }
+        });
+        
+        // Custom API request function
+        document.getElementById('request-btn').addEventListener('click', async () => {
+            const method = document.getElementById('method').value;
+            const endpoint = document.getElementById('endpoint').value;
+            const headersText = document.getElementById('headers').value;
+            const bodyText = document.getElementById('body').value;
+            
+            if (!endpoint) {
+                setStatus('request-status', 'Please enter an endpoint', false);
+                return;
+            }
+            
+            try {
+                // Parse headers
+                let headers = {};
+                if (headersText) {
+                    try {
+                        headers = JSON.parse(headersText);
+                    } catch (error) {
+                        setStatus('request-status', `Invalid headers JSON: ${error.message}`, false);
+                        return;
+                    }
+                }
+                
+                // Parse body
+                let body = null;
+                if (bodyText && method !== 'GET') {
+                    try {
+                        body = JSON.parse(bodyText);
+                    } catch (error) {
+                        setStatus('request-status', `Invalid body JSON: ${error.message}`, false);
+                        return;
+                    }
+                }
+                
+                // Prepare request options
+                const options = {
+                    method,
+                    headers
+                };
+                
+                if (body && method !== 'GET') {
+                    options.body = JSON.stringify(body);
+                }
+                
+                // Send request
+                const url = endpoint.startsWith('http') ? endpoint : `https://findoc-deploy.ey.r.appspot.com${endpoint.startsWith('/') ? endpoint : '/' + endpoint}`;
+                const response = await fetch(url, options);
+                
+                // Handle response
+                try {
+                    const data = await response.json();
+                    setStatus('request-status', `Request successful! Status: ${response.status}`, response.ok);
+                    displayResult(data);
+                } catch (error) {
+                    const text = await response.text();
+                    setStatus('request-status', `Request completed with status: ${response.status}`, response.ok);
+                    displayResult(text);
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                setStatus('request-status', `Error: ${error.message}`, false);
+                displayResult(`Error: ${error.message}`);
+            }
+        });
+    </script>
+</body>
+</html>

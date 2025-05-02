@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document Chat - FinDoc Analyzer</title>
+  <link rel="stylesheet" href="/css/styles.css">
+  <style>
+    .chat-container {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .document-list {
+      background-color: white;
+      border-radius: 0.5rem;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      padding: 1.5rem;
+      max-height: 600px;
+      overflow-y: auto;
+    }
+
+    .chat-interface {
+      background-color: white;
+      border-radius: 0.5rem;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      height: 600px;
+    }
+
+    .document-item {
+      display: flex;
+      align-items: center;
+      padding: 0.75rem;
+      border-radius: 0.25rem;
+      cursor: pointer;
+      transition: background-color 0.2s;
+      margin-bottom: 0.5rem;
+    }
+
+    .document-item:hover {
+      background-color: #f8f9fa;
+    }
+
+    .document-item.active {
+      background-color: #e9ecef;
+    }
+
+    .document-item-icon {
+      font-size: 1.5rem;
+      margin-right: 1rem;
+      color: #4c6ef5;
+    }
+
+    .document-item-info {
+      flex: 1;
+    }
+
+    .document-item-name {
+      font-weight: 500;
+    }
+
+    .document-item-meta {
+      font-size: 0.75rem;
+      color: #6c757d;
+    }
+
+    .chat-header {
+      display: flex;
+      align-items: center;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid #dee2e6;
+      margin-bottom: 1rem;
+    }
+
+    .chat-header-icon {
+      font-size: 1.5rem;
+      margin-right: 1rem;
+      color: #4c6ef5;
+    }
+
+    .chat-header-info h3 {
+      margin: 0;
+      margin-bottom: 0.25rem;
+    }
+
+    .chat-header-info p {
+      margin: 0;
+      color: #6c757d;
+      font-size: 0.875rem;
+    }
+
+    .chat-messages {
+      flex: 1;
+      overflow-y: auto;
+      padding-right: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .chat-message {
+      margin-bottom: 1rem;
+      display: flex;
+    }
+
+    .chat-message.user {
+      justify-content: flex-end;
+    }
+
+    .chat-message.assistant {
+      justify-content: flex-start;
+    }
+
+    .chat-message.error .chat-bubble {
+      background-color: #f8d7da;
+      color: #721c24;
+      border: 1px solid #f5c6cb;
+      margin: 0 auto;
+    }
+
+    .chat-bubble {
+      max-width: 70%;
+      padding: 1rem;
+      border-radius: 0.5rem;
+    }
+
+    .chat-message.user .chat-bubble {
+      background-color: #4c6ef5;
+      color: white;
+      border-top-right-radius: 0;
+    }
+
+    .chat-message.assistant .chat-bubble {
+      background-color: #f1f3f5;
+      color: #2c3e50;
+      border-top-left-radius: 0;
+    }
+
+    .chat-input {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .chat-input input {
+      flex: 1;
+      padding: 0.75rem;
+      border: 1px solid #ced4da;
+      border-radius: 0.25rem;
+      font-size: 1rem;
+    }
+
+    .chat-input input:focus {
+      outline: none;
+      border-color: #4c6ef5;
+      box-shadow: 0 0 0 0.2rem rgba(76, 110, 245, 0.25);
+    }
+
+    .chat-input input:disabled {
+      background-color: #e9ecef;
+      cursor: not-allowed;
+    }
+
+    .chat-options {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 1rem;
+    }
+
+    .chat-options-left {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .chat-options-right {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .option-button {
+      background: none;
+      border: none;
+      color: #6c757d;
+      cursor: pointer;
+      font-size: 1rem;
+      padding: 0.25rem 0.5rem;
+      border-radius: 0.25rem;
+      transition: background-color 0.2s, color 0.2s;
+    }
+
+    .option-button:hover {
+      background-color: #f8f9fa;
+      color: #4c6ef5;
+    }
+
+    /* Loading spinner */
+    .loading-spinner {
+      display: inline-block;
+      width: 40px;
+      height: 40px;
+      margin: 0 auto;
+      border: 4px solid rgba(0, 0, 0, 0.1);
+      border-radius: 50%;
+      border-top-color: #4c6ef5;
+      animation: spin 1s ease-in-out infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* Empty state */
+    .empty-state {
+      text-align: center;
+      padding: 2rem;
+      color: #6c757d;
+    }
+
+    /* Error state */
+    .error-state {
+      text-align: center;
+      padding: 1rem;
+      color: #721c24;
+      background-color: #f8d7da;
+      border: 1px solid #f5c6cb;
+      border-radius: 0.25rem;
+    }
+
+    /* Typing indicator */
+    .typing-indicator {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .typing-indicator span {
+      height: 8px;
+      width: 8px;
+      margin: 0 2px;
+      background-color: #6c757d;
+      border-radius: 50%;
+      display: inline-block;
+      opacity: 0.4;
+    }
+
+    .typing-indicator span:nth-child(1) {
+      animation: pulse 1s infinite;
+    }
+
+    .typing-indicator span:nth-child(2) {
+      animation: pulse 1s infinite 0.2s;
+    }
+
+    .typing-indicator span:nth-child(3) {
+      animation: pulse 1s infinite 0.4s;
+    }
+
+    @keyframes pulse {
+      0% { opacity: 0.4; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.2); }
+      100% { opacity: 0.4; transform: scale(1); }
+    }
+
+    /* Notifications */
+    .notifications {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      z-index: 1000;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      max-width: 350px;
+    }
+
+    .notification {
+      display: flex;
+      align-items: flex-start;
+      padding: 1rem;
+      background-color: white;
+      border-radius: 0.5rem;
+      box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+      transform: translateX(100%);
+      opacity: 0;
+      transition: transform 0.3s, opacity 0.3s;
+    }
+
+    .notification.notification-visible {
+      transform: translateX(0);
+      opacity: 1;
+    }
+
+    .notification.notification-hiding {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+
+    .notification.success .notification-icon {
+      color: #28a745;
+    }
+
+    .notification.error .notification-icon {
+      color: #dc3545;
+    }
+
+    .notification.info .notification-icon {
+      color: #17a2b8;
+    }
+
+    .notification-icon {
+      font-size: 1.25rem;
+      margin-right: 0.75rem;
+    }
+
+    .notification-content {
+      flex: 1;
+    }
+
+    .notification-title {
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+
+    .notification-message {
+      font-size: 0.875rem;
+      color: #6c757d;
+    }
+
+    .notification-close {
+      background: none;
+      border: none;
+      color: #6c757d;
+      cursor: pointer;
+      font-size: 0.875rem;
+      padding: 0.25rem;
+      margin-left: 0.5rem;
+    }
+
+    @media (max-width: 768px) {
+      .chat-container {
+        grid-template-columns: 1fr;
+      }
+
+      .chat-interface {
+        height: 500px;
+      }
+
+      .notifications {
+        max-width: 90%;
+        right: 5%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <h1>FinDoc Analyzer</h1>
+    </div>
+    <div class="user-section">
+      <span id="user-info">Guest User</span>
+      <button id="logout-button">Logout</button>
+    </div>
+    <button id="mobile-nav-toggle" class="mobile-nav-toggle">☰</button>
+  </header>
+
+  <div id="error-container" class="error-container"></div>
+
+  <main>
+    <section id="main-section" class="main-section">
+      <div class="sidebar" id="sidebar">
+        <button id="sidebar-close" class="sidebar-close">✕</button>
+        <nav>
+          <ul>
+            <li><a href="/" class="nav-link">Dashboard</a></li>
+            <li><a href="/documents.html" class="nav-link">Documents</a></li>
+            <li><a href="/analytics.html" class="nav-link">Analytics</a></li>
+            <li><a href="/financial.html" class="nav-link">Financial Analysis</a></li>
+            <li><a href="/reports.html" class="nav-link">Reports</a></li>
+            <li><a href="/portfolio.html" class="nav-link">Portfolio</a></li>
+            <li><a href="/chat.html" class="nav-link active">Document Chat</a></li>
+            <li><a href="/processing.html" class="nav-link">Document Processing</a></li>
+            <li><a href="/agents.html" class="nav-link">Agent Configuration</a></li>
+            <li><a href="/extraction.html" class="nav-link">Data Extraction</a></li>
+            <li><a href="/comparison.html" class="nav-link">Document Comparison</a></li>
+            <li><a href="/templates.html" class="nav-link">Templates</a></li>
+            <li><a href="/batch.html" class="nav-link">Batch Processing</a></li>
+            <li><a href="/settings.html" class="nav-link">Settings</a></li>
+          </ul>
+        </nav>
+      </div>
+
+      <div class="content">
+        <h2>Document Chat</h2>
+
+        <div class="chat-container">
+          <div class="document-list">
+            <h3>My Documents</h3>
+            <!-- Documents will be loaded dynamically -->
+            <div class="loading-spinner"></div>
+          </div>
+
+          <div class="chat-interface">
+            <div class="chat-header">
+              <div class="chat-header-icon">���</div>
+              <div class="chat-header-info">
+                <h3>Q3 Financial Report</h3>
+                <p>PDF • 2.5 MB • Processed</p>
+              </div>
+            </div>
+
+            <div class="chat-messages">
+              <!-- Chat messages will be loaded dynamically -->
+              <div class="loading-spinner"></div>
+            </div>
+
+            <div class="chat-input">
+              <input type="text" placeholder="Ask a question about this document...">
+              <button class="primary-button">Send</button>
+            </div>
+
+            <div class="chat-options">
+              <div class="chat-options-left">
+                <button class="option-button">���</button>
+                <button class="option-button">���</button>
+                <button class="option-button">���</button>
+              </div>
+              <div class="chat-options-right">
+                <button class="option-button">���</button>
+                <button class="option-button">���</button>
+                <button class="option-button">⚙️</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2023 FinDoc Analyzer. All rights reserved.</p>
+  </footer>
+
+  <script src="/js/chat-interface.js"></script>
+  <script>
+    // Mobile navigation
+    const mobileNavToggle = document.getElementById('mobile-nav-toggle');
+    const sidebar = document.getElementById('sidebar');
+    const sidebarClose = document.getElementById('sidebar-close');
+    const navLinks = document.querySelectorAll('.nav-link');
+
+    mobileNavToggle.addEventListener('click', () => {
+      sidebar.classList.add('active');
+      sidebarClose.style.display = 'block';
+    });
+
+    sidebarClose.addEventListener('click', () => {
+      sidebar.classList.remove('active');
+      sidebarClose.style.display = 'none';
+    });
+
+    navLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        if (window.innerWidth <= 768) {
+          sidebar.classList.remove('active');
+          sidebarClose.style.display = 'none';
+        }
+      });
+    });
+
+    // Initialize chat interface
+    document.addEventListener('DOMContentLoaded', () => {
+      // Initialize chat interface
+      const chatInterface = new ChatInterface({
+        apiUrl: '/api/chat',
+        documentListSelector: '.document-list',
+        documentItemSelector: '.document-item',
+        chatMessagesSelector: '.chat-messages',
+        chatInputSelector: '.chat-input input',
+        sendButtonSelector: '.chat-input button',
+        chatHeaderSelector: '.chat-header',
+        onError: (error) => {
+          showNotification('error', 'Chat Error', error.message);
+        }
+      });
+
+      // Load documents
+      chatInterface.loadDocuments();
+
+      // Show notification
+      function showNotification(type, title, message, duration = 3000) {
+        // Create notification element
+        const notification = document.createElement('div');
+        notification.className = `notification ${type}`;
+
+        // Set notification content
+        notification.innerHTML = `
+          <div class="notification-icon">
+            <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'times-circle' : 'info-circle'}"></i>
+          </div>
+          <div class="notification-content">
+            <div class="notification-title">${title}</div>
+            <div class="notification-message">${message}</div>
+          </div>
+          <button class="notification-close">
+            <i class="fas fa-times"></i>
+          </button>
+        `;
+
+        // Add notification to the page
+        const notificationsContainer = document.querySelector('.notifications') || (() => {
+          const container = document.createElement('div');
+          container.className = 'notifications';
+          document.body.appendChild(container);
+          return container;
+        })();
+
+        notificationsContainer.appendChild(notification);
+
+        // Add close button event
+        const closeBtn = notification.querySelector('.notification-close');
+        closeBtn.addEventListener('click', () => {
+          notification.classList.add('notification-hiding');
+          setTimeout(() => {
+            notification.remove();
+          }, 300);
+        });
+
+        // Auto remove after duration
+        setTimeout(() => {
+          notification.classList.add('notification-hiding');
+          setTimeout(() => {
+            notification.remove();
+          }, 300);
+        }, duration);
+
+        // Show notification with animation
+        setTimeout(() => {
+          notification.classList.add('notification-visible');
+        }, 10);
+      }
+    });
+  </script>
+</body>
+</html>

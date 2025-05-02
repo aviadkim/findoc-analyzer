@@ -1,0 +1,20 @@
+version: '3'
+
+services:
+  findoc-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      - NODE_ENV=production
+      - PORT=8080
+      - UPLOAD_FOLDER=/tmp/uploads
+      - TEMP_FOLDER=/tmp/temp
+      - RESULTS_FOLDER=/tmp/results
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
+    volumes:
+      - ./uploads:/tmp/uploads
+      - ./temp:/tmp/temp
+      - ./results:/tmp/results

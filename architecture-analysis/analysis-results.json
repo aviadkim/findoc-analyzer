@@ -1,0 +1,512 @@
+[
+  {
+    "url": "https://findoc-deploy.ey.r.appspot.com/",
+    "title": "FinDoc Analyzer - Financial Document Analysis",
+    "scripts": [
+      {
+        "src": "https://cdn.jsdelivr.net/npm/chart.js",
+        "type": "",
+        "content": ""
+      },
+      {
+        "src": "",
+        "type": "",
+        "content": "\n    // Mobile navigation\n    const mobileNavToggle = document.getElementById('mobile-nav-toggle');\n..."
+      }
+    ],
+    "stylesheets": [
+      {
+        "href": "https://findoc-deploy.ey.r.appspot.com/css/styles.css"
+      },
+      {
+        "href": "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      }
+    ],
+    "navLinks": [
+      {
+        "href": "https://findoc-deploy.ey.r.appspot.com/",
+        "text": "Dashboard"
+      },
+      {
+        "href": "https://findoc-deploy.ey.r.appspot.com/documents.html",
+        "text": "Documents"
+      },
+      {
+        "href": "https://findoc-deploy.ey.r.appspot.com/analytics.html",
+        "text": "Analytics"
+      },
+      {
+        "href": "https://findoc-deploy.ey.r.appspot.com/financial.html",
+        "text": "Financial Analysis"
+      },
+      {
+        "href": "https://findoc-deploy.ey.r.appspot.com/portfolio.html",
+        "text": "Portfolio"
+      },
+      {
+        "href": "https://findoc-deploy.ey.r.appspot.com/reports.html",
+        "text": "Reports"
+      },
+      {
+        "href": "https://findoc-deploy.ey.r.appspot.com/chat.html",
+        "text": "Document Chat"
+      },
+      {
+        "href": "https://findoc-deploy.ey.r.appspot.com/processing.html",
+        "text": "Document Processing"
+      },
+      {
+        "href": "https://findoc-deploy.ey.r.appspot.com/agents.html",
+        "text": "Agent Configuration"
+      },
+      {
+        "href": "https://findoc-deploy.ey.r.appspot.com/extraction.html",
+        "text": "Data Extraction"
+      }
+    ],
+    "hasReact": false,
+    "hasNextJs": false,
+    "htmlStructure": {
+      "tag": "html",
+      "children": [
+        {
+          "tag": "head",
+          "children": [
+            {
+              "tag": "meta"
+            },
+            {
+              "tag": "meta"
+            },
+            {
+              "tag": "title"
+            },
+            {
+              "tag": "link"
+            },
+            {
+              "tag": "link"
+            },
+            {
+              "tag": "script"
+            }
+          ]
+        },
+        {
+          "tag": "body",
+          "children": [
+            {
+              "tag": "div",
+              "className": "findoc-layout",
+              "children": [
+                {
+                  "tag": "aside",
+                  "id": "sidebar",
+                  "className": "sidebar",
+                  "children": [
+                    "...",
+                    "...",
+                    "..."
+                  ]
+                },
+                {
+                  "tag": "main",
+                  "className": "main-content",
+                  "children": [
+                    "...",
+                    "..."
+                  ]
+                }
+              ]
+            },
+            {
+              "tag": "script"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "url": "https://findoc-deploy.ey.r.appspot.com/documents.html",
+    "title": "Documents - FinDoc Analyzer",
+    "scripts": [
+      {
+        "src": "",
+        "type": "",
+        "content": "\n    // Mobile navigation\n    const mobileNavToggle = document.getElementById('mobile-nav-toggle');\n..."
+      }
+    ],
+    "stylesheets": [
+      {
+        "href": "https://findoc-deploy.ey.r.appspot.com/css/styles.css"
+      }
+    ],
+    "navLinks": [
+      {
+        "href": "https://findoc-deploy.ey.r.appspot.com/",
+        "text": "Dashboard"
+      },
+      {
+        "href": "https://findoc-deploy.ey.r.appspot.com/documents.html",
+        "text": "Documents"
+      },
+      {
+        "href": "https://findoc-deploy.ey.r.appspot.com/analytics.html",
+        "text": "Analytics"
+      },
+      {
+        "href": "https://findoc-deploy.ey.r.appspot.com/financial.html",
+        "text": "Financial Analysis"
+      },
+      {
+        "href": "https://findoc-deploy.ey.r.appspot.com/reports.html",
+        "text": "Reports"
+      },
+      {
+        "href": "https://findoc-deploy.ey.r.appspot.com/portfolio.html",
+        "text": "Portfolio"
+      },
+      {
+        "href": "https://findoc-deploy.ey.r.appspot.com/chat.html",
+        "text": "Document Chat"
+      },
+      {
+        "href": "https://findoc-deploy.ey.r.appspot.com/processing.html",
+        "text": "Document Processing"
+      },
+      {
+        "href": "https://findoc-deploy.ey.r.appspot.com/agents.html",
+        "text": "Agent Configuration"
+      },
+      {
+        "href": "https://findoc-deploy.ey.r.appspot.com/extraction.html",
+        "text": "Data Extraction"
+      }
+    ],
+    "hasReact": false,
+    "hasNextJs": false,
+    "htmlStructure": {
+      "tag": "html",
+      "children": [
+        {
+          "tag": "head",
+          "children": [
+            {
+              "tag": "meta"
+            },
+            {
+              "tag": "meta"
+            },
+            {
+              "tag": "title"
+            },
+            {
+              "tag": "link"
+            },
+            {
+              "tag": "style"
+            }
+          ]
+        },
+        {
+          "tag": "body",
+          "children": [
+            {
+              "tag": "header",
+              "children": [
+                {
+                  "tag": "div",
+                  "className": "logo",
+                  "children": [
+                    "..."
+                  ]
+                },
+                {
+                  "tag": "div",
+                  "className": "user-section",
+                  "children": [
+                    "...",
+                    "..."
+                  ]
+                },
+                {
+                  "tag": "button",
+                  "id": "mobile-nav-toggle",
+                  "className": "mobile-nav-toggle"
+                }
+              ]
+            },
+            {
+              "tag": "div",
+              "id": "error-container",
+              "className": "error-container"
+            },
+            {
+              "tag": "main",
+              "children": [
+                {
+                  "tag": "section",
+                  "id": "main-section",
+                  "className": "main-section",
+                  "children": [
+                    "...",
+                    "..."
+                  ]
+                }
+              ]
+            },
+            {
+              "tag": "footer",
+              "children": [
+                {
+                  "tag": "p"
+                }
+              ]
+            },
+            {
+              "tag": "script"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "url": "https://findoc-deploy.ey.r.appspot.com/analytics.html",
+    "title": "Analytics - FinDoc Analyzer",
+    "scripts": [
+      {
+        "src": "",
+        "type": "",
+        "content": "\n    // Fetch analytics data\n    fetch('/api/visualizations/dashboard')\n      .then(response => resp..."
+      }
+    ],
+    "stylesheets": [
+      {
+        "href": "https://findoc-deploy.ey.r.appspot.com/css/styles.css"
+      }
+    ],
+    "navLinks": [
+      {
+        "href": "https://findoc-deploy.ey.r.appspot.com/",
+        "text": "Home"
+      },
+      {
+        "href": "https://findoc-deploy.ey.r.appspot.com/analytics.html",
+        "text": "Analytics"
+      },
+      {
+        "href": "https://findoc-deploy.ey.r.appspot.com/financial.html",
+        "text": "Financial Analysis"
+      },
+      {
+        "href": "https://findoc-deploy.ey.r.appspot.com/reports.html",
+        "text": "Reports"
+      }
+    ],
+    "hasReact": false,
+    "hasNextJs": false,
+    "htmlStructure": {
+      "tag": "html",
+      "children": [
+        {
+          "tag": "head",
+          "children": [
+            {
+              "tag": "meta"
+            },
+            {
+              "tag": "meta"
+            },
+            {
+              "tag": "title"
+            },
+            {
+              "tag": "link"
+            }
+          ]
+        },
+        {
+          "tag": "body",
+          "children": [
+            {
+              "tag": "header",
+              "children": [
+                {
+                  "tag": "div",
+                  "className": "logo",
+                  "children": [
+                    "..."
+                  ]
+                },
+                {
+                  "tag": "nav",
+                  "children": [
+                    "..."
+                  ]
+                }
+              ]
+            },
+            {
+              "tag": "main",
+              "children": [
+                {
+                  "tag": "h2"
+                },
+                {
+                  "tag": "div",
+                  "id": "analytics-content",
+                  "children": [
+                    "...",
+                    "...",
+                    "..."
+                  ]
+                }
+              ]
+            },
+            {
+              "tag": "footer",
+              "children": [
+                {
+                  "tag": "p"
+                }
+              ]
+            },
+            {
+              "tag": "script"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "url": "https://findoc-deploy.ey.r.appspot.com/upload.html",
+    "title": "FinDoc Analyzer - Financial Document Analysis",
+    "scripts": [
+      {
+        "src": "https://cdn.jsdelivr.net/npm/chart.js",
+        "type": "",
+        "content": ""
+      },
+      {
+        "src": "",
+        "type": "",
+        "content": "\n    // Mobile navigation\n    const mobileNavToggle = document.getElementById('mobile-nav-toggle');\n..."
+      }
+    ],
+    "stylesheets": [
+      {
+        "href": "https://findoc-deploy.ey.r.appspot.com/css/styles.css"
+      },
+      {
+        "href": "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      }
+    ],
+    "navLinks": [
+      {
+        "href": "https://findoc-deploy.ey.r.appspot.com/",
+        "text": "Dashboard"
+      },
+      {
+        "href": "https://findoc-deploy.ey.r.appspot.com/documents.html",
+        "text": "Documents"
+      },
+      {
+        "href": "https://findoc-deploy.ey.r.appspot.com/analytics.html",
+        "text": "Analytics"
+      },
+      {
+        "href": "https://findoc-deploy.ey.r.appspot.com/financial.html",
+        "text": "Financial Analysis"
+      },
+      {
+        "href": "https://findoc-deploy.ey.r.appspot.com/portfolio.html",
+        "text": "Portfolio"
+      },
+      {
+        "href": "https://findoc-deploy.ey.r.appspot.com/reports.html",
+        "text": "Reports"
+      },
+      {
+        "href": "https://findoc-deploy.ey.r.appspot.com/chat.html",
+        "text": "Document Chat"
+      },
+      {
+        "href": "https://findoc-deploy.ey.r.appspot.com/processing.html",
+        "text": "Document Processing"
+      },
+      {
+        "href": "https://findoc-deploy.ey.r.appspot.com/agents.html",
+        "text": "Agent Configuration"
+      },
+      {
+        "href": "https://findoc-deploy.ey.r.appspot.com/extraction.html",
+        "text": "Data Extraction"
+      }
+    ],
+    "hasReact": false,
+    "hasNextJs": false,
+    "htmlStructure": {
+      "tag": "html",
+      "children": [
+        {
+          "tag": "head",
+          "children": [
+            {
+              "tag": "meta"
+            },
+            {
+              "tag": "meta"
+            },
+            {
+              "tag": "title"
+            },
+            {
+              "tag": "link"
+            },
+            {
+              "tag": "link"
+            },
+            {
+              "tag": "script"
+            }
+          ]
+        },
+        {
+          "tag": "body",
+          "children": [
+            {
+              "tag": "div",
+              "className": "findoc-layout",
+              "children": [
+                {
+                  "tag": "aside",
+                  "id": "sidebar",
+                  "className": "sidebar",
+                  "children": [
+                    "...",
+                    "...",
+                    "..."
+                  ]
+                },
+                {
+                  "tag": "main",
+                  "className": "main-content",
+                  "children": [
+                    "...",
+                    "..."
+                  ]
+                }
+              ]
+            },
+            {
+              "tag": "script"
+            }
+          ]
+        }
+      ]
+    }
+  }
+]

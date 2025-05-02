@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document Viewer - FinDoc Analyzer</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="/css/styles.css">
+  <link rel="stylesheet" href="/css/chat-interface.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <div class="sidebar-header">
+        <h1>FinDoc Analyzer</h1>
+      </div>
+      <nav class="sidebar-nav">
+        <a href="/dashboard.html" class="nav-item">
+          <span class="material-icons">dashboard</span>
+          <span>Dashboard</span>
+        </a>
+        <a href="/documents.html" class="nav-item active">
+          <span class="material-icons">description</span>
+          <span>Documents</span>
+        </a>
+        <a href="/portfolio.html" class="nav-item">
+          <span class="material-icons">account_balance</span>
+          <span>Portfolio</span>
+        </a>
+        <a href="/settings.html" class="nav-item">
+          <span class="material-icons">settings</span>
+          <span>Settings</span>
+        </a>
+      </nav>
+      <div class="sidebar-footer">
+        <a href="/profile.html" class="user-info">
+          <div class="user-avatar">
+            <span class="material-icons">person</span>
+          </div>
+          <div class="user-details">
+            <span class="user-name" id="user-name">User Name</span>
+            <span class="user-role" id="user-role">User Role</span>
+          </div>
+        </a>
+        <button class="logout-button" id="logout-button">
+          <span class="material-icons">logout</span>
+          <span>Logout</span>
+        </button>
+      </div>
+    </div>
+    
+    <!-- Main Content -->
+    <div class="main-content">
+      <div class="content-header">
+        <h2 id="document-title">Document Viewer</h2>
+        <div class="header-actions" id="document-actions">
+          <!-- Document actions will be added here -->
+        </div>
+      </div>
+      
+      <div class="content-body">
+        <div class="document-viewer-container">
+          <div class="document-info-panel">
+            <div class="panel-section">
+              <h3>Document Information</h3>
+              <div class="document-info" id="document-info">
+                <!-- Document info will be added here -->
+              </div>
+            </div>
+            
+            <div class="panel-section">
+              <h3>Processing Status</h3>
+              <div id="processing-status">
+                <!-- Processing status will be added here -->
+              </div>
+            </div>
+          </div>
+          
+          <div class="document-preview-panel">
+            <div class="document-preview" id="document-preview">
+              <!-- Document preview will be added here -->
+            </div>
+          </div>
+          
+          <div class="document-chat-panel" id="chat-container" style="display: none;">
+            <chat-interface></chat-interface>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Scripts -->
+  <script src="/js/auth.js"></script>
+  <script src="/js/components/chat-interface.js"></script>
+  <script src="/js/document-viewer.js"></script>
+</body>
+</html>

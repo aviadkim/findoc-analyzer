@@ -7,6 +7,10 @@ import FinancialAnalysisPage from './pages/FinancialAnalysisPage';
 import UploadPage from './pages/UploadPage';
 import ReportsPage from './pages/ReportsPage';
 import SettingsPage from './pages/SettingsPage';
+import DocumentsNewPage from './pages/documents-new';
+import AnalyticsNewPage from './pages/analytics-new';
+import FeedbackPage from './pages/feedback';
+import DocumentComparisonPage from './pages/document-comparison';
 
 const App = () => {
   return (
@@ -21,6 +25,10 @@ const App = () => {
               <Route path="/upload" element={<UploadPage />} />
               <Route path="/reports" element={<ReportsPage />} />
               <Route path="/settings" element={<SettingsPage />} />
+              <Route path="/documents-new" element={<DocumentsNewPage />} />
+              <Route path="/analytics-new" element={<AnalyticsNewPage />} />
+              <Route path="/feedback" element={<FeedbackPage />} />
+              <Route path="/document-comparison" element={<DocumentComparisonPage />} />
             </Routes>
           </Box>
         </Flex>

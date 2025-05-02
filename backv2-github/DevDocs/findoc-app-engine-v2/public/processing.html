@@ -1,0 +1,1692 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document Processing - FinDoc Analyzer</title>
+  <link rel="stylesheet" href="/css/styles.css">
+  <link rel="stylesheet" href="/css/document-processor.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+  <div class="findoc-layout">
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <h1 class="app-title">FinDoc Analyzer</h1>
+      </div>
+      <nav class="sidebar-nav">
+        <ul>
+          <li>
+            <a href="/">
+              <span class="icon"><i class="fas fa-home"></i></span>
+              <span>Dashboard</span>
+            </a>
+          </li>
+          <li>
+            <a href="/documents.html">
+              <span class="icon"><i class="fas fa-file-alt"></i></span>
+              <span>Documents</span>
+            </a>
+          </li>
+          <li>
+            <a href="/analytics.html">
+              <span class="icon"><i class="fas fa-chart-bar"></i></span>
+              <span>Analytics</span>
+            </a>
+          </li>
+          <li>
+            <a href="/financial.html">
+              <span class="icon"><i class="fas fa-chart-pie"></i></span>
+              <span>Financial Analysis</span>
+            </a>
+          </li>
+          <li>
+            <a href="/portfolio.html">
+              <span class="icon"><i class="fas fa-briefcase"></i></span>
+              <span>Portfolio</span>
+            </a>
+          </li>
+          <li>
+            <a href="/reports.html">
+              <span class="icon"><i class="fas fa-file-invoice"></i></span>
+              <span>Reports</span>
+            </a>
+          </li>
+          <li>
+            <a href="/chat.html">
+              <span class="icon"><i class="fas fa-comments"></i></span>
+              <span>Document Chat</span>
+            </a>
+          </li>
+          <li class="active">
+            <a href="/processing.html">
+              <span class="icon"><i class="fas fa-cogs"></i></span>
+              <span>Document Processing</span>
+            </a>
+          </li>
+          <li>
+            <a href="/agents.html">
+              <span class="icon"><i class="fas fa-robot"></i></span>
+              <span>Agent Configuration</span>
+            </a>
+          </li>
+          <li>
+            <a href="/extraction.html">
+              <span class="icon"><i class="fas fa-table"></i></span>
+              <span>Data Extraction</span>
+            </a>
+          </li>
+          <li>
+            <a href="/comparison.html">
+              <span class="icon"><i class="fas fa-exchange-alt"></i></span>
+              <span>Document Comparison</span>
+            </a>
+          </li>
+          <li>
+            <a href="/templates.html">
+              <span class="icon"><i class="fas fa-copy"></i></span>
+              <span>Templates</span>
+            </a>
+          </li>
+          <li>
+            <a href="/batch.html">
+              <span class="icon"><i class="fas fa-layer-group"></i></span>
+              <span>Batch Processing</span>
+            </a>
+          </li>
+          <li>
+            <a href="/settings.html">
+              <span class="icon"><i class="fas fa-cog"></i></span>
+              <span>Settings</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+      <div class="sidebar-footer">
+        <div class="user-info">
+          <div class="user-avatar">AB</div>
+          <div class="user-details">
+            <div class="user-name">Aviad B.</div>
+            <div class="user-role">Administrator</div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main content -->
+    <main class="main-content">
+      <!-- Header -->
+      <header class="main-header">
+        <button class="mobile-nav-toggle" id="mobile-nav-toggle">
+          <i class="fas fa-bars"></i>
+        </button>
+        <div class="search-box">
+          <i class="fas fa-search icon"></i>
+          <input type="text" placeholder="Search documents, reports, etc.">
+        </div>
+        <div class="header-actions">
+          <a href="/processing.html" class="upload-btn">
+            <i class="fas fa-upload"></i>
+            <span>Upload Document</span>
+          </a>
+          <button class="icon-btn" id="notifications-btn">
+            <i class="fas fa-bell"></i>
+          </button>
+          <div class="dropdown">
+            <button class="user-menu-btn" id="user-menu-btn">
+              <div class="user-avatar-small">AB</div>
+            </button>
+            <div class="dropdown-menu" id="user-dropdown">
+              <a href="/profile.html" class="dropdown-item">
+                <i class="fas fa-user icon"></i>
+                Profile
+              </a>
+              <a href="/settings.html" class="dropdown-item">
+                <i class="fas fa-cog icon"></i>
+                Settings
+              </a>
+              <div class="dropdown-divider"></div>
+              <a href="/logout" class="dropdown-item">
+                <i class="fas fa-sign-out-alt icon"></i>
+                Logout
+              </a>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- Page content -->
+      <div class="page-content">
+        <h2>Document Processing</h2>
+
+        <div class="dashboard-grid-2">
+          <!-- Upload Section -->
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">Upload Documents</h3>
+              <div class="dropdown">
+                <button class="btn btn-sm btn-outline dropdown-toggle">
+                  <i class="fas fa-ellipsis-v"></i>
+                </button>
+                <div class="dropdown-menu">
+                  <a href="#" class="dropdown-item" id="clear-all-files">
+                    <i class="fas fa-trash icon"></i>
+                    Clear All
+                  </a>
+                  <a href="#" class="dropdown-item" id="upload-history">
+                    <i class="fas fa-history icon"></i>
+                    Upload History
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="file-upload-container">
+                <div class="file-upload" id="file-upload">
+                  <div class="file-upload-icon">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                  </div>
+                  <h4 class="file-upload-title">Upload Financial Documents</h4>
+                  <p class="file-upload-text">Drag and drop files here</p>
+                  <p class="file-upload-hint">or</p>
+                  <button class="btn btn-primary btn-sm file-upload-btn">Browse Files</button>
+                  <input type="file" id="file-input" style="display: none;" multiple>
+                </div>
+                <div class="file-upload-info">
+                  <p>Supported file types: PDF, Excel, CSV</p>
+                  <p>Maximum file size: 10MB</p>
+                </div>
+              </div>
+
+              <div class="file-list-container mt-4">
+                <div class="file-list-header">
+                  <h4 class="file-list-title">Selected Files</h4>
+                  <button class="btn btn-sm btn-outline" id="clear-all-files">
+                    <i class="fas fa-trash-alt mr-1"></i> Clear All
+                  </button>
+                </div>
+                <div class="file-list" id="file-list">
+                  <!-- File items will be added here dynamically -->
+                </div>
+                <div class="file-list-empty">
+                  <div class="file-list-empty-icon">
+                    <i class="fas fa-file-alt"></i>
+                  </div>
+                  <div class="file-list-empty-text">No files selected</div>
+                </div>
+              </div>
+
+              <!-- Processing Status -->
+              <div class="processing-status-container mt-4" id="processing-status-container" style="display: none;">
+                <div class="card">
+                  <div class="card-header">
+                    <h3 class="card-title">Processing Status</h3>
+                    <div class="card-actions">
+                      <button class="btn btn-sm btn-danger" id="cancel-processing-btn">
+                        <i class="fas fa-times mr-1"></i> Cancel
+                      </button>
+                    </div>
+                  </div>
+                  <div class="card-body">
+                    <div class="processing-progress">
+                      <div class="progress-bar-container">
+                        <div class="progress-bar" id="processing-progress-bar"></div>
+                      </div>
+                      <div class="progress-percentage" id="processing-progress-percentage">0%</div>
+                    </div>
+
+                    <div class="processing-steps mt-4">
+                      <div class="processing-step" data-step="upload">
+                        <div class="step-icon">
+                          <i class="fas fa-upload"></i>
+                        </div>
+                        <div class="step-content">
+                          <div class="step-title">Upload</div>
+                          <div class="step-description">Uploading files to the server</div>
+                        </div>
+                        <div class="step-status">
+                          <i class="fas fa-circle"></i>
+                        </div>
+                      </div>
+
+                      <div class="processing-step" data-step="ocr">
+                        <div class="step-icon">
+                          <i class="fas fa-file-alt"></i>
+                        </div>
+                        <div class="step-content">
+                          <div class="step-title">OCR Processing</div>
+                          <div class="step-description">Extracting text from documents</div>
+                        </div>
+                        <div class="step-status">
+                          <i class="fas fa-circle"></i>
+                        </div>
+                      </div>
+
+                      <div class="processing-step" data-step="tables">
+                        <div class="step-icon">
+                          <i class="fas fa-table"></i>
+                        </div>
+                        <div class="step-content">
+                          <div class="step-title">Table Extraction</div>
+                          <div class="step-description">Identifying and extracting tables</div>
+                        </div>
+                        <div class="step-status">
+                          <i class="fas fa-circle"></i>
+                        </div>
+                      </div>
+
+                      <div class="processing-step" data-step="securities">
+                        <div class="step-icon">
+                          <i class="fas fa-money-bill-wave"></i>
+                        </div>
+                        <div class="step-content">
+                          <div class="step-title">Securities Extraction</div>
+                          <div class="step-description">Identifying securities and financial data</div>
+                        </div>
+                        <div class="step-status">
+                          <i class="fas fa-circle"></i>
+                        </div>
+                      </div>
+
+                      <div class="processing-step" data-step="analysis">
+                        <div class="step-icon">
+                          <i class="fas fa-chart-pie"></i>
+                        </div>
+                        <div class="step-content">
+                          <div class="step-title">Analysis</div>
+                          <div class="step-description">Analyzing extracted data</div>
+                        </div>
+                        <div class="step-status">
+                          <i class="fas fa-circle"></i>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="processing-message mt-4" id="processing-message">
+                      Ready to process documents
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Processing Options -->
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">Processing Options</h3>
+            </div>
+            <div class="card-body">
+              <div class="form-group">
+                <label class="form-label">Document Features</label>
+                <div class="checkbox-group">
+                  <div class="form-check">
+                    <input type="checkbox" id="table-extraction" class="form-check-input" checked>
+                    <label for="table-extraction" class="form-check-label">Table Extraction</label>
+                  </div>
+                  <div class="form-check">
+                    <input type="checkbox" id="isin-detection" class="form-check-input" checked>
+                    <label for="isin-detection" class="form-check-label">ISIN Detection</label>
+                  </div>
+                  <div class="form-check">
+                    <input type="checkbox" id="security-info" class="form-check-input" checked>
+                    <label for="security-info" class="form-check-label">Security Information</label>
+                  </div>
+                  <div class="form-check">
+                    <input type="checkbox" id="portfolio-analysis" class="form-check-input" checked>
+                    <label for="portfolio-analysis" class="form-check-label">Portfolio Analysis</label>
+                  </div>
+                  <div class="form-check">
+                    <input type="checkbox" id="ocr-scanned" class="form-check-input">
+                    <label for="ocr-scanned" class="form-check-label">OCR for Scanned Documents</label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group mt-4">
+                <label class="form-label">Output Format</label>
+                <div class="checkbox-group">
+                  <div class="form-check">
+                    <input type="radio" id="format-json" name="output-format" class="form-check-input" checked>
+                    <label for="format-json" class="form-check-label">JSON</label>
+                  </div>
+                  <div class="form-check">
+                    <input type="radio" id="format-csv" name="output-format" class="form-check-input">
+                    <label for="format-csv" class="form-check-label">CSV</label>
+                  </div>
+                  <div class="form-check">
+                    <input type="radio" id="format-excel" name="output-format" class="form-check-input">
+                    <label for="format-excel" class="form-check-label">Excel</label>
+                  </div>
+                </div>
+              </div>
+
+              <button class="btn btn-primary w-100 mt-4" id="process-documents">
+                <i class="fas fa-cogs mr-2"></i> Process Documents
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Agent Selection -->
+        <div class="card mb-4">
+          <div class="card-header">
+            <h3 class="card-title">Agent Selection</h3>
+            <button class="btn btn-sm btn-outline" id="select-all-agents">Select All</button>
+          </div>
+          <div class="card-body">
+            <div class="agent-grid">
+              <div class="agent-card active">
+                <div class="agent-card-icon">
+                  <i class="fas fa-search"></i>
+                </div>
+                <div class="agent-card-title">Document Analyzer</div>
+                <div class="agent-card-description">Analyzes document structure and content</div>
+              </div>
+              <div class="agent-card">
+                <div class="agent-card-icon">
+                  <i class="fas fa-table"></i>
+                </div>
+                <div class="agent-card-title">Table Understanding</div>
+                <div class="agent-card-description">Extracts and interprets tables from documents</div>
+              </div>
+              <div class="agent-card">
+                <div class="agent-card-icon">
+                  <i class="fas fa-money-bill-wave"></i>
+                </div>
+                <div class="agent-card-title">Securities Extractor</div>
+                <div class="agent-card-description">Identifies securities and financial instruments</div>
+              </div>
+              <div class="agent-card">
+                <div class="agent-card-icon">
+                  <i class="fas fa-chart-line"></i>
+                </div>
+                <div class="agent-card-title">Financial Reasoner</div>
+                <div class="agent-card-description">Analyzes financial data and provides insights</div>
+              </div>
+              <div class="agent-card">
+                <div class="agent-card-icon">
+                  <i class="fas fa-sync-alt"></i>
+                </div>
+                <div class="agent-card-title">Portfolio Builder</div>
+                <div class="agent-card-description">Creates portfolios from extracted securities</div>
+              </div>
+              <div class="agent-card">
+                <div class="agent-card-icon">
+                  <i class="fas fa-file-alt"></i>
+                </div>
+                <div class="agent-card-title">Report Generator</div>
+                <div class="agent-card-description">Generates comprehensive financial reports</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Processing Results -->
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">Processing Results</h3>
+            <div class="dropdown">
+              <button class="btn btn-sm btn-outline dropdown-toggle">
+                <i class="fas fa-ellipsis-v"></i>
+              </button>
+              <div class="dropdown-menu">
+                <a href="#" class="dropdown-item" id="download-json">
+                  <i class="fas fa-download icon"></i>
+                  Download JSON
+                </a>
+                <a href="#" class="dropdown-item" id="download-csv">
+                  <i class="fas fa-file-csv icon"></i>
+                  Download CSV
+                </a>
+                <a href="#" class="dropdown-item" id="share-results">
+                  <i class="fas fa-share-alt icon"></i>
+                  Share Results
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="tabs">
+              <div class="tab active" data-tab="extracted-data">Extracted Data</div>
+              <div class="tab" data-tab="tables">Tables</div>
+              <div class="tab" data-tab="securities">Securities</div>
+              <div class="tab" data-tab="analysis">Analysis</div>
+            </div>
+
+            <div class="tab-content active" id="extracted-data">
+              <h4 class="mb-3">Extracted Data</h4>
+              <div id="results-loading" class="text-center p-4">
+                <div class="spinner"></div>
+                <p class="mt-3">Loading results...</p>
+              </div>
+              <div id="results-error" class="alert alert-danger" style="display: none;">
+                <i class="fas fa-exclamation-circle mr-2"></i>
+                <span id="results-error-message">Error loading results</span>
+              </div>
+              <div id="results-empty" class="text-center p-4" style="display: none;">
+                <i class="fas fa-file-alt" style="font-size: 3rem; color: var(--neutral-300);"></i>
+                <p class="mt-3">No data available. Please process a document first.</p>
+              </div>
+              <pre id="results-json" class="bg-neutral-100 p-4 rounded-lg overflow-x-auto" style="display: none;">
+{
+  "document": "Q3 Financial Report.pdf",
+  "metadata": {
+    "title": "Q3 Financial Report",
+    "author": "Financial Department",
+    "createdAt": "2023-10-15T10:30:00Z",
+    "pages": 15
+  },
+  "content": {
+    "summary": "This report provides an overview of the financial performance for Q3 2023.",
+    "sections": [
+      {
+        "title": "Executive Summary",
+        "content": "The company has shown strong performance in Q3 2023 with a 15% increase in revenue compared to Q2 2023."
+      },
+      {
+        "title": "Financial Highlights",
+        "content": "Revenue: $10.5M\nExpenses: $7.2M\nProfit: $3.3M\nProfit Margin: 31.4%"
+      }
+    ]
+  }
+}
+              </pre>
+            </div>
+
+            <div class="tab-content" id="tables">
+              <h4 class="mb-3">Tables</h4>
+              <div id="tables-loading" class="text-center p-4">
+                <div class="spinner"></div>
+                <p class="mt-3">Loading tables...</p>
+              </div>
+              <div id="tables-error" class="alert alert-danger" style="display: none;">
+                <i class="fas fa-exclamation-circle mr-2"></i>
+                <span id="tables-error-message">Error loading tables</span>
+              </div>
+              <div id="tables-empty" class="text-center p-4" style="display: none;">
+                <i class="fas fa-table" style="font-size: 3rem; color: var(--neutral-300);"></i>
+                <p class="mt-3">No tables found in the document.</p>
+              </div>
+              <div id="tables-container" class="table-container" style="display: none;">
+                <div class="mb-3">
+                  <select id="table-selector" class="form-select">
+                    <option value="0">Table 1</option>
+                    <option value="1">Table 2</option>
+                  </select>
+                </div>
+                <div id="table-display">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th>Security</th>
+                        <th>ISIN</th>
+                        <th class="text-right">Quantity</th>
+                        <th class="text-right">Price</th>
+                        <th class="text-right">Value</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Apple Inc.</td>
+                        <td>US0378331005</td>
+                        <td class="text-right">100</td>
+                        <td class="text-right">$150.25</td>
+                        <td class="text-right">$15,025.00</td>
+                      </tr>
+                      <tr>
+                        <td>Microsoft Corporation</td>
+                        <td>US5949181045</td>
+                        <td class="text-right">50</td>
+                        <td class="text-right">$300.10</td>
+                        <td class="text-right">$15,005.00</td>
+                      </tr>
+                      <tr>
+                        <td>Amazon.com Inc.</td>
+                        <td>US0231351067</td>
+                        <td class="text-right">25</td>
+                        <td class="text-right">$130.50</td>
+                        <td class="text-right">$3,262.50</td>
+                      </tr>
+                      <tr>
+                        <td>US Treasury Bond 2.5% 2030</td>
+                        <td>US912810TL45</td>
+                        <td class="text-right">10,000</td>
+                        <td class="text-right">$98.75</td>
+                        <td class="text-right">$9,875.00</td>
+                      </tr>
+                    </tbody>
+                    <tfoot>
+                      <tr>
+                        <td colspan="4" class="font-weight-bold">Total</td>
+                        <td class="text-right font-weight-bold">$43,167.50</td>
+                      </tr>
+                    </tfoot>
+                  </table>
+                </div>
+                <div class="mt-3">
+                  <button id="export-table-csv" class="btn btn-sm btn-outline">
+                    <i class="fas fa-file-csv mr-1"></i> Export as CSV
+                  </button>
+                  <button id="export-table-excel" class="btn btn-sm btn-outline">
+                    <i class="fas fa-file-excel mr-1"></i> Export as Excel
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="tab-content" id="securities">
+              <h4 class="mb-3">Securities</h4>
+              <div id="securities-loading" class="text-center p-4">
+                <div class="spinner"></div>
+                <p class="mt-3">Loading securities...</p>
+              </div>
+              <div id="securities-error" class="alert alert-danger" style="display: none;">
+                <i class="fas fa-exclamation-circle mr-2"></i>
+                <span id="securities-error-message">Error loading securities</span>
+              </div>
+              <div id="securities-empty" class="text-center p-4" style="display: none;">
+                <i class="fas fa-money-bill-wave" style="font-size: 3rem; color: var(--neutral-300);"></i>
+                <p class="mt-3">No securities found in the document.</p>
+              </div>
+              <div id="securities-container" style="display: none;">
+                <div class="mb-3">
+                  <div class="input-group">
+                    <input type="text" id="securities-search" class="form-control" placeholder="Search securities...">
+                    <div class="input-group-append">
+                      <button class="btn btn-outline" type="button">
+                        <i class="fas fa-search"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <div class="mb-3">
+                  <div class="btn-group">
+                    <button id="filter-all" class="btn btn-sm btn-primary active">All</button>
+                    <button id="filter-equity" class="btn btn-sm btn-outline">Equity</button>
+                    <button id="filter-bond" class="btn btn-sm btn-outline">Bond</button>
+                    <button id="filter-fund" class="btn btn-sm btn-outline">Fund</button>
+                    <button id="filter-other" class="btn btn-sm btn-outline">Other</button>
+                  </div>
+                </div>
+                <div id="securities-grid" class="document-grid">
+                  <div class="card security-card" data-type="equity">
+                    <div class="card-body">
+                      <h5 class="card-title">Apple Inc.</h5>
+                      <p><strong>ISIN:</strong> US0378331005</p>
+                      <p><strong>Type:</strong> Equity</p>
+                      <p><strong>Quantity:</strong> 100</p>
+                      <p><strong>Price:</strong> $150.25</p>
+                      <p><strong>Value:</strong> $15,025.00</p>
+                    </div>
+                  </div>
+                  <div class="card security-card" data-type="equity">
+                    <div class="card-body">
+                      <h5 class="card-title">Microsoft Corporation</h5>
+                      <p><strong>ISIN:</strong> US5949181045</p>
+                      <p><strong>Type:</strong> Equity</p>
+                      <p><strong>Quantity:</strong> 50</p>
+                      <p><strong>Price:</strong> $300.10</p>
+                      <p><strong>Value:</strong> $15,005.00</p>
+                    </div>
+                  </div>
+                  <div class="card security-card" data-type="equity">
+                    <div class="card-body">
+                      <h5 class="card-title">Amazon.com Inc.</h5>
+                      <p><strong>ISIN:</strong> US0231351067</p>
+                      <p><strong>Type:</strong> Equity</p>
+                      <p><strong>Quantity:</strong> 25</p>
+                      <p><strong>Price:</strong> $130.50</p>
+                      <p><strong>Value:</strong> $3,262.50</p>
+                    </div>
+                  </div>
+                  <div class="card security-card" data-type="bond">
+                    <div class="card-body">
+                      <h5 class="card-title">US Treasury Bond 2.5% 2030</h5>
+                      <p><strong>ISIN:</strong> US912810TL45</p>
+                      <p><strong>Type:</strong> Bond</p>
+                      <p><strong>Quantity:</strong> 10,000</p>
+                      <p><strong>Price:</strong> $98.75</p>
+                      <p><strong>Value:</strong> $9,875.00</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="mt-3">
+                  <button id="export-securities-csv" class="btn btn-sm btn-outline">
+                    <i class="fas fa-file-csv mr-1"></i> Export as CSV
+                  </button>
+                  <button id="export-securities-excel" class="btn btn-sm btn-outline">
+                    <i class="fas fa-file-excel mr-1"></i> Export as Excel
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="tab-content" id="analysis">
+              <h4 class="mb-3">Analysis</h4>
+              <div id="analysis-loading" class="text-center p-4">
+                <div class="spinner"></div>
+                <p class="mt-3">Loading analysis...</p>
+              </div>
+              <div id="analysis-error" class="alert alert-danger" style="display: none;">
+                <i class="fas fa-exclamation-circle mr-2"></i>
+                <span id="analysis-error-message">Error loading analysis</span>
+              </div>
+              <div id="analysis-empty" class="text-center p-4" style="display: none;">
+                <i class="fas fa-chart-pie" style="font-size: 3rem; color: var(--neutral-300);"></i>
+                <p class="mt-3">No analysis available for this document.</p>
+              </div>
+              <div id="analysis-container" style="display: none;">
+                <div class="mb-4">
+                  <h5 class="mb-2">Portfolio Allocation</h5>
+                  <div class="chart-container" style="height: 300px;">
+                    <canvas id="portfolioAllocationChart"></canvas>
+                  </div>
+                </div>
+                <div class="mb-4">
+                  <h5 class="mb-2">Asset Class Distribution</h5>
+                  <div class="chart-container" style="height: 300px;">
+                    <canvas id="assetClassChart"></canvas>
+                  </div>
+                </div>
+                <div>
+                  <h5 class="mb-2">Risk Assessment</h5>
+                  <div class="card">
+                    <div class="card-body">
+                      <p>Based on the portfolio composition, the risk assessment is as follows:</p>
+                      <ul>
+                        <li><strong>Overall Risk:</strong> <span id="overall-risk">Moderate</span></li>
+                        <li><strong>Volatility:</strong> <span id="volatility">Medium</span></li>
+                        <li><strong>Diversification:</strong> <span id="diversification">Good</span></li>
+                        <li><strong>Sector Concentration:</strong> <span id="sector-concentration">Technology (77.2%)</span></li>
+                        <li><strong>Asset Class Distribution:</strong> <span id="asset-class-distribution">Equity (77.2%), Fixed Income (22.8%)</span></li>
+                      </ul>
+                      <div class="alert alert-info">
+                        <strong>Recommendation:</strong> <span id="recommendation">Consider diversifying beyond technology sector to reduce sector concentration risk.</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="mt-3">
+                  <button id="export-analysis-pdf" class="btn btn-sm btn-outline">
+                    <i class="fas fa-file-pdf mr-1"></i> Export as PDF
+                  </button>
+                  <button id="export-analysis-image" class="btn btn-sm btn-outline">
+                    <i class="fas fa-image mr-1"></i> Export as Image
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="/js/document-processor.js"></script>
+  <script>
+    // Mobile navigation
+    const mobileNavToggle = document.getElementById('mobile-nav-toggle');
+    const sidebar = document.getElementById('sidebar');
+    const mainContent = document.querySelector('.main-content');
+
+    mobileNavToggle.addEventListener('click', () => {
+      sidebar.classList.toggle('active');
+      mainContent.classList.toggle('sidebar-active');
+    });
+
+    // User dropdown
+    const userMenuBtn = document.getElementById('user-menu-btn');
+    const userDropdown = document.getElementById('user-dropdown');
+
+    userMenuBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      userDropdown.classList.toggle('show');
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!userMenuBtn.contains(e.target) && !userDropdown.contains(e.target)) {
+        userDropdown.classList.remove('show');
+      }
+    });
+
+    // Create document processor instance
+    let documentProcessor;
+
+    // Initialize document processor
+    function initDocumentProcessor() {
+      // Get processing status elements
+      const processingStatusContainer = document.getElementById('processing-status-container');
+      const processingProgressBar = document.getElementById('processing-progress-bar');
+      const processingProgressPercentage = document.getElementById('processing-progress-percentage');
+      const processingMessage = document.getElementById('processing-message');
+      const processingSteps = document.querySelectorAll('.processing-step');
+      const cancelProcessingBtn = document.getElementById('cancel-processing-btn');
+
+      // Create document processor
+      documentProcessor = new DocumentProcessor({
+        apiUrl: '/api/documents/scan1',
+        onProgressChange: (progress) => {
+          // Update progress UI
+          console.log(`Processing progress: ${progress}%`);
+
+          // Update progress bar
+          processingProgressBar.style.width = `${progress}%`;
+          processingProgressPercentage.textContent = `${Math.round(progress)}%`;
+        },
+        onStatusChange: (status) => {
+          // Update status UI
+          console.log('Status changed:', status);
+
+          // Update file list
+          if (typeof updateFileList === 'function') {
+            updateFileList(status.files);
+          } else {
+            console.warn('updateFileList function not defined');
+          }
+
+          // Update process button
+          if (status.status === 'processing') {
+            processDocumentsBtn.disabled = true;
+            processDocumentsBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Processing...';
+
+            // Show processing status container
+            processingStatusContainer.style.display = 'block';
+
+            // Update processing message
+            if (status.message) {
+              processingMessage.textContent = status.message;
+            }
+
+            // Update processing steps
+            processingSteps.forEach(step => {
+              const stepName = step.getAttribute('data-step');
+
+              // Reset step classes
+              step.classList.remove('active', 'completed', 'error');
+
+              if (stepName === status.step) {
+                step.classList.add('active');
+              } else if (
+                (stepName === 'upload' && ['ocr', 'tables', 'securities', 'analysis'].includes(status.step)) ||
+                (stepName === 'ocr' && ['tables', 'securities', 'analysis'].includes(status.step)) ||
+                (stepName === 'tables' && ['securities', 'analysis'].includes(status.step)) ||
+                (stepName === 'securities' && ['analysis'].includes(status.step))
+              ) {
+                step.classList.add('completed');
+              }
+            });
+          } else if (status.status === 'completed') {
+            processDocumentsBtn.disabled = false;
+            processDocumentsBtn.innerHTML = '<i class="fas fa-cogs mr-2"></i> Process Documents';
+
+            // Update processing steps
+            processingSteps.forEach(step => {
+              step.classList.remove('active', 'error');
+              step.classList.add('completed');
+            });
+
+            // Update processing message
+            if (status.message) {
+              processingMessage.textContent = status.message;
+            }
+
+            // Show success notification
+            showNotification('success', 'Processing Complete', 'Documents have been processed successfully.');
+
+            // Scroll to results
+            document.querySelector('.card:last-child').scrollIntoView({ behavior: 'smooth' });
+          } else if (status.status === 'error') {
+            processDocumentsBtn.disabled = false;
+            processDocumentsBtn.innerHTML = '<i class="fas fa-cogs mr-2"></i> Process Documents';
+
+            // Update processing steps
+            if (status.step) {
+              processingSteps.forEach(step => {
+                const stepName = step.getAttribute('data-step');
+
+                if (stepName === status.step) {
+                  step.classList.remove('active', 'completed');
+                  step.classList.add('error');
+                }
+              });
+            }
+
+            // Update processing message
+            if (status.message) {
+              processingMessage.textContent = status.message;
+            }
+          } else {
+            processDocumentsBtn.disabled = false;
+            processDocumentsBtn.innerHTML = '<i class="fas fa-cogs mr-2"></i> Process Documents';
+
+            // Hide processing status container if not processing
+            if (status.status !== 'processing') {
+              processingStatusContainer.style.display = 'none';
+            }
+          }
+        },
+        onError: (error) => {
+          // Show error
+          console.error('Processing error:', error);
+
+          // Show error notification
+          showNotification('error', 'Processing Error', `Error: ${error}`);
+        },
+        onComplete: (result) => {
+          // Show result
+          console.log('Processing complete:', result);
+
+          // Update results display
+          updateResultsDisplay(result);
+
+          // Scroll to results
+          document.querySelector('.card:last-child').scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+
+      // Cancel processing button
+      cancelProcessingBtn.addEventListener('click', () => {
+        documentProcessor.cancel();
+        showNotification('info', 'Processing Cancelled', 'Document processing has been cancelled.');
+      });
+
+      return documentProcessor;
+    }
+
+    // Initialize document processor
+    documentProcessor = initDocumentProcessor();
+
+    // File upload
+    const fileUpload = document.getElementById('file-upload');
+    const fileInput = document.getElementById('file-input');
+    const fileUploadBtn = document.querySelector('.file-upload-btn');
+
+    // Click on the upload area or the browse button
+    fileUpload.addEventListener('click', (e) => {
+      // Prevent click from triggering if the click was on the button
+      if (e.target !== fileUploadBtn && !fileUploadBtn.contains(e.target)) {
+        fileInput.click();
+      }
+    });
+
+    // Click on the browse button
+    fileUploadBtn.addEventListener('click', (e) => {
+      e.stopPropagation(); // Prevent the click from bubbling to the fileUpload
+      fileInput.click();
+    });
+
+    // Drag over the upload area
+    fileUpload.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      fileUpload.classList.add('drag-over');
+    });
+
+    // Drag leave the upload area
+    fileUpload.addEventListener('dragleave', () => {
+      fileUpload.classList.remove('drag-over');
+    });
+
+    // Drop files on the upload area
+    fileUpload.addEventListener('drop', (e) => {
+      e.preventDefault();
+      fileUpload.classList.remove('drag-over');
+
+      if (e.dataTransfer.files.length) {
+        // Add files to document processor
+        documentProcessor.addFiles(e.dataTransfer.files);
+
+        // Show success message
+        showNotification('success', 'Files added', `${e.dataTransfer.files.length} file(s) added successfully.`);
+      }
+    });
+
+    // File input change
+    fileInput.addEventListener('change', () => {
+      if (fileInput.files.length) {
+        // Add files to document processor
+        documentProcessor.addFiles(fileInput.files);
+
+        // Show success message
+        showNotification('success', 'Files added', `${fileInput.files.length} file(s) added successfully.`);
+      }
+    });
+
+    // Clear all files
+    const clearAllFilesBtn = document.getElementById('clear-all-files');
+    clearAllFilesBtn.addEventListener('click', () => {
+      documentProcessor.clearFiles();
+
+      // Show notification
+      showNotification('info', 'Files cleared', 'All files have been cleared.');
+    });
+
+    // Show notification
+    function showNotification(type, title, message, duration = 3000) {
+      // Create notification element
+      const notification = document.createElement('div');
+      notification.className = `notification ${type}`;
+
+      // Set notification content
+      notification.innerHTML = `
+        <div class="notification-icon">
+          <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'times-circle' : 'info-circle'}"></i>
+        </div>
+        <div class="notification-content">
+          <div class="notification-title">${title}</div>
+          <div class="notification-message">${message}</div>
+        </div>
+        <button class="notification-close">
+          <i class="fas fa-times"></i>
+        </button>
+      `;
+
+      // Add notification to the page
+      const notificationsContainer = document.querySelector('.notifications') || (() => {
+        const container = document.createElement('div');
+        container.className = 'notifications';
+        document.body.appendChild(container);
+        return container;
+      })();
+
+      notificationsContainer.appendChild(notification);
+
+      // Add close button event
+      const closeBtn = notification.querySelector('.notification-close');
+      closeBtn.addEventListener('click', () => {
+        notification.classList.add('notification-hiding');
+        setTimeout(() => {
+          notification.remove();
+        }, 300);
+      });
+
+      // Auto remove after duration
+      setTimeout(() => {
+        notification.classList.add('notification-hiding');
+        setTimeout(() => {
+          notification.remove();
+        }, 300);
+      }, duration);
+
+      // Show notification with animation
+      setTimeout(() => {
+        notification.classList.add('notification-visible');
+      }, 10);
+    }
+
+    // Result tabs
+    const tabs = document.querySelectorAll('.tab');
+    const tabContents = document.querySelectorAll('.tab-content');
+
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        const tabId = tab.getAttribute('data-tab');
+
+        tabs.forEach(t => t.classList.remove('active'));
+        tabContents.forEach(c => c.classList.remove('active'));
+
+        tab.classList.add('active');
+        document.getElementById(tabId).classList.add('active');
+      });
+    });
+
+    // Agent cards
+    const agentCards = document.querySelectorAll('.agent-card');
+
+    agentCards.forEach(card => {
+      card.addEventListener('click', () => {
+        card.classList.toggle('active');
+        console.log(`Agent card clicked: ${card.querySelector('.agent-card-title').textContent}, Active: ${card.classList.contains('active')}`);
+      });
+    });
+
+    // Select all agents
+    const selectAllAgentsBtn = document.getElementById('select-all-agents');
+
+    selectAllAgentsBtn.addEventListener('click', () => {
+      const allSelected = [...agentCards].every(card => card.classList.contains('active'));
+      console.log('All agents selected:', allSelected);
+
+      agentCards.forEach(card => {
+        if (allSelected) {
+          card.classList.remove('active');
+        } else {
+          card.classList.add('active');
+        }
+        console.log(`Agent card ${card.querySelector('.agent-card-title').textContent} is now ${card.classList.contains('active') ? 'active' : 'inactive'}`);
+      });
+    });
+
+    // Portfolio allocation chart
+    const portfolioAllocationCtx = document.getElementById('portfolioAllocationChart').getContext('2d');
+    const portfolioAllocationChart = new Chart(portfolioAllocationCtx, {
+      type: 'doughnut',
+      data: {
+        labels: ['Apple Inc.', 'Microsoft Corporation', 'Amazon.com Inc.', 'US Treasury Bond 2.5% 2030'],
+        datasets: [{
+          data: [34.8, 34.8, 7.6, 22.8],
+          backgroundColor: [
+            '#4f46e5',
+            '#ef4444',
+            '#10b981',
+            '#f59e0b'
+          ],
+          borderWidth: 0
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            position: 'right',
+            labels: {
+              padding: 20,
+              boxWidth: 12,
+              font: {
+                size: 12
+              }
+            }
+          },
+          tooltip: {
+            callbacks: {
+              label: function(context) {
+                const label = context.label || '';
+                const value = context.raw || 0;
+                const total = context.dataset.data.reduce((acc, data) => acc + data, 0);
+                const percentage = Math.round((value / total) * 100);
+                return `${label}: ${percentage}% ($${(value / 100 * 43167.5).toLocaleString()})`;
+              }
+            }
+          }
+        },
+        cutout: '70%'
+      }
+    });
+
+    // Get processing status elements
+    const processingStatusContainer = document.getElementById('processing-status-container');
+    const processingProgressBar = document.getElementById('processing-progress-bar');
+    const processingProgressPercentage = document.getElementById('processing-progress-percentage');
+    const processingMessage = document.getElementById('processing-message');
+    const processingSteps = document.querySelectorAll('.processing-step');
+    const cancelProcessingBtn = document.getElementById('cancel-processing-btn');
+
+    // Process documents button
+    const processDocumentsBtn = document.getElementById('process-documents');
+
+    processDocumentsBtn.addEventListener('click', () => {
+      // Get selected agents
+      const selectedAgents = [];
+      document.querySelectorAll('.agent-card').forEach(card => {
+        if (card.classList.contains('active')) {
+          selectedAgents.push(card.querySelector('.agent-card-title').textContent);
+        }
+      });
+
+      console.log('Selected agents:', selectedAgents);
+
+      // Get processing options
+      const options = {
+        agents: selectedAgents,
+        tableExtraction: document.getElementById('table-extraction').checked,
+        isinDetection: document.getElementById('isin-detection').checked,
+        securityInfo: document.getElementById('security-info').checked,
+        portfolioAnalysis: document.getElementById('portfolio-analysis').checked,
+        ocrScanned: document.getElementById('ocr-scanned').checked,
+        outputFormat: document.getElementById('format-json').checked ? 'json' :
+                     (document.getElementById('format-csv').checked ? 'csv' : 'excel')
+      };
+
+      console.log('Processing options:', options);
+
+      // Check if documentProcessor is defined
+      if (documentProcessor) {
+        // Process documents
+        documentProcessor.process(options);
+      } else {
+        console.error('documentProcessor is not defined');
+        showNotification('error', 'Error', 'Document processor is not initialized');
+      }
+    });
+
+    // Update results display
+    function updateResultsDisplay(result) {
+      // Get results elements
+      const resultsLoading = document.getElementById('results-loading');
+      const resultsError = document.getElementById('results-error');
+      const resultsEmpty = document.getElementById('results-empty');
+      const resultsJson = document.getElementById('results-json');
+
+      const tablesLoading = document.getElementById('tables-loading');
+      const tablesError = document.getElementById('tables-error');
+      const tablesEmpty = document.getElementById('tables-empty');
+      const tablesContainer = document.getElementById('tables-container');
+
+      const securitiesLoading = document.getElementById('securities-loading');
+      const securitiesError = document.getElementById('securities-error');
+      const securitiesEmpty = document.getElementById('securities-empty');
+      const securitiesContainer = document.getElementById('securities-container');
+
+      const analysisLoading = document.getElementById('analysis-loading');
+      const analysisError = document.getElementById('analysis-error');
+      const analysisEmpty = document.getElementById('analysis-empty');
+      const analysisContainer = document.getElementById('analysis-container');
+
+      // Hide all loading states
+      resultsLoading.style.display = 'none';
+      tablesLoading.style.display = 'none';
+      securitiesLoading.style.display = 'none';
+      analysisLoading.style.display = 'none';
+
+      // Check if result is valid
+      if (!result) {
+        // Show empty state
+        resultsEmpty.style.display = 'block';
+        tablesEmpty.style.display = 'block';
+        securitiesEmpty.style.display = 'block';
+        analysisEmpty.style.display = 'block';
+        return;
+      }
+
+      try {
+        // Update JSON display
+        resultsJson.textContent = JSON.stringify(result, null, 2);
+        resultsJson.style.display = 'block';
+
+        // Update tables display
+        if (result.tables && result.tables.length > 0) {
+          // Show tables container
+          tablesContainer.style.display = 'block';
+
+          // Update table selector
+          const tableSelector = document.getElementById('table-selector');
+          tableSelector.innerHTML = '';
+
+          result.tables.forEach((table, index) => {
+            const option = document.createElement('option');
+            option.value = index;
+            option.textContent = `Table ${index + 1}`;
+            tableSelector.appendChild(option);
+          });
+
+          // Display first table
+          displayTable(result.tables[0]);
+
+          // Add table selector event listener
+          tableSelector.addEventListener('change', () => {
+            const selectedTable = result.tables[tableSelector.value];
+            displayTable(selectedTable);
+          });
+        } else {
+          // Show empty state
+          tablesEmpty.style.display = 'block';
+        }
+
+        // Update securities display
+        if (result.securities && result.securities.length > 0) {
+          // Show securities container
+          securitiesContainer.style.display = 'block';
+
+          // Update securities grid
+          const securitiesGrid = document.getElementById('securities-grid');
+          securitiesGrid.innerHTML = '';
+
+          result.securities.forEach(security => {
+            const securityCard = document.createElement('div');
+            securityCard.className = 'card security-card';
+            securityCard.setAttribute('data-type', security.type.toLowerCase());
+
+            const cardBody = document.createElement('div');
+            cardBody.className = 'card-body';
+
+            const cardTitle = document.createElement('h5');
+            cardTitle.className = 'card-title';
+            cardTitle.textContent = security.name;
+
+            const isin = document.createElement('p');
+            isin.innerHTML = `<strong>ISIN:</strong> ${security.isin || 'N/A'}`;
+
+            const type = document.createElement('p');
+            type.innerHTML = `<strong>Type:</strong> ${security.type || 'N/A'}`;
+
+            const quantity = document.createElement('p');
+            quantity.innerHTML = `<strong>Quantity:</strong> ${security.quantity || 'N/A'}`;
+
+            const price = document.createElement('p');
+            price.innerHTML = `<strong>Price:</strong> ${security.price ? '$' + security.price : 'N/A'}`;
+
+            const value = document.createElement('p');
+            value.innerHTML = `<strong>Value:</strong> ${security.value ? '$' + security.value : 'N/A'}`;
+
+            cardBody.appendChild(cardTitle);
+            cardBody.appendChild(isin);
+            cardBody.appendChild(type);
+            cardBody.appendChild(quantity);
+            cardBody.appendChild(price);
+            cardBody.appendChild(value);
+
+            securityCard.appendChild(cardBody);
+            securitiesGrid.appendChild(securityCard);
+          });
+
+          // Add filter buttons event listeners
+          document.getElementById('filter-all').addEventListener('click', () => {
+            filterSecurities('all');
+          });
+
+          document.getElementById('filter-equity').addEventListener('click', () => {
+            filterSecurities('equity');
+          });
+
+          document.getElementById('filter-bond').addEventListener('click', () => {
+            filterSecurities('bond');
+          });
+
+          document.getElementById('filter-fund').addEventListener('click', () => {
+            filterSecurities('fund');
+          });
+
+          document.getElementById('filter-other').addEventListener('click', () => {
+            filterSecurities('other');
+          });
+
+          // Add search event listener
+          document.getElementById('securities-search').addEventListener('input', (e) => {
+            searchSecurities(e.target.value);
+          });
+        } else {
+          // Show empty state
+          securitiesEmpty.style.display = 'block';
+        }
+
+        // Update analysis display
+        if (result.analysis) {
+          // Show analysis container
+          analysisContainer.style.display = 'block';
+
+          // Update portfolio allocation chart
+          updatePortfolioAllocationChart(result.analysis.allocation);
+
+          // Update asset class chart
+          updateAssetClassChart(result.analysis.assetClasses);
+
+          // Update risk assessment
+          if (result.analysis.risk) {
+            document.getElementById('overall-risk').textContent = result.analysis.risk.overall || 'N/A';
+            document.getElementById('volatility').textContent = result.analysis.risk.volatility || 'N/A';
+            document.getElementById('diversification').textContent = result.analysis.risk.diversification || 'N/A';
+            document.getElementById('sector-concentration').textContent = result.analysis.risk.sectorConcentration || 'N/A';
+            document.getElementById('asset-class-distribution').textContent = result.analysis.risk.assetClassDistribution || 'N/A';
+            document.getElementById('recommendation').textContent = result.analysis.risk.recommendation || 'N/A';
+          }
+        } else {
+          // Show empty state
+          analysisEmpty.style.display = 'block';
+        }
+      } catch (error) {
+        console.error('Error updating results display:', error);
+
+        // Show error state
+        resultsError.style.display = 'block';
+        document.getElementById('results-error-message').textContent = `Error: ${error.message}`;
+
+        tablesError.style.display = 'block';
+        document.getElementById('tables-error-message').textContent = `Error: ${error.message}`;
+
+        securitiesError.style.display = 'block';
+        document.getElementById('securities-error-message').textContent = `Error: ${error.message}`;
+
+        analysisError.style.display = 'block';
+        document.getElementById('analysis-error-message').textContent = `Error: ${error.message}`;
+      }
+    }
+
+    // Display table
+    function displayTable(table) {
+      const tableDisplay = document.getElementById('table-display');
+
+      if (!table || !table.data) {
+        tableDisplay.innerHTML = '<div class="alert alert-warning">No data available for this table.</div>';
+        return;
+      }
+
+      const tableElement = document.createElement('table');
+      tableElement.className = 'table';
+
+      // Create header
+      const thead = document.createElement('thead');
+      const headerRow = document.createElement('tr');
+
+      table.headers.forEach(header => {
+        const th = document.createElement('th');
+        th.textContent = header;
+        headerRow.appendChild(th);
+      });
+
+      thead.appendChild(headerRow);
+      tableElement.appendChild(thead);
+
+      // Create body
+      const tbody = document.createElement('tbody');
+
+      table.data.forEach(row => {
+        const tr = document.createElement('tr');
+
+        row.forEach(cell => {
+          const td = document.createElement('td');
+          td.textContent = cell;
+          tr.appendChild(td);
+        });
+
+        tbody.appendChild(tr);
+      });
+
+      tableElement.appendChild(tbody);
+
+      // Create footer if available
+      if (table.footer) {
+        const tfoot = document.createElement('tfoot');
+        const footerRow = document.createElement('tr');
+
+        table.footer.forEach((cell, index) => {
+          const td = document.createElement('td');
+          td.textContent = cell;
+
+          if (index === 0) {
+            td.colSpan = table.headers.length - 1;
+            td.className = 'font-weight-bold';
+          } else {
+            td.className = 'text-right font-weight-bold';
+          }
+
+          footerRow.appendChild(td);
+        });
+
+        tfoot.appendChild(footerRow);
+        tableElement.appendChild(tfoot);
+      }
+
+      // Update table display
+      tableDisplay.innerHTML = '';
+      tableDisplay.appendChild(tableElement);
+    }
+
+    // Filter securities
+    function filterSecurities(type) {
+      const securityCards = document.querySelectorAll('.security-card');
+      const filterButtons = document.querySelectorAll('.btn-group .btn');
+
+      // Update active button
+      filterButtons.forEach(button => {
+        button.classList.remove('active', 'btn-primary');
+        button.classList.add('btn-outline');
+      });
+
+      document.getElementById(`filter-${type}`).classList.remove('btn-outline');
+      document.getElementById(`filter-${type}`).classList.add('active', 'btn-primary');
+
+      // Filter cards
+      securityCards.forEach(card => {
+        if (type === 'all' || card.getAttribute('data-type') === type) {
+          card.style.display = 'block';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
+    // Search securities
+    function searchSecurities(query) {
+      const securityCards = document.querySelectorAll('.security-card');
+
+      if (!query) {
+        securityCards.forEach(card => {
+          card.style.display = 'block';
+        });
+        return;
+      }
+
+      query = query.toLowerCase();
+
+      securityCards.forEach(card => {
+        const name = card.querySelector('.card-title').textContent.toLowerCase();
+        const isin = card.querySelector('p:nth-child(2)').textContent.toLowerCase();
+        const type = card.querySelector('p:nth-child(3)').textContent.toLowerCase();
+
+        if (name.includes(query) || isin.includes(query) || type.includes(query)) {
+          card.style.display = 'block';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
+    // Update portfolio allocation chart
+    function updatePortfolioAllocationChart(allocation) {
+      if (!allocation) return;
+
+      const ctx = document.getElementById('portfolioAllocationChart').getContext('2d');
+
+      // Destroy existing chart if it exists
+      if (window.portfolioAllocationChart) {
+        window.portfolioAllocationChart.destroy();
+      }
+
+      // Create new chart
+      window.portfolioAllocationChart = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+          labels: allocation.map(item => item.name),
+          datasets: [{
+            data: allocation.map(item => item.percentage),
+            backgroundColor: [
+              'rgba(54, 162, 235, 0.8)',
+              'rgba(255, 99, 132, 0.8)',
+              'rgba(255, 206, 86, 0.8)',
+              'rgba(75, 192, 192, 0.8)',
+              'rgba(153, 102, 255, 0.8)',
+              'rgba(255, 159, 64, 0.8)',
+              'rgba(199, 199, 199, 0.8)'
+            ],
+            borderWidth: 1
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              position: 'right',
+              labels: {
+                boxWidth: 12
+              }
+            },
+            tooltip: {
+              callbacks: {
+                label: function(context) {
+                  const label = context.label || '';
+                  const value = context.raw || 0;
+                  const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                  const percentage = Math.round((value / total) * 100);
+                  return `${label}: ${percentage}% ($${(value / 100 * 43167.5).toLocaleString()})`;
+                }
+              }
+            }
+          },
+          cutout: '70%'
+        }
+      });
+    }
+
+    // Update file list
+    function updateFileList(files) {
+      const fileList = document.getElementById('file-list');
+      const fileListContainer = document.querySelector('.file-list-container');
+      const fileListEmpty = document.querySelector('.file-list-empty');
+      const clearAllFilesBtn = document.getElementById('clear-all-files');
+
+      // Clear file list
+      fileList.innerHTML = '';
+
+      // Update file list container visibility
+      if (files && files.length > 0) {
+        fileListContainer.style.display = 'block';
+        fileListEmpty.style.display = 'none';
+        clearAllFilesBtn.style.display = 'block';
+      } else {
+        fileListEmpty.style.display = 'block';
+        clearAllFilesBtn.style.display = 'none';
+      }
+
+      // Add files to list
+      if (files && files.length > 0) {
+        files.forEach((file, index) => {
+          const fileItem = document.createElement('div');
+          fileItem.className = 'file-item';
+
+          const fileInfo = document.createElement('div');
+          fileInfo.className = 'file-info';
+
+          const fileIcon = document.createElement('div');
+          fileIcon.className = 'file-icon';
+          fileIcon.innerHTML = `<i class="${DocumentProcessor.getFileIcon(file)}"></i>`;
+
+          const fileDetails = document.createElement('div');
+          fileDetails.className = 'file-details';
+
+          const fileName = document.createElement('div');
+          fileName.className = 'file-name';
+          fileName.textContent = file.name;
+
+          const fileSize = document.createElement('div');
+          fileSize.className = 'file-size';
+          fileSize.textContent = DocumentProcessor.formatFileSize(file.size);
+
+          fileDetails.appendChild(fileName);
+          fileDetails.appendChild(fileSize);
+
+          fileInfo.appendChild(fileIcon);
+          fileInfo.appendChild(fileDetails);
+
+          const fileActions = document.createElement('div');
+          fileActions.className = 'file-actions';
+
+          // Add status if available
+          if (file.status) {
+            const fileStatus = document.createElement('div');
+            fileStatus.className = 'file-status';
+
+            let statusText = '';
+            let statusIcon = '';
+
+            switch (file.status) {
+              case 'processing':
+                statusText = 'Processing';
+                statusIcon = '<i class="fas fa-spinner fa-spin mr-1"></i>';
+                break;
+              case 'error':
+                statusText = 'Error';
+                statusIcon = '<i class="fas fa-exclamation-circle mr-1"></i>';
+                break;
+              case 'completed':
+                statusText = 'Completed';
+                statusIcon = '<i class="fas fa-check-circle mr-1"></i>';
+                break;
+              default:
+                statusText = 'Ready';
+                statusIcon = '<i class="fas fa-check mr-1"></i>';
+            }
+
+            fileStatus.innerHTML = `${statusIcon} ${statusText}`;
+            fileActions.appendChild(fileStatus);
+          }
+
+          const viewButton = document.createElement('button');
+          viewButton.className = 'btn btn-sm btn-outline';
+          viewButton.innerHTML = '<i class="fas fa-eye"></i>';
+          viewButton.title = 'View file';
+          viewButton.addEventListener('click', () => {
+            // Open file in new tab
+            const url = URL.createObjectURL(file);
+            window.open(url, '_blank');
+          });
+
+          const removeButton = document.createElement('button');
+          removeButton.className = 'btn btn-sm btn-danger';
+          removeButton.innerHTML = '<i class="fas fa-trash"></i>';
+          removeButton.title = 'Remove file';
+          removeButton.addEventListener('click', () => {
+            // Remove file
+            documentProcessor.removeFile(index);
+          });
+
+          fileActions.appendChild(viewButton);
+          fileActions.appendChild(removeButton);
+
+          fileItem.appendChild(fileInfo);
+          fileItem.appendChild(fileActions);
+
+          fileList.appendChild(fileItem);
+        });
+      }
+    }
+
+    // Update asset class chart
+    function updateAssetClassChart(assetClasses) {
+      if (!assetClasses) return;
+
+      const ctx = document.getElementById('assetClassChart').getContext('2d');
+
+      // Destroy existing chart if it exists
+      if (window.assetClassChart) {
+        window.assetClassChart.destroy();
+      }
+
+      // Create new chart
+      window.assetClassChart = new Chart(ctx, {
+        type: 'pie',
+        data: {
+          labels: assetClasses.map(item => item.name),
+          datasets: [{
+            data: assetClasses.map(item => item.percentage),
+            backgroundColor: [
+              'rgba(54, 162, 235, 0.8)',
+              'rgba(255, 99, 132, 0.8)',
+              'rgba(255, 206, 86, 0.8)',
+              'rgba(75, 192, 192, 0.8)',
+              'rgba(153, 102, 255, 0.8)'
+            ],
+            borderWidth: 1
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              position: 'right',
+              labels: {
+                boxWidth: 12
+              }
+            },
+            tooltip: {
+              callbacks: {
+                label: function(context) {
+                  const label = context.label || '';
+                  const value = context.raw || 0;
+                  const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                  const percentage = Math.round((value / total) * 100);
+                  return `${label}: ${percentage}%`;
+                }
+              }
+            }
+          }
+        }
+      });
+    }
+  </script>
+</body>
+</html>

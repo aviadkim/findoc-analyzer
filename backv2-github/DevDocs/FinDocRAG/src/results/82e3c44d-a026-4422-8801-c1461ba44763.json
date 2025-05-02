@@ -1,0 +1,563 @@
+{
+  "isins": [
+    "CH1908490000",
+    "XS2530201644",
+    "XS2588105036",
+    "XS2665592833",
+    "XS2692298537",
+    "XS2754416860",
+    "XS2761230684",
+    "XS2736388732",
+    "XS2782869916",
+    "XS2824054402",
+    "XS2567543397",
+    "XS2110079584",
+    "XS2848820754",
+    "XS2829712830",
+    "XS2912278723",
+    "XS2381723902",
+    "XS2829752976",
+    "XS2953741100",
+    "XS2381717250",
+    "XS2481066111",
+    "XS2964611052",
+    "LU2228214107",
+    "CH1269060229",
+    "XS0461497009",
+    "XS2746319610",
+    "CH0244767585",
+    "XS2519369867",
+    "XS2315191069",
+    "XS2792098779",
+    "XS2714429128",
+    "XS2105981117",
+    "XS2838389430",
+    "XS2631782468",
+    "XS1700087403",
+    "XS2594173093",
+    "XS2407295554",
+    "XS2518123653",
+    "XS2252299883",
+    "CH1259345242",
+    "CH1259344831",
+    "XD0466760473"
+  ],
+  "tables": [
+    {
+      "page": 5,
+      "data": [
+        {
+          "0": "",
+          "1": null
+        },
+        {
+          "0": "",
+          "1": ""
+        },
+        {
+          "0": "",
+          "1": ""
+        },
+        {
+          "0": "",
+          "1": ""
+        },
+        {
+          "0": "",
+          "1": ""
+        },
+        {
+          "0": "",
+          "1": ""
+        },
+        {
+          "0": "",
+          "1": ""
+        },
+        {
+          "0": "",
+          "1": ""
+        }
+      ]
+    },
+    {
+      "page": 5,
+      "data": [
+        {
+          "0": "",
+          "1": ""
+        }
+      ]
+    },
+    {
+      "page": 6,
+      "data": [
+        {
+          "0": "",
+          "1": null
+        },
+        {
+          "0": "",
+          "1": null
+        },
+        {
+          "0": "",
+          "1": null
+        },
+        {
+          "0": "",
+          "1": ""
+        }
+      ]
+    },
+    {
+      "page": 18,
+      "data": [
+        {
+          "0": "",
+          "1": ""
+        }
+      ]
+    },
+    {
+      "page": 18,
+      "data": [
+        {
+          "0": "",
+          "1": ""
+        }
+      ]
+    },
+    {
+      "page": 18,
+      "data": [
+        {
+          "0": "",
+          "1": ""
+        }
+      ]
+    },
+    {
+      "page": 18,
+      "data": [
+        {
+          "0": "",
+          "1": ""
+        }
+      ]
+    },
+    {
+      "page": 18,
+      "data": [
+        {
+          "0": "",
+          "1": ""
+        }
+      ]
+    },
+    {
+      "page": 18,
+      "data": [
+        {
+          "0": "",
+          "1": ""
+        }
+      ]
+    },
+    {
+      "page": 18,
+      "data": [
+        {
+          "0": "",
+          "1": ""
+        }
+      ]
+    },
+    {
+      "page": 18,
+      "data": [
+        {
+          "0": "",
+          "1": ""
+        }
+      ]
+    }
+  ],
+  "securities": [
+    {
+      "identifier": "XS2530201644",
+      "name": "Ordinary Bonds  //  Maturity: 23.02.2027",
+      "security_type": "Bond",
+      "asset_class": "Fixed Income",
+      "quantity": 99.308,
+      "value": 2.0,
+      "risk_level": "Low"
+    },
+    {
+      "identifier": "XS2588105036",
+      "name": "CANADIAN IMPERIAL BANK OF COMMERCE NOTES 23-22.08.28",
+      "security_type": "Equity",
+      "asset_class": "Stocks",
+      "quantity": 1.0,
+      "value": 500.0,
+      "risk_level": "Medium"
+    },
+    {
+      "identifier": "XS2665592833",
+      "name": "HARP ISSUER (4% MIN/5,5% MAX) NOTES 2023-18.09.2028",
+      "security_type": "Equity",
+      "asset_class": "Stocks",
+      "quantity": 690.0,
+      "value": 0.0,
+      "risk_level": "Medium"
+    },
+    {
+      "identifier": "XS2692298537",
+      "name": "Ordinary Bonds  //  Maturity: 07.11.2029",
+      "security_type": "Bond",
+      "asset_class": "Fixed Income",
+      "quantity": 735.0,
+      "value": 333.0,
+      "risk_level": "Low"
+    },
+    {
+      "identifier": "XS2754416860",
+      "name": "Ordinary Bonds  //  Maturity: 17.01.2030",
+      "security_type": "Bond",
+      "asset_class": "Fixed Income",
+      "quantity": 97.66,
+      "value": 5.238,
+      "risk_level": "Low"
+    },
+    {
+      "identifier": "XS2761230684",
+      "name": "Zero Bonds  //  Maturity: 13.02.2030",
+      "security_type": "Bond",
+      "asset_class": "Fixed Income",
+      "quantity": 101.7291,
+      "value": 2.0,
+      "risk_level": "Low"
+    },
+    {
+      "identifier": "XS2736388732",
+      "name": "Ordinary Bonds  //  Maturity: 20.12.2031",
+      "security_type": "Bond",
+      "asset_class": "Fixed Income",
+      "quantity": 98.62,
+      "value": 2031.0,
+      "risk_level": "Low"
+    },
+    {
+      "identifier": "XS2782869916",
+      "name": "CITIGROUP GLBL 5.65 % CALL FIXED RATE NOTES 2024-",
+      "security_type": "Equity",
+      "asset_class": "Stocks",
+      "quantity": 440.0,
+      "value": 0.0,
+      "risk_level": "Medium"
+    },
+    {
+      "identifier": "XS2824054402",
+      "name": "Ordinary Bonds  //  Callable: 29.05.2026",
+      "security_type": "Bond",
+      "asset_class": "Fixed Income",
+      "quantity": 103.72,
+      "value": 5.6,
+      "risk_level": "Low"
+    },
+    {
+      "identifier": "XS2567543397",
+      "name": "Ordinary Bonds  //  Callable: 18.06.2026",
+      "security_type": "Bond",
+      "asset_class": "Fixed Income",
+      "quantity": 100.59,
+      "value": 5.61,
+      "risk_level": "Low"
+    },
+    {
+      "identifier": "XS2110079584",
+      "name": "Zero Bonds  //  Callable: 09.07.2026",
+      "security_type": "Bond",
+      "asset_class": "Fixed Income",
+      "quantity": 1.0,
+      "value": 107.0,
+      "risk_level": "Low"
+    },
+    {
+      "identifier": "XS2848820754",
+      "name": "CITIGROUP GLBL 0 % MEDIUM TERM NOTES 2024-01.08.34",
+      "security_type": "Equity",
+      "asset_class": "Stocks",
+      "quantity": 1.93,
+      "value": 0.0,
+      "risk_level": "Medium"
+    },
+    {
+      "identifier": "XS2829712830",
+      "name": "Ordinary Bonds  //  Maturity: 30.09.2034",
+      "security_type": "Bond",
+      "asset_class": "Fixed Income",
+      "quantity": 93.0,
+      "value": 20.0,
+      "risk_level": "Low"
+    },
+    {
+      "identifier": "XS2912278723",
+      "name": "Zero Bonds  //  Maturity: 17.10.2034",
+      "security_type": "Bond",
+      "asset_class": "Fixed Income",
+      "quantity": 197.0,
+      "value": 554.0,
+      "risk_level": "Low"
+    },
+    {
+      "identifier": "XS2381723902",
+      "name": "JPMORGAN CHASE  0 % NOTES 2024-29.10.34 SERIES 2021-",
+      "security_type": "Equity",
+      "asset_class": "Stocks",
+      "quantity": 1.03,
+      "value": 2025.0,
+      "risk_level": "Medium"
+    },
+    {
+      "identifier": "XS2829752976",
+      "name": "GOLDMAN SACHS 0% EURO MEDIUM TERM NOTES 2024-",
+      "security_type": "Equity",
+      "asset_class": "Stocks",
+      "quantity": 2.91,
+      "value": 0.0,
+      "risk_level": "Medium"
+    },
+    {
+      "identifier": "XS2953741100",
+      "name": "Zero Bonds  //  Maturity: 11.12.2034",
+      "security_type": "Bond",
+      "asset_class": "Fixed Income",
+      "quantity": 148.0,
+      "value": 80.0,
+      "risk_level": "Low"
+    },
+    {
+      "identifier": "XS2381717250",
+      "name": "Zero Bonds  //  Maturity: 19.12.2034",
+      "security_type": "Bond",
+      "asset_class": "Fixed Income",
+      "quantity": 519.0,
+      "value": 200.0,
+      "risk_level": "Low"
+    },
+    {
+      "identifier": "XS2481066111",
+      "name": "Zero Bonds  //  Maturity: 03.02.2035",
+      "security_type": "Bond",
+      "asset_class": "Fixed Income",
+      "quantity": 50.0,
+      "value": 445.0,
+      "risk_level": "Low"
+    },
+    {
+      "identifier": "XS2964611052",
+      "name": "Zero Bonds  //  Maturity: 14.02.2035",
+      "security_type": "Bond",
+      "asset_class": "Fixed Income",
+      "quantity": 1.0,
+      "value": 488.0,
+      "risk_level": "Low"
+    },
+    {
+      "identifier": "LU2228214107",
+      "name": "PREMIUM ALT.S.A. SICAV-SIF - COMMERCIAL FINANCE OPP.XB",
+      "security_type": "Equity",
+      "asset_class": "Stocks",
+      "quantity": 0.98,
+      "value": 0.0,
+      "risk_level": "Medium"
+    },
+    {
+      "identifier": "CH1269060229",
+      "name": "BK JULIUS BAER CAP.PROT.(3,25% MIN.4,5% MAX)23-26.05.28",
+      "security_type": "Equity",
+      "asset_class": "Stocks",
+      "quantity": 3.0,
+      "value": 3.25,
+      "risk_level": "Medium"
+    },
+    {
+      "identifier": "XS0461497009",
+      "name": "Ordinary Bonds  //  Maturity: 08.11.2028",
+      "security_type": "Bond",
+      "asset_class": "Fixed Income",
+      "quantity": 100.27,
+      "value": 5.5,
+      "risk_level": "Low"
+    },
+    {
+      "identifier": "XS2746319610",
+      "name": "Ordinary Bonds  //  Maturity: 01.03.2030",
+      "security_type": "Bond",
+      "asset_class": "Fixed Income",
+      "quantity": 101.81,
+      "value": 353.0,
+      "risk_level": "Low"
+    },
+    {
+      "identifier": "CH0244767585",
+      "name": "Ordinary Stocks  //  PRC: 3.35",
+      "security_type": "Equity",
+      "asset_class": "Stocks",
+      "quantity": 1.134,
+      "value": 720.0,
+      "risk_level": "Medium"
+    },
+    {
+      "identifier": "XS2519369867",
+      "name": "BCO SAFRA CAYMAN 5% STRUCT.NOTE 2022-21.06.27 3,4%",
+      "security_type": "Equity",
+      "asset_class": "Stocks",
+      "quantity": 0.08,
+      "value": 0.0,
+      "risk_level": "Medium"
+    },
+    {
+      "identifier": "XS2315191069",
+      "name": "Structured Bonds  //  Maturity: 08.01.2029",
+      "security_type": "Bond",
+      "asset_class": "Fixed Income",
+      "quantity": 98.7,
+      "value": 5.0,
+      "risk_level": "Low"
+    },
+    {
+      "identifier": "XS2792098779",
+      "name": "Structured Bonds  //  Maturity: 02.12.2034  //  PRC: 5.00",
+      "security_type": "Bond",
+      "asset_class": "Fixed Income",
+      "quantity": 1.0,
+      "value": 176.0,
+      "risk_level": "Low"
+    },
+    {
+      "identifier": "XS2714429128",
+      "name": "EMERALD BAY NOTES 23-17.09.29 S.2023-05 REG-S VRN",
+      "security_type": "Equity",
+      "asset_class": "Stocks",
+      "quantity": 500.0,
+      "value": 0.0,
+      "risk_level": "Medium"
+    },
+    {
+      "identifier": "XS2105981117",
+      "name": "GOLDMAN SACHS GR.STRUCT.NOTE 21-20.12.28 VRN ON NAT",
+      "security_type": "Equity",
+      "asset_class": "Stocks",
+      "quantity": 1.0,
+      "value": 600.0,
+      "risk_level": "Medium"
+    },
+    {
+      "identifier": "XS2838389430",
+      "name": "Structured Bonds  //  Maturity: 26.04.2033",
+      "security_type": "Bond",
+      "asset_class": "Fixed Income",
+      "quantity": 97.53,
+      "value": 5.0,
+      "risk_level": "Low"
+    },
+    {
+      "identifier": "XS2631782468",
+      "name": "LUMINIS REPACK NOTES 23-25.05.29 VRN ON 4,625%",
+      "security_type": "Equity",
+      "asset_class": "Stocks",
+      "quantity": 19.0,
+      "value": 5.0,
+      "risk_level": "Medium"
+    },
+    {
+      "identifier": "XS1700087403",
+      "name": "NATIXIS STRUC.NOTES 19-20.6.26 VRN ON 4,75%METLIFE 21",
+      "security_type": "Equity",
+      "asset_class": "Stocks",
+      "quantity": 1.7,
+      "value": 0.0,
+      "risk_level": "Medium"
+    },
+    {
+      "identifier": "XS2594173093",
+      "name": "Structured Bonds  //  Maturity: 27.09.2029",
+      "security_type": "Bond",
+      "asset_class": "Fixed Income",
+      "quantity": 96.4,
+      "value": 5.0,
+      "risk_level": "Low"
+    },
+    {
+      "identifier": "XS2407295554",
+      "name": "NOVUS CAPITAL STRUCT.NOTE 2021-12.01.28 VRN ON",
+      "security_type": "Equity",
+      "asset_class": "Stocks",
+      "quantity": 100.0,
+      "value": 0.0,
+      "risk_level": "Medium"
+    },
+    {
+      "identifier": "XS2518123653",
+      "name": "Structured Bonds  //  Maturity: 20.06.2027",
+      "security_type": "Bond",
+      "asset_class": "Fixed Income",
+      "quantity": 100.1,
+      "value": 5.0,
+      "risk_level": "Low"
+    },
+    {
+      "identifier": "XS2252299883",
+      "name": "NOVUS CAPITAL STRUCTURED NOTES 20-15.05.26 ON CS",
+      "security_type": "Equity",
+      "asset_class": "Stocks",
+      "quantity": 3.0,
+      "value": 2026.0,
+      "risk_level": "Medium"
+    },
+    {
+      "identifier": "CH1259345242",
+      "name": "Structured products equity  //  Maturity: 11.07.2028  //  PRC: 5.00",
+      "security_type": "Equity",
+      "asset_class": "Stocks",
+      "quantity": 500.0,
+      "value": 350.0,
+      "risk_level": "Medium"
+    },
+    {
+      "identifier": "CH1259344831",
+      "name": "Structured products equity  //  Maturity: 11.07.2028  //  PRC: 5.00",
+      "security_type": "Equity",
+      "asset_class": "Stocks",
+      "quantity": 249.0,
+      "value": 800.0,
+      "risk_level": "Medium"
+    },
+    {
+      "identifier": "XD0466760473",
+      "name": "EXIGENT ENHANCED INCOME FUND LTD SHS A SERIES 2019 1",
+      "security_type": "ETF",
+      "asset_class": "Funds",
+      "quantity": 26.0,
+      "value": 129.0,
+      "risk_level": "Medium"
+    }
+  ],
+  "portfolio_analysis": {
+    "total_value": 11991.2,
+    "currency": "USD",
+    "security_count": 40,
+    "risk_profile": "Conservative",
+    "diversification_score": 55.7,
+    "asset_allocation": {
+      "Fixed Income": 40.3,
+      "Stocks": 58.6,
+      "Funds": 1.1
+    },
+    "recommendations": [
+      "The portfolio has a conservative risk profile suitable for long-term growth."
+    ]
+  }
+}

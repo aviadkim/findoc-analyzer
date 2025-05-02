@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  findoc-rag-api:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    ports:
+      - "8080:8080"
+    volumes:
+      - .:/app
+      - ./uploads:/app/uploads
+      - ./temp:/app/temp
+      - ./results:/app/results
+    environment:
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
+      - FLASK_ENV=development
+      - FLASK_DEBUG=1
+    restart: unless-stopped
+
+  # Optional database for storing processed documents and results
+  # Uncomment if needed
+  # db:
+  #   image: postgres:13
+  #   environment:
+  #     - POSTGRES_USER=findoc
+  #     - POSTGRES_PASSWORD=findoc
+  #     - POSTGRES_DB=findoc_rag
+  #   volumes:
+  #     - postgres_data:/var/lib/postgresql/data
+  #   ports:
+  #     - "5432:5432"
+
+# volumes:
+#   postgres_data:

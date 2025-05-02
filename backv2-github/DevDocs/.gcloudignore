@@ -1,0 +1,14 @@
+.git
+.gitignore
+node_modules/
+test_documents/
+**/*.log
+**/*.md
+.vscode/
+.idea/
+**/test_documents/
+**/messos*.pdf
+**/client_data/
+**/__pycache__/
+**/*.pyc
+**/venv/

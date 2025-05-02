@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FinDoc Pricing Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            color: #333;
+        }
+        h1, h2, h3 {
+            color: #2c3e50;
+        }
+        .section {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: #f9f9f9;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input[type="number"], select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+        .plan-card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            background-color: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .plan-name {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #3498db;
+        }
+        .plan-price {
+            font-size: 36px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .plan-price small {
+            font-size: 16px;
+            color: #7f8c8d;
+        }
+        .plan-feature {
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+        }
+        .plan-feature:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #27ae60;
+        }
+        .metrics {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .metric {
+            flex: 1;
+            min-width: 200px;
+            padding: 15px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .metric-value {
+            font-size: 24px;
+            font-weight: bold;
+            margin: 5px 0;
+            color: #3498db;
+        }
+        .metric-label {
+            font-size: 14px;
+            color: #7f8c8d;
+        }
+        .chart-container {
+            height: 300px;
+            margin-top: 20px;
+        }
+        .positive {
+            color: #27ae60;
+        }
+        .negative {
+            color: #e74c3c;
+        }
+        .highlight {
+            background-color: #f1c40f;
+            padding: 2px 5px;
+            border-radius: 3px;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <h1>FinDoc Pricing Calculator</h1>
+    
+    <div class="section">
+        <h2>Input Parameters</h2>
+        
+        <div class="form-group">
+            <label for="num-clients">Number of Clients:</label>
+            <input type="number" id="num-clients" min="1" value="100">
+        </div>
+        
+        <div class="form-group">
+            <label for="client-distribution">Client Plan Distribution:</label>
+            <table>
+                <tr>
+                    <th>Plan</th>
+                    <th>Percentage</th>
+                    <th>Monthly Price</th>
+                    <th>Document Limit</th>
+                    <th>Overage Price</th>
+                </tr>
+                <tr>
+                    <td>Free</td>
+                    <td><input type="number" id="free-percent" min="0" max="100" value="40"></td>
+                    <td>$0</td>
+                    <td>10</td>
+                    <td>$2.00</td>
+                </tr>
+                <tr>
+                    <td>Starter</td>
+                    <td><input type="number" id="starter-percent" min="0" max="100" value="30"></td>
+                    <td>$29</td>
+                    <td>50</td>
+                    <td>$1.00</td>
+                </tr>
+                <tr>
+                    <td>Professional</td>
+                    <td><input type="number" id="pro-percent" min="0" max="100" value="20"></td>
+                    <td>$99</td>
+                    <td>200</td>
+                    <td>$0.75</td>
+                </tr>
+                <tr>
+                    <td>Business</td>
+                    <td><input type="number" id="business-percent" min="0" max="100" value="10"></td>
+                    <td>$249</td>
+                    <td>600</td>
+                    <td>$0.50</td>
+                </tr>
+            </table>
+        </div>
+        
+        <div class="form-group">
+            <label for="doc-distribution">Document Complexity Distribution:</label>
+            <table>
+                <tr>
+                    <th>Complexity</th>
+                    <th>Percentage</th>
+                    <th>Processing Tier</th>
+                    <th>Cost per Document</th>
+                </tr>
+                <tr>
+                    <td>Simple</td>
+                    <td><input type="number" id="simple-percent" min="0" max="100" value="50"></td>
+                    <td>Tier 1 (Browser)</td>
+                    <td>$0.05</td>
+                </tr>
+                <tr>
+                    <td>Medium</td>
+                    <td><input type="number" id="medium-percent" min="0" max="100" value="30"></td>
+                    <td>Tier 2 (Server)</td>
+                    <td>$0.25</td>
+                </tr>
+                <tr>
+                    <td>Complex</td>
+                    <td><input type="number" id="complex-percent" min="0" max="100" value="20"></td>
+                    <td>Tier 3 (Cloud)</td>
+                    <td>$0.75</td>
+                </tr>
+            </table>
+        </div>
+        
+        <div class="form-group">
+            <label for="avg-docs">Average Documents per Client per Month:</label>
+            <input type="number" id="avg-docs" min="1" value="30">
+        </div>
+        
+        <div class="form-group">
+            <label for="overage-percent">Percentage of Clients Exceeding Document Limit:</label>
+            <input type="number" id="overage-percent" min="0" max="100" value="20">
+        </div>
+        
+        <div class="form-group">
+            <label for="avg-overage">Average Overage Documents per Client:</label>
+            <input type="number" id="avg-overage" min="0" value="15">
+        </div>
+        
+        <button id="calculate-btn">Calculate</button>
+    </div>
+    
+    <div class="section" id="results-section" style="display: none;">
+        <h2>Financial Results</h2>
+        
+        <div class="metrics">
+            <div class="metric">
+                <div class="metric-label">Monthly Revenue</div>
+                <div class="metric-value" id="monthly-revenue">$0</div>
+            </div>
+            <div class="metric">
+                <div class="metric-label">Monthly Costs</div>
+                <div class="metric-value" id="monthly-costs">$0</div>
+            </div>
+            <div class="metric">
+                <div class="metric-label">Monthly Profit</div>
+                <div class="metric-value" id="monthly-profit">$0</div>
+            </div>
+            <div class="metric">
+                <div class="metric-label">Profit Margin</div>
+                <div class="metric-value" id="profit-margin">0%</div>
+            </div>
+        </div>
+        
+        <h3>Revenue Breakdown</h3>
+        <div class="chart-container">
+            <canvas id="revenue-chart"></canvas>
+        </div>
+        
+        <h3>Cost Breakdown</h3>
+        <div class="chart-container">
+            <canvas id="cost-chart"></canvas>
+        </div>
+        
+        <h3>Detailed Analysis</h3>
+        <table>
+            <tr>
+                <th>Plan</th>
+                <th>Clients</th>
+                <th>Subscription Revenue</th>
+                <th>Overage Revenue</th>
+                <th>Processing Costs</th>
+                <th>Profit</th>
+                <th>Margin</th>
+            </tr>
+            <tbody id="plan-details">
+                <!-- Will be filled by JavaScript -->
+            </tbody>
+        </table>
+    </div>
+    
+    <div class="section" id="recommendations-section" style="display: none;">
+        <h2>Recommendations</h2>
+        <div id="recommendations"></div>
+    </div>
+    
+    <script>
+        // Initialize charts
+        let revenueChart = null;
+        let costChart = null;
+        
+        // Calculate button click handler
+        document.getElementById('calculate-btn').addEventListener('click', () => {
+            // Get input values
+            const numClients = parseInt(document.getElementById('num-clients').value);
+            const freePercent = parseInt(document.getElementById('free-percent').value) / 100;
+            const starterPercent = parseInt(document.getElementById('starter-percent').value) / 100;
+            const proPercent = parseInt(document.getElementById('pro-percent').value) / 100;
+            const businessPercent = parseInt(document.getElementById('business-percent').value) / 100;
+            
+            const simplePercent = parseInt(document.getElementById('simple-percent').value) / 100;
+            const mediumPercent = parseInt(document.getElementById('medium-percent').value) / 100;
+            const complexPercent = parseInt(document.getElementById('complex-percent').value) / 100;
+            
+            const avgDocs = parseInt(document.getElementById('avg-docs').value);
+            const overagePercent = parseInt(document.getElementById('overage-percent').value) / 100;
+            const avgOverage = parseInt(document.getElementById('avg-overage').value);
+            
+            // Calculate client distribution
+            const freeClients = Math.round(numClients * freePercent);
+            const starterClients = Math.round(numClients * starterPercent);
+            const proClients = Math.round(numClients * proPercent);
+            const businessClients = Math.round(numClients * businessPercent);
+            
+            // Plan details
+            const plans = [
+                { name: 'Free', clients: freeClients, price: 0, limit: 10, overagePrice: 2.00 },
+                { name: 'Starter', clients: starterClients, price: 29, limit: 50, overagePrice: 1.00 },
+                { name: 'Professional', clients: proClients, price: 99, limit: 200, overagePrice: 0.75 },
+                { name: 'Business', clients: businessClients, price: 249, limit: 600, overagePrice: 0.50 }
+            ];
+            
+            // Processing costs
+            const processingCosts = [
+                { complexity: 'Simple', percent: simplePercent, cost: 0.05 },
+                { complexity: 'Medium', percent: mediumPercent, cost: 0.25 },
+                { complexity: 'Complex', percent: complexPercent, cost: 0.75 }
+            ];
+            
+            // Calculate revenue and costs for each plan
+            let totalSubscriptionRevenue = 0;
+            let totalOverageRevenue = 0;
+            let totalProcessingCosts = 0;
+            
+            const planDetails = [];
+            
+            for (const plan of plans) {
+                // Calculate subscription revenue
+                const subscriptionRevenue = plan.clients * plan.price;
+                totalSubscriptionRevenue += subscriptionRevenue;
+                
+                // Calculate documents processed
+                const docsPerClient = Math.min(avgDocs, plan.limit);
+                const totalRegularDocs = plan.clients * docsPerClient;
+                
+                // Calculate overage
+                const clientsWithOverage = Math.round(plan.clients * overagePercent);
+                const totalOverageDocs = clientsWithOverage * avgOverage;
+                const overageRevenue = totalOverageDocs * plan.overagePrice;
+                totalOverageRevenue += overageRevenue;
+                
+                // Calculate processing costs
+                let planProcessingCosts = 0;
+                const totalDocs = totalRegularDocs + totalOverageDocs;
+                
+                for (const proc of processingCosts) {
+                    const docsOfThisComplexity = Math.round(totalDocs * proc.percent);
+                    planProcessingCosts += docsOfThisComplexity * proc.cost;
+                }
+                
+                totalProcessingCosts += planProcessingCosts;
+                
+                // Calculate profit and margin
+                const totalRevenue = subscriptionRevenue + overageRevenue;
+                const profit = totalRevenue - planProcessingCosts;
+                const margin = totalRevenue > 0 ? (profit / totalRevenue) * 100 : 0;
+                
+                planDetails.push({
+                    plan: plan.name,
+                    clients: plan.clients,
+                    subscriptionRevenue,
+                    overageRevenue,
+                    processingCosts: planProcessingCosts,
+                    profit,
+                    margin
+                });
+            }
+            
+            // Calculate totals
+            const totalRevenue = totalSubscriptionRevenue + totalOverageRevenue;
+            const totalProfit = totalRevenue - totalProcessingCosts;
+            const totalMargin = totalRevenue > 0 ? (totalProfit / totalRevenue) * 100 : 0;
+            
+            // Update UI
+            document.getElementById('monthly-revenue').textContent = formatCurrency(totalRevenue);
+            document.getElementById('monthly-costs').textContent = formatCurrency(totalProcessingCosts);
+            document.getElementById('monthly-profit').textContent = formatCurrency(totalProfit);
+            document.getElementById('profit-margin').textContent = formatPercent(totalMargin);
+            
+            // Color profit and margin based on value
+            document.getElementById('monthly-profit').className = totalProfit >= 0 ? 'metric-value positive' : 'metric-value negative';
+            document.getElementById('profit-margin').className = totalMargin >= 0 ? 'metric-value positive' : 'metric-value negative';
+            
+            // Update plan details table
+            const planDetailsTable = document.getElementById('plan-details');
+            planDetailsTable.innerHTML = '';
+            
+            for (const detail of planDetails) {
+                const row = document.createElement('tr');
+                
+                row.innerHTML = `
+                    <td>${detail.plan}</td>
+                    <td>${detail.clients}</td>
+                    <td>${formatCurrency(detail.subscriptionRevenue)}</td>
+                    <td>${formatCurrency(detail.overageRevenue)}</td>
+                    <td>${formatCurrency(detail.processingCosts)}</td>
+                    <td class="${detail.profit >= 0 ? 'positive' : 'negative'}">${formatCurrency(detail.profit)}</td>
+                    <td class="${detail.margin >= 0 ? 'positive' : 'negative'}">${formatPercent(detail.margin)}</td>
+                `;
+                
+                planDetailsTable.appendChild(row);
+            }
+            
+            // Update revenue chart
+            updateRevenueChart(totalSubscriptionRevenue, totalOverageRevenue);
+            
+            // Update cost chart
+            const simpleCost = totalProcessingCosts * simplePercent;
+            const mediumCost = totalProcessingCosts * mediumPercent;
+            const complexCost = totalProcessingCosts * complexPercent;
+            updateCostChart(simpleCost, mediumCost, complexCost);
+            
+            // Generate recommendations
+            generateRecommendations(planDetails, totalMargin, processingCosts);
+            
+            // Show results
+            document.getElementById('results-section').style.display = 'block';
+            document.getElementById('recommendations-section').style.display = 'block';
+        });
+        
+        // Helper function to format currency
+        function formatCurrency(value) {
+            return '$' + value.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+        }
+        
+        // Helper function to format percentage
+        function formatPercent(value) {
+            return value.toFixed(1) + '%';
+        }
+        
+        // Update revenue chart
+        function updateRevenueChart(subscriptionRevenue, overageRevenue) {
+            const ctx = document.getElementById('revenue-chart').getContext('2d');
+            
+            if (revenueChart) {
+                revenueChart.destroy();
+            }
+            
+            revenueChart = new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: ['Subscription Revenue', 'Overage Revenue'],
+                    datasets: [{
+                        data: [subscriptionRevenue, overageRevenue],
+                        backgroundColor: ['#3498db', '#2ecc71']
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'right'
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    const value = context.raw;
+                                    const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                                    const percentage = ((value / total) * 100).toFixed(1);
+                                    return `${context.label}: ${formatCurrency(value)} (${percentage}%)`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+        
+        // Update cost chart
+        function updateCostChart(simpleCost, mediumCost, complexCost) {
+            const ctx = document.getElementById('cost-chart').getContext('2d');
+            
+            if (costChart) {
+                costChart.destroy();
+            }
+            
+            costChart = new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: ['Simple Documents (Tier 1)', 'Medium Documents (Tier 2)', 'Complex Documents (Tier 3)'],
+                    datasets: [{
+                        data: [simpleCost, mediumCost, complexCost],
+                        backgroundColor: ['#3498db', '#f39c12', '#e74c3c']
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'right'
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    const value = context.raw;
+                                    const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                                    const percentage = ((value / total) * 100).toFixed(1);
+                                    return `${context.label}: ${formatCurrency(value)} (${percentage}%)`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+        
+        // Generate recommendations
+        function generateRecommendations(planDetails, totalMargin, processingCosts) {
+            const recommendationsDiv = document.getElementById('recommendations');
+            recommendationsDiv.innerHTML = '';
+            
+            const recommendations = [];
+            
+            // Check overall margin
+            if (totalMargin < 30) {
+                recommendations.push('The overall profit margin is below the target of 30%. Consider adjusting pricing or reducing costs.');
+            } else if (totalMargin > 70) {
+                recommendations.push('The profit margin is very high (>70%). Consider offering more value to customers or reducing prices to accelerate growth.');
+            } else {
+                recommendations.push('The overall profit margin is healthy, between 30% and 70%.');
+            }
+            
+            // Check individual plan profitability
+            for (const plan of planDetails) {
+                if (plan.margin < 0) {
+                    recommendations.push(`The <span class="highlight">${plan.plan} plan</span> is losing money with a margin of ${formatPercent(plan.margin)}. Consider increasing the price or reducing the document limit.`);
+                } else if (plan.margin < 20 && plan.plan !== 'Free') {
+                    recommendations.push(`The <span class="highlight">${plan.plan} plan</span> has a low margin of ${formatPercent(plan.margin)}. Consider optimizing this plan's pricing or features.`);
+                }
+            }
+            
+            // Check processing costs
+            const complexCostPercent = processingCosts[2].percent;
+            if (complexCostPercent > 0.3) {
+                recommendations.push(`Complex documents (Tier 3) make up ${formatPercent(complexCostPercent * 100)} of processing, which is expensive. Consider optimizing the processing pipeline to handle more documents in Tier 1 or 2.`);
+            }
+            
+            // Check free tier
+            const freePlan = planDetails.find(p => p.plan === 'Free');
+            if (freePlan && freePlan.clients > planDetails.reduce((sum, p) => sum + (p.plan !== 'Free' ? p.clients : 0), 0)) {
+                recommendations.push('Free tier users outnumber paid users. Consider adding more value to paid plans or limiting the free tier further to encourage conversions.');
+            }
+            
+            // Check overage pricing
+            const overageRevenue = planDetails.reduce((sum, p) => sum + p.overageRevenue, 0);
+            const totalRevenue = planDetails.reduce((sum, p) => sum + p.subscriptionRevenue + p.overageRevenue, 0);
+            const overagePercent = overageRevenue / totalRevenue;
+            
+            if (overagePercent > 0.4) {
+                recommendations.push(`Overage charges account for ${formatPercent(overagePercent * 100)} of revenue, which is very high. Consider adjusting plan limits or introducing an unlimited plan for heavy users.`);
+            }
+            
+            // Display recommendations
+            if (recommendations.length > 0) {
+                const list = document.createElement('ul');
+                for (const rec of recommendations) {
+                    const item = document.createElement('li');
+                    item.innerHTML = rec;
+                    list.appendChild(item);
+                }
+                recommendationsDiv.appendChild(list);
+            } else {
+                recommendationsDiv.textContent = 'No specific recommendations at this time. The pricing model appears to be well-balanced.';
+            }
+        }
+    </script>
+</body>
+</html>

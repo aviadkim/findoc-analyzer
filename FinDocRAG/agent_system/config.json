@@ -1,0 +1,19 @@
+{
+    "model_settings":  {
+                           "table_understanding":  {
+                                                       "model":  "gemini-1.5-pro"
+                                                   },
+                           "securities_extractor":  {
+                                                        "model":  "gemini-1.5-pro"
+                                                    },
+                           "financial_reasoner":  {
+                                                      "model":  "gemini-1.5-pro"
+                                                  },
+                           "document_analyzer":  {
+                                                     "model":  "gemini-1.5-pro"
+                                                 }
+                       },
+    "api_keys":  {
+                     "gemini":  "sk-or-v1-a0f9a0f9a0f9a0f9a0f9a0f9a0f9a0f9a0f9a0f9a0f9a0f9a0f9a0f9a0f9"
+                 }
+}

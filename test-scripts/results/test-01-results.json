@@ -1,0 +1,35 @@
+{
+  "testId": "Test-01",
+  "testName": "Basic Website Access",
+  "date": "2025-04-28T07:24:32.687Z",
+  "steps": [
+    {
+      "step": 1,
+      "description": "Open the website",
+      "expectedResult": "Website loads successfully",
+      "actualResult": "Website loaded successfully in 1194ms",
+      "status": "Pass"
+    },
+    {
+      "step": 2,
+      "description": "Verify dashboard is visible",
+      "expectedResult": "Dashboard title and elements are visible",
+      "actualResult": "Dashboard is visible",
+      "status": "Pass"
+    },
+    {
+      "step": 3,
+      "description": "Check sidebar navigation",
+      "expectedResult": "Sidebar navigation is visible",
+      "actualResult": "Sidebar navigation is visible",
+      "status": "Pass"
+    }
+  ],
+  "issues": [],
+  "screenshots": [
+    "test-01-step-01.png",
+    "test-01-step-02.png",
+    "test-01-step-03.png"
+  ],
+  "overallStatus": "Pass"
+}

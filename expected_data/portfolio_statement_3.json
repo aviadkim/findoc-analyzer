@@ -1,0 +1,249 @@
+{
+  "document_type": "portfolio_statement",
+  "securities": [
+    {
+      "name": "NOVARTIS AG-REG",
+      "isin": "CH0012005267",
+      "type": "Equity",
+      "sector": "Healthcare",
+      "region": "Europe",
+      "quantity": 125,
+      "price": 924.7402136984899,
+      "value": 115592.52671231124,
+      "weight": 6.919350244455809,
+      "currency": "JPY"
+    },
+    {
+      "name": "ISHARES CORE S&P 500 ETF",
+      "isin": "US4642872000",
+      "type": "Fund",
+      "sector": "Equity",
+      "region": "North America",
+      "quantity": 20,
+      "price": 752.0286649425203,
+      "value": 15040.573298850406,
+      "weight": 0.9067762561141021,
+      "currency": "USD"
+    },
+    {
+      "name": "APPLE INC",
+      "isin": "US0378331005",
+      "type": "Equity",
+      "sector": "Technology",
+      "region": "North America",
+      "quantity": 118,
+      "price": 993.5993649366833,
+      "value": 117244.72506252863,
+      "weight": 7.001353888503853,
+      "currency": "GBP"
+    },
+    {
+      "name": "ASML HOLDING NV",
+      "isin": "NL0010273215",
+      "type": "Equity",
+      "sector": "Technology",
+      "region": "Europe",
+      "quantity": 27,
+      "price": 830.2890834952773,
+      "value": 22417.805254372488,
+      "weight": 1.3333986307123757,
+      "currency": "CHF"
+    },
+    {
+      "name": "NVIDIA CORP",
+      "isin": "US67066G1040",
+      "type": "Equity",
+      "sector": "Technology",
+      "region": "North America",
+      "quantity": 272,
+      "price": 584.3619402018379,
+      "value": 158946.4477348999,
+      "weight": 9.513197545003242,
+      "currency": "USD"
+    },
+    {
+      "name": "TESLA INC",
+      "isin": "US88160R1014",
+      "type": "Equity",
+      "sector": "Consumer",
+      "region": "North America",
+      "quantity": 30,
+      "price": 835.6020984615232,
+      "value": 25068.062953845696,
+      "weight": 1.5142061807157066,
+      "currency": "EUR"
+    },
+    {
+      "name": "ROCHE HOLDING AG-GENUSSCHEIN",
+      "isin": "CH0012032048",
+      "type": "Equity",
+      "sector": "Healthcare",
+      "region": "Europe",
+      "quantity": 207,
+      "price": 415.3229205322813,
+      "value": 85971.84455018223,
+      "weight": 5.146388651732004,
+      "currency": "CHF"
+    },
+    {
+      "name": "US TREASURY 2.5% 15/02/2045",
+      "isin": "US912810RK35",
+      "type": "Bond",
+      "sector": "Government",
+      "region": "North America",
+      "quantity": 592.09,
+      "price": 99.09350383117709,
+      "value": 58672.27268340164,
+      "weight": 3.5157119436236797,
+      "currency": "USD"
+    },
+    {
+      "name": "TORONTO DOMINION BANK NOTES 23-23.02.27 REG-S VRN",
+      "isin": "XS2530507273",
+      "type": "Bond",
+      "sector": "Corporate",
+      "region": "North America",
+      "quantity": 1217.54,
+      "price": 90.15508089157646,
+      "value": 109767.41718873,
+      "weight": 6.5773621391208685,
+      "currency": "JPY"
+    },
+    {
+      "name": "FACEBOOK INC-CLASS A",
+      "isin": "US30303M1027",
+      "type": "Equity",
+      "sector": "Technology",
+      "region": "North America",
+      "quantity": 3151,
+      "price": 46.165950789358305,
+      "value": 145468.91093726803,
+      "weight": 8.716825431860848,
+      "currency": "GBP"
+    },
+    {
+      "name": "JPMORGAN CHASE & CO",
+      "isin": "US46625H1005",
+      "type": "Equity",
+      "sector": "Financial",
+      "region": "North America",
+      "quantity": 453,
+      "price": 124.17280490906897,
+      "value": 56250.28062380824,
+      "weight": 3.368795881699592,
+      "currency": "EUR"
+    },
+    {
+      "name": "VISA INC-CLASS A",
+      "isin": "US92826C8394",
+      "type": "Equity",
+      "sector": "Financial",
+      "region": "North America",
+      "quantity": 140,
+      "price": 859.7922323489946,
+      "value": 120370.91252885925,
+      "weight": 7.193052287306504,
+      "currency": "GBP"
+    },
+    {
+      "name": "JOHNSON & JOHNSON",
+      "isin": "US4781601046",
+      "type": "Equity",
+      "sector": "Healthcare",
+      "region": "North America",
+      "quantity": 225,
+      "price": 648.7228095493476,
+      "value": 145962.6321486032,
+      "weight": 8.76518729932647,
+      "currency": "JPY"
+    },
+    {
+      "name": "ALPHABET INC-CL A",
+      "isin": "US02079K3059",
+      "type": "Equity",
+      "sector": "Technology",
+      "region": "North America",
+      "quantity": 907,
+      "price": 121.07418195862573,
+      "value": 109814.28303647354,
+      "weight": 6.58036664917905,
+      "currency": "GBP"
+    },
+    {
+      "name": "GOLDMAN SACHS 0% NOTES 23-07.11.29 SERIES P",
+      "isin": "XS2692298537",
+      "type": "Bond",
+      "sector": "Corporate",
+      "region": "North America",
+      "quantity": 773.14,
+      "price": 94.06689719748768,
+      "value": 72726.88089926563,
+      "weight": 4.3578578885678105,
+      "currency": "GBP"
+    },
+    {
+      "name": "LVMH MOET HENNESSY LOUIS VUI",
+      "isin": "FR0000121014",
+      "type": "Equity",
+      "sector": "Consumer",
+      "region": "Europe",
+      "quantity": 308,
+      "price": 242.91027413926082,
+      "value": 74816.36443489233,
+      "weight": 4.476762504178315,
+      "currency": "EUR"
+    },
+    {
+      "name": "AMAZON.COM INC 2.5% 29/11/2022",
+      "isin": "US023135AJ58",
+      "type": "Bond",
+      "sector": "Corporate",
+      "region": "North America",
+      "quantity": 1501.97,
+      "price": 109.20241029869405,
+      "value": 164018.7441963295,
+      "weight": 9.828147690597774,
+      "currency": "USD"
+    },
+    {
+      "name": "APPLE INC 2.4% 03/05/2023",
+      "isin": "US037833AK68",
+      "type": "Bond",
+      "sector": "Corporate",
+      "region": "North America",
+      "quantity": 192.25,
+      "price": 103.1404865250162,
+      "value": 19828.758534434364,
+      "weight": 1.188168516573549,
+      "currency": "GBP"
+    },
+    {
+      "name": "VANGUARD TOTAL STOCK MARKET ETF",
+      "isin": "US9229087690",
+      "type": "Fund",
+      "sector": "Equity",
+      "region": "North America",
+      "quantity": 301,
+      "price": 171.6797331549752,
+      "value": 51675.59967964754,
+      "weight": 3.0970903707284436,
+      "currency": "GBP"
+    }
+  ],
+  "portfolio_summary": {
+    "total_value": 1669655.0424587037,
+    "currency": "GBP",
+    "valuation_date": "27.11.2024"
+  },
+  "asset_allocation": {
+    "Equity": {
+      "percentage": 70.53
+    },
+    "Fund": {
+      "percentage": 4.0
+    },
+    "Fixed Income": {
+      "percentage": 25.47
+    }
+  }
+}

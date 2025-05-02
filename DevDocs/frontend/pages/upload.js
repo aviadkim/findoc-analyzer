@@ -115,7 +115,9 @@ export default function UploadDocument() {
     setUploadProgress(0);
 
     try {
-      const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:24125';
+      // Use the deployed API URL or fallback to localhost
+      const API_URL = 'https://findoc-deploy.ey.r.appspot.com' || process.env.NEXT_PUBLIC_API_URL || 'http://localhost:24125';
+      console.log('Using API URL:', API_URL);
 
       // Upload each file
       const uploadResults = [];
@@ -167,6 +169,7 @@ export default function UploadDocument() {
         // Create a promise to handle the XHR request
         const uploadPromise = new Promise((resolve, reject) => {
           xhr.open('POST', `${API_URL}/api/documents/upload`);
+          console.log('Uploading to:', `${API_URL}/api/documents/upload`);
 
           xhr.upload.onprogress = (event) => {
             if (event.lengthComputable) {

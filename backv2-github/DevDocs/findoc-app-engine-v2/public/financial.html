@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Financial Analysis - FinDoc Analyzer</title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <h1>FinDoc Analyzer</h1>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/analytics.html">Analytics</a></li>
+        <li><a href="/financial.html">Financial Analysis</a></li>
+        <li><a href="/reports.html">Reports</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <h2>Financial Analysis</h2>
+    <div id="financial-content">
+      <p>Loading financial data...</p>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2023 FinDoc Analyzer. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // Fetch market data
+    fetch('/api/financial/market-data')
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          const content = document.getElementById('financial-content');
+          content.innerHTML = `
+            <h3>Market Data</h3>
+            <h4>Indices</h4>
+            <ul>
+              ${data.data.indices.map(index => `
+                <li>${index.name}: ${index.value.toLocaleString()} (${index.change >= 0 ? '+' : ''}${index.change.toLocaleString()} / ${index.changePercent.toFixed(2)}%)</li>
+              `).join('')}
+            </ul>
+            <h4>Sectors</h4>
+            <ul>
+              ${data.data.sectors.map(sector => `
+                <li>${sector.name}: ${sector.performance >= 0 ? '+' : ''}${sector.performance.toFixed(2)}%</li>
+              `).join('')}
+            </ul>
+            <h4>Currencies</h4>
+            <ul>
+              ${data.data.currencies.map(currency => `
+                <li>${currency.pair}: ${currency.value.toFixed(4)} (${currency.change >= 0 ? '+' : ''}${currency.change.toFixed(4)} / ${currency.changePercent.toFixed(2)}%)</li>
+              `).join('')}
+            </ul>
+            <h4>Commodities</h4>
+            <ul>
+              ${data.data.commodities.map(commodity => `
+                <li>${commodity.name}: ${commodity.value.toFixed(2)} (${commodity.change >= 0 ? '+' : ''}${commodity.change.toFixed(2)} / ${commodity.changePercent.toFixed(2)}%)</li>
+              `).join('')}
+            </ul>
+            <p>Last updated: ${new Date(data.data.timestamp).toLocaleString()}</p>
+          `;
+        } else {
+          console.error('Error fetching financial data:', data.error);
+        }
+      })
+      .catch(error => {
+        console.error('Error fetching financial data:', error);
+      });
+  </script>
+</body>
+</html>

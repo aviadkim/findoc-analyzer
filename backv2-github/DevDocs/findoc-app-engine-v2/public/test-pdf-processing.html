@@ -1,0 +1,1013 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FinDoc PDF Processing Test</title>
+    <style>
+        :root {
+            --primary-color: #4CAF50;
+            --primary-hover: #45a049;
+            --text-color: #333;
+            --bg-color: #fff;
+            --card-bg: #fff;
+            --border-color: #ddd;
+            --shadow-color: rgba(0,0,0,0.1);
+            --success-bg: #d4edda;
+            --success-color: #155724;
+            --success-border: #c3e6cb;
+            --error-bg: #f8d7da;
+            --error-color: #721c24;
+            --error-border: #f5c6cb;
+            --info-bg: #d1ecf1;
+            --info-color: #0c5460;
+            --info-border: #bee5eb;
+            --log-bg: #f8f9fa;
+            --table-header-bg: #f2f2f2;
+            --spinner-color: #3498db;
+            --spinner-bg: #f3f3f3;
+            --tab-active-bg: #fff;
+        }
+
+        [data-theme="dark"] {
+            --primary-color: #4CAF50;
+            --primary-hover: #45a049;
+            --text-color: #f0f0f0;
+            --bg-color: #121212;
+            --card-bg: #1e1e1e;
+            --border-color: #333;
+            --shadow-color: rgba(0,0,0,0.3);
+            --success-bg: #0d3a15;
+            --success-color: #8eff9e;
+            --success-border: #155724;
+            --error-bg: #3a0d0d;
+            --error-color: #ff8e8e;
+            --error-border: #721c24;
+            --info-bg: #0d303a;
+            --info-color: #8ee6ff;
+            --info-border: #0c5460;
+            --log-bg: #2a2a2a;
+            --table-header-bg: #2a2a2a;
+            --spinner-color: #3498db;
+            --spinner-bg: #333;
+            --tab-active-bg: #1e1e1e;
+        }
+
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        h1, h2, h3 {
+            color: var(--text-color);
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .theme-switch-wrapper {
+            display: flex;
+            align-items: center;
+        }
+
+        .theme-switch {
+            display: inline-block;
+            height: 24px;
+            position: relative;
+            width: 48px;
+        }
+
+        .theme-switch input {
+            display: none;
+        }
+
+        .slider {
+            background-color: #ccc;
+            bottom: 0;
+            cursor: pointer;
+            left: 0;
+            position: absolute;
+            right: 0;
+            top: 0;
+            transition: .4s;
+            border-radius: 24px;
+        }
+
+        .slider:before {
+            background-color: white;
+            bottom: 4px;
+            content: "";
+            height: 16px;
+            left: 4px;
+            position: absolute;
+            transition: .4s;
+            width: 16px;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: var(--primary-color);
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(24px);
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .card {
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 4px var(--shadow-color);
+            background-color: var(--card-bg);
+            transition: background-color 0.3s, border-color 0.3s, box-shadow 0.3s;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input[type="file"], input[type="text"], select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            box-sizing: border-box;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+        }
+
+        button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: var(--primary-hover);
+        }
+
+        .status {
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 4px;
+        }
+
+        .success {
+            background-color: var(--success-bg);
+            color: var(--success-color);
+            border: 1px solid var(--success-border);
+        }
+
+        .error {
+            background-color: var(--error-bg);
+            color: var(--error-color);
+            border: 1px solid var(--error-border);
+        }
+
+        .info {
+            background-color: var(--info-bg);
+            color: var(--info-color);
+            border: 1px solid var(--info-border);
+        }
+
+        #log {
+            height: 200px;
+            overflow-y: auto;
+            padding: 10px;
+            background-color: var(--log-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 12px;
+            color: var(--text-color);
+            transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+        }
+
+        .tab-container {
+            margin-top: 20px;
+        }
+
+        .tabs {
+            display: flex;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .tab {
+            padding: 10px 15px;
+            cursor: pointer;
+            border: 1px solid transparent;
+            border-bottom: none;
+            margin-bottom: -1px;
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+
+        .tab.active {
+            background-color: var(--tab-active-bg);
+            border-color: var(--border-color);
+            border-radius: 4px 4px 0 0;
+        }
+
+        .tab-content {
+            display: none;
+            padding: 15px;
+            border: 1px solid var(--border-color);
+            border-top: none;
+            border-radius: 0 0 4px 4px;
+            transition: border-color 0.3s;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        th, td {
+            border: 1px solid var(--border-color);
+            padding: 8px;
+            text-align: left;
+            transition: border-color 0.3s;
+        }
+
+        th {
+            background-color: var(--table-header-bg);
+            transition: background-color 0.3s;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .spinner {
+            border: 4px solid var(--spinner-bg);
+            border-top: 4px solid var(--spinner-color);
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 2s linear infinite;
+            margin: 0 auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        pre {
+            background-color: var(--log-bg);
+            padding: 10px;
+            border-radius: 4px;
+            overflow-x: auto;
+            color: var(--text-color);
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .test-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .test-buttons button {
+            flex: 1;
+        }
+
+        .version-info {
+            font-size: 12px;
+            color: #888;
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>FinDoc PDF Processing Test</h1>
+        <div class="theme-switch-wrapper">
+            <span>🌞</span>
+            <label class="theme-switch" for="checkbox">
+                <input type="checkbox" id="checkbox" />
+                <div class="slider"></div>
+            </label>
+            <span>🌙</span>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="card">
+            <h2>Upload PDF</h2>
+            <div class="form-group">
+                <label for="pdf-file">Select PDF File:</label>
+                <input type="file" id="pdf-file" accept=".pdf">
+            </div>
+            <div class="form-group">
+                <label for="document-name">Document Name:</label>
+                <input type="text" id="document-name" placeholder="Enter document name">
+            </div>
+            <div class="form-group">
+                <label for="document-type">Document Type:</label>
+                <select id="document-type">
+                    <option value="financial_statement">Financial Statement</option>
+                    <option value="portfolio_report">Portfolio Report</option>
+                    <option value="investment_summary">Investment Summary</option>
+                    <option value="account_statement">Account Statement</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Processing Options:</label>
+                <div>
+                    <input type="checkbox" id="option-ocr" checked>
+                    <label for="option-ocr" style="display: inline;">Enable OCR</label>
+                </div>
+                <div>
+                    <input type="checkbox" id="option-tables" checked>
+                    <label for="option-tables" style="display: inline;">Extract Tables</label>
+                </div>
+                <div>
+                    <input type="checkbox" id="option-isin" checked>
+                    <label for="option-isin" style="display: inline;">Detect ISINs</label>
+                </div>
+                <div>
+                    <input type="checkbox" id="option-security" checked>
+                    <label for="option-security" style="display: inline;">Extract Security Info</label>
+                </div>
+                <div>
+                    <input type="checkbox" id="option-portfolio" checked>
+                    <label for="option-portfolio" style="display: inline;">Portfolio Analysis</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>API Endpoint:</label>
+                <select id="api-endpoint">
+                    <option value="mock">Mock API (/api/mock)</option>
+                    <option value="test">Test API (/api/test)</option>
+                    <option value="real">Real API (/api/documents)</option>
+                </select>
+            </div>
+            <button id="upload-btn">Upload and Process</button>
+
+            <div class="test-buttons">
+                <button id="test-financial-btn">Test Financial Statement</button>
+                <button id="test-text-btn">Test Text Only</button>
+                <button id="test-tables-btn">Test Tables Only</button>
+            </div>
+
+            <div id="upload-status"></div>
+        </div>
+
+        <div class="card">
+            <h2>Processing Log</h2>
+            <div id="log"></div>
+        </div>
+
+        <div class="card" id="results-card" style="display: none;">
+            <h2>Processing Results</h2>
+            <div class="tab-container">
+                <div class="tabs">
+                    <div class="tab active" data-tab="overview">Overview</div>
+                    <div class="tab" data-tab="text">Extracted Text</div>
+                    <div class="tab" data-tab="tables">Tables</div>
+                    <div class="tab" data-tab="securities">Securities</div>
+                    <div class="tab" data-tab="qa">Q&A</div>
+                </div>
+                <div class="tab-content active" id="overview-tab">
+                    <h3>Document Overview</h3>
+                    <div id="overview-content"></div>
+                </div>
+                <div class="tab-content" id="text-tab">
+                    <h3>Extracted Text</h3>
+                    <div id="text-content"></div>
+                </div>
+                <div class="tab-content" id="tables-tab">
+                    <h3>Extracted Tables</h3>
+                    <div id="tables-content"></div>
+                </div>
+                <div class="tab-content" id="securities-tab">
+                    <h3>Extracted Securities</h3>
+                    <div id="securities-content"></div>
+                </div>
+                <div class="tab-content" id="qa-tab">
+                    <h3>Ask Questions</h3>
+                    <div class="form-group">
+                        <label for="question">Question:</label>
+                        <input type="text" id="question" placeholder="Ask a question about the document">
+                        <button id="ask-btn" style="margin-top: 10px;">Ask</button>
+                    </div>
+                    <div id="qa-content"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="loading" id="loading">
+        <p>Processing... This may take a few minutes.</p>
+        <div class="spinner"></div>
+    </div>
+
+    <div class="version-info">
+        FinDoc PDF Processing Test v1.0.0 | &copy; 2024 FinDoc Analyzer
+    </div>
+
+    <script>
+        // Global variables
+        let documentId = null;
+        let documentData = null;
+        let apiEndpoint = 'mock'; // Default to mock API
+
+        // DOM elements
+        const uploadBtn = document.getElementById('upload-btn');
+        const uploadStatus = document.getElementById('upload-status');
+        const logElement = document.getElementById('log');
+        const resultsCard = document.getElementById('results-card');
+        const loadingElement = document.getElementById('loading');
+        const askBtn = document.getElementById('ask-btn');
+        const apiEndpointSelect = document.getElementById('api-endpoint');
+        const testFinancialBtn = document.getElementById('test-financial-btn');
+        const testTextBtn = document.getElementById('test-text-btn');
+        const testTablesBtn = document.getElementById('test-tables-btn');
+        const themeToggle = document.getElementById('checkbox');
+
+        // Update API endpoint when select changes
+        apiEndpointSelect.addEventListener('change', () => {
+            apiEndpoint = apiEndpointSelect.value;
+            log(`API endpoint changed to: ${getApiEndpointUrl()}`);
+        });
+
+        // Get API endpoint URL
+        function getApiEndpointUrl() {
+            switch (apiEndpoint) {
+                case 'mock':
+                    return '/api/mock';
+                case 'test':
+                    return '/api/test';
+                case 'real':
+                    return '/api';
+                default:
+                    return '/api/mock';
+            }
+        }
+
+        // Tab functionality
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Remove active class from all tabs and tab contents
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+
+                // Add active class to clicked tab and corresponding content
+                tab.classList.add('active');
+                document.getElementById(`${tab.dataset.tab}-tab`).classList.add('active');
+            });
+        });
+
+        // Log function
+        function log(message) {
+            const timestamp = new Date().toLocaleTimeString();
+            logElement.innerHTML += `[${timestamp}] ${message}<br>`;
+            logElement.scrollTop = logElement.scrollHeight;
+        }
+
+        // Set status function
+        function setStatus(message, type) {
+            uploadStatus.innerHTML = `<div class="status ${type}">${message}</div>`;
+        }
+
+        // Upload and process button click handler
+        uploadBtn.addEventListener('click', async () => {
+            const fileInput = document.getElementById('pdf-file');
+            const documentName = document.getElementById('document-name').value;
+            const documentType = document.getElementById('document-type').value;
+
+            if (!fileInput.files.length) {
+                setStatus('Please select a PDF file', 'error');
+                return;
+            }
+
+            if (!documentName) {
+                setStatus('Please enter a document name', 'error');
+                return;
+            }
+
+            const file = fileInput.files[0];
+
+            // Get processing options
+            const ocrEnabled = document.getElementById('option-ocr').checked;
+            const tablesEnabled = document.getElementById('option-tables').checked;
+            const isinEnabled = document.getElementById('option-isin').checked;
+            const securityEnabled = document.getElementById('option-security').checked;
+            const portfolioEnabled = document.getElementById('option-portfolio').checked;
+
+            // Show loading spinner
+            loadingElement.style.display = 'block';
+            resultsCard.style.display = 'none';
+
+            try {
+                // Step 1: Upload the document
+                log(`Uploading file: ${file.name}`);
+                setStatus('Uploading file...', 'info');
+
+                const formData = new FormData();
+                formData.append('file', file);
+                formData.append('name', documentName);
+                formData.append('type', documentType);
+
+                const uploadResponse = await fetch(`${getApiEndpointUrl()}/documents`, {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const uploadData = await uploadResponse.json();
+                log(`Upload response: ${JSON.stringify(uploadData)}`);
+
+                if (!uploadData.success) {
+                    log(`Upload failed: ${uploadData.error}`);
+                    throw new Error(`Upload failed: ${uploadData.error}`);
+                }
+
+                documentId = uploadData.data.id;
+                log(`Document uploaded successfully with ID: ${documentId}`);
+                setStatus(`Document uploaded successfully with ID: ${documentId}`, 'success');
+
+                // Step 2: Process the document
+                log(`Processing document with ID: ${documentId}`);
+                setStatus(`Processing document with ID: ${documentId}...`, 'info');
+
+                const processResponse = await fetch(`${getApiEndpointUrl()}/documents/${documentId}/scan1`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        agents: ["Document Analyzer", "Table Understanding", "Securities Extractor", "Financial Reasoner"],
+                        tableExtraction: tablesEnabled,
+                        isinDetection: isinEnabled,
+                        securityInfo: securityEnabled,
+                        portfolioAnalysis: portfolioEnabled,
+                        ocrScanned: ocrEnabled,
+                        outputFormat: 'json'
+                    })
+                });
+
+                const processData = await processResponse.json();
+                log(`Process response: ${JSON.stringify(processData)}`);
+
+                if (!processData.success) {
+                    log(`Processing failed: ${processData.error}`);
+                    throw new Error(`Processing failed: ${processData.error}`);
+                }
+
+                log('Document processing initiated successfully');
+
+                // Step 3: Poll for processing status
+                let status = 'processing';
+                let pollCount = 0;
+                const maxPolls = 60;  // 5 minutes (5 seconds per poll)
+
+                while (status === 'processing' && pollCount < maxPolls) {
+                    // Wait for 5 seconds
+                    await new Promise(resolve => setTimeout(resolve, 5000));
+                    pollCount++;
+
+                    log(`Polling for status (attempt ${pollCount}/${maxPolls})...`);
+
+                    // Check status
+                    const statusResponse = await fetch(`${getApiEndpointUrl()}/documents/${documentId}`);
+                    const statusData = await statusResponse.json();
+
+                    if (!statusData.success) {
+                        log(`Failed to get status: ${statusData.error}`);
+                        continue;
+                    }
+
+                    status = statusData.data.status;
+                    documentData = statusData.data;
+
+                    log(`Current status: ${status}`);
+
+                    if (status === 'error') {
+                        log(`Processing failed with error: ${documentData.error || 'Unknown error'}`);
+                        throw new Error('Processing failed with error');
+                    }
+
+                    if (status === 'processed') {
+                        log('Processing completed successfully!');
+                        break;
+                    }
+                }
+
+                if (pollCount >= maxPolls && status === 'processing') {
+                    log('Processing timed out');
+                    throw new Error('Processing timed out');
+                }
+
+                // Step 4: Display results
+                setStatus('Document processed successfully!', 'success');
+
+                // Display results
+                displayResults(documentData);
+
+                // Show results card
+                resultsCard.style.display = 'block';
+            } catch (error) {
+                console.error('Error:', error);
+                log(`Error: ${error.message}`);
+                setStatus(`Error: ${error.message}`, 'error');
+            } finally {
+                // Hide loading spinner
+                loadingElement.style.display = 'none';
+            }
+        });
+
+        // Ask question button click handler
+        askBtn.addEventListener('click', async () => {
+            const questionInput = document.getElementById('question');
+            const question = questionInput.value.trim();
+            const qaContent = document.getElementById('qa-content');
+
+            if (!question) {
+                return;
+            }
+
+            if (!documentId || !documentData) {
+                qaContent.innerHTML = '<div class="status error">Please upload and process a document first</div>';
+                return;
+            }
+
+            log(`Asking question: ${question}`);
+
+            try {
+                // Show loading
+                qaContent.innerHTML = '<div class="status info">Generating answer...</div>';
+
+                // Ask question
+                const answerResponse = await fetch(`${getApiEndpointUrl()}/documents/${documentId}/ask`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        question
+                    })
+                });
+
+                const answerData = await answerResponse.json();
+
+                if (!answerData.success) {
+                    log(`Failed to get answer: ${answerData.error}`);
+                    qaContent.innerHTML = `<div class="status error">Error: ${answerData.error}</div>`;
+                    return;
+                }
+
+                const answer = answerData.data.answer;
+                log(`Answer: ${answer}`);
+
+                // Display answer
+                qaContent.innerHTML = `
+                    <div style="margin-top: 15px;">
+                        <p><strong>Q: ${question}</strong></p>
+                        <p>${answer}</p>
+                    </div>
+                    ${qaContent.innerHTML.includes('<div class="status info">') ? '' : qaContent.innerHTML}
+                `;
+
+                // Clear question input
+                questionInput.value = '';
+            } catch (error) {
+                console.error('Error:', error);
+                log(`Error asking question: ${error.message}`);
+                qaContent.innerHTML = `<div class="status error">Error asking question: ${error.message}</div>`;
+            }
+        });
+
+        // Display results function
+        function displayResults(data) {
+            // Overview tab
+            const overviewContent = document.getElementById('overview-content');
+            overviewContent.innerHTML = `
+                <p><strong>Document Name:</strong> ${data.name}</p>
+                <p><strong>Document Type:</strong> ${data.type}</p>
+                <p><strong>Status:</strong> ${data.status}</p>
+                <p><strong>Uploaded At:</strong> ${new Date(data.uploaded_at).toLocaleString()}</p>
+                <p><strong>Processed At:</strong> ${new Date(data.processed_at).toLocaleString()}</p>
+            `;
+
+            // Add portfolio information if available
+            if (data.metadata && data.metadata.portfolio) {
+                overviewContent.innerHTML += `
+                    <p><strong>Total Value:</strong> ${data.metadata.portfolio.currency} ${data.metadata.portfolio.totalValue.toLocaleString()}</p>
+                    <p><strong>Securities Count:</strong> ${data.metadata.securities ? data.metadata.securities.length : 0}</p>
+                    <h4>Asset Allocation</h4>
+                `;
+
+                if (data.metadata.portfolio.assetAllocation) {
+                    const allocation = data.metadata.portfolio.assetAllocation;
+                    overviewContent.innerHTML += `
+                        <ul>
+                            <li>Equity: ${(allocation.equity * 100).toFixed(0)}%</li>
+                            <li>Fixed Income: ${(allocation.fixedIncome * 100).toFixed(0)}%</li>
+                            <li>Cash: ${(allocation.cash * 100).toFixed(0)}%</li>
+                            <li>Alternative: ${(allocation.alternative * 100).toFixed(0)}%</li>
+                        </ul>
+                    `;
+                }
+            }
+
+            // Text tab
+            const textContent = document.getElementById('text-content');
+            if (data.content && data.content.text) {
+                textContent.innerHTML = `<pre>${data.content.text}</pre>`;
+            } else {
+                textContent.innerHTML = '<p>No text content available</p>';
+            }
+
+            // Tables tab
+            const tablesContent = document.getElementById('tables-content');
+            if (data.content && data.content.tables && data.content.tables.length > 0) {
+                let tablesHtml = '';
+                data.content.tables.forEach((table, index) => {
+                    tablesHtml += `<h4>${table.title || `Table ${index + 1}`}</h4>`;
+                    tablesHtml += '<table>';
+
+                    // Add headers
+                    if (table.headers && table.headers.length > 0) {
+                        tablesHtml += '<tr>';
+                        table.headers.forEach(header => {
+                            tablesHtml += `<th>${header}</th>`;
+                        });
+                        tablesHtml += '</tr>';
+                    }
+
+                    // Add rows
+                    if (table.rows && table.rows.length > 0) {
+                        table.rows.forEach(row => {
+                            tablesHtml += '<tr>';
+                            row.forEach(cell => {
+                                tablesHtml += `<td>${cell}</td>`;
+                            });
+                            tablesHtml += '</tr>';
+                        });
+                    }
+
+                    tablesHtml += '</table>';
+                });
+                tablesContent.innerHTML = tablesHtml;
+            } else {
+                tablesContent.innerHTML = '<p>No tables found in the document</p>';
+            }
+
+            // Securities tab
+            const securitiesContent = document.getElementById('securities-content');
+            if (data.metadata && data.metadata.securities && data.metadata.securities.length > 0) {
+                let securitiesHtml = '<table>';
+                securitiesHtml += '<tr><th>Name</th><th>ISIN</th><th>Type</th><th>Quantity</th><th>Value</th><th>Weight</th></tr>';
+
+                data.metadata.securities.forEach(security => {
+                    securitiesHtml += '<tr>';
+                    securitiesHtml += `<td>${security.name || '-'}</td>`;
+                    securitiesHtml += `<td>${security.isin || '-'}</td>`;
+                    securitiesHtml += `<td>${security.type || '-'}</td>`;
+                    securitiesHtml += `<td>${security.quantity ? security.quantity.toLocaleString() : '-'}</td>`;
+                    securitiesHtml += `<td>${security.currency ? security.currency : ''} ${security.value ? security.value.toLocaleString() : '-'}</td>`;
+                    securitiesHtml += `<td>${security.weight ? (security.weight * 100).toFixed(2) + '%' : '-'}</td>`;
+                    securitiesHtml += '</tr>';
+                });
+
+                securitiesHtml += '</table>';
+                securitiesContent.innerHTML = securitiesHtml;
+            } else {
+                securitiesContent.innerHTML = '<p>No securities found in the document</p>';
+            }
+        }
+
+        // Dark mode toggle
+        themeToggle.addEventListener('change', function(e) {
+            if (e.target.checked) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                localStorage.setItem('theme', 'dark');
+            } else {
+                document.documentElement.setAttribute('data-theme', 'light');
+                localStorage.setItem('theme', 'light');
+            }
+        });
+
+        // Check for saved theme preference
+        const currentTheme = localStorage.getItem('theme') ? localStorage.getItem('theme') : null;
+        if (currentTheme === 'dark') {
+            document.documentElement.setAttribute('data-theme', 'dark');
+            themeToggle.checked = true;
+        }
+
+        // Test buttons
+        testFinancialBtn.addEventListener('click', () => {
+            runTest('financial_statement');
+        });
+
+        testTextBtn.addEventListener('click', () => {
+            runTest('text_only');
+        });
+
+        testTablesBtn.addEventListener('click', () => {
+            runTest('tables_only');
+        });
+
+        // Run a test with mock data
+        async function runTest(testType) {
+            // Set document name and type
+            document.getElementById('document-name').value = testType.replace('_', ' ');
+            document.getElementById('document-type').value = 'financial_statement';
+
+            // Make sure mock API is selected
+            apiEndpointSelect.value = 'mock';
+            apiEndpoint = 'mock';
+
+            // Show loading spinner
+            loadingElement.style.display = 'block';
+            resultsCard.style.display = 'none';
+
+            log(`Running ${testType} test...`);
+            setStatus(`Running ${testType} test...`, 'info');
+
+            try {
+                // Simulate document ID
+                documentId = `doc-${Date.now()}`;
+                log(`Test document created with ID: ${documentId}`);
+
+                // Wait for 2 seconds to simulate processing
+                await new Promise(resolve => setTimeout(resolve, 2000));
+
+                // Create mock document data
+                documentData = {
+                    id: documentId,
+                    name: testType.replace('_', ' '),
+                    type: 'financial_statement',
+                    status: 'processed',
+                    uploaded_at: new Date().toISOString(),
+                    processed_at: new Date().toISOString(),
+                    content: {
+                        text: "INVESTMENT PORTFOLIO STATEMENT\n\nDate: 28.02.2025\nAccount Number: 12345678\nClient: John Doe\n\nPORTFOLIO SUMMARY\nTotal Value: USD 1,250,000.00\nCurrency: USD\nValuation Date: 28.02.2025\n\nASSET ALLOCATION\nEquity: 45%\nFixed Income: 30%\nCash: 15%\nAlternative: 10%\n\nSECURITIES HOLDINGS\nAPPLE INC (US0378331005) - Equity - 500 - USD 170.00 - USD 85,000.00 - 6.8%\nMICROSOFT CORP (US5949181045) - Equity - 300 - USD 340.00 - USD 102,000.00 - 8.16%\nAMAZON.COM INC (US0231351067) - Equity - 100 - USD 950.00 - USD 95,000.00 - 7.6%\nUS TREASURY 2.5% 15/02/2045 (US912810RK35) - Bond - 200,000 - USD 0.99 - USD 198,000.00 - 15.84%\nGOLDMAN SACHS 0% NOTES 23-07.11.29 (XS2692298537) - Bond - 150,000 - USD 0.98 - USD 147,000.00 - 11.76%",
+                        tables: [
+                            {
+                                title: "Asset Allocation",
+                                headers: ["Asset Class", "Percentage"],
+                                rows: [
+                                    ["Equity", "45%"],
+                                    ["Fixed Income", "30%"],
+                                    ["Cash", "15%"],
+                                    ["Alternative", "10%"]
+                                ]
+                            },
+                            {
+                                title: "Securities Holdings",
+                                headers: ["Security", "ISIN", "Type", "Quantity", "Price", "Value", "Weight"],
+                                rows: [
+                                    ["APPLE INC", "US0378331005", "Equity", "500", "USD 170.00", "USD 85,000.00", "6.8%"],
+                                    ["MICROSOFT CORP", "US5949181045", "Equity", "300", "USD 340.00", "USD 102,000.00", "8.16%"],
+                                    ["AMAZON.COM INC", "US0231351067", "Equity", "100", "USD 950.00", "USD 95,000.00", "7.6%"],
+                                    ["US TREASURY 2.5% 15/02/2045", "US912810RK35", "Bond", "200,000", "USD 0.99", "USD 198,000.00", "15.84%"],
+                                    ["GOLDMAN SACHS 0% NOTES 23-07.11.29", "XS2692298537", "Bond", "150,000", "USD 0.98", "USD 147,000.00", "11.76%"]
+                                ]
+                            }
+                        ]
+                    },
+                    metadata: {
+                        title: "Investment Portfolio Statement",
+                        author: "Financial Institution",
+                        creationDate: "2025-02-28",
+                        securities: [
+                            {
+                                name: "APPLE INC",
+                                isin: "US0378331005",
+                                type: "Equity",
+                                quantity: 500,
+                                price: 170.00,
+                                value: 85000.00,
+                                currency: "USD",
+                                weight: 0.068
+                            },
+                            {
+                                name: "MICROSOFT CORP",
+                                isin: "US5949181045",
+                                type: "Equity",
+                                quantity: 300,
+                                price: 340.00,
+                                value: 102000.00,
+                                currency: "USD",
+                                weight: 0.0816
+                            },
+                            {
+                                name: "AMAZON.COM INC",
+                                isin: "US0231351067",
+                                type: "Equity",
+                                quantity: 100,
+                                price: 950.00,
+                                value: 95000.00,
+                                currency: "USD",
+                                weight: 0.076
+                            },
+                            {
+                                name: "US TREASURY 2.5% 15/02/2045",
+                                isin: "US912810RK35",
+                                type: "Bond",
+                                quantity: 200000,
+                                price: 0.99,
+                                value: 198000.00,
+                                currency: "USD",
+                                weight: 0.1584
+                            },
+                            {
+                                name: "GOLDMAN SACHS 0% NOTES 23-07.11.29",
+                                isin: "XS2692298537",
+                                type: "Bond",
+                                quantity: 150000,
+                                price: 0.98,
+                                value: 147000.00,
+                                currency: "USD",
+                                weight: 0.1176
+                            }
+                        ],
+                        portfolio: {
+                            totalValue: 1250000.00,
+                            currency: "USD",
+                            valuationDate: "2025-02-28",
+                            assetAllocation: {
+                                equity: 0.45,
+                                fixedIncome: 0.30,
+                                cash: 0.15,
+                                alternative: 0.10
+                            },
+                            sectorAllocation: {
+                                technology: 0.2256,
+                                consumer: 0.076,
+                                government: 0.1584,
+                                financial: 0.1176,
+                                other: 0.4224
+                            }
+                        }
+                    }
+                };
+
+                // Customize based on test type
+                if (testType === 'text_only') {
+                    documentData.content.tables = [];
+                } else if (testType === 'tables_only') {
+                    documentData.content.text = "TABLES-ONLY DOCUMENT";
+                }
+
+                log('Test document processed successfully!');
+                setStatus('Test document processed successfully!', 'success');
+
+                // Display results
+                displayResults(documentData);
+
+                // Show results card
+                resultsCard.style.display = 'block';
+            } catch (error) {
+                console.error('Error:', error);
+                log(`Error: ${error.message}`);
+                setStatus(`Error: ${error.message}`, 'error');
+            } finally {
+                // Hide loading spinner
+                loadingElement.style.display = 'none';
+            }
+        }
+
+        // Initialize
+        log('PDF Processing Test initialized');
+        log(`Using API endpoint: ${getApiEndpointUrl()}`);
+    </script>
+</body>
+</html>

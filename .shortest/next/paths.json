@@ -1,0 +1,25 @@
+{
+  "metadata": {
+    "timestamp": 1745851768722,
+    "version": 2,
+    "git": {
+      "branch": "main",
+      "commit": "a6ac0a755251978a88b5012c288fadff00dbce2c"
+    }
+  },
+  "data": {
+    "framework": {
+      "id": "next",
+      "name": "Next.js",
+      "dirPath": "C:\\Users\\aviad\\OneDrive\\Desktop\\backv2-main\\DevDocs\\frontend\\minimal-next-app"
+    },
+    "paths": [
+      "next.config.js",
+      "package-lock.json",
+      "package.json",
+      "pages/_app.js",
+      "pages/_document.js",
+      "pages/index.js"
+    ]
+  }
+}

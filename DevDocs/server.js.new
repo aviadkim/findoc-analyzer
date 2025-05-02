@@ -1,0 +1,36 @@
+const express = require('express');
+const path = require('path');
+const { parse } = require('url');
+
+const app = express();
+const port = process.env.PORT || 8080;
+
+// Health check endpoint
+app.get('/api/health', (req, res) => {
+  res.json({
+    success: true,
+    message: 'FinDoc Analyzer API is running',
+    version: '1.0.0',
+    timestamp: new Date().toISOString()
+  });
+});
+
+// Serve static files from the Next.js build
+app.use('/_next', express.static(path.join(__dirname, 'frontend/.next')));
+app.use('/public', express.static(path.join(__dirname, 'frontend/public')));
+
+// Serve all other requests with the Next.js app
+app.get('*', (req, res) => {
+  const parsedUrl = parse(req.url, true);
+  const { pathname } = parsedUrl;
+  
+  // Serve the HTML file
+  const filePath = path.join(__dirname, 'frontend/.next/server/pages', pathname === '/' ? 'index.html' : `${pathname}.html`);
+  res.sendFile(filePath);
+});
+
+// Start the server
+app.listen(port, () => {
+  console.log(`Server running on port ${port}`);
+  console.log(`Environment: ${process.env.NODE_ENV}`);
+});

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google Auth Test</title>
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1, h2 {
+            color: #333;
+        }
+        .section {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        #result {
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: #f9f9f9;
+            white-space: pre-wrap;
+        }
+        .status {
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 4px;
+        }
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        button {
+            background-color: #4285F4;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        button:hover {
+            background-color: #357ae8;
+        }
+    </style>
+</head>
+<body>
+    <h1>Google Authentication Test</h1>
+    
+    <div class="section">
+        <h2>Step 1: Google Sign-In</h2>
+        <p>Click the button below to sign in with Google:</p>
+        
+        <div id="g_id_onload"
+             data-client_id="YOUR_GOOGLE_CLIENT_ID"
+             data-callback="handleCredentialResponse">
+        </div>
+        <div class="g_id_signin" data-type="standard"></div>
+        
+        <div id="auth-status"></div>
+    </div>
+    
+    <div class="section">
+        <h2>Step 2: Test API Access with Google Token</h2>
+        <button id="test-api-btn" disabled>Test API Access</button>
+        <div id="api-status"></div>
+    </div>
+    
+    <div id="result"></div>
+    
+    <script>
+        // Store the Google token
+        let googleToken = '';
+        
+        // Handle Google Sign-In response
+        function handleCredentialResponse(response) {
+            // Get the JWT token
+            googleToken = response.credential;
+            
+            // Display token info
+            const token = parseJwt(googleToken);
+            document.getElementById('result').textContent = JSON.stringify(token, null, 2);
+            
+            // Update status
+            document.getElementById('auth-status').innerHTML = `
+                <div class="status success">
+                    Successfully signed in as ${token.name} (${token.email})
+                </div>
+            `;
+            
+            // Enable API test button
+            document.getElementById('test-api-btn').disabled = false;
+        }
+        
+        // Parse JWT token
+        function parseJwt(token) {
+            const base64Url = token.split('.')[1];
+            const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+            const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+                return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+            }).join(''));
+            
+            return JSON.parse(jsonPayload);
+        }
+        
+        // Test API access
+        document.getElementById('test-api-btn').addEventListener('click', async () => {
+            try {
+                // This would normally call your backend API
+                // For this test, we'll just simulate a successful response
+                
+                // In a real implementation, you would do:
+                // const response = await fetch('https://your-api.com/api/auth/google', {
+                //     method: 'POST',
+                //     headers: {
+                //         'Content-Type': 'application/json'
+                //     },
+                //     body: JSON.stringify({ token: googleToken })
+                // });
+                // const data = await response.json();
+                
+                // Simulate API response
+                const simulatedResponse = {
+                    success: true,
+                    data: {
+                        token: 'simulated-jwt-token',
+                        user: {
+                            id: '123456',
+                            name: parseJwt(googleToken).name,
+                            email: parseJwt(googleToken).email
+                        }
+                    }
+                };
+                
+                // Display API response
+                document.getElementById('result').textContent += '\n\nAPI Response:\n' + 
+                    JSON.stringify(simulatedResponse, null, 2);
+                
+                // Update status
+                document.getElementById('api-status').innerHTML = `
+                    <div class="status success">
+                        API access successful! JWT token received.
+                    </div>
+                `;
+            } catch (error) {
+                console.error('Error:', error);
+                
+                // Update status
+                document.getElementById('api-status').innerHTML = `
+                    <div class="status error">
+                        API access failed: ${error.message}
+                    </div>
+                `;
+            }
+        });
+    </script>
+</body>
+</html>

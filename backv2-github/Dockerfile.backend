@@ -1,0 +1,35 @@
+FROM python:3.9-slim
+
+# Set working directory
+WORKDIR /app
+
+# Install system dependencies for PyMuPDF
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    libffi-dev \
+    libssl-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+# Copy backend requirements
+COPY backv2-github/DevDocs/FinDocRAG/requirements.txt .
+
+# Install Python dependencies
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy backend source code
+COPY backv2-github/DevDocs/FinDocRAG/src/ ./src/
+
+# Create directories for uploads, temp files, and results
+RUN mkdir -p uploads temp results
+
+# Set environment variables
+ENV UPLOAD_FOLDER=/app/uploads
+ENV TEMP_FOLDER=/app/temp
+ENV RESULTS_FOLDER=/app/results
+ENV PORT=5000
+
+# Expose port
+EXPOSE 5000
+
+# Start the application
+CMD ["python", "src/app.py"]

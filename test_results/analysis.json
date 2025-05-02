@@ -1,0 +1,23 @@
+{
+  "total_tests": 11,
+  "successful_tests": 0,
+  "failed_tests": 11,
+  "success_rate": 0.0,
+  "avg_processing_time": 0,
+  "accuracy_metrics": {
+    "document_type_accuracy": 0,
+    "securities_count_accuracy": 0,
+    "isin_detection_accuracy": 0,
+    "portfolio_summary_accuracy": 0,
+    "asset_allocation_accuracy": 0,
+    "overall_accuracy": 0
+  },
+  "common_errors": [
+    [
+      "Upload failed with status code 404",
+      11
+    ]
+  ],
+  "lowest_accuracy_pdfs": [],
+  "highest_accuracy_pdfs": []
+}

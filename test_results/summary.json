@@ -1,0 +1,28 @@
+{
+  "timestamp": "2025-04-28T05:56:00.712Z",
+  "totalTests": 4,
+  "passedTests": 4,
+  "failedTests": 0,
+  "results": [
+    {
+      "environment": "Mock Data",
+      "testPdf": "Financial Statement",
+      "status": "Pass"
+    },
+    {
+      "environment": "Mock Data",
+      "testPdf": "Text Only",
+      "status": "Pass"
+    },
+    {
+      "environment": "Mock Data",
+      "testPdf": "Tables Only",
+      "status": "Pass"
+    },
+    {
+      "environment": "Mock Data",
+      "testPdf": "Small File",
+      "status": "Pass"
+    }
+  ]
+}

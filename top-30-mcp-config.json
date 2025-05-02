@@ -1,0 +1,133 @@
+{
+  "mcpServers": {
+    "github": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-github"],
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "YOUR_GITHUB_TOKEN_HERE"
+      }
+    },
+    "gitlab": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-gitlab"]
+    },
+    "git": {
+      "command": "python",
+      "args": ["-m", "mcp_server_git"]
+    },
+    "filesystem": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-filesystem"]
+    },
+    "vscode": {
+      "command": "npx",
+      "args": ["-y", "vscode-mcp"]
+    },
+    "magic": {
+      "command": "npx",
+      "args": ["-y", "@21st-dev/magic@latest"]
+    },
+    "browserTools": {
+      "command": "npx",
+      "args": ["-y", "@agentdeskai/browser-tools-mcp@latest"]
+    },
+    "braveSearch": {
+      "command": "npx",
+      "args": ["-y", "brave-search-mcp"],
+      "env": {
+        "BRAVE_API_KEY": "YOUR_BRAVE_API_KEY_HERE"
+      }
+    },
+    "fetch": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-fetch"]
+    },
+    "puppeteer": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-puppeteer"]
+    },
+    "sqlite": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-sqlite", "--db-path", "C:\\Users\\aviad\\test.db"]
+    },
+    "postgres": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-postgres"]
+    },
+    "redis": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-redis"]
+    },
+    "supabase": {
+      "command": "npx",
+      "args": ["-y", "@supabase/mcp-server-supabase@latest", "--access-token", "YOUR_SUPABASE_TOKEN_HERE"]
+    },
+    "neo4j": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-neo4j"]
+    },
+    "sequentialThinking": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-sequentialthinking"]
+    },
+    "memory": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-memory"]
+    },
+    "qdrant": {
+      "command": "python",
+      "args": ["-m", "qdrant_mcp"]
+    },
+    "langchain": {
+      "command": "npx",
+      "args": ["-y", "langchain-mcp"]
+    },
+    "anthropic": {
+      "command": "npx",
+      "args": ["-y", "anthropic-mcp"]
+    },
+    "semgrep": {
+      "command": "python",
+      "args": ["-m", "semgrep_mcp"]
+    },
+    "eslint": {
+      "command": "npx",
+      "args": ["-y", "eslint-mcp"]
+    },
+    "typescript": {
+      "command": "npx",
+      "args": ["-y", "typescript-mcp"]
+    },
+    "prettier": {
+      "command": "npx",
+      "args": ["-y", "prettier-mcp"]
+    },
+    "jest": {
+      "command": "npx",
+      "args": ["-y", "jest-mcp"]
+    },
+    "aws": {
+      "command": "python",
+      "args": ["-m", "aws_mcp"]
+    },
+    "docker": {
+      "command": "npx",
+      "args": ["-y", "docker-mcp"]
+    },
+    "kubernetes": {
+      "command": "npx",
+      "args": ["-y", "kubernetes-mcp"]
+    },
+    "firecrawl": {
+      "command": "npx",
+      "args": ["-y", "firecrawl-mcp"],
+      "env": {
+        "FIRECRAWL_API_KEY": "YOUR_FIRECRAWL_API_KEY_HERE"
+      }
+    },
+    "time": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-time"]
+    }
+  }
+}

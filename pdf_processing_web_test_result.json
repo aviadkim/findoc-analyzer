@@ -1,0 +1,6 @@
+{
+  "success": false,
+  "error": "Upload failed with status code 401: {\"success\":false,\"error\":\"No token, authorization denied\"}",
+  "pdf_path": "test_pdfs/sample_investment_statement.pdf",
+  "processing_time": 0.2955660820007324
+}

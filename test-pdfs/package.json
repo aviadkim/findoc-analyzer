@@ -1,0 +1,12 @@
+{
+  "name": "findoc-test-pdfs",
+  "version": "1.0.0",
+  "description": "Test PDFs for FinDoc Analyzer",
+  "main": "create-test-pdf.js",
+  "scripts": {
+    "create-pdf": "node create-test-pdf.js"
+  },
+  "dependencies": {
+    "pdf-lib": "^1.17.1"
+  }
+}

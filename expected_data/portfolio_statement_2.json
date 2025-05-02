@@ -1,0 +1,201 @@
+{
+  "document_type": "portfolio_statement",
+  "securities": [
+    {
+      "name": "ISHARES CORE MSCI EMERGING MARKETS ETF",
+      "isin": "US46434G1031",
+      "type": "Fund",
+      "sector": "Equity",
+      "region": "Emerging Markets",
+      "quantity": 146,
+      "price": 706.5426098218518,
+      "value": 103155.22103399035,
+      "weight": 1.665699562332192,
+      "currency": "JPY"
+    },
+    {
+      "name": "ROCHE HOLDING AG-GENUSSCHEIN",
+      "isin": "CH0012032048",
+      "type": "Equity",
+      "sector": "Healthcare",
+      "region": "Europe",
+      "quantity": 459,
+      "price": 263.0300762575728,
+      "value": 120730.8050022259,
+      "weight": 1.9457552758129235,
+      "currency": "GBP"
+    },
+    {
+      "name": "JOHNSON & JOHNSON",
+      "isin": "US4781601046",
+      "type": "Equity",
+      "sector": "Healthcare",
+      "region": "North America",
+      "quantity": 1284,
+      "price": 449.045497909587,
+      "value": 576574.4193159097,
+      "weight": 9.291237022352583,
+      "currency": "EUR"
+    },
+    {
+      "name": "FRANCE 0.5% 25/05/2040",
+      "isin": "FR0013515806",
+      "type": "Bond",
+      "sector": "Government",
+      "region": "Europe",
+      "quantity": 6121.32,
+      "price": 109.5093694870736,
+      "value": 670341.8936286133,
+      "weight": 10.804392230845943,
+      "currency": "USD"
+    },
+    {
+      "name": "NOVARTIS AG-REG",
+      "isin": "CH0012005267",
+      "type": "Equity",
+      "sector": "Healthcare",
+      "region": "Europe",
+      "quantity": 950,
+      "price": 393.1275304851768,
+      "value": 373471.15396091796,
+      "weight": 6.021733563859594,
+      "currency": "JPY"
+    },
+    {
+      "name": "NESTLE SA-REG",
+      "isin": "CH0038863350",
+      "type": "Equity",
+      "sector": "Consumer",
+      "region": "Europe",
+      "quantity": 266,
+      "price": 486.21629915765516,
+      "value": 129333.53557593627,
+      "weight": 2.086491633670403,
+      "currency": "GBP"
+    },
+    {
+      "name": "ISHARES CORE S&P 500 ETF",
+      "isin": "US4642872000",
+      "type": "Fund",
+      "sector": "Equity",
+      "region": "North America",
+      "quantity": 563,
+      "price": 664.3621169495497,
+      "value": 374035.87184259645,
+      "weight": 6.033345101485557,
+      "currency": "USD"
+    },
+    {
+      "name": "GOLDMAN SACHS 0% NOTES 23-07.11.29 SERIES P",
+      "isin": "XS2692298537",
+      "type": "Bond",
+      "sector": "Corporate",
+      "region": "North America",
+      "quantity": 3847.09,
+      "price": 103.54702435327137,
+      "value": 398354.72191922675,
+      "weight": 6.42057169542834,
+      "currency": "GBP"
+    },
+    {
+      "name": "US TREASURY 2.5% 15/02/2045",
+      "isin": "US912810RK35",
+      "type": "Bond",
+      "sector": "Government",
+      "region": "North America",
+      "quantity": 6263.03,
+      "price": 101.03874534603888,
+      "value": 632808.6932646019,
+      "weight": 10.199443878405026,
+      "currency": "CHF"
+    },
+    {
+      "name": "US TREASURY 1.875% 15/02/2051",
+      "isin": "US912810SL35",
+      "type": "Bond",
+      "sector": "Government",
+      "region": "North America",
+      "quantity": 1640.84,
+      "price": 107.78972291902419,
+      "value": 176865.68895445165,
+      "weight": 2.8506798914629567,
+      "currency": "CHF"
+    },
+    {
+      "name": "MICROSOFT CORP 2.921% 17/03/2052",
+      "isin": "US594918BX01",
+      "type": "Bond",
+      "sector": "Corporate",
+      "region": "North America",
+      "quantity": 6234.85,
+      "price": 102.51847387141117,
+      "value": 639187.306817168,
+      "weight": 10.302251879400313,
+      "currency": "CHF"
+    },
+    {
+      "name": "MICROSOFT CORP",
+      "isin": "US5949181045",
+      "type": "Equity",
+      "sector": "Technology",
+      "region": "North America",
+      "quantity": 681,
+      "price": 475.26824899882877,
+      "value": 323657.6775682024,
+      "weight": 5.218701679341353,
+      "currency": "GBP"
+    },
+    {
+      "name": "FACEBOOK INC-CLASS A",
+      "isin": "US30303M1027",
+      "type": "Equity",
+      "sector": "Technology",
+      "region": "North America",
+      "quantity": 905,
+      "price": 185.7411910607493,
+      "value": 168095.77790997812,
+      "weight": 2.7078339505759406,
+      "currency": "EUR"
+    },
+    {
+      "name": "APPLE INC 2.4% 03/05/2023",
+      "isin": "US037833AK68",
+      "type": "Bond",
+      "sector": "Corporate",
+      "region": "North America",
+      "quantity": 6807.67,
+      "price": 108.53650305660494,
+      "value": 738880.6957633578,
+      "weight": 11.909080473884135,
+      "currency": "GBP"
+    },
+    {
+      "name": "GERMANY 0% 15/08/2050",
+      "isin": "DE0001102481",
+      "type": "Bond",
+      "sector": "Government",
+      "region": "Europe",
+      "quantity": 7946.88,
+      "price": 97.9249865868174,
+      "value": 778198.1174070474,
+      "weight": 12.542782161142735,
+      "currency": "CHF"
+    }
+  ],
+  "portfolio_summary": {
+    "total_value": 6203691.579964224,
+    "currency": "GBP",
+    "valuation_date": "25.06.2024"
+  },
+  "asset_allocation": {
+    "Fund": {
+      "percentage": 7.7
+    },
+    "Equity": {
+      "percentage": 27.27
+    },
+    "Fixed Income": {
+      "percentage": 65.03
+    }
+  }
+}

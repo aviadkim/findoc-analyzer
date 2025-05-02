@@ -1,0 +1,38 @@
+[
+  {
+    "success": false,
+    "error": "Upload failed with status code 401: {\"success\":false,\"error\":\"No token, authorization denied\"}",
+    "pdf_path": "test_pdfs\\goldman_portfolio.pdf",
+    "processing_time": 0.14310979843139648
+  },
+  {
+    "success": false,
+    "error": "Upload failed with status code 401: {\"success\":false,\"error\":\"No token, authorization denied\"}",
+    "pdf_path": "test_pdfs\\investment_statement.pdf",
+    "processing_time": 0.13600516319274902
+  },
+  {
+    "success": false,
+    "error": "Upload failed with status code 401: {\"success\":false,\"error\":\"No token, authorization denied\"}",
+    "pdf_path": "test_pdfs\\messos_portfolio.pdf",
+    "processing_time": 0.13755130767822266
+  },
+  {
+    "success": false,
+    "error": "Upload failed with status code 401: {\"success\":false,\"error\":\"No token, authorization denied\"}",
+    "pdf_path": "test_pdfs\\sample_investment_statement.pdf",
+    "processing_time": 0.13538742065429688
+  },
+  {
+    "success": false,
+    "error": "Upload failed with status code 401: {\"success\":false,\"error\":\"No token, authorization denied\"}",
+    "pdf_path": "test_pdfs\\sample_portfolio.pdf",
+    "processing_time": 0.1427299976348877
+  },
+  {
+    "success": false,
+    "error": "Upload failed with status code 401: {\"success\":false,\"error\":\"No token, authorization denied\"}",
+    "pdf_path": "test_pdfs\\simple_account_statement.pdf",
+    "processing_time": 0.13440322875976562
+  }
+]

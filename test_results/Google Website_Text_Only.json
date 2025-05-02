@@ -1,0 +1,8 @@
+{
+  "environment": "Google Website",
+  "testPdf": "Text Only",
+  "timestamp": "2025-04-27T20:26:19.941Z",
+  "steps": [],
+  "status": "Fail",
+  "error": "Request failed with status code 404"
+}

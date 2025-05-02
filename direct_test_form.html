@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Direct PDF Processing Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1, h2 {
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input[type="file"] {
+            display: block;
+            margin-bottom: 10px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .section {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        #result {
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: #f9f9f9;
+            white-space: pre-wrap;
+            display: none;
+        }
+        #loading {
+            display: none;
+            margin-top: 20px;
+            text-align: center;
+        }
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #3498db;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 2s linear infinite;
+            margin: 0 auto;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .status {
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 4px;
+        }
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        #log {
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: #f9f9f9;
+            height: 200px;
+            overflow-y: auto;
+            font-family: monospace;
+            font-size: 12px;
+        }
+        .question-form {
+            margin-top: 20px;
+            display: none;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .answer {
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #e9f7fe;
+            border-left: 4px solid #3498db;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Direct PDF Processing Test</h1>
+    
+    <div class="section">
+        <h2>Upload and Process PDF</h2>
+        <div class="form-group">
+            <label for="pdf-file">Select PDF File:</label>
+            <input type="file" id="pdf-file" accept=".pdf">
+        </div>
+        <button id="upload-btn">Upload and Process</button>
+        <div id="upload-status"></div>
+    </div>
+    
+    <div id="loading">
+        <p>Processing... This may take a few minutes.</p>
+        <div class="spinner"></div>
+    </div>
+    
+    <div id="log"></div>
+    
+    <div class="question-form" id="question-form">
+        <h2>Ask Questions About the Document</h2>
+        <div class="form-group">
+            <label for="question">Question:</label>
+            <input type="text" id="question" placeholder="Enter your question about the document">
+        </div>
+        <button id="ask-btn">Ask</button>
+        <div id="answers"></div>
+    </div>
+    
+    <div id="result"></div>
+    
+    <script>
+        // Store the document ID
+        let documentId = '';
+        
+        // Log function
+        function log(message) {
+            const logElement = document.getElementById('log');
+            const timestamp = new Date().toLocaleTimeString();
+            logElement.innerHTML += `[${timestamp}] ${message}<br>`;
+            logElement.scrollTop = logElement.scrollHeight;
+        }
+        
+        // Set upload status function
+        function setUploadStatus(message, isSuccess) {
+            const statusElement = document.getElementById('upload-status');
+            statusElement.innerHTML = `<div class="status ${isSuccess ? 'success' : 'error'}">${message}</div>`;
+        }
+        
+        // Upload and process function
+        document.getElementById('upload-btn').addEventListener('click', async () => {
+            const fileInput = document.getElementById('pdf-file');
+            const resultElement = document.getElementById('result');
+            const loadingElement = document.getElementById('loading');
+            const questionFormElement = document.getElementById('question-form');
+            
+            if (!fileInput.files.length) {
+                setUploadStatus('Please select a PDF file', false);
+                log('Please select a PDF file');
+                return;
+            }
+            
+            const file = fileInput.files[0];
+            const formData = new FormData();
+            formData.append('file', file);
+            
+            // Show loading spinner
+            loadingElement.style.display = 'block';
+            resultElement.style.display = 'none';
+            questionFormElement.style.display = 'none';
+            setUploadStatus('Uploading file...', true);
+            
+            try {
+                // Step 1: Upload the document
+                log(`Uploading file: ${file.name}`);
+                const uploadResponse = await fetch('https://findoc-deploy.ey.r.appspot.com/api/documents', {
+                    method: 'POST',
+                    headers: {
+                        'X-Bypass-Auth': 'true',
+                        'X-Test-Mode': 'true'
+                    },
+                    body: formData
+                });
+                
+                const uploadData = await uploadResponse.json();
+                log(`Upload response: ${JSON.stringify(uploadData)}`);
+                
+                if (!uploadData.success) {
+                    throw new Error(`Upload failed: ${uploadData.error}`);
+                }
+                
+                documentId = uploadData.data.id;
+                log(`Document uploaded successfully with ID: ${documentId}`);
+                setUploadStatus(`Document uploaded successfully with ID: ${documentId}`, true);
+                
+                // Step 2: Process the document
+                log(`Processing document with ID: ${documentId}`);
+                setUploadStatus(`Processing document with ID: ${documentId}...`, true);
+                
+                const processResponse = await fetch(`https://findoc-deploy.ey.r.appspot.com/api/documents/${documentId}/scan1`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-Bypass-Auth': 'true',
+                        'X-Test-Mode': 'true'
+                    },
+                    body: JSON.stringify({
+                        agents: ["Document Analyzer", "Table Understanding", "Securities Extractor", "Financial Reasoner"],
+                        tableExtraction: true,
+                        isinDetection: true,
+                        securityInfo: true,
+                        portfolioAnalysis: true,
+                        ocrScanned: true,
+                        outputFormat: 'json'
+                    })
+                });
+                
+                const processData = await processResponse.json();
+                log(`Process response: ${JSON.stringify(processData)}`);
+                
+                if (!processData.success) {
+                    throw new Error(`Processing failed: ${processData.error}`);
+                }
+                
+                log('Document processing initiated successfully');
+                
+                // Step 3: Poll for processing status
+                let status = 'processing';
+                let documentData = null;
+                let pollCount = 0;
+                const maxPolls = 60;  // 5 minutes (5 seconds per poll)
+                
+                setUploadStatus('Waiting for processing to complete...', true);
+                
+                while (status === 'processing' && pollCount < maxPolls) {
+                    // Wait for 5 seconds
+                    await new Promise(resolve => setTimeout(resolve, 5000));
+                    pollCount++;
+                    
+                    log(`Polling for status (attempt ${pollCount}/${maxPolls})...`);
+                    
+                    // Check status
+                    const statusResponse = await fetch(`https://findoc-deploy.ey.r.appspot.com/api/documents/${documentId}`, {
+                        headers: {
+                            'X-Bypass-Auth': 'true',
+                            'X-Test-Mode': 'true'
+                        }
+                    });
+                    const statusData = await statusResponse.json();
+                    
+                    if (!statusData.success) {
+                        log(`Failed to get status: ${statusData.error}`);
+                        continue;
+                    }
+                    
+                    status = statusData.data.status;
+                    documentData = statusData.data;
+                    
+                    log(`Current status: ${status}`);
+                    
+                    if (status === 'error') {
+                        throw new Error('Processing failed with error');
+                    }
+                    
+                    if (status === 'processed') {
+                        log('Processing completed successfully!');
+                        break;
+                    }
+                }
+                
+                if (pollCount >= maxPolls && status === 'processing') {
+                    throw new Error('Processing timed out');
+                }
+                
+                // Step 4: Display results
+                resultElement.textContent = JSON.stringify(documentData, null, 2);
+                resultElement.style.display = 'block';
+                questionFormElement.style.display = 'block';
+                setUploadStatus('Document processed successfully!', true);
+                
+                log('All done!');
+            } catch (error) {
+                console.error('Error:', error);
+                log(`Error: ${error.message}`);
+                setUploadStatus(`Error: ${error.message}`, false);
+                resultElement.textContent = `Error: ${error.message}`;
+                resultElement.style.display = 'block';
+            } finally {
+                // Hide loading spinner
+                loadingElement.style.display = 'none';
+            }
+        });
+        
+        // Ask question function
+        document.getElementById('ask-btn').addEventListener('click', async () => {
+            const questionInput = document.getElementById('question');
+            const answersElement = document.getElementById('answers');
+            
+            if (!documentId) {
+                alert('Please upload and process a document first');
+                return;
+            }
+            
+            const question = questionInput.value.trim();
+            
+            if (!question) {
+                alert('Please enter a question');
+                return;
+            }
+            
+            log(`Asking question: ${question}`);
+            
+            try {
+                const response = await fetch(`https://findoc-deploy.ey.r.appspot.com/api/documents/${documentId}/ask`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-Bypass-Auth': 'true',
+                        'X-Test-Mode': 'true'
+                    },
+                    body: JSON.stringify({
+                        question
+                    })
+                });
+                
+                const data = await response.json();
+                log(`Answer response: ${JSON.stringify(data)}`);
+                
+                if (!data.success) {
+                    throw new Error(`Failed to get answer: ${data.error}`);
+                }
+                
+                const answer = data.data.answer;
+                log(`Answer: ${answer}`);
+                
+                // Add answer to the page
+                const answerElement = document.createElement('div');
+                answerElement.className = 'answer';
+                answerElement.innerHTML = `<strong>Q: ${question}</strong><br><br>${answer}`;
+                answersElement.appendChild(answerElement);
+                
+                // Clear question input
+                questionInput.value = '';
+            } catch (error) {
+                console.error('Error:', error);
+                log(`Error asking question: ${error.message}`);
+                alert(`Error asking question: ${error.message}`);
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FinDoc Analyzer - Upload</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f8f9fa;
+      color: #333;
+    }
+
+    .findoc-layout {
+      display: flex;
+      min-height: 100vh;
+      position: relative;
+    }
+
+    .sidebar {
+      width: 280px;
+      background-color: #2c3e50;
+      color: white;
+      padding: 20px 0;
+      box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+      position: fixed;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      z-index: 100;
+      overflow-y: auto;
+    }
+
+    .main-content {
+      flex: 1;
+      padding: 20px;
+      overflow-y: auto;
+      margin-left: 280px;
+      width: calc(100% - 280px);
+    }
+
+    .sidebar-header {
+      padding: 0 20px 20px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      margin-bottom: 20px;
+    }
+
+    .sidebar-logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: white;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+    }
+
+    .sidebar-nav {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .sidebar-nav li {
+      margin-bottom: 5px;
+    }
+
+    .sidebar-nav a {
+      display: flex;
+      align-items: center;
+      padding: 10px 20px;
+      color: rgba(255,255,255,0.8);
+      text-decoration: none;
+      transition: all 0.3s;
+    }
+
+    .sidebar-nav a:hover, .sidebar-nav a.active {
+      background-color: rgba(255,255,255,0.1);
+      color: white;
+    }
+
+    .sidebar-nav a i, .sidebar-nav a .icon {
+      margin-right: 10px;
+      width: 20px;
+      text-align: center;
+    }
+
+    .upload-page {
+      padding: 20px;
+    }
+
+    .page-title {
+      font-size: 1.75rem;
+      margin-bottom: 20px;
+    }
+
+    .page-description {
+      margin-bottom: 30px;
+      color: #666;
+    }
+
+    .upload-form {
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+      padding: 30px;
+      max-width: 800px;
+      margin-bottom: 30px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 500;
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 16px;
+    }
+
+    select.form-control {
+      height: 40px;
+    }
+
+    .checkbox-group {
+      margin-top: 10px;
+    }
+
+    .checkbox-group label {
+      display: inline-flex;
+      align-items: center;
+      margin-right: 20px;
+      font-weight: normal;
+    }
+
+    .checkbox-group input[type="checkbox"] {
+      margin-right: 5px;
+    }
+
+    .upload-area {
+      border: 2px dashed #ddd;
+      border-radius: 8px;
+      padding: 40px;
+      text-align: center;
+      margin-bottom: 20px;
+      background-color: #f9f9f9;
+      transition: all 0.3s;
+    }
+
+    .upload-area.dragover {
+      border-color: #3498db;
+      background-color: #f0f9ff;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 10px 20px;
+      border-radius: 4px;
+      font-size: 16px;
+      cursor: pointer;
+      text-align: center;
+      border: none;
+      transition: all 0.3s;
+    }
+
+    .btn-primary {
+      background-color: #3498db;
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background-color: #2980b9;
+    }
+
+    .btn-secondary {
+      background-color: #f1f1f1;
+      color: #333;
+    }
+
+    .btn-secondary:hover {
+      background-color: #ddd;
+    }
+
+    .form-actions {
+      margin-top: 30px;
+      display: flex;
+      gap: 10px;
+    }
+
+    .progress-container {
+      margin-top: 20px;
+    }
+
+    .progress {
+      height: 10px;
+      background-color: #f1f1f1;
+      border-radius: 5px;
+      overflow: hidden;
+      margin-bottom: 10px;
+    }
+
+    .progress-bar {
+      height: 100%;
+      background-color: #3498db;
+      width: 0%;
+      transition: width 0.3s;
+    }
+  </style>
+  <script src="/js/mock-api.js"></script>
+  <script src="/js/sidebar.js"></script>
+</head>
+<body>
+  <div class="findoc-layout">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <a href="/" class="sidebar-logo">FinDoc Analyzer</a>
+      </div>
+      <ul class="sidebar-nav">
+        <li><a href="/"><span class="icon">🏠</span>Dashboard</a></li>
+        <li><a href="/documents-new"><span class="icon">📄</span>My Documents</a></li>
+        <li><a href="/analytics-new"><span class="icon">📊</span>Analytics</a></li>
+        <li><a href="/upload" class="active"><span class="icon">📤</span>Upload</a></li>
+        <li><a href="/document-comparison"><span class="icon">🔄</span>Document Comparison</a></li>
+        <li><a href="/feedback"><span class="icon">💬</span>Feedback</a></li>
+      </ul>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <div id="page-content">
+        <div class="upload-page">
+          <h1 class="page-title">Upload Document</h1>
+          <p class="page-description">Upload a document to analyze and process with FinDoc Analyzer.</p>
+
+          <div class="upload-form">
+            <div class="form-group">
+              <label for="document-type">Document Type</label>
+              <select id="document-type" class="form-control">
+                <option value="financial">Financial Report</option>
+                <option value="portfolio">Portfolio Statement</option>
+                <option value="tax">Tax Document</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label>Extraction Options</label>
+              <div class="checkbox-group">
+                <label for="extract-text">
+                  <input type="checkbox" id="extract-text" checked>
+                  Extract Text
+                </label>
+                <label for="extract-tables">
+                  <input type="checkbox" id="extract-tables" checked>
+                  Extract Tables
+                </label>
+                <label for="extract-metadata">
+                  <input type="checkbox" id="extract-metadata" checked>
+                  Extract Metadata
+                </label>
+              </div>
+            </div>
+
+            <div class="upload-area" id="dropzone">
+              <p>Drag and drop your file here, or</p>
+              <input type="file" id="file-input" accept=".pdf,.xlsx,.csv">
+              <button class="btn btn-primary" onclick="document.getElementById('file-input').click()">Select File</button>
+              <p id="file-name"></p>
+            </div>
+
+            <div class="progress-container" id="progress-container" style="display: none;">
+              <div class="progress">
+                <div class="progress-bar" id="progress-bar" style="width: 0%"></div>
+              </div>
+              <p id="upload-status">Uploading...</p>
+            </div>
+
+            <div class="form-actions">
+              <button class="btn btn-primary" id="upload-btn">Upload</button>
+              <button class="btn btn-secondary" onclick="window.location.href = '/'">Cancel</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    // File input change handler
+    document.getElementById('file-input').addEventListener('change', function(e) {
+      const file = e.target.files[0];
+      if (file) {
+        document.getElementById('file-name').textContent = file.name;
+      }
+    });
+
+    // Upload button click handler
+    document.getElementById('upload-btn').addEventListener('click', async function() {
+      const file = document.getElementById('file-input').files[0];
+      if (!file) {
+        alert('Please select a file to upload');
+        return;
+      }
+
+      // Show progress container
+      document.getElementById('progress-container').style.display = 'block';
+
+      // Simulate upload progress
+      let progress = 0;
+      const progressBar = document.getElementById('progress-bar');
+      const uploadStatus = document.getElementById('upload-status');
+
+      const interval = setInterval(() => {
+        progress += 5;
+        progressBar.style.width = progress + '%';
+
+        if (progress >= 50) {
+          uploadStatus.textContent = 'Processing document...';
+        }
+
+        if (progress >= 100) {
+          clearInterval(interval);
+          uploadStatus.textContent = 'Processing complete!';
+
+          // Store document info in localStorage
+          const fileName = file.name;
+          const documentType = document.getElementById('document-type').value;
+          const extractText = document.getElementById('extract-text').checked;
+          const extractTables = document.getElementById('extract-tables').checked;
+          const extractMetadata = document.getElementById('extract-metadata').checked;
+
+          const documentInfo = {
+            id: 'doc-' + Date.now(),
+            fileName,
+            documentType,
+            extractText,
+            extractTables,
+            extractMetadata,
+            uploadDate: new Date().toISOString(),
+            processed: true
+          };
+
+          // Store in localStorage
+          localStorage.setItem('lastProcessedDocument', JSON.stringify(documentInfo));
+
+          // Redirect to document details page after 2 seconds
+          setTimeout(() => {
+            window.location.href = '/document-details.html';
+          }, 2000);
+        }
+      }, 100);
+    });
+
+    // Drag and drop handlers
+    const dropzone = document.getElementById('dropzone');
+
+    dropzone.addEventListener('dragover', function(e) {
+      e.preventDefault();
+      dropzone.classList.add('dragover');
+    });
+
+    dropzone.addEventListener('dragleave', function() {
+      dropzone.classList.remove('dragover');
+    });
+
+    dropzone.addEventListener('drop', function(e) {
+      e.preventDefault();
+      dropzone.classList.remove('dragover');
+
+      const files = e.dataTransfer.files;
+      if (files.length > 0) {
+        document.getElementById('file-input').files = files;
+        document.getElementById('file-name').textContent = files[0].name;
+      }
+    });
+  </script>
+</body>
+</html>

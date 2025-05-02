@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Processing Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        h1, h2, h3 {
+            color: #333;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input[type="file"], input[type="text"], select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .status {
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 4px;
+        }
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .info {
+            background-color: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+        #log {
+            height: 200px;
+            overflow-y: auto;
+            padding: 10px;
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 12px;
+        }
+        .tab-container {
+            margin-top: 20px;
+        }
+        .tabs {
+            display: flex;
+            border-bottom: 1px solid #ddd;
+        }
+        .tab {
+            padding: 10px 15px;
+            cursor: pointer;
+            border: 1px solid transparent;
+            border-bottom: none;
+            margin-bottom: -1px;
+        }
+        .tab.active {
+            background-color: white;
+            border-color: #ddd;
+            border-radius: 4px 4px 0 0;
+        }
+        .tab-content {
+            display: none;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-top: none;
+            border-radius: 0 0 4px 4px;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .loading {
+            display: none;
+            text-align: center;
+            margin-top: 20px;
+        }
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #3498db;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 2s linear infinite;
+            margin: 0 auto;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <h1>PDF Processing Test</h1>
+    
+    <div class="container">
+        <div class="card">
+            <h2>Upload PDF</h2>
+            <div class="form-group">
+                <label for="pdf-file">Select PDF File:</label>
+                <input type="file" id="pdf-file" accept=".pdf">
+            </div>
+            <div class="form-group">
+                <label for="document-name">Document Name:</label>
+                <input type="text" id="document-name" placeholder="Enter document name">
+            </div>
+            <div class="form-group">
+                <label for="document-type">Document Type:</label>
+                <select id="document-type">
+                    <option value="financial_statement">Financial Statement</option>
+                    <option value="portfolio_report">Portfolio Report</option>
+                    <option value="investment_summary">Investment Summary</option>
+                    <option value="account_statement">Account Statement</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Processing Options:</label>
+                <div>
+                    <input type="checkbox" id="option-ocr" checked>
+                    <label for="option-ocr" style="display: inline;">Enable OCR</label>
+                </div>
+                <div>
+                    <input type="checkbox" id="option-tables" checked>
+                    <label for="option-tables" style="display: inline;">Extract Tables</label>
+                </div>
+                <div>
+                    <input type="checkbox" id="option-isin" checked>
+                    <label for="option-isin" style="display: inline;">Detect ISINs</label>
+                </div>
+                <div>
+                    <input type="checkbox" id="option-security" checked>
+                    <label for="option-security" style="display: inline;">Extract Security Info</label>
+                </div>
+                <div>
+                    <input type="checkbox" id="option-portfolio" checked>
+                    <label for="option-portfolio" style="display: inline;">Portfolio Analysis</label>
+                </div>
+            </div>
+            <button id="upload-btn">Upload and Process</button>
+            <div id="upload-status"></div>
+        </div>
+        
+        <div class="card">
+            <h2>Processing Log</h2>
+            <div id="log"></div>
+        </div>
+        
+        <div class="card" id="results-card" style="display: none;">
+            <h2>Processing Results</h2>
+            <div class="tab-container">
+                <div class="tabs">
+                    <div class="tab active" data-tab="overview">Overview</div>
+                    <div class="tab" data-tab="text">Extracted Text</div>
+                    <div class="tab" data-tab="tables">Tables</div>
+                    <div class="tab" data-tab="securities">Securities</div>
+                    <div class="tab" data-tab="qa">Q&A</div>
+                </div>
+                <div class="tab-content active" id="overview-tab">
+                    <h3>Document Overview</h3>
+                    <div id="overview-content"></div>
+                </div>
+                <div class="tab-content" id="text-tab">
+                    <h3>Extracted Text</h3>
+                    <div id="text-content"></div>
+                </div>
+                <div class="tab-content" id="tables-tab">
+                    <h3>Extracted Tables</h3>
+                    <div id="tables-content"></div>
+                </div>
+                <div class="tab-content" id="securities-tab">
+                    <h3>Extracted Securities</h3>
+                    <div id="securities-content"></div>
+                </div>
+                <div class="tab-content" id="qa-tab">
+                    <h3>Ask Questions</h3>
+                    <div class="form-group">
+                        <label for="question">Question:</label>
+                        <input type="text" id="question" placeholder="Ask a question about the document">
+                        <button id="ask-btn" style="margin-top: 10px;">Ask</button>
+                    </div>
+                    <div id="qa-content"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="loading" id="loading">
+        <p>Processing... This may take a few minutes.</p>
+        <div class="spinner"></div>
+    </div>
+    
+    <script>
+        // Global variables
+        let documentId = null;
+        let documentData = null;
+        
+        // DOM elements
+        const uploadBtn = document.getElementById('upload-btn');
+        const uploadStatus = document.getElementById('upload-status');
+        const logElement = document.getElementById('log');
+        const resultsCard = document.getElementById('results-card');
+        const loadingElement = document.getElementById('loading');
+        const askBtn = document.getElementById('ask-btn');
+        
+        // Tab functionality
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Remove active class from all tabs and tab contents
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                
+                // Add active class to clicked tab and corresponding content
+                tab.classList.add('active');
+                document.getElementById(`${tab.dataset.tab}-tab`).classList.add('active');
+            });
+        });
+        
+        // Log function
+        function log(message) {
+            const timestamp = new Date().toLocaleTimeString();
+            logElement.innerHTML += `[${timestamp}] ${message}<br>`;
+            logElement.scrollTop = logElement.scrollHeight;
+        }
+        
+        // Set status function
+        function setStatus(message, type) {
+            uploadStatus.innerHTML = `<div class="status ${type}">${message}</div>`;
+        }
+        
+        // Upload and process button click handler
+        uploadBtn.addEventListener('click', async () => {
+            const fileInput = document.getElementById('pdf-file');
+            const documentName = document.getElementById('document-name').value;
+            const documentType = document.getElementById('document-type').value;
+            
+            if (!fileInput.files.length) {
+                setStatus('Please select a PDF file', 'error');
+                return;
+            }
+            
+            if (!documentName) {
+                setStatus('Please enter a document name', 'error');
+                return;
+            }
+            
+            const file = fileInput.files[0];
+            
+            // Get processing options
+            const ocrEnabled = document.getElementById('option-ocr').checked;
+            const tablesEnabled = document.getElementById('option-tables').checked;
+            const isinEnabled = document.getElementById('option-isin').checked;
+            const securityEnabled = document.getElementById('option-security').checked;
+            const portfolioEnabled = document.getElementById('option-portfolio').checked;
+            
+            // Show loading spinner
+            loadingElement.style.display = 'block';
+            resultsCard.style.display = 'none';
+            
+            try {
+                // Step 1: Upload the document
+                log(`Uploading file: ${file.name}`);
+                setStatus('Uploading file...', 'info');
+                
+                const formData = new FormData();
+                formData.append('file', file);
+                formData.append('name', documentName);
+                formData.append('type', documentType);
+                
+                // Use mock data for testing
+                // In a real implementation, this would be an actual API call
+                log('Using mock data for testing');
+                
+                // Simulate upload delay
+                await new Promise(resolve => setTimeout(resolve, 1500));
+                
+                // Create mock document ID
+                documentId = `doc-${Date.now()}`;
+                log(`Document uploaded successfully with ID: ${documentId}`);
+                setStatus(`Document uploaded successfully with ID: ${documentId}`, 'success');
+                
+                // Step 2: Process the document
+                log(`Processing document with ID: ${documentId}`);
+                setStatus(`Processing document with ID: ${documentId}...`, 'info');
+                
+                // Simulate processing delay
+                await new Promise(resolve => setTimeout(resolve, 3000));
+                
+                // Create mock document data
+                documentData = {
+                    id: documentId,
+                    name: documentName,
+                    type: documentType,
+                    status: 'processed',
+                    uploaded_at: new Date().toISOString(),
+                    processed_at: new Date().toISOString(),
+                    content: {
+                        text: "INVESTMENT PORTFOLIO STATEMENT\n\nDate: 28.02.2025\nAccount Number: 12345678\nClient: John Doe\n\nPORTFOLIO SUMMARY\nTotal Value: USD 1,250,000.00\nCurrency: USD\nValuation Date: 28.02.2025\n\nASSET ALLOCATION\nEquity: 45%\nFixed Income: 30%\nCash: 15%\nAlternative: 10%\n\nSECURITIES HOLDINGS\nAPPLE INC (US0378331005) - Equity - 500 - USD 170.00 - USD 85,000.00 - 6.8%\nMICROSOFT CORP (US5949181045) - Equity - 300 - USD 340.00 - USD 102,000.00 - 8.16%\nAMAZON.COM INC (US0231351067) - Equity - 100 - USD 950.00 - USD 95,000.00 - 7.6%\nUS TREASURY 2.5% 15/02/2045 (US912810RK35) - Bond - 200,000 - USD 0.99 - USD 198,000.00 - 15.84%\nGOLDMAN SACHS 0% NOTES 23-07.11.29 (XS2692298537) - Bond - 150,000 - USD 0.98 - USD 147,000.00 - 11.76%\n\nSECTOR ALLOCATION\nTechnology: 22.56%\nConsumer: 7.6%\nGovernment: 15.84%\nFinancial: 11.76%\nOther: 42.24%\n\nNOTES\nThis portfolio statement is for informational purposes only and does not constitute investment advice. Past performance is not indicative of future results. Please consult with your financial advisor before making any investment decisions.",
+                        tables: [
+                            {
+                                title: "Asset Allocation",
+                                headers: ["Asset Class", "Percentage"],
+                                rows: [
+                                    ["Equity", "45%"],
+                                    ["Fixed Income", "30%"],
+                                    ["Cash", "15%"],
+                                    ["Alternative", "10%"]
+                                ]
+                            },
+                            {
+                                title: "Securities Holdings",
+                                headers: ["Security", "ISIN", "Type", "Quantity", "Price", "Value", "Weight"],
+                                rows: [
+                                    ["APPLE INC", "US0378331005", "Equity", "500", "USD 170.00", "USD 85,000.00", "6.8%"],
+                                    ["MICROSOFT CORP", "US5949181045", "Equity", "300", "USD 340.00", "USD 102,000.00", "8.16%"],
+                                    ["AMAZON.COM INC", "US0231351067", "Equity", "100", "USD 950.00", "USD 95,000.00", "7.6%"],
+                                    ["US TREASURY 2.5% 15/02/2045", "US912810RK35", "Bond", "200,000", "USD 0.99", "USD 198,000.00", "15.84%"],
+                                    ["GOLDMAN SACHS 0% NOTES 23-07.11.29", "XS2692298537", "Bond", "150,000", "USD 0.98", "USD 147,000.00", "11.76%"]
+                                ]
+                            },
+                            {
+                                title: "Sector Allocation",
+                                headers: ["Sector", "Percentage"],
+                                rows: [
+                                    ["Technology", "22.56%"],
+                                    ["Consumer", "7.6%"],
+                                    ["Government", "15.84%"],
+                                    ["Financial", "11.76%"],
+                                    ["Other", "42.24%"]
+                                ]
+                            }
+                        ]
+                    },
+                    metadata: {
+                        title: "Investment Portfolio Statement",
+                        author: "Financial Institution",
+                        creationDate: "2025-02-28",
+                        securities: [
+                            {
+                                name: "APPLE INC",
+                                isin: "US0378331005",
+                                type: "Equity",
+                                quantity: 500,
+                                price: 170.00,
+                                value: 85000.00,
+                                currency: "USD",
+                                weight: 0.068
+                            },
+                            {
+                                name: "MICROSOFT CORP",
+                                isin: "US5949181045",
+                                type: "Equity",
+                                quantity: 300,
+                                price: 340.00,
+                                value: 102000.00,
+                                currency: "USD",
+                                weight: 0.0816
+                            },
+                            {
+                                name: "AMAZON.COM INC",
+                                isin: "US0231351067",
+                                type: "Equity",
+                                quantity: 100,
+                                price: 950.00,
+                                value: 95000.00,
+                                currency: "USD",
+                                weight: 0.076
+                            },
+                            {
+                                name: "US TREASURY 2.5% 15/02/2045",
+                                isin: "US912810RK35",
+                                type: "Bond",
+                                quantity: 200000,
+                                price: 0.99,
+                                value: 198000.00,
+                                currency: "USD",
+                                weight: 0.1584
+                            },
+                            {
+                                name: "GOLDMAN SACHS 0% NOTES 23-07.11.29",
+                                isin: "XS2692298537",
+                                type: "Bond",
+                                quantity: 150000,
+                                price: 0.98,
+                                value: 147000.00,
+                                currency: "USD",
+                                weight: 0.1176
+                            }
+                        ],
+                        portfolio: {
+                            totalValue: 1250000.00,
+                            currency: "USD",
+                            valuationDate: "2025-02-28",
+                            assetAllocation: {
+                                equity: 0.45,
+                                fixedIncome: 0.30,
+                                cash: 0.15,
+                                alternative: 0.10
+                            },
+                            sectorAllocation: {
+                                technology: 0.2256,
+                                consumer: 0.076,
+                                government: 0.1584,
+                                financial: 0.1176,
+                                other: 0.4224
+                            }
+                        }
+                    }
+                };
+                
+                log('Document processing completed successfully');
+                setStatus('Document processing completed successfully', 'success');
+                
+                // Step 3: Display results
+                displayResults(documentData);
+                
+                // Show results card
+                resultsCard.style.display = 'block';
+            } catch (error) {
+                console.error('Error:', error);
+                log(`Error: ${error.message}`);
+                setStatus(`Error: ${error.message}`, 'error');
+            } finally {
+                // Hide loading spinner
+                loadingElement.style.display = 'none';
+            }
+        });
+        
+        // Ask question button click handler
+        askBtn.addEventListener('click', async () => {
+            const questionInput = document.getElementById('question');
+            const question = questionInput.value.trim();
+            const qaContent = document.getElementById('qa-content');
+            
+            if (!question) {
+                return;
+            }
+            
+            if (!documentId || !documentData) {
+                qaContent.innerHTML = '<div class="status error">Please upload and process a document first</div>';
+                return;
+            }
+            
+            log(`Asking question: ${question}`);
+            
+            try {
+                // Show loading
+                qaContent.innerHTML = '<div class="status info">Generating answer...</div>';
+                
+                // Simulate API call delay
+                await new Promise(resolve => setTimeout(resolve, 1500));
+                
+                // Generate mock answer based on question and document content
+                const answer = generateMockAnswer(question, documentData);
+                
+                log(`Answer: ${answer}`);
+                
+                // Display answer
+                qaContent.innerHTML = `
+                    <div style="margin-top: 15px;">
+                        <p><strong>Q: ${question}</strong></p>
+                        <p>${answer}</p>
+                    </div>
+                    ${qaContent.innerHTML.includes('<div class="status info">') ? '' : qaContent.innerHTML}
+                `;
+                
+                // Clear question input
+                questionInput.value = '';
+            } catch (error) {
+                console.error('Error:', error);
+                log(`Error asking question: ${error.message}`);
+                qaContent.innerHTML = `<div class="status error">Error asking question: ${error.message}</div>`;
+            }
+        });
+        
+        // Display results function
+        function displayResults(data) {
+            // Overview tab
+            const overviewContent = document.getElementById('overview-content');
+            overviewContent.innerHTML = `
+                <p><strong>Document Name:</strong> ${data.name}</p>
+                <p><strong>Document Type:</strong> ${data.type}</p>
+                <p><strong>Status:</strong> ${data.status}</p>
+                <p><strong>Uploaded At:</strong> ${new Date(data.uploaded_at).toLocaleString()}</p>
+                <p><strong>Processed At:</strong> ${new Date(data.processed_at).toLocaleString()}</p>
+                <p><strong>Total Value:</strong> ${data.metadata.portfolio.currency} ${data.metadata.portfolio.totalValue.toLocaleString()}</p>
+                <p><strong>Securities Count:</strong> ${data.metadata.securities.length}</p>
+                <h4>Asset Allocation</h4>
+                <ul>
+                    <li>Equity: ${(data.metadata.portfolio.assetAllocation.equity * 100).toFixed(0)}%</li>
+                    <li>Fixed Income: ${(data.metadata.portfolio.assetAllocation.fixedIncome * 100).toFixed(0)}%</li>
+                    <li>Cash: ${(data.metadata.portfolio.assetAllocation.cash * 100).toFixed(0)}%</li>
+                    <li>Alternative: ${(data.metadata.portfolio.assetAllocation.alternative * 100).toFixed(0)}%</li>
+                </ul>
+            `;
+            
+            // Text tab
+            const textContent = document.getElementById('text-content');
+            textContent.innerHTML = `<pre>${data.content.text}</pre>`;
+            
+            // Tables tab
+            const tablesContent = document.getElementById('tables-content');
+            if (data.content.tables && data.content.tables.length > 0) {
+                let tablesHtml = '';
+                data.content.tables.forEach((table, index) => {
+                    tablesHtml += `<h4>${table.title || `Table ${index + 1}`}</h4>`;
+                    tablesHtml += '<table>';
+                    
+                    // Add headers
+                    if (table.headers && table.headers.length > 0) {
+                        tablesHtml += '<tr>';
+                        table.headers.forEach(header => {
+                            tablesHtml += `<th>${header}</th>`;
+                        });
+                        tablesHtml += '</tr>';
+                    }
+                    
+                    // Add rows
+                    if (table.rows && table.rows.length > 0) {
+                        table.rows.forEach(row => {
+                            tablesHtml += '<tr>';
+                            row.forEach(cell => {
+                                tablesHtml += `<td>${cell}</td>`;
+                            });
+                            tablesHtml += '</tr>';
+                        });
+                    }
+                    
+                    tablesHtml += '</table>';
+                });
+                tablesContent.innerHTML = tablesHtml;
+            } else {
+                tablesContent.innerHTML = '<p>No tables found in the document</p>';
+            }
+            
+            // Securities tab
+            const securitiesContent = document.getElementById('securities-content');
+            if (data.metadata.securities && data.metadata.securities.length > 0) {
+                let securitiesHtml = '<table>';
+                securitiesHtml += '<tr><th>Name</th><th>ISIN</th><th>Type</th><th>Quantity</th><th>Price</th><th>Value</th><th>Weight</th></tr>';
+                
+                data.metadata.securities.forEach(security => {
+                    securitiesHtml += '<tr>';
+                    securitiesHtml += `<td>${security.name}</td>`;
+                    securitiesHtml += `<td>${security.isin}</td>`;
+                    securitiesHtml += `<td>${security.type}</td>`;
+                    securitiesHtml += `<td>${security.quantity.toLocaleString()}</td>`;
+                    securitiesHtml += `<td>${security.currency} ${security.price.toLocaleString()}</td>`;
+                    securitiesHtml += `<td>${security.currency} ${security.value.toLocaleString()}</td>`;
+                    securitiesHtml += `<td>${(security.weight * 100).toFixed(2)}%</td>`;
+                    securitiesHtml += '</tr>';
+                });
+                
+                securitiesHtml += '</table>';
+                securitiesContent.innerHTML = securitiesHtml;
+            } else {
+                securitiesContent.innerHTML = '<p>No securities found in the document</p>';
+            }
+        }
+        
+        // Generate mock answer function
+        function generateMockAnswer(question, data) {
+            const q = question.toLowerCase();
+            
+            if (q.includes('total value') || q.includes('portfolio value')) {
+                return `The total value of the portfolio is ${data.metadata.portfolio.currency} ${data.metadata.portfolio.totalValue.toLocaleString()}.`;
+            } else if (q.includes('how many securities') || q.includes('number of securities')) {
+                return `There are ${data.metadata.securities.length} securities in the portfolio.`;
+            } else if (q.includes('isin') && q.includes('apple')) {
+                const apple = data.metadata.securities.find(s => s.name.toLowerCase().includes('apple'));
+                return apple ? `The ISIN of Apple Inc is ${apple.isin}.` : 'Apple Inc was not found in the portfolio.';
+            } else if (q.includes('weight') && q.includes('microsoft')) {
+                const microsoft = data.metadata.securities.find(s => s.name.toLowerCase().includes('microsoft'));
+                return microsoft ? `The weight of Microsoft Corp in the portfolio is ${(microsoft.weight * 100).toFixed(2)}%.` : 'Microsoft Corp was not found in the portfolio.';
+            } else if (q.includes('asset allocation')) {
+                const allocation = data.metadata.portfolio.assetAllocation;
+                return `The asset allocation of the portfolio is: Equity ${(allocation.equity * 100).toFixed(0)}%, Fixed Income ${(allocation.fixedIncome * 100).toFixed(0)}%, Cash ${(allocation.cash * 100).toFixed(0)}%, and Alternative ${(allocation.alternative * 100).toFixed(0)}%.`;
+            } else if (q.includes('largest holding') || q.includes('biggest position')) {
+                const securities = [...data.metadata.securities].sort((a, b) => b.value - a.value);
+                const largest = securities[0];
+                return `The largest holding in the portfolio is ${largest.name} with a value of ${largest.currency} ${largest.value.toLocaleString()} (${(largest.weight * 100).toFixed(2)}% of the portfolio).`;
+            } else if (q.includes('sector') && q.includes('allocation')) {
+                const sectors = data.metadata.portfolio.sectorAllocation;
+                return `The sector allocation of the portfolio is: Technology ${(sectors.technology * 100).toFixed(2)}%, Consumer ${(sectors.consumer * 100).toFixed(2)}%, Government ${(sectors.government * 100).toFixed(2)}%, Financial ${(sectors.financial * 100).toFixed(2)}%, and Other ${(sectors.other * 100).toFixed(2)}%.`;
+            } else if (q.includes('summarize') || q.includes('summary')) {
+                return `This is an investment portfolio statement with a total value of ${data.metadata.portfolio.currency} ${data.metadata.portfolio.totalValue.toLocaleString()}. The portfolio consists of ${data.metadata.securities.length} securities, with an asset allocation of ${(data.metadata.portfolio.assetAllocation.equity * 100).toFixed(0)}% equity, ${(data.metadata.portfolio.assetAllocation.fixedIncome * 100).toFixed(0)}% fixed income, ${(data.metadata.portfolio.assetAllocation.cash * 100).toFixed(0)}% cash, and ${(data.metadata.portfolio.assetAllocation.alternative * 100).toFixed(0)}% alternative investments. The largest holdings are US Treasury bonds (15.84%), Goldman Sachs notes (11.76%), and Microsoft (8.16%).`;
+            } else {
+                return `I'm sorry, I don't have enough information to answer that question. Please try asking about the total value, securities, asset allocation, or other portfolio details.`;
+            }
+        }
+    </script>
+</body>
+</html>

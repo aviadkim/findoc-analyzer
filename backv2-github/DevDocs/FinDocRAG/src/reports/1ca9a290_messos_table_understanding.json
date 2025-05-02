@@ -1,0 +1,1110 @@
+{
+  "tables_count": 48,
+  "structures_count": 48,
+  "table_structures": [
+    {
+      "purpose": "portfolio holdings",
+      "header_rows": [
+        0,
+        1
+      ],
+      "footer_rows": [
+        -1
+      ],
+      "column_types": {
+        "0": "isin",
+        "1": "description",
+        "2": "quantity",
+        "3": "price",
+        "4": "value",
+        "5": "currency",
+        "6": "weight"
+      },
+      "notes": "This table contains portfolio holdings with security details.",
+      "table_id": "stream_4",
+      "page": 4,
+      "method": "camelot_stream"
+    },
+    {
+      "purpose": "portfolio holdings",
+      "header_rows": [
+        0,
+        1
+      ],
+      "footer_rows": [
+        -1
+      ],
+      "column_types": {
+        "0": "isin",
+        "1": "description",
+        "2": "quantity",
+        "3": "price",
+        "4": "value",
+        "5": "currency",
+        "6": "weight"
+      },
+      "notes": "This table contains portfolio holdings with security details.",
+      "table_id": "stream_5",
+      "page": 5,
+      "method": "camelot_stream"
+    },
+    {
+      "purpose": "portfolio holdings",
+      "header_rows": [
+        0,
+        1
+      ],
+      "footer_rows": [
+        -1
+      ],
+      "column_types": {
+        "0": "isin",
+        "1": "description",
+        "2": "quantity",
+        "3": "price",
+        "4": "value",
+        "5": "currency",
+        "6": "weight"
+      },
+      "notes": "This table contains portfolio holdings with security details.",
+      "table_id": "stream_14",
+      "page": 13,
+      "method": "camelot_stream"
+    },
+    {
+      "purpose": "portfolio holdings",
+      "header_rows": [
+        0,
+        1
+      ],
+      "footer_rows": [
+        -1
+      ],
+      "column_types": {
+        "0": "isin",
+        "1": "description",
+        "2": "quantity",
+        "3": "price",
+        "4": "value",
+        "5": "currency",
+        "6": "weight"
+      },
+      "notes": "This table contains portfolio holdings with security details.",
+      "table_id": "stream_10",
+      "page": 9,
+      "method": "camelot_stream"
+    },
+    {
+      "purpose": "portfolio holdings",
+      "header_rows": [
+        0,
+        1
+      ],
+      "footer_rows": [
+        -1
+      ],
+      "column_types": {
+        "0": "isin",
+        "1": "description",
+        "2": "quantity",
+        "3": "price",
+        "4": "value",
+        "5": "currency",
+        "6": "weight"
+      },
+      "notes": "This table contains portfolio holdings with security details.",
+      "table_id": "stream_11",
+      "page": 10,
+      "method": "camelot_stream"
+    },
+    {
+      "purpose": "portfolio holdings",
+      "header_rows": [
+        0,
+        1
+      ],
+      "footer_rows": [
+        -1
+      ],
+      "column_types": {
+        "0": "isin",
+        "1": "description",
+        "2": "quantity",
+        "3": "price",
+        "4": "value",
+        "5": "currency",
+        "6": "weight"
+      },
+      "notes": "This table contains portfolio holdings with security details.",
+      "table_id": "stream_9",
+      "page": 8,
+      "method": "camelot_stream"
+    },
+    {
+      "purpose": "portfolio holdings",
+      "header_rows": [
+        0,
+        1
+      ],
+      "footer_rows": [
+        -1
+      ],
+      "column_types": {
+        "0": "isin",
+        "1": "description",
+        "2": "quantity",
+        "3": "price",
+        "4": "value",
+        "5": "currency",
+        "6": "weight"
+      },
+      "notes": "This table contains portfolio holdings with security details.",
+      "table_id": "stream_15",
+      "page": 14,
+      "method": "camelot_stream"
+    },
+    {
+      "purpose": "portfolio holdings",
+      "header_rows": [
+        0,
+        1
+      ],
+      "footer_rows": [
+        -1
+      ],
+      "column_types": {
+        "0": "isin",
+        "1": "description",
+        "2": "quantity",
+        "3": "price",
+        "4": "value",
+        "5": "currency",
+        "6": "weight"
+      },
+      "notes": "This table contains portfolio holdings with security details.",
+      "table_id": "stream_3",
+      "page": 3,
+      "method": "camelot_stream"
+    },
+    {
+      "purpose": "portfolio holdings",
+      "header_rows": [
+        0,
+        1
+      ],
+      "footer_rows": [
+        -1
+      ],
+      "column_types": {
+        "0": "isin",
+        "1": "description",
+        "2": "quantity",
+        "3": "price",
+        "4": "value",
+        "5": "currency",
+        "6": "weight"
+      },
+      "notes": "This table contains portfolio holdings with security details.",
+      "table_id": "stream_19",
+      "page": 18,
+      "method": "camelot_stream"
+    },
+    {
+      "purpose": "portfolio holdings",
+      "header_rows": [
+        0,
+        1
+      ],
+      "footer_rows": [
+        -1
+      ],
+      "column_types": {
+        "0": "isin",
+        "1": "description",
+        "2": "quantity",
+        "3": "price",
+        "4": "value",
+        "5": "currency",
+        "6": "weight"
+      },
+      "notes": "This table contains portfolio holdings with security details.",
+      "table_id": "stream_18",
+      "page": 17,
+      "method": "camelot_stream"
+    },
+    {
+      "purpose": "portfolio holdings",
+      "header_rows": [
+        0,
+        1
+      ],
+      "footer_rows": [
+        -1
+      ],
+      "column_types": {
+        "0": "isin",
+        "1": "description",
+        "2": "quantity",
+        "3": "price",
+        "4": "value",
+        "5": "currency",
+        "6": "weight"
+      },
+      "notes": "This table contains portfolio holdings with security details.",
+      "table_id": "stream_13",
+      "page": 12,
+      "method": "camelot_stream"
+    },
+    {
+      "purpose": "portfolio holdings",
+      "header_rows": [
+        0,
+        1
+      ],
+      "footer_rows": [
+        -1
+      ],
+      "column_types": {
+        "0": "isin",
+        "1": "description",
+        "2": "quantity",
+        "3": "price",
+        "4": "value",
+        "5": "currency",
+        "6": "weight"
+      },
+      "notes": "This table contains portfolio holdings with security details.",
+      "table_id": "stream_2",
+      "page": 2,
+      "method": "camelot_stream"
+    },
+    {
+      "purpose": "portfolio holdings",
+      "header_rows": [
+        0,
+        1
+      ],
+      "footer_rows": [
+        -1
+      ],
+      "column_types": {
+        "0": "isin",
+        "1": "description",
+        "2": "quantity",
+        "3": "price",
+        "4": "value",
+        "5": "currency",
+        "6": "weight"
+      },
+      "notes": "This table contains portfolio holdings with security details.",
+      "table_id": "stream_6",
+      "page": 6,
+      "method": "camelot_stream"
+    },
+    {
+      "purpose": "portfolio holdings",
+      "header_rows": [
+        0,
+        1
+      ],
+      "footer_rows": [
+        -1
+      ],
+      "column_types": {
+        "0": "isin",
+        "1": "description",
+        "2": "quantity",
+        "3": "price",
+        "4": "value",
+        "5": "currency",
+        "6": "weight"
+      },
+      "notes": "This table contains portfolio holdings with security details.",
+      "table_id": "stream_17",
+      "page": 16,
+      "method": "camelot_stream"
+    },
+    {
+      "purpose": "portfolio holdings",
+      "header_rows": [
+        0,
+        1
+      ],
+      "footer_rows": [
+        -1
+      ],
+      "column_types": {
+        "0": "isin",
+        "1": "description",
+        "2": "quantity",
+        "3": "price",
+        "4": "value",
+        "5": "currency",
+        "6": "weight"
+      },
+      "notes": "This table contains portfolio holdings with security details.",
+      "table_id": "stream_16",
+      "page": 15,
+      "method": "camelot_stream"
+    },
+    {
+      "purpose": "portfolio holdings",
+      "header_rows": [
+        0,
+        1
+      ],
+      "footer_rows": [
+        -1
+      ],
+      "column_types": {
+        "0": "isin",
+        "1": "description",
+        "2": "quantity",
+        "3": "price",
+        "4": "value",
+        "5": "currency",
+        "6": "weight"
+      },
+      "notes": "This table contains portfolio holdings with security details.",
+      "table_id": "stream_7",
+      "page": 6,
+      "method": "camelot_stream"
+    },
+    {
+      "purpose": "portfolio holdings",
+      "header_rows": [
+        0,
+        1
+      ],
+      "footer_rows": [
+        -1
+      ],
+      "column_types": {
+        "0": "isin",
+        "1": "description",
+        "2": "quantity",
+        "3": "price",
+        "4": "value",
+        "5": "currency",
+        "6": "weight"
+      },
+      "notes": "This table contains portfolio holdings with security details.",
+      "table_id": "stream_8",
+      "page": 7,
+      "method": "camelot_stream"
+    },
+    {
+      "purpose": "portfolio holdings",
+      "header_rows": [
+        0,
+        1
+      ],
+      "footer_rows": [
+        -1
+      ],
+      "column_types": {
+        "0": "isin",
+        "1": "description",
+        "2": "quantity",
+        "3": "price",
+        "4": "value",
+        "5": "currency",
+        "6": "weight"
+      },
+      "notes": "This table contains portfolio holdings with security details.",
+      "table_id": "stream_12",
+      "page": 11,
+      "method": "camelot_stream"
+    },
+    {
+      "purpose": "portfolio holdings",
+      "header_rows": [
+        0,
+        1
+      ],
+      "footer_rows": [
+        -1
+      ],
+      "column_types": {
+        "0": "isin",
+        "1": "description",
+        "2": "quantity",
+        "3": "price",
+        "4": "value",
+        "5": "currency",
+        "6": "weight"
+      },
+      "notes": "This table contains portfolio holdings with security details.",
+      "table_id": "lattice_1",
+      "page": 6,
+      "method": "camelot_lattice"
+    },
+    {
+      "purpose": "portfolio holdings",
+      "header_rows": [
+        0,
+        1
+      ],
+      "footer_rows": [
+        -1
+      ],
+      "column_types": {
+        "0": "isin",
+        "1": "description",
+        "2": "quantity",
+        "3": "price",
+        "4": "value",
+        "5": "currency",
+        "6": "weight"
+      },
+      "notes": "This table contains portfolio holdings with security details.",
+      "table_id": "lattice_2",
+      "page": 6,
+      "method": "camelot_lattice"
+    },
+    {
+      "purpose": "portfolio holdings",
+      "header_rows": [
+        0,
+        1
+      ],
+      "footer_rows": [
+        -1
+      ],
+      "column_types": {
+        "0": "isin",
+        "1": "description",
+        "2": "quantity",
+        "3": "price",
+        "4": "value",
+        "5": "currency",
+        "6": "weight"
+      },
+      "notes": "This table contains portfolio holdings with security details.",
+      "table_id": "stream_1",
+      "page": 1,
+      "method": "camelot_stream"
+    },
+    {
+      "purpose": "portfolio holdings",
+      "header_rows": [
+        0,
+        1
+      ],
+      "footer_rows": [
+        -1
+      ],
+      "column_types": {
+        "0": "isin",
+        "1": "description",
+        "2": "quantity",
+        "3": "price",
+        "4": "value",
+        "5": "currency",
+        "6": "weight"
+      },
+      "notes": "This table contains portfolio holdings with security details.",
+      "table_id": "stream_20",
+      "page": 19,
+      "method": "camelot_stream"
+    },
+    {
+      "purpose": "portfolio holdings",
+      "header_rows": [
+        0,
+        1
+      ],
+      "footer_rows": [
+        -1
+      ],
+      "column_types": {
+        "0": "isin",
+        "1": "description",
+        "2": "quantity",
+        "3": "price",
+        "4": "value",
+        "5": "currency",
+        "6": "weight"
+      },
+      "notes": "This table contains portfolio holdings with security details.",
+      "table_id": "pdfplumber_5_1",
+      "page": 5,
+      "method": "pdfplumber"
+    },
+    {
+      "purpose": "portfolio holdings",
+      "header_rows": [
+        0,
+        1
+      ],
+      "footer_rows": [
+        -1
+      ],
+      "column_types": {
+        "0": "isin",
+        "1": "description",
+        "2": "quantity",
+        "3": "price",
+        "4": "value",
+        "5": "currency",
+        "6": "weight"
+      },
+      "notes": "This table contains portfolio holdings with security details.",
+      "table_id": "pdfplumber_4_1",
+      "page": 4,
+      "method": "pdfplumber"
+    },
+    {
+      "purpose": "portfolio holdings",
+      "header_rows": [
+        0,
+        1
+      ],
+      "footer_rows": [
+        -1
+      ],
+      "column_types": {
+        "0": "isin",
+        "1": "description",
+        "2": "quantity",
+        "3": "price",
+        "4": "value",
+        "5": "currency",
+        "6": "weight"
+      },
+      "notes": "This table contains portfolio holdings with security details.",
+      "table_id": "pdfplumber_6_2",
+      "page": 6,
+      "method": "pdfplumber"
+    },
+    {
+      "purpose": "portfolio holdings",
+      "header_rows": [
+        0,
+        1
+      ],
+      "footer_rows": [
+        -1
+      ],
+      "column_types": {
+        "0": "isin",
+        "1": "description",
+        "2": "quantity",
+        "3": "price",
+        "4": "value",
+        "5": "currency",
+        "6": "weight"
+      },
+      "notes": "This table contains portfolio holdings with security details.",
+      "table_id": "pdfplumber_6_4",
+      "page": 6,
+      "method": "pdfplumber"
+    },
+    {
+      "purpose": "portfolio holdings",
+      "header_rows": [
+        0,
+        1
+      ],
+      "footer_rows": [
+        -1
+      ],
+      "column_types": {
+        "0": "isin",
+        "1": "description",
+        "2": "quantity",
+        "3": "price",
+        "4": "value",
+        "5": "currency",
+        "6": "weight"
+      },
+      "notes": "This table contains portfolio holdings with security details.",
+      "table_id": "pdfplumber_6_1",
+      "page": 6,
+      "method": "pdfplumber"
+    },
+    {
+      "purpose": "portfolio holdings",
+      "header_rows": [
+        0,
+        1
+      ],
+      "footer_rows": [
+        -1
+      ],
+      "column_types": {
+        "0": "isin",
+        "1": "description",
+        "2": "quantity",
+        "3": "price",
+        "4": "value",
+        "5": "currency",
+        "6": "weight"
+      },
+      "notes": "This table contains portfolio holdings with security details.",
+      "table_id": "pdfplumber_6_3",
+      "page": 6,
+      "method": "pdfplumber"
+    },
+    {
+      "purpose": "portfolio holdings",
+      "header_rows": [
+        0,
+        1
+      ],
+      "footer_rows": [
+        -1
+      ],
+      "column_types": {
+        "0": "isin",
+        "1": "description",
+        "2": "quantity",
+        "3": "price",
+        "4": "value",
+        "5": "currency",
+        "6": "weight"
+      },
+      "notes": "This table contains portfolio holdings with security details.",
+      "table_id": "pdfplumber_3_1",
+      "page": 3,
+      "method": "pdfplumber"
+    },
+    {
+      "purpose": "portfolio holdings",
+      "header_rows": [
+        0,
+        1
+      ],
+      "footer_rows": [
+        -1
+      ],
+      "column_types": {
+        "0": "isin",
+        "1": "description",
+        "2": "quantity",
+        "3": "price",
+        "4": "value",
+        "5": "currency",
+        "6": "weight"
+      },
+      "notes": "This table contains portfolio holdings with security details.",
+      "table_id": "pdfplumber_3_2",
+      "page": 3,
+      "method": "pdfplumber"
+    },
+    {
+      "purpose": "portfolio holdings",
+      "header_rows": [
+        0,
+        1
+      ],
+      "footer_rows": [
+        -1
+      ],
+      "column_types": {
+        "0": "isin",
+        "1": "description",
+        "2": "quantity",
+        "3": "price",
+        "4": "value",
+        "5": "currency",
+        "6": "weight"
+      },
+      "notes": "This table contains portfolio holdings with security details.",
+      "table_id": "pdfplumber_3_3",
+      "page": 3,
+      "method": "pdfplumber"
+    },
+    {
+      "purpose": "portfolio holdings",
+      "header_rows": [
+        0,
+        1
+      ],
+      "footer_rows": [
+        -1
+      ],
+      "column_types": {
+        "0": "isin",
+        "1": "description",
+        "2": "quantity",
+        "3": "price",
+        "4": "value",
+        "5": "currency",
+        "6": "weight"
+      },
+      "notes": "This table contains portfolio holdings with security details.",
+      "table_id": "pdfplumber_7_1",
+      "page": 7,
+      "method": "pdfplumber"
+    },
+    {
+      "purpose": "portfolio holdings",
+      "header_rows": [
+        0,
+        1
+      ],
+      "footer_rows": [
+        -1
+      ],
+      "column_types": {
+        "0": "isin",
+        "1": "description",
+        "2": "quantity",
+        "3": "price",
+        "4": "value",
+        "5": "currency",
+        "6": "weight"
+      },
+      "notes": "This table contains portfolio holdings with security details.",
+      "table_id": "pdfplumber_8_1",
+      "page": 8,
+      "method": "pdfplumber"
+    },
+    {
+      "purpose": "portfolio holdings",
+      "header_rows": [
+        0,
+        1
+      ],
+      "footer_rows": [
+        -1
+      ],
+      "column_types": {
+        "0": "isin",
+        "1": "description",
+        "2": "quantity",
+        "3": "price",
+        "4": "value",
+        "5": "currency",
+        "6": "weight"
+      },
+      "notes": "This table contains portfolio holdings with security details.",
+      "table_id": "pdfplumber_9_1",
+      "page": 9,
+      "method": "pdfplumber"
+    },
+    {
+      "purpose": "portfolio holdings",
+      "header_rows": [
+        0,
+        1
+      ],
+      "footer_rows": [
+        -1
+      ],
+      "column_types": {
+        "0": "isin",
+        "1": "description",
+        "2": "quantity",
+        "3": "price",
+        "4": "value",
+        "5": "currency",
+        "6": "weight"
+      },
+      "notes": "This table contains portfolio holdings with security details.",
+      "table_id": "pdfplumber_10_1",
+      "page": 10,
+      "method": "pdfplumber"
+    },
+    {
+      "purpose": "portfolio holdings",
+      "header_rows": [
+        0,
+        1
+      ],
+      "footer_rows": [
+        -1
+      ],
+      "column_types": {
+        "0": "isin",
+        "1": "description",
+        "2": "quantity",
+        "3": "price",
+        "4": "value",
+        "5": "currency",
+        "6": "weight"
+      },
+      "notes": "This table contains portfolio holdings with security details.",
+      "table_id": "pdfplumber_11_1",
+      "page": 11,
+      "method": "pdfplumber"
+    },
+    {
+      "purpose": "portfolio holdings",
+      "header_rows": [
+        0,
+        1
+      ],
+      "footer_rows": [
+        -1
+      ],
+      "column_types": {
+        "0": "isin",
+        "1": "description",
+        "2": "quantity",
+        "3": "price",
+        "4": "value",
+        "5": "currency",
+        "6": "weight"
+      },
+      "notes": "This table contains portfolio holdings with security details.",
+      "table_id": "pdfplumber_12_1",
+      "page": 12,
+      "method": "pdfplumber"
+    },
+    {
+      "purpose": "portfolio holdings",
+      "header_rows": [
+        0,
+        1
+      ],
+      "footer_rows": [
+        -1
+      ],
+      "column_types": {
+        "0": "isin",
+        "1": "description",
+        "2": "quantity",
+        "3": "price",
+        "4": "value",
+        "5": "currency",
+        "6": "weight"
+      },
+      "notes": "This table contains portfolio holdings with security details.",
+      "table_id": "pdfplumber_13_1",
+      "page": 13,
+      "method": "pdfplumber"
+    },
+    {
+      "purpose": "portfolio holdings",
+      "header_rows": [
+        0,
+        1
+      ],
+      "footer_rows": [
+        -1
+      ],
+      "column_types": {
+        "0": "isin",
+        "1": "description",
+        "2": "quantity",
+        "3": "price",
+        "4": "value",
+        "5": "currency",
+        "6": "weight"
+      },
+      "notes": "This table contains portfolio holdings with security details.",
+      "table_id": "pdfplumber_14_1",
+      "page": 14,
+      "method": "pdfplumber"
+    },
+    {
+      "purpose": "portfolio holdings",
+      "header_rows": [
+        0,
+        1
+      ],
+      "footer_rows": [
+        -1
+      ],
+      "column_types": {
+        "0": "isin",
+        "1": "description",
+        "2": "quantity",
+        "3": "price",
+        "4": "value",
+        "5": "currency",
+        "6": "weight"
+      },
+      "notes": "This table contains portfolio holdings with security details.",
+      "table_id": "pdfplumber_15_1",
+      "page": 15,
+      "method": "pdfplumber"
+    },
+    {
+      "purpose": "portfolio holdings",
+      "header_rows": [
+        0,
+        1
+      ],
+      "footer_rows": [
+        -1
+      ],
+      "column_types": {
+        "0": "isin",
+        "1": "description",
+        "2": "quantity",
+        "3": "price",
+        "4": "value",
+        "5": "currency",
+        "6": "weight"
+      },
+      "notes": "This table contains portfolio holdings with security details.",
+      "table_id": "pdfplumber_16_1",
+      "page": 16,
+      "method": "pdfplumber"
+    },
+    {
+      "purpose": "portfolio holdings",
+      "header_rows": [
+        0,
+        1
+      ],
+      "footer_rows": [
+        -1
+      ],
+      "column_types": {
+        "0": "isin",
+        "1": "description",
+        "2": "quantity",
+        "3": "price",
+        "4": "value",
+        "5": "currency",
+        "6": "weight"
+      },
+      "notes": "This table contains portfolio holdings with security details.",
+      "table_id": "pdfplumber_17_1",
+      "page": 17,
+      "method": "pdfplumber"
+    },
+    {
+      "purpose": "portfolio holdings",
+      "header_rows": [
+        0,
+        1
+      ],
+      "footer_rows": [
+        -1
+      ],
+      "column_types": {
+        "0": "isin",
+        "1": "description",
+        "2": "quantity",
+        "3": "price",
+        "4": "value",
+        "5": "currency",
+        "6": "weight"
+      },
+      "notes": "This table contains portfolio holdings with security details.",
+      "table_id": "pdfplumber_17_2",
+      "page": 17,
+      "method": "pdfplumber"
+    },
+    {
+      "purpose": "portfolio holdings",
+      "header_rows": [
+        0,
+        1
+      ],
+      "footer_rows": [
+        -1
+      ],
+      "column_types": {
+        "0": "isin",
+        "1": "description",
+        "2": "quantity",
+        "3": "price",
+        "4": "value",
+        "5": "currency",
+        "6": "weight"
+      },
+      "notes": "This table contains portfolio holdings with security details.",
+      "table_id": "pdfplumber_19_1",
+      "page": 19,
+      "method": "pdfplumber"
+    },
+    {
+      "purpose": "portfolio holdings",
+      "header_rows": [
+        0,
+        1
+      ],
+      "footer_rows": [
+        -1
+      ],
+      "column_types": {
+        "0": "isin",
+        "1": "description",
+        "2": "quantity",
+        "3": "price",
+        "4": "value",
+        "5": "currency",
+        "6": "weight"
+      },
+      "notes": "This table contains portfolio holdings with security details.",
+      "table_id": "pdfplumber_19_2",
+      "page": 19,
+      "method": "pdfplumber"
+    },
+    {
+      "purpose": "portfolio holdings",
+      "header_rows": [
+        0,
+        1
+      ],
+      "footer_rows": [
+        -1
+      ],
+      "column_types": {
+        "0": "isin",
+        "1": "description",
+        "2": "quantity",
+        "3": "price",
+        "4": "value",
+        "5": "currency",
+        "6": "weight"
+      },
+      "notes": "This table contains portfolio holdings with security details.",
+      "table_id": "pdfplumber_20_1",
+      "page": 20,
+      "method": "pdfplumber"
+    },
+    {
+      "purpose": "portfolio holdings",
+      "header_rows": [
+        0,
+        1
+      ],
+      "footer_rows": [
+        -1
+      ],
+      "column_types": {
+        "0": "isin",
+        "1": "description",
+        "2": "quantity",
+        "3": "price",
+        "4": "value",
+        "5": "currency",
+        "6": "weight"
+      },
+      "notes": "This table contains portfolio holdings with security details.",
+      "table_id": "pdfplumber_20_2",
+      "page": 20,
+      "method": "pdfplumber"
+    },
+    {
+      "purpose": "portfolio holdings",
+      "header_rows": [
+        0,
+        1
+      ],
+      "footer_rows": [
+        -1
+      ],
+      "column_types": {
+        "0": "isin",
+        "1": "description",
+        "2": "quantity",
+        "3": "price",
+        "4": "value",
+        "5": "currency",
+        "6": "weight"
+      },
+      "notes": "This table contains portfolio holdings with security details.",
+      "table_id": "stream_21",
+      "page": 20,
+      "method": "camelot_stream"
+    }
+  ]
+}

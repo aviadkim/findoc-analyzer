@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FinDoc Analyzer Test Report</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      color: #333;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    h1, h2, h3 {
+      color: #2c3e50;
+    }
+    .test-result {
+      margin-bottom: 40px;
+      padding: 20px;
+      background-color: #f8f9fa;
+      border-radius: 5px;
+      border-left: 5px solid #ddd;
+    }
+    .test-result.passed {
+      border-left-color: #28a745;
+    }
+    .test-result.failed {
+      border-left-color: #dc3545;
+    }
+    .test-result.pending {
+      border-left-color: #ffc107;
+    }
+    .screenshot {
+      max-width: 100%;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      margin-bottom: 20px;
+    }
+    .section {
+      margin-bottom: 20px;
+    }
+    .badge {
+      display: inline-block;
+      padding: 5px 10px;
+      border-radius: 3px;
+      margin-right: 10px;
+      margin-bottom: 10px;
+    }
+    .badge.passed {
+      background-color: #d4edda;
+      color: #155724;
+    }
+    .badge.failed {
+      background-color: #f8d7da;
+      color: #721c24;
+    }
+    .badge.pending {
+      background-color: #fff3cd;
+      color: #856404;
+    }
+    .badge.info {
+      background-color: #d1ecf1;
+      color: #0c5460;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+    th, td {
+      padding: 8px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+    th {
+      background-color: #f2f2f2;
+    }
+    .progress-container {
+      width: 100%;
+      background-color: #f3f3f3;
+      border-radius: 4px;
+      margin-bottom: 10px;
+    }
+    .progress-bar {
+      height: 20px;
+      border-radius: 4px;
+      text-align: center;
+      line-height: 20px;
+      color: white;
+    }
+    .progress-bar.success {
+      background-color: #4caf50;
+    }
+    .progress-bar.warning {
+      background-color: #ff9800;
+    }
+    .progress-bar.danger {
+      background-color: #f44336;
+    }
+    .summary-card {
+      padding: 15px;
+      border-radius: 5px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      margin-bottom: 20px;
+      background-color: #f8d7da;
+      color: #721c24;
+    }
+    .error-details {
+      background-color: #f8f9fa;
+      border-radius: 5px;
+      padding: 15px;
+      margin-top: 10px;
+      border: 1px solid #ddd;
+      overflow-x: auto;
+    }
+    .error-message {
+      font-family: monospace;
+      white-space: pre-wrap;
+    }
+    .collapsible {
+      background-color: #f1f1f1;
+      color: #444;
+      cursor: pointer;
+      padding: 18px;
+      width: 100%;
+      border: none;
+      text-align: left;
+      outline: none;
+      font-size: 15px;
+      border-radius: 5px;
+      margin-bottom: 5px;
+    }
+    .active, .collapsible:hover {
+      background-color: #e8e8e8;
+    }
+    .collapsible:after {
+      content: '\002B';
+      color: #777;
+      font-weight: bold;
+      float: right;
+      margin-left: 5px;
+    }
+    .active:after {
+      content: "\2212";
+    }
+    .content {
+      padding: 0 18px;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.2s ease-out;
+      background-color: white;
+      border-radius: 0 0 5px 5px;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>FinDoc Analyzer Test Report</h1>
+  
+  <div class="section">
+    <h2>Summary</h2>
+    <div class="summary-card">
+      <h3>Test Results</h3>
+      <div class="progress-container">
+        <div class="progress-bar danger" style="width: 0%">
+          0%
+        </div>
+      </div>
+      <p>0 of 6 tests passed</p>
+    </div>
+    
+    <h3>Tests</h3>
+    <ul>
+      
+        <li>
+          <a href="#Button Click Test">Button Click Test</a>
+          <span class="badge failed">failed</span>
+        </li>
+      
+        <li>
+          <a href="#Form Input Test">Form Input Test</a>
+          <span class="badge failed">failed</span>
+        </li>
+      
+        <li>
+          <a href="#Select Option Test">Select Option Test</a>
+          <span class="badge failed">failed</span>
+        </li>
+      
+        <li>
+          <a href="#Form Submission Test">Form Submission Test</a>
+          <span class="badge failed">failed</span>
+        </li>
+      
+        <li>
+          <a href="#Upload Page Interaction Test">Upload Page Interaction Test</a>
+          <span class="badge failed">failed</span>
+        </li>
+      
+        <li>
+          <a href="#Document Comparison Page Interaction Test">Document Comparison Page Interaction Test</a>
+          <span class="badge failed">failed</span>
+        </li>
+      
+    </ul>
+  </div>
+  
+  
+    <div id="Button Click Test" class="test-result failed">
+      <h2>Button Click Test <span class="badge failed">failed</span></h2>
+      <p>Duration: 1638ms</p>
+      
+      
+        <div class="section">
+          <h3>Screenshots</h3>
+          
+            <div>
+              <h4>Button Click Test-navigation.png</h4>
+              <img src="Button Click Test-navigation.png" alt="Button Click Test-navigation.png" class="screenshot">
+            </div>
+          
+        </div>
+      
+      
+      
+        <div class="section">
+          <h3>Error</h3>
+          <div class="error-details">
+            <p class="error-message">Rating buttons do not exist on feedback page</p>
+            <button class="collapsible">Stack Trace</button>
+            <div class="content">
+              <pre>Error: Rating buttons do not exist on feedback page
+    at test (C:\Users\aviad\OneDrive\Desktop\backv2-main\interactive-element-tests.js:22:15)
+    at async TestRunner.runTest (C:\Users\aviad\OneDrive\Desktop\backv2-main\puppeteer-test-framework.js:116:7)
+    at async runInteractiveElementTests (C:\Users\aviad\OneDrive\Desktop\backv2-main\interactive-element-tests.js:297:7)</pre>
+            </div>
+          </div>
+        </div>
+      
+      
+      
+      
+      
+    </div>
+  
+    <div id="Form Input Test" class="test-result failed">
+      <h2>Form Input Test <span class="badge failed">failed</span></h2>
+      <p>Duration: 1139ms</p>
+      
+      
+        <div class="section">
+          <h3>Screenshots</h3>
+          
+            <div>
+              <h4>Form Input Test-navigation.png</h4>
+              <img src="Form Input Test-navigation.png" alt="Form Input Test-navigation.png" class="screenshot">
+            </div>
+          
+        </div>
+      
+      
+      
+        <div class="section">
+          <h3>Error</h3>
+          <div class="error-details">
+            <p class="error-message">Name input does not exist on feedback page</p>
+            <button class="collapsible">Stack Trace</button>
+            <div class="content">
+              <pre>Error: Name input does not exist on feedback page
+    at test (C:\Users\aviad\OneDrive\Desktop\backv2-main\interactive-element-tests.js:70:15)
+    at async TestRunner.runTest (C:\Users\aviad\OneDrive\Desktop\backv2-main\puppeteer-test-framework.js:116:7)
+    at async runInteractiveElementTests (C:\Users\aviad\OneDrive\Desktop\backv2-main\interactive-element-tests.js:297:7)</pre>
+            </div>
+          </div>
+        </div>
+      
+      
+      
+      
+      
+    </div>
+  
+    <div id="Select Option Test" class="test-result failed">
+      <h2>Select Option Test <span class="badge failed">failed</span></h2>
+      <p>Duration: 1182ms</p>
+      
+      
+        <div class="section">
+          <h3>Screenshots</h3>
+          
+            <div>
+              <h4>Select Option Test-navigation.png</h4>
+              <img src="Select Option Test-navigation.png" alt="Select Option Test-navigation.png" class="screenshot">
+            </div>
+          
+        </div>
+      
+      
+      
+        <div class="section">
+          <h3>Error</h3>
+          <div class="error-details">
+            <p class="error-message">Feedback type select does not exist on feedback page</p>
+            <button class="collapsible">Stack Trace</button>
+            <div class="content">
+              <pre>Error: Feedback type select does not exist on feedback page
+    at test (C:\Users\aviad\OneDrive\Desktop\backv2-main\interactive-element-tests.js:124:15)
+    at async TestRunner.runTest (C:\Users\aviad\OneDrive\Desktop\backv2-main\puppeteer-test-framework.js:116:7)
+    at async runInteractiveElementTests (C:\Users\aviad\OneDrive\Desktop\backv2-main\interactive-element-tests.js:297:7)</pre>
+            </div>
+          </div>
+        </div>
+      
+      
+      
+      
+      
+    </div>
+  
+    <div id="Form Submission Test" class="test-result failed">
+      <h2>Form Submission Test <span class="badge failed">failed</span></h2>
+      <p>Duration: 31322ms</p>
+      
+      
+        <div class="section">
+          <h3>Screenshots</h3>
+          
+            <div>
+              <h4>Form Submission Test-navigation.png</h4>
+              <img src="Form Submission Test-navigation.png" alt="Form Submission Test-navigation.png" class="screenshot">
+            </div>
+          
+        </div>
+      
+      
+      
+        <div class="section">
+          <h3>Error</h3>
+          <div class="error-details">
+            <p class="error-message">Waiting for selector `#name` failed: Waiting failed: 30000ms exceeded</p>
+            <button class="collapsible">Stack Trace</button>
+            <div class="content">
+              <pre>TimeoutError: Waiting for selector `#name` failed: Waiting failed: 30000ms exceeded
+    at new WaitTask (C:\Users\aviad\OneDrive\Desktop\backv2-main\node_modules\puppeteer-core\lib\cjs\puppeteer\common\WaitTask.js:48:34)
+    at IsolatedWorld.waitForFunction (C:\Users\aviad\OneDrive\Desktop\backv2-main\node_modules\puppeteer-core\lib\cjs\puppeteer\api\Realm.js:25:26)
+    at CSSQueryHandler.waitFor (C:\Users\aviad\OneDrive\Desktop\backv2-main\node_modules\puppeteer-core\lib\cjs\puppeteer\common\QueryHandler.js:178:95)
+    at async CdpFrame.waitForSelector (C:\Users\aviad\OneDrive\Desktop\backv2-main\node_modules\puppeteer-core\lib\cjs\puppeteer\api\Frame.js:548:21)
+    at async CdpPage.waitForSelector (C:\Users\aviad\OneDrive\Desktop\backv2-main\node_modules\puppeteer-core\lib\cjs\puppeteer\api\Page.js:1378:20)</pre>
+            </div>
+          </div>
+        </div>
+      
+      
+      
+      
+      
+    </div>
+  
+    <div id="Upload Page Interaction Test" class="test-result failed">
+      <h2>Upload Page Interaction Test <span class="badge failed">failed</span></h2>
+      <p>Duration: 1218ms</p>
+      
+      
+        <div class="section">
+          <h3>Screenshots</h3>
+          
+            <div>
+              <h4>Upload Page Interaction Test-navigation.png</h4>
+              <img src="Upload Page Interaction Test-navigation.png" alt="Upload Page Interaction Test-navigation.png" class="screenshot">
+            </div>
+          
+        </div>
+      
+      
+      
+        <div class="section">
+          <h3>Error</h3>
+          <div class="error-details">
+            <p class="error-message">Upload area does not exist on upload page</p>
+            <button class="collapsible">Stack Trace</button>
+            <div class="content">
+              <pre>Error: Upload area does not exist on upload page
+    at test (C:\Users\aviad\OneDrive\Desktop\backv2-main\interactive-element-tests.js:200:15)
+    at async TestRunner.runTest (C:\Users\aviad\OneDrive\Desktop\backv2-main\puppeteer-test-framework.js:116:7)
+    at async runInteractiveElementTests (C:\Users\aviad\OneDrive\Desktop\backv2-main\interactive-element-tests.js:297:7)</pre>
+            </div>
+          </div>
+        </div>
+      
+      
+      
+      
+      
+    </div>
+  
+    <div id="Document Comparison Page Interaction Test" class="test-result failed">
+      <h2>Document Comparison Page Interaction Test <span class="badge failed">failed</span></h2>
+      <p>Duration: 1217ms</p>
+      
+      
+        <div class="section">
+          <h3>Screenshots</h3>
+          
+            <div>
+              <h4>Document Comparison Page Interaction Test-navigation.png</h4>
+              <img src="Document Comparison Page Interaction Test-navigation.png" alt="Document Comparison Page Interaction Test-navigation.png" class="screenshot">
+            </div>
+          
+        </div>
+      
+      
+      
+        <div class="section">
+          <h3>Error</h3>
+          <div class="error-details">
+            <p class="error-message">Document selection does not exist on document comparison page</p>
+            <button class="collapsible">Stack Trace</button>
+            <div class="content">
+              <pre>Error: Document selection does not exist on document comparison page
+    at test (C:\Users\aviad\OneDrive\Desktop\backv2-main\interactive-element-tests.js:253:15)
+    at async TestRunner.runTest (C:\Users\aviad\OneDrive\Desktop\backv2-main\puppeteer-test-framework.js:116:7)
+    at async runInteractiveElementTests (C:\Users\aviad\OneDrive\Desktop\backv2-main\interactive-element-tests.js:297:7)</pre>
+            </div>
+          </div>
+        </div>
+      
+      
+      
+      
+      
+    </div>
+  
+  
+  <script>
+    var coll = document.getElementsByClassName("collapsible");
+    var i;
+
+    for (i = 0; i < coll.length; i++) {
+      coll[i].addEventListener("click", function() {
+        this.classList.toggle("active");
+        var content = this.nextElementSibling;
+        if (content.style.maxHeight){
+          content.style.maxHeight = null;
+        } else {
+          content.style.maxHeight = content.scrollHeight + "px";
+        } 
+      });
+    }
+  </script>
+</body>
+</html>

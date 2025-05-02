@@ -1,0 +1,46 @@
+{
+  "testId": "Test-04",
+  "testName": "Document Upload",
+  "date": "2025-04-28T07:31:25.604Z",
+  "steps": [
+    {
+      "step": 1,
+      "description": "Open the website",
+      "expectedResult": "Website loads successfully",
+      "actualResult": "Website loaded successfully",
+      "status": "Pass"
+    },
+    {
+      "step": 2,
+      "description": "Verify upload button is visible",
+      "expectedResult": "Upload button is visible",
+      "actualResult": "Upload button is visible (selector: a:has-text(\"Upload\"))",
+      "status": "Pass"
+    },
+    {
+      "step": 3,
+      "description": "Click upload button",
+      "expectedResult": "Upload dialog appears",
+      "actualResult": "Upload dialog did not appear",
+      "status": "Fail"
+    },
+    {
+      "step": 4,
+      "description": "Unexpected error",
+      "expectedResult": "No errors",
+      "actualResult": "Error: Upload dialog did not appear",
+      "status": "Fail"
+    }
+  ],
+  "issues": [
+    "Upload dialog did not appear",
+    "Unexpected error: Upload dialog did not appear"
+  ],
+  "screenshots": [
+    "test-04-step-01.png",
+    "test-04-step-02.png",
+    "test-04-step-03.png",
+    "test-04-error.png"
+  ],
+  "overallStatus": "Fail"
+}

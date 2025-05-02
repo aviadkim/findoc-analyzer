@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Documents - FinDoc Analyzer</title>
+  <link rel="stylesheet" href="/css/styles.css">
+  <style>
+    .documents-container {
+      margin-bottom: 2rem;
+    }
+    
+    .documents-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+    
+    .documents-actions {
+      display: flex;
+      gap: 0.5rem;
+    }
+    
+    .documents-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+    
+    .document-card {
+      background-color: white;
+      border-radius: 0.5rem;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      padding: 1.5rem;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    
+    .document-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+    
+    .document-icon {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      color: #4c6ef5;
+    }
+    
+    .document-name {
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+    
+    .document-meta {
+      font-size: 0.875rem;
+      color: #6c757d;
+      margin-bottom: 1rem;
+    }
+    
+    .document-actions {
+      display: flex;
+      justify-content: space-between;
+    }
+    
+    .document-status {
+      display: inline-block;
+      padding: 0.25rem 0.5rem;
+      border-radius: 0.25rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+    
+    .document-filters {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+    }
+    
+    .filter-group {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .filter-label {
+      font-weight: 500;
+    }
+    
+    .filter-select {
+      padding: 0.25rem 0.5rem;
+      border: 1px solid #ced4da;
+      border-radius: 0.25rem;
+    }
+    
+    .search-box {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    .search-input {
+      flex: 1;
+      padding: 0.5rem;
+      border: 1px solid #ced4da;
+      border-radius: 0.25rem;
+    }
+    
+    @media (max-width: 768px) {
+      .documents-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+      }
+      
+      .documents-actions {
+        width: 100%;
+      }
+      
+      .documents-actions button {
+        flex: 1;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <h1>FinDoc Analyzer</h1>
+    </div>
+    <div class="user-section">
+      <span id="user-info">Guest User</span>
+      <button id="logout-button">Logout</button>
+    </div>
+    <button id="mobile-nav-toggle" class="mobile-nav-toggle">â˜°</button>
+  </header>
+
+  <div id="error-container" class="error-container"></div>
+
+  <main>
+    <section id="main-section" class="main-section">
+      <div class="sidebar" id="sidebar">
+        <button id="sidebar-close" class="sidebar-close">âœ•</button>
+        <nav>
+          <ul>
+            <li><a href="/" class="nav-link">Dashboard</a></li>
+            <li><a href="/documents.html" class="nav-link active">Documents</a></li>
+            <li><a href="/analytics.html" class="nav-link">Analytics</a></li>
+            <li><a href="/financial.html" class="nav-link">Financial Analysis</a></li>
+            <li><a href="/reports.html" class="nav-link">Reports</a></li>
+            <li><a href="/portfolio.html" class="nav-link">Portfolio</a></li>
+            <li><a href="/chat.html" class="nav-link">Document Chat</a></li>
+            <li><a href="/processing.html" class="nav-link">Document Processing</a></li>
+            <li><a href="/agents.html" class="nav-link">Agent Configuration</a></li>
+            <li><a href="/extraction.html" class="nav-link">Data Extraction</a></li>
+            <li><a href="/comparison.html" class="nav-link">Document Comparison</a></li>
+            <li><a href="/templates.html" class="nav-link">Templates</a></li>
+            <li><a href="/batch.html" class="nav-link">Batch Processing</a></li>
+            <li><a href="/settings.html" class="nav-link">Settings</a></li>
+          </ul>
+        </nav>
+      </div>
+
+      <div class="content">
+        <h2>Documents</h2>
+        
+        <div class="documents-container">
+          <div class="documents-header">
+            <h3>My Documents</h3>
+            <div class="documents-actions">
+              <button class="primary-button" id="upload-document-button">Upload Document</button>
+              <button class="secondary-button">Import from URL</button>
+            </div>
+          </div>
+          
+          <div class="search-box">
+            <input type="text" class="search-input" placeholder="Search documents...">
+            <button class="primary-button">Search</button>
+          </div>
+          
+          <div class="document-filters">
+            <div class="filter-group">
+              <span class="filter-label">Type:</span>
+              <select class="filter-select">
+                <option value="all">All</option>
+                <option value="pdf">PDF</option>
+                <option value="excel">Excel</option>
+                <option value="word">Word</option>
+              </select>
+            </div>
+            
+            <div class="filter-group">
+              <span class="filter-label">Status:</span>
+              <select class="filter-select">
+                <option value="all">All</option>
+                <option value="processed">Processed</option>
+                <option value="pending">Pending</option>
+                <option value="failed">Failed</option>
+              </select>
+            </div>
+            
+            <div class="filter-group">
+              <span class="filter-label">Date:</span>
+              <select class="filter-select">
+                <option value="all">All Time</option>
+                <option value="today">Today</option>
+                <option value="week">This Week</option>
+                <option value="month">This Month</option>
+                <option value="year">This Year</option>
+              </select>
+            </div>
+          </div>
+          
+          <div class="documents-grid">
+            <div class="document-card">
+              <div class="document-icon">í³„</div>
+              <div class="document-name">Q3 Financial Report</div>
+              <div class="document-status status-processed">Processed</div>
+              <div class="document-meta">PDF â€¢ 2.5 MB â€¢ Uploaded just now</div>
+              <div class="document-actions">
+                <button class="secondary-button">View</button>
+                <button class="primary-button">Process</button>
+              </div>
+            </div>
+            
+            <div class="document-card">
+              <div class="document-icon">í³Š</div>
+              <div class="document-name">Investment Portfolio</div>
+              <div class="document-status status-processed">Processed</div>
+              <div class="document-meta">Excel â€¢ 1.2 MB â€¢ Uploaded 2 hours ago</div>
+              <div class="document-actions">
+                <button class="secondary-button">View</button>
+                <button class="primary-button">Process</button>
+              </div>
+            </div>
+            
+            <div class="document-card">
+              <div class="document-icon">í³„</div>
+              <div class="document-name">Annual Report</div>
+              <div class="document-status status-pending">Pending</div>
+              <div class="document-meta">PDF â€¢ 5.8 MB â€¢ Uploaded 5 hours ago</div>
+              <div class="document-actions">
+                <button class="secondary-button">View</button>
+                <button class="primary-button">Process</button>
+              </div>
+            </div>
+            
+            <div class="document-card">
+              <div class="document-icon">í³„</div>
+              <div class="document-name">Portfolio Statement</div>
+              <div class="document-status status-processed">Processed</div>
+              <div class="document-meta">PDF â€¢ 1.8 MB â€¢ Uploaded 1 day ago</div>
+              <div class="document-actions">
+                <button class="secondary-button">View</button>
+                <button class="primary-button">Process</button>
+              </div>
+            </div>
+            
+            <div class="document-card">
+              <div class="document-icon">í³Š</div>
+              <div class="document-name">Market Analysis</div>
+              <div class="document-status status-processed">Processed</div>
+              <div class="document-meta">Excel â€¢ 3.2 MB â€¢ Uploaded 2 days ago</div>
+              <div class="document-actions">
+                <button class="secondary-button">View</button>
+                <button class="primary-button">Process</button>
+              </div>
+            </div>
+            
+            <div class="document-card">
+              <div class="document-icon">í³„</div>
+              <div class="document-name">Investment Proposal</div>
+              <div class="document-status status-failed">Failed</div>
+              <div class="document-meta">PDF â€¢ 4.5 MB â€¢ Uploaded 3 days ago</div>
+              <div class="document-actions">
+                <button class="secondary-button">View</button>
+                <button class="primary-button">Process</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2023 FinDoc Analyzer. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // Mobile navigation
+    const mobileNavToggle = document.getElementById('mobile-nav-toggle');
+    const sidebar = document.getElementById('sidebar');
+    const sidebarClose = document.getElementById('sidebar-close');
+    const navLinks = document.querySelectorAll('.nav-link');
+
+    mobileNavToggle.addEventListener('click', () => {
+      sidebar.classList.add('active');
+      sidebarClose.style.display = 'block';
+    });
+
+    sidebarClose.addEventListener('click', () => {
+      sidebar.classList.remove('active');
+      sidebarClose.style.display = 'none';
+    });
+
+    navLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        if (window.innerWidth <= 768) {
+          sidebar.classList.remove('active');
+          sidebarClose.style.display = 'none';
+        }
+      });
+    });
+
+    // Upload document button
+    const uploadDocumentButton = document.getElementById('upload-document-button');
+    
+    uploadDocumentButton.addEventListener('click', () => {
+      window.location.href = '/processing.html';
+    });
+  </script>
+</body>
+</html>

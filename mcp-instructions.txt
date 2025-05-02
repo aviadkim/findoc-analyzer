@@ -1,0 +1,116 @@
+AUGMENT MCP CONFIGURATION INSTRUCTIONS
+=====================================
+
+Follow these steps to configure MCP servers in Augment:
+
+STEP 1: Open Augment
+- Launch the Augment application on your computer
+
+STEP 2: Go to Settings
+- Click on the gear icon or find "Settings" in the menu
+
+STEP 3: Find the MCP Section
+- Look for "MCP" or "Model Context Protocol" in the settings
+
+STEP 4: Add Each MCP Server One by One
+For each server, click "Add MCP Server" and enter the details below:
+
+1. GitHub MCP
+   Name: GitHub MCP
+   Command: npx -y @modelcontextprotocol/server-github
+   Environment Variables: 
+     Name: GITHUB_PERSONAL_ACCESS_TOKEN
+     Value: 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
+
+2. Brave Search MCP
+   Name: Brave Search MCP
+   Command: npx -y brave-search-mcp
+   Environment Variables: 
+     Name: BRAVE_API_KEY
+     Value: BSAN7HoBWjJOUG-zXVN8rkIGXpbsRtq
+
+3. Magic MCP
+   Name: Magic MCP
+   Command: npx -y @21st-dev/magic@latest
+   No environment variables needed
+
+4. SQLite MCP
+   Name: SQLite MCP
+   Command: npx -y @modelcontextprotocol/server-sqlite --db-path C:\Users\aviad\test.db
+   No environment variables needed
+
+5. Puppeteer MCP
+   Name: Puppeteer MCP
+   Command: npx -y @modelcontextprotocol/server-puppeteer
+   No environment variables needed
+
+6. Sequential Thinking MCP
+   Name: Sequential Thinking MCP
+   Command: npx -y @modelcontextprotocol/server-sequentialthinking
+   No environment variables needed
+
+7. Memory MCP
+   Name: Memory MCP
+   Command: npx -y @modelcontextprotocol/server-memory
+   No environment variables needed
+
+8. Firecrawl MCP
+   Name: Firecrawl MCP
+   Command: npx -y firecrawl-mcp
+   Environment Variables: 
+     Name: FIRECRAWL_API_KEY
+     Value: fc-857417811665460e92716b92e08ec398
+
+9. Supabase MCP
+   Name: Supabase MCP
+   Command: npx -y @supabase/mcp-server-supabase@latest --access-token sbp_cdcfec9d48c88f29d0e7c24a36cc450104b35055
+   No environment variables needed
+
+10. GitLab MCP
+    Name: GitLab MCP
+    Command: npx -y @modelcontextprotocol/server-gitlab
+    No environment variables needed (add token if you have one)
+
+11. PostgreSQL MCP
+    Name: PostgreSQL MCP
+    Command: npx -y @modelcontextprotocol/server-postgres
+    No environment variables needed
+
+12. Semgrep MCP
+    Name: Semgrep MCP
+    Command: python -m semgrep_mcp
+    No environment variables needed
+
+13. Browser Tools MCP
+    Name: Browser Tools MCP
+    Command: npx -y @agentdeskai/browser-tools-mcp@latest
+    No environment variables needed
+
+14. Neo4j MCP
+    Name: Neo4j MCP
+    Command: npx -y mcp-neo4j-server
+    No environment variables needed
+
+15. Elasticsearch MCP
+    Name: Elasticsearch MCP
+    Command: npx -y elasticsearch-mcp
+    No environment variables needed
+
+STEP 5: Save Your Configuration
+- Click "Save" or "Apply"
+- Restart Augment if needed
+
+STEP 6: Test the MCP Servers
+Try these example queries:
+- "Show me the latest commits in my repository" (GitHub)
+- "Search for information about React hooks" (Brave)
+- "Create a login form component" (Magic)
+- "Help me solve this complex problem step by step" (Sequential Thinking)
+- "Remember that I prefer using TypeScript for my projects" (Memory)
+
+IMPORTANT NOTES:
+- All MCP servers are set up in your MCP folder, not in backv2-main
+- This keeps your API keys safe from being exposed on GitHub
+- Some MCP servers may require additional API keys (see API keys guide)
+- If a server doesn't work, try installing it globally first:
+  npm install -g [package-name]

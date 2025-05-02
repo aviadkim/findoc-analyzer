@@ -1,0 +1,24 @@
+{
+    "summary":  {
+                    "failed":  1,
+                    "skipped":  1,
+                    "total":  2,
+                    "passed":  0
+                },
+    "endTime":  "2025-04-27T01:07:44",
+    "tests":  [
+                  {
+                      "status":  "failed",
+                      "timestamp":  "2025-04-27T01:07:44",
+                      "name":  "Authentication",
+                      "details":  "Could not obtain authentication token"
+                  },
+                  {
+                      "status":  "skipped",
+                      "timestamp":  "2025-04-27T01:07:44",
+                      "name":  "Analytics Tests",
+                      "details":  "No authentication token available"
+                  }
+              ],
+    "startTime":  "2025-04-27T01:07:44"
+}

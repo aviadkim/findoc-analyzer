@@ -1,0 +1,67 @@
+{
+  "testId": "Test-15",
+  "testName": "Document Chat Interface",
+  "date": "2025-04-28T07:31:52.713Z",
+  "steps": [
+    {
+      "step": 1,
+      "description": "Open the website",
+      "expectedResult": "Website loads successfully",
+      "actualResult": "Website loaded successfully",
+      "status": "Pass"
+    },
+    {
+      "step": 2,
+      "description": "Navigate to Document Chat",
+      "expectedResult": "Document Chat page loads",
+      "actualResult": "Document Chat page loaded",
+      "status": "Pass"
+    },
+    {
+      "step": 3,
+      "description": "Check if chat interface is visible",
+      "expectedResult": "Chat input field is visible",
+      "actualResult": "Chat input field is visible",
+      "status": "Pass"
+    },
+    {
+      "step": 4,
+      "description": "Check if document selection is available",
+      "expectedResult": "Document selection is available",
+      "actualResult": "Document selection is available (selector: .document-list)",
+      "status": "Pass"
+    },
+    {
+      "step": 5,
+      "description": "Check if there are any documents available",
+      "expectedResult": "Documents are available for chat",
+      "actualResult": "Documents are available",
+      "status": "Info"
+    },
+    {
+      "step": 6,
+      "description": "Try to type a question",
+      "expectedResult": "Question text can be entered",
+      "actualResult": "Question text was entered successfully",
+      "status": "Pass"
+    },
+    {
+      "step": 7,
+      "description": "Check for send button",
+      "expectedResult": "Send button is visible",
+      "actualResult": "Send button is visible",
+      "status": "Pass"
+    }
+  ],
+  "issues": [],
+  "screenshots": [
+    "test-15-step-01.png",
+    "test-15-step-02.png",
+    "test-15-step-03.png",
+    "test-15-step-04.png",
+    "test-15-step-05.png",
+    "test-15-step-06.png",
+    "test-15-step-07.png"
+  ],
+  "overallStatus": "Pass"
+}

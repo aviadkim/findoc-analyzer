@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reports - FinDoc Analyzer</title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <h1>FinDoc Analyzer</h1>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/analytics.html">Analytics</a></li>
+        <li><a href="/financial.html">Financial Analysis</a></li>
+        <li><a href="/reports.html">Reports</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <h2>Reports</h2>
+    <div id="reports-content">
+      <p>Loading reports...</p>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2023 FinDoc Analyzer. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // Fetch reports
+    fetch('/api/reports')
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          const content = document.getElementById('reports-content');
+          content.innerHTML = `
+            <h3>Available Reports</h3>
+            <ul>
+              ${data.data.map(report => `
+                <li>
+                  <h4>${report.name}</h4>
+                  <p>Type: ${report.type}</p>
+                  <p>Created: ${new Date(report.created_at).toLocaleString()}</p>
+                </li>
+              `).join('')}
+            </ul>
+          `;
+        } else {
+          console.error('Error fetching reports:', data.error);
+        }
+      })
+      .catch(error => {
+        console.error('Error fetching reports:', error);
+      });
+  </script>
+</body>
+</html>

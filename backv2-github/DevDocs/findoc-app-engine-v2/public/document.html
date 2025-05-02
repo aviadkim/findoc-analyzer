@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document Viewer - FinDoc Analyzer</title>
+  <link rel="stylesheet" href="/css/styles.css">
+  <style>
+    .document-viewer {
+      display: flex;
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .document-preview {
+      flex: 2;
+      background-color: #fff;
+      padding: 2rem;
+      border-radius: 0.5rem;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .document-info {
+      flex: 1;
+      background-color: #fff;
+      padding: 2rem;
+      border-radius: 0.5rem;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .document-preview iframe {
+      width: 100%;
+      height: 600px;
+      border: 1px solid #ddd;
+    }
+
+    .document-metadata {
+      margin-top: 1.5rem;
+    }
+
+    .document-metadata h3 {
+      margin-bottom: 0.5rem;
+      color: #2c3e50;
+    }
+
+    .metadata-item {
+      margin-bottom: 0.5rem;
+    }
+
+    .metadata-label {
+      font-weight: 600;
+    }
+
+    .securities-list {
+      margin-top: 1.5rem;
+    }
+
+    .security-item {
+      background-color: #f9f9f9;
+      padding: 1rem;
+      border-radius: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .chat-container {
+      margin-top: 2rem;
+    }
+
+    .processing-options {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .processing-option {
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      padding: 15px;
+      flex: 1;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .processing-option:hover {
+      border-color: #0066cc;
+      background-color: #f0f7ff;
+    }
+
+    .processing-option.selected {
+      border-color: #0066cc;
+      background-color: #e6f2ff;
+    }
+
+    .processing-option.disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .processing-option h3 {
+      margin-top: 0;
+      color: #333;
+    }
+
+    .processing-option p {
+      color: #666;
+      margin-bottom: 0;
+    }
+
+    .api-status {
+      margin-top: 20px;
+      padding: 15px;
+      border-radius: 5px;
+      background-color: #f5f5f5;
+    }
+
+    .api-status.available {
+      background-color: #dff0d8;
+      border: 1px solid #d6e9c6;
+      color: #3c763d;
+    }
+
+    .api-status.unavailable {
+      background-color: #f2dede;
+      border: 1px solid #ebccd1;
+      color: #a94442;
+    }
+
+    .api-status h3 {
+      margin-top: 0;
+    }
+
+    .api-status ul {
+      margin-bottom: 0;
+    }
+
+    @media (max-width: 768px) {
+      .document-viewer {
+        flex-direction: column;
+      }
+
+      .processing-options {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <h1>FinDoc Analyzer</h1>
+    </div>
+    <div class="user-section">
+      <span id="user-info"></span>
+      <button id="logout-button">Logout</button>
+    </div>
+  </header>
+
+  <div id="error-container" class="error-container"></div>
+
+  <main>
+    <div class="document-header">
+      <h2 id="document-title">Document Viewer</h2>
+      <div class="document-actions">
+        <button id="back-button">Back to Documents</button>
+        <button id="process-button">Process Document</button>
+        <button id="download-button">Download</button>
+      </div>
+    </div>
+
+    <div class="document-viewer">
+      <div class="document-preview">
+        <h3>Document Preview</h3>
+        <div id="preview-container">
+          <p>Loading preview...</p>
+        </div>
+      </div>
+
+      <div class="document-info">
+        <h3>Document Information</h3>
+        <div id="document-details">
+          <p>Loading document details...</p>
+        </div>
+
+        <div id="api-status" class="api-status" style="display: none;">
+          <h3>API Status</h3>
+          <div id="api-status-content"></div>
+        </div>
+
+        <div class="processing-options">
+          <div class="processing-option" data-processor="standard">
+            <h3>Standard Processing</h3>
+            <p>Basic document processing with metadata extraction</p>
+          </div>
+          <div class="processing-option" data-processor="scan1">
+            <h3>Scan1 Processing</h3>
+            <p>Enhanced PDF processing with securities extraction</p>
+          </div>
+        </div>
+
+        <div class="document-metadata">
+          <h3>Metadata</h3>
+          <div id="metadata-container">
+            <p>No metadata available</p>
+          </div>
+        </div>
+
+        <div class="securities-list">
+          <h3>Securities</h3>
+          <div id="securities-container">
+            <p>No securities found</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="chat-container">
+      <h3>Ask Questions About This Document</h3>
+      <div id="chat-messages" class="chat-messages"></div>
+      <form id="chat-form" class="chat-form">
+        <input type="text" id="chat-message" placeholder="Ask a question about this document..." required>
+        <button type="submit">Send</button>
+      </form>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2023 FinDoc Analyzer. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // API base URL
+    const API_BASE_URL = '/api';
+
+    // Authentication token
+    let authToken = localStorage.getItem('authToken');
+    let currentUser = JSON.parse(localStorage.getItem('currentUser') || 'null');
+
+    // Get document ID from URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const documentId = urlParams.get('id');
+
+    // DOM elements
+    const documentTitle = document.getElementById('document-title');
+    const previewContainer = document.getElementById('preview-container');
+    const documentDetails = document.getElementById('document-details');
+    const metadataContainer = document.getElementById('metadata-container');
+    const securitiesContainer = document.getElementById('securities-container');
+    const backButton = document.getElementById('back-button');
+    const processButton = document.getElementById('process-button');
+    const downloadButton = document.getElementById('download-button');
+    const chatForm = document.getElementById('chat-form');
+    const chatMessages = document.getElementById('chat-messages');
+    const userInfo = document.getElementById('user-info');
+    const logoutButton = document.getElementById('logout-button');
+    const errorContainer = document.getElementById('error-container');
+
+    /**
+     * Show error message
+     * @param {string} message - Error message
+     */
+    function showError(message) {
+      errorContainer.textContent = message;
+      errorContainer.style.display = 'block';
+      setTimeout(() => {
+        errorContainer.style.display = 'none';
+      }, 5000);
+    }
+
+    /**
+     * Make API request
+     * @param {string} endpoint - API endpoint
+     * @param {string} method - HTTP method
+     * @param {object} data - Request data
+     * @returns {Promise<object>} Response data
+     */
+    async function apiRequest(endpoint, method = 'GET', data = null) {
+      try {
+        const url = `${API_BASE_URL}${endpoint}`;
+        const options = {
+          method,
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        };
+
+        // Add authentication token if available
+        if (authToken) {
+          options.headers.Authorization = `Bearer ${authToken}`;
+        }
+
+        // Add request body if data is provided
+        if (data && method !== 'GET') {
+          options.body = JSON.stringify(data);
+        }
+
+        const response = await fetch(url, options);
+        const responseData = await response.json();
+
+        if (!response.ok) {
+          throw new Error(responseData.error || 'API request failed');
+        }
+
+        return responseData;
+      } catch (error) {
+        console.error('API request error:', error);
+        showError(error.message);
+        throw error;
+      }
+    }
+
+    /**
+     * Load document
+     */
+    async function loadDocument() {
+      if (!documentId) {
+        showError('Document ID is missing');
+        return;
+      }
+
+      try {
+        const response = await apiRequest(`/documents/${documentId}`);
+        const document = response.data;
+
+        // Update document title
+        documentTitle.textContent = document.name;
+
+        // Update document details
+        documentDetails.innerHTML = `
+          <div class="metadata-item">
+            <span class="metadata-label">Name:</span> ${document.name}
+          </div>
+          <div class="metadata-item">
+            <span class="metadata-label">Type:</span> ${document.type}
+          </div>
+          <div class="metadata-item">
+            <span class="metadata-label">Size:</span> ${formatFileSize(document.size)}
+          </div>
+          <div class="metadata-item">
+            <span class="metadata-label">Uploaded:</span> ${new Date(document.uploadedAt).toLocaleString()}
+          </div>
+          <div class="metadata-item">
+            <span class="metadata-label">Status:</span> ${document.status}
+          </div>
+        `;
+
+        // Update metadata
+        if (document.metadata && Object.keys(document.metadata).length > 0) {
+          metadataContainer.innerHTML = '';
+          for (const [key, value] of Object.entries(document.metadata)) {
+            if (key !== 'securities') {
+              const metadataItem = document.createElement('div');
+              metadataItem.className = 'metadata-item';
+              metadataItem.innerHTML = `
+                <span class="metadata-label">${formatKey(key)}:</span> ${formatValue(value)}
+              `;
+              metadataContainer.appendChild(metadataItem);
+            }
+          }
+        } else {
+          metadataContainer.innerHTML = '<p>No metadata available</p>';
+        }
+
+        // Update securities
+        if (document.metadata && document.metadata.securities && document.metadata.securities.length > 0) {
+          securitiesContainer.innerHTML = '';
+          document.metadata.securities.forEach(security => {
+            const securityItem = document.createElement('div');
+            securityItem.className = 'security-item';
+            securityItem.innerHTML = `
+              <div class="metadata-item">
+                <span class="metadata-label">Name:</span> ${security.name || 'N/A'}
+              </div>
+              <div class="metadata-item">
+                <span class="metadata-label">ISIN:</span> ${security.isin || 'N/A'}
+              </div>
+              <div class="metadata-item">
+                <span class="metadata-label">Quantity:</span> ${security.quantity || 'N/A'}
+              </div>
+              <div class="metadata-item">
+                <span class="metadata-label">Price:</span> ${security.price ? `${security.price} ${security.currency || ''}` : 'N/A'}
+              </div>
+              <div class="metadata-item">
+                <span class="metadata-label">Value:</span> ${security.value ? `${security.value} ${security.currency || ''}` : 'N/A'}
+              </div>
+            `;
+            securitiesContainer.appendChild(securityItem);
+          });
+        } else {
+          securitiesContainer.innerHTML = '<p>No securities found</p>';
+        }
+
+        // Load document preview
+        loadDocumentPreview(document);
+      } catch (error) {
+        console.error('Load document error:', error);
+        documentDetails.innerHTML = '<p>Error loading document</p>';
+      }
+    }
+
+    /**
+     * Load document preview
+     * @param {object} document - Document object
+     */
+    async function loadDocumentPreview(document) {
+      try {
+        // Get document preview
+        const response = await apiRequest(`/documents/${documentId}/preview`);
+        const preview = response.data;
+
+        // Update preview container based on preview type
+        if (preview.type === 'pdf') {
+          previewContainer.innerHTML = `
+            <iframe src="/api/documents/${documentId}/preview-image" title="${document.name}"></iframe>
+          `;
+        } else if (preview.type === 'image') {
+          previewContainer.innerHTML = `
+            <img src="/api/documents/${documentId}/preview-image" alt="${document.name}" style="max-width: 100%;">
+          `;
+        } else {
+          previewContainer.innerHTML = `
+            <div class="preview-placeholder">
+              <p>Preview not available for this document type</p>
+            </div>
+          `;
+        }
+      } catch (error) {
+        console.error('Load preview error:', error);
+        previewContainer.innerHTML = '<p>Error loading preview</p>';
+      }
+    }
+
+    /**
+     * Process document
+     */
+    async function processDocument() {
+      try {
+        // Update UI
+        processButton.disabled = true;
+        processButton.textContent = 'Processing...';
+
+        // Get selected processor
+        const selectedProcessor = document.querySelector('.processing-option.selected');
+        const processorType = selectedProcessor ? selectedProcessor.dataset.processor : 'standard';
+
+        if (processorType === 'scan1') {
+          // Process document with Scan1
+          await apiRequest(`/documents/${documentId}/scan1`, 'POST');
+        } else {
+          // Process document with standard processor
+          await apiRequest(`/documents/${documentId}/process`, 'POST');
+        }
+
+        // Reload document
+        await loadDocument();
+
+        // Update UI
+        processButton.disabled = false;
+        processButton.textContent = 'Process Document';
+      } catch (error) {
+        console.error('Process document error:', error);
+        processButton.disabled = false;
+        processButton.textContent = 'Process Document';
+      }
+    }
+
+    /**
+     * Check API status
+     */
+    async function checkApiStatus() {
+      try {
+        // Check Scan1 status
+        const scan1Response = await apiRequest('/documents/scan1/status');
+
+        // Check Gemini API status
+        const geminiResponse = await apiRequest('/documents/scan1/verify-gemini');
+
+        // Update API status
+        const apiStatusEl = document.getElementById('api-status');
+        const apiStatusContentEl = document.getElementById('api-status-content');
+
+        let html = '<ul>';
+
+        // Scan1 status
+        if (scan1Response.success && scan1Response.data.available) {
+          html += `<li>Scan1: <span style="color: green;">Available</span></li>`;
+
+          // Enable Scan1 processing option
+          document.querySelector('.processing-option[data-processor="scan1"]').classList.remove('disabled');
+        } else {
+          html += `<li>Scan1: <span style="color: red;">Unavailable</span></li>`;
+
+          // Disable Scan1 processing option
+          document.querySelector('.processing-option[data-processor="scan1"]').classList.add('disabled');
+        }
+
+        // Gemini API status
+        if (geminiResponse.success && geminiResponse.data.available) {
+          html += `<li>Gemini API: <span style="color: green;">Available</span></li>`;
+        } else {
+          html += `<li>Gemini API: <span style="color: red;">Unavailable</span> - ${geminiResponse.data.message || 'API key not found or invalid'}</li>`;
+        }
+
+        html += '</ul>';
+
+        apiStatusContentEl.innerHTML = html;
+        apiStatusEl.style.display = 'block';
+
+        if ((scan1Response.success && scan1Response.data.available) || (geminiResponse.success && geminiResponse.data.available)) {
+          apiStatusEl.classList.add('available');
+          apiStatusEl.classList.remove('unavailable');
+        } else {
+          apiStatusEl.classList.add('unavailable');
+          apiStatusEl.classList.remove('available');
+        }
+      } catch (error) {
+        console.error('Error checking API status:', error);
+
+        // Update API status
+        const apiStatusEl = document.getElementById('api-status');
+        const apiStatusContentEl = document.getElementById('api-status-content');
+
+        apiStatusContentEl.innerHTML = `<p>Error checking API status: ${error.message}</p>`;
+        apiStatusEl.style.display = 'block';
+        apiStatusEl.classList.add('unavailable');
+        apiStatusEl.classList.remove('available');
+      }
+    }
+
+    /**
+     * Download document
+     */
+    function downloadDocument() {
+      window.location.href = `/api/documents/${documentId}/download`;
+    }
+
+    /**
+     * Send chat message
+     * @param {string} message - Chat message
+     */
+    async function sendChatMessage(message) {
+      try {
+        // Add user message to chat
+        addChatMessage('user', message);
+
+        // Send message to API
+        const response = await apiRequest('/chat', 'POST', {
+          message,
+          documentId
+        });
+
+        // Add response to chat
+        addChatMessage('assistant', response.data.response);
+      } catch (error) {
+        console.error('Chat error:', error);
+        showError('Failed to send message: ' + error.message);
+      }
+    }
+
+    /**
+     * Add chat message to UI
+     * @param {string} role - Message role (user or assistant)
+     * @param {string} content - Message content
+     */
+    function addChatMessage(role, content) {
+      const messageElement = document.createElement('div');
+      messageElement.className = `chat-message ${role}-message`;
+      messageElement.innerHTML = `
+        <div class="message-content">${content}</div>
+      `;
+      chatMessages.appendChild(messageElement);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    /**
+     * Format file size
+     * @param {number} bytes - File size in bytes
+     * @returns {string} Formatted file size
+     */
+    function formatFileSize(bytes) {
+      if (bytes === 0) return '0 Bytes';
+      const k = 1024;
+      const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+      const i = Math.floor(Math.log(bytes) / Math.log(k));
+      return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+    }
+
+    /**
+     * Format metadata key
+     * @param {string} key - Metadata key
+     * @returns {string} Formatted key
+     */
+    function formatKey(key) {
+      return key
+        .replace(/([A-Z])/g, ' $1')
+        .replace(/^./, str => str.toUpperCase())
+        .trim();
+    }
+
+    /**
+     * Format metadata value
+     * @param {any} value - Metadata value
+     * @returns {string} Formatted value
+     */
+    function formatValue(value) {
+      if (value === null || value === undefined) {
+        return 'N/A';
+      } else if (typeof value === 'object') {
+        return JSON.stringify(value);
+      } else {
+        return value.toString();
+      }
+    }
+
+    /**
+     * Update user info
+     */
+    function updateUserInfo() {
+      if (currentUser) {
+        userInfo.textContent = `${currentUser.name} (${currentUser.email})`;
+        logoutButton.style.display = 'block';
+      } else {
+        userInfo.textContent = '';
+        logoutButton.style.display = 'none';
+      }
+    }
+
+    /**
+     * Logout user
+     */
+    function logout() {
+      // Clear authentication token and user data
+      authToken = null;
+      currentUser = null;
+
+      localStorage.removeItem('authToken');
+      localStorage.removeItem('currentUser');
+
+      // Redirect to home page
+      window.location.href = '/';
+    }
+
+    // Event listeners
+    backButton.addEventListener('click', () => {
+      window.location.href = '/';
+    });
+
+    processButton.addEventListener('click', () => {
+      processDocument();
+    });
+
+    downloadButton.addEventListener('click', () => {
+      downloadDocument();
+    });
+
+    chatForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const messageInput = document.getElementById('chat-message');
+      const message = messageInput.value.trim();
+
+      if (message) {
+        sendChatMessage(message);
+        messageInput.value = ''; // Clear input
+      }
+    });
+
+    logoutButton.addEventListener('click', () => {
+      logout();
+    });
+
+    /**
+     * Initialize processing options
+     */
+    function initProcessingOptions() {
+      const options = document.querySelectorAll('.processing-option');
+
+      options.forEach(option => {
+        option.addEventListener('click', () => {
+          // Skip if disabled
+          if (option.classList.contains('disabled')) {
+            return;
+          }
+
+          // Remove selected class from all options
+          options.forEach(opt => opt.classList.remove('selected'));
+
+          // Add selected class to clicked option
+          option.classList.add('selected');
+        });
+      });
+
+      // Select standard processing by default
+      document.querySelector('.processing-option[data-processor="standard"]').classList.add('selected');
+    }
+
+    // Check authentication
+    if (!authToken || !currentUser) {
+      window.location.href = '/';
+    } else {
+      // Initialize
+      updateUserInfo();
+      loadDocument();
+      checkApiStatus();
+      initProcessingOptions();
+    }
+  </script>
+</body>
+</html>

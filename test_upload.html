@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test PDF Upload</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input[type="file"] {
+            display: block;
+            margin-bottom: 10px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        #result {
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: #f9f9f9;
+            white-space: pre-wrap;
+            display: none;
+        }
+        #loading {
+            display: none;
+            margin-top: 20px;
+            text-align: center;
+        }
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #3498db;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 2s linear infinite;
+            margin: 0 auto;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <h1>Test PDF Upload and Processing</h1>
+    
+    <div class="form-group">
+        <label for="pdf-file">Select PDF File:</label>
+        <input type="file" id="pdf-file" accept=".pdf">
+    </div>
+    
+    <button id="upload-btn">Upload and Process</button>
+    
+    <div id="loading">
+        <p>Processing... This may take a few minutes.</p>
+        <div class="spinner"></div>
+    </div>
+    
+    <div id="result"></div>
+    
+    <script>
+        document.getElementById('upload-btn').addEventListener('click', async () => {
+            const fileInput = document.getElementById('pdf-file');
+            const resultDiv = document.getElementById('result');
+            const loadingDiv = document.getElementById('loading');
+            
+            if (!fileInput.files.length) {
+                alert('Please select a PDF file');
+                return;
+            }
+            
+            const file = fileInput.files[0];
+            const formData = new FormData();
+            formData.append('file', file);
+            
+            // Show loading spinner
+            loadingDiv.style.display = 'block';
+            resultDiv.style.display = 'none';
+            
+            try {
+                // Step 1: Upload the document
+                const uploadResponse = await fetch('https://findoc-deploy.ey.r.appspot.com/api/documents', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                const uploadData = await uploadResponse.json();
+                
+                if (!uploadData.success) {
+                    throw new Error(`Upload failed: ${uploadData.error}`);
+                }
+                
+                const documentId = uploadData.data.id;
+                console.log('Document uploaded successfully with ID:', documentId);
+                
+                // Step 2: Process the document
+                const processResponse = await fetch(`https://findoc-deploy.ey.r.appspot.com/api/documents/${documentId}/scan1`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        agents: ["Document Analyzer", "Table Understanding", "Securities Extractor", "Financial Reasoner"],
+                        tableExtraction: true,
+                        isinDetection: true,
+                        securityInfo: true,
+                        portfolioAnalysis: true,
+                        ocrScanned: false,
+                        outputFormat: 'json'
+                    })
+                });
+                
+                const processData = await processResponse.json();
+                
+                if (!processData.success) {
+                    throw new Error(`Processing failed: ${processData.error}`);
+                }
+                
+                console.log('Document processing initiated successfully');
+                
+                // Step 3: Poll for processing status
+                let status = 'processing';
+                let documentData = null;
+                
+                while (status === 'processing') {
+                    // Wait for 5 seconds
+                    await new Promise(resolve => setTimeout(resolve, 5000));
+                    
+                    // Check status
+                    const statusResponse = await fetch(`https://findoc-deploy.ey.r.appspot.com/api/documents/${documentId}`);
+                    const statusData = await statusResponse.json();
+                    
+                    if (!statusData.success) {
+                        throw new Error(`Failed to get status: ${statusData.error}`);
+                    }
+                    
+                    status = statusData.data.status;
+                    documentData = statusData.data;
+                    
+                    console.log('Current status:', status);
+                    
+                    if (status === 'error') {
+                        throw new Error('Processing failed with error');
+                    }
+                }
+                
+                // Step 4: Display results
+                resultDiv.textContent = JSON.stringify(documentData, null, 2);
+                resultDiv.style.display = 'block';
+                
+                // Step 5: Ask questions about the document
+                const questions = [
+                    "What is the total value of the portfolio?",
+                    "How many securities are in the portfolio?",
+                    "What is the ISIN of Apple Inc?",
+                    "What is the weight of Microsoft Corp in the portfolio?",
+                    "What is the asset allocation of the portfolio?"
+                ];
+                
+                const answers = [];
+                
+                for (const question of questions) {
+                    const answerResponse = await fetch(`https://findoc-deploy.ey.r.appspot.com/api/documents/${documentId}/ask`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            question
+                        })
+                    });
+                    
+                    const answerData = await answerResponse.json();
+                    
+                    if (answerData.success) {
+                        answers.push({
+                            question,
+                            answer: answerData.data.answer
+                        });
+                    }
+                }
+                
+                // Add answers to results
+                if (answers.length) {
+                    resultDiv.textContent += '\n\nQuestions & Answers:\n\n' + 
+                        answers.map(qa => `Q: ${qa.question}\nA: ${qa.answer}`).join('\n\n');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                resultDiv.textContent = `Error: ${error.message}`;
+                resultDiv.style.display = 'block';
+            } finally {
+                // Hide loading spinner
+                loadingDiv.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>

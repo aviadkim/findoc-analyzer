@@ -1,0 +1,50 @@
+{
+  "fileName": "test.csv",
+  "fileType": ".csv",
+  "processingDate": "2025-04-29T07:21:23.566Z",
+  "text": "Apple Inc. US0378331005 1000 $150.00 $175.00 7.0% Microsoft US5949181045 800 $250.00 $300.00 9.6% Amazon US0231351067 500 $120.00 $140.00 2.8%",
+  "tables": [
+    {
+      "id": "table-1",
+      "title": "CSV Data",
+      "headers": [
+        "Security",
+        "ISIN",
+        "Quantity",
+        "Acquisition Price",
+        "Current Value",
+        "% of Assets"
+      ],
+      "rows": [
+        [
+          "Apple Inc.",
+          "US0378331005",
+          "1000",
+          "$150.00",
+          "$175.00",
+          "7.0%"
+        ],
+        [
+          "Microsoft",
+          "US5949181045",
+          "800",
+          "$250.00",
+          "$300.00",
+          "9.6%"
+        ],
+        [
+          "Amazon",
+          "US0231351067",
+          "500",
+          "$120.00",
+          "$140.00",
+          "2.8%"
+        ]
+      ]
+    }
+  ],
+  "metadata": {
+    "rowCount": 3,
+    "columnCount": 6
+  }
+}

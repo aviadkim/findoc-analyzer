@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FinDoc Analyzer Architecture Analysis</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      color: #333;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    h1, h2, h3 {
+      color: #2c3e50;
+    }
+    .page-analysis {
+      margin-bottom: 40px;
+      padding: 20px;
+      background-color: #f8f9fa;
+      border-radius: 5px;
+    }
+    .screenshot {
+      max-width: 100%;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      margin-bottom: 20px;
+    }
+    .section {
+      margin-bottom: 20px;
+    }
+    .technology-badge {
+      display: inline-block;
+      padding: 5px 10px;
+      background-color: #e9ecef;
+      border-radius: 3px;
+      margin-right: 10px;
+      margin-bottom: 10px;
+    }
+    .technology-badge.detected {
+      background-color: #d4edda;
+      color: #155724;
+    }
+    .technology-badge.not-detected {
+      background-color: #f8d7da;
+      color: #721c24;
+    }
+    pre {
+      background-color: #f8f9fa;
+      padding: 10px;
+      border-radius: 5px;
+      overflow-x: auto;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+    th, td {
+      padding: 8px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+    th {
+      background-color: #f2f2f2;
+    }
+  </style>
+</head>
+<body>
+  <h1>FinDoc Analyzer Architecture Analysis</h1>
+  
+  <div class="section">
+    <h2>Summary</h2>
+    <p>This report analyzes the architecture of the deployed FinDoc Analyzer application.</p>
+    
+    <h3>Technologies Detected</h3>
+    <div>
+      <span class="technology-badge not-detected">
+        React: Not Detected
+      </span>
+      <span class="technology-badge not-detected">
+        Next.js: Not Detected
+      </span>
+    </div>
+    
+    <h3>Pages Analyzed</h3>
+    <ul>
+      <li><a href="#homepage">FinDoc Analyzer - Financial Document Analysis</a></li><li><a href="#documents.html">Documents - FinDoc Analyzer</a></li><li><a href="#analytics.html">Analytics - FinDoc Analyzer</a></li><li><a href="#upload.html">FinDoc Analyzer - Financial Document Analysis</a></li>
+    </ul>
+  </div>
+  
+  
+    <div id="homepage" class="page-analysis">
+      <h2>FinDoc Analyzer - Financial Document Analysis</h2>
+      <p><strong>URL:</strong> https://findoc-deploy.ey.r.appspot.com/</p>
+      
+      <div class="section">
+        <h3>Screenshot</h3>
+        <img src="01-homepage.png" alt="FinDoc Analyzer - Financial Document Analysis" class="screenshot">
+      </div>
+      
+      <div class="section">
+        <h3>Technologies</h3>
+        <p>
+          <span class="technology-badge not-detected">
+            React: Not Detected
+          </span>
+          <span class="technology-badge not-detected">
+            Next.js: Not Detected
+          </span>
+        </p>
+      </div>
+      
+      <div class="section">
+        <h3>Scripts</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Source</th>
+              <th>Type</th>
+              <th>Content</th>
+            </tr>
+          </thead>
+          <tbody>
+            
+              <tr>
+                <td>https://cdn.jsdelivr.net/npm/chart.js</td>
+                <td>text/javascript</td>
+                <td></td>
+              </tr>
+            
+              <tr>
+                <td>Inline</td>
+                <td>text/javascript</td>
+                <td><pre>
+    // Mobile navigation
+    const mobileNavToggle = document.getElementById('mobile-nav-toggle');
+...</pre></td>
+              </tr>
+            
+          </tbody>
+        </table>
+      </div>
+      
+      <div class="section">
+        <h3>Stylesheets</h3>
+        <ul>
+          <li>https://findoc-deploy.ey.r.appspot.com/css/styles.css</li><li>https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css</li>
+        </ul>
+      </div>
+      
+      <div class="section">
+        <h3>Navigation Links</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Text</th>
+              <th>URL</th>
+            </tr>
+          </thead>
+          <tbody>
+            
+              <tr>
+                <td>Dashboard</td>
+                <td>https://findoc-deploy.ey.r.appspot.com/</td>
+              </tr>
+            
+              <tr>
+                <td>Documents</td>
+                <td>https://findoc-deploy.ey.r.appspot.com/documents.html</td>
+              </tr>
+            
+              <tr>
+                <td>Analytics</td>
+                <td>https://findoc-deploy.ey.r.appspot.com/analytics.html</td>
+              </tr>
+            
+              <tr>
+                <td>Financial Analysis</td>
+                <td>https://findoc-deploy.ey.r.appspot.com/financial.html</td>
+              </tr>
+            
+              <tr>
+                <td>Portfolio</td>
+                <td>https://findoc-deploy.ey.r.appspot.com/portfolio.html</td>
+              </tr>
+            
+              <tr>
+                <td>Reports</td>
+                <td>https://findoc-deploy.ey.r.appspot.com/reports.html</td>
+              </tr>
+            
+              <tr>
+                <td>Document Chat</td>
+                <td>https://findoc-deploy.ey.r.appspot.com/chat.html</td>
+              </tr>
+            
+              <tr>
+                <td>Document Processing</td>
+                <td>https://findoc-deploy.ey.r.appspot.com/processing.html</td>
+              </tr>
+            
+              <tr>
+                <td>Agent Configuration</td>
+                <td>https://findoc-deploy.ey.r.appspot.com/agents.html</td>
+              </tr>
+            
+              <tr>
+                <td>Data Extraction</td>
+                <td>https://findoc-deploy.ey.r.appspot.com/extraction.html</td>
+              </tr>
+            
+          </tbody>
+        </table>
+      </div>
+    </div>
+  
+    <div id="documents.html" class="page-analysis">
+      <h2>Documents - FinDoc Analyzer</h2>
+      <p><strong>URL:</strong> https://findoc-deploy.ey.r.appspot.com/documents.html</p>
+      
+      <div class="section">
+        <h3>Screenshot</h3>
+        <img src="documents.html.png" alt="Documents - FinDoc Analyzer" class="screenshot">
+      </div>
+      
+      <div class="section">
+        <h3>Technologies</h3>
+        <p>
+          <span class="technology-badge not-detected">
+            React: Not Detected
+          </span>
+          <span class="technology-badge not-detected">
+            Next.js: Not Detected
+          </span>
+        </p>
+      </div>
+      
+      <div class="section">
+        <h3>Scripts</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Source</th>
+              <th>Type</th>
+              <th>Content</th>
+            </tr>
+          </thead>
+          <tbody>
+            
+              <tr>
+                <td>Inline</td>
+                <td>text/javascript</td>
+                <td><pre>
+    // Mobile navigation
+    const mobileNavToggle = document.getElementById('mobile-nav-toggle');
+...</pre></td>
+              </tr>
+            
+          </tbody>
+        </table>
+      </div>
+      
+      <div class="section">
+        <h3>Stylesheets</h3>
+        <ul>
+          <li>https://findoc-deploy.ey.r.appspot.com/css/styles.css</li>
+        </ul>
+      </div>
+      
+      <div class="section">
+        <h3>Navigation Links</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Text</th>
+              <th>URL</th>
+            </tr>
+          </thead>
+          <tbody>
+            
+              <tr>
+                <td>Dashboard</td>
+                <td>https://findoc-deploy.ey.r.appspot.com/</td>
+              </tr>
+            
+              <tr>
+                <td>Documents</td>
+                <td>https://findoc-deploy.ey.r.appspot.com/documents.html</td>
+              </tr>
+            
+              <tr>
+                <td>Analytics</td>
+                <td>https://findoc-deploy.ey.r.appspot.com/analytics.html</td>
+              </tr>
+            
+              <tr>
+                <td>Financial Analysis</td>
+                <td>https://findoc-deploy.ey.r.appspot.com/financial.html</td>
+              </tr>
+            
+              <tr>
+                <td>Reports</td>
+                <td>https://findoc-deploy.ey.r.appspot.com/reports.html</td>
+              </tr>
+            
+              <tr>
+                <td>Portfolio</td>
+                <td>https://findoc-deploy.ey.r.appspot.com/portfolio.html</td>
+              </tr>
+            
+              <tr>
+                <td>Document Chat</td>
+                <td>https://findoc-deploy.ey.r.appspot.com/chat.html</td>
+              </tr>
+            
+              <tr>
+                <td>Document Processing</td>
+                <td>https://findoc-deploy.ey.r.appspot.com/processing.html</td>
+              </tr>
+            
+              <tr>
+                <td>Agent Configuration</td>
+                <td>https://findoc-deploy.ey.r.appspot.com/agents.html</td>
+              </tr>
+            
+              <tr>
+                <td>Data Extraction</td>
+                <td>https://findoc-deploy.ey.r.appspot.com/extraction.html</td>
+              </tr>
+            
+          </tbody>
+        </table>
+      </div>
+    </div>
+  
+    <div id="analytics.html" class="page-analysis">
+      <h2>Analytics - FinDoc Analyzer</h2>
+      <p><strong>URL:</strong> https://findoc-deploy.ey.r.appspot.com/analytics.html</p>
+      
+      <div class="section">
+        <h3>Screenshot</h3>
+        <img src="analytics.html.png" alt="Analytics - FinDoc Analyzer" class="screenshot">
+      </div>
+      
+      <div class="section">
+        <h3>Technologies</h3>
+        <p>
+          <span class="technology-badge not-detected">
+            React: Not Detected
+          </span>
+          <span class="technology-badge not-detected">
+            Next.js: Not Detected
+          </span>
+        </p>
+      </div>
+      
+      <div class="section">
+        <h3>Scripts</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Source</th>
+              <th>Type</th>
+              <th>Content</th>
+            </tr>
+          </thead>
+          <tbody>
+            
+              <tr>
+                <td>Inline</td>
+                <td>text/javascript</td>
+                <td><pre>
+    // Fetch analytics data
+    fetch('/api/visualizations/dashboard')
+      .then(response => resp...</pre></td>
+              </tr>
+            
+          </tbody>
+        </table>
+      </div>
+      
+      <div class="section">
+        <h3>Stylesheets</h3>
+        <ul>
+          <li>https://findoc-deploy.ey.r.appspot.com/css/styles.css</li>
+        </ul>
+      </div>
+      
+      <div class="section">
+        <h3>Navigation Links</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Text</th>
+              <th>URL</th>
+            </tr>
+          </thead>
+          <tbody>
+            
+              <tr>
+                <td>Home</td>
+                <td>https://findoc-deploy.ey.r.appspot.com/</td>
+              </tr>
+            
+              <tr>
+                <td>Analytics</td>
+                <td>https://findoc-deploy.ey.r.appspot.com/analytics.html</td>
+              </tr>
+            
+              <tr>
+                <td>Financial Analysis</td>
+                <td>https://findoc-deploy.ey.r.appspot.com/financial.html</td>
+              </tr>
+            
+              <tr>
+                <td>Reports</td>
+                <td>https://findoc-deploy.ey.r.appspot.com/reports.html</td>
+              </tr>
+            
+          </tbody>
+        </table>
+      </div>
+    </div>
+  
+    <div id="upload.html" class="page-analysis">
+      <h2>FinDoc Analyzer - Financial Document Analysis</h2>
+      <p><strong>URL:</strong> https://findoc-deploy.ey.r.appspot.com/upload.html</p>
+      
+      <div class="section">
+        <h3>Screenshot</h3>
+        <img src="upload.html.png" alt="FinDoc Analyzer - Financial Document Analysis" class="screenshot">
+      </div>
+      
+      <div class="section">
+        <h3>Technologies</h3>
+        <p>
+          <span class="technology-badge not-detected">
+            React: Not Detected
+          </span>
+          <span class="technology-badge not-detected">
+            Next.js: Not Detected
+          </span>
+        </p>
+      </div>
+      
+      <div class="section">
+        <h3>Scripts</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Source</th>
+              <th>Type</th>
+              <th>Content</th>
+            </tr>
+          </thead>
+          <tbody>
+            
+              <tr>
+                <td>https://cdn.jsdelivr.net/npm/chart.js</td>
+                <td>text/javascript</td>
+                <td></td>
+              </tr>
+            
+              <tr>
+                <td>Inline</td>
+                <td>text/javascript</td>
+                <td><pre>
+    // Mobile navigation
+    const mobileNavToggle = document.getElementById('mobile-nav-toggle');
+...</pre></td>
+              </tr>
+            
+          </tbody>
+        </table>
+      </div>
+      
+      <div class="section">
+        <h3>Stylesheets</h3>
+        <ul>
+          <li>https://findoc-deploy.ey.r.appspot.com/css/styles.css</li><li>https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css</li>
+        </ul>
+      </div>
+      
+      <div class="section">
+        <h3>Navigation Links</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Text</th>
+              <th>URL</th>
+            </tr>
+          </thead>
+          <tbody>
+            
+              <tr>
+                <td>Dashboard</td>
+                <td>https://findoc-deploy.ey.r.appspot.com/</td>
+              </tr>
+            
+              <tr>
+                <td>Documents</td>
+                <td>https://findoc-deploy.ey.r.appspot.com/documents.html</td>
+              </tr>
+            
+              <tr>
+                <td>Analytics</td>
+                <td>https://findoc-deploy.ey.r.appspot.com/analytics.html</td>
+              </tr>
+            
+              <tr>
+                <td>Financial Analysis</td>
+                <td>https://findoc-deploy.ey.r.appspot.com/financial.html</td>
+              </tr>
+            
+              <tr>
+                <td>Portfolio</td>
+                <td>https://findoc-deploy.ey.r.appspot.com/portfolio.html</td>
+              </tr>
+            
+              <tr>
+                <td>Reports</td>
+                <td>https://findoc-deploy.ey.r.appspot.com/reports.html</td>
+              </tr>
+            
+              <tr>
+                <td>Document Chat</td>
+                <td>https://findoc-deploy.ey.r.appspot.com/chat.html</td>
+              </tr>
+            
+              <tr>
+                <td>Document Processing</td>
+                <td>https://findoc-deploy.ey.r.appspot.com/processing.html</td>
+              </tr>
+            
+              <tr>
+                <td>Agent Configuration</td>
+                <td>https://findoc-deploy.ey.r.appspot.com/agents.html</td>
+              </tr>
+            
+              <tr>
+                <td>Data Extraction</td>
+                <td>https://findoc-deploy.ey.r.appspot.com/extraction.html</td>
+              </tr>
+            
+          </tbody>
+        </table>
+      </div>
+    </div>
+  
+</body>
+</html>

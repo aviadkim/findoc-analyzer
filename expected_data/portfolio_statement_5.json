@@ -1,0 +1,201 @@
+{
+  "document_type": "portfolio_statement",
+  "securities": [
+    {
+      "name": "APPLE INC",
+      "isin": "US0378331005",
+      "type": "Equity",
+      "sector": "Technology",
+      "region": "North America",
+      "quantity": 250,
+      "price": 630.0163602394532,
+      "value": 157504.0900598633,
+      "weight": 3.6225111947041317,
+      "currency": "EUR"
+    },
+    {
+      "name": "JOHNSON & JOHNSON",
+      "isin": "US4781601046",
+      "type": "Equity",
+      "sector": "Healthcare",
+      "region": "North America",
+      "quantity": 560,
+      "price": 716.0291157534444,
+      "value": 400976.3048219289,
+      "weight": 9.206430451251943,
+      "currency": "EUR"
+    },
+    {
+      "name": "FRANCE 0.5% 25/05/2040",
+      "isin": "FR0013515806",
+      "type": "Bond",
+      "sector": "Government",
+      "region": "Europe",
+      "quantity": 2306.92,
+      "price": 102.14813493010112,
+      "value": 235647.57543294888,
+      "weight": 5.411208070018804,
+      "currency": "EUR"
+    },
+    {
+      "name": "FACEBOOK INC-CLASS A",
+      "isin": "US30303M1027",
+      "type": "Equity",
+      "sector": "Technology",
+      "region": "North America",
+      "quantity": 577,
+      "price": 741.5862219775183,
+      "value": 427895.2500810281,
+      "weight": 9.822502911962047,
+      "currency": "EUR"
+    },
+    {
+      "name": "US TREASURY 1.875% 15/02/2051",
+      "isin": "US912810SL35",
+      "type": "Bond",
+      "sector": "Government",
+      "region": "North America",
+      "quantity": 496.04,
+      "price": 103.45346377126374,
+      "value": 51317.05616909767,
+      "weight": 1.1783919156561158,
+      "currency": "CHF"
+    },
+    {
+      "name": "VISA INC-CLASS A",
+      "isin": "US92826C8394",
+      "type": "Equity",
+      "sector": "Financial",
+      "region": "North America",
+      "quantity": 351,
+      "price": 776.2629825352863,
+      "value": 272468.3068698855,
+      "weight": 6.2494247680463,
+      "currency": "JPY"
+    },
+    {
+      "name": "NOVARTIS AG-REG",
+      "isin": "CH0012005267",
+      "type": "Equity",
+      "sector": "Healthcare",
+      "region": "Europe",
+      "quantity": 266,
+      "price": 713.8675590592776,
+      "value": 189888.77070976785,
+      "weight": 4.358294633898279,
+      "currency": "EUR"
+    },
+    {
+      "name": "NVIDIA CORP",
+      "isin": "US67066G1040",
+      "type": "Equity",
+      "sector": "Technology",
+      "region": "North America",
+      "quantity": 1108,
+      "price": 412.1697780941191,
+      "value": 456684.114128284,
+      "weight": 10.491141004160836,
+      "currency": "EUR"
+    },
+    {
+      "name": "GOLDMAN SACHS 0% NOTES 23-07.11.29 SERIES P",
+      "isin": "XS2692298537",
+      "type": "Bond",
+      "sector": "Corporate",
+      "region": "North America",
+      "quantity": 3144.53,
+      "price": 98.51113638145912,
+      "value": 309771.2236855897,
+      "weight": 7.113317460889521,
+      "currency": "GBP"
+    },
+    {
+      "name": "ALPHABET INC-CL A",
+      "isin": "US02079K3059",
+      "type": "Equity",
+      "sector": "Technology",
+      "region": "North America",
+      "quantity": 5517,
+      "price": 82.83144919953138,
+      "value": 456981.1052338146,
+      "weight": 10.492834801111805,
+      "currency": "USD"
+    },
+    {
+      "name": "VANGUARD TOTAL BOND MARKET ETF",
+      "isin": "US9219378356",
+      "type": "Fund",
+      "sector": "Bond",
+      "region": "North America",
+      "quantity": 664,
+      "price": 725.2485255317955,
+      "value": 481565.0209531122,
+      "weight": 11.06213535542342,
+      "currency": "CHF"
+    },
+    {
+      "name": "JPMORGAN CHASE & CO",
+      "isin": "US46625H1005",
+      "type": "Equity",
+      "sector": "Financial",
+      "region": "North America",
+      "quantity": 178,
+      "price": 765.0773005281027,
+      "value": 136183.75949400227,
+      "weight": 3.127532821018744,
+      "currency": "USD"
+    },
+    {
+      "name": "TESLA INC",
+      "isin": "US88160R1014",
+      "type": "Equity",
+      "sector": "Consumer",
+      "region": "North America",
+      "quantity": 606,
+      "price": 516.683501321492,
+      "value": 313110.20180082414,
+      "weight": 7.191577467077456,
+      "currency": "JPY"
+    },
+    {
+      "name": "ISHARES CORE EURO STOXX 50 ETF",
+      "isin": "IE0008471009",
+      "type": "Fund",
+      "sector": "Equity",
+      "region": "Europe",
+      "quantity": 243,
+      "price": 967.7482492974307,
+      "value": 235162.82457927565,
+      "weight": 5.4001239000227175,
+      "currency": "GBP"
+    },
+    {
+      "name": "ISHARES CORE S&P 500 ETF",
+      "isin": "US4642872000",
+      "type": "Fund",
+      "sector": "Equity",
+      "region": "North America",
+      "quantity": 423,
+      "price": 542.679495808744,
+      "value": 229553.42672709873,
+      "weight": 5.272573244757874,
+      "currency": "EUR"
+    }
+  ],
+  "portfolio_summary": {
+    "total_value": 4354709.030746521,
+    "currency": "EUR",
+    "valuation_date": "29.11.2024"
+  },
+  "asset_allocation": {
+    "Equity": {
+      "percentage": 64.56
+    },
+    "Fixed Income": {
+      "percentage": 13.7
+    },
+    "Fund": {
+      "percentage": 21.73
+    }
+  }
+}

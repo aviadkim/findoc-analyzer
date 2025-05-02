@@ -1,0 +1,97 @@
+[
+  {
+    "url": "https://findoc-deploy.ey.r.appspot.com/",
+    "title": "FinDoc Analyzer - Financial Document Analysis",
+    "titleMatch": true,
+    "elementResults": [
+      {
+        "selector": ".sidebar",
+        "exists": true
+      },
+      {
+        "selector": ".main-content",
+        "exists": true
+      },
+      {
+        "selector": ".dashboard-header",
+        "exists": false
+      }
+    ]
+  },
+  {
+    "url": "https://findoc-deploy.ey.r.appspot.com/documents-new",
+    "title": "FinDoc Analyzer - Financial Document Analysis",
+    "titleMatch": true,
+    "elementResults": [
+      {
+        "selector": ".documents-page",
+        "exists": false
+      },
+      {
+        "selector": ".document-grid",
+        "exists": true
+      },
+      {
+        "selector": ".document-card",
+        "exists": true
+      }
+    ]
+  },
+  {
+    "url": "https://findoc-deploy.ey.r.appspot.com/analytics-new",
+    "title": "FinDoc Analyzer - Financial Document Analysis",
+    "titleMatch": true,
+    "elementResults": [
+      {
+        "selector": ".analytics-page",
+        "exists": false
+      },
+      {
+        "selector": ".analytics-header",
+        "exists": false
+      },
+      {
+        "selector": ".chart-container",
+        "exists": true
+      }
+    ]
+  },
+  {
+    "url": "https://findoc-deploy.ey.r.appspot.com/feedback",
+    "title": "FinDoc Analyzer - Financial Document Analysis",
+    "titleMatch": true,
+    "elementResults": [
+      {
+        "selector": ".feedback-page",
+        "exists": false
+      },
+      {
+        "selector": ".feedback-form",
+        "exists": false
+      },
+      {
+        "selector": ".rating-container",
+        "exists": false
+      }
+    ]
+  },
+  {
+    "url": "https://findoc-deploy.ey.r.appspot.com/document-comparison",
+    "title": "FinDoc Analyzer - Financial Document Analysis",
+    "titleMatch": true,
+    "elementResults": [
+      {
+        "selector": ".document-comparison-page",
+        "exists": false
+      },
+      {
+        "selector": ".comparison-container",
+        "exists": false
+      },
+      {
+        "selector": ".document-selection",
+        "exists": false
+      }
+    ]
+  }
+]

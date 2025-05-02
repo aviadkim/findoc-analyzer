@@ -1,0 +1,1452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FinDoc Analyzer UI Test Report</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      color: #333;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    h1, h2, h3 {
+      color: #2c3e50;
+    }
+    .page-test {
+      margin-bottom: 40px;
+      padding: 20px;
+      background-color: #f8f9fa;
+      border-radius: 5px;
+    }
+    .screenshot {
+      max-width: 100%;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      margin-bottom: 20px;
+    }
+    .section {
+      margin-bottom: 20px;
+    }
+    .result-badge {
+      display: inline-block;
+      padding: 5px 10px;
+      border-radius: 3px;
+      margin-right: 10px;
+      margin-bottom: 10px;
+    }
+    .result-badge.success {
+      background-color: #d4edda;
+      color: #155724;
+    }
+    .result-badge.failure {
+      background-color: #f8d7da;
+      color: #721c24;
+    }
+    .result-badge.warning {
+      background-color: #fff3cd;
+      color: #856404;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+    th, td {
+      padding: 8px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+    th {
+      background-color: #f2f2f2;
+    }
+    .progress-container {
+      width: 100%;
+      background-color: #f3f3f3;
+      border-radius: 4px;
+      margin-bottom: 10px;
+    }
+    .progress-bar {
+      height: 20px;
+      border-radius: 4px;
+      text-align: center;
+      line-height: 20px;
+      color: white;
+    }
+    .progress-bar.success {
+      background-color: #4caf50;
+    }
+    .progress-bar.warning {
+      background-color: #ff9800;
+    }
+    .progress-bar.failure {
+      background-color: #f44336;
+    }
+    .summary-card {
+      display: inline-block;
+      width: 30%;
+      margin-right: 1.5%;
+      padding: 15px;
+      border-radius: 5px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      margin-bottom: 20px;
+    }
+    .summary-card h3 {
+      margin-top: 0;
+    }
+    .summary-card.exists {
+      background-color: #e8f5e9;
+    }
+    .summary-card.visible {
+      background-color: #e3f2fd;
+    }
+    .summary-card.interactive {
+      background-color: #f3e5f5;
+    }
+  </style>
+</head>
+<body>
+  <h1>FinDoc Analyzer UI Test Report</h1>
+  
+  <div class="section">
+    <h2>Summary</h2>
+    <p>This report documents the results of testing all UI elements of the FinDoc Analyzer application.</p>
+    
+    <div class="summary-card exists">
+      <h3>Elements Exist</h3>
+      <div class="progress-container">
+        <div class="progress-bar failure" style="width: 18%">
+          18%
+        </div>
+      </div>
+      <p>11 of 61 elements exist</p>
+    </div>
+    
+    <div class="summary-card visible">
+      <h3>Elements Visible</h3>
+      <div class="progress-container">
+        <div class="progress-bar failure" style="width: 18%">
+          18%
+        </div>
+      </div>
+      <p>11 of 61 elements are visible</p>
+    </div>
+    
+    <div class="summary-card interactive">
+      <h3>Interactive Elements</h3>
+      <div class="progress-container">
+        <div class="progress-bar failure" style="width: 2%">
+          2%
+        </div>
+      </div>
+      <p>1 of 61 elements are interactive</p>
+    </div>
+    
+    <h3>Pages Tested</h3>
+    <ul>
+      <li><a href="#01-dashboard">https://findoc-deploy.ey.r.appspot.com/</a></li><li><a href="#02-documents">https://findoc-deploy.ey.r.appspot.com/documents-new</a></li><li><a href="#03-analytics">https://findoc-deploy.ey.r.appspot.com/analytics-new</a></li><li><a href="#04-feedback">https://findoc-deploy.ey.r.appspot.com/feedback</a></li><li><a href="#05-document-comparison">https://findoc-deploy.ey.r.appspot.com/document-comparison</a></li><li><a href="#06-upload">https://findoc-deploy.ey.r.appspot.com/upload</a></li>
+    </ul>
+  </div>
+  
+  
+    <div id="01-dashboard" class="page-test">
+      <h2>https://findoc-deploy.ey.r.appspot.com/</h2>
+      
+      <div class="section">
+        <h3>Screenshot</h3>
+        <img src="01-dashboard.png" alt="https://findoc-deploy.ey.r.appspot.com/" class="screenshot">
+      </div>
+      
+      <div class="section">
+        <h3>Elements</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Element</th>
+              <th>Description</th>
+              <th>Exists</th>
+              <th>Visible</th>
+              <th>Interaction</th>
+            </tr>
+          </thead>
+          <tbody>
+            
+              <tr>
+                <td>.sidebar</td>
+                <td>Sidebar</td>
+                <td>
+                  <span class="result-badge success">
+                    Yes
+                  </span>
+                </td>
+                <td>
+                  <span class="result-badge success">
+                    Yes
+                  </span>
+                </td>
+                <td>
+                  N/A
+                </td>
+              </tr>
+            
+              <tr>
+                <td>.sidebar-logo</td>
+                <td>Sidebar Logo</td>
+                <td>
+                  <span class="result-badge failure">
+                    No
+                  </span>
+                </td>
+                <td>
+                  <span class="result-badge failure">
+                    N/A
+                  </span>
+                </td>
+                <td>
+                  N/A
+                </td>
+              </tr>
+            
+              <tr>
+                <td>.sidebar-nav</td>
+                <td>Sidebar Navigation</td>
+                <td>
+                  <span class="result-badge success">
+                    Yes
+                  </span>
+                </td>
+                <td>
+                  <span class="result-badge success">
+                    Yes
+                  </span>
+                </td>
+                <td>
+                  N/A
+                </td>
+              </tr>
+            
+              <tr>
+                <td>.main-content</td>
+                <td>Main Content</td>
+                <td>
+                  <span class="result-badge success">
+                    Yes
+                  </span>
+                </td>
+                <td>
+                  <span class="result-badge success">
+                    Yes
+                  </span>
+                </td>
+                <td>
+                  N/A
+                </td>
+              </tr>
+            
+              <tr>
+                <td>.dashboard-page</td>
+                <td>Dashboard Page</td>
+                <td>
+                  <span class="result-badge failure">
+                    No
+                  </span>
+                </td>
+                <td>
+                  <span class="result-badge failure">
+                    N/A
+                  </span>
+                </td>
+                <td>
+                  N/A
+                </td>
+              </tr>
+            
+              <tr>
+                <td>.dashboard-content</td>
+                <td>Dashboard Content</td>
+                <td>
+                  <span class="result-badge failure">
+                    No
+                  </span>
+                </td>
+                <td>
+                  <span class="result-badge failure">
+                    N/A
+                  </span>
+                </td>
+                <td>
+                  N/A
+                </td>
+              </tr>
+            
+              <tr>
+                <td>.dashboard-card</td>
+                <td>Dashboard Card</td>
+                <td>
+                  <span class="result-badge failure">
+                    No
+                  </span>
+                </td>
+                <td>
+                  <span class="result-badge failure">
+                    N/A
+                  </span>
+                </td>
+                <td>
+                  N/A
+                </td>
+              </tr>
+            
+              <tr>
+                <td>.page-title</td>
+                <td>Page Title</td>
+                <td>
+                  <span class="result-badge failure">
+                    No
+                  </span>
+                </td>
+                <td>
+                  <span class="result-badge failure">
+                    N/A
+                  </span>
+                </td>
+                <td>
+                  N/A
+                </td>
+              </tr>
+            
+              <tr>
+                <td>.sidebar-nav a[href="/documents-new"]</td>
+                <td>Documents Link</td>
+                <td>
+                  <span class="result-badge failure">
+                    No
+                  </span>
+                </td>
+                <td>
+                  <span class="result-badge failure">
+                    N/A
+                  </span>
+                </td>
+                <td>
+                  
+                    <span class="result-badge failure">
+                      click: null
+                    </span>
+                  
+                </td>
+              </tr>
+            
+          </tbody>
+        </table>
+      </div>
+    </div>
+  
+    <div id="02-documents" class="page-test">
+      <h2>https://findoc-deploy.ey.r.appspot.com/documents-new</h2>
+      
+      <div class="section">
+        <h3>Screenshot</h3>
+        <img src="02-documents.png" alt="https://findoc-deploy.ey.r.appspot.com/documents-new" class="screenshot">
+      </div>
+      
+      <div class="section">
+        <h3>Elements</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Element</th>
+              <th>Description</th>
+              <th>Exists</th>
+              <th>Visible</th>
+              <th>Interaction</th>
+            </tr>
+          </thead>
+          <tbody>
+            
+              <tr>
+                <td>.documents-page</td>
+                <td>Documents Page</td>
+                <td>
+                  <span class="result-badge failure">
+                    No
+                  </span>
+                </td>
+                <td>
+                  <span class="result-badge failure">
+                    N/A
+                  </span>
+                </td>
+                <td>
+                  N/A
+                </td>
+              </tr>
+            
+              <tr>
+                <td>.page-header</td>
+                <td>Page Header</td>
+                <td>
+                  <span class="result-badge failure">
+                    No
+                  </span>
+                </td>
+                <td>
+                  <span class="result-badge failure">
+                    N/A
+                  </span>
+                </td>
+                <td>
+                  N/A
+                </td>
+              </tr>
+            
+              <tr>
+                <td>.page-title</td>
+                <td>Page Title</td>
+                <td>
+                  <span class="result-badge failure">
+                    No
+                  </span>
+                </td>
+                <td>
+                  <span class="result-badge failure">
+                    N/A
+                  </span>
+                </td>
+                <td>
+                  N/A
+                </td>
+              </tr>
+            
+              <tr>
+                <td>.document-grid</td>
+                <td>Document Grid</td>
+                <td>
+                  <span class="result-badge success">
+                    Yes
+                  </span>
+                </td>
+                <td>
+                  <span class="result-badge success">
+                    Yes
+                  </span>
+                </td>
+                <td>
+                  N/A
+                </td>
+              </tr>
+            
+              <tr>
+                <td>.document-card</td>
+                <td>Document Card</td>
+                <td>
+                  <span class="result-badge success">
+                    Yes
+                  </span>
+                </td>
+                <td>
+                  <span class="result-badge success">
+                    Yes
+                  </span>
+                </td>
+                <td>
+                  N/A
+                </td>
+              </tr>
+            
+              <tr>
+                <td>.document-card-header</td>
+                <td>Document Card Header</td>
+                <td>
+                  <span class="result-badge success">
+                    Yes
+                  </span>
+                </td>
+                <td>
+                  <span class="result-badge success">
+                    Yes
+                  </span>
+                </td>
+                <td>
+                  N/A
+                </td>
+              </tr>
+            
+              <tr>
+                <td>.document-card-body</td>
+                <td>Document Card Body</td>
+                <td>
+                  <span class="result-badge failure">
+                    No
+                  </span>
+                </td>
+                <td>
+                  <span class="result-badge failure">
+                    N/A
+                  </span>
+                </td>
+                <td>
+                  N/A
+                </td>
+              </tr>
+            
+              <tr>
+                <td>.document-card-footer</td>
+                <td>Document Card Footer</td>
+                <td>
+                  <span class="result-badge success">
+                    Yes
+                  </span>
+                </td>
+                <td>
+                  <span class="result-badge success">
+                    Yes
+                  </span>
+                </td>
+                <td>
+                  N/A
+                </td>
+              </tr>
+            
+              <tr>
+                <td>.upload-btn</td>
+                <td>Upload Button</td>
+                <td>
+                  <span class="result-badge success">
+                    Yes
+                  </span>
+                </td>
+                <td>
+                  <span class="result-badge success">
+                    Yes
+                  </span>
+                </td>
+                <td>
+                  
+                    <span class="result-badge success">
+                      click: success
+                    </span>
+                  
+                </td>
+              </tr>
+            
+          </tbody>
+        </table>
+      </div>
+    </div>
+  
+    <div id="03-analytics" class="page-test">
+      <h2>https://findoc-deploy.ey.r.appspot.com/analytics-new</h2>
+      
+      <div class="section">
+        <h3>Screenshot</h3>
+        <img src="03-analytics.png" alt="https://findoc-deploy.ey.r.appspot.com/analytics-new" class="screenshot">
+      </div>
+      
+      <div class="section">
+        <h3>Elements</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Element</th>
+              <th>Description</th>
+              <th>Exists</th>
+              <th>Visible</th>
+              <th>Interaction</th>
+            </tr>
+          </thead>
+          <tbody>
+            
+              <tr>
+                <td>.analytics-page</td>
+                <td>Analytics Page</td>
+                <td>
+                  <span class="result-badge failure">
+                    No
+                  </span>
+                </td>
+                <td>
+                  <span class="result-badge failure">
+                    N/A
+                  </span>
+                </td>
+                <td>
+                  N/A
+                </td>
+              </tr>
+            
+              <tr>
+                <td>.page-header</td>
+                <td>Page Header</td>
+                <td>
+                  <span class="result-badge failure">
+                    No
+                  </span>
+                </td>
+                <td>
+                  <span class="result-badge failure">
+                    N/A
+                  </span>
+                </td>
+                <td>
+                  N/A
+                </td>
+              </tr>
+            
+              <tr>
+                <td>.page-title</td>
+                <td>Page Title</td>
+                <td>
+                  <span class="result-badge failure">
+                    No
+                  </span>
+                </td>
+                <td>
+                  <span class="result-badge failure">
+                    N/A
+                  </span>
+                </td>
+                <td>
+                  N/A
+                </td>
+              </tr>
+            
+              <tr>
+                <td>.chart-container</td>
+                <td>Chart Container</td>
+                <td>
+                  <span class="result-badge success">
+                    Yes
+                  </span>
+                </td>
+                <td>
+                  <span class="result-badge success">
+                    Yes
+                  </span>
+                </td>
+                <td>
+                  N/A
+                </td>
+              </tr>
+            
+              <tr>
+                <td>.chart-placeholder</td>
+                <td>Chart Placeholder</td>
+                <td>
+                  <span class="result-badge failure">
+                    No
+                  </span>
+                </td>
+                <td>
+                  <span class="result-badge failure">
+                    N/A
+                  </span>
+                </td>
+                <td>
+                  N/A
+                </td>
+              </tr>
+            
+          </tbody>
+        </table>
+      </div>
+    </div>
+  
+    <div id="04-feedback" class="page-test">
+      <h2>https://findoc-deploy.ey.r.appspot.com/feedback</h2>
+      
+      <div class="section">
+        <h3>Screenshot</h3>
+        <img src="04-feedback.png" alt="https://findoc-deploy.ey.r.appspot.com/feedback" class="screenshot">
+      </div>
+      
+      <div class="section">
+        <h3>Elements</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Element</th>
+              <th>Description</th>
+              <th>Exists</th>
+              <th>Visible</th>
+              <th>Interaction</th>
+            </tr>
+          </thead>
+          <tbody>
+            
+              <tr>
+                <td>.feedback-page</td>
+                <td>Feedback Page</td>
+                <td>
+                  <span class="result-badge failure">
+                    No
+                  </span>
+                </td>
+                <td>
+                  <span class="result-badge failure">
+                    N/A
+                  </span>
+                </td>
+                <td>
+                  N/A
+                </td>
+              </tr>
+            
+              <tr>
+                <td>.page-title</td>
+                <td>Page Title</td>
+                <td>
+                  <span class="result-badge failure">
+                    No
+                  </span>
+                </td>
+                <td>
+                  <span class="result-badge failure">
+                    N/A
+                  </span>
+                </td>
+                <td>
+                  N/A
+                </td>
+              </tr>
+            
+              <tr>
+                <td>.page-description</td>
+                <td>Page Description</td>
+                <td>
+                  <span class="result-badge failure">
+                    No
+                  </span>
+                </td>
+                <td>
+                  <span class="result-badge failure">
+                    N/A
+                  </span>
+                </td>
+                <td>
+                  N/A
+                </td>
+              </tr>
+            
+              <tr>
+                <td>.feedback-form</td>
+                <td>Feedback Form</td>
+                <td>
+                  <span class="result-badge failure">
+                    No
+                  </span>
+                </td>
+                <td>
+                  <span class="result-badge failure">
+                    N/A
+                  </span>
+                </td>
+                <td>
+                  N/A
+                </td>
+              </tr>
+            
+              <tr>
+                <td>.form-group</td>
+                <td>Form Group</td>
+                <td>
+                  <span class="result-badge failure">
+                    No
+                  </span>
+                </td>
+                <td>
+                  <span class="result-badge failure">
+                    N/A
+                  </span>
+                </td>
+                <td>
+                  N/A
+                </td>
+              </tr>
+            
+              <tr>
+                <td>#name</td>
+                <td>Name Input</td>
+                <td>
+                  <span class="result-badge failure">
+                    No
+                  </span>
+                </td>
+                <td>
+                  <span class="result-badge failure">
+                    N/A
+                  </span>
+                </td>
+                <td>
+                  
+                    <span class="result-badge failure">
+                      input: null
+                    </span>
+                  
+                </td>
+              </tr>
+            
+              <tr>
+                <td>#email</td>
+                <td>Email Input</td>
+                <td>
+                  <span class="result-badge failure">
+                    No
+                  </span>
+                </td>
+                <td>
+                  <span class="result-badge failure">
+                    N/A
+                  </span>
+                </td>
+                <td>
+                  
+                    <span class="result-badge failure">
+                      input: null
+                    </span>
+                  
+                </td>
+              </tr>
+            
+              <tr>
+                <td>#feedbackType</td>
+                <td>Feedback Type Select</td>
+                <td>
+                  <span class="result-badge failure">
+                    No
+                  </span>
+                </td>
+                <td>
+                  <span class="result-badge failure">
+                    N/A
+                  </span>
+                </td>
+                <td>
+                  
+                    <span class="result-badge failure">
+                      select: null
+                    </span>
+                  
+                </td>
+              </tr>
+            
+              <tr>
+                <td>.rating-container</td>
+                <td>Rating Container</td>
+                <td>
+                  <span class="result-badge failure">
+                    No
+                  </span>
+                </td>
+                <td>
+                  <span class="result-badge failure">
+                    N/A
+                  </span>
+                </td>
+                <td>
+                  N/A
+                </td>
+              </tr>
+            
+              <tr>
+                <td>.rating-btn</td>
+                <td>Rating Button</td>
+                <td>
+                  <span class="result-badge failure">
+                    No
+                  </span>
+                </td>
+                <td>
+                  <span class="result-badge failure">
+                    N/A
+                  </span>
+                </td>
+                <td>
+                  
+                    <span class="result-badge failure">
+                      click: null
+                    </span>
+                  
+                </td>
+              </tr>
+            
+              <tr>
+                <td>#message</td>
+                <td>Message Textarea</td>
+                <td>
+                  <span class="result-badge failure">
+                    No
+                  </span>
+                </td>
+                <td>
+                  <span class="result-badge failure">
+                    N/A
+                  </span>
+                </td>
+                <td>
+                  
+                    <span class="result-badge failure">
+                      input: null
+                    </span>
+                  
+                </td>
+              </tr>
+            
+              <tr>
+                <td>.submit-btn</td>
+                <td>Submit Button</td>
+                <td>
+                  <span class="result-badge failure">
+                    No
+                  </span>
+                </td>
+                <td>
+                  <span class="result-badge failure">
+                    N/A
+                  </span>
+                </td>
+                <td>
+                  N/A
+                </td>
+              </tr>
+            
+          </tbody>
+        </table>
+      </div>
+    </div>
+  
+    <div id="05-document-comparison" class="page-test">
+      <h2>https://findoc-deploy.ey.r.appspot.com/document-comparison</h2>
+      
+      <div class="section">
+        <h3>Screenshot</h3>
+        <img src="05-document-comparison.png" alt="https://findoc-deploy.ey.r.appspot.com/document-comparison" class="screenshot">
+      </div>
+      
+      <div class="section">
+        <h3>Elements</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Element</th>
+              <th>Description</th>
+              <th>Exists</th>
+              <th>Visible</th>
+              <th>Interaction</th>
+            </tr>
+          </thead>
+          <tbody>
+            
+              <tr>
+                <td>.document-comparison-page</td>
+                <td>Document Comparison Page</td>
+                <td>
+                  <span class="result-badge failure">
+                    No
+                  </span>
+                </td>
+                <td>
+                  <span class="result-badge failure">
+                    N/A
+                  </span>
+                </td>
+                <td>
+                  N/A
+                </td>
+              </tr>
+            
+              <tr>
+                <td>.page-title</td>
+                <td>Page Title</td>
+                <td>
+                  <span class="result-badge failure">
+                    No
+                  </span>
+                </td>
+                <td>
+                  <span class="result-badge failure">
+                    N/A
+                  </span>
+                </td>
+                <td>
+                  N/A
+                </td>
+              </tr>
+            
+              <tr>
+                <td>.page-description</td>
+                <td>Page Description</td>
+                <td>
+                  <span class="result-badge failure">
+                    No
+                  </span>
+                </td>
+                <td>
+                  <span class="result-badge failure">
+                    N/A
+                  </span>
+                </td>
+                <td>
+                  N/A
+                </td>
+              </tr>
+            
+              <tr>
+                <td>.comparison-container</td>
+                <td>Comparison Container</td>
+                <td>
+                  <span class="result-badge failure">
+                    No
+                  </span>
+                </td>
+                <td>
+                  <span class="result-badge failure">
+                    N/A
+                  </span>
+                </td>
+                <td>
+                  N/A
+                </td>
+              </tr>
+            
+              <tr>
+                <td>.document-selection</td>
+                <td>Document Selection</td>
+                <td>
+                  <span class="result-badge failure">
+                    No
+                  </span>
+                </td>
+                <td>
+                  <span class="result-badge failure">
+                    N/A
+                  </span>
+                </td>
+                <td>
+                  N/A
+                </td>
+              </tr>
+            
+              <tr>
+                <td>.selection-header</td>
+                <td>Selection Header</td>
+                <td>
+                  <span class="result-badge failure">
+                    No
+                  </span>
+                </td>
+                <td>
+                  <span class="result-badge failure">
+                    N/A
+                  </span>
+                </td>
+                <td>
+                  N/A
+                </td>
+              </tr>
+            
+              <tr>
+                <td>.search-box</td>
+                <td>Search Box</td>
+                <td>
+                  <span class="result-badge success">
+                    Yes
+                  </span>
+                </td>
+                <td>
+                  <span class="result-badge success">
+                    Yes
+                  </span>
+                </td>
+                <td>
+                  N/A
+                </td>
+              </tr>
+            
+              <tr>
+                <td>.document-list</td>
+                <td>Document List</td>
+                <td>
+                  <span class="result-badge failure">
+                    No
+                  </span>
+                </td>
+                <td>
+                  <span class="result-badge failure">
+                    N/A
+                  </span>
+                </td>
+                <td>
+                  N/A
+                </td>
+              </tr>
+            
+              <tr>
+                <td>.document-item</td>
+                <td>Document Item</td>
+                <td>
+                  <span class="result-badge failure">
+                    No
+                  </span>
+                </td>
+                <td>
+                  <span class="result-badge failure">
+                    N/A
+                  </span>
+                </td>
+                <td>
+                  
+                    <span class="result-badge failure">
+                      click: null
+                    </span>
+                  
+                </td>
+              </tr>
+            
+              <tr>
+                <td>.selection-actions</td>
+                <td>Selection Actions</td>
+                <td>
+                  <span class="result-badge failure">
+                    No
+                  </span>
+                </td>
+                <td>
+                  <span class="result-badge failure">
+                    N/A
+                  </span>
+                </td>
+                <td>
+                  N/A
+                </td>
+              </tr>
+            
+              <tr>
+                <td>.compare-btn</td>
+                <td>Compare Button</td>
+                <td>
+                  <span class="result-badge failure">
+                    No
+                  </span>
+                </td>
+                <td>
+                  <span class="result-badge failure">
+                    N/A
+                  </span>
+                </td>
+                <td>
+                  N/A
+                </td>
+              </tr>
+            
+              <tr>
+                <td>.comparison-results</td>
+                <td>Comparison Results</td>
+                <td>
+                  <span class="result-badge failure">
+                    No
+                  </span>
+                </td>
+                <td>
+                  <span class="result-badge failure">
+                    N/A
+                  </span>
+                </td>
+                <td>
+                  N/A
+                </td>
+              </tr>
+            
+          </tbody>
+        </table>
+      </div>
+    </div>
+  
+    <div id="06-upload" class="page-test">
+      <h2>https://findoc-deploy.ey.r.appspot.com/upload</h2>
+      
+      <div class="section">
+        <h3>Screenshot</h3>
+        <img src="06-upload.png" alt="https://findoc-deploy.ey.r.appspot.com/upload" class="screenshot">
+      </div>
+      
+      <div class="section">
+        <h3>Elements</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Element</th>
+              <th>Description</th>
+              <th>Exists</th>
+              <th>Visible</th>
+              <th>Interaction</th>
+            </tr>
+          </thead>
+          <tbody>
+            
+              <tr>
+                <td>.upload-page</td>
+                <td>Upload Page</td>
+                <td>
+                  <span class="result-badge failure">
+                    No
+                  </span>
+                </td>
+                <td>
+                  <span class="result-badge failure">
+                    N/A
+                  </span>
+                </td>
+                <td>
+                  N/A
+                </td>
+              </tr>
+            
+              <tr>
+                <td>.page-title</td>
+                <td>Page Title</td>
+                <td>
+                  <span class="result-badge failure">
+                    No
+                  </span>
+                </td>
+                <td>
+                  <span class="result-badge failure">
+                    N/A
+                  </span>
+                </td>
+                <td>
+                  N/A
+                </td>
+              </tr>
+            
+              <tr>
+                <td>.page-description</td>
+                <td>Page Description</td>
+                <td>
+                  <span class="result-badge failure">
+                    No
+                  </span>
+                </td>
+                <td>
+                  <span class="result-badge failure">
+                    N/A
+                  </span>
+                </td>
+                <td>
+                  N/A
+                </td>
+              </tr>
+            
+              <tr>
+                <td>.upload-container</td>
+                <td>Upload Container</td>
+                <td>
+                  <span class="result-badge failure">
+                    No
+                  </span>
+                </td>
+                <td>
+                  <span class="result-badge failure">
+                    N/A
+                  </span>
+                </td>
+                <td>
+                  N/A
+                </td>
+              </tr>
+            
+              <tr>
+                <td>.upload-area</td>
+                <td>Upload Area</td>
+                <td>
+                  <span class="result-badge failure">
+                    No
+                  </span>
+                </td>
+                <td>
+                  <span class="result-badge failure">
+                    N/A
+                  </span>
+                </td>
+                <td>
+                  N/A
+                </td>
+              </tr>
+            
+              <tr>
+                <td>.upload-icon</td>
+                <td>Upload Icon</td>
+                <td>
+                  <span class="result-badge failure">
+                    No
+                  </span>
+                </td>
+                <td>
+                  <span class="result-badge failure">
+                    N/A
+                  </span>
+                </td>
+                <td>
+                  N/A
+                </td>
+              </tr>
+            
+              <tr>
+                <td>.upload-btn</td>
+                <td>Upload Button</td>
+                <td>
+                  <span class="result-badge success">
+                    Yes
+                  </span>
+                </td>
+                <td>
+                  <span class="result-badge success">
+                    Yes
+                  </span>
+                </td>
+                <td>
+                  N/A
+                </td>
+              </tr>
+            
+              <tr>
+                <td>#file-input</td>
+                <td>File Input</td>
+                <td>
+                  <span class="result-badge failure">
+                    No
+                  </span>
+                </td>
+                <td>
+                  <span class="result-badge failure">
+                    N/A
+                  </span>
+                </td>
+                <td>
+                  N/A
+                </td>
+              </tr>
+            
+              <tr>
+                <td>.upload-options</td>
+                <td>Upload Options</td>
+                <td>
+                  <span class="result-badge failure">
+                    No
+                  </span>
+                </td>
+                <td>
+                  <span class="result-badge failure">
+                    N/A
+                  </span>
+                </td>
+                <td>
+                  N/A
+                </td>
+              </tr>
+            
+              <tr>
+                <td>#document-type</td>
+                <td>Document Type Select</td>
+                <td>
+                  <span class="result-badge failure">
+                    No
+                  </span>
+                </td>
+                <td>
+                  <span class="result-badge failure">
+                    N/A
+                  </span>
+                </td>
+                <td>
+                  
+                    <span class="result-badge failure">
+                      select: null
+                    </span>
+                  
+                </td>
+              </tr>
+            
+              <tr>
+                <td>.checkbox-group</td>
+                <td>Checkbox Group</td>
+                <td>
+                  <span class="result-badge failure">
+                    No
+                  </span>
+                </td>
+                <td>
+                  <span class="result-badge failure">
+                    N/A
+                  </span>
+                </td>
+                <td>
+                  N/A
+                </td>
+              </tr>
+            
+              <tr>
+                <td>#extract-text</td>
+                <td>Extract Text Checkbox</td>
+                <td>
+                  <span class="result-badge failure">
+                    No
+                  </span>
+                </td>
+                <td>
+                  <span class="result-badge failure">
+                    N/A
+                  </span>
+                </td>
+                <td>
+                  N/A
+                </td>
+              </tr>
+            
+              <tr>
+                <td>.upload-history</td>
+                <td>Upload History</td>
+                <td>
+                  <span class="result-badge failure">
+                    No
+                  </span>
+                </td>
+                <td>
+                  <span class="result-badge failure">
+                    N/A
+                  </span>
+                </td>
+                <td>
+                  N/A
+                </td>
+              </tr>
+            
+              <tr>
+                <td>.upload-table</td>
+                <td>Upload Table</td>
+                <td>
+                  <span class="result-badge failure">
+                    No
+                  </span>
+                </td>
+                <td>
+                  <span class="result-badge failure">
+                    N/A
+                  </span>
+                </td>
+                <td>
+                  N/A
+                </td>
+              </tr>
+            
+          </tbody>
+        </table>
+      </div>
+    </div>
+  
+</body>
+</html>

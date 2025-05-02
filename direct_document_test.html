@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Direct Document Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1, h2 {
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input[type="text"],
+        input[type="file"],
+        textarea {
+            display: block;
+            margin-bottom: 10px;
+        }
+        input[type="text"],
+        textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        textarea {
+            height: 100px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        #result {
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: #f9f9f9;
+            white-space: pre-wrap;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        #loading {
+            display: none;
+            margin-top: 20px;
+            text-align: center;
+        }
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #3498db;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 2s linear infinite;
+            margin: 0 auto;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .status {
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 4px;
+        }
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .info {
+            background-color: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+        #log {
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: #f9f9f9;
+            height: 200px;
+            overflow-y: auto;
+            font-family: monospace;
+            font-size: 12px;
+        }
+        .tab {
+            overflow: hidden;
+            border: 1px solid #ccc;
+            background-color: #f1f1f1;
+            border-radius: 4px 4px 0 0;
+        }
+        .tab button {
+            background-color: inherit;
+            float: left;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            padding: 10px 16px;
+            transition: 0.3s;
+            color: #333;
+        }
+        .tab button:hover {
+            background-color: #ddd;
+        }
+        .tab button.active {
+            background-color: #4CAF50;
+            color: white;
+        }
+        .tabcontent {
+            display: none;
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-top: none;
+            border-radius: 0 0 4px 4px;
+        }
+        .visible {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <h1>Direct Document Test</h1>
+    
+    <div class="form-group">
+        <label for="pdf-file">Select PDF File:</label>
+        <input type="file" id="pdf-file" accept=".pdf">
+    </div>
+    
+    <div class="form-group">
+        <label for="document-name">Document Name:</label>
+        <input type="text" id="document-name" placeholder="Enter document name" value="Test Document">
+    </div>
+    
+    <div class="form-group">
+        <label for="document-type">Document Type:</label>
+        <input type="text" id="document-type" placeholder="Enter document type" value="financial_statement">
+    </div>
+    
+    <div class="form-group">
+        <label for="custom-headers">Custom Headers (JSON):</label>
+        <textarea id="custom-headers" placeholder='{"X-Test-Mode": "true"}'></textarea>
+    </div>
+    
+    <div class="form-group">
+        <label>Processing Options:</label>
+        <div>
+            <input type="checkbox" id="option-ocr" checked>
+            <label for="option-ocr" style="display: inline;">Enable OCR</label>
+        </div>
+        <div>
+            <input type="checkbox" id="option-tables" checked>
+            <label for="option-tables" style="display: inline;">Extract Tables</label>
+        </div>
+        <div>
+            <input type="checkbox" id="option-isin" checked>
+            <label for="option-isin" style="display: inline;">Detect ISINs</label>
+        </div>
+        <div>
+            <input type="checkbox" id="option-security" checked>
+            <label for="option-security" style="display: inline;">Extract Security Info</label>
+        </div>
+        <div>
+            <input type="checkbox" id="option-portfolio" checked>
+            <label for="option-portfolio" style="display: inline;">Portfolio Analysis</label>
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <label>Agents to Use:</label>
+        <div>
+            <input type="checkbox" id="agent-document" checked>
+            <label for="agent-document" style="display: inline;">Document Analyzer</label>
+        </div>
+        <div>
+            <input type="checkbox" id="agent-table" checked>
+            <label for="agent-table" style="display: inline;">Table Understanding</label>
+        </div>
+        <div>
+            <input type="checkbox" id="agent-securities" checked>
+            <label for="agent-securities" style="display: inline;">Securities Extractor</label>
+        </div>
+        <div>
+            <input type="checkbox" id="agent-financial" checked>
+            <label for="agent-financial" style="display: inline;">Financial Reasoner</label>
+        </div>
+    </div>
+    
+    <button id="process-btn">Upload and Process</button>
+    
+    <div id="loading">
+        <p>Processing... This may take a few minutes.</p>
+        <div class="spinner"></div>
+    </div>
+    
+    <div id="log"></div>
+    
+    <div id="result-container" style="display: none; margin-top: 20px;">
+        <div class="tab">
+            <button class="tablink active" onclick="openTab(event, 'result-json')">JSON Result</button>
+            <button class="tablink" onclick="openTab(event, 'result-text')">Extracted Text</button>
+            <button class="tablink" onclick="openTab(event, 'result-tables')">Tables</button>
+            <button class="tablink" onclick="openTab(event, 'result-securities')">Securities</button>
+            <button class="tablink" onclick="openTab(event, 'result-qa')">Q&A</button>
+        </div>
+        
+        <div id="result-json" class="tabcontent visible"></div>
+        <div id="result-text" class="tabcontent"></div>
+        <div id="result-tables" class="tabcontent"></div>
+        <div id="result-securities" class="tabcontent"></div>
+        <div id="result-qa" class="tabcontent"></div>
+    </div>
+    
+    <script>
+        // Log function
+        function log(message) {
+            const logElement = document.getElementById('log');
+            const timestamp = new Date().toLocaleTimeString();
+            logElement.innerHTML += `[${timestamp}] ${message}<br>`;
+            logElement.scrollTop = logElement.scrollHeight;
+        }
+        
+        // Open tab function
+        function openTab(evt, tabName) {
+            // Hide all tab content
+            const tabcontent = document.getElementsByClassName("tabcontent");
+            for (let i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].classList.remove("visible");
+            }
+            
+            // Remove active class from all tab links
+            const tablinks = document.getElementsByClassName("tablink");
+            for (let i = 0; i < tablinks.length; i++) {
+                tablinks[i].classList.remove("active");
+            }
+            
+            // Show the current tab and add active class to the button
+            document.getElementById(tabName).classList.add("visible");
+            evt.currentTarget.classList.add("active");
+        }
+        
+        // Process button click handler
+        document.getElementById('process-btn').addEventListener('click', async () => {
+            const fileInput = document.getElementById('pdf-file');
+            const documentName = document.getElementById('document-name').value;
+            const documentType = document.getElementById('document-type').value;
+            const customHeadersText = document.getElementById('custom-headers').value;
+            const loadingElement = document.getElementById('loading');
+            const resultContainer = document.getElementById('result-container');
+            
+            if (!fileInput.files.length) {
+                log('Please select a PDF file');
+                return;
+            }
+            
+            if (!documentName) {
+                log('Please enter a document name');
+                return;
+            }
+            
+            if (!documentType) {
+                log('Please enter a document type');
+                return;
+            }
+            
+            const file = fileInput.files[0];
+            
+            // Parse custom headers
+            let customHeaders = {};
+            if (customHeadersText) {
+                try {
+                    customHeaders = JSON.parse(customHeadersText);
+                } catch (error) {
+                    log(`Error parsing custom headers: ${error.message}`);
+                    return;
+                }
+            }
+            
+            // Get processing options
+            const ocrEnabled = document.getElementById('option-ocr').checked;
+            const tablesEnabled = document.getElementById('option-tables').checked;
+            const isinEnabled = document.getElementById('option-isin').checked;
+            const securityEnabled = document.getElementById('option-security').checked;
+            const portfolioEnabled = document.getElementById('option-portfolio').checked;
+            
+            // Get selected agents
+            const agents = [];
+            if (document.getElementById('agent-document').checked) agents.push("Document Analyzer");
+            if (document.getElementById('agent-table').checked) agents.push("Table Understanding");
+            if (document.getElementById('agent-securities').checked) agents.push("Securities Extractor");
+            if (document.getElementById('agent-financial').checked) agents.push("Financial Reasoner");
+            
+            // Show loading spinner
+            loadingElement.style.display = 'block';
+            resultContainer.style.display = 'none';
+            
+            try {
+                // Step 1: Create a test user
+                log('Creating test user...');
+                
+                const testUser = {
+                    email: `test_${Math.random().toString(36).substring(2, 10)}@example.com`,
+                    password: 'Password123!',
+                    name: 'Test User',
+                    organization: 'Test Organization'
+                };
+                
+                const registerResponse = await fetch('https://findoc-deploy.ey.r.appspot.com/api/auth/register', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        ...customHeaders
+                    },
+                    body: JSON.stringify(testUser)
+                });
+                
+                let authToken = '';
+                
+                try {
+                    const registerData = await registerResponse.json();
+                    log(`Register response: ${JSON.stringify(registerData)}`);
+                    
+                    if (registerData.success) {
+                        log('User registered successfully');
+                        
+                        // Login with the new user
+                        const loginResponse = await fetch('https://findoc-deploy.ey.r.appspot.com/api/auth/login', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                ...customHeaders
+                            },
+                            body: JSON.stringify({
+                                email: testUser.email,
+                                password: testUser.password
+                            })
+                        });
+                        
+                        const loginData = await loginResponse.json();
+                        log(`Login response: ${JSON.stringify(loginData)}`);
+                        
+                        if (loginData.success) {
+                            log('User logged in successfully');
+                            authToken = loginData.data.token;
+                        } else {
+                            log(`Login failed: ${loginData.error}`);
+                            // Continue without authentication
+                        }
+                    } else {
+                        log(`Registration failed: ${registerData.error}`);
+                        // Continue without authentication
+                    }
+                } catch (error) {
+                    log(`Error during authentication: ${error.message}`);
+                    // Continue without authentication
+                }
+                
+                // Step 2: Upload the document
+                log(`Uploading file: ${file.name}`);
+                
+                const formData = new FormData();
+                formData.append('file', file);
+                formData.append('name', documentName);
+                formData.append('type', documentType);
+                
+                const uploadHeaders = {
+                    ...customHeaders
+                };
+                
+                if (authToken) {
+                    uploadHeaders['Authorization'] = `Bearer ${authToken}`;
+                }
+                
+                const uploadResponse = await fetch('https://findoc-deploy.ey.r.appspot.com/api/documents', {
+                    method: 'POST',
+                    headers: uploadHeaders,
+                    body: formData
+                });
+                
+                const uploadData = await uploadResponse.json();
+                log(`Upload response: ${JSON.stringify(uploadData)}`);
+                
+                if (!uploadData.success) {
+                    log(`Upload failed: ${uploadData.error}`);
+                    throw new Error(`Upload failed: ${uploadData.error}`);
+                }
+                
+                const documentId = uploadData.data.id;
+                log(`Document uploaded successfully with ID: ${documentId}`);
+                
+                // Step 3: Process the document
+                log(`Processing document with ID: ${documentId}`);
+                
+                const processHeaders = {
+                    'Content-Type': 'application/json',
+                    ...customHeaders
+                };
+                
+                if (authToken) {
+                    processHeaders['Authorization'] = `Bearer ${authToken}`;
+                }
+                
+                const processResponse = await fetch(`https://findoc-deploy.ey.r.appspot.com/api/documents/${documentId}/scan1`, {
+                    method: 'POST',
+                    headers: processHeaders,
+                    body: JSON.stringify({
+                        agents: agents,
+                        tableExtraction: tablesEnabled,
+                        isinDetection: isinEnabled,
+                        securityInfo: securityEnabled,
+                        portfolioAnalysis: portfolioEnabled,
+                        ocrScanned: ocrEnabled,
+                        outputFormat: 'json'
+                    })
+                });
+                
+                const processData = await processResponse.json();
+                log(`Process response: ${JSON.stringify(processData)}`);
+                
+                if (!processData.success) {
+                    log(`Processing failed: ${processData.error}`);
+                    throw new Error(`Processing failed: ${processData.error}`);
+                }
+                
+                log('Document processing initiated successfully');
+                
+                // Step 4: Poll for processing status
+                let status = 'processing';
+                let documentData = null;
+                let pollCount = 0;
+                const maxPolls = 60;  // 5 minutes (5 seconds per poll)
+                
+                while (status === 'processing' && pollCount < maxPolls) {
+                    // Wait for 5 seconds
+                    await new Promise(resolve => setTimeout(resolve, 5000));
+                    pollCount++;
+                    
+                    log(`Polling for status (attempt ${pollCount}/${maxPolls})...`);
+                    
+                    // Check status
+                    const statusHeaders = {
+                        ...customHeaders
+                    };
+                    
+                    if (authToken) {
+                        statusHeaders['Authorization'] = `Bearer ${authToken}`;
+                    }
+                    
+                    const statusResponse = await fetch(`https://findoc-deploy.ey.r.appspot.com/api/documents/${documentId}`, {
+                        headers: statusHeaders
+                    });
+                    
+                    const statusData = await statusResponse.json();
+                    
+                    if (!statusData.success) {
+                        log(`Failed to get status: ${statusData.error}`);
+                        continue;
+                    }
+                    
+                    status = statusData.data.status;
+                    documentData = statusData.data;
+                    
+                    log(`Current status: ${status}`);
+                    
+                    if (status === 'error') {
+                        log(`Processing failed with error: ${documentData.error || 'Unknown error'}`);
+                        throw new Error('Processing failed with error');
+                    }
+                    
+                    if (status === 'processed') {
+                        log('Processing completed successfully!');
+                        break;
+                    }
+                }
+                
+                if (pollCount >= maxPolls && status === 'processing') {
+                    log('Processing timed out');
+                    throw new Error('Processing timed out');
+                }
+                
+                // Step 5: Display results
+                log('Displaying results');
+                
+                // Display JSON result
+                document.getElementById('result-json').innerHTML = `<pre>${JSON.stringify(documentData, null, 2)}</pre>`;
+                
+                // Display extracted text
+                let extractedText = '';
+                if (documentData.content && documentData.content.text) {
+                    extractedText = documentData.content.text;
+                } else if (documentData.metadata && documentData.metadata.text) {
+                    extractedText = documentData.metadata.text;
+                }
+                document.getElementById('result-text').innerHTML = `<pre>${extractedText}</pre>`;
+                
+                // Display tables
+                let tablesHtml = '';
+                if (documentData.content && documentData.content.tables && documentData.content.tables.length > 0) {
+                    tablesHtml = '<h3>Extracted Tables</h3>';
+                    documentData.content.tables.forEach((table, index) => {
+                        tablesHtml += `<h4>Table ${index + 1}</h4>`;
+                        tablesHtml += '<table border="1" cellpadding="5" style="border-collapse: collapse;">';
+                        
+                        // Add headers if available
+                        if (table.headers && table.headers.length > 0) {
+                            tablesHtml += '<tr>';
+                            table.headers.forEach(header => {
+                                tablesHtml += `<th>${header}</th>`;
+                            });
+                            tablesHtml += '</tr>';
+                        }
+                        
+                        // Add rows
+                        if (table.rows && table.rows.length > 0) {
+                            table.rows.forEach(row => {
+                                tablesHtml += '<tr>';
+                                row.forEach(cell => {
+                                    tablesHtml += `<td>${cell}</td>`;
+                                });
+                                tablesHtml += '</tr>';
+                            });
+                        }
+                        
+                        tablesHtml += '</table>';
+                    });
+                } else {
+                    tablesHtml = '<p>No tables extracted</p>';
+                }
+                document.getElementById('result-tables').innerHTML = tablesHtml;
+                
+                // Display securities
+                let securitiesHtml = '';
+                if (documentData.metadata && documentData.metadata.securities && documentData.metadata.securities.length > 0) {
+                    securitiesHtml = '<h3>Extracted Securities</h3>';
+                    securitiesHtml += '<table border="1" cellpadding="5" style="border-collapse: collapse;">';
+                    securitiesHtml += '<tr><th>Name</th><th>ISIN</th><th>Type</th><th>Quantity</th><th>Value</th><th>Weight</th></tr>';
+                    
+                    documentData.metadata.securities.forEach(security => {
+                        securitiesHtml += '<tr>';
+                        securitiesHtml += `<td>${security.name || '-'}</td>`;
+                        securitiesHtml += `<td>${security.isin || '-'}</td>`;
+                        securitiesHtml += `<td>${security.type || '-'}</td>`;
+                        securitiesHtml += `<td>${security.quantity || '-'}</td>`;
+                        securitiesHtml += `<td>${security.value || '-'}</td>`;
+                        securitiesHtml += `<td>${security.weight || '-'}</td>`;
+                        securitiesHtml += '</tr>';
+                    });
+                    
+                    securitiesHtml += '</table>';
+                } else {
+                    securitiesHtml = '<p>No securities extracted</p>';
+                }
+                document.getElementById('result-securities').innerHTML = securitiesHtml;
+                
+                // Step 6: Ask questions about the document
+                log('Asking questions about the document...');
+                
+                const questions = [
+                    "What is the total value of the portfolio?",
+                    "How many securities are in the portfolio?",
+                    "What ISINs are mentioned in the document?",
+                    "What is the asset allocation of the portfolio?",
+                    "Summarize the key information in this document."
+                ];
+                
+                let qaHtml = '<h3>Questions & Answers</h3>';
+                
+                for (const question of questions) {
+                    log(`Asking question: ${question}`);
+                    
+                    try {
+                        const askHeaders = {
+                            'Content-Type': 'application/json',
+                            ...customHeaders
+                        };
+                        
+                        if (authToken) {
+                            askHeaders['Authorization'] = `Bearer ${authToken}`;
+                        }
+                        
+                        const answerResponse = await fetch(`https://findoc-deploy.ey.r.appspot.com/api/documents/${documentId}/ask`, {
+                            method: 'POST',
+                            headers: askHeaders,
+                            body: JSON.stringify({
+                                question
+                            })
+                        });
+                        
+                        const answerData = await answerResponse.json();
+                        
+                        if (answerData.success) {
+                            const answer = answerData.data.answer;
+                            log(`Answer: ${answer}`);
+                            
+                            qaHtml += `<div style="margin-bottom: 15px;">
+                                <p><strong>Q: ${question}</strong></p>
+                                <p>${answer}</p>
+                            </div>`;
+                        } else {
+                            log(`Failed to get answer: ${answerData.error}`);
+                            qaHtml += `<div style="margin-bottom: 15px;">
+                                <p><strong>Q: ${question}</strong></p>
+                                <p class="error">Error: ${answerData.error}</p>
+                            </div>`;
+                        }
+                    } catch (error) {
+                        log(`Error asking question: ${error.message}`);
+                        qaHtml += `<div style="margin-bottom: 15px;">
+                            <p><strong>Q: ${question}</strong></p>
+                            <p class="error">Error: ${error.message}</p>
+                        </div>`;
+                    }
+                }
+                
+                document.getElementById('result-qa').innerHTML = qaHtml;
+                
+                // Show results
+                resultContainer.style.display = 'block';
+                
+                log('All done!');
+            } catch (error) {
+                console.error('Error:', error);
+                log(`Error: ${error.message}`);
+            } finally {
+                // Hide loading spinner
+                loadingElement.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>

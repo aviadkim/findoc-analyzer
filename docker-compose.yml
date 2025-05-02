@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      - NODE_ENV=production
+      - PORT=8080
+      - UPLOAD_FOLDER=/app/uploads
+      - TEMP_FOLDER=/app/temp
+      - RESULTS_FOLDER=/app/results
+    volumes:
+      - uploads:/app/uploads
+      - temp:/app/temp
+      - results:/app/results
+    restart: unless-stopped
+
+volumes:
+  uploads:
+  temp:
+  results:

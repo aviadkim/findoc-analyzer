@@ -1,0 +1,63 @@
+===================================================
+ESSENTIAL MCP CONFIGURATIONS FOR AUGMENT
+===================================================
+
+Follow these steps:
+1. Open Augment
+2. Go to Settings
+3. Find the MCP section
+4. Add each MCP server below
+5. Save your configuration
+
+===================================================
+
+1. GitHub MCP
+   Name: GitHub MCP
+   Command: npx -y @modelcontextprotocol/server-github
+   Environment Variables: 
+     Name: GITHUB_PERSONAL_ACCESS_TOKEN
+     Value: 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
+
+2. Brave Search MCP
+   Name: Brave Search MCP
+   Command: npx -y brave-search-mcp
+   Environment Variables: 
+     Name: BRAVE_API_KEY
+     Value: BSAN7HoBWjJOUG-zXVN8rkIGXpbsRtq
+
+3. Magic MCP
+   Name: Magic MCP
+   Command: npx -y @21st-dev/magic@latest
+   No environment variables needed
+
+4. SQLite MCP
+   Name: SQLite MCP
+   Command: npx -y @modelcontextprotocol/server-sqlite --db-path C:\Users\aviad\test.db
+   No environment variables needed
+
+5. Puppeteer MCP
+   Name: Puppeteer MCP
+   Command: npx -y @modelcontextprotocol/server-puppeteer
+   No environment variables needed
+
+6. Sequential Thinking MCP
+   Name: Sequential Thinking MCP
+   Command: npx -y @modelcontextprotocol/server-sequentialthinking
+   No environment variables needed
+
+7. Memory MCP
+   Name: Memory MCP
+   Command: npx -y @modelcontextprotocol/server-memory
+   No environment variables needed
+
+8. Firecrawl MCP
+   Name: Firecrawl MCP
+   Command: npx -y firecrawl-mcp
+   Environment Variables: 
+     Name: FIRECRAWL_API_KEY
+     Value: fc-857417811665460e92716b92e08ec398
+
+9. Supabase MCP
+   Name: Supabase MCP
+   Command: npx -y @supabase/mcp-server-supabase@latest --access-token sbp_cdcfec9d48c88f29d0e7c24a36cc450104b35055
+   No environment variables needed

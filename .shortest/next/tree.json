@@ -1,0 +1,67 @@
+{
+  "metadata": {
+    "timestamp": 1745851769282,
+    "version": 2,
+    "git": {
+      "branch": "main",
+      "commit": "a6ac0a755251978a88b5012c288fadff00dbce2c"
+    }
+  },
+  "data": {
+    "framework": {
+      "id": "next",
+      "name": "Next.js",
+      "dirPath": "C:\\Users\\aviad\\OneDrive\\Desktop\\backv2-main\\DevDocs\\frontend\\minimal-next-app"
+    },
+    "node": {
+      "path": "",
+      "name": "minimal-next-app",
+      "type": "directory",
+      "children": [
+        {
+          "path": "next.config.js",
+          "name": "next.config.js",
+          "type": "file",
+          "extension": ".js"
+        },
+        {
+          "path": "package-lock.json",
+          "name": "package-lock.json",
+          "type": "file",
+          "extension": ".json"
+        },
+        {
+          "path": "package.json",
+          "name": "package.json",
+          "type": "file",
+          "extension": ".json"
+        },
+        {
+          "path": "pages",
+          "name": "pages",
+          "type": "directory",
+          "children": [
+            {
+              "path": "pages/_app.js",
+              "name": "_app.js",
+              "type": "file",
+              "extension": ".js"
+            },
+            {
+              "path": "pages/_document.js",
+              "name": "_document.js",
+              "type": "file",
+              "extension": ".js"
+            },
+            {
+              "path": "pages/index.js",
+              "name": "index.js",
+              "type": "file",
+              "extension": ".js"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

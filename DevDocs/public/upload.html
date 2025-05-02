@@ -1,0 +1,272 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FinDoc Analyzer - Upload PDF</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      color: #333;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    h1 {
+      color: #2c3e50;
+      margin-bottom: 20px;
+    }
+    .upload-area {
+      border: 2px dashed #ccc;
+      border-radius: 8px;
+      padding: 40px;
+      text-align: center;
+      margin-bottom: 20px;
+      background-color: #f9f9f9;
+    }
+    .upload-area:hover {
+      border-color: #3498db;
+    }
+    .file-input {
+      display: none;
+    }
+    .upload-btn {
+      background-color: #3498db;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    .upload-btn:hover {
+      background-color: #2980b9;
+    }
+    .document-type {
+      margin-bottom: 20px;
+    }
+    .document-type select {
+      padding: 8px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+      width: 100%;
+      max-width: 300px;
+    }
+    .options {
+      margin-bottom: 20px;
+    }
+    .checkbox-group {
+      margin-bottom: 10px;
+    }
+    .progress-container {
+      margin-top: 20px;
+      display: none;
+    }
+    .progress-bar {
+      height: 20px;
+      background-color: #3498db;
+      width: 0%;
+      border-radius: 4px;
+      transition: width 0.3s;
+    }
+    .upload-status {
+      margin-top: 10px;
+      font-weight: bold;
+    }
+  </style>
+  <script src="/js/mock-api.js"></script>
+</head>
+<body>
+  <h1>Upload Financial Document</h1>
+  
+  <div class="document-type">
+    <label for="document-type">Document Type:</label>
+    <select id="document-type">
+      <option value="portfolio">Portfolio Statement</option>
+      <option value="financial">Financial Report</option>
+      <option value="tax">Tax Document</option>
+      <option value="other">Other</option>
+    </select>
+  </div>
+  
+  <div class="options">
+    <div class="checkbox-group">
+      <input type="checkbox" id="extract-text" checked>
+      <label for="extract-text">Extract Text</label>
+    </div>
+    <div class="checkbox-group">
+      <input type="checkbox" id="extract-tables" checked>
+      <label for="extract-tables">Extract Tables</label>
+    </div>
+    <div class="checkbox-group">
+      <input type="checkbox" id="extract-metadata" checked>
+      <label for="extract-metadata">Extract Metadata</label>
+    </div>
+  </div>
+  
+  <div class="upload-area" id="dropzone">
+    <p>Drag and drop your PDF file here, or</p>
+    <input type="file" id="file-input" class="file-input" accept=".pdf">
+    <button class="upload-btn" onclick="document.getElementById('file-input').click()">Select File</button>
+    <p id="file-name"></p>
+  </div>
+  
+  <div class="progress-container" id="progress-container">
+    <div class="progress-bar" id="progress-bar"></div>
+    <div class="upload-status" id="upload-status">Uploading...</div>
+  </div>
+  
+  <script>
+    // File input change handler
+    document.getElementById('file-input').addEventListener('change', async function(e) {
+      const file = e.target.files[0];
+      if (!file) return;
+      
+      const fileName = file.name;
+      document.getElementById('file-name').textContent = fileName;
+      
+      // Show progress container
+      document.getElementById('progress-container').style.display = 'block';
+      
+      // Simulate upload progress
+      let progress = 0;
+      const progressBar = document.getElementById('progress-bar');
+      const uploadStatus = document.getElementById('upload-status');
+      
+      const interval = setInterval(() => {
+        progress += 5;
+        progressBar.style.width = progress + '%';
+        
+        if (progress >= 50) {
+          uploadStatus.textContent = 'Processing document...';
+        }
+        
+        if (progress >= 100) {
+          clearInterval(interval);
+        }
+      }, 200);
+      
+      try {
+        // Create a new document using the mock API
+        const documentType = document.getElementById('document-type').value;
+        
+        const createResponse = await fetch('/api/documents', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            fileName,
+            documentType
+          })
+        });
+        
+        if (!createResponse.ok) {
+          throw new Error('Failed to create document');
+        }
+        
+        const document = await createResponse.json();
+        
+        // Process the document
+        const processResponse = await fetch('/api/documents/process', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            documentId: document.id,
+            options: {
+              extractText: document.getElementById('extract-text').checked,
+              extractTables: document.getElementById('extract-tables').checked,
+              extractMetadata: document.getElementById('extract-metadata').checked
+            }
+          })
+        });
+        
+        if (!processResponse.ok) {
+          throw new Error('Failed to process document');
+        }
+        
+        const processedDocument = await processResponse.json();
+        
+        // Update progress
+        progress = 100;
+        progressBar.style.width = progress + '%';
+        uploadStatus.textContent = 'Processing complete!';
+        
+        // Store document info in localStorage
+        localStorage.setItem('lastProcessedDocument', JSON.stringify({
+          ...processedDocument,
+          fileName,
+          documentType,
+          extractText: document.getElementById('extract-text').checked,
+          extractTables: document.getElementById('extract-tables').checked,
+          extractMetadata: document.getElementById('extract-metadata').checked
+        }));
+        
+        // Redirect to document details page after 1 second
+        setTimeout(() => {
+          window.location.href = '/document-details.html';
+        }, 1000);
+      } catch (error) {
+        console.error('Error processing document:', error);
+        
+        // Update progress
+        clearInterval(interval);
+        progressBar.style.width = '100%';
+        progressBar.style.backgroundColor = '#e74c3c';
+        uploadStatus.textContent = 'Error: ' + error.message;
+      }
+      }
+    });
+    
+    // Drag and drop handlers
+    const dropzone = document.getElementById('dropzone');
+    
+    dropzone.addEventListener('dragover', function(e) {
+      e.preventDefault();
+      dropzone.style.borderColor = '#3498db';
+    });
+    
+    dropzone.addEventListener('dragleave', function() {
+      dropzone.style.borderColor = '#ccc';
+    });
+    
+    dropzone.addEventListener('drop', function(e) {
+      e.preventDefault();
+      dropzone.style.borderColor = '#ccc';
+      
+      const files = e.dataTransfer.files;
+      if (files.length > 0 && files[0].type === 'application/pdf') {
+        document.getElementById('file-input').files = files;
+        document.getElementById('file-name').textContent = files[0].name;
+        
+        // Show progress container
+        document.getElementById('progress-container').style.display = 'block';
+        
+        // Simulate upload progress
+        let progress = 0;
+        const progressBar = document.getElementById('progress-bar');
+        const uploadStatus = document.getElementById('upload-status');
+        
+        const interval = setInterval(() => {
+          progress += 10;
+          progressBar.style.width = progress + '%';
+          
+          if (progress >= 100) {
+            clearInterval(interval);
+            uploadStatus.textContent = 'Upload complete!';
+            
+            // Redirect to documents page after 2 seconds
+            setTimeout(() => {
+              window.location.href = '/documents-new';
+            }, 2000);
+          }
+        }, 500);
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FinDoc Analyzer</title>
+  <link rel="stylesheet" href="/css/styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+  <div class="findoc-layout">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <h1 class="app-title">FinDocs Pro</h1>
+      </div>
+      <nav class="sidebar-nav">
+        <ul>
+          <li><a href="#" class="active" data-section="dashboard"><span class="icon"><i class="fas fa-chart-pie"></i></span> <span>Dashboard</span></a></li>
+          <li><a href="#" data-section="upload"><span class="icon"><i class="fas fa-upload"></i></span> <span>Upload Documents</span></a></li>
+          <li><a href="#" data-section="analytics"><span class="icon"><i class="fas fa-chart-bar"></i></span> <span>Analytics</span></a></li>
+          <li><a href="#" data-section="reports"><span class="icon"><i class="fas fa-file-alt"></i></span> <span>Reports</span></a></li>
+          <li><a href="#" data-section="rag"><span class="icon"><i class="fas fa-search"></i></span> <span>RAG Precision</span></a></li>
+          <li><a href="#" data-section="financial"><span class="icon"><i class="fas fa-money-bill-wave"></i></span> <span>Financial Analysis</span></a></li>
+          <li><a href="#" data-section="testing"><span class="icon"><i class="fas fa-vial"></i></span> <span>Testing</span></a></li>
+          <li><a href="#" data-section="settings"><span class="icon"><i class="fas fa-cog"></i></span> <span>Settings</span></a></li>
+        </ul>
+      </nav>
+      <div class="sidebar-footer">
+        <div class="user-info">
+          <div class="user-avatar">AB</div>
+          <div class="user-details">
+            <div class="user-name">Aviad B.</div>
+            <div class="user-role">Administrator</div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main content -->
+    <main class="main-content">
+      <!-- Header -->
+      <header class="main-header">
+        <div class="search-box">
+          <input type="text" placeholder="Search documents...">
+          <span class="icon"><i class="fas fa-search"></i></span>
+        </div>
+        <div class="header-actions">
+          <a href="#" class="upload-btn" id="upload-btn">
+            <span class="icon"><i class="fas fa-upload"></i></span>
+            <span>Upload Document</span>
+          </a>
+          <button class="icon-btn" id="notifications-btn">
+            <span class="icon"><i class="fas fa-bell"></i></span>
+          </button>
+          <button class="user-menu-btn" id="user-menu-btn">
+            <div class="user-avatar-small">AB</div>
+          </button>
+        </div>
+      </header>
+
+      <!-- Dashboard content -->
+      <div class="section-container" id="dashboard-section">
+        <div class="dashboard-container">
+          <!-- Welcome message -->
+          <div class="welcome-card">
+            <h2 class="welcome-title">Welcome, Aviad</h2>
+            <p class="welcome-text">
+              This is your financial document dashboard. Upload documents, analyze your portfolio, and get insights from your financial data.
+            </p>
+            <div class="welcome-actions">
+              <button type="button" class="test-button" id="test-dashboard-btn">
+                <i class="fas fa-search"></i>
+                Open Testing Dashboard
+              </button>
+              <button type="button" class="api-button" id="api-key-btn">
+                <i class="fas fa-plus"></i>
+                Configure API Keys
+              </button>
+            </div>
+          </div>
+
+          <!-- Dashboard grid -->
+          <div class="dashboard-grid">
+            <!-- Recent Documents -->
+            <div class="dashboard-card">
+              <div class="card-header">
+                <h3 class="card-title">Recent Documents</h3>
+                <span class="card-icon"><i class="fas fa-file-alt"></i></span>
+              </div>
+              <div class="card-content">
+                <p>You have 3 recently processed documents.</p>
+              </div>
+              <div class="card-footer">
+                <button class="card-button" id="view-documents-btn">View All Documents</button>
+              </div>
+            </div>
+
+            <!-- Portfolio Summary -->
+            <div class="dashboard-card">
+              <div class="card-header">
+                <h3 class="card-title">Portfolio Summary</h3>
+                <span class="card-icon"><i class="fas fa-chart-pie"></i></span>
+              </div>
+              <div class="card-content">
+                <p>Total portfolio value: $19,516.99</p>
+              </div>
+              <div class="card-footer">
+                <button class="card-button" id="view-portfolio-btn">View Portfolio</button>
+              </div>
+            </div>
+
+            <!-- Document Analysis -->
+            <div class="dashboard-card">
+              <div class="card-header">
+                <h3 class="card-title">Document Analysis</h3>
+                <span class="card-icon"><i class="fas fa-chart-bar"></i></span>
+              </div>
+              <div class="card-content">
+                <p>Run analysis on your financial documents.</p>
+              </div>
+              <div class="card-footer">
+                <button class="card-button" id="start-analysis-btn">Start Analysis</button>
+              </div>
+            </div>
+
+            <!-- Data Export -->
+            <div class="dashboard-card">
+              <div class="card-header">
+                <h3 class="card-title">Data Export</h3>
+                <span class="card-icon"><i class="fas fa-file-export"></i></span>
+              </div>
+              <div class="card-content">
+                <p>Export your financial data in various formats.</p>
+              </div>
+              <div class="card-footer">
+                <button class="card-button" id="export-data-btn">Export Data</button>
+              </div>
+            </div>
+
+            <!-- ISIN Extraction -->
+            <div class="dashboard-card">
+              <div class="card-header">
+                <h3 class="card-title">ISIN Extraction</h3>
+                <span class="card-icon"><i class="fas fa-code"></i></span>
+              </div>
+              <div class="card-content">
+                <p>Extract ISIN codes from your documents.</p>
+              </div>
+              <div class="card-footer">
+                <button class="card-button" id="view-isins-btn">View ISINs</button>
+              </div>
+            </div>
+
+            <!-- Financial Advisor -->
+            <div class="dashboard-card">
+              <div class="card-header">
+                <h3 class="card-title">Financial Advisor</h3>
+                <span class="card-icon"><i class="fas fa-brain"></i></span>
+              </div>
+              <div class="card-content">
+                <p>Get financial advice based on your documents.</p>
+              </div>
+              <div class="card-footer">
+                <button class="card-button" id="get-advice-btn">Get Advice</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Upload Document Section -->
+      <div class="section-container hidden" id="upload-section">
+        <div class="upload-container">
+          <h1 class="page-title">Upload Document</h1>
+          
+          <div class="upload-card">
+            <div class="upload-area" id="upload-area">
+              <div class="upload-icon">
+                <i class="fas fa-cloud-upload-alt"></i>
+              </div>
+              <h3 class="upload-title">Drag & Drop your file here</h3>
+              <p class="upload-text">or</p>
+              <label for="file-input" class="upload-button">Browse Files</label>
+              <input type="file" id="file-input" accept=".pdf,.xls,.xlsx,.csv,.doc,.docx" hidden>
+              <p class="upload-info">Supported formats: PDF, Excel, CSV, Word</p>
+            </div>
+            
+            <div class="upload-preview hidden" id="upload-preview">
+              <div class="preview-header">
+                <h3 class="preview-title">Selected File</h3>
+                <button class="preview-close" id="preview-close">
+                  <i class="fas fa-times"></i>
+                </button>
+              </div>
+              <div class="preview-content">
+                <div class="preview-icon">
+                  <i class="fas fa-file-pdf"></i>
+                </div>
+                <div class="preview-info">
+                  <p class="preview-filename" id="preview-filename">document.pdf</p>
+                  <p class="preview-filesize" id="preview-filesize">1.2 MB</p>
+                </div>
+              </div>
+              <div class="preview-actions">
+                <button class="preview-process-btn" id="process-document-btn">
+                  <i class="fas fa-cogs"></i>
+                  Process Document
+                </button>
+              </div>
+            </div>
+            
+            <div class="upload-progress hidden" id="upload-progress">
+              <h3 class="progress-title">Processing Document</h3>
+              <div class="progress-bar-container">
+                <div class="progress-bar" id="progress-bar"></div>
+              </div>
+              <p class="progress-text" id="progress-text">0%</p>
+            </div>
+            
+            <div class="upload-result hidden" id="upload-result">
+              <div class="result-header">
+                <h3 class="result-title">Processing Complete</h3>
+                <button class="result-close" id="result-close">
+                  <i class="fas fa-times"></i>
+                </button>
+              </div>
+              <div class="result-content">
+                <div class="result-icon success">
+                  <i class="fas fa-check-circle"></i>
+                </div>
+                <div class="result-info">
+                  <p class="result-message" id="result-message">Document processed successfully!</p>
+                  <p class="result-details" id="result-details">Extracted 10 securities with total value $19,516.99</p>
+                </div>
+              </div>
+              <div class="result-actions">
+                <button class="result-view-btn" id="view-analysis-btn">
+                  <i class="fas fa-chart-bar"></i>
+                  View Analysis
+                </button>
+                <button class="result-new-btn" id="upload-new-btn">
+                  <i class="fas fa-upload"></i>
+                  Upload New Document
+                </button>
+              </div>
+            </div>
+          </div>
+          
+          <div class="upload-tips">
+            <h3 class="tips-title">Tips for best results</h3>
+            <ul class="tips-list">
+              <li>Use high-quality PDF documents for best extraction accuracy</li>
+              <li>Ensure tables are clearly formatted in your documents</li>
+              <li>For Excel files, make sure data is organized in structured tables</li>
+              <li>Documents with clear headers and consistent formatting work best</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Analysis Results Section -->
+      <div class="section-container hidden" id="analysis-section">
+        <div class="analysis-container">
+          <h1 class="page-title">Document Analysis</h1>
+          
+          <div id="analysis-content" class="analysis-content">
+            <div class="analysis-placeholder">
+              <div class="placeholder-icon">
+                <i class="fas fa-chart-bar"></i>
+              </div>
+              <h3 class="placeholder-title">No Analysis Available</h3>
+              <p class="placeholder-text">Upload and process a document to view analysis results.</p>
+              <button class="placeholder-btn" id="go-to-upload-btn">
+                <i class="fas fa-upload"></i>
+                Upload Document
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Other sections would go here -->
+      <div class="section-container hidden" id="analytics-section">
+        <h1 class="page-title">Analytics</h1>
+        <p>Analytics section content will go here.</p>
+      </div>
+      
+      <div class="section-container hidden" id="reports-section">
+        <h1 class="page-title">Reports</h1>
+        <p>Reports section content will go here.</p>
+      </div>
+      
+      <div class="section-container hidden" id="rag-section">
+        <h1 class="page-title">RAG Precision</h1>
+        <p>RAG Precision section content will go here.</p>
+      </div>
+      
+      <div class="section-container hidden" id="financial-section">
+        <h1 class="page-title">Financial Analysis</h1>
+        <p>Financial Analysis section content will go here.</p>
+      </div>
+      
+      <div class="section-container hidden" id="testing-section">
+        <h1 class="page-title">Testing</h1>
+        <p>Testing section content will go here.</p>
+      </div>
+      
+      <div class="section-container hidden" id="settings-section">
+        <h1 class="page-title">Settings</h1>
+        <p>Settings section content will go here.</p>
+      </div>
+    </main>
+  </div>
+
+  <script src="/js/main.js"></script>
+</body>
+</html>

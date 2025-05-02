@@ -1,0 +1,417 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FinDoc Analyzer UI Test Report</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      color: #333;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    
+    h1, h2, h3 {
+      color: #2c3e50;
+    }
+    
+    .summary {
+      display: flex;
+      justify-content: space-between;
+      background-color: #f8f9fa;
+      padding: 20px;
+      border-radius: 5px;
+      margin-bottom: 20px;
+    }
+    
+    .summary-item {
+      text-align: center;
+    }
+    
+    .summary-item h2 {
+      margin: 0;
+      font-size: 2rem;
+    }
+    
+    .summary-label {
+      font-size: 0.9rem;
+      color: #666;
+    }
+    
+    .test-results {
+      margin-top: 30px;
+    }
+    
+    .test {
+      margin-bottom: 20px;
+      padding: 15px;
+      border-radius: 5px;
+    }
+    
+    .test-passed {
+      background-color: #d4edda;
+      border-left: 5px solid #28a745;
+    }
+    
+    .test-failed {
+      background-color: #f8d7da;
+      border-left: 5px solid #dc3545;
+    }
+    
+    .test-skipped {
+      background-color: #fff3cd;
+      border-left: 5px solid #ffc107;
+    }
+    
+    .test-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    
+    .test-name {
+      font-weight: bold;
+      font-size: 1.1rem;
+      margin: 0;
+    }
+    
+    .test-status {
+      font-size: 0.9rem;
+      padding: 3px 8px;
+      border-radius: 3px;
+      color: white;
+    }
+    
+    .status-passed {
+      background-color: #28a745;
+    }
+    
+    .status-failed {
+      background-color: #dc3545;
+    }
+    
+    .status-skipped {
+      background-color: #ffc107;
+      color: #333;
+    }
+    
+    .test-details {
+      font-size: 0.9rem;
+      color: #666;
+    }
+    
+    .test-error {
+      background-color: #f8d7da;
+      color: #721c24;
+      padding: 10px;
+      border-radius: 3px;
+      margin-top: 10px;
+      font-family: monospace;
+      white-space: pre-wrap;
+    }
+    
+    .test-screenshots {
+      margin-top: 10px;
+    }
+    
+    .screenshot {
+      display: block;
+      max-width: 100%;
+      margin-top: 10px;
+      border: 1px solid #ddd;
+    }
+  </style>
+</head>
+<body>
+  <h1>FinDoc Analyzer UI Test Report</h1>
+  
+  <div class="summary">
+    <div class="summary-item">
+      <h2>10</h2>
+      <div class="summary-label">Total Tests</div>
+    </div>
+    <div class="summary-item">
+      <h2>7</h2>
+      <div class="summary-label">Passed</div>
+    </div>
+    <div class="summary-item">
+      <h2>3</h2>
+      <div class="summary-label">Failed</div>
+    </div>
+    <div class="summary-item">
+      <h2>0</h2>
+      <div class="summary-label">Skipped</div>
+    </div>
+    <div class="summary-item">
+      <h2>85 seconds</h2>
+      <div class="summary-label">Duration</div>
+    </div>
+  </div>
+  
+  <div class="test-results">
+    <h2>Test Results</h2>
+    
+    
+        <div class="test test-passed">
+          <div class="test-header">
+            <h3 class="test-name">Homepage loads correctly</h3>
+            <span class="test-status status-passed">PASSED</span>
+          </div>
+          
+          <div class="test-details">
+            <div>Duration: 2.876 seconds</div>
+            <div>Started: 4/29/2025, 6:02:54 AM</div>
+            <div>Ended: 4/29/2025, 6:02:56 AM</div>
+          </div>
+          
+          
+          
+          
+          
+            <div class="test-screenshots">
+              <h4>Screenshots:</h4>
+              
+                <img class="screenshot" src="screenshots/homepage-1745895776664.png" alt="Screenshot">
+              
+            </div>
+          
+        </div>
+      
+        <div class="test test-failed">
+          <div class="test-header">
+            <h3 class="test-name">Sidebar navigation works</h3>
+            <span class="test-status status-failed">FAILED</span>
+          </div>
+          
+          <div class="test-details">
+            <div>Duration: 2.514 seconds</div>
+            <div>Started: 4/29/2025, 6:02:56 AM</div>
+            <div>Ended: 4/29/2025, 6:02:59 AM</div>
+          </div>
+          
+          <div class="test-error">Unexpected link text: FinDoc Analyzer, expected: Dashboard</div>
+          
+          
+          
+            <div class="test-screenshots">
+              <h4>Screenshots:</h4>
+              
+                <img class="screenshot" src="screenshots/sidebar-navigation-works-failure-1745895779446.png" alt="Screenshot">
+              
+            </div>
+          
+        </div>
+      
+        <div class="test test-passed">
+          <div class="test-header">
+            <h3 class="test-name">Documents page loads correctly</h3>
+            <span class="test-status status-passed">PASSED</span>
+          </div>
+          
+          <div class="test-details">
+            <div>Duration: 2.199 seconds</div>
+            <div>Started: 4/29/2025, 6:02:59 AM</div>
+            <div>Ended: 4/29/2025, 6:03:01 AM</div>
+          </div>
+          
+          
+          
+          
+          
+            <div class="test-screenshots">
+              <h4>Screenshots:</h4>
+              
+                <img class="screenshot" src="screenshots/documents-page-1745895781624.png" alt="Screenshot">
+              
+            </div>
+          
+        </div>
+      
+        <div class="test test-passed">
+          <div class="test-header">
+            <h3 class="test-name">Upload page loads correctly</h3>
+            <span class="test-status status-passed">PASSED</span>
+          </div>
+          
+          <div class="test-details">
+            <div>Duration: 2.255 seconds</div>
+            <div>Started: 4/29/2025, 6:03:01 AM</div>
+            <div>Ended: 4/29/2025, 6:03:04 AM</div>
+          </div>
+          
+          
+          
+          
+          
+            <div class="test-screenshots">
+              <h4>Screenshots:</h4>
+              
+                <img class="screenshot" src="screenshots/upload-page-1745895783844.png" alt="Screenshot">
+              
+            </div>
+          
+        </div>
+      
+        <div class="test test-passed">
+          <div class="test-header">
+            <h3 class="test-name">Analytics page loads correctly</h3>
+            <span class="test-status status-passed">PASSED</span>
+          </div>
+          
+          <div class="test-details">
+            <div>Duration: 1.175 seconds</div>
+            <div>Started: 4/29/2025, 6:03:04 AM</div>
+            <div>Ended: 4/29/2025, 6:03:05 AM</div>
+          </div>
+          
+          
+          
+          
+          
+            <div class="test-screenshots">
+              <h4>Screenshots:</h4>
+              
+                <img class="screenshot" src="screenshots/analytics-page-1745895784973.png" alt="Screenshot">
+              
+            </div>
+          
+        </div>
+      
+        <div class="test test-passed">
+          <div class="test-header">
+            <h3 class="test-name">Document comparison page loads correctly</h3>
+            <span class="test-status status-passed">PASSED</span>
+          </div>
+          
+          <div class="test-details">
+            <div>Duration: 1.57 seconds</div>
+            <div>Started: 4/29/2025, 6:03:05 AM</div>
+            <div>Ended: 4/29/2025, 6:03:06 AM</div>
+          </div>
+          
+          
+          
+          
+          
+            <div class="test-screenshots">
+              <h4>Screenshots:</h4>
+              
+                <img class="screenshot" src="screenshots/document-comparison-page-1745895786116.png" alt="Screenshot">
+              
+            </div>
+          
+        </div>
+      
+        <div class="test test-passed">
+          <div class="test-header">
+            <h3 class="test-name">Feedback page loads correctly</h3>
+            <span class="test-status status-passed">PASSED</span>
+          </div>
+          
+          <div class="test-details">
+            <div>Duration: 1.481 seconds</div>
+            <div>Started: 4/29/2025, 6:03:06 AM</div>
+            <div>Ended: 4/29/2025, 6:03:07 AM</div>
+          </div>
+          
+          
+          
+          
+          
+            <div class="test-screenshots">
+              <h4>Screenshots:</h4>
+              
+                <img class="screenshot" src="screenshots/feedback-page-1745895787518.png" alt="Screenshot">
+              
+            </div>
+          
+        </div>
+      
+        <div class="test test-failed">
+          <div class="test-header">
+            <h3 class="test-name">Document details page loads correctly</h3>
+            <span class="test-status status-failed">FAILED</span>
+          </div>
+          
+          <div class="test-details">
+            <div>Duration: 33.228 seconds</div>
+            <div>Started: 4/29/2025, 6:03:07 AM</div>
+            <div>Ended: 4/29/2025, 6:03:41 AM</div>
+          </div>
+          
+          <div class="test-error">Navigation timeout of 30000 ms exceeded</div>
+          
+          
+          
+            <div class="test-screenshots">
+              <h4>Screenshots:</h4>
+              
+                <img class="screenshot" src="screenshots/document-details-page-loads-correctly-failure-1745895821016.png" alt="Screenshot">
+              
+            </div>
+          
+        </div>
+      
+        <div class="test test-failed">
+          <div class="test-header">
+            <h3 class="test-name">Q&A functionality works</h3>
+            <span class="test-status status-failed">FAILED</span>
+          </div>
+          
+          <div class="test-details">
+            <div>Duration: 32.739 seconds</div>
+            <div>Started: 4/29/2025, 6:03:41 AM</div>
+            <div>Ended: 4/29/2025, 6:04:13 AM</div>
+          </div>
+          
+          <div class="test-error">Navigation timeout of 30000 ms exceeded</div>
+          
+          
+          
+            <div class="test-screenshots">
+              <h4>Screenshots:</h4>
+              
+                <img class="screenshot" src="screenshots/q-a-functionality-works-failure-1745895853923.png" alt="Screenshot">
+              
+            </div>
+          
+        </div>
+      
+        <div class="test test-passed">
+          <div class="test-header">
+            <h3 class="test-name">Responsive design works</h3>
+            <span class="test-status status-passed">PASSED</span>
+          </div>
+          
+          <div class="test-details">
+            <div>Duration: 3.81 seconds</div>
+            <div>Started: 4/29/2025, 6:04:14 AM</div>
+            <div>Ended: 4/29/2025, 6:04:17 AM</div>
+          </div>
+          
+          
+          
+          
+          
+            <div class="test-screenshots">
+              <h4>Screenshots:</h4>
+              
+                <img class="screenshot" src="screenshots/responsive-mobile-1745895855006.png" alt="Screenshot">
+              
+                <img class="screenshot" src="screenshots/responsive-tablet-1745895856007.png" alt="Screenshot">
+              
+                <img class="screenshot" src="screenshots/responsive-desktop-1745895857011.png" alt="Screenshot">
+              
+            </div>
+          
+        </div>
+      
+  </div>
+</body>
+</html>
+  

@@ -1,0 +1,83 @@
+%PDF-1.4
+1 0 obj
+<</Type /Catalog /Pages 2 0 R>>
+endobj
+2 0 obj
+<</Type /Pages /Kids [3 0 R] /Count 1>>
+endobj
+3 0 obj
+<</Type /Page /Parent 2 0 R /Resources 4 0 R /MediaBox [0 0 612 792] /Contents 6 0 R>>
+endobj
+4 0 obj
+<</Font <</F1 5 0 R>>>>
+endobj
+5 0 obj
+<</Type /Font /Subtype /Type1 /BaseFont /Helvetica>>
+endobj
+6 0 obj
+<</Length 1000>>
+stream
+BT
+/F1 24 Tf
+50 700 Td
+(Investment Portfolio Statement) Tj
+/F1 12 Tf
+0 -40 Td
+(Date: 28.02.2025) Tj
+0 -20 Td
+(Account Number: 12345678) Tj
+0 -20 Td
+(Client: John Doe) Tj
+0 -40 Td
+/F1 16 Tf
+(PORTFOLIO SUMMARY) Tj
+/F1 12 Tf
+0 -20 Td
+(Total Value: USD 1,250,000.00) Tj
+0 -20 Td
+(Currency: USD) Tj
+0 -20 Td
+(Valuation Date: 28.02.2025) Tj
+0 -40 Td
+/F1 16 Tf
+(ASSET ALLOCATION) Tj
+/F1 12 Tf
+0 -20 Td
+(Equity: 45%) Tj
+0 -20 Td
+(Fixed Income: 30%) Tj
+0 -20 Td
+(Cash: 15%) Tj
+0 -20 Td
+(Alternative: 10%) Tj
+0 -40 Td
+/F1 16 Tf
+(SECURITIES HOLDINGS) Tj
+/F1 12 Tf
+0 -20 Td
+(APPLE INC - ISIN: US0378331005 - Quantity: 500 - Value: USD 85,000.00 - Weight: 6.8%) Tj
+0 -20 Td
+(MICROSOFT CORP - ISIN: US5949181045 - Quantity: 300 - Value: USD 102,000.00 - Weight: 8.16%) Tj
+0 -20 Td
+(AMAZON.COM INC - ISIN: US0231351067 - Quantity: 100 - Value: USD 95,000.00 - Weight: 7.6%) Tj
+0 -20 Td
+(US TREASURY 2.5% 15/02/2045 - ISIN: US912810RK35 - Quantity: 200,000 - Value: USD 198,000.00 - Weight: 15.84%) Tj
+0 -20 Td
+(GOLDMAN SACHS 0% NOTES 23-07.11.29 - ISIN: XS2692298537 - Quantity: 150,000 - Value: USD 147,000.00 - Weight: 11.76%) Tj
+ET
+endstream
+endobj
+xref
+0 7
+0000000000 65535 f
+0000000009 00000 n
+0000000056 00000 n
+0000000111 00000 n
+0000000212 00000 n
+0000000253 00000 n
+0000000321 00000 n
+trailer
+<</Size 7 /Root 1 0 R>>
+startxref
+1374
+%%EOF

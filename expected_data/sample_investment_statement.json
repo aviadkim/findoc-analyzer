@@ -1,0 +1,102 @@
+{
+  "document_type": "portfolio_statement",
+  "securities": [
+    {
+      "name": "APPLE INC",
+      "isin": "US0378331005",
+      "quantity": 50,
+      "price": 175.25,
+      "value": 8762.50,
+      "currency": "USD",
+      "weight": 20.3,
+      "type": "Equity",
+      "sector": "Technology",
+      "region": "US",
+      "asset_class": "Equity"
+    },
+    {
+      "name": "MICROSOFT CORP",
+      "isin": "US5949181045",
+      "quantity": 30,
+      "price": 325.75,
+      "value": 9772.50,
+      "currency": "USD",
+      "weight": 22.6,
+      "type": "Equity",
+      "sector": "Technology",
+      "region": "US",
+      "asset_class": "Equity"
+    },
+    {
+      "name": "US TREASURY BOND 2.5% 2030",
+      "isin": "US912810SL35",
+      "quantity": 10000,
+      "price": 98.45,
+      "value": 9845.00,
+      "currency": "USD",
+      "weight": 22.8,
+      "type": "Bond",
+      "sector": "Government",
+      "region": "US",
+      "asset_class": "Fixed Income"
+    },
+    {
+      "name": "GOLDMAN SACHS 0% NOTES 23-07.11.29 SERIES P",
+      "isin": "XS2692298537",
+      "quantity": 5000,
+      "price": 92.35,
+      "value": 4617.50,
+      "currency": "USD",
+      "weight": 10.7,
+      "type": "Bond",
+      "sector": "Financial",
+      "region": "US",
+      "asset_class": "Fixed Income"
+    },
+    {
+      "name": "VANGUARD TOTAL STOCK MARKET ETF",
+      "isin": "US9229087690",
+      "quantity": 25,
+      "price": 245.60,
+      "value": 6140.00,
+      "currency": "USD",
+      "weight": 14.2,
+      "type": "Fund",
+      "sector": "Diversified",
+      "region": "US",
+      "asset_class": "Funds"
+    },
+    {
+      "name": "CASH USD",
+      "isin": null,
+      "quantity": null,
+      "price": null,
+      "value": 4030.00,
+      "currency": "USD",
+      "weight": 9.4,
+      "type": "Cash",
+      "sector": "Cash",
+      "region": "US",
+      "asset_class": "Cash"
+    }
+  ],
+  "portfolio_summary": {
+    "total_value": 43167.50,
+    "currency": "USD",
+    "valuation_date": "27.04.2025"
+  },
+  "asset_allocation": {
+    "Equity": {
+      "percentage": 45.0
+    },
+    "Fixed Income": {
+      "percentage": 30.0
+    },
+    "Funds": {
+      "percentage": 15.0
+    },
+    "Cash": {
+      "percentage": 10.0
+    }
+  }
+}

@@ -1,0 +1,36 @@
+name: Project Verification
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  verify-project:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Verify project structure
+      run: |
+        echo "Verifying project structure..."
+        if [ -d "DevDocs" ]; then
+          echo "✅ Project structure looks good!"
+        else
+          echo "❌ Project structure is incorrect!"
+          exit 1
+        fi
+
+    - name: Count files
+      run: |
+        echo "Counting JavaScript files..."
+        find . -type f -name "*.js" | wc -l
+        echo "✅ File count completed!"
+
+    - name: List directories
+      run: |
+        echo "Listing main directories..."
+        ls -la DevDocs
+        echo "✅ Directory listing completed!"

@@ -1,0 +1,283 @@
+{
+  "environment": "Mock Data",
+  "testPdf": "Financial Statement",
+  "timestamp": "2025-04-28T05:55:52.568Z",
+  "steps": [
+    {
+      "name": "Upload Document",
+      "status": "Pass",
+      "details": {
+        "success": true,
+        "data": {
+          "id": "doc-1745819752570",
+          "name": "Financial Statement",
+          "type": "financial_statement",
+          "status": "pending",
+          "uploaded_at": "2025-04-28T05:55:52.570Z"
+        }
+      }
+    },
+    {
+      "name": "Process Document",
+      "status": "Pass",
+      "details": {
+        "success": true,
+        "data": {
+          "id": "doc-1745819752570",
+          "status": "processing"
+        }
+      }
+    },
+    {
+      "name": "Poll for Status",
+      "status": "Pass",
+      "details": {
+        "status": "processed",
+        "pollCount": 1,
+        "documentData": {
+          "id": "doc-1745819752570",
+          "name": "Financial Statement",
+          "type": "financial_statement",
+          "status": "processed",
+          "uploaded_at": "2025-04-28T05:55:54.572Z",
+          "processed_at": "2025-04-28T05:55:54.572Z",
+          "content": {
+            "text": "INVESTMENT PORTFOLIO STATEMENT\n\nDate: 28.02.2025\nAccount Number: 12345678\nClient: John Doe\n\nPORTFOLIO SUMMARY\nTotal Value: USD 1,250,000.00\nCurrency: USD\nValuation Date: 28.02.2025\n\nASSET ALLOCATION\nEquity: 45%\nFixed Income: 30%\nCash: 15%\nAlternative: 10%\n\nSECURITIES HOLDINGS\nAPPLE INC (US0378331005) - Equity - 500 - USD 170.00 - USD 85,000.00 - 6.8%\nMICROSOFT CORP (US5949181045) - Equity - 300 - USD 340.00 - USD 102,000.00 - 8.16%\nAMAZON.COM INC (US0231351067) - Equity - 100 - USD 950.00 - USD 95,000.00 - 7.6%\nUS TREASURY 2.5% 15/02/2045 (US912810RK35) - Bond - 200,000 - USD 0.99 - USD 198,000.00 - 15.84%\nGOLDMAN SACHS 0% NOTES 23-07.11.29 (XS2692298537) - Bond - 150,000 - USD 0.98 - USD 147,000.00 - 11.76%\n\nSECTOR ALLOCATION\nTechnology: 22.56%\nConsumer: 7.6%\nGovernment: 15.84%\nFinancial: 11.76%\nOther: 42.24%\n\nNOTES\nThis portfolio statement is for informational purposes only and does not constitute investment advice. Past performance is not indicative of future results. Please consult with your financial advisor before making any investment decisions.",
+            "tables": [
+              {
+                "title": "Asset Allocation",
+                "headers": [
+                  "Asset Class",
+                  "Percentage"
+                ],
+                "rows": [
+                  [
+                    "Equity",
+                    "45%"
+                  ],
+                  [
+                    "Fixed Income",
+                    "30%"
+                  ],
+                  [
+                    "Cash",
+                    "15%"
+                  ],
+                  [
+                    "Alternative",
+                    "10%"
+                  ]
+                ]
+              },
+              {
+                "title": "Securities Holdings",
+                "headers": [
+                  "Security",
+                  "ISIN",
+                  "Type",
+                  "Quantity",
+                  "Price",
+                  "Value",
+                  "Weight"
+                ],
+                "rows": [
+                  [
+                    "APPLE INC",
+                    "US0378331005",
+                    "Equity",
+                    "500",
+                    "USD 170.00",
+                    "USD 85,000.00",
+                    "6.8%"
+                  ],
+                  [
+                    "MICROSOFT CORP",
+                    "US5949181045",
+                    "Equity",
+                    "300",
+                    "USD 340.00",
+                    "USD 102,000.00",
+                    "8.16%"
+                  ],
+                  [
+                    "AMAZON.COM INC",
+                    "US0231351067",
+                    "Equity",
+                    "100",
+                    "USD 950.00",
+                    "USD 95,000.00",
+                    "7.6%"
+                  ],
+                  [
+                    "US TREASURY 2.5% 15/02/2045",
+                    "US912810RK35",
+                    "Bond",
+                    "200,000",
+                    "USD 0.99",
+                    "USD 198,000.00",
+                    "15.84%"
+                  ],
+                  [
+                    "GOLDMAN SACHS 0% NOTES 23-07.11.29",
+                    "XS2692298537",
+                    "Bond",
+                    "150,000",
+                    "USD 0.98",
+                    "USD 147,000.00",
+                    "11.76%"
+                  ]
+                ]
+              }
+            ]
+          },
+          "metadata": {
+            "title": "Investment Portfolio Statement",
+            "author": "Financial Institution",
+            "creationDate": "2025-02-28",
+            "securities": [
+              {
+                "name": "APPLE INC",
+                "isin": "US0378331005",
+                "type": "Equity",
+                "quantity": 500,
+                "price": 170,
+                "value": 85000,
+                "currency": "USD",
+                "weight": 0.068
+              },
+              {
+                "name": "MICROSOFT CORP",
+                "isin": "US5949181045",
+                "type": "Equity",
+                "quantity": 300,
+                "price": 340,
+                "value": 102000,
+                "currency": "USD",
+                "weight": 0.0816
+              },
+              {
+                "name": "AMAZON.COM INC",
+                "isin": "US0231351067",
+                "type": "Equity",
+                "quantity": 100,
+                "price": 950,
+                "value": 95000,
+                "currency": "USD",
+                "weight": 0.076
+              },
+              {
+                "name": "US TREASURY 2.5% 15/02/2045",
+                "isin": "US912810RK35",
+                "type": "Bond",
+                "quantity": 200000,
+                "price": 0.99,
+                "value": 198000,
+                "currency": "USD",
+                "weight": 0.1584
+              },
+              {
+                "name": "GOLDMAN SACHS 0% NOTES 23-07.11.29",
+                "isin": "XS2692298537",
+                "type": "Bond",
+                "quantity": 150000,
+                "price": 0.98,
+                "value": 147000,
+                "currency": "USD",
+                "weight": 0.1176
+              }
+            ],
+            "portfolio": {
+              "totalValue": 1250000,
+              "currency": "USD",
+              "valuationDate": "2025-02-28",
+              "assetAllocation": {
+                "equity": 0.45,
+                "fixedIncome": 0.3,
+                "cash": 0.15,
+                "alternative": 0.1
+              },
+              "sectorAllocation": {
+                "technology": 0.2256,
+                "consumer": 0.076,
+                "government": 0.1584,
+                "financial": 0.1176,
+                "other": 0.4224
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "Verify Document Data",
+      "status": "Pass",
+      "details": {
+        "success": true,
+        "checks": [
+          {
+            "name": "Basic Properties",
+            "status": "Pass"
+          },
+          {
+            "name": "Content",
+            "status": "Pass"
+          },
+          {
+            "name": "Text Content",
+            "status": "Pass"
+          },
+          {
+            "name": "Tables",
+            "status": "Pass"
+          },
+          {
+            "name": "Metadata",
+            "status": "Pass"
+          },
+          {
+            "name": "Securities",
+            "status": "Pass"
+          },
+          {
+            "name": "Portfolio",
+            "status": "Pass"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Test Q&A Functionality",
+      "status": "Pass",
+      "details": {
+        "qaResults": [
+          {
+            "question": "What is the total value of the portfolio?",
+            "answer": "The total value of the portfolio is USD 1,250,000.",
+            "status": "Pass"
+          },
+          {
+            "question": "How many securities are in the portfolio?",
+            "answer": "There are 5 securities in the portfolio.",
+            "status": "Pass"
+          },
+          {
+            "question": "What is the ISIN of Apple Inc?",
+            "answer": "The ISIN of Apple Inc is US0378331005.",
+            "status": "Pass"
+          },
+          {
+            "question": "What is the weight of Microsoft Corp in the portfolio?",
+            "answer": "The weight of Microsoft Corp in the portfolio is 8.16%.",
+            "status": "Pass"
+          },
+          {
+            "question": "What is the asset allocation of the portfolio?",
+            "answer": "The asset allocation of the portfolio is: Equity 45%, Fixed Income 30%, Cash 15%, and Alternative 10%.",
+            "status": "Pass"
+          }
+        ]
+      }
+    }
+  ],
+  "status": "Pass"
+}

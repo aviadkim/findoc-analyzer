@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FinDoc Analyzer Test Summary</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      color: #333;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    h1, h2, h3 {
+      color: #2c3e50;
+    }
+    .summary-card {
+      padding: 15px;
+      border-radius: 5px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      margin-bottom: 20px;
+      background-color: #f8d7da;
+      color: #721c24;
+    }
+    .progress-container {
+      width: 100%;
+      background-color: #f3f3f3;
+      border-radius: 4px;
+      margin-bottom: 10px;
+    }
+    .progress-bar {
+      height: 20px;
+      border-radius: 4px;
+      text-align: center;
+      line-height: 20px;
+      color: white;
+    }
+    .progress-bar.success {
+      background-color: #4caf50;
+    }
+    .progress-bar.warning {
+      background-color: #ff9800;
+    }
+    .progress-bar.danger {
+      background-color: #f44336;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+    th, td {
+      padding: 8px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+    th {
+      background-color: #f2f2f2;
+    }
+    .badge {
+      display: inline-block;
+      padding: 5px 10px;
+      border-radius: 3px;
+      margin-right: 10px;
+    }
+    .badge.success {
+      background-color: #d4edda;
+      color: #155724;
+    }
+    .badge.failure {
+      background-color: #f8d7da;
+      color: #721c24;
+    }
+  </style>
+</head>
+<body>
+  <h1>FinDoc Analyzer Test Summary</h1>
+
+  <div class="summary-card">
+    <h2>Test Results</h2>
+    <div class="progress-container">
+      <div class="progress-bar danger" style="width: 57%">
+        57%
+      </div>
+    </div>
+    <p>4 of 7 test suites passed</p>
+  </div>
+
+  <h2>Test Suites by Category</h2>
+
+  
+    <h3>UI Tests</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Test Suite</th>
+          <th>Status</th>
+          <th>Report</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+          <tr>
+            <td>Layout Tests</td>
+            <td>
+              <span class="badge success">
+                Passed
+              </span>
+            </td>
+            <td>
+              <a href="../test-results/layout-tests-report.html" target="_blank">View Report</a>
+            </td>
+          </tr>
+        
+          <tr>
+            <td>Navigation Tests</td>
+            <td>
+              <span class="badge success">
+                Passed
+              </span>
+            </td>
+            <td>
+              <a href="../test-results/navigation-tests-report.html" target="_blank">View Report</a>
+            </td>
+          </tr>
+        
+          <tr>
+            <td>Interactive Element Tests</td>
+            <td>
+              <span class="badge success">
+                Passed
+              </span>
+            </td>
+            <td>
+              <a href="../test-results/interactive-element-tests-report.html" target="_blank">View Report</a>
+            </td>
+          </tr>
+        
+          <tr>
+            <td>UI Tests</td>
+            <td>
+              <span class="badge success">
+                Passed
+              </span>
+            </td>
+            <td>
+              <a href="../test-results/ui-test-report.html" target="_blank">View Report</a>
+            </td>
+          </tr>
+        
+      </tbody>
+    </table>
+  
+    <h3>Document Processing Tests</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Test Suite</th>
+          <th>Status</th>
+          <th>Report</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+          <tr>
+            <td>PDF Text Extraction Tests</td>
+            <td>
+              <span class="badge failure">
+                Failed
+              </span>
+            </td>
+            <td>
+              <a href="#" target="_blank">View Report</a>
+            </td>
+          </tr>
+        
+          <tr>
+            <td>PDF Table Extraction Tests</td>
+            <td>
+              <span class="badge failure">
+                Failed
+              </span>
+            </td>
+            <td>
+              <a href="#" target="_blank">View Report</a>
+            </td>
+          </tr>
+        
+      </tbody>
+    </table>
+  
+    <h3>Financial Analysis Tests</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Test Suite</th>
+          <th>Status</th>
+          <th>Report</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+          <tr>
+            <td>Securities Extraction Tests</td>
+            <td>
+              <span class="badge failure">
+                Failed
+              </span>
+            </td>
+            <td>
+              <a href="#" target="_blank">View Report</a>
+            </td>
+          </tr>
+        
+      </tbody>
+    </table>
+  
+
+  <h2>Next Steps</h2>
+  <p>Based on the test results, the following actions are recommended:</p>
+  <ul>
+    
+      <li>Fix the failing tests</li>
+      <li>Re-run the tests to verify the fixes</li>
+    
+    <li>Update the application code to fix any issues found</li>
+    <li>Deploy the updated application</li>
+  </ul>
+</body>
+</html>

@@ -1,0 +1,54 @@
+{
+  "input_data": {
+    "document_path": "test_documents/messos_portfolio.pdf"
+  },
+  "workflow": [
+    {
+      "agent": "document_analyzer",
+      "action": "analyze"
+    },
+    {
+      "agent": "table_understanding",
+      "action": "analyze"
+    },
+    {
+      "agent": "securities_extractor",
+      "action": "extract"
+    },
+    {
+      "agent": "financial_reasoner",
+      "action": "validate"
+    }
+  ],
+  "agent_results": {
+    "document_analyzer": {
+      "document_path": "test_documents/messos_portfolio.pdf",
+      "page_count": 1,
+      "text": "MESSOS ENTERPRISES LTD.\nValuation as of 28.02.2025\nClient Number: 366223\nBonds\nCurrency\nNominal Quantity Description\nAvg Acq Price\nActual PricePerf YTD\nPerf Total\nValua\nUSD\n200'000\nTORONTO DOMINION BANK\nNOTES 23-23.02.27 REG-S\nVRN\nISIN: XS2530507273\n100.2000\n99.3080\n0.36%\n-0.89%\n198'74\nUSD\n200'000\nCANADIAN IMPERIAL BANK\nOF \nCOMMERCE \nNOTES\n23-22.08.28 VRN\nISIN: XS2568105036\n100.2000\n99.5002\n0.34%\n-0.70%\n199'17\nUSD\n1'500'000\nHARP ISSUER (4% MIN/5,5%\nMAX) \nNOTES\n2023-18.09.2028\nISIN: XS2565592833\n99.0990\n98.3900\n1.51%\n-0.72%\n1'502'\nUSD\n690'000\nGOLDMAN \nSACHS \n0%\nNOTES 23-07.11.29 SERIES\nP\nISIN: XS2692298537\n100.1000\n106.5700\n1.92%\n6.46%\n735'33\nUSD\n100'000\nLUMINIS (4.2 % MIN/5,5 %\nMAX) NOTES 2024-17.01.30\nISIN: XS2754416961\n100.2000\n97.6600\n1.70%\n-2.53%\n98'271\n\n\n",
+      "pages": [
+        {
+          "page_num": 1,
+          "text": "MESSOS ENTERPRISES LTD.\nValuation as of 28.02.2025\nClient Number: 366223\nBonds\nCurrency\nNominal Quantity Description\nAvg Acq Price\nActual PricePerf YTD\nPerf Total\nValua\nUSD\n200'000\nTORONTO DOMINION BANK\nNOTES 23-23.02.27 REG-S\nVRN\nISIN: XS2530507273\n100.2000\n99.3080\n0.36%\n-0.89%\n198'74\nUSD\n200'000\nCANADIAN IMPERIAL BANK\nOF \nCOMMERCE \nNOTES\n23-22.08.28 VRN\nISIN: XS2568105036\n100.2000\n99.5002\n0.34%\n-0.70%\n199'17\nUSD\n1'500'000\nHARP ISSUER (4% MIN/5,5%\nMAX) \nNOTES\n2023-18.09.2028\nISIN: XS2565592833\n99.0990\n98.3900\n1.51%\n-0.72%\n1'502'\nUSD\n690'000\nGOLDMAN \nSACHS \n0%\nNOTES 23-07.11.29 SERIES\nP\nISIN: XS2692298537\n100.1000\n106.5700\n1.92%\n6.46%\n735'33\nUSD\n100'000\nLUMINIS (4.2 % MIN/5,5 %\nMAX) NOTES 2024-17.01.30\nISIN: XS2754416961\n100.2000\n97.6600\n1.70%\n-2.53%\n98'271\n",
+          "width": 595.280029296875,
+          "height": 841.8900146484375
+        }
+      ],
+      "tables": [],
+      "document_type": "portfolio_statement",
+      "metadata": {
+        "date": "28.02.2025",
+        "client_name": "Number",
+        "client_id": "366223",
+        "account_number": null,
+        "currency": null,
+        "total_value": null
+      }
+    },
+    "table_understanding": {
+      "warning": "No tables found in input data",
+      "input_data": {
+        "action": "analyze",
+        "input_data": {
+          "document_path": "test_documents/messos_portfolio.pdf"
+        },
+        "previous_results": 

@@ -1,0 +1,71 @@
+INVESTMENT PORTFOLIO STATEMENT
+Date: April 27, 2025
+Account Number: 123456789
+Client: John Doe
+
+PORTFOLIO SUMMARY
+Total Value: $43,167.50
+Currency: USD
+Valuation Date: 27.04.2025
+
+ASSET ALLOCATION
+Equity: 45%
+Fixed Income: 30%
+Funds: 15%
+Cash: 10%
+
+SECURITIES HOLDINGS
+
+1. APPLE INC
+   ISIN: US0378331005
+   Type: Equity
+   Quantity: 50
+   Price: $175.25
+   Value: $8,762.50
+   Weight: 20.3%
+
+2. MICROSOFT CORP
+   ISIN: US5949181045
+   Type: Equity
+   Quantity: 30
+   Price: $325.75
+   Value: $9,772.50
+   Weight: 22.6%
+
+3. US TREASURY BOND 2.5% 2030
+   ISIN: US912810SL35
+   Type: Bond
+   Quantity: 10000
+   Price: 98.45
+   Value: $9,845.00
+   Weight: 22.8%
+
+4. GOLDMAN SACHS 0% NOTES 23-07.11.29 SERIES P
+   ISIN: XS2692298537
+   Type: Bond
+   Quantity: 5000
+   Price: 92.35
+   Value: $4,617.50
+   Weight: 10.7%
+
+5. VANGUARD TOTAL STOCK MARKET ETF
+   ISIN: US9229087690
+   Type: Fund
+   Quantity: 25
+   Price: $245.60
+   Value: $6,140.00
+   Weight: 14.2%
+
+6. CASH USD
+   Type: Cash
+   Value: $4,030.00
+   Weight: 9.4%
+
+TRANSACTION HISTORY (Last 30 days)
+04/15/2025 - Purchase - APPLE INC - 10 shares at $172.30 - $1,723.00
+04/10/2025 - Dividend - MICROSOFT CORP - $45.00
+04/05/2025 - Sale - AMAZON.COM INC - 5 shares at $180.50 - $902.50
+04/01/2025 - Interest - CASH USD - $12.75
+
+NOTES
+This portfolio statement is for informational purposes only and does not constitute investment advice. Past performance is not indicative of future results. Please consult with your financial advisor before making any investment decisions.

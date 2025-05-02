@@ -1,0 +1,33 @@
+@echo off
+echo Starting MCP Servers...
+echo.
+
+echo Starting Brave Search MCP Server...
+start "Brave Search MCP" cmd /c "set BRAVE_API_KEY=YOUR_BRAVE_API_KEY && node C:\Users\aviad\Documents\Cline\MCP\brave-search\run-brave-search.js"
+
+echo Starting GitHub MCP Server...
+start "GitHub MCP" cmd /c "set GITHUB_PERSONAL_ACCESS_TOKEN=YOUR_GITHUB_TOKEN && node C:\Users\aviad\Documents\Cline\MCP\github\run-github.js"
+
+echo Starting SQLite MCP Server...
+start "SQLite MCP" cmd /c "npx -y @modelcontextprotocol/server-sqlite --db-path C:\Users\aviad\test.db"
+
+echo Starting Magic MCP Server...
+start "Magic MCP" cmd /c "npx -y @21st-dev/magic@latest"
+
+echo Starting Supabase MCP Server...
+start "Supabase MCP" cmd /c "npx -y @supabase/mcp-server-supabase@latest --access-token YOUR_SUPABASE_TOKEN"
+
+echo Starting Browser Tools MCP Server...
+start "Browser Tools MCP" cmd /c "npx -y @agentdeskai/browser-tools-mcp@latest"
+
+echo Starting Firecrawl MCP Server...
+start "Firecrawl MCP" cmd /c "set FIRECRAWL_API_KEY=YOUR_FIRECRAWL_API_KEY && npx -y firecrawl-mcp"
+
+echo Starting Puppeteer MCP Server...
+start "Puppeteer MCP" cmd /c "npx -y @modelcontextprotocol/server-puppeteer"
+
+echo.
+echo All MCP servers have been started in separate windows.
+echo.
+echo Press any key to exit...
+pause > nul

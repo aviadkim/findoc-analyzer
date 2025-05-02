@@ -1,0 +1,30 @@
+{
+    "summary":  {
+                    "failed":  2,
+                    "skipped":  1,
+                    "total":  3,
+                    "passed":  0
+                },
+    "endTime":  "2025-04-27T01:07:44",
+    "tests":  [
+                  {
+                      "status":  "failed",
+                      "timestamp":  "2025-04-27T01:07:44",
+                      "name":  "User Registration",
+                      "details":  "The remote server returned an error: (500) Internal Server Error."
+                  },
+                  {
+                      "status":  "failed",
+                      "timestamp":  "2025-04-27T01:07:44",
+                      "name":  "User Login (Fallback)",
+                      "details":  "The remote server returned an error: (401) Unauthorized."
+                  },
+                  {
+                      "status":  "skipped",
+                      "timestamp":  "2025-04-27T01:07:44",
+                      "name":  "Authenticated Tests",
+                      "details":  "No authentication token available"
+                  }
+              ],
+    "startTime":  "2025-04-27T01:07:43"
+}

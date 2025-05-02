@@ -1,0 +1,30 @@
+runtime: custom
+env: flex
+
+# This setting will use the flexible environment which supports Docker
+service: default
+
+# Resources
+resources:
+  cpu: 2
+  memory_gb: 4
+  disk_size_gb: 10
+
+# Automatic scaling
+automatic_scaling:
+  min_num_instances: 1
+  max_num_instances: 5
+  cool_down_period_sec: 180
+  cpu_utilization:
+    target_utilization: 0.6
+
+# Environment variables
+env_variables:
+  NODE_ENV: "production"
+  UPLOAD_FOLDER: "/tmp/uploads"
+  TEMP_FOLDER: "/tmp/temp"
+  RESULTS_FOLDER: "/tmp/results"
+
+# Network settings
+network:
+  session_affinity: true

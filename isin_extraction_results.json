@@ -1,0 +1,30 @@
+{
+  "status": "success",
+  "count": 3,
+  "isins": [
+    {
+      "isin": "US0231351067",
+      "country_code": "US",
+      "country_name": "United States",
+      "security_code": "023135106",
+      "check_digit": "7",
+      "is_valid": true
+    },
+    {
+      "isin": "US0378331005",
+      "country_code": "US",
+      "country_name": "United States",
+      "security_code": "037833100",
+      "check_digit": "5",
+      "is_valid": true
+    },
+    {
+      "isin": "US5949181045",
+      "country_code": "US",
+      "country_name": "United States",
+      "security_code": "594918104",
+      "check_digit": "5",
+      "is_valid": true
+    }
+  ]
+}

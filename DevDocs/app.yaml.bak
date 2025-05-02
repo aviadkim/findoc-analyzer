@@ -1,0 +1,25 @@
+runtime: nodejs18
+service: default
+
+env: standard
+instance_class: F2
+
+handlers:
+  # Serve static files from the Next.js build
+  - url: /_next/static
+    static_dir: frontend/.next/static
+    secure: always
+
+  # Serve public files
+  - url: /public
+    static_dir: frontend/public
+    secure: always
+
+  # Serve all other requests with the Next.js server
+  - url: /.*
+    secure: always
+    script: auto
+
+env_variables:
+  NODE_ENV: "production"
+  PORT: "8080"

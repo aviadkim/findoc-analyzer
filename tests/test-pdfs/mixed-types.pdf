@@ -1,0 +1,11 @@
+
+Mixed Investment Portfolio
+
+Type      | Name                      | ISIN         | Quantity | Current Value | % of Assets
+----------|---------------------------|--------------|----------|---------------|------------
+Stock     | Apple Inc.                | US0378331005 | 1,000    | $175,000.00   | 17.5%
+Bond      | US Treasury 10Y           | US912828ZQ64 | $100,000 | $95,000.00    | 9.5%
+Fund      | Vanguard S&P 500 ETF      | US9229083632 | 1,000    | $350,000.00   | 35.0%
+Stock     | Microsoft                 | US5949181045 | 800      | $240,000.00   | 24.0%
+Bond      | Apple Inc. 2.40% 2023     | US037833AK68 | $50,000  | $50,500.00    | 5.0%
+Fund      | iShares MSCI World ETF    | IE00B4L5Y983 | 2,000    | $150,000.00   | 15.0%

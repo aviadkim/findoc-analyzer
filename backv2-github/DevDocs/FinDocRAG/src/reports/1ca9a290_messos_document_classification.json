@@ -1,0 +1,21 @@
+{
+  "document_type": "portfolio_statement",
+  "confidence": 85,
+  "features": {
+    "keywords": [
+      "portfolio",
+      "statement",
+      "asset",
+      "allocation",
+      "holdings"
+    ],
+    "patterns": [
+      "portfolio statement",
+      "asset allocation"
+    ]
+  },
+  "metadata": {
+    "date": "2023-01-15",
+    "account_number": "123456789"
+  }
+}

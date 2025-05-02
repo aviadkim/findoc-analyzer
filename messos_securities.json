@@ -1,0 +1,301 @@
+[
+  {
+    "isin": "XS2530201644",
+    "name": "198'745\n129",
+    "nominal": "200'000",
+    "page": 8,
+    "value": null,
+    "details": [
+      "   Ordinary Bonds  //  Maturity: 23.02.2027\nCoupon: 23.5  //  Quarterly  3.32%  //  Days: 7  28.02.2025    ",
+      "   Moody's: A2  //  PRC: 2.00      ",
+      "USD  200'000 CANADIAN IMPERIAL BANK OF COMMERCE NOTES 23-22.08.28\nVRN 100.2000 99.5002 0.34% -0.70% 199'172\n172 1.02%"
+    ],
+    "maturity": "23.02.2027",
+    "coupon": "3.32%"
+  },
+  {
+    "isin": "XS2588105036",
+    "name": null,
+    "nominal": "27.02.2025",
+    "page": 8,
+    "value": null,
+    "details": [
+      "   Ordinary Bonds  //  Maturity: 22.02.2028\nCoupon: 23.2  //  Annual  5.1531%  //  Days: 8      ",
+      "   PRC: 4.00      ",
+      "USD  1'500'000 HARP ISSUER (4% MIN/5,5% MAX) NOTES 2023-18.09.2028\nSE.195 99.0990 98.3900 1.51% -0.72% 1'502'850\n27'000 7.70%"
+    ],
+    "maturity": "22.02.2028",
+    "coupon": "5.1531%"
+  },
+  {
+    "isin": "XS2665592833",
+    "name": null,
+    "nominal": "28.02.2025",
+    "page": 8,
+    "value": null,
+    "details": [
+      "   Ordinary Bonds  //  Maturity: 18.09.2028\nCoupon: 18.9  //  Annual  4%  //  Days: 162      ",
+      "   PRC: 4.00      "
+    ],
+    "maturity": "18.09.2028",
+    "coupon": "4%"
+  },
+  {
+    "isin": "XS2692298537",
+    "name": null,
+    "nominal": "690'000",
+    "page": 8,
+    "value": null,
+    "details": [
+      "   Ordinary Bonds  //  Maturity: 07.11.2029\nYTM: -1.35  //  PRC: 4.00  28.02.2025    "
+    ],
+    "maturity": "07.11.2029"
+  },
+  {
+    "isin": "XS2754416860",
+    "name": null,
+    "nominal": "100'000",
+    "page": 8,
+    "value": null,
+    "details": [
+      "   Ordinary Bonds  //  Maturity: 17.01.2030\nCoupon: 17.1  //  Annual  5.238%  //  Days: 42  28.02.2025    ",
+      "   PRC: 4.00      "
+    ],
+    "maturity": "17.01.2030",
+    "coupon": "5.238%"
+  },
+  {
+    "isin": "XS2761230684",
+    "name": null,
+    "nominal": "100'000",
+    "page": 8,
+    "value": null,
+    "details": [
+      "   Zero Bonds  //  Maturity: 13.02.2030\nCoupon: 13.2  //  Annual  2%  //  Days: 17  //  YTM: 6.91  27.02.2025    ",
+      "   PRC: 4.00      "
+    ],
+    "maturity": "13.02.2030",
+    "coupon": "2%"
+  },
+  {
+    "isin": "XS2736388732",
+    "name": "255'383\n8'833",
+    "nominal": "250'000",
+    "page": 8,
+    "value": null,
+    "details": [
+      "   Ordinary Bonds  //  Maturity: 20.12.2031\nDays: 265  28.02.2025    ",
+      "   PRC: 4.00      "
+    ],
+    "maturity": "20.12.2031"
+  },
+  {
+    "isin": "XS2782869916",
+    "name": null,
+    "nominal": "28.02.2025",
+    "page": 9,
+    "value": null,
+    "details": [
+      "   Ordinary Bonds  //  Maturity: 09.05.2034\nPRC: 4.00      ",
+      "   Price to be verified      "
+    ],
+    "maturity": "09.05.2034"
+  },
+  {
+    "isin": "XS2824054402",
+    "name": "474'916\n18'548",
+    "nominal": "440'000",
+    "page": 9,
+    "value": null,
+    "details": [
+      "   Ordinary Bonds  //  Callable: 29.05.2026\nCoupon: 29.5  //  Annual  5.6%  //  Days: 271  //  YTM: 5.08  28.02.2025    ",
+      "   PRC: 4.00      "
+    ],
+    "coupon": "5.6%"
+  },
+  {
+    "isin": "XS2567543397",
+    "name": "2'560'667\n96'212",
+    "nominal": "2'450'000",
+    "page": 9,
+    "value": null,
+    "details": [
+      "   Ordinary Bonds  //  Callable: 18.06.2026\nCoupon: 18.6  //  Annual  5.61%  //  Days: 252  //  YTM: 5.52  27.02.2025    ",
+      "   PRC: 4.00      "
+    ],
+    "coupon": "5.61%"
+  },
+  {
+    "isin": "XS2110079584",
+    "name": null,
+    "nominal": "1'100'000",
+    "page": 9,
+    "value": null,
+    "details": [
+      "   Zero Bonds  //  Callable: 09.07.2026\nYTM: 5.76  //  PRC: 4.00  28.02.2025    ",
+      "USD  90'000 CITIGROUP GLBL 0 % MEDIUM TERM NOTES 2024-01.08.34\nGLOBAL RE 100.2000 99.9500 2.24% -0.25% 89'955 0.46%"
+    ]
+  },
+  {
+    "isin": "XS2848820754",
+    "name": null,
+    "nominal": "28.02.2025",
+    "page": 9,
+    "value": null,
+    "details": [
+      "   Zero Bonds  //  Maturity: 01.08.2034\nPRC: 4.00      "
+    ],
+    "maturity": "01.08.2034"
+  },
+  {
+    "isin": "XS2829712830",
+    "name": null,
+    "nominal": "100'000",
+    "page": 9,
+    "value": null,
+    "details": [
+      "   Ordinary Bonds  //  Maturity: 30.09.2034\nYTM: 5.51  //  PRC: 4.00  27.02.2025    "
+    ],
+    "maturity": "30.09.2034"
+  },
+  {
+    "isin": "XS2912278723",
+    "name": null,
+    "nominal": "200'000",
+    "page": 9,
+    "value": null,
+    "details": [
+      "   Zero Bonds  //  Maturity: 17.10.2034\nYTM: 4.86  //  PRC: 4.00  27.02.2025    ",
+      "USD  100'000 JPMORGAN CHASE  0 % NOTES 2024-29.10.34 SERIES 2021-\n37954 100.2000 96.8496 1.92% -3.34% 96'850 0.50%"
+    ],
+    "maturity": "17.10.2034"
+  },
+  {
+    "isin": "XS2381723902",
+    "name": null,
+    "nominal": "28.02.2025",
+    "page": 9,
+    "value": null,
+    "details": [
+      "   Zero Bonds  //  Maturity: 29.10.2034\nPRC: 4.00      "
+    ],
+    "maturity": "29.10.2034"
+  },
+  {
+    "isin": "XS2829752976",
+    "name": null,
+    "nominal": "27.02.2025",
+    "page": 10,
+    "value": null,
+    "details": [
+      "  Ordinary Bonds  //  Maturity: 18.11.2034\nYTM: 5.49  //  PRC: 4.00      "
+    ],
+    "maturity": "18.11.2034"
+  },
+  {
+    "isin": "XS2953741100",
+    "name": null,
+    "nominal": "150'000",
+    "page": 10,
+    "value": null,
+    "details": [
+      "  Zero Bonds  //  Maturity: 11.12.2034\nYTM: 5.13  //  PRC: 4.00  27.02.2025    "
+    ],
+    "maturity": "11.12.2034"
+  },
+  {
+    "isin": "XS2381717250",
+    "name": null,
+    "nominal": "500'000",
+    "page": 10,
+    "value": null,
+    "details": [
+      "  Zero Bonds  //  Maturity: 19.12.2034\nPRC: 4.00  26.02.2025    "
+    ],
+    "maturity": "19.12.2034"
+  },
+  {
+    "isin": "XS2481066111",
+    "name": null,
+    "nominal": "50'000",
+    "page": 10,
+    "value": null,
+    "details": [
+      "  Zero Bonds  //  Maturity: 03.02.2035\nYTM: -0.09  //  PRC: 3.69  28.02.2025    "
+    ],
+    "maturity": "03.02.2035"
+  },
+  {
+    "isin": "XS2964611052",
+    "name": null,
+    "nominal": "1'470'000",
+    "page": 10,
+    "value": null,
+    "details": [
+      "  Zero Bonds  //  Maturity: 14.02.2035\nYTM: 5.31  //  PRC: 4.00  27.02.2025    ",
+      "USD 2'581.79 PREMIUM ALT.S.A. SICAV-SIF - COMMERCIAL FINANCE OPP.XB\nSP 81.5304 44.7800 0.00% -45.08% 115'613 0.59%"
+    ],
+    "maturity": "14.02.2035"
+  },
+  {
+    "isin": "LU2228214107",
+    "name": null,
+    "nominal": "13.09.2024",
+    "page": 10,
+    "value": null,
+    "details": [
+      "  Bond Funds / Certificates\nPRC: 4.00      ",
+      "USD 350'000 BK JULIUS BAER CAP.PROT.(3,25% MIN.4,5% MAX)23-26.05.28\nVRN 100.6237 97.4500 0.98% -3.15% 341'138\n63 1.75%"
+    ]
+  },
+  {
+    "isin": "CH1269060229",
+    "name": null,
+    "nominal": "28.02.2025",
+    "page": 10,
+    "value": null,
+    "details": [
+      "  Structured Bonds  //  Maturity: 26.05.2028\nCoupon: 26.5  //  Quarterly  3.25%  //  Days: 2      ",
+      "  PRC: 3.00\nPrice to be verified      "
+    ],
+    "maturity": "26.05.2028",
+    "coupon": "3.25%"
+  },
+  {
+    "isin": "XS0461497009",
+    "name": "703'670\n11'807",
+    "nominal": "690'000",
+    "page": 10,
+    "value": null,
+    "details": [
+      "  Ordinary Bonds  //  Maturity: 08.11.2028\nCoupon: 8.11  //  Annual  5.5%  //  Days: 112  27.02.2025    ",
+      "  PRC: 4.00      "
+    ],
+    "maturity": "08.11.2028",
+    "coupon": "5.5%"
+  },
+  {
+    "isin": "XS2746319610",
+    "name": "187'094\n44'560",
+    "nominal": "140'000",
+    "page": 11,
+    "value": null,
+    "details": [
+      "   Ordinary Bonds  //  Maturity: 01.03.2030\nCoupon: Annual  32.46%  //  Days: 353  //  YTM: 17.08  28.02.2025    "
+    ],
+    "maturity": "01.03.2030",
+    "coupon": "32.46%"
+  },
+  {
+    "isin": "CH0244767585",
+    "name": "221.5641\n1.1340",
+    "nominal": "30.9000\n1.1086",
+    "page": 12,
+    "value": null,
+    "details": [
+      "Ordinary Stocks  //  PRC: 3.35  28.02.2025  -2.24%  27'406 ",
+      "Total Equities     USD 27'406 0.14%",
+      "thereof Equities (without options)     USD 27'406 0.14%"
+    ]
+  }
+]

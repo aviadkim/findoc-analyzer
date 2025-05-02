@@ -1,0 +1,15 @@
+
+Financial Report 2023
+
+Balance Sheet
+Assets                 | 2023      | 2022
+-----------------------|-----------|----------
+Cash and Equivalents   | $1,000,000| $800,000
+Accounts Receivable    | $500,000  | $450,000
+Total Assets           | $1,500,000| $1,250,000
+
+Investment Portfolio
+Security   | ISIN         | Quantity | Acquisition Price | Current Value | % of Assets
+-----------|--------------|----------|-------------------|---------------|------------
+Tesla      | US88160R1014 | 300      | $200.00           | $180.00       | 2.2%
+Google     | US02079K1079 | 200      | $1,200.00         | $1,300.00     | 10.4%

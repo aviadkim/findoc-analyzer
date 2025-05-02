@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agent Configuration - FinDoc Analyzer</title>
+  <link rel="stylesheet" href="/css/styles.css">
+  <style>
+    .agents-container {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
+    
+    .agent-list-sidebar {
+      background-color: white;
+      border-radius: 0.5rem;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      padding: 1.5rem;
+    }
+    
+    .agent-config {
+      background-color: white;
+      border-radius: 0.5rem;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      padding: 1.5rem;
+    }
+    
+    .agent-item {
+      display: flex;
+      align-items: center;
+      padding: 0.75rem;
+      border-radius: 0.25rem;
+      cursor: pointer;
+      transition: background-color 0.2s;
+      margin-bottom: 0.5rem;
+    }
+    
+    .agent-item:hover {
+      background-color: #f8f9fa;
+    }
+    
+    .agent-item.active {
+      background-color: #e9ecef;
+    }
+    
+    .agent-item-icon {
+      font-size: 1.5rem;
+      margin-right: 1rem;
+      color: #4c6ef5;
+    }
+    
+    .agent-item-name {
+      font-weight: 500;
+    }
+    
+    .agent-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+    
+    .agent-header-icon {
+      font-size: 2rem;
+      margin-right: 1rem;
+      color: #4c6ef5;
+    }
+    
+    .agent-header-info h3 {
+      margin: 0;
+      margin-bottom: 0.25rem;
+    }
+    
+    .agent-header-info p {
+      margin: 0;
+      color: #6c757d;
+    }
+    
+    .agent-settings {
+      margin-bottom: 1.5rem;
+    }
+    
+    .form-group {
+      margin-bottom: 1rem;
+    }
+    
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+    }
+    
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 0.5rem;
+      border: 1px solid #ced4da;
+      border-radius: 0.25rem;
+      font-size: 1rem;
+    }
+    
+    .form-group textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+    
+    .form-row {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+    
+    .form-row .form-group {
+      flex: 1;
+      margin-bottom: 0;
+    }
+    
+    .agent-capabilities {
+      margin-bottom: 1.5rem;
+    }
+    
+    .capability-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 0.5rem;
+    }
+    
+    .capability-icon {
+      margin-right: 0.5rem;
+      color: #40c057;
+    }
+    
+    .agent-actions {
+      display: flex;
+      justify-content: space-between;
+    }
+    
+    .agent-history {
+      margin-top: 2rem;
+    }
+    
+    .history-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.75rem;
+      background-color: #f8f9fa;
+      border-radius: 0.25rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    .history-info {
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .history-action {
+      font-weight: 500;
+    }
+    
+    .history-time {
+      font-size: 0.875rem;
+      color: #6c757d;
+    }
+    
+    .history-user {
+      font-size: 0.875rem;
+      color: #6c757d;
+    }
+    
+    @media (max-width: 768px) {
+      .agents-container {
+        grid-template-columns: 1fr;
+      }
+      
+      .form-row {
+        flex-direction: column;
+        gap: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <h1>FinDoc Analyzer</h1>
+    </div>
+    <div class="user-section">
+      <span id="user-info">Guest User</span>
+      <button id="logout-button">Logout</button>
+    </div>
+    <button id="mobile-nav-toggle" class="mobile-nav-toggle">‚ò∞</button>
+  </header>
+
+  <div id="error-container" class="error-container"></div>
+
+  <main>
+    <section id="main-section" class="main-section">
+      <div class="sidebar" id="sidebar">
+        <button id="sidebar-close" class="sidebar-close">‚úï</button>
+        <nav>
+          <ul>
+            <li><a href="/" class="nav-link">Dashboard</a></li>
+            <li><a href="/documents.html" class="nav-link">Documents</a></li>
+            <li><a href="/analytics.html" class="nav-link">Analytics</a></li>
+            <li><a href="/financial.html" class="nav-link">Financial Analysis</a></li>
+            <li><a href="/reports.html" class="nav-link">Reports</a></li>
+            <li><a href="/portfolio.html" class="nav-link">Portfolio</a></li>
+            <li><a href="/chat.html" class="nav-link">Document Chat</a></li>
+            <li><a href="/processing.html" class="nav-link">Document Processing</a></li>
+            <li><a href="/agents.html" class="nav-link active">Agent Configuration</a></li>
+            <li><a href="/extraction.html" class="nav-link">Data Extraction</a></li>
+            <li><a href="/comparison.html" class="nav-link">Document Comparison</a></li>
+            <li><a href="/templates.html" class="nav-link">Templates</a></li>
+            <li><a href="/batch.html" class="nav-link">Batch Processing</a></li>
+            <li><a href="/settings.html" class="nav-link">Settings</a></li>
+          </ul>
+        </nav>
+      </div>
+
+      <div class="content">
+        <h2>Agent Configuration</h2>
+        
+        <div class="agents-container">
+          <div class="agent-list-sidebar">
+            <h3>Available Agents</h3>
+            
+            <div class="agent-item active" data-agent="document-analyzer">
+              <div class="agent-item-icon">Ì¥ç</div>
+              <div class="agent-item-name">Document Analyzer</div>
+            </div>
+            
+            <div class="agent-item" data-agent="table-understanding">
+              <div class="agent-item-icon">Ì≥ä</div>
+              <div class="agent-item-name">Table Understanding</div>
+            </div>
+            
+            <div class="agent-item" data-agent="securities-extractor">
+              <div class="agent-item-icon">Ì≤º</div>
+              <div class="agent-item-name">Securities Extractor</div>
+            </div>
+            
+            <div class="agent-item" data-agent="financial-reasoner">
+              <div class="agent-item-icon">Ì≥à</div>
+              <div class="agent-item-name">Financial Reasoner</div>
+            </div>
+            
+            <div class="agent-item" data-agent="portfolio-builder">
+              <div class="agent-item-icon">Ì¥Ñ</div>
+              <div class="agent-item-name">Portfolio Builder</div>
+            </div>
+            
+            <div class="agent-item" data-agent="report-generator">
+              <div class="agent-item-icon">Ì≥ù</div>
+              <div class="agent-item-name">Report Generator</div>
+            </div>
+            
+            <button class="primary-button" style="width: 100%; margin-top: 1rem;">Add New Agent</button>
+          </div>
+          
+          <div class="agent-config">
+            <div class="agent-header">
+              <div class="agent-header-icon">Ì¥ç</div>
+              <div class="agent-header-info">
+                <h3>Document Analyzer</h3>
+                <p>Analyzes document structure and content</p>
+              </div>
+            </div>
+            
+            <div class="agent-settings">
+              <h4>Agent Settings</h4>
+              
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="agent-name">Agent Name</label>
+                  <input type="text" id="agent-name" value="Document Analyzer">
+                </div>
+                
+                <div class="form-group">
+                  <label for="agent-model">AI Model</label>
+                  <select id="agent-model">
+                    <option value="gemini-pro">Gemini Pro</option>
+                    <option value="gemini-pro-vision">Gemini Pro Vision</option>
+                    <option value="claude-3-opus">Claude 3 Opus</option>
+                    <option value="claude-3-sonnet">Claude 3 Sonnet</option>
+                    <option value="gpt-4">GPT-4</option>
+                  </select>
+                </div>
+              </div>
+              
+              <div class="form-group">
+                <label for="agent-description">Description</label>
+                <input type="text" id="agent-description" value="Analyzes document structure and content">
+              </div>
+              
+              <div class="form-group">
+                <label for="agent-prompt">Agent Prompt</label>
+                <textarea id="agent-prompt">You are a Document Analyzer agent. Your task is to analyze financial documents and extract key information such as:
+
+1. Document type and structure
+2. Key sections and their content
+3. Important financial data points
+4. Tables and their structure
+5. Relationships between different parts of the document
+
+Provide a comprehensive analysis of the document structure and content.</textarea>
+              </div>
+              
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="agent-temperature">Temperature</label>
+                  <input type="range" id="agent-temperature" min="0" max="1" step="0.1" value="0.2">
+                  <div style="display: flex; justify-content: space-between;">
+                    <span>0.0</span>
+                    <span>0.5</span>
+                    <span>1.0</span>
+                  </div>
+                </div>
+                
+                <div class="form-group">
+                  <label for="agent-max-tokens">Max Tokens</label>
+                  <input type="number" id="agent-max-tokens" value="4096">
+                </div>
+              </div>
+            </div>
+            
+            <div class="agent-capabilities">
+              <h4>Capabilities</h4>
+              
+              <div class="capability-item">
+                <div class="capability-icon">‚úì</div>
+                <div>Document structure analysis</div>
+              </div>
+              
+              <div class="capability-item">
+                <div class="capability-icon">‚úì</div>
+                <div>Section identification</div>
+              </div>
+              
+              <div class="capability-item">
+                <div class="capability-icon">‚úì</div>
+                <div>Metadata extraction</div>
+              </div>
+              
+              <div class="capability-item">
+                <div class="capability-icon">‚úì</div>
+                <div>Content summarization</div>
+              </div>
+              
+              <div class="capability-item">
+                <div class="capability-icon">‚úì</div>
+                <div>Basic table detection</div>
+              </div>
+            </div>
+            
+            <div class="agent-actions">
+              <button class="secondary-button">Test Agent</button>
+              <button class="primary-button">Save Changes</button>
+              <button class="danger-button">Delete Agent</button>
+            </div>
+            
+            <div class="agent-history">
+              <h4>Agent History</h4>
+              
+              <div class="history-item">
+                <div class="history-info">
+                  <div class="history-action">Agent updated</div>
+                  <div class="history-time">2 hours ago</div>
+                </div>
+                <div class="history-user">Admin User</div>
+              </div>
+              
+              <div class="history-item">
+                <div class="history-info">
+                  <div class="history-action">Model changed to Gemini Pro</div>
+                  <div class="history-time">1 day ago</div>
+                </div>
+                <div class="history-user">Admin User</div>
+              </div>
+              
+              <div class="history-item">
+                <div class="history-info">
+                  <div class="history-action">Agent created</div>
+                  <div class="history-time">3 days ago</div>
+                </div>
+                <div class="history-user">Admin User</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2023 FinDoc Analyzer. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // Mobile navigation
+    const mobileNavToggle = document.getElementById('mobile-nav-toggle');
+    const sidebar = document.getElementById('sidebar');
+    const sidebarClose = document.getElementById('sidebar-close');
+    const navLinks = document.querySelectorAll('.nav-link');
+
+    mobileNavToggle.addEventListener('click', () => {
+      sidebar.classList.add('active');
+      sidebarClose.style.display = 'block';
+    });
+
+    sidebarClose.addEventListener('click', () => {
+      sidebar.classList.remove('active');
+      sidebarClose.style.display = 'none';
+    });
+
+    navLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        if (window.innerWidth <= 768) {
+          sidebar.classList.remove('active');
+          sidebarClose.style.display = 'none';
+        }
+      });
+    });
+
+    // Agent selection
+    const agentItems = document.querySelectorAll('.agent-item');
+
+    agentItems.forEach(item => {
+      item.addEventListener('click', () => {
+        agentItems.forEach(i => i.classList.remove('active'));
+        item.classList.add('active');
+        
+        // In a real app, this would load the agent configuration
+        // For now, we'll just update the header
+        const agentName = item.querySelector('.agent-item-name').textContent;
+        const agentIcon = item.querySelector('.agent-item-icon').textContent;
+        
+        document.querySelector('.agent-header-icon').textContent = agentIcon;
+        document.querySelector('.agent-header-info h3').textContent = agentName;
+        document.getElementById('agent-name').value = agentName;
+      });
+    });
+  </script>
+</body>
+</html>

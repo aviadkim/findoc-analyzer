@@ -1,0 +1,1743 @@
+{
+  "document_type": "portfolio_statement",
+  "confidence": 85,
+  "portfolio_summary": {
+    "total_value": 19510599,
+    "currency": "USD",
+    "asset_allocation": {
+      "Bonds": 59.24,
+      "Equities": 0.14,
+      "Structured products": 40.24,
+      "Liquidity": 0.25,
+      "Other assets": 0.13
+    },
+    "currency_allocation": {
+      "USD": 100.0
+    },
+    "top_positions": [
+      {
+        "isin": "XS2396778100",
+        "description": "BARCLAYS BANK PLC 0% 31/12/2025",
+        "value": 2000000,
+        "currency": "USD",
+        "percentage": 10.25
+      }
+    ]
+  },
+  "securities": [
+    {
+      "isin": "CH1908490000",
+      "description": "",
+      "nominal_value": null,
+      "price": null,
+      "acquisition_price": null,
+      "actual_value": null,
+      "currency": null,
+      "maturity": null,
+      "coupon": null,
+      "weight": null,
+      "asset_class_weight": null,
+      "source_table": "stream_8",
+      "source_page": 7,
+      "is_valid_isin": false
+    },
+    {
+      "isin": "XS2530201644",
+      "description": "",
+      "nominal_value": 99.308,
+      "price": null,
+      "acquisition_price": null,
+      "actual_value": null,
+      "currency": null,
+      "maturity": null,
+      "coupon": null,
+      "weight": null,
+      "asset_class_weight": null,
+      "source_table": "stream_9",
+      "source_page": 8,
+      "is_valid_isin": false
+    },
+    {
+      "isin": "XS2588105036",
+      "description": "",
+      "nominal_value": "27.02.2025",
+      "price": null,
+      "acquisition_price": null,
+      "actual_value": null,
+      "currency": null,
+      "maturity": null,
+      "coupon": null,
+      "weight": null,
+      "asset_class_weight": null,
+      "source_table": "stream_9",
+      "source_page": 8,
+      "is_valid_isin": false
+    },
+    {
+      "isin": "XS2665592833",
+      "description": "",
+      "nominal_value": "28.02.2025",
+      "price": null,
+      "acquisition_price": null,
+      "actual_value": null,
+      "currency": null,
+      "maturity": null,
+      "coupon": null,
+      "weight": null,
+      "asset_class_weight": null,
+      "source_table": "stream_9",
+      "source_page": 8,
+      "is_valid_isin": false
+    },
+    {
+      "isin": "XS2692298537",
+      "description": "",
+      "nominal_value": 106.57,
+      "price": null,
+      "acquisition_price": null,
+      "actual_value": null,
+      "currency": null,
+      "maturity": null,
+      "coupon": null,
+      "weight": null,
+      "asset_class_weight": null,
+      "source_table": "stream_9",
+      "source_page": 8,
+      "is_valid_isin": false
+    },
+    {
+      "isin": "XS2754416860",
+      "description": "",
+      "nominal_value": 97.66,
+      "price": null,
+      "acquisition_price": null,
+      "actual_value": null,
+      "currency": null,
+      "maturity": null,
+      "coupon": null,
+      "weight": null,
+      "asset_class_weight": null,
+      "source_table": "stream_9",
+      "source_page": 8,
+      "is_valid_isin": false
+    },
+    {
+      "isin": "XS2761230684",
+      "description": "",
+      "nominal_value": 101.7291,
+      "price": null,
+      "acquisition_price": null,
+      "actual_value": null,
+      "currency": null,
+      "maturity": null,
+      "coupon": null,
+      "weight": null,
+      "asset_class_weight": null,
+      "source_table": "stream_9",
+      "source_page": 8,
+      "is_valid_isin": false
+    },
+    {
+      "isin": "XS2736388732",
+      "description": "",
+      "nominal_value": 98.62,
+      "price": null,
+      "acquisition_price": null,
+      "actual_value": null,
+      "currency": null,
+      "maturity": null,
+      "coupon": null,
+      "weight": null,
+      "asset_class_weight": null,
+      "source_table": "stream_9",
+      "source_page": 8,
+      "is_valid_isin": false
+    },
+    {
+      "isin": "XS2782869916",
+      "description": "",
+      "nominal_value": "28.02.2025",
+      "price": null,
+      "acquisition_price": null,
+      "actual_value": null,
+      "currency": null,
+      "maturity": null,
+      "coupon": null,
+      "weight": null,
+      "asset_class_weight": null,
+      "source_table": "stream_10",
+      "source_page": 9,
+      "is_valid_isin": false
+    },
+    {
+      "isin": "XS2824054402",
+      "description": "",
+      "nominal_value": 103.72,
+      "price": null,
+      "acquisition_price": null,
+      "actual_value": null,
+      "currency": null,
+      "maturity": null,
+      "coupon": null,
+      "weight": null,
+      "asset_class_weight": null,
+      "source_table": "stream_10",
+      "source_page": 9,
+      "is_valid_isin": false
+    },
+    {
+      "isin": "XS2567543397",
+      "description": "",
+      "nominal_value": 100.59,
+      "price": null,
+      "acquisition_price": null,
+      "actual_value": null,
+      "currency": null,
+      "maturity": null,
+      "coupon": null,
+      "weight": null,
+      "asset_class_weight": null,
+      "source_table": "stream_10",
+      "source_page": 9,
+      "is_valid_isin": false
+    },
+    {
+      "isin": "XS2110079584",
+      "description": "",
+      "nominal_value": 100.67,
+      "price": null,
+      "acquisition_price": null,
+      "actual_value": null,
+      "currency": null,
+      "maturity": null,
+      "coupon": null,
+      "weight": null,
+      "asset_class_weight": null,
+      "source_table": "stream_10",
+      "source_page": 9,
+      "is_valid_isin": false
+    },
+    {
+      "isin": "XS2848820754",
+      "description": "",
+      "nominal_value": "28.02.2025",
+      "price": null,
+      "acquisition_price": null,
+      "actual_value": null,
+      "currency": null,
+      "maturity": null,
+      "coupon": null,
+      "weight": null,
+      "asset_class_weight": null,
+      "source_table": "stream_10",
+      "source_page": 9,
+      "is_valid_isin": false
+    },
+    {
+      "isin": "XS2829712830",
+      "description": "",
+      "nominal_value": 93.02,
+      "price": null,
+      "acquisition_price": null,
+      "actual_value": null,
+      "currency": null,
+      "maturity": null,
+      "coupon": null,
+      "weight": null,
+      "asset_class_weight": null,
+      "source_table": "stream_10",
+      "source_page": 9,
+      "is_valid_isin": false
+    },
+    {
+      "isin": "XS2912278723",
+      "description": "",
+      "nominal_value": 98.7771,
+      "price": null,
+      "acquisition_price": null,
+      "actual_value": null,
+      "currency": null,
+      "maturity": null,
+      "coupon": null,
+      "weight": null,
+      "asset_class_weight": null,
+      "source_table": "stream_10",
+      "source_page": 9,
+      "is_valid_isin": false
+    },
+    {
+      "isin": "XS2381723902",
+      "description": "",
+      "nominal_value": "28.02.2025",
+      "price": null,
+      "acquisition_price": null,
+      "actual_value": null,
+      "currency": null,
+      "maturity": null,
+      "coupon": null,
+      "weight": null,
+      "asset_class_weight": null,
+      "source_table": "stream_10",
+      "source_page": 9,
+      "is_valid_isin": false
+    },
+    {
+      "isin": "XS2829752976",
+      "description": "",
+      "nominal_value": "27.02.2025",
+      "price": null,
+      "acquisition_price": null,
+      "actual_value": null,
+      "currency": null,
+      "maturity": null,
+      "coupon": null,
+      "weight": null,
+      "asset_class_weight": null,
+      "source_table": "stream_11",
+      "source_page": 10,
+      "is_valid_isin": false
+    },
+    {
+      "isin": "XS2953741100",
+      "description": "150'000",
+      "nominal_value": 98.72,
+      "price": null,
+      "acquisition_price": null,
+      "actual_value": null,
+      "currency": null,
+      "maturity": null,
+      "coupon": null,
+      "weight": null,
+      "asset_class_weight": null,
+      "source_table": "stream_11",
+      "source_page": 10,
+      "is_valid_isin": false
+    },
+    {
+      "isin": "XS2381717250",
+      "description": "500'000",
+      "nominal_value": 103.84,
+      "price": null,
+      "acquisition_price": null,
+      "actual_value": null,
+      "currency": null,
+      "maturity": null,
+      "coupon": null,
+      "weight": null,
+      "asset_class_weight": null,
+      "source_table": "stream_11",
+      "source_page": 10,
+      "is_valid_isin": false
+    },
+    {
+      "isin": "XS2481066111",
+      "description": "50'000",
+      "nominal_value": 100.89,
+      "price": null,
+      "acquisition_price": null,
+      "actual_value": null,
+      "currency": null,
+      "maturity": null,
+      "coupon": null,
+      "weight": null,
+      "asset_class_weight": null,
+      "source_table": "stream_11",
+      "source_page": 10,
+      "is_valid_isin": false
+    },
+    {
+      "isin": "XS2964611052",
+      "description": "1'470'000",
+      "nominal_value": 101.25,
+      "price": null,
+      "acquisition_price": null,
+      "actual_value": null,
+      "currency": null,
+      "maturity": null,
+      "coupon": null,
+      "weight": null,
+      "asset_class_weight": null,
+      "source_table": "stream_11",
+      "source_page": 10,
+      "is_valid_isin": false
+    },
+    {
+      "isin": "LU2228214107",
+      "description": "",
+      "nominal_value": "13.09.2024",
+      "price": null,
+      "acquisition_price": null,
+      "actual_value": null,
+      "currency": null,
+      "maturity": null,
+      "coupon": null,
+      "weight": null,
+      "asset_class_weight": null,
+      "source_table": "stream_11",
+      "source_page": 10,
+      "is_valid_isin": false
+    },
+    {
+      "isin": "CH1269060229",
+      "description": "",
+      "nominal_value": "28.02.2025",
+      "price": null,
+      "acquisition_price": null,
+      "actual_value": null,
+      "currency": null,
+      "maturity": null,
+      "coupon": null,
+      "weight": null,
+      "asset_class_weight": null,
+      "source_table": "stream_11",
+      "source_page": 10,
+      "is_valid_isin": true
+    },
+    {
+      "isin": "XS0461497009",
+      "description": "690'000",
+      "nominal_value": 100.27,
+      "price": null,
+      "acquisition_price": null,
+      "actual_value": null,
+      "currency": null,
+      "maturity": null,
+      "coupon": null,
+      "weight": null,
+      "asset_class_weight": null,
+      "source_table": "stream_11",
+      "source_page": 10,
+      "is_valid_isin": false
+    },
+    {
+      "isin": "XS2519369867",
+      "description": "",
+      "nominal_value": null,
+      "price": null,
+      "acquisition_price": null,
+      "actual_value": null,
+      "currency": null,
+      "maturity": null,
+      "coupon": null,
+      "weight": null,
+      "asset_class_weight": null,
+      "source_table": "stream_14",
+      "source_page": 13,
+      "is_valid_isin": false
+    },
+    {
+      "isin": "XS2315191069",
+      "description": "500'000",
+      "nominal_value": null,
+      "price": null,
+      "acquisition_price": null,
+      "actual_value": null,
+      "currency": null,
+      "maturity": null,
+      "coupon": null,
+      "weight": null,
+      "asset_class_weight": null,
+      "source_table": "stream_14",
+      "source_page": 13,
+      "is_valid_isin": false
+    },
+    {
+      "isin": "XS2792098779",
+      "description": "1'200'000",
+      "nominal_value": null,
+      "price": null,
+      "acquisition_price": null,
+      "actual_value": null,
+      "currency": null,
+      "maturity": null,
+      "coupon": null,
+      "weight": null,
+      "asset_class_weight": null,
+      "source_table": "stream_14",
+      "source_page": 13,
+      "is_valid_isin": false
+    },
+    {
+      "isin": "XS2714429128",
+      "description": "",
+      "nominal_value": null,
+      "price": null,
+      "acquisition_price": null,
+      "actual_value": null,
+      "currency": null,
+      "maturity": null,
+      "coupon": null,
+      "weight": null,
+      "asset_class_weight": null,
+      "source_table": "stream_14",
+      "source_page": 13,
+      "is_valid_isin": false
+    },
+    {
+      "isin": "XS2105981117",
+      "description": "",
+      "nominal_value": null,
+      "price": null,
+      "acquisition_price": null,
+      "actual_value": null,
+      "currency": null,
+      "maturity": null,
+      "coupon": null,
+      "weight": null,
+      "asset_class_weight": null,
+      "source_table": "stream_14",
+      "source_page": 13,
+      "is_valid_isin": false
+    },
+    {
+      "isin": "XS2838389430",
+      "description": "1'600'000",
+      "nominal_value": null,
+      "price": null,
+      "acquisition_price": null,
+      "actual_value": null,
+      "currency": null,
+      "maturity": null,
+      "coupon": null,
+      "weight": null,
+      "asset_class_weight": null,
+      "source_table": "stream_14",
+      "source_page": 13,
+      "is_valid_isin": false
+    },
+    {
+      "isin": "XS2631782468",
+      "description": "",
+      "nominal_value": null,
+      "price": null,
+      "acquisition_price": null,
+      "actual_value": null,
+      "currency": null,
+      "maturity": null,
+      "coupon": null,
+      "weight": null,
+      "asset_class_weight": null,
+      "source_table": "stream_14",
+      "source_page": 13,
+      "is_valid_isin": false
+    },
+    {
+      "isin": "XS1700087403",
+      "description": "",
+      "nominal_value": null,
+      "price": null,
+      "acquisition_price": null,
+      "actual_value": null,
+      "currency": null,
+      "maturity": null,
+      "coupon": null,
+      "weight": null,
+      "asset_class_weight": null,
+      "source_table": "stream_15",
+      "source_page": 14,
+      "is_valid_isin": false
+    },
+    {
+      "isin": "XS2594173093",
+      "description": "200'000",
+      "nominal_value": null,
+      "price": null,
+      "acquisition_price": null,
+      "actual_value": null,
+      "currency": null,
+      "maturity": null,
+      "coupon": null,
+      "weight": null,
+      "asset_class_weight": null,
+      "source_table": "stream_15",
+      "source_page": 14,
+      "is_valid_isin": false
+    },
+    {
+      "isin": "XS2407295554",
+      "description": "",
+      "nominal_value": null,
+      "price": null,
+      "acquisition_price": null,
+      "actual_value": null,
+      "currency": null,
+      "maturity": null,
+      "coupon": null,
+      "weight": null,
+      "asset_class_weight": null,
+      "source_table": "stream_15",
+      "source_page": 14,
+      "is_valid_isin": false
+    },
+    {
+      "isin": "XS2518123653",
+      "description": "100'000",
+      "nominal_value": null,
+      "price": null,
+      "acquisition_price": null,
+      "actual_value": null,
+      "currency": null,
+      "maturity": null,
+      "coupon": null,
+      "weight": null,
+      "asset_class_weight": null,
+      "source_table": "stream_15",
+      "source_page": 14,
+      "is_valid_isin": false
+    },
+    {
+      "isin": "XS2252299883",
+      "description": "",
+      "nominal_value": null,
+      "price": null,
+      "acquisition_price": null,
+      "actual_value": null,
+      "currency": null,
+      "maturity": null,
+      "coupon": null,
+      "weight": null,
+      "asset_class_weight": null,
+      "source_table": "stream_15",
+      "source_page": 14,
+      "is_valid_isin": false
+    },
+    {
+      "isin": "CH1259345242",
+      "description": "500'000",
+      "nominal_value": null,
+      "price": null,
+      "acquisition_price": null,
+      "actual_value": null,
+      "currency": null,
+      "maturity": null,
+      "coupon": null,
+      "weight": null,
+      "asset_class_weight": null,
+      "source_table": "stream_15",
+      "source_page": 14,
+      "is_valid_isin": true
+    },
+    {
+      "isin": "XD0466760473",
+      "description": "",
+      "nominal_value": null,
+      "price": null,
+      "acquisition_price": null,
+      "actual_value": null,
+      "currency": null,
+      "maturity": null,
+      "coupon": null,
+      "weight": null,
+      "asset_class_weight": null,
+      "source_table": "stream_17",
+      "source_page": 16,
+      "is_valid_isin": false
+    }
+  ],
+  "table_structures": [
+    {
+      "purpose": "portfolio holdings",
+      "header_rows": [
+        0,
+        1
+      ],
+      "footer_rows": [
+        -1
+      ],
+      "column_types": {
+        "0": "isin",
+        "1": "description",
+        "2": "quantity",
+        "3": "price",
+        "4": "value",
+        "5": "currency",
+        "6": "weight"
+      },
+      "notes": "This table contains portfolio holdings with security details.",
+      "table_id": "stream_4",
+      "page": 4,
+      "method": "camelot_stream"
+    },
+    {
+      "purpose": "portfolio holdings",
+      "header_rows": [
+        0,
+        1
+      ],
+      "footer_rows": [
+        -1
+      ],
+      "column_types": {
+        "0": "isin",
+        "1": "description",
+        "2": "quantity",
+        "3": "price",
+        "4": "value",
+        "5": "currency",
+        "6": "weight"
+      },
+      "notes": "This table contains portfolio holdings with security details.",
+      "table_id": "stream_5",
+      "page": 5,
+      "method": "camelot_stream"
+    },
+    {
+      "purpose": "portfolio holdings",
+      "header_rows": [
+        0,
+        1
+      ],
+      "footer_rows": [
+        -1
+      ],
+      "column_types": {
+        "0": "isin",
+        "1": "description",
+        "2": "quantity",
+        "3": "price",
+        "4": "value",
+        "5": "currency",
+        "6": "weight"
+      },
+      "notes": "This table contains portfolio holdings with security details.",
+      "table_id": "stream_14",
+      "page": 13,
+      "method": "camelot_stream"
+    },
+    {
+      "purpose": "portfolio holdings",
+      "header_rows": [
+        0,
+        1
+      ],
+      "footer_rows": [
+        -1
+      ],
+      "column_types": {
+        "0": "isin",
+        "1": "description",
+        "2": "quantity",
+        "3": "price",
+        "4": "value",
+        "5": "currency",
+        "6": "weight"
+      },
+      "notes": "This table contains portfolio holdings with security details.",
+      "table_id": "stream_10",
+      "page": 9,
+      "method": "camelot_stream"
+    },
+    {
+      "purpose": "portfolio holdings",
+      "header_rows": [
+        0,
+        1
+      ],
+      "footer_rows": [
+        -1
+      ],
+      "column_types": {
+        "0": "isin",
+        "1": "description",
+        "2": "quantity",
+        "3": "price",
+        "4": "value",
+        "5": "currency",
+        "6": "weight"
+      },
+      "notes": "This table contains portfolio holdings with security details.",
+      "table_id": "stream_11",
+      "page": 10,
+      "method": "camelot_stream"
+    },
+    {
+      "purpose": "portfolio holdings",
+      "header_rows": [
+        0,
+        1
+      ],
+      "footer_rows": [
+        -1
+      ],
+      "column_types": {
+        "0": "isin",
+        "1": "description",
+        "2": "quantity",
+        "3": "price",
+        "4": "value",
+        "5": "currency",
+        "6": "weight"
+      },
+      "notes": "This table contains portfolio holdings with security details.",
+      "table_id": "stream_9",
+      "page": 8,
+      "method": "camelot_stream"
+    },
+    {
+      "purpose": "portfolio holdings",
+      "header_rows": [
+        0,
+        1
+      ],
+      "footer_rows": [
+        -1
+      ],
+      "column_types": {
+        "0": "isin",
+        "1": "description",
+        "2": "quantity",
+        "3": "price",
+        "4": "value",
+        "5": "currency",
+        "6": "weight"
+      },
+      "notes": "This table contains portfolio holdings with security details.",
+      "table_id": "stream_15",
+      "page": 14,
+      "method": "camelot_stream"
+    },
+    {
+      "purpose": "portfolio holdings",
+      "header_rows": [
+        0,
+        1
+      ],
+      "footer_rows": [
+        -1
+      ],
+      "column_types": {
+        "0": "isin",
+        "1": "description",
+        "2": "quantity",
+        "3": "price",
+        "4": "value",
+        "5": "currency",
+        "6": "weight"
+      },
+      "notes": "This table contains portfolio holdings with security details.",
+      "table_id": "stream_3",
+      "page": 3,
+      "method": "camelot_stream"
+    },
+    {
+      "purpose": "portfolio holdings",
+      "header_rows": [
+        0,
+        1
+      ],
+      "footer_rows": [
+        -1
+      ],
+      "column_types": {
+        "0": "isin",
+        "1": "description",
+        "2": "quantity",
+        "3": "price",
+        "4": "value",
+        "5": "currency",
+        "6": "weight"
+      },
+      "notes": "This table contains portfolio holdings with security details.",
+      "table_id": "stream_19",
+      "page": 18,
+      "method": "camelot_stream"
+    },
+    {
+      "purpose": "portfolio holdings",
+      "header_rows": [
+        0,
+        1
+      ],
+      "footer_rows": [
+        -1
+      ],
+      "column_types": {
+        "0": "isin",
+        "1": "description",
+        "2": "quantity",
+        "3": "price",
+        "4": "value",
+        "5": "currency",
+        "6": "weight"
+      },
+      "notes": "This table contains portfolio holdings with security details.",
+      "table_id": "stream_18",
+      "page": 17,
+      "method": "camelot_stream"
+    },
+    {
+      "purpose": "portfolio holdings",
+      "header_rows": [
+        0,
+        1
+      ],
+      "footer_rows": [
+        -1
+      ],
+      "column_types": {
+        "0": "isin",
+        "1": "description",
+        "2": "quantity",
+        "3": "price",
+        "4": "value",
+        "5": "currency",
+        "6": "weight"
+      },
+      "notes": "This table contains portfolio holdings with security details.",
+      "table_id": "stream_13",
+      "page": 12,
+      "method": "camelot_stream"
+    },
+    {
+      "purpose": "portfolio holdings",
+      "header_rows": [
+        0,
+        1
+      ],
+      "footer_rows": [
+        -1
+      ],
+      "column_types": {
+        "0": "isin",
+        "1": "description",
+        "2": "quantity",
+        "3": "price",
+        "4": "value",
+        "5": "currency",
+        "6": "weight"
+      },
+      "notes": "This table contains portfolio holdings with security details.",
+      "table_id": "stream_2",
+      "page": 2,
+      "method": "camelot_stream"
+    },
+    {
+      "purpose": "portfolio holdings",
+      "header_rows": [
+        0,
+        1
+      ],
+      "footer_rows": [
+        -1
+      ],
+      "column_types": {
+        "0": "isin",
+        "1": "description",
+        "2": "quantity",
+        "3": "price",
+        "4": "value",
+        "5": "currency",
+        "6": "weight"
+      },
+      "notes": "This table contains portfolio holdings with security details.",
+      "table_id": "stream_6",
+      "page": 6,
+      "method": "camelot_stream"
+    },
+    {
+      "purpose": "portfolio holdings",
+      "header_rows": [
+        0,
+        1
+      ],
+      "footer_rows": [
+        -1
+      ],
+      "column_types": {
+        "0": "isin",
+        "1": "description",
+        "2": "quantity",
+        "3": "price",
+        "4": "value",
+        "5": "currency",
+        "6": "weight"
+      },
+      "notes": "This table contains portfolio holdings with security details.",
+      "table_id": "stream_17",
+      "page": 16,
+      "method": "camelot_stream"
+    },
+    {
+      "purpose": "portfolio holdings",
+      "header_rows": [
+        0,
+        1
+      ],
+      "footer_rows": [
+        -1
+      ],
+      "column_types": {
+        "0": "isin",
+        "1": "description",
+        "2": "quantity",
+        "3": "price",
+        "4": "value",
+        "5": "currency",
+        "6": "weight"
+      },
+      "notes": "This table contains portfolio holdings with security details.",
+      "table_id": "stream_16",
+      "page": 15,
+      "method": "camelot_stream"
+    },
+    {
+      "purpose": "portfolio holdings",
+      "header_rows": [
+        0,
+        1
+      ],
+      "footer_rows": [
+        -1
+      ],
+      "column_types": {
+        "0": "isin",
+        "1": "description",
+        "2": "quantity",
+        "3": "price",
+        "4": "value",
+        "5": "currency",
+        "6": "weight"
+      },
+      "notes": "This table contains portfolio holdings with security details.",
+      "table_id": "stream_7",
+      "page": 6,
+      "method": "camelot_stream"
+    },
+    {
+      "purpose": "portfolio holdings",
+      "header_rows": [
+        0,
+        1
+      ],
+      "footer_rows": [
+        -1
+      ],
+      "column_types": {
+        "0": "isin",
+        "1": "description",
+        "2": "quantity",
+        "3": "price",
+        "4": "value",
+        "5": "currency",
+        "6": "weight"
+      },
+      "notes": "This table contains portfolio holdings with security details.",
+      "table_id": "stream_8",
+      "page": 7,
+      "method": "camelot_stream"
+    },
+    {
+      "purpose": "portfolio holdings",
+      "header_rows": [
+        0,
+        1
+      ],
+      "footer_rows": [
+        -1
+      ],
+      "column_types": {
+        "0": "isin",
+        "1": "description",
+        "2": "quantity",
+        "3": "price",
+        "4": "value",
+        "5": "currency",
+        "6": "weight"
+      },
+      "notes": "This table contains portfolio holdings with security details.",
+      "table_id": "stream_12",
+      "page": 11,
+      "method": "camelot_stream"
+    },
+    {
+      "purpose": "portfolio holdings",
+      "header_rows": [
+        0,
+        1
+      ],
+      "footer_rows": [
+        -1
+      ],
+      "column_types": {
+        "0": "isin",
+        "1": "description",
+        "2": "quantity",
+        "3": "price",
+        "4": "value",
+        "5": "currency",
+        "6": "weight"
+      },
+      "notes": "This table contains portfolio holdings with security details.",
+      "table_id": "lattice_1",
+      "page": 6,
+      "method": "camelot_lattice"
+    },
+    {
+      "purpose": "portfolio holdings",
+      "header_rows": [
+        0,
+        1
+      ],
+      "footer_rows": [
+        -1
+      ],
+      "column_types": {
+        "0": "isin",
+        "1": "description",
+        "2": "quantity",
+        "3": "price",
+        "4": "value",
+        "5": "currency",
+        "6": "weight"
+      },
+      "notes": "This table contains portfolio holdings with security details.",
+      "table_id": "lattice_2",
+      "page": 6,
+      "method": "camelot_lattice"
+    },
+    {
+      "purpose": "portfolio holdings",
+      "header_rows": [
+        0,
+        1
+      ],
+      "footer_rows": [
+        -1
+      ],
+      "column_types": {
+        "0": "isin",
+        "1": "description",
+        "2": "quantity",
+        "3": "price",
+        "4": "value",
+        "5": "currency",
+        "6": "weight"
+      },
+      "notes": "This table contains portfolio holdings with security details.",
+      "table_id": "stream_1",
+      "page": 1,
+      "method": "camelot_stream"
+    },
+    {
+      "purpose": "portfolio holdings",
+      "header_rows": [
+        0,
+        1
+      ],
+      "footer_rows": [
+        -1
+      ],
+      "column_types": {
+        "0": "isin",
+        "1": "description",
+        "2": "quantity",
+        "3": "price",
+        "4": "value",
+        "5": "currency",
+        "6": "weight"
+      },
+      "notes": "This table contains portfolio holdings with security details.",
+      "table_id": "stream_20",
+      "page": 19,
+      "method": "camelot_stream"
+    },
+    {
+      "purpose": "portfolio holdings",
+      "header_rows": [
+        0,
+        1
+      ],
+      "footer_rows": [
+        -1
+      ],
+      "column_types": {
+        "0": "isin",
+        "1": "description",
+        "2": "quantity",
+        "3": "price",
+        "4": "value",
+        "5": "currency",
+        "6": "weight"
+      },
+      "notes": "This table contains portfolio holdings with security details.",
+      "table_id": "pdfplumber_5_1",
+      "page": 5,
+      "method": "pdfplumber"
+    },
+    {
+      "purpose": "portfolio holdings",
+      "header_rows": [
+        0,
+        1
+      ],
+      "footer_rows": [
+        -1
+      ],
+      "column_types": {
+        "0": "isin",
+        "1": "description",
+        "2": "quantity",
+        "3": "price",
+        "4": "value",
+        "5": "currency",
+        "6": "weight"
+      },
+      "notes": "This table contains portfolio holdings with security details.",
+      "table_id": "pdfplumber_4_1",
+      "page": 4,
+      "method": "pdfplumber"
+    },
+    {
+      "purpose": "portfolio holdings",
+      "header_rows": [
+        0,
+        1
+      ],
+      "footer_rows": [
+        -1
+      ],
+      "column_types": {
+        "0": "isin",
+        "1": "description",
+        "2": "quantity",
+        "3": "price",
+        "4": "value",
+        "5": "currency",
+        "6": "weight"
+      },
+      "notes": "This table contains portfolio holdings with security details.",
+      "table_id": "pdfplumber_6_2",
+      "page": 6,
+      "method": "pdfplumber"
+    },
+    {
+      "purpose": "portfolio holdings",
+      "header_rows": [
+        0,
+        1
+      ],
+      "footer_rows": [
+        -1
+      ],
+      "column_types": {
+        "0": "isin",
+        "1": "description",
+        "2": "quantity",
+        "3": "price",
+        "4": "value",
+        "5": "currency",
+        "6": "weight"
+      },
+      "notes": "This table contains portfolio holdings with security details.",
+      "table_id": "pdfplumber_6_4",
+      "page": 6,
+      "method": "pdfplumber"
+    },
+    {
+      "purpose": "portfolio holdings",
+      "header_rows": [
+        0,
+        1
+      ],
+      "footer_rows": [
+        -1
+      ],
+      "column_types": {
+        "0": "isin",
+        "1": "description",
+        "2": "quantity",
+        "3": "price",
+        "4": "value",
+        "5": "currency",
+        "6": "weight"
+      },
+      "notes": "This table contains portfolio holdings with security details.",
+      "table_id": "pdfplumber_6_1",
+      "page": 6,
+      "method": "pdfplumber"
+    },
+    {
+      "purpose": "portfolio holdings",
+      "header_rows": [
+        0,
+        1
+      ],
+      "footer_rows": [
+        -1
+      ],
+      "column_types": {
+        "0": "isin",
+        "1": "description",
+        "2": "quantity",
+        "3": "price",
+        "4": "value",
+        "5": "currency",
+        "6": "weight"
+      },
+      "notes": "This table contains portfolio holdings with security details.",
+      "table_id": "pdfplumber_6_3",
+      "page": 6,
+      "method": "pdfplumber"
+    },
+    {
+      "purpose": "portfolio holdings",
+      "header_rows": [
+        0,
+        1
+      ],
+      "footer_rows": [
+        -1
+      ],
+      "column_types": {
+        "0": "isin",
+        "1": "description",
+        "2": "quantity",
+        "3": "price",
+        "4": "value",
+        "5": "currency",
+        "6": "weight"
+      },
+      "notes": "This table contains portfolio holdings with security details.",
+      "table_id": "pdfplumber_3_1",
+      "page": 3,
+      "method": "pdfplumber"
+    },
+    {
+      "purpose": "portfolio holdings",
+      "header_rows": [
+        0,
+        1
+      ],
+      "footer_rows": [
+        -1
+      ],
+      "column_types": {
+        "0": "isin",
+        "1": "description",
+        "2": "quantity",
+        "3": "price",
+        "4": "value",
+        "5": "currency",
+        "6": "weight"
+      },
+      "notes": "This table contains portfolio holdings with security details.",
+      "table_id": "pdfplumber_3_2",
+      "page": 3,
+      "method": "pdfplumber"
+    },
+    {
+      "purpose": "portfolio holdings",
+      "header_rows": [
+        0,
+        1
+      ],
+      "footer_rows": [
+        -1
+      ],
+      "column_types": {
+        "0": "isin",
+        "1": "description",
+        "2": "quantity",
+        "3": "price",
+        "4": "value",
+        "5": "currency",
+        "6": "weight"
+      },
+      "notes": "This table contains portfolio holdings with security details.",
+      "table_id": "pdfplumber_3_3",
+      "page": 3,
+      "method": "pdfplumber"
+    },
+    {
+      "purpose": "portfolio holdings",
+      "header_rows": [
+        0,
+        1
+      ],
+      "footer_rows": [
+        -1
+      ],
+      "column_types": {
+        "0": "isin",
+        "1": "description",
+        "2": "quantity",
+        "3": "price",
+        "4": "value",
+        "5": "currency",
+        "6": "weight"
+      },
+      "notes": "This table contains portfolio holdings with security details.",
+      "table_id": "pdfplumber_7_1",
+      "page": 7,
+      "method": "pdfplumber"
+    },
+    {
+      "purpose": "portfolio holdings",
+      "header_rows": [
+        0,
+        1
+      ],
+      "footer_rows": [
+        -1
+      ],
+      "column_types": {
+        "0": "isin",
+        "1": "description",
+        "2": "quantity",
+        "3": "price",
+        "4": "value",
+        "5": "currency",
+        "6": "weight"
+      },
+      "notes": "This table contains portfolio holdings with security details.",
+      "table_id": "pdfplumber_8_1",
+      "page": 8,
+      "method": "pdfplumber"
+    },
+    {
+      "purpose": "portfolio holdings",
+      "header_rows": [
+        0,
+        1
+      ],
+      "footer_rows": [
+        -1
+      ],
+      "column_types": {
+        "0": "isin",
+        "1": "description",
+        "2": "quantity",
+        "3": "price",
+        "4": "value",
+        "5": "currency",
+        "6": "weight"
+      },
+      "notes": "This table contains portfolio holdings with security details.",
+      "table_id": "pdfplumber_9_1",
+      "page": 9,
+      "method": "pdfplumber"
+    },
+    {
+      "purpose": "portfolio holdings",
+      "header_rows": [
+        0,
+        1
+      ],
+      "footer_rows": [
+        -1
+      ],
+      "column_types": {
+        "0": "isin",
+        "1": "description",
+        "2": "quantity",
+        "3": "price",
+        "4": "value",
+        "5": "currency",
+        "6": "weight"
+      },
+      "notes": "This table contains portfolio holdings with security details.",
+      "table_id": "pdfplumber_10_1",
+      "page": 10,
+      "method": "pdfplumber"
+    },
+    {
+      "purpose": "portfolio holdings",
+      "header_rows": [
+        0,
+        1
+      ],
+      "footer_rows": [
+        -1
+      ],
+      "column_types": {
+        "0": "isin",
+        "1": "description",
+        "2": "quantity",
+        "3": "price",
+        "4": "value",
+        "5": "currency",
+        "6": "weight"
+      },
+      "notes": "This table contains portfolio holdings with security details.",
+      "table_id": "pdfplumber_11_1",
+      "page": 11,
+      "method": "pdfplumber"
+    },
+    {
+      "purpose": "portfolio holdings",
+      "header_rows": [
+        0,
+        1
+      ],
+      "footer_rows": [
+        -1
+      ],
+      "column_types": {
+        "0": "isin",
+        "1": "description",
+        "2": "quantity",
+        "3": "price",
+        "4": "value",
+        "5": "currency",
+        "6": "weight"
+      },
+      "notes": "This table contains portfolio holdings with security details.",
+      "table_id": "pdfplumber_12_1",
+      "page": 12,
+      "method": "pdfplumber"
+    },
+    {
+      "purpose": "portfolio holdings",
+      "header_rows": [
+        0,
+        1
+      ],
+      "footer_rows": [
+        -1
+      ],
+      "column_types": {
+        "0": "isin",
+        "1": "description",
+        "2": "quantity",
+        "3": "price",
+        "4": "value",
+        "5": "currency",
+        "6": "weight"
+      },
+      "notes": "This table contains portfolio holdings with security details.",
+      "table_id": "pdfplumber_13_1",
+      "page": 13,
+      "method": "pdfplumber"
+    },
+    {
+      "purpose": "portfolio holdings",
+      "header_rows": [
+        0,
+        1
+      ],
+      "footer_rows": [
+        -1
+      ],
+      "column_types": {
+        "0": "isin",
+        "1": "description",
+        "2": "quantity",
+        "3": "price",
+        "4": "value",
+        "5": "currency",
+        "6": "weight"
+      },
+      "notes": "This table contains portfolio holdings with security details.",
+      "table_id": "pdfplumber_14_1",
+      "page": 14,
+      "method": "pdfplumber"
+    },
+    {
+      "purpose": "portfolio holdings",
+      "header_rows": [
+        0,
+        1
+      ],
+      "footer_rows": [
+        -1
+      ],
+      "column_types": {
+        "0": "isin",
+        "1": "description",
+        "2": "quantity",
+        "3": "price",
+        "4": "value",
+        "5": "currency",
+        "6": "weight"
+      },
+      "notes": "This table contains portfolio holdings with security details.",
+      "table_id": "pdfplumber_15_1",
+      "page": 15,
+      "method": "pdfplumber"
+    },
+    {
+      "purpose": "portfolio holdings",
+      "header_rows": [
+        0,
+        1
+      ],
+      "footer_rows": [
+        -1
+      ],
+      "column_types": {
+        "0": "isin",
+        "1": "description",
+        "2": "quantity",
+        "3": "price",
+        "4": "value",
+        "5": "currency",
+        "6": "weight"
+      },
+      "notes": "This table contains portfolio holdings with security details.",
+      "table_id": "pdfplumber_16_1",
+      "page": 16,
+      "method": "pdfplumber"
+    },
+    {
+      "purpose": "portfolio holdings",
+      "header_rows": [
+        0,
+        1
+      ],
+      "footer_rows": [
+        -1
+      ],
+      "column_types": {
+        "0": "isin",
+        "1": "description",
+        "2": "quantity",
+        "3": "price",
+        "4": "value",
+        "5": "currency",
+        "6": "weight"
+      },
+      "notes": "This table contains portfolio holdings with security details.",
+      "table_id": "pdfplumber_17_1",
+      "page": 17,
+      "method": "pdfplumber"
+    },
+    {
+      "purpose": "portfolio holdings",
+      "header_rows": [
+        0,
+        1
+      ],
+      "footer_rows": [
+        -1
+      ],
+      "column_types": {
+        "0": "isin",
+        "1": "description",
+        "2": "quantity",
+        "3": "price",
+        "4": "value",
+        "5": "currency",
+        "6": "weight"
+      },
+      "notes": "This table contains portfolio holdings with security details.",
+      "table_id": "pdfplumber_17_2",
+      "page": 17,
+      "method": "pdfplumber"
+    },
+    {
+      "purpose": "portfolio holdings",
+      "header_rows": [
+        0,
+        1
+      ],
+      "footer_rows": [
+        -1
+      ],
+      "column_types": {
+        "0": "isin",
+        "1": "description",
+        "2": "quantity",
+        "3": "price",
+        "4": "value",
+        "5": "currency",
+        "6": "weight"
+      },
+      "notes": "This table contains portfolio holdings with security details.",
+      "table_id": "pdfplumber_19_1",
+      "page": 19,
+      "method": "pdfplumber"
+    },
+    {
+      "purpose": "portfolio holdings",
+      "header_rows": [
+        0,
+        1
+      ],
+      "footer_rows": [
+        -1
+      ],
+      "column_types": {
+        "0": "isin",
+        "1": "description",
+        "2": "quantity",
+        "3": "price",
+        "4": "value",
+        "5": "currency",
+        "6": "weight"
+      },
+      "notes": "This table contains portfolio holdings with security details.",
+      "table_id": "pdfplumber_19_2",
+      "page": 19,
+      "method": "pdfplumber"
+    },
+    {
+      "purpose": "portfolio holdings",
+      "header_rows": [
+        0,
+        1
+      ],
+      "footer_rows": [
+        -1
+      ],
+      "column_types": {
+        "0": "isin",
+        "1": "description",
+        "2": "quantity",
+        "3": "price",
+        "4": "value",
+        "5": "currency",
+        "6": "weight"
+      },
+      "notes": "This table contains portfolio holdings with security details.",
+      "table_id": "pdfplumber_20_1",
+      "page": 20,
+      "method": "pdfplumber"
+    },
+    {
+      "purpose": "portfolio holdings",
+      "header_rows": [
+        0,
+        1
+      ],
+      "footer_rows": [
+        -1
+      ],
+      "column_types": {
+        "0": "isin",
+        "1": "description",
+        "2": "quantity",
+        "3": "price",
+        "4": "value",
+        "5": "currency",
+        "6": "weight"
+      },
+      "notes": "This table contains portfolio holdings with security details.",
+      "table_id": "pdfplumber_20_2",
+      "page": 20,
+      "method": "pdfplumber"
+    },
+    {
+      "purpose": "portfolio holdings",
+      "header_rows": [
+        0,
+        1
+      ],
+      "footer_rows": [
+        -1
+      ],
+      "column_types": {
+        "0": "isin",
+        "1": "description",
+        "2": "quantity",
+        "3": "price",
+        "4": "value",
+        "5": "currency",
+        "6": "weight"
+      },
+      "notes": "This table contains portfolio holdings with security details.",
+      "table_id": "stream_21",
+      "page": 20,
+      "method": "camelot_stream"
+    }
+  ]
+}

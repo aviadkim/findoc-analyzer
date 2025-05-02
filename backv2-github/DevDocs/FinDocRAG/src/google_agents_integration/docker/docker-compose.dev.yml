@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  findoc-rag-dev:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.dev
+    container_name: findoc-rag-dev
+    ports:
+      - "8080:8080"
+    environment:
+      - PORT=8080
+      - UPLOAD_FOLDER=/app/uploads
+      - TEMP_FOLDER=/app/temp
+      - RESULTS_FOLDER=/app/results
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
+      - GOOGLE_APPLICATION_CREDENTIALS=/app/google-credentials.json
+    volumes:
+      - ../:/app
+      - ./google-credentials.json:/app/google-credentials.json
+    restart: unless-stopped
+    networks:
+      - findoc-rag-network
+
+networks:
+  findoc-rag-network:
+    driver: bridge

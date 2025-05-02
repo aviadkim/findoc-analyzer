@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>FinDoc Analyzer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+        .container {
+            display: flex;
+            min-height: 100vh;
+        }
+        .sidebar {
+            width: 250px;
+            background-color: #1a202c;
+            color: white;
+            padding: 20px;
+        }
+        .sidebar h1 {
+            margin-top: 0;
+            font-size: 24px;
+            margin-bottom: 30px;
+        }
+        .sidebar ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .sidebar li {
+            margin-bottom: 15px;
+        }
+        .sidebar a {
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+        .sidebar a:hover {
+            text-decoration: underline;
+        }
+        .sidebar .icon {
+            margin-right: 10px;
+            width: 20px;
+            text-align: center;
+        }
+        .main-content {
+            flex: 1;
+            padding: 20px;
+        }
+        .header {
+            background-color: white;
+            padding: 20px;
+            border-bottom: 1px solid #e2e8f0;
+            margin-bottom: 20px;
+        }
+        .card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .card h2 {
+            margin-top: 0;
+            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 10px;
+        }
+        .button {
+            background-color: #4299e1;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .button:hover {
+            background-color: #3182ce;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <h1>FinDocs Pro</h1>
+            <ul>
+                <li><a href="#"><span class="icon">Ì≥ä</span> Dashboard</a></li>
+                <li><a href="#"><span class="icon">Ì≥Ñ</span> Upload Documents</a></li>
+                <li><a href="#"><span class="icon">Ì≥à</span> Analytics</a></li>
+                <li><a href="#"><span class="icon">Ì≥ù</span> Reports</a></li>
+                <li><a href="#"><span class="icon">Ì¥ç</span> RAG Precision</a></li>
+                <li><a href="#"><span class="icon">Ì≤∞</span> Financial Analysis</a></li>
+                <li><a href="#"><span class="icon">Ì∑™</span> Testing</a></li>
+                <li><a href="#"><span class="icon">Ì¥ß</span> Settings</a></li>
+            </ul>
+        </div>
+        <div class="main-content">
+            <div class="header">
+                <h1>FinDoc Analyzer</h1>
+                <p>Welcome, Aviad! This is your financial document dashboard.</p>
+            </div>
+            
+            <div class="card">
+                <h2>Dashboard</h2>
+                <p>This is your financial document dashboard. Upload documents, analyze your portfolio, and get insights from your financial data.</p>
+                <button class="button">Open Testing Dashboard</button>
+                <button class="button">Configure API Keys</button>
+            </div>
+            
+            <div class="card">
+                <h2>Recent Documents</h2>
+                <p>You have 3 recently processed documents.</p>
+                <button class="button">View All Documents</button>
+            </div>
+            
+            <div class="card">
+                <h2>Portfolio Summary</h2>
+                <p>Total portfolio value: $19,516.99</p>
+                <button class="button">View Portfolio</button>
+            </div>
+            
+            <div class="card">
+                <h2>Document Analysis</h2>
+                <p>Run analysis on your financial documents.</p>
+                <button class="button">Start Analysis</button>
+            </div>
+            
+            <div class="card">
+                <h2>Data Export</h2>
+                <p>Export your financial data in various formats.</p>
+                <button class="button">Export Data</button>
+            </div>
+            
+            <div class="card">
+                <h2>ISIN Extraction</h2>
+                <p>Extract ISIN codes from your documents.</p>
+                <button class="button">View ISINs</button>
+            </div>
+            
+            <div class="card">
+                <h2>Financial Advisor</h2>
+                <p>Get financial advice based on your documents.</p>
+                <button class="button">Get Advice</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
