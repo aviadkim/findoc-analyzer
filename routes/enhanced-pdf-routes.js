@@ -1,246 +1,103 @@
 /**
  * Enhanced PDF Routes
- * Routes for enhanced PDF processing
+ * This module provides routes for enhanced PDF operations
  */
 
 const express = require('express');
 const router = express.Router();
 
-/**
- * Extract text from PDF
- * Method: POST
- * Route: /api/enhanced-pdf/extract-text
- */
-router.post('/extract-text', (req, res) => {
-  const { documentId, options } = req.body;
-
-  if (!documentId) {
-    return res.status(400).json({
-      success: false,
-      message: 'Document ID is required'
-    });
-  }
-
-  // Mock extraction results
-  const extractionOptions = options || {
-    granularity: 'paragraph',
-    includeMetadata: true,
-    preserveFormatting: true
-  };
-
-  const results = {
-    documentId,
-    extractedAt: new Date().toISOString(),
-    options: extractionOptions,
-    text: [
-      {
-        page: 1,
-        sections: [
-          {
-            type: 'heading',
-            text: 'Financial Report 2025',
-            position: { x: 100, y: 50, width: 300, height: 30 }
-          },
-          {
-            type: 'paragraph',
-            text: 'This is a sample paragraph from the financial report. It contains information about the company\'s performance in 2025.',
-            position: { x: 100, y: 100, width: 400, height: 100 }
-          }
-        ]
-      },
-      {
-        page: 2,
-        sections: [
-          {
-            type: 'heading',
-            text: 'Financial Summary',
-            position: { x: 100, y: 50, width: 300, height: 30 }
-          },
-          {
-            type: 'paragraph',
-            text: 'The company performed well in 2025, with revenue growth of 15% compared to the previous year.',
-            position: { x: 100, y: 100, width: 400, height: 100 }
-          }
-        ]
-      }
-    ]
-  };
-
+// Get enhanced PDF status
+router.get('/status', (req, res) => {
   res.json({
-    success: true,
-    results
+    status: 'ok',
+    available: true,
+    message: 'Enhanced PDF processing is available'
   });
 });
 
-/**
- * Extract tables from PDF
- * Method: POST
- * Route: /api/enhanced-pdf/extract-tables
- */
+// Process PDF with enhanced processing
+router.post('/process', (req, res) => {
+  // Mock enhanced PDF processing
+  res.json({
+    success: true,
+    documentId: req.body.documentId || 'doc-' + Date.now(),
+    processed: true,
+    processingDate: new Date().toISOString(),
+    enhancedProcessing: true
+  });
+});
+
+// Extract tables from PDF
 router.post('/extract-tables', (req, res) => {
-  const { documentId, options } = req.body;
-
-  if (!documentId) {
-    return res.status(400).json({
-      success: false,
-      message: 'Document ID is required'
-    });
-  }
-
-  // Mock extraction results
-  const extractionOptions = options || {
-    detectHeadersAutomatically: true,
-    preserveSpanning: true,
-    extractBorderedOnly: false
-  };
-
-  const results = {
-    documentId,
-    extractedAt: new Date().toISOString(),
-    options: extractionOptions,
+  // Mock table extraction
+  res.json({
+    success: true,
+    documentId: req.body.documentId || 'doc-' + Date.now(),
     tables: [
       {
-        page: 1,
-        title: 'Financial Summary',
-        position: { x: 100, y: 200, width: 400, height: 200 },
-        headers: ['Metric', '2023', '2024', '2025'],
+        id: 'table-1',
+        title: 'Investment Portfolio',
+        headers: ['Security', 'ISIN', 'Quantity', 'Acquisition Price', 'Current Value', '% of Assets'],
         rows: [
-          ['Revenue', '$10M', '$12M', '$15M'],
-          ['Expenses', '$7M', '$8M', '$9M'],
-          ['Profit', '$3M', '$4M', '$6M']
-        ]
-      },
-      {
-        page: 2,
-        title: 'Revenue by Product Line',
-        position: { x: 100, y: 300, width: 400, height: 200 },
-        headers: ['Product', '2023', '2024', '2025'],
-        rows: [
-          ['Product A', '$5M', '$6M', '$8M'],
-          ['Product B', '$3M', '$4M', '$5M'],
-          ['Product C', '$2M', '$2M', '$2M']
+          ['Apple Inc.', 'US0378331005', '1,000', '$150.00', '$175.00', '7.0%'],
+          ['Microsoft', 'US5949181045', '800', '$250.00', '$300.00', '9.6%'],
+          ['Amazon', 'US0231351067', '500', '$120.00', '$140.00', '2.8%'],
+          ['Tesla', 'US88160R1014', '300', '$200.00', '$180.00', '2.2%'],
+          ['Google', 'US02079K1079', '200', '$1,200.00', '$1,300.00', '10.4%']
         ]
       }
     ]
-  };
-
-  res.json({
-    success: true,
-    results
   });
 });
 
-/**
- * Extract forms from PDF
- * Method: POST
- * Route: /api/enhanced-pdf/extract-forms
- */
-router.post('/extract-forms', (req, res) => {
-  const { documentId, options } = req.body;
-
-  if (!documentId) {
-    return res.status(400).json({
-      success: false,
-      message: 'Document ID is required'
-    });
-  }
-
-  // Mock extraction results
-  const extractionOptions = options || {
-    includeEmptyFields: true,
-    detectFieldTypes: true,
-    preserveLayout: true
-  };
-
-  const results = {
-    documentId,
-    extractedAt: new Date().toISOString(),
-    options: extractionOptions,
-    forms: [
-      {
-        page: 3,
-        title: 'Contact Information',
-        fields: [
-          {
-            name: 'Full Name',
-            type: 'text',
-            value: 'John Smith',
-            position: { x: 100, y: 100, width: 200, height: 30 }
-          },
-          {
-            name: 'Email',
-            type: 'email',
-            value: 'john.smith@example.com',
-            position: { x: 100, y: 150, width: 200, height: 30 }
-          },
-          {
-            name: 'Phone',
-            type: 'phone',
-            value: '+1 (555) 123-4567',
-            position: { x: 100, y: 200, width: 200, height: 30 }
-          }
-        ]
-      }
-    ]
-  };
-
+// Extract securities from PDF
+router.post('/extract-securities', (req, res) => {
+  // Mock securities extraction
   res.json({
     success: true,
-    results
-  });
-});
-
-/**
- * Extract images from PDF
- * Method: POST
- * Route: /api/enhanced-pdf/extract-images
- */
-router.post('/extract-images', (req, res) => {
-  const { documentId, options } = req.body;
-
-  if (!documentId) {
-    return res.status(400).json({
-      success: false,
-      message: 'Document ID is required'
-    });
-  }
-
-  // Mock extraction results
-  const extractionOptions = options || {
-    minSize: 1000,
-    preserveResolution: true,
-    formats: ['png', 'jpg']
-  };
-
-  const results = {
-    documentId,
-    extractedAt: new Date().toISOString(),
-    options: extractionOptions,
-    images: [
+    documentId: req.body.documentId || 'doc-' + Date.now(),
+    securities: [
       {
-        page: 1,
-        type: 'logo',
-        format: 'png',
-        size: 15420,
-        resolution: '300x150',
-        position: { x: 50, y: 50, width: 200, height: 100 },
-        url: '/api/images/doc123-img1.png'
+        name: 'Apple Inc.',
+        isin: 'US0378331005',
+        quantity: 1000,
+        acquisitionPrice: 150.00,
+        currentValue: 175.00,
+        percentOfAssets: 7.0
       },
       {
-        page: 2,
-        type: 'chart',
-        format: 'png',
-        size: 45680,
-        resolution: '600x400',
-        position: { x: 100, y: 300, width: 400, height: 300 },
-        url: '/api/images/doc123-img2.png'
+        name: 'Microsoft',
+        isin: 'US5949181045',
+        quantity: 800,
+        acquisitionPrice: 250.00,
+        currentValue: 300.00,
+        percentOfAssets: 9.6
+      },
+      {
+        name: 'Amazon',
+        isin: 'US0231351067',
+        quantity: 500,
+        acquisitionPrice: 120.00,
+        currentValue: 140.00,
+        percentOfAssets: 2.8
+      },
+      {
+        name: 'Tesla',
+        isin: 'US88160R1014',
+        quantity: 300,
+        acquisitionPrice: 200.00,
+        currentValue: 180.00,
+        percentOfAssets: 2.2
+      },
+      {
+        name: 'Google',
+        isin: 'US02079K1079',
+        quantity: 200,
+        acquisitionPrice: 1200.00,
+        currentValue: 1300.00,
+        percentOfAssets: 10.4
       }
     ]
-  };
-
-  res.json({
-    success: true,
-    results
   });
 });
 
