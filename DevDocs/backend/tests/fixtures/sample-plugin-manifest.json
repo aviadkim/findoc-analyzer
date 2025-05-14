@@ -1,0 +1,25 @@
+{
+  "name": "sample-plugin",
+  "version": "1.0.0",
+  "description": "A sample plugin for testing",
+  "main": "plugin.js",
+  "author": "FinDoc Team",
+  "repository": "https://github.com/findoc/sample-plugin",
+  "license": "MIT",
+  "engines": {
+    "finDocAnalyzer": ">=1.0.0"
+  },
+  "permissions": [
+    "core",
+    "fs_read",
+    "fs_write",
+    "data_read"
+  ],
+  "extensionPoints": [
+    "dataExporter",
+    "documentProcessor"
+  ],
+  "dependencies": {
+    "xlsx": "^0.18.5"
+  }
+}

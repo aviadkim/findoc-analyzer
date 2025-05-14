@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FinDoc Analyzer - Financial PDF Chat</title>
+  <link rel="stylesheet" href="/css/styles.css">
+  <style>
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      height: calc(100vh - 40px);
+    }
+    
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    
+    .header h1 {
+      margin: 0;
+    }
+    
+    .header .actions {
+      display: flex;
+      gap: 10px;
+    }
+    
+    .btn {
+      padding: 10px 15px;
+      background-color: #8A2BE2;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      text-decoration: none;
+    }
+    
+    .btn:hover {
+      background-color: #7B1FA2;
+    }
+    
+    .btn.secondary {
+      background-color: #6c757d;
+    }
+    
+    .btn.secondary:hover {
+      background-color: #5a6268;
+    }
+    
+    .chat-container {
+      display: flex;
+      flex: 1;
+      overflow: hidden;
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    
+    .sidebar {
+      width: 250px;
+      background-color: #f5f5f5;
+      padding: 20px;
+      border-right: 1px solid #eee;
+      overflow-y: auto;
+    }
+    
+    .document-info {
+      margin-bottom: 20px;
+    }
+    
+    .document-info h3 {
+      margin-top: 0;
+      color: #8A2BE2;
+    }
+    
+    .document-info p {
+      margin: 5px 0;
+      font-size: 14px;
+    }
+    
+    .agent-selector {
+      margin-bottom: 20px;
+    }
+    
+    .agent-selector h3 {
+      margin-top: 0;
+      color: #8A2BE2;
+    }
+    
+    .agent-selector select {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+    }
+    
+    .suggested-questions {
+      margin-bottom: 20px;
+    }
+    
+    .suggested-questions h3 {
+      margin-top: 0;
+      color: #8A2BE2;
+    }
+    
+    .suggested-questions ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    
+    .suggested-questions li {
+      padding: 8px;
+      margin-bottom: 5px;
+      background-color: #e9ecef;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+    
+    .suggested-questions li:hover {
+      background-color: #dee2e6;
+    }
+    
+    .chat-main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    
+    .chat-messages {
+      flex: 1;
+      padding: 20px;
+      overflow-y: auto;
+    }
+    
+    .message {
+      margin-bottom: 15px;
+      max-width: 80%;
+    }
+    
+    .message.user {
+      margin-left: auto;
+    }
+    
+    .message.agent {
+      margin-right: auto;
+    }
+    
+    .message-content {
+      padding: 12px 15px;
+      border-radius: 18px;
+      position: relative;
+    }
+    
+    .message.user .message-content {
+      background-color: #8A2BE2;
+      color: white;
+      border-bottom-right-radius: 0;
+    }
+    
+    .message.agent .message-content {
+      background-color: #f1f0f0;
+      color: #333;
+      border-bottom-left-radius: 0;
+    }
+    
+    .message-meta {
+      font-size: 12px;
+      margin-top: 5px;
+      color: #6c757d;
+    }
+    
+    .message.user .message-meta {
+      text-align: right;
+    }
+    
+    .chat-input {
+      padding: 15px;
+      border-top: 1px solid #eee;
+      display: flex;
+      align-items: center;
+    }
+    
+    .chat-input input {
+      flex: 1;
+      padding: 12px 15px;
+      border: 1px solid #ddd;
+      border-radius: 20px;
+      margin-right: 10px;
+    }
+    
+    .chat-input button {
+      padding: 12px 20px;
+      background-color: #8A2BE2;
+      color: white;
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+    }
+    
+    .chat-input button:hover {
+      background-color: #7B1FA2;
+    }
+    
+    .loading {
+      text-align: center;
+      padding: 50px;
+    }
+    
+    .loading-spinner {
+      border: 4px solid #f3f3f3;
+      border-top: 4px solid #8A2BE2;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      animation: spin 2s linear infinite;
+      margin: 0 auto 20px;
+    }
+    
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    
+    .error {
+      background-color: #f8d7da;
+      color: #721c24;
+      padding: 15px;
+      border-radius: 4px;
+      margin: 20px;
+    }
+    
+    .typing-indicator {
+      display: flex;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+    
+    .typing-indicator span {
+      height: 8px;
+      width: 8px;
+      background-color: #8A2BE2;
+      border-radius: 50%;
+      display: inline-block;
+      margin-right: 5px;
+      animation: typing 1s infinite;
+    }
+    
+    .typing-indicator span:nth-child(2) {
+      animation-delay: 0.2s;
+    }
+    
+    .typing-indicator span:nth-child(3) {
+      animation-delay: 0.4s;
+    }
+    
+    @keyframes typing {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-5px); }
+    }
+  </style>
+  <script src="/js/ui-chat-component.js"></script>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>Financial PDF Chat</h1>
+      <div class="actions">
+        <a href="/financial-pdf-results.html" id="results-link" class="btn">View Results</a>
+        <a href="/financial-pdf-upload.html" class="btn secondary">Back to Upload</a>
+      </div>
+    </div>
+    
+    <div class="chat-container">
+      <div class="sidebar">
+        <div class="document-info" id="document-info">
+          <h3>Document Information</h3>
+          <p><strong>Loading...</strong></p>
+        </div>
+        
+        <div class="agent-selector">
+          <h3>Select Agent</h3>
+          <select id="agent-select">
+            <option value="auto">Auto-select Agent</option>
+            <option value="documentAnalyzer">Document Analyzer</option>
+            <option value="tableUnderstanding">Table Understanding</option>
+            <option value="securitiesExtractor">Securities Extractor</option>
+            <option value="financialReasoner">Financial Reasoner</option>
+            <option value="bloombergAgent">Bloomberg Agent</option>
+          </select>
+        </div>
+        
+        <div class="suggested-questions">
+          <h3>Suggested Questions</h3>
+          <ul id="suggested-questions-list">
+            <li>What is the total value of the portfolio?</li>
+            <li>What is the asset allocation?</li>
+            <li>What are the top 5 holdings?</li>
+            <li>What is the performance of the portfolio?</li>
+            <li>What is the risk profile?</li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="chat-main">
+        <div class="chat-messages" id="chat-messages">
+          <div class="message agent">
+            <div class="message-content">
+              Hello! I'm your financial document assistant. I can answer questions about this document. What would you like to know?
+            </div>
+            <div class="message-meta">
+              Document Assistant
+            </div>
+          </div>
+        </div>
+        
+        <div class="chat-input">
+          <input type="text" id="message-input" placeholder="Ask a question about the document...">
+          <button id="send-button">Send</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Get document ID from URL
+      const urlParams = new URLSearchParams(window.location.search);
+      const documentId = urlParams.get('id');
+      
+      if (!documentId) {
+        showError('No document ID provided');
+        return;
+      }
+      
+      // Update results link
+      document.getElementById('results-link').href = `/financial-pdf-results.html?id=${documentId}`;
+      
+      // Elements
+      const chatMessages = document.getElementById('chat-messages');
+      const messageInput = document.getElementById('message-input');
+      const sendButton = document.getElementById('send-button');
+      const agentSelect = document.getElementById('agent-select');
+      const suggestedQuestionsList = document.getElementById('suggested-questions-list');
+      const documentInfo = document.getElementById('document-info');
+      
+      // Load document info
+      loadDocumentInfo(documentId);
+      
+      // Event listeners
+      sendButton.addEventListener('click', sendMessage);
+      
+      messageInput.addEventListener('keypress', function(event) {
+        if (event.key === 'Enter') {
+          sendMessage();
+        }
+      });
+      
+      // Add event listeners to suggested questions
+      suggestedQuestionsList.querySelectorAll('li').forEach(item => {
+        item.addEventListener('click', function() {
+          messageInput.value = this.textContent;
+          sendMessage();
+        });
+      });
+      
+      // Load document info
+      function loadDocumentInfo(documentId) {
+        fetch(`/api/financial-pdf/data/${documentId}`)
+        .then(response => response.json())
+        .then(data => {
+          if (data.success) {
+            updateDocumentInfo(data.data);
+            updateSuggestedQuestions(data.data);
+          } else {
+            showError(data.message || 'Error loading document data');
+          }
+        })
+        .catch(error => {
+          showError('Error loading document data: ' + error.message);
+        });
+      }
+      
+      // Update document info
+      function updateDocumentInfo(data) {
+        const { metadata, financialData } = data;
+        const { portfolioInfo } = financialData;
+        
+        let html = `
+          <h3>Document Information</h3>
+          <p><strong>File Name:</strong> ${metadata?.title || 'N/A'}</p>
+          <p><strong>Portfolio:</strong> ${portfolioInfo?.title || 'N/A'}</p>
+          <p><strong>Date:</strong> ${portfolioInfo?.date || 'N/A'}</p>
+          <p><strong>Total Value:</strong> ${formatCurrency(portfolioInfo?.totalValue, portfolioInfo?.currency)}</p>
+        `;
+        
+        documentInfo.innerHTML = html;
+      }
+      
+      // Update suggested questions based on document content
+      function updateSuggestedQuestions(data) {
+        const { financialData } = data;
+        const { securities, assetAllocation } = financialData;
+        
+        // Create custom questions based on document content
+        const questions = [];
+        
+        // Basic questions
+        questions.push('What is the total value of the portfolio?');
+        questions.push('What is the asset allocation?');
+        
+        // Securities questions
+        if (securities && securities.length > 0) {
+          questions.push('What are the top 5 holdings?');
+          
+          // Add question about largest holding
+          const sortedSecurities = [...securities].sort((a, b) => (b.value || 0) - (a.value || 0));
+          if (sortedSecurities.length > 0) {
+            questions.push(`Tell me about ${sortedSecurities[0].name}`);
+          }
+          
+          // Add question about specific security type if present
+          const bonds = securities.filter(s => s.type && s.type.toLowerCase() === 'bond');
+          if (bonds.length > 0) {
+            questions.push('What bond holdings are in the portfolio?');
+          }
+          
+          const equities = securities.filter(s => s.type && s.type.toLowerCase() === 'equity');
+          if (equities.length > 0) {
+            questions.push('What equity holdings are in the portfolio?');
+          }
+        }
+        
+        // Asset allocation questions
+        if (assetAllocation && assetAllocation.categories.length > 0) {
+          // Find largest asset class
+          const largestCategory = assetAllocation.categories.reduce((largest, current) => 
+            (current.percentage || 0) > (largest.percentage || 0) ? current : largest
+          , { percentage: 0 });
+          
+          if (largestCategory.name) {
+            questions.push(`Why is ${largestCategory.name} the largest allocation?`);
+          }
+        }
+        
+        // Performance and analysis questions
+        questions.push('What is the performance of the portfolio?');
+        questions.push('What is the risk profile?');
+        questions.push('How diversified is the portfolio?');
+        questions.push('What is the current market value of the portfolio?');
+        
+        // Update the list (limit to 8 questions)
+        const limitedQuestions = questions.slice(0, 8);
+        
+        let html = '';
+        limitedQuestions.forEach(question => {
+          html += `<li>${question}</li>`;
+        });
+        
+        suggestedQuestionsList.innerHTML = html;
+        
+        // Re-add event listeners
+        suggestedQuestionsList.querySelectorAll('li').forEach(item => {
+          item.addEventListener('click', function() {
+            messageInput.value = this.textContent;
+            sendMessage();
+          });
+        });
+      }
+      
+      // Send message
+      function sendMessage() {
+        const message = messageInput.value.trim();
+        
+        if (!message) {
+          return;
+        }
+        
+        // Add user message to chat
+        addMessage(message, 'user');
+        
+        // Clear input
+        messageInput.value = '';
+        
+        // Show typing indicator
+        showTypingIndicator();
+        
+        // Get selected agent
+        const agent = agentSelect.value;
+        
+        // Send message to server
+        fetch(`/api/financial-pdf/chat/${documentId}`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            message,
+            agent
+          })
+        })
+        .then(response => response.json())
+        .then(data => {
+          // Remove typing indicator
+          removeTypingIndicator();
+          
+          if (data.success) {
+            // Add agent message to chat
+            addMessage(data.response.text, 'agent', getAgentName(data.response.agent));
+            
+            // Update agent select if auto-selected
+            if (agent === 'auto' && data.response.agent !== 'auto') {
+              agentSelect.value = data.response.agent;
+            }
+          } else {
+            // Add error message to chat
+            addMessage('Error: ' + (data.message || 'Failed to get response'), 'agent', 'Error');
+          }
+        })
+        .catch(error => {
+          // Remove typing indicator
+          removeTypingIndicator();
+          
+          // Add error message to chat
+          addMessage('Error: ' + error.message, 'agent', 'Error');
+        });
+      }
+      
+      // Add message to chat
+      function addMessage(text, type, agentName = null) {
+        const messageElement = document.createElement('div');
+        messageElement.className = `message ${type}`;
+        
+        const contentElement = document.createElement('div');
+        contentElement.className = 'message-content';
+        contentElement.textContent = text;
+        
+        const metaElement = document.createElement('div');
+        metaElement.className = 'message-meta';
+        
+        if (type === 'user') {
+          metaElement.textContent = 'You';
+        } else {
+          metaElement.textContent = agentName || 'Assistant';
+        }
+        
+        messageElement.appendChild(contentElement);
+        messageElement.appendChild(metaElement);
+        
+        chatMessages.appendChild(messageElement);
+        
+        // Scroll to bottom
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+      }
+      
+      // Show typing indicator
+      function showTypingIndicator() {
+        const typingElement = document.createElement('div');
+        typingElement.className = 'typing-indicator';
+        typingElement.id = 'typing-indicator';
+        
+        for (let i = 0; i < 3; i++) {
+          const dotElement = document.createElement('span');
+          typingElement.appendChild(dotElement);
+        }
+        
+        chatMessages.appendChild(typingElement);
+        
+        // Scroll to bottom
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+      }
+      
+      // Remove typing indicator
+      function removeTypingIndicator() {
+        const typingElement = document.getElementById('typing-indicator');
+        if (typingElement) {
+          typingElement.remove();
+        }
+      }
+      
+      // Show error
+      function showError(message) {
+        const errorElement = document.createElement('div');
+        errorElement.className = 'error';
+        errorElement.textContent = message;
+        
+        chatMessages.innerHTML = '';
+        chatMessages.appendChild(errorElement);
+      }
+      
+      // Get agent name
+      function getAgentName(agent) {
+        switch (agent) {
+          case 'documentAnalyzer':
+            return 'Document Analyzer';
+          case 'tableUnderstanding':
+            return 'Table Understanding';
+          case 'securitiesExtractor':
+            return 'Securities Extractor';
+          case 'financialReasoner':
+            return 'Financial Reasoner';
+          case 'bloombergAgent':
+            return 'Bloomberg Agent';
+          default:
+            return 'Assistant';
+        }
+      }
+      
+      // Format currency
+      function formatCurrency(amount, currency = 'USD') {
+        if (amount === null || amount === undefined) {
+          return 'N/A';
+        }
+        
+        return new Intl.NumberFormat('en-US', {
+          style: 'currency',
+          currency: currency,
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2
+        }).format(amount);
+      }
+    });
+  </script>
+</body>
+</html>

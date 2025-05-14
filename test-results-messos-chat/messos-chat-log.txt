@@ -1,0 +1,10 @@
+[2025-04-30T20:37:32.393Z] Starting Messos chat test
+[2025-04-30T20:37:34.220Z] Navigating to document chat
+[2025-04-30T20:37:36.364Z] Screenshot saved to C:\Users\aviad\OneDrive\Desktop\backv2-main\test-screenshots-messos-chat\01-document-chat.png
+[2025-04-30T20:37:36.365Z] Waiting for document options to load
+[2025-04-30T20:37:46.380Z] Document options did not load automatically, trying to refresh
+[2025-04-30T20:37:47.360Z] Screenshot saved to C:\Users\aviad\OneDrive\Desktop\backv2-main\test-screenshots-messos-chat\02-document-options-loaded.png
+[2025-04-30T20:37:47.397Z] Selecting the document
+[2025-04-30T20:37:47.504Z] Available documents: [{"value":"","text":"-- Select a document --"}]
+[2025-04-30T20:37:47.505Z] Error in test: No document options available
+[2025-04-30T20:37:47.665Z] Screenshot saved to C:\Users\aviad\OneDrive\Desktop\backv2-main\test-screenshots-messos-chat\error.png

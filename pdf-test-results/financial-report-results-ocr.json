@@ -1,0 +1,62 @@
+{
+  "filename": "financial-report.pdf",
+  "path": "/mnt/c/Users/aviad/OneDrive/Desktop/backv2-main/test-pdfs/financial-report.pdf",
+  "useOcr": true,
+  "fileSize": "0.00 MB",
+  "standard": {
+    "text": "",
+    "metadata": {
+      "title": "financial-report.pdf",
+      "author": "Unknown",
+      "pages": 0,
+      "creationDate": "",
+      "modificationDate": ""
+    },
+    "tableCount": 0
+  },
+  "mcp": {
+    "documentId": "848bb2c6-8edd-4218-aecd-2820f2011162",
+    "fileName": "financial-report.pdf",
+    "text": "Financial Report: Q2 2025\n\n      Performance Summary for Apple Inc. (ISIN: US0378331005)\n\n      Quarterly Revenue: $97.8 billion\n      Earnings Per Share: $1.52\n      Gross Margin: 43.7%\n\n      Key Holdings:\n      - Microsoft Corporation (ISIN: US5949181045): 50,000 shares\n      - Amazon.com Inc. (ISIN: US0231351067): 30,000 shares\n      - Tesla Inc. (ISIN: US88160R1014): 25,000 shares\n      ",
+    "metadata": {
+      "title": "financial-report.pdf",
+      "author": "Unknown",
+      "pages": 0,
+      "creationDate": "",
+      "modificationDate": ""
+    },
+    "processed": true,
+    "processingDate": "2025-05-12T10:38:42.754Z",
+    "textLength": 395,
+    "tableCount": 0,
+    "entityCount": 7,
+    "entitySamples": [
+      {
+        "type": "company",
+        "name": "Apple Inc",
+        "confidence": 0.7
+      },
+      {
+        "type": "company",
+        "name": "Microsoft Corp",
+        "confidence": 0.7
+      },
+      {
+        "type": "company",
+        "name": "Tesla Inc",
+        "confidence": 0.7
+      },
+      {
+        "type": "security",
+        "isin": "US0378331005",
+        "confidence": 0.8
+      },
+      {
+        "type": "security",
+        "isin": "US5949181045",
+        "confidence": 0.8
+      }
+    ]
+  },
+  "timestamp": "2025-05-12T10:38:42.754Z"
+}

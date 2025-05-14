@@ -1,0 +1,18 @@
+{
+  "total": 2,
+  "passed": 2,
+  "failed": 0,
+  "skipped": 0,
+  "tests": [
+    {
+      "name": "Upload and process a PDF file",
+      "status": "passed",
+      "duration": 5582
+    },
+    {
+      "name": "Process a PDF with OCR",
+      "status": "passed",
+      "duration": 6074
+    }
+  ]
+}

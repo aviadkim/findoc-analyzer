@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FinDoc Analyzer - Login</title>
+  <link rel="stylesheet" href="/css/styles.css">
+  <style>
+    .login-container {
+      max-width: 400px;
+      margin: 100px auto;
+      padding: 20px;
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    
+    .login-header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    
+    .login-form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+    
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+    
+    .form-group label {
+      font-weight: 500;
+    }
+    
+    .form-group input {
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 16px;
+    }
+    
+    .login-button {
+      padding: 12px;
+      background-color: #4caf50;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: 500;
+    }
+    
+    .login-button:hover {
+      background-color: #45a049;
+    }
+    
+    .google-login-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 12px;
+      background-color: white;
+      color: #757575;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: 500;
+      text-decoration: none;
+    }
+    
+    .google-login-btn:hover {
+      background-color: #f5f5f5;
+    }
+    
+    .google-icon {
+      width: 18px;
+      height: 18px;
+    }
+    
+    .login-divider {
+      display: flex;
+      align-items: center;
+      margin: 20px 0;
+    }
+    
+    .login-divider::before,
+    .login-divider::after {
+      content: "";
+      flex: 1;
+      border-bottom: 1px solid #ddd;
+    }
+    
+    .login-divider span {
+      padding: 0 10px;
+      color: #757575;
+      font-size: 14px;
+    }
+    
+    .login-footer {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 14px;
+      color: #757575;
+    }
+    
+    .login-footer a {
+      color: #4caf50;
+      text-decoration: none;
+    }
+    
+    .login-footer a:hover {
+      text-decoration: underline;
+    }
+    
+    #auth-error {
+      display: none;
+      padding: 10px;
+      background-color: #f8d7da;
+      color: #721c24;
+      border-radius: 4px;
+      margin-bottom: 15px;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <div class="login-header">
+      <h1>FinDoc Analyzer</h1>
+      <p>Sign in to your account</p>
+    </div>
+    
+    <div id="auth-error"></div>
+    
+    <form id="login-form" class="login-form">
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" required>
+      </div>
+      
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" required>
+      </div>
+      
+      <button type="submit" class="login-button">Sign In</button>
+    </form>
+    
+    <div class="login-divider">
+      <span>OR</span>
+    </div>
+    
+    <a href="javascript:void(0);" id="google-login-btn" class="google-login-btn">
+      <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google" class="google-icon">
+      <span>Sign in with Google</span>
+    </a>
+    
+    <div class="login-footer">
+      <p>Don't have an account? <a href="/signup">Sign up</a></p>
+    </div>
+  </div>
+  
+  <script>
+    // Handle form submission
+    document.getElementById('login-form').addEventListener('submit', function(event) {
+      event.preventDefault();
+      
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      
+      // Simple validation
+      if (!email || !password) {
+        showAuthError('Please enter email and password');
+        return;
+      }
+      
+      // Mock login for demo purposes
+      if (email === 'demo@example.com' && password === 'password') {
+        // Store user info in localStorage
+        const user = {
+          id: '123',
+          name: 'Demo User',
+          email: 'demo@example.com'
+        };
+        
+        localStorage.setItem('auth_token', 'demo_token');
+        localStorage.setItem('auth_user', JSON.stringify(user));
+        
+        // Redirect to dashboard
+        window.location.href = '/';
+      } else {
+        showAuthError('Invalid email or password');
+      }
+    });
+    
+    // Handle Google login
+    document.getElementById('google-login-btn').addEventListener('click', function() {
+      handleGoogleLogin();
+    });
+    
+    // Google login handler
+    function handleGoogleLogin() {
+      console.log('Google login clicked');
+      
+      // Create OAuth URL
+      const clientId = '1234567890-abcdefghijklmnopqrstuvwxyz.apps.googleusercontent.com'; // Replace with your actual client ID
+      const redirectUri = window.location.origin + '/auth/google/callback';
+      const scope = 'email profile';
+      const responseType = 'token';
+      const state = generateRandomString(16);
+      
+      // Store state in localStorage for verification
+      localStorage.setItem('auth_state', state);
+      
+      const authUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&response_type=${responseType}&scope=${encodeURIComponent(scope)}&state=${state}`;
+      
+      // Redirect to Google OAuth
+      window.location.href = authUrl;
+    }
+    
+    // Generate random string for state parameter
+    function generateRandomString(length) {
+      const charset = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+      let result = '';
+      
+      for (let i = 0; i < length; i++) {
+        const randomIndex = Math.floor(Math.random() * charset.length);
+        result += charset[randomIndex];
+      }
+      
+      return result;
+    }
+    
+    // Show auth error
+    function showAuthError(message) {
+      const authError = document.getElementById('auth-error');
+      authError.textContent = message;
+      authError.style.display = 'block';
+    }
+  </script>
+</body>
+</html>

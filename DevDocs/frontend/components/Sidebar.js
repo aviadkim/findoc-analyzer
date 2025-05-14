@@ -15,7 +15,8 @@ import {
   FaBars,
   FaTimes,
   FaRobot,
-  FaFileInvoiceDollar
+  FaFileInvoiceDollar,
+  FaPuzzlePiece
 } from 'react-icons/fa';
 
 const Sidebar = () => {
@@ -33,6 +34,7 @@ const Sidebar = () => {
     { name: 'Dev Testing', href: '/dev-test-center', icon: FaClipboardCheck },
     { name: 'MCP Demo', href: '/mcp-demo', icon: FaFileAlt },
     { name: 'MCP Test', href: '/mcp-test', icon: FaFileAlt },
+    { name: 'Plugins', href: '/plugins', icon: FaPuzzlePiece },
     { name: 'Settings', href: '/settings', icon: FaCog },
   ];
 

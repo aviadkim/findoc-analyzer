@@ -1,0 +1,44 @@
+[
+  {
+    "name": "homepage",
+    "passed": true,
+    "url": "https://backv2-app-brfi73d4ra-zf.a.run.app/",
+    "screenshot": "homepage.png"
+  },
+  {
+    "name": "documents-page",
+    "passed": true,
+    "url": "https://backv2-app-brfi73d4ra-zf.a.run.app/documents-new",
+    "screenshot": "documents-page.png"
+  },
+  {
+    "name": "document-detail-page",
+    "passed": true,
+    "url": "https://backv2-app-brfi73d4ra-zf.a.run.app/documents-new",
+    "screenshot": "document-detail-page.png"
+  },
+  {
+    "name": "analytics-page",
+    "passed": true,
+    "url": "https://backv2-app-brfi73d4ra-zf.a.run.app/analytics-new",
+    "screenshot": "analytics-page.png"
+  },
+  {
+    "name": "upload-page",
+    "passed": true,
+    "url": "https://backv2-app-brfi73d4ra-zf.a.run.app/upload",
+    "screenshot": "upload-page.png"
+  },
+  {
+    "name": "document-chat-page",
+    "passed": true,
+    "url": "https://backv2-app-brfi73d4ra-zf.a.run.app/document-chat",
+    "screenshot": "document-chat-page.png"
+  },
+  {
+    "name": "api-health",
+    "passed": true,
+    "url": "https://backv2-app-brfi73d4ra-zf.a.run.app/api/health",
+    "screenshot": "api-health.png"
+  }
+]

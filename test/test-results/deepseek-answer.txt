@@ -1,0 +1,3 @@
+Question: What is the total value of Apple shares?
+
+Answer: The total value of Apple shares is $19,050.00 USD. This is calculated by multiplying the quantity (100 shares) by the price per share ($190.50).

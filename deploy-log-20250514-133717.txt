@@ -1,0 +1,14 @@
+[2025-05-14 13:37:17] Starting deployment to Google Cloud Run...
+[2025-05-14 13:37:17] Checking gcloud authentication...
+[2025-05-14 13:37:21] Authenticated as: aviad@kimfo-fs.com
+[2025-05-14 13:37:24] Current GCP project: findoc-deploy
+[2025-05-14 13:37:24] Deploying to Google Cloud Run...
+[2025-05-14 13:37:24] Running: gcloud run deploy backv2-app --source . --region me-west1 --allow-unauthenticated
+[2025-05-14 13:37:38] Deployment successful!
+[2025-05-14 13:37:38] Getting deployed URL...
+[2025-05-14 13:37:41] Deployed URL: https://backv2-app-brfi73d4ra-zf.a.run.app
+[2025-05-14 13:37:41] Deployment complete!
+[2025-05-14 13:37:41] Service: backv2-app
+[2025-05-14 13:37:41] Region: me-west1
+[2025-05-14 13:37:41] URL: https://backv2-app-brfi73d4ra-zf.a.run.app
+[2025-05-14 13:37:41] Log file: deploy-log-20250514-133717.txt

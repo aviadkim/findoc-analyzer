@@ -1,0 +1,130 @@
+{
+  "startTime": "2025-04-30T04:45:08.758Z",
+  "endTime": "2025-04-30T04:45:14.119Z",
+  "totalTests": 3,
+  "passedTests": 1,
+  "failedTests": 2,
+  "skippedTests": 0,
+  "tests": [
+    {
+      "id": "PDF-01",
+      "name": "Create Test PDF",
+      "status": "passed",
+      "startTime": "2025-04-30T04:45:09.000Z",
+      "endTime": "2025-04-30T04:45:09.002Z",
+      "duration": 2,
+      "steps": [
+        {
+          "number": 1,
+          "name": "Step 1",
+          "status": "passed",
+          "startTime": "2025-04-30T04:45:09.000Z",
+          "endTime": "2025-04-30T04:45:09.001Z",
+          "duration": 1,
+          "error": null,
+          "screenshots": [],
+          "filePath": "C:\\Users\\aviad\\OneDrive\\Desktop\\backv2-main\\test\\test-files\\test-portfolio.pdf"
+        }
+      ],
+      "error": null,
+      "screenshots": []
+    },
+    {
+      "id": "PDF-02",
+      "name": "Upload PDF",
+      "status": "failed",
+      "startTime": "2025-04-30T04:45:09.002Z",
+      "endTime": "2025-04-30T04:45:14.053Z",
+      "duration": 5051,
+      "steps": [
+        {
+          "number": 1,
+          "name": "Step 1",
+          "status": "passed",
+          "startTime": "2025-04-30T04:45:09.002Z",
+          "endTime": "2025-04-30T04:45:13.969Z",
+          "duration": 4967,
+          "error": null,
+          "screenshots": [],
+          "results": {
+            "fileName": "1745988309040-849717940-test-portfolio.pdf",
+            "fileSize": 675,
+            "processingOptions": {
+              "extractText": true,
+              "extractTables": true,
+              "extractMetadata": true,
+              "extractSecurities": true,
+              "useOcr": false
+            },
+            "text": "",
+            "pages": [],
+            "pageCount": 0,
+            "error": "Failed to open file 'C:\\\\Users\\\\aviad\\\\OneDrive\\\\Desktop\\\\backv2-main\\\\uploads\\\\1745988309040-849717940-test-portfolio.pdf'.",
+            "tables": [],
+            "tableCount": 0,
+            "extractionMethod": "deepseek",
+            "metadata": {},
+            "info": {},
+            "formFields": [],
+            "links": [],
+            "securities": [],
+            "securitiesCount": 0
+          }
+        },
+        {
+          "number": 2,
+          "name": "Step 2",
+          "status": "failed",
+          "startTime": "2025-04-30T04:45:13.970Z",
+          "endTime": null,
+          "duration": 0,
+          "error": "Cannot read properties of undefined (reading 'text')",
+          "screenshots": [
+            "PDF-02-step-2-failure.png"
+          ]
+        }
+      ],
+      "error": "Cannot read properties of undefined (reading 'text')",
+      "screenshots": []
+    },
+    {
+      "id": "PDF-03",
+      "name": "Batch Processing",
+      "status": "failed",
+      "startTime": "2025-04-30T04:45:14.054Z",
+      "endTime": "2025-04-30T04:45:14.118Z",
+      "duration": 64,
+      "steps": [
+        {
+          "number": 1,
+          "name": "Step 1",
+          "status": "passed",
+          "startTime": "2025-04-30T04:45:14.054Z",
+          "endTime": "2025-04-30T04:45:14.057Z",
+          "duration": 3,
+          "error": null,
+          "screenshots": [],
+          "filePaths": [
+            "C:\\Users\\aviad\\OneDrive\\Desktop\\backv2-main\\test\\test-files\\test-batch-1.pdf",
+            "C:\\Users\\aviad\\OneDrive\\Desktop\\backv2-main\\test\\test-files\\test-batch-2.pdf",
+            "C:\\Users\\aviad\\OneDrive\\Desktop\\backv2-main\\test\\test-files\\test-batch-3.pdf"
+          ]
+        },
+        {
+          "number": 2,
+          "name": "Step 2",
+          "status": "failed",
+          "startTime": "2025-04-30T04:45:14.057Z",
+          "endTime": null,
+          "duration": 0,
+          "error": "filePaths is not iterable",
+          "screenshots": [
+            "PDF-03-step-2-failure.png"
+          ]
+        }
+      ],
+      "error": "filePaths is not iterable",
+      "screenshots": []
+    }
+  ]
+}

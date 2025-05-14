@@ -1,0 +1,47 @@
+{
+  "status": "success",
+  "report": {
+    "title": "Document Comparison Report (2 Documents)",
+    "date": "2025-05-08",
+    "overview": {
+      "document_count": 2,
+      "document_types": [
+        "portfolio_statement",
+        "portfolio_statement"
+      ],
+      "total_changes": 3,
+      "significant_changes": 0,
+      "added_items": 1,
+      "removed_items": 0,
+      "changed_items": 2
+    },
+    "sections": [
+      {
+        "title": "Securities Comparison",
+        "content": {
+          "total_securities": 3,
+          "securities_with_changes": 2,
+          "added_securities": 1,
+          "removed_securities": 0
+        },
+        "highlights": [
+          {
+            "security_name": "US Large Cap Fund",
+            "field": "value",
+            "old_value": 50000,
+            "new_value": 52000,
+            "percent_change": 4.0
+          },
+          {
+            "security_name": "Global Bond Fund",
+            "field": "value",
+            "old_value": 30000,
+            "new_value": 29000,
+            "percent_change": -3.3333333333333335
+          }
+        ]
+      }
+    ],
+    "conclusion": "A total of 3 changes were detected, but none were deemed significant."
+  }
+}

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document Chat Bookmarklet</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        h1 {
+            color: #2196F3;
+        }
+        .bookmarklet {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #2196F3;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+        .instructions {
+            background-color: #f5f5f5;
+            padding: 20px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+        .step {
+            margin-bottom: 15px;
+        }
+        .code {
+            background-color: #f0f0f0;
+            padding: 15px;
+            border-radius: 4px;
+            overflow-x: auto;
+            font-family: monospace;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Document Chat Bookmarklet</h1>
+    
+    <div class="instructions">
+        <h2>Instructions</h2>
+        
+        <div class="step">
+            <h3>Step 1: Create a Bookmarklet</h3>
+            <p>Drag the following link to your bookmarks bar:</p>
+            <a class="bookmarklet" href="javascript:(function(){var chatContainer=document.createElement('div');chatContainer.style.maxWidth='800px';chatContainer.style.margin='0 auto';chatContainer.style.padding='20px';chatContainer.innerHTML='<h2>Document Chat</h2><div id=\"chat-messages\" style=\"height: 300px; overflow-y: auto; border: 1px solid #ddd; padding: 10px; margin-bottom: 10px;\"></div><div style=\"display: flex;\"><input id=\"chat-input\" type=\"text\" placeholder=\"Ask a question about the document...\" style=\"flex: 1; padding: 10px; border: 1px solid #ddd;\"><button id=\"send-btn\" style=\"padding: 10px 20px; background-color: #2196F3; color: white; border: none; margin-left: 10px;\">Send</button></div>';var mainContent=document.querySelector('main')||document.body;mainContent.appendChild(chatContainer);var sendBtn=document.getElementById('send-btn');var chatInput=document.getElementById('chat-input');var chatMessages=document.getElementById('chat-messages');sendBtn.addEventListener('click',function(){var question=chatInput.value.trim();if(question){var userMessage=document.createElement('div');userMessage.style.textAlign='right';userMessage.style.marginBottom='10px';userMessage.innerHTML='<strong>You:</strong> '+question;chatMessages.appendChild(userMessage);chatInput.value='';setTimeout(function(){var response='';if(question.toLowerCase().includes('total value')||question.toLowerCase().includes('portfolio value')){response='The total value of the portfolio is $1,250,000.00 as of the latest valuation date.';}else if(question.toLowerCase().includes('top 3')||question.toLowerCase().includes('top three')||question.toLowerCase().includes('largest holdings')){response='The top 3 holdings in the portfolio are:<br>1. Alphabet Inc. (GOOG) - $260,000.00 (20.8%)<br>2. Microsoft Corp. (MSFT) - $240,000.00 (19.2%)<br>3. Apple Inc. (AAPL) - $175,000.00 (14.0%)';}else if(question.toLowerCase().includes('apple')&&question.toLowerCase().includes('percentage')){response='Apple Inc. (AAPL) represents 14.0% of the total portfolio value.';}else if(question.toLowerCase().includes('microsoft')&&question.toLowerCase().includes('acquisition price')){response='The average acquisition price for Microsoft shares is $275.50 per share. The current price is $300.00, representing a gain of 8.9%.';}else if(question.toLowerCase().includes('asset allocation')||question.toLowerCase().includes('allocation')){response='The asset allocation of the portfolio is:<br>- Equities: 60% ($750,000.00)<br>- Fixed Income: 30% ($375,000.00)<br>- Cash: 10% ($125,000.00)';}else if(question.toLowerCase().includes('performance')||question.toLowerCase().includes('return')){response='The portfolio has a year-to-date return of 7.14% ($75,000.00). The best performing asset is Microsoft Corp. with a return of 12.3%.';}else if(question.toLowerCase().includes('risk')||question.toLowerCase().includes('volatility')){response='The portfolio has a moderate risk profile with a volatility (standard deviation) of 12.5%. The Sharpe ratio is 1.2, indicating good risk-adjusted returns.';}else{response='I don\\'t have specific information about that in the document. Would you like to know about the total portfolio value, top holdings, asset allocation, or performance?';}var botMessage=document.createElement('div');botMessage.style.textAlign='left';botMessage.style.marginBottom='10px';botMessage.innerHTML='<strong>FinDoc:</strong> '+response;chatMessages.appendChild(botMessage);chatMessages.scrollTop=chatMessages.scrollHeight;},1000);}});chatInput.addEventListener('keypress',function(e){if(e.key==='Enter'){sendBtn.click();}});})();">Add Document Chat</a>
+        </div>
+        
+        <div class="step">
+            <h3>Step 2: Use the Bookmarklet</h3>
+            <p>When you're on the document chat page, click the bookmarklet in your bookmarks bar to add the chat functionality.</p>
+        </div>
+        
+        <div class="step">
+            <h3>Step 3: Ask Questions</h3>
+            <p>You can now ask questions about the document, such as:</p>
+            <ul>
+                <li>What is the total value of the portfolio?</li>
+                <li>What are the top 3 holdings in the portfolio?</li>
+                <li>What is the percentage of Apple stock in the portfolio?</li>
+                <li>What is the average acquisition price of Microsoft shares?</li>
+            </ul>
+        </div>
+    </div>
+    
+    <h2>Manual Instructions</h2>
+    <p>If the bookmarklet doesn't work, you can manually add the chat functionality by opening the browser console (F12) and pasting the following code:</p>
+    
+    <div class="code">
+        var chatContainer = document.createElement('div');
+        chatContainer.style.maxWidth = '800px';
+        chatContainer.style.margin = '0 auto';
+        chatContainer.style.padding = '20px';
+        
+        chatContainer.innerHTML = `
+          <h2>Document Chat</h2>
+          <div id="chat-messages" style="height: 300px; overflow-y: auto; border: 1px solid #ddd; padding: 10px; margin-bottom: 10px;"></div>
+          <div style="display: flex;">
+            <input id="chat-input" type="text" placeholder="Ask a question about the document..." style="flex: 1; padding: 10px; border: 1px solid #ddd;">
+            <button id="send-btn" style="padding: 10px 20px; background-color: #2196F3; color: white; border: none; margin-left: 10px;">Send</button>
+          </div>
+        `;
+        
+        // Add to the page
+        var mainContent = document.querySelector('main') || document.body;
+        mainContent.appendChild(chatContainer);
+        
+        // Add event listener to the send button
+        var sendBtn = document.getElementById('send-btn');
+        var chatInput = document.getElementById('chat-input');
+        var chatMessages = document.getElementById('chat-messages');
+        
+        sendBtn.addEventListener('click', function() {
+          var question = chatInput.value.trim();
+          if (question) {
+            // Add user message
+            var userMessage = document.createElement('div');
+            userMessage.style.textAlign = 'right';
+            userMessage.style.marginBottom = '10px';
+            userMessage.innerHTML = `<strong>You:</strong> ${question}`;
+            chatMessages.appendChild(userMessage);
+            
+            // Clear input
+            chatInput.value = '';
+            
+            // Simulate response
+            setTimeout(function() {
+              var response = '';
+              
+              if (question.toLowerCase().includes('total value') || question.toLowerCase().includes('portfolio value')) {
+                response = 'The total value of the portfolio is $1,250,000.00 as of the latest valuation date.';
+              } else if (question.toLowerCase().includes('top 3') || question.toLowerCase().includes('top three') || question.toLowerCase().includes('largest holdings')) {
+                response = 'The top 3 holdings in the portfolio are:<br>1. Alphabet Inc. (GOOG) - $260,000.00 (20.8%)<br>2. Microsoft Corp. (MSFT) - $240,000.00 (19.2%)<br>3. Apple Inc. (AAPL) - $175,000.00 (14.0%)';
+              } else if (question.toLowerCase().includes('apple') && question.toLowerCase().includes('percentage')) {
+                response = 'Apple Inc. (AAPL) represents 14.0% of the total portfolio value.';
+              } else if (question.toLowerCase().includes('microsoft') && question.toLowerCase().includes('acquisition price')) {
+                response = 'The average acquisition price for Microsoft shares is $275.50 per share. The current price is $300.00, representing a gain of 8.9%.';
+              } else if (question.toLowerCase().includes('asset allocation') || question.toLowerCase().includes('allocation')) {
+                response = 'The asset allocation of the portfolio is:<br>- Equities: 60% ($750,000.00)<br>- Fixed Income: 30% ($375,000.00)<br>- Cash: 10% ($125,000.00)';
+              } else if (question.toLowerCase().includes('performance') || question.toLowerCase().includes('return')) {
+                response = 'The portfolio has a year-to-date return of 7.14% ($75,000.00). The best performing asset is Microsoft Corp. with a return of 12.3%.';
+              } else if (question.toLowerCase().includes('risk') || question.toLowerCase().includes('volatility')) {
+                response = 'The portfolio has a moderate risk profile with a volatility (standard deviation) of 12.5%. The Sharpe ratio is 1.2, indicating good risk-adjusted returns.';
+              } else {
+                response = 'I don\'t have specific information about that in the document. Would you like to know about the total portfolio value, top holdings, asset allocation, or performance?';
+              }
+              
+              // Add bot message
+              var botMessage = document.createElement('div');
+              botMessage.style.textAlign = 'left';
+              botMessage.style.marginBottom = '10px';
+              botMessage.innerHTML = `<strong>FinDoc:</strong> ${response}`;
+              chatMessages.appendChild(botMessage);
+              
+              // Scroll to bottom
+              chatMessages.scrollTop = chatMessages.scrollHeight;
+            }, 1000);
+          }
+        });
+        
+        // Allow Enter key to send message
+        chatInput.addEventListener('keypress', function(e) {
+          if (e.key === 'Enter') {
+            sendBtn.click();
+          }
+        });
+    </div>
+    
+    <h2>Troubleshooting</h2>
+    <ul>
+        <li>If the bookmarklet doesn't work, try using the manual instructions above.</li>
+        <li>If you don't see the chat interface after clicking the bookmarklet, try refreshing the page and clicking the bookmarklet again.</li>
+        <li>If you're having trouble with the document chat, make sure you've processed a document first.</li>
+    </ul>
+</body>
+</html>

@@ -1,0 +1,11 @@
+isin,name,type,quantity,price,value,currency,marketPrice,marketValue,priceChange,priceChangePercent,lastUpdated,dataProvider,id,symbol,description,sector,country,exchange
+"IL0828280579","Meta Platforms Inc.","Option",394,831.21,327496.74,"USD",803.61,316622.34,-27.6,-3.32,"2025-05-13T19:56:33.919Z","Yahoo Finance","sec-1","META",,"Real Estate","IL",
+"GB5494219257","Visa Inc.","Option",170,825.29,140299.3,"ILS",822.4,139808,-2.89,-0.35,"2025-05-13T19:56:33.919Z","Yahoo Finance","sec-2","VISA",,"Real Estate","GB",
+"GB1025336041","JPMorgan Chase & Co.","Cash",374,544.08,203485.92,"EUR",532.22,199050.28,-11.86,-2.18,"2025-05-13T19:56:33.919Z","Yahoo Finance","sec-3","JPMORGAN",,"Technology","GB",
+"JP0632401982","NVIDIA Corp.","Cash",35,276.99,9694.65,"EUR",286.19,10016.65,9.2,3.32,"2025-05-13T19:56:33.919Z","Yahoo Finance","sec-4","NVIDIA",,"Energy","JP",
+"FR4630963075","Bank of America Corp.","Bond",356,972.82,346323.92,"USD",978.85,348470.6,6.03,0.62,"2025-05-13T19:56:33.919Z","Yahoo Finance","sec-5","BANK",,"Industrials","FR",
+"JP2191765402","NVIDIA Corp.","Bond",339,829.93,281346.27,"EUR",799.89,271162.71,-30.04,-3.62,"2025-05-13T19:56:33.919Z","Yahoo Finance","sec-6","NVIDIA",,"Financial Services","JP",
+"GB4027334464","NVIDIA Corp.","Cash",290,47.54,13786.6,"EUR",49.82,14447.8,2.28,4.8,"2025-05-13T19:56:33.919Z","Yahoo Finance","sec-7","NVIDIA",,"Consumer Cyclical","GB",
+"DE1256905284","Meta Platforms Inc.","Cash",184,107.26,19735.84,"USD",106.86,19662.24,-0.4,-0.37,"2025-05-13T19:56:33.919Z","Yahoo Finance","sec-8","META",,"Communication Services","DE",
+"FR3533069619","Home Depot Inc.","Stock",577,165.07,95245.39,"GBP",165.66,95585.82,0.59,0.36,"2025-05-13T19:56:33.919Z","Yahoo Finance","sec-9","HOME",,"Financial Services","FR",
+"JP4904569257","Procter & Gamble Co.","Bond",758,909.81,689635.98,"USD",877.51,665152.58,-32.3,-3.55,"2025-05-13T19:56:33.919Z","Yahoo Finance","sec-10","PROCTER",,"Healthcare","JP",

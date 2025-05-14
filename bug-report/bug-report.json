@@ -1,0 +1,48 @@
+{
+  "timestamp": "2025-05-13T13:28:46.515Z",
+  "summary": {
+    "total": 3,
+    "critical": 3,
+    "major": 0,
+    "minor": 0,
+    "cosmetic": 0
+  },
+  "bugs": [
+    {
+      "id": "BUG-1",
+      "title": "Login API not functioning correctly",
+      "description": "Login API returns unexpected status code 404",
+      "severity": "Critical",
+      "component": "Authentication",
+      "steps": [
+        "POST to /api/auth/login with email and password"
+      ],
+      "screenshots": [],
+      "timestamp": "2025-05-13T13:28:46.622Z"
+    },
+    {
+      "id": "BUG-2",
+      "title": "Document chat API not functioning correctly",
+      "description": "Chat API returns status code 400",
+      "severity": "Critical",
+      "component": "Chatbot",
+      "steps": [
+        "POST to /api/chat/document/{id} with question"
+      ],
+      "screenshots": [],
+      "timestamp": "2025-05-13T13:28:46.676Z"
+    },
+    {
+      "id": "BUG-3",
+      "title": "API key verification not functioning correctly",
+      "description": "API key verification returns status code 500",
+      "severity": "Critical",
+      "component": "API Key Management",
+      "steps": [
+        "POST to /api/scan1/verify-gemini-key with apiKey"
+      ],
+      "screenshots": [],
+      "timestamp": "2025-05-13T13:28:46.696Z"
+    }
+  ]
+}

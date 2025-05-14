@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FinDoc Analyzer - PDF Processing</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    :root {
+      --primary-color: #2c3e50;
+      --secondary-color: #3498db;
+      --accent-color: #e74c3c;
+      --light-bg: #f8f9fa;
+      --dark-bg: #343a40;
+    }
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--light-bg);
+      color: #333;
+      padding-top: 56px;
+      padding-bottom: 20px;
+    }
+    
+    .navbar {
+      background-color: var(--primary-color);
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    
+    .navbar-brand {
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+    
+    .navbar-brand span {
+      color: var(--secondary-color);
+    }
+    
+    .hero {
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      color: white;
+      padding: 40px 0;
+      margin-bottom: 30px;
+      border-radius: 0 0 10px 10px;
+    }
+    
+    .hero h1 {
+      font-weight: 700;
+      font-size: 2.5rem;
+    }
+    
+    .hero p {
+      font-size: 1.2rem;
+      opacity: 0.9;
+    }
+    
+    .card {
+      border: none;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      margin-bottom: 20px;
+      transition: transform 0.3s ease;
+    }
+    
+    .card:hover {
+      transform: translateY(-5px);
+    }
+    
+    .card-header {
+      background-color: var(--primary-color);
+      color: white;
+      border-radius: 10px 10px 0 0 !important;
+      padding: 15px 20px;
+    }
+    
+    .btn-primary {
+      background-color: var(--secondary-color);
+      border-color: var(--secondary-color);
+    }
+    
+    .btn-primary:hover {
+      background-color: #2980b9;
+      border-color: #2980b9;
+    }
+    
+    .badge-primary {
+      background-color: var(--secondary-color);
+    }
+    
+    .progress {
+      height: 10px;
+      border-radius: 5px;
+    }
+    
+    .spinner-wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 40px 0;
+    }
+    
+    .entity-pill {
+      display: inline-block;
+      background-color: rgba(52, 152, 219, 0.1);
+      border: 1px solid rgba(52, 152, 219, 0.3);
+      border-radius: 30px;
+      padding: 5px 10px;
+      margin: 3px;
+      font-size: 0.85rem;
+    }
+    
+    .entity-pill .entity-type {
+      color: var(--secondary-color);
+      font-weight: 600;
+      margin-right: 5px;
+    }
+    
+    .entity-pill .entity-value {
+      color: #333;
+    }
+    
+    .confidence-meter {
+      display: inline-block;
+      width: 50px;
+      height: 6px;
+      background-color: #e9ecef;
+      border-radius: 3px;
+      margin-left: 5px;
+      position: relative;
+    }
+    
+    .confidence-fill {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      border-radius: 3px;
+    }
+    
+    .nav-tabs .nav-link {
+      border: none;
+      color: #6c757d;
+      font-weight: 500;
+      padding: 10px 15px;
+    }
+    
+    .nav-tabs .nav-link.active {
+      color: var(--secondary-color);
+      border-bottom: 2px solid var(--secondary-color);
+      background-color: transparent;
+    }
+    
+    .chart-container {
+      position: relative;
+      margin: 20px auto;
+      height: 300px;
+      width: 100%;
+    }
+    
+    pre {
+      background-color: #f8f9fa;
+      padding: 15px;
+      border-radius: 5px;
+      overflow: auto;
+    }
+    
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .hero {
+        padding: 30px 0;
+      }
+      
+      .hero h1 {
+        font-size: 2rem;
+      }
+    }
+
+    /* PDF preview */
+    .pdf-preview {
+      width: 100%;
+      height: 500px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+
+    /* Table styling */
+    .table-wrapper {
+      overflow-x: auto;
+      margin: 1rem 0;
+    }
+    
+    .table-preview {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    
+    .table-preview th, .table-preview td {
+      padding: 8px;
+      text-align: left;
+      border: 1px solid #ddd;
+    }
+    
+    .table-preview thead {
+      background-color: #f2f2f2;
+    }
+    
+    .table-preview tbody tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+  </style>
+  <script src="/js/ui-chat-component.js"></script>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="#">Fin<span>Doc</span> Analyzer</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link active" href="#">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Documentation</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">API</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  
+  <section class="hero">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8">
+          <h1>PDF Document Processing</h1>
+          <p class="lead">Extract valuable insights from financial PDF documents with advanced AI-powered analysis</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-5">
+        <div class="card">
+          <div class="card-header">
+            <h5 class="mb-0">Process a PDF Document</h5>
+          </div>
+          <div class="card-body">
+            <form id="uploadForm">
+              <div class="mb-3">
+                <label for="file" class="form-label">Upload PDF Document</label>
+                <input type="file" class="form-control" id="file" name="file" accept=".pdf">
+                <small class="text-muted">Supported format: PDF</small>
+              </div>
+              
+              <div class="mb-3">
+                <label class="form-label">Processing Options</label>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="processingType" id="standardProcessing" value="standard" checked>
+                  <label class="form-check-label" for="standardProcessing">
+                    Standard Processing
+                    <small class="text-muted d-block">Basic text and table extraction</small>
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="processingType" id="mcpProcessing" value="mcp">
+                  <label class="form-check-label" for="mcpProcessing">
+                    Enhanced Processing with MCP
+                    <small class="text-muted d-block">Advanced entity extraction and analysis</small>
+                  </label>
+                </div>
+              </div>
+              
+              <div class="d-grid gap-2">
+                <button type="submit" class="btn btn-primary" id="processBtn">Process Document</button>
+                <button type="button" id="processSampleBtn" class="btn btn-outline-secondary">Or Process Sample PDF</button>
+              </div>
+            </form>
+          </div>
+        </div>
+        
+        <div class="card mt-4">
+          <div class="card-header">
+            <h5 class="mb-0">Processing Stats</h5>
+          </div>
+          <div class="card-body">
+            <div class="row text-center" id="statsRow">
+              <div class="col-6 mb-3">
+                <h6>Tables</h6>
+                <h2 id="tableCount">-</h2>
+              </div>
+              <div class="col-6 mb-3">
+                <h6>Entities</h6>
+                <h2 id="entityCount">-</h2>
+              </div>
+              <div class="col-6 mb-3">
+                <h6>Pages</h6>
+                <h2 id="pageCount">-</h2>
+              </div>
+              <div class="col-6 mb-3">
+                <h6>Words</h6>
+                <h2 id="wordCount">-</h2>
+              </div>
+            </div>
+            
+            <div class="progress-wrapper">
+              <small>Processing Status</small>
+              <div class="progress mt-1">
+                <div id="progressBar" class="progress-bar bg-success" style="width: 0%"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-lg-7">
+        <div class="card">
+          <div class="card-header d-flex justify-content-between align-items-center">
+            <h5 class="mb-0">Results</h5>
+            <span id="resultBadge" class="badge bg-secondary">No file processed</span>
+          </div>
+          <div class="card-body">
+            <div id="loadingSpinner" class="spinner-wrapper" style="display: none;">
+              <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+              </div>
+              <span class="ms-2">Processing document...</span>
+            </div>
+            
+            <div id="resultContent" style="display: none;">
+              <ul class="nav nav-tabs" id="resultTabs" role="tablist">
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link active" id="text-tab" data-bs-toggle="tab" data-bs-target="#text" type="button" role="tab">Text</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link" id="tables-tab" data-bs-toggle="tab" data-bs-target="#tables" type="button" role="tab">Tables</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link" id="entities-tab" data-bs-toggle="tab" data-bs-target="#entities" type="button" role="tab">Entities</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link" id="metadata-tab" data-bs-toggle="tab" data-bs-target="#metadata" type="button" role="tab">Metadata</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link" id="raw-tab" data-bs-toggle="tab" data-bs-target="#raw" type="button" role="tab">Raw</button>
+                </li>
+              </ul>
+              
+              <div class="tab-content p-3" id="resultTabsContent">
+                <div class="tab-pane fade show active" id="text" role="tabpanel">
+                  <h6>Extracted Text</h6>
+                  <pre id="textContent" class="mt-3"></pre>
+                </div>
+                
+                <div class="tab-pane fade" id="tables" role="tabpanel">
+                  <div class="mb-3">
+                    <label for="tableSelector" class="form-label">Select Table</label>
+                    <select class="form-select" id="tableSelector"></select>
+                  </div>
+                  <div id="tableContent"></div>
+                </div>
+                
+                <div class="tab-pane fade" id="entities" role="tabpanel">
+                  <div id="entitiesContent"></div>
+                </div>
+                
+                <div class="tab-pane fade" id="metadata" role="tabpanel">
+                  <h6>Document Metadata</h6>
+                  <div id="metadataContent"></div>
+                </div>
+                
+                <div class="tab-pane fade" id="raw" role="tabpanel">
+                  <pre id="rawContent"></pre>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const uploadForm = document.getElementById('uploadForm');
+      const processSampleBtn = document.getElementById('processSampleBtn');
+      const loadingSpinner = document.getElementById('loadingSpinner');
+      const resultContent = document.getElementById('resultContent');
+      const resultBadge = document.getElementById('resultBadge');
+      const processBtn = document.getElementById('processBtn');
+      
+      // Form submission
+      uploadForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        await processFile();
+      });
+      
+      // Process sample button
+      processSampleBtn.addEventListener('click', async () => {
+        await processSample();
+      });
+      
+      // Table selector
+      document.getElementById('tableSelector').addEventListener('change', (e) => {
+        const tableIndex = e.target.value;
+        displayTable(tableIndex);
+      });
+      
+      // Process file function
+      async function processFile() {
+        const fileInput = document.getElementById('file');
+        if (!fileInput.files.length) {
+          alert('Please select a file to upload');
+          return;
+        }
+        
+        showLoading();
+        
+        const formData = new FormData(uploadForm);
+        
+        try {
+          const response = await fetch('/api/process', {
+            method: 'POST',
+            body: formData
+          });
+          
+          if (!response.ok) {
+            throw new Error('Error processing file');
+          }
+          
+          const result = await response.json();
+          displayResult(result);
+        } catch (error) {
+          console.error('Error:', error);
+          alert('Error processing file: ' + error.message);
+          hideLoading();
+        }
+      }
+      
+      // Process sample function
+      async function processSample() {
+        showLoading();
+        
+        const processingType = document.querySelector('input[name="processingType"]:checked').value;
+        
+        try {
+          const response = await fetch(`/api/process-sample?processingType=${processingType}`);
+          
+          if (!response.ok) {
+            throw new Error('Error processing sample file');
+          }
+          
+          const result = await response.json();
+          displayResult(result);
+        } catch (error) {
+          console.error('Error:', error);
+          alert('Error processing sample file: ' + error.message);
+          hideLoading();
+        }
+      }
+      
+      // Show loading state
+      function showLoading() {
+        loadingSpinner.style.display = 'flex';
+        resultContent.style.display = 'none';
+        resultBadge.textContent = 'Processing...';
+        resultBadge.className = 'badge bg-warning';
+        processBtn.disabled = true;
+        processSampleBtn.disabled = true;
+        
+        // Show progress animation
+        animateProgress();
+      }
+      
+      // Animate progress bar
+      function animateProgress() {
+        const progressBar = document.getElementById('progressBar');
+        let width = 0;
+        const interval = setInterval(() => {
+          if (width >= 90) {
+            clearInterval(interval);
+          } else {
+            width += Math.random() * 5;
+            progressBar.style.width = Math.min(width, 90) + '%';
+          }
+        }, 300);
+        
+        // Store interval ID for later cleanup
+        window.progressInterval = interval;
+      }
+      
+      // Hide loading state
+      function hideLoading() {
+        loadingSpinner.style.display = 'none';
+        resultContent.style.display = 'block';
+        processBtn.disabled = false;
+        processSampleBtn.disabled = false;
+        
+        // Reset progress animation
+        if (window.progressInterval) {
+          clearInterval(window.progressInterval);
+        }
+        
+        // Complete progress bar
+        const progressBar = document.getElementById('progressBar');
+        progressBar.style.width = '100%';
+      }
+      
+      // Display results
+      function displayResult(result) {
+        hideLoading();
+        
+        // Set badge
+        resultBadge.textContent = 'Processed';
+        resultBadge.className = 'badge bg-success';
+        
+        // Update stats
+        document.getElementById('tableCount').textContent = result.tables ? result.tables.length : 0;
+        document.getElementById('entityCount').textContent = result.entities ? result.entities.length : 0;
+        document.getElementById('pageCount').textContent = result.metadata && result.metadata.pageCount ? result.metadata.pageCount : '-';
+        
+        // Calculate word count
+        const wordCount = result.text ? result.text.split(/\s+/).filter(w => w.trim().length > 0).length : 0;
+        document.getElementById('wordCount').textContent = wordCount;
+        
+        // Display text
+        const textContent = document.getElementById('textContent');
+        textContent.textContent = result.text || 'No text extracted';
+        
+        // Display metadata
+        displayMetadata(result.metadata || {});
+        
+        // Display entities
+        displayEntities(result.entities || []);
+        
+        // Setup table selector
+        setupTableSelector(result.tables || []);
+        
+        // Display raw data
+        document.getElementById('rawContent').textContent = JSON.stringify(result, null, 2);
+        
+        // Store current result for reference
+        window.currentResult = result;
+      }
+      
+      // Display metadata
+      function displayMetadata(metadata) {
+        const metadataContent = document.getElementById('metadataContent');
+        let html = '<table class="table table-striped">';
+        html += '<thead><tr><th>Property</th><th>Value</th></tr></thead><tbody>';
+        
+        for (const [key, value] of Object.entries(metadata)) {
+          html += `<tr><td>${key}</td><td>${value}</td></tr>`;
+        }
+        
+        html += '</tbody></table>';
+        metadataContent.innerHTML = html;
+      }
+      
+      // Display entities
+      function displayEntities(entities) {
+        const entitiesContent = document.getElementById('entitiesContent');
+        
+        if (!entities || entities.length === 0) {
+          entitiesContent.innerHTML = '<p>No entities found in document</p>';
+          return;
+        }
+        
+        // Group entities by type
+        const entityGroups = {};
+        entities.forEach(entity => {
+          if (!entityGroups[entity.type]) {
+            entityGroups[entity.type] = [];
+          }
+          entityGroups[entity.type].push(entity);
+        });
+        
+        // Display entity groups
+        let html = '';
+        
+        Object.entries(entityGroups).forEach(([type, typeEntities]) => {
+          html += `
+            <div class="card mb-3">
+              <div class="card-header py-2">
+                <h6 class="mb-0">${type} (${typeEntities.length})</h6>
+              </div>
+              <div class="card-body">
+                <div class="entity-pills">
+          `;
+          
+          typeEntities.forEach(entity => {
+            const name = entity.name || entity.isin || entity.value || entity.text || 'Unnamed';
+            const confidencePercent = entity.confidence ? Math.round(entity.confidence * 100) : 0;
+            
+            let properties = [];
+            for (const key in entity) {
+              if (['type', 'name', 'confidence', 'text'].includes(key)) continue;
+              if (entity[key] !== null && entity[key] !== undefined) {
+                properties.push(`${key}: ${entity[key]}`);
+              }
+            }
+            
+            let propertiesText = properties.length > 0 ? properties.join(', ') : '';
+            let confidenceColor = getConfidenceColor(entity.confidence);
+            
+            html += `
+              <div class="entity-pill">
+                <span class="entity-type">${name}</span>
+                ${propertiesText ? `<span class="entity-value">(${propertiesText})</span>` : ''}
+                <span class="confidence-meter">
+                  <span class="confidence-fill" style="width: ${confidencePercent}%; background-color: ${confidenceColor}"></span>
+                </span>
+              </div>
+            `;
+          });
+          
+          html += `
+                </div>
+              </div>
+            </div>
+          `;
+        });
+        
+        entitiesContent.innerHTML = html;
+      }
+      
+      // Get confidence color based on value
+      function getConfidenceColor(confidence) {
+        if (!confidence) return '#6c757d';
+        
+        if (confidence >= 0.9) return '#28a745';
+        if (confidence >= 0.7) return '#17a2b8';
+        if (confidence >= 0.5) return '#ffc107';
+        return '#dc3545';
+      }
+      
+      // Setup table selector
+      function setupTableSelector(tables) {
+        const tableSelector = document.getElementById('tableSelector');
+        let options = '';
+        
+        tables.forEach((table, index) => {
+          const tableName = table.name || `Table ${index + 1}`;
+          options += `<option value="${index}">${tableName}</option>`;
+        });
+        
+        tableSelector.innerHTML = options;
+        
+        // Display first table by default
+        if (tables.length > 0) {
+          displayTable(0);
+        } else {
+          document.getElementById('tableContent').innerHTML = '<p>No tables found</p>';
+        }
+      }
+      
+      // Display table
+      function displayTable(index) {
+        const result = window.currentResult;
+        if (!result || !result.tables || !result.tables[index]) return;
+        
+        const table = result.tables[index];
+        const tableContent = document.getElementById('tableContent');
+        
+        let html = `
+          <div class="table-wrapper">
+            <table class="table-preview">
+        `;
+        
+        // Headers
+        if (table.headers && table.headers.length > 0) {
+          html += '<thead><tr>';
+          table.headers.forEach(header => {
+            html += `<th>${header}</th>`;
+          });
+          html += '</tr></thead>';
+        }
+        
+        // Rows
+        if (table.rows && table.rows.length > 0) {
+          html += '<tbody>';
+          table.rows.forEach(row => {
+            html += '<tr>';
+            row.forEach(cell => {
+              html += `<td>${cell !== null && cell !== undefined ? cell : ''}</td>`;
+            });
+            html += '</tr>';
+          });
+          html += '</tbody>';
+        }
+        
+        html += '</table></div>';
+        tableContent.innerHTML = html;
+      }
+    });
+  </script>
+</body>
+</html>

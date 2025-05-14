@@ -1,0 +1,45 @@
+{
+  "update_frequency": 7,
+  "data_sources": [
+    "file",
+    "yahoo_finance",
+    "finnhub"
+  ],
+  "database_paths": {
+    "primary": "/mnt/c/Users/aviad/OneDrive/Desktop/backv2-main/data/securities_reference_db.json",
+    "backup": "/mnt/c/Users/aviad/OneDrive/Desktop/backv2-main/data/securities_reference_db_backup.json"
+  },
+  "api_keys": {
+    "finnhub": "DEMO_API_KEY"
+  },
+  "external_sources_config": {
+    "yahoo_finance": {
+      "url": "https://query1.finance.yahoo.com/v8/finance/chart",
+      "batch_size": 50,
+      "retry_limit": 3,
+      "timeout": 30
+    },
+    "finnhub": {
+      "url": "https://finnhub.io/api/v1",
+      "batch_size": 10,
+      "retry_limit": 3,
+      "timeout": 30
+    }
+  },
+  "historical_data": {
+    "enabled": true,
+    "default_period": "1y",
+    "update_frequency": 7
+  },
+  "matching": {
+    "fuzzy_threshold": 0.65,
+    "use_preprocess": true,
+    "max_candidates": 10
+  },
+  "logging": {
+    "level": "INFO",
+    "file": "/mnt/c/Users/aviad/OneDrive/Desktop/backv2-main/logs/securities_db.log",
+    "max_size": 10485760,
+    "backup_count": 5
+  }
+}

@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Export Service Test Page</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <style>
+    .card {
+      margin-bottom: 20px;
+    }
+    pre {
+      background-color: #f8f9fa;
+      padding: 10px;
+      border-radius: 5px;
+      max-height: 300px;
+      overflow: auto;
+    }
+    .spinner-border {
+      width: 1rem;
+      height: 1rem;
+      margin-right: 0.5rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container my-5">
+    <h1 class="mb-4">Export Service Test Page</h1>
+    
+    <div class="row">
+      <div class="col-md-6">
+        <!-- Document Export -->
+        <div class="card">
+          <div class="card-header">
+            <h5 class="mb-0">Document Export</h5>
+          </div>
+          <div class="card-body">
+            <form id="documentExportForm">
+              <div class="mb-3">
+                <label for="documentId" class="form-label">Document ID</label>
+                <input type="text" class="form-control" id="documentId" value="test-doc-123" required>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Export Format</label>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="documentFormat" id="documentFormatJson" value="json" checked>
+                  <label class="form-check-label" for="documentFormatJson">JSON</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="documentFormat" id="documentFormatCsv" value="csv">
+                  <label class="form-check-label" for="documentFormatCsv">CSV</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="documentFormat" id="documentFormatExcel" value="excel">
+                  <label class="form-check-label" for="documentFormatExcel">Excel</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="documentFormat" id="documentFormatPdf" value="pdf">
+                  <label class="form-check-label" for="documentFormatPdf">PDF</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="documentFormat" id="documentFormatHtml" value="html">
+                  <label class="form-check-label" for="documentFormatHtml">HTML</label>
+                </div>
+              </div>
+              <div class="d-grid">
+                <button type="submit" class="btn btn-primary" id="documentExportButton">
+                  Export Document
+                </button>
+              </div>
+            </form>
+            <div id="documentExportResult" class="mt-3" style="display: none;">
+              <h6>Result:</h6>
+              <pre id="documentExportOutput"></pre>
+              <a href="#" id="documentExportDownload" class="btn btn-sm btn-success" target="_blank" style="display: none;">
+                Download File
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-md-6">
+        <!-- Analytics Export -->
+        <div class="card">
+          <div class="card-header">
+            <h5 class="mb-0">Analytics Export</h5>
+          </div>
+          <div class="card-body">
+            <form id="analyticsExportForm">
+              <div class="mb-3">
+                <label class="form-label">Metrics to Export</label>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" name="analyticsMetrics" id="metricsPortfolioValue" value="portfolioValue" checked>
+                  <label class="form-check-label" for="metricsPortfolioValue">Portfolio Value</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" name="analyticsMetrics" id="metricsAssetAllocation" value="assetAllocation" checked>
+                  <label class="form-check-label" for="metricsAssetAllocation">Asset Allocation</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" name="analyticsMetrics" id="metricsPerformance" value="performance">
+                  <label class="form-check-label" for="metricsPerformance">Performance</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" name="analyticsMetrics" id="metricsTopHoldings" value="topHoldings">
+                  <label class="form-check-label" for="metricsTopHoldings">Top Holdings</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" name="analyticsMetrics" id="metricsRiskMetrics" value="riskMetrics">
+                  <label class="form-check-label" for="metricsRiskMetrics">Risk Metrics</label>
+                </div>
+              </div>
+              
+              <div class="mb-3">
+                <label class="form-label">Time Range</label>
+                <div class="row">
+                  <div class="col">
+                    <label for="startDate" class="form-label">Start Date</label>
+                    <input type="date" class="form-control" id="startDate" value="2024-01-01">
+                  </div>
+                  <div class="col">
+                    <label for="endDate" class="form-label">End Date</label>
+                    <input type="date" class="form-control" id="endDate" value="2024-05-01">
+                  </div>
+                </div>
+              </div>
+              
+              <div class="mb-3">
+                <label class="form-label">Export Format</label>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="analyticsFormat" id="analyticsFormatJson" value="json" checked>
+                  <label class="form-check-label" for="analyticsFormatJson">JSON</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="analyticsFormat" id="analyticsFormatCsv" value="csv">
+                  <label class="form-check-label" for="analyticsFormatCsv">CSV</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="analyticsFormat" id="analyticsFormatExcel" value="excel">
+                  <label class="form-check-label" for="analyticsFormatExcel">Excel</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="analyticsFormat" id="analyticsFormatPdf" value="pdf">
+                  <label class="form-check-label" for="analyticsFormatPdf">PDF</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="analyticsFormat" id="analyticsFormatHtml" value="html">
+                  <label class="form-check-label" for="analyticsFormatHtml">HTML</label>
+                </div>
+              </div>
+              
+              <div class="d-grid">
+                <button type="submit" class="btn btn-primary" id="analyticsExportButton">
+                  Export Analytics
+                </button>
+              </div>
+            </form>
+            <div id="analyticsExportResult" class="mt-3" style="display: none;">
+              <h6>Result:</h6>
+              <pre id="analyticsExportOutput"></pre>
+              <a href="#" id="analyticsExportDownload" class="btn btn-sm btn-success" target="_blank" style="display: none;">
+                Download File
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="row">
+      <div class="col-md-6">
+        <!-- Portfolio Export -->
+        <div class="card">
+          <div class="card-header">
+            <h5 class="mb-0">Portfolio Export</h5>
+          </div>
+          <div class="card-body">
+            <form id="portfolioExportForm">
+              <div class="mb-3">
+                <label for="portfolioId" class="form-label">Portfolio ID</label>
+                <input type="text" class="form-control" id="portfolioId" value="test-portfolio-456" required>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Sections to Include</label>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" name="portfolioSections" id="sectionsAll" value="all" checked>
+                  <label class="form-check-label" for="sectionsAll">All Sections</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" name="portfolioSections" id="sectionsSummary" value="summary">
+                  <label class="form-check-label" for="sectionsSummary">Summary</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" name="portfolioSections" id="sectionsHoldings" value="holdings">
+                  <label class="form-check-label" for="sectionsHoldings">Holdings</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" name="portfolioSections" id="sectionsPerformance" value="performance">
+                  <label class="form-check-label" for="sectionsPerformance">Performance</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" name="portfolioSections" id="sectionsAllocation" value="allocation">
+                  <label class="form-check-label" for="sectionsAllocation">Allocation</label>
+                </div>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Export Format</label>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="portfolioFormat" id="portfolioFormatJson" value="json" checked>
+                  <label class="form-check-label" for="portfolioFormatJson">JSON</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="portfolioFormat" id="portfolioFormatCsv" value="csv">
+                  <label class="form-check-label" for="portfolioFormatCsv">CSV</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="portfolioFormat" id="portfolioFormatExcel" value="excel">
+                  <label class="form-check-label" for="portfolioFormatExcel">Excel</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="portfolioFormat" id="portfolioFormatPdf" value="pdf">
+                  <label class="form-check-label" for="portfolioFormatPdf">PDF</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="portfolioFormat" id="portfolioFormatHtml" value="html">
+                  <label class="form-check-label" for="portfolioFormatHtml">HTML</label>
+                </div>
+              </div>
+              <div class="d-grid">
+                <button type="submit" class="btn btn-primary" id="portfolioExportButton">
+                  Export Portfolio
+                </button>
+              </div>
+            </form>
+            <div id="portfolioExportResult" class="mt-3" style="display: none;">
+              <h6>Result:</h6>
+              <pre id="portfolioExportOutput"></pre>
+              <a href="#" id="portfolioExportDownload" class="btn btn-sm btn-success" target="_blank" style="display: none;">
+                Download File
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-md-6">
+        <!-- Securities Export -->
+        <div class="card">
+          <div class="card-header">
+            <h5 class="mb-0">Securities Export</h5>
+          </div>
+          <div class="card-body">
+            <form id="securitiesExportForm">
+              <div class="mb-3">
+                <label class="form-label">Export Options</label>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="includeMarketData" checked>
+                  <label class="form-check-label" for="includeMarketData">Include Market Data</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="includeMetadata" checked>
+                  <label class="form-check-label" for="includeMetadata">Include Metadata</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="onlyEssentialFields">
+                  <label class="form-check-label" for="onlyEssentialFields">Only Essential Fields</label>
+                </div>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Export Format</label>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="securitiesFormat" id="securitiesFormatJson" value="json" checked>
+                  <label class="form-check-label" for="securitiesFormatJson">JSON</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="securitiesFormat" id="securitiesFormatCsv" value="csv">
+                  <label class="form-check-label" for="securitiesFormatCsv">CSV</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="securitiesFormat" id="securitiesFormatExcel" value="excel">
+                  <label class="form-check-label" for="securitiesFormatExcel">Excel</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="securitiesFormat" id="securitiesFormatPdf" value="pdf">
+                  <label class="form-check-label" for="securitiesFormatPdf">PDF</label>
+                </div>
+              </div>
+              <div class="d-grid">
+                <button type="submit" class="btn btn-primary" id="securitiesExportButton">
+                  Export Securities
+                </button>
+              </div>
+            </form>
+            <div id="securitiesExportResult" class="mt-3" style="display: none;">
+              <h6>Result:</h6>
+              <pre id="securitiesExportOutput"></pre>
+              <a href="#" id="securitiesExportDownload" class="btn btn-sm btn-success" target="_blank" style="display: none;">
+                Download File
+              </a>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Export History -->
+        <div class="card mt-4">
+          <div class="card-header d-flex justify-content-between align-items-center">
+            <h5 class="mb-0">Export History</h5>
+            <button class="btn btn-sm btn-outline-primary" id="refreshHistoryButton">Refresh</button>
+          </div>
+          <div class="card-body">
+            <div id="historyContent">
+              <p class="text-center text-muted">Click refresh to load export history</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Sample securities data
+    const sampleSecurities = [
+      { 
+        name: 'Apple Inc.', 
+        ticker: 'AAPL', 
+        isin: 'US0378331005', 
+        type: 'Stock',
+        quantity: 100,
+        price: 190.00,
+        value: 19000,
+        marketPrice: 195.25,
+        marketValue: 19525,
+        priceChange: 5.25,
+        priceChangePercent: 2.76,
+        currency: 'USD' 
+      },
+      { 
+        name: 'Microsoft Corp.', 
+        ticker: 'MSFT', 
+        isin: 'US5949181045', 
+        type: 'Stock',
+        quantity: 50,
+        price: 350.00,
+        value: 17500,
+        marketPrice: 365.50,
+        marketValue: 18275,
+        priceChange: 15.50,
+        priceChangePercent: 4.43,
+        currency: 'USD' 
+      },
+      { 
+        name: 'Amazon.com Inc.', 
+        ticker: 'AMZN', 
+        isin: 'US0231351067', 
+        type: 'Stock',
+        quantity: 20,
+        price: 3600.00,
+        value: 72000,
+        marketPrice: 3520.50,
+        marketValue: 70410,
+        priceChange: -79.50,
+        priceChangePercent: -2.21,
+        currency: 'USD' 
+      },
+      { 
+        name: 'Vanguard Total Bond Market ETF', 
+        ticker: 'BND', 
+        isin: 'US9219378356', 
+        type: 'Bond',
+        quantity: 1000,
+        price: 82.50,
+        value: 82500,
+        marketPrice: 83.15,
+        marketValue: 83150,
+        priceChange: 0.65,
+        priceChangePercent: 0.79,
+        currency: 'USD' 
+      },
+      { 
+        name: 'Cash', 
+        ticker: 'CASH', 
+        isin: 'CASH', 
+        type: 'Cash',
+        quantity: 125000,
+        price: 1.00,
+        value: 125000,
+        marketPrice: 1.00,
+        marketValue: 125000,
+        priceChange: 0,
+        priceChangePercent: 0,
+        currency: 'USD' 
+      }
+    ];
+
+    // Helper function to show loading state
+    function setLoading(buttonId, isLoading) {
+      const button = document.getElementById(buttonId);
+      if (isLoading) {
+        button.innerHTML = '<span class="spinner-border" role="status" aria-hidden="true"></span> Loading...';
+        button.disabled = true;
+      } else {
+        button.innerHTML = button.dataset.originalText || button.innerHTML.replace('<span class="spinner-border" role="status" aria-hidden="true"></span> Loading...', '');
+        button.disabled = false;
+      }
+    }
+
+    // Store original button text
+    document.querySelectorAll('button[type="submit"]').forEach(button => {
+      button.dataset.originalText = button.innerHTML;
+    });
+
+    // Document Export
+    document.getElementById('documentExportForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const documentId = document.getElementById('documentId').value;
+      const format = document.querySelector('input[name="documentFormat"]:checked').value;
+      
+      setLoading('documentExportButton', true);
+      
+      try {
+        const response = await fetch(`/api/exports/document/${documentId}`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            format,
+            options: {
+              includeMetadata: true,
+              includeTables: true,
+              includeSecurities: true
+            }
+          })
+        });
+        
+        const result = await response.json();
+        
+        document.getElementById('documentExportResult').style.display = 'block';
+        document.getElementById('documentExportOutput').textContent = JSON.stringify(result, null, 2);
+        
+        if (result.success && result.export && result.export.downloadUrl) {
+          const downloadBtn = document.getElementById('documentExportDownload');
+          downloadBtn.href = result.export.downloadUrl;
+          downloadBtn.style.display = 'inline-block';
+        } else {
+          document.getElementById('documentExportDownload').style.display = 'none';
+        }
+      } catch (error) {
+        document.getElementById('documentExportResult').style.display = 'block';
+        document.getElementById('documentExportOutput').textContent = 'Error: ' + error.message;
+        document.getElementById('documentExportDownload').style.display = 'none';
+      } finally {
+        setLoading('documentExportButton', false);
+      }
+    });
+
+    // Analytics Export
+    document.getElementById('analyticsExportForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const metrics = Array.from(document.querySelectorAll('input[name="analyticsMetrics"]:checked')).map(cb => cb.value);
+      const startDate = document.getElementById('startDate').value;
+      const endDate = document.getElementById('endDate').value;
+      const format = document.querySelector('input[name="analyticsFormat"]:checked').value;
+      
+      setLoading('analyticsExportButton', true);
+      
+      try {
+        const response = await fetch('/api/exports/analytics', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            metrics,
+            timeRange: {
+              start: startDate,
+              end: endDate
+            },
+            format,
+            options: {
+              includeCharts: true,
+              includeRawData: true
+            }
+          })
+        });
+        
+        const result = await response.json();
+        
+        document.getElementById('analyticsExportResult').style.display = 'block';
+        document.getElementById('analyticsExportOutput').textContent = JSON.stringify(result, null, 2);
+        
+        if (result.success && result.export && result.export.downloadUrl) {
+          const downloadBtn = document.getElementById('analyticsExportDownload');
+          downloadBtn.href = result.export.downloadUrl;
+          downloadBtn.style.display = 'inline-block';
+        } else {
+          document.getElementById('analyticsExportDownload').style.display = 'none';
+        }
+      } catch (error) {
+        document.getElementById('analyticsExportResult').style.display = 'block';
+        document.getElementById('analyticsExportOutput').textContent = 'Error: ' + error.message;
+        document.getElementById('analyticsExportDownload').style.display = 'none';
+      } finally {
+        setLoading('analyticsExportButton', false);
+      }
+    });
+
+    // Portfolio Export
+    document.getElementById('portfolioExportForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const portfolioId = document.getElementById('portfolioId').value;
+      const sections = Array.from(document.querySelectorAll('input[name="portfolioSections"]:checked')).map(cb => cb.value);
+      const format = document.querySelector('input[name="portfolioFormat"]:checked').value;
+      
+      setLoading('portfolioExportButton', true);
+      
+      try {
+        const response = await fetch(`/api/exports/portfolio/${portfolioId}`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            sections,
+            format,
+            options: {
+              includeCharts: true,
+              includeRawData: true,
+              includeBenchmarks: true
+            }
+          })
+        });
+        
+        const result = await response.json();
+        
+        document.getElementById('portfolioExportResult').style.display = 'block';
+        document.getElementById('portfolioExportOutput').textContent = JSON.stringify(result, null, 2);
+        
+        if (result.success && result.export && result.export.downloadUrl) {
+          const downloadBtn = document.getElementById('portfolioExportDownload');
+          downloadBtn.href = result.export.downloadUrl;
+          downloadBtn.style.display = 'inline-block';
+        } else {
+          document.getElementById('portfolioExportDownload').style.display = 'none';
+        }
+      } catch (error) {
+        document.getElementById('portfolioExportResult').style.display = 'block';
+        document.getElementById('portfolioExportOutput').textContent = 'Error: ' + error.message;
+        document.getElementById('portfolioExportDownload').style.display = 'none';
+      } finally {
+        setLoading('portfolioExportButton', false);
+      }
+    });
+
+    // Securities Export
+    document.getElementById('securitiesExportForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const includeMarketData = document.getElementById('includeMarketData').checked;
+      const includeMetadata = document.getElementById('includeMetadata').checked;
+      const onlyEssentialFields = document.getElementById('onlyEssentialFields').checked;
+      const format = document.querySelector('input[name="securitiesFormat"]:checked').value;
+      
+      setLoading('securitiesExportButton', true);
+      
+      try {
+        const response = await fetch('/api/exports/securities', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            securities: sampleSecurities,
+            format,
+            options: {
+              includeMarketData,
+              includeMetadata,
+              onlyEssentialFields,
+              documentInfo: {
+                id: 'test-doc-789',
+                name: 'Test Document',
+                type: 'Portfolio Statement',
+                uploadDate: new Date().toISOString()
+              }
+            }
+          })
+        });
+        
+        const result = await response.json();
+        
+        document.getElementById('securitiesExportResult').style.display = 'block';
+        document.getElementById('securitiesExportOutput').textContent = JSON.stringify(result, null, 2);
+        
+        if (result.success && result.export && result.export.downloadUrl) {
+          const downloadBtn = document.getElementById('securitiesExportDownload');
+          downloadBtn.href = result.export.downloadUrl;
+          downloadBtn.style.display = 'inline-block';
+        } else {
+          document.getElementById('securitiesExportDownload').style.display = 'none';
+        }
+      } catch (error) {
+        document.getElementById('securitiesExportResult').style.display = 'block';
+        document.getElementById('securitiesExportOutput').textContent = 'Error: ' + error.message;
+        document.getElementById('securitiesExportDownload').style.display = 'none';
+      } finally {
+        setLoading('securitiesExportButton', false);
+      }
+    });
+
+    // Export History
+    document.getElementById('refreshHistoryButton').addEventListener('click', async () => {
+      const historyContent = document.getElementById('historyContent');
+      historyContent.innerHTML = '<p class="text-center">Loading history...</p>';
+      
+      try {
+        const response = await fetch('/api/exports/history');
+        const result = await response.json();
+        
+        if (result.success && result.history && result.history.length > 0) {
+          let html = '<div class="table-responsive"><table class="table table-sm table-striped">';
+          html += '<thead><tr><th>Date</th><th>Type</th><th>Format</th><th>File</th></tr></thead><tbody>';
+          
+          result.history.forEach(entry => {
+            const date = new Date(entry.timestamp).toLocaleDateString() + ' ' + 
+                          new Date(entry.timestamp).toLocaleTimeString();
+            html += `<tr>
+              <td>${date}</td>
+              <td>${entry.type}</td>
+              <td>${entry.format}</td>
+              <td><a href="/api/exports/download/${entry.fileName}" target="_blank">${entry.fileName}</a></td>
+            </tr>`;
+          });
+          
+          html += '</tbody></table></div>';
+          historyContent.innerHTML = html;
+        } else {
+          historyContent.innerHTML = '<p class="text-center text-muted">No export history found</p>';
+        }
+      } catch (error) {
+        historyContent.innerHTML = `<p class="text-danger">Error loading history: ${error.message}</p>`;
+      }
+    });
+
+    // Handle "all sections" checkbox for portfolio export
+    document.getElementById('sectionsAll').addEventListener('change', function() {
+      const sectionCheckboxes = document.querySelectorAll('input[name="portfolioSections"]:not([value="all"])');
+      sectionCheckboxes.forEach(cb => {
+        cb.disabled = this.checked;
+      });
+    });
+  </script>
+</body>
+</html>

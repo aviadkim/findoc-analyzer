@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PDF Processing Test Results</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+      color: #333;
+    }
+    h1, h2, h3 {
+      color: #0066cc;
+    }
+    .summary {
+      display: flex;
+      gap: 20px;
+      margin: 20px 0;
+    }
+    .summary-item {
+      padding: 15px;
+      border-radius: 8px;
+      width: 150px;
+      text-align: center;
+    }
+    .total {
+      background-color: #e7f5ff;
+      border: 1px solid #74c0fc;
+    }
+    .passed {
+      background-color: #ebfbee;
+      border: 1px solid #69db7c;
+    }
+    .failed {
+      background-color: #fff5f5;
+      border: 1px solid #ff8787;
+    }
+    .skipped {
+      background-color: #fff9db;
+      border: 1px solid #ffd43b;
+    }
+    .number {
+      font-size: 2em;
+      font-weight: bold;
+      margin: 10px 0;
+    }
+    .result {
+      margin: 10px 0;
+      padding: 15px;
+      border-radius: 6px;
+      border-left: 5px solid #ccc;
+    }
+    .result.pass {
+      background-color: #f4faf5;
+      border-left-color: #40c057;
+    }
+    .result.fail {
+      background-color: #fff5f5;
+      border-left-color: #fa5252;
+    }
+    .result.skip {
+      background-color: #fff9db;
+      border-left-color: #ffd43b;
+    }
+    .category {
+      margin: 30px 0;
+      border-bottom: 1px solid #ddd;
+      padding-bottom: 10px;
+    }
+    .result-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .result-time {
+      font-size: 0.8em;
+      color: #777;
+    }
+    .result-details {
+      background-color: #f8f9fa;
+      padding: 10px;
+      border-radius: 4px;
+      margin-top: 10px;
+      font-family: monospace;
+      white-space: pre-wrap;
+      display: none;
+    }
+    .result-toggle {
+      background: none;
+      border: none;
+      color: #0066cc;
+      cursor: pointer;
+      font-size: 0.9em;
+    }
+    .result-toggle:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <h1>PDF Processing Test Results</h1>
+  
+  <div class="summary">
+    <div class="summary-item total">
+      <div>Total Tests</div>
+      <div class="number">52</div>
+    </div>
+    <div class="summary-item passed">
+      <div>Passed</div>
+      <div class="number">45</div>
+    </div>
+    <div class="summary-item failed">
+      <div>Failed</div>
+      <div class="number">3</div>
+    </div>
+    <div class="summary-item skipped">
+      <div>Skipped</div>
+      <div class="number">4</div>
+    </div>
+  </div>
+  
+  <div>
+    <p><strong>Start Time:</strong> 5/12/2025, 3:13:08 PM</p>
+    <p><strong>End Time:</strong> 5/12/2025, 3:14:21 PM</p>
+    <p><strong>Duration:</strong> 1m 13s</p>
+  </div>
+  
+  <div class="category">
+      <h2>Server Status</h2><div class="result pass">
+        <div class="result-header">
+          <h3>Server Status</h3>
+          <span class="result-time">3:13:08 PM</span>
+        </div>
+        <p>Server is running</p></div></div><div class="category">
+      <h2>Documents List</h2><div class="result pass">
+        <div class="result-header">
+          <h3>Documents List</h3>
+          <span class="result-time">3:13:08 PM</span>
+        </div>
+        <p>Retrieved 3 documents</p></div></div><div class="category">
+      <h2>Process Sample PDF</h2><div class="result pass">
+        <div class="result-header">
+          <h3>Process Sample PDF</h3>
+          <span class="result-time">3:13:08 PM</span>
+        </div>
+        <p>Successfully processed sample PDF</p></div></div><div class="category">
+      <h2>Process Sample PDF with MCP</h2><div class="result pass">
+        <div class="result-header">
+          <h3>Process Sample PDF with MCP</h3>
+          <span class="result-time">3:13:08 PM</span>
+        </div>
+        <p>Successfully processed sample PDF with MCP</p></div></div><div class="category">
+      <h2>Sequential Thinking</h2><div class="result pass">
+        <div class="result-header">
+          <h3>Sequential Thinking: Simple Company and ISIN</h3>
+          <span class="result-time">3:13:08 PM</span>
+        </div>
+        <p>Successfully extracted entities</p>
+        <button id="toggle-e5edc87e" class="result-toggle" onclick="toggleDetails('e5edc87e')">Show Details</button>
+        <div id="details-e5edc87e" class="result-details" style="display: none;">{
+  "question": "Extract all financial entities from this text: Apple Inc. (ISIN: US0378331005) reported quarterly earnings.",
+  "steps": [
+    {
+      "step": 1,
+      "content": "Analyzing text for financial entities. The text is 60 characters long."
+    },
+    {
+      "step": 2,
+      "content": "Extracted 1 companies, 1 securities, 0 metrics, 0 currencies, and 1 ISINs."
+    },
+    {
+      "step": 3,
+      "content": "```json\n{\n  \"entities\": [\n  {\n    \"type\": \"company\",\n    \"name\": \"Apple\",\n    \"confidence\": 0.85\n  },\n  {\n    \"type\": \"security\",\n    \"name\": \"Unknown Security\",\n    \"isin\": \"US0378331005\",\n    \"confidence\": 0.9\n  },\n  {\n    \"type\": \"isin\",\n    \"value\": \"US0378331005\",\n    \"confidence\": 0.95\n  }\n]\n}\n```"
+    }
+  ],
+  "result": "{\"entities\":[{\"type\":\"company\",\"name\":\"Apple\",\"confidence\":0.85},{\"type\":\"security\",\"name\":\"Unknown Security\",\"isin\":\"US0378331005\",\"confidence\":0.9},{\"type\":\"isin\",\"value\":\"US0378331005\",\"confidence\":0.95}]}"
+}</div></div><div class="result pass">
+        <div class="result-header">
+          <h3>Sequential Thinking: Multiple Companies</h3>
+          <span class="result-time">3:13:08 PM</span>
+        </div>
+        <p>Successfully extracted entities</p>
+        <button id="toggle-1e63c8a4" class="result-toggle" onclick="toggleDetails('1e63c8a4')">Show Details</button>
+        <div id="details-1e63c8a4" class="result-details" style="display: none;">{
+  "question": "Extract all financial entities from this text: Portfolio contains shares of Microsoft Corporation, Amazon.com Inc., and Tesla Inc.",
+  "steps": [
+    {
+      "step": 1,
+      "content": "Analyzing text for financial entities. The text is 83 characters long."
+    },
+    {
+      "step": 2,
+      "content": "Extracted 5 companies, 0 securities, 0 metrics, 0 currencies, and 0 ISINs."
+    },
+    {
+      "step": 3,
+      "content": "```json\n{\n  \"entities\": [\n  {\n    \"type\": \"company\",\n    \"name\": \"Portfolio contains shares of Microsoft\",\n    \"confidence\": 0.85\n  },\n  {\n    \"type\": \"company\",\n    \"name\": \"Amazon.com\",\n    \"confidence\": 0.85\n  },\n  {\n    \"type\": \"company\",\n    \"name\": \"Tesla\",\n    \"confidence\": 0.85\n  },\n  {\n    \"type\": \"company\",\n    \"name\": \"Microsoft\",\n    \"confidence\": 0.85\n  },\n  {\n    \"type\": \"company\",\n    \"name\": \"Amazon\",\n    \"confidence\": 0.85\n  }\n]\n}\n```"
+    }
+  ],
+  "result": "{\"entities\":[{\"type\":\"company\",\"name\":\"Portfolio contains shares of Microsoft\",\"confidence\":0.85},{\"type\":\"company\",\"name\":\"Amazon.com\",\"confidence\":0.85},{\"type\":\"company\",\"name\":\"Tesla\",\"confidence\":0.85},{\"type\":\"company\",\"name\":\"Microsoft\",\"confidence\":0.85},{\"type\":\"company\",\"name\":\"Amazon\",\"confidence\":0.85}]}"
+}</div></div><div class="result pass">
+        <div class="result-header">
+          <h3>Sequential Thinking: Financial Metrics</h3>
+          <span class="result-time">3:13:08 PM</span>
+        </div>
+        <p>Successfully extracted entities</p>
+        <button id="toggle-d8d83bc9" class="result-toggle" onclick="toggleDetails('d8d83bc9')">Show Details</button>
+        <div id="details-d8d83bc9" class="result-details" style="display: none;">{
+  "question": "Extract all financial entities from this text: Total Return: 15.7%, Expense Ratio: 0.82%, Dividend Yield: 3.2%",
+  "steps": [
+    {
+      "step": 1,
+      "content": "Analyzing text for financial entities. The text is 63 characters long."
+    },
+    {
+      "step": 2,
+      "content": "Extracted 0 companies, 0 securities, 4 metrics, 0 currencies, and 0 ISINs."
+    },
+    {
+      "step": 3,
+      "content": "```json\n{\n  \"entities\": [\n  {\n    \"type\": \"financialMetric\",\n    \"name\": \"Total Return\",\n    \"value\": \"15.7%\",\n    \"confidence\": 0.8\n  },\n  {\n    \"type\": \"financialMetric\",\n    \"name\": \"Expense Ratio\",\n    \"value\": \"0.82%\",\n    \"confidence\": 0.8\n  },\n  {\n    \"type\": \"financialMetric\",\n    \"name\": \"Dividend Yield\",\n    \"value\": \"3.2%\",\n    \"confidence\": 0.8\n  },\n  {\n    \"type\": \"financialMetric\",\n    \"name\": \"Expense Ratio\",\n    \"value\": \"0.82\",\n    \"confidence\": 0.8\n  }\n]\n}\n```"
+    }
+  ],
+  "result": "{\"entities\":[{\"type\":\"financialMetric\",\"name\":\"Total Return\",\"value\":\"15.7%\",\"confidence\":0.8},{\"type\":\"financialMetric\",\"name\":\"Expense Ratio\",\"value\":\"0.82%\",\"confidence\":0.8},{\"type\":\"financialMetric\",\"name\":\"Dividend Yield\",\"value\":\"3.2%\",\"confidence\":0.8},{\"type\":\"financialMetric\",\"name\":\"Expense Ratio\",\"value\":\"0.82\",\"confidence\":0.8}]}"
+}</div></div><div class="result pass">
+        <div class="result-header">
+          <h3>Sequential Thinking: Currency Values</h3>
+          <span class="result-time">3:13:08 PM</span>
+        </div>
+        <p>Successfully extracted entities</p>
+        <button id="toggle-8669e602" class="result-toggle" onclick="toggleDetails('8669e602')">Show Details</button>
+        <div id="details-8669e602" class="result-details" style="display: none;">{
+  "question": "Extract all financial entities from this text: Market Value: $1,245,300.00, Cash Balance: €10,500.00",
+  "steps": [
+    {
+      "step": 1,
+      "content": "Analyzing text for financial entities. The text is 53 characters long."
+    },
+    {
+      "step": 2,
+      "content": "Extracted 0 companies, 0 securities, 1 metrics, 2 currencies, and 0 ISINs."
+    },
+    {
+      "step": 3,
+      "content": "```json\n{\n  \"entities\": [\n  {\n    \"type\": \"financialMetric\",\n    \"name\": \"Market Value\",\n    \"value\": \"$1,245,300.00\",\n    \"confidence\": 0.8\n  },\n  {\n    \"type\": \"currency\",\n    \"name\": \"USD\",\n    \"value\": \"$1,245,300.00\",\n    \"confidence\": 0.95\n  },\n  {\n    \"type\": \"currency\",\n    \"name\": \"EUR\",\n    \"value\": \"€10,500.00\",\n    \"confidence\": 0.95\n  }\n]\n}\n```"
+    }
+  ],
+  "result": "{\"entities\":[{\"type\":\"financialMetric\",\"name\":\"Market Value\",\"value\":\"$1,245,300.00\",\"confidence\":0.8},{\"type\":\"currency\",\"name\":\"USD\",\"value\":\"$1,245,300.00\",\"confidence\":0.95},{\"type\":\"currency\",\"name\":\"EUR\",\"value\":\"€10,500.00\",\"confidence\":0.95}]}"
+}</div></div><div class="result pass">
+        <div class="result-header">
+          <h3>Sequential Thinking: Multiple ISINs</h3>
+          <span class="result-time">3:13:08 PM</span>
+        </div>
+        <p>Successfully extracted entities</p>
+        <button id="toggle-032243e8" class="result-toggle" onclick="toggleDetails('032243e8')">Show Details</button>
+        <div id="details-032243e8" class="result-details" style="display: none;">{
+  "question": "Extract all financial entities from this text: Securities: US0378331005, US5949181045, US0231351067, US88160R1014",
+  "steps": [
+    {
+      "step": 1,
+      "content": "Analyzing text for financial entities. The text is 66 characters long."
+    },
+    {
+      "step": 2,
+      "content": "Extracted 0 companies, 4 securities, 0 metrics, 0 currencies, and 4 ISINs."
+    },
+    {
+      "step": 3,
+      "content": "```json\n{\n  \"entities\": [\n  {\n    \"type\": \"security\",\n    \"name\": \"Unknown Security\",\n    \"isin\": \"US0378331005\",\n    \"confidence\": 0.9\n  },\n  {\n    \"type\": \"security\",\n    \"name\": \"US0378331005,\",\n    \"isin\": \"US5949181045\",\n    \"confidence\": 0.9\n  },\n  {\n    \"type\": \"security\",\n    \"name\": \"US0378331005, US5949181045,\",\n    \"isin\": \"US0231351067\",\n    \"confidence\": 0.9\n  },\n  {\n    \"type\": \"security\",\n    \"name\": \"US0378331005, US5949181045, US0231351067,\",\n    \"isin\": \"US88160R1014\",\n    \"confidence\": 0.9\n  },\n  {\n    \"type\": \"isin\",\n    \"value\": \"US0378331005\",\n    \"confidence\": 0.95\n  },\n  {\n    \"type\": \"isin\",\n    \"value\": \"US5949181045\",\n    \"confidence\": 0.95\n  },\n  {\n    \"type\": \"isin\",\n    \"value\": \"US0231351067\",\n    \"confidence\": 0.95\n  },\n  {\n    \"type\": \"isin\",\n    \"value\": \"US88160R1014\",\n    \"confidence\": 0.95\n  }\n]\n}\n```"
+    }
+  ],
+  "result": "{\"entities\":[{\"type\":\"security\",\"name\":\"Unknown Security\",\"isin\":\"US0378331005\",\"confidence\":0.9},{\"type\":\"security\",\"name\":\"US0378331005,\",\"isin\":\"US5949181045\",\"confidence\":0.9},{\"type\":\"security\",\"name\":\"US0378331005, US5949181045,\",\"isin\":\"US0231351067\",\"confidence\":0.9},{\"type\":\"security\",\"name\":\"US0378331005, US5949181045, US0231351067,\",\"isin\":\"US88160R1014\",\"confidence\":0.9},{\"type\":\"isin\",\"value\":\"US0378331005\",\"confidence\":0.95},{\"type\":\"isin\",\"value\":\"US5949181045\",\"confidence\":0.95},{\"type\":\"isin\",\"value\":\"US0231351067\",\"confidence\":0.95},{\"type\":\"isin\",\"value\":\"US88160R1014\",\"confidence\":0.95}]}"
+}</div></div></div><div class="category">
+      <h2>Brave Search</h2><div class="result pass">
+        <div class="result-header">
+          <h3>Brave Search: Company Search</h3>
+          <span class="result-time">3:13:08 PM</span>
+        </div>
+        <p>Found 3 results</p>
+        <button id="toggle-e96e6433" class="result-toggle" onclick="toggleDetails('e96e6433')">Show Details</button>
+        <div id="details-e96e6433" class="result-details" style="display: none;">{
+  "query": "Apple Inc. financial information"
+}</div></div><div class="result pass">
+        <div class="result-header">
+          <h3>Brave Search: ISIN Search</h3>
+          <span class="result-time">3:13:08 PM</span>
+        </div>
+        <p>Found 3 results</p>
+        <button id="toggle-2910068f" class="result-toggle" onclick="toggleDetails('2910068f')">Show Details</button>
+        <div id="details-2910068f" class="result-details" style="display: none;">{
+  "query": "US0378331005 security details"
+}</div></div><div class="result pass">
+        <div class="result-header">
+          <h3>Brave Search: Stock Ticker Search</h3>
+          <span class="result-time">3:13:08 PM</span>
+        </div>
+        <p>Found 3 results</p>
+        <button id="toggle-0b7d772b" class="result-toggle" onclick="toggleDetails('0b7d772b')">Show Details</button>
+        <div id="details-0b7d772b" class="result-details" style="display: none;">{
+  "query": "AAPL stock price"
+}</div></div><div class="result pass">
+        <div class="result-header">
+          <h3>Brave Search: Financial Metric Search</h3>
+          <span class="result-time">3:13:08 PM</span>
+        </div>
+        <p>Found 3 results</p>
+        <button id="toggle-22c5ee63" class="result-toggle" onclick="toggleDetails('22c5ee63')">Show Details</button>
+        <div id="details-22c5ee63" class="result-details" style="display: none;">{
+  "query": "S&P 500 current P/E ratio"
+}</div></div><div class="result pass">
+        <div class="result-header">
+          <h3>Brave Search: Portfolio Analysis Search</h3>
+          <span class="result-time">3:13:08 PM</span>
+        </div>
+        <p>Found 3 results</p>
+        <button id="toggle-708dcf00" class="result-toggle" onclick="toggleDetails('708dcf00')">Show Details</button>
+        <div id="details-708dcf00" class="result-details" style="display: none;">{
+  "query": "portfolio diversification strategies"
+}</div></div></div><div class="category">
+      <h2>UI Component</h2><div class="result pass">
+        <div class="result-header">
+          <h3>UI Component: Home Page</h3>
+          <span class="result-time">3:13:08 PM</span>
+        </div>
+        <p>Successfully loaded /</p></div><div class="result pass">
+        <div class="result-header">
+          <h3>UI Component: Upload Page</h3>
+          <span class="result-time">3:13:08 PM</span>
+        </div>
+        <p>Successfully loaded /upload</p></div><div class="result pass">
+        <div class="result-header">
+          <h3>UI Component: Documents Page</h3>
+          <span class="result-time">3:13:08 PM</span>
+        </div>
+        <p>Successfully loaded /documents-new</p></div><div class="result pass">
+        <div class="result-header">
+          <h3>UI Component: Analytics Page</h3>
+          <span class="result-time">3:13:08 PM</span>
+        </div>
+        <p>Successfully loaded /analytics-new</p></div><div class="result pass">
+        <div class="result-header">
+          <h3>UI Component: Document Chat Page</h3>
+          <span class="result-time">3:13:08 PM</span>
+        </div>
+        <p>Successfully loaded /document-chat</p></div><div class="result pass">
+        <div class="result-header">
+          <h3>UI Component: Document Comparison Page</h3>
+          <span class="result-time">3:13:08 PM</span>
+        </div>
+        <p>Successfully loaded /document-comparison</p></div><div class="result pass">
+        <div class="result-header">
+          <h3>UI Component: Test Page</h3>
+          <span class="result-time">3:13:08 PM</span>
+        </div>
+        <p>Successfully loaded /test</p></div><div class="result pass">
+        <div class="result-header">
+          <h3>UI Component: Simple Test Page</h3>
+          <span class="result-time">3:13:08 PM</span>
+        </div>
+        <p>Successfully loaded /simple-test</p></div></div><div class="category">
+      <h2>PDF Processing Files</h2><div class="result pass">
+        <div class="result-header">
+          <h3>PDF Processing Files</h3>
+          <span class="result-time">3:13:08 PM</span>
+        </div>
+        <p>Found 4 PDF files for testing</p></div></div><div class="category">
+      <h2>PDF Processing</h2><div class="result skip">
+        <div class="result-header">
+          <h3>PDF Processing: financial-report.pdf</h3>
+          <span class="result-time">3:13:08 PM</span>
+        </div>
+        <p>API endpoint not available, testing with MCP directly</p></div><div class="result skip">
+        <div class="result-header">
+          <h3>PDF Processing: messos.pdf</h3>
+          <span class="result-time">3:13:22 PM</span>
+        </div>
+        <p>API endpoint not available, testing with MCP directly</p></div><div class="result skip">
+        <div class="result-header">
+          <h3>PDF Processing: sample_portfolio.pdf</h3>
+          <span class="result-time">3:13:51 PM</span>
+        </div>
+        <p>API endpoint not available, testing with MCP directly</p></div><div class="result skip">
+        <div class="result-header">
+          <h3>PDF Processing: simple-financial-statement.pdf</h3>
+          <span class="result-time">3:14:15 PM</span>
+        </div>
+        <p>API endpoint not available, testing with MCP directly</p></div></div><div class="category">
+      <h2>PDF Processing (MCP)</h2><div class="result pass">
+        <div class="result-header">
+          <h3>PDF Processing (MCP): financial-report.pdf</h3>
+          <span class="result-time">3:13:22 PM</span>
+        </div>
+        <p>Successfully processed with MCP</p>
+        <button id="toggle-bf66d401" class="result-toggle" onclick="toggleDetails('bf66d401')">Show Details</button>
+        <div id="details-bf66d401" class="result-details" style="display: none;">{
+  "entities": 18
+}</div></div><div class="result pass">
+        <div class="result-header">
+          <h3>PDF Processing (MCP): messos.pdf</h3>
+          <span class="result-time">3:13:51 PM</span>
+        </div>
+        <p>Successfully processed with MCP</p>
+        <button id="toggle-beaf72e4" class="result-toggle" onclick="toggleDetails('beaf72e4')">Show Details</button>
+        <div id="details-beaf72e4" class="result-details" style="display: none;">{
+  "entities": 108
+}</div></div><div class="result pass">
+        <div class="result-header">
+          <h3>PDF Processing (MCP): sample_portfolio.pdf</h3>
+          <span class="result-time">3:14:15 PM</span>
+        </div>
+        <p>Successfully processed with MCP</p>
+        <button id="toggle-a49b832a" class="result-toggle" onclick="toggleDetails('a49b832a')">Show Details</button>
+        <div id="details-a49b832a" class="result-details" style="display: none;">{
+  "entities": 69
+}</div></div><div class="result pass">
+        <div class="result-header">
+          <h3>PDF Processing (MCP): simple-financial-statement.pdf</h3>
+          <span class="result-time">3:14:21 PM</span>
+        </div>
+        <p>Successfully processed with MCP</p>
+        <button id="toggle-62af0a8b" class="result-toggle" onclick="toggleDetails('62af0a8b')">Show Details</button>
+        <div id="details-62af0a8b" class="result-details" style="display: none;">{
+  "entities": 22
+}</div></div></div><div class="category">
+      <h2>Document Chat</h2><div class="result pass">
+        <div class="result-header">
+          <h3>Document Chat: doc-1 - What is this document about?</h3>
+          <span class="result-time">3:14:21 PM</span>
+        </div>
+        <p>Successfully received answer</p></div><div class="result pass">
+        <div class="result-header">
+          <h3>Document Chat: doc-1 - What companies are mentioned in this document?</h3>
+          <span class="result-time">3:14:21 PM</span>
+        </div>
+        <p>Successfully received answer</p></div><div class="result pass">
+        <div class="result-header">
+          <h3>Document Chat: doc-1 - What ISINs are in this document?</h3>
+          <span class="result-time">3:14:21 PM</span>
+        </div>
+        <p>Successfully received answer</p></div><div class="result pass">
+        <div class="result-header">
+          <h3>Document Chat: doc-1 - What are the key financial metrics?</h3>
+          <span class="result-time">3:14:21 PM</span>
+        </div>
+        <p>Successfully received answer</p></div><div class="result pass">
+        <div class="result-header">
+          <h3>Document Chat: doc-1 - Are there any tables in this document?</h3>
+          <span class="result-time">3:14:21 PM</span>
+        </div>
+        <p>Successfully received answer</p></div><div class="result pass">
+        <div class="result-header">
+          <h3>Document Chat: doc-2 - What is this document about?</h3>
+          <span class="result-time">3:14:21 PM</span>
+        </div>
+        <p>Successfully received answer</p></div><div class="result pass">
+        <div class="result-header">
+          <h3>Document Chat: doc-2 - What companies are mentioned in this document?</h3>
+          <span class="result-time">3:14:21 PM</span>
+        </div>
+        <p>Successfully received answer</p></div><div class="result pass">
+        <div class="result-header">
+          <h3>Document Chat: doc-2 - What ISINs are in this document?</h3>
+          <span class="result-time">3:14:21 PM</span>
+        </div>
+        <p>Successfully received answer</p></div><div class="result pass">
+        <div class="result-header">
+          <h3>Document Chat: doc-2 - What are the key financial metrics?</h3>
+          <span class="result-time">3:14:21 PM</span>
+        </div>
+        <p>Successfully received answer</p></div><div class="result pass">
+        <div class="result-header">
+          <h3>Document Chat: doc-2 - Are there any tables in this document?</h3>
+          <span class="result-time">3:14:21 PM</span>
+        </div>
+        <p>Successfully received answer</p></div><div class="result pass">
+        <div class="result-header">
+          <h3>Document Chat: doc-3 - What is this document about?</h3>
+          <span class="result-time">3:14:21 PM</span>
+        </div>
+        <p>Successfully received answer</p></div><div class="result pass">
+        <div class="result-header">
+          <h3>Document Chat: doc-3 - What companies are mentioned in this document?</h3>
+          <span class="result-time">3:14:21 PM</span>
+        </div>
+        <p>Successfully received answer</p></div><div class="result pass">
+        <div class="result-header">
+          <h3>Document Chat: doc-3 - What ISINs are in this document?</h3>
+          <span class="result-time">3:14:21 PM</span>
+        </div>
+        <p>Successfully received answer</p></div><div class="result pass">
+        <div class="result-header">
+          <h3>Document Chat: doc-3 - What are the key financial metrics?</h3>
+          <span class="result-time">3:14:21 PM</span>
+        </div>
+        <p>Successfully received answer</p></div><div class="result pass">
+        <div class="result-header">
+          <h3>Document Chat: doc-3 - Are there any tables in this document?</h3>
+          <span class="result-time">3:14:21 PM</span>
+        </div>
+        <p>Successfully received answer</p></div></div><div class="category">
+      <h2>Table Entity Extraction</h2><div class="result pass">
+        <div class="result-header">
+          <h3>Table Entity Extraction: Portfolio Holdings</h3>
+          <span class="result-time">3:14:21 PM</span>
+        </div>
+        <p>Extracted 0 entities</p></div><div class="result pass">
+        <div class="result-header">
+          <h3>Table Entity Extraction: Performance Metrics</h3>
+          <span class="result-time">3:14:21 PM</span>
+        </div>
+        <p>Extracted 0 entities</p></div></div><div class="category">
+      <h2>Error Handling</h2><div class="result fail">
+        <div class="result-header">
+          <h3>Error Handling: Invalid Endpoint</h3>
+          <span class="result-time">3:14:21 PM</span>
+        </div>
+        <p>Expected error but received success</p></div><div class="result pass">
+        <div class="result-header">
+          <h3>Error Handling: Invalid Document ID</h3>
+          <span class="result-time">3:14:21 PM</span>
+        </div>
+        <p>Received expected error: 500</p></div><div class="result fail">
+        <div class="result-header">
+          <h3>Error Handling: Missing Query Parameter</h3>
+          <span class="result-time">3:14:21 PM</span>
+        </div>
+        <p>Expected error but received success</p></div><div class="result fail">
+        <div class="result-header">
+          <h3>Error Handling: Invalid Query</h3>
+          <span class="result-time">3:14:21 PM</span>
+        </div>
+        <p>Expected error but received success</p></div></div>
+  
+  <script>
+    function toggleDetails(id) {
+      const details = document.getElementById('details-' + id);
+      const toggle = document.getElementById('toggle-' + id);
+      
+      if (details.style.display === 'none') {
+        details.style.display = 'block';
+        toggle.textContent = 'Hide Details';
+      } else {
+        details.style.display = 'none';
+        toggle.textContent = 'Show Details';
+      }
+    }
+  </script>
+</body>
+</html>

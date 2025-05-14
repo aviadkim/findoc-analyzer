@@ -1,0 +1,15 @@
+{
+  "fileName": "multipage.pdf",
+  "fileType": ".pdf",
+  "processingDate": "2025-04-29T09:39:25.267Z",
+  "text": "Page 1 content.\n\nPage 2 content.\n\nPage 3 content.",
+  "tables": [],
+  "metadata": {
+    "pageCount": 1,
+    "author": "Unknown",
+    "creationDate": "2025-04-29T09:39:26.813Z",
+    "creator": "Unknown",
+    "producer": "Unknown",
+    "processingMethod": "fallback"
+  }
+}

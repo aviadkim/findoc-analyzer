@@ -1,0 +1,23 @@
+[
+  {
+    "id": "doc-1",
+    "fileName": "Financial Report 2023.pdf",
+    "fileType": "pdf",
+    "uploadDate": "2025-05-04T14:01:41.262Z",
+    "processed": true
+  },
+  {
+    "id": "doc-2",
+    "fileName": "Investment Portfolio.xlsx",
+    "fileType": "xlsx",
+    "uploadDate": "2025-05-04T14:01:41.262Z",
+    "processed": true
+  },
+  {
+    "id": "doc-3",
+    "fileName": "Stock Transactions.csv",
+    "fileType": "csv",
+    "uploadDate": "2025-05-04T14:01:41.262Z",
+    "processed": true
+  }
+]

@@ -1,0 +1,13 @@
+[
+  {
+    "role": "user",
+    "content": "What is this document about?",
+    "timestamp": "2025-05-14T09:10:47.474Z"
+  },
+  {
+    "role": "assistant",
+    "content": "This is a financial document titled \"Test Financial Report.pdf\". It contains financial information such as revenue, expenses, profit, and balance sheet details.",
+    "timestamp": "2025-05-14T09:10:47.474Z",
+    "provider": "rule-based"
+  }
+]

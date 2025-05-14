@@ -1,0 +1,134 @@
+{
+  "startTime": "2025-04-29T21:25:10.338Z",
+  "endTime": "2025-04-29T21:25:10.791Z",
+  "totalTests": 5,
+  "passedTests": 3,
+  "failedTests": 2,
+  "skippedTests": 0,
+  "tests": [
+    {
+      "id": "DEEPSEEK-01",
+      "name": "Test DeepSeek API Key Retrieval",
+      "status": "passed",
+      "startTime": "2025-04-29T21:25:10.584Z",
+      "endTime": "2025-04-29T21:25:10.585Z",
+      "duration": 1,
+      "steps": [
+        {
+          "number": 1,
+          "name": "Step 1",
+          "status": "passed",
+          "startTime": "2025-04-29T21:25:10.584Z",
+          "endTime": "2025-04-29T21:25:10.585Z",
+          "duration": 1,
+          "error": null,
+          "screenshots": []
+        }
+      ],
+      "error": null,
+      "screenshots": []
+    },
+    {
+      "id": "DEEPSEEK-02",
+      "name": "Test Text Generation",
+      "status": "passed",
+      "startTime": "2025-04-29T21:25:10.585Z",
+      "endTime": "2025-04-29T21:25:10.587Z",
+      "duration": 2,
+      "steps": [
+        {
+          "number": 1,
+          "name": "Step 1",
+          "status": "passed",
+          "startTime": "2025-04-29T21:25:10.586Z",
+          "endTime": "2025-04-29T21:25:10.587Z",
+          "duration": 1,
+          "error": null,
+          "screenshots": []
+        }
+      ],
+      "error": null,
+      "screenshots": []
+    },
+    {
+      "id": "DEEPSEEK-03",
+      "name": "Test Table Extraction",
+      "status": "failed",
+      "startTime": "2025-04-29T21:25:10.587Z",
+      "endTime": "2025-04-29T21:25:10.712Z",
+      "duration": 125,
+      "steps": [
+        {
+          "number": 1,
+          "name": "Step 1",
+          "status": "passed",
+          "startTime": "2025-04-29T21:25:10.587Z",
+          "endTime": "2025-04-29T21:25:10.589Z",
+          "duration": 2,
+          "error": null,
+          "screenshots": []
+        },
+        {
+          "number": 2,
+          "name": "Step 2",
+          "status": "failed",
+          "startTime": "2025-04-29T21:25:10.589Z",
+          "endTime": null,
+          "duration": 0,
+          "error": "Failed to extract tables",
+          "screenshots": [
+            "DEEPSEEK-03-step-2-failure.png"
+          ]
+        }
+      ],
+      "error": "Failed to extract tables",
+      "screenshots": []
+    },
+    {
+      "id": "DEEPSEEK-04",
+      "name": "Test Document Analysis",
+      "status": "failed",
+      "startTime": "2025-04-29T21:25:10.713Z",
+      "endTime": "2025-04-29T21:25:10.784Z",
+      "duration": 71,
+      "steps": [
+        {
+          "number": 1,
+          "name": "Step 1",
+          "status": "failed",
+          "startTime": "2025-04-29T21:25:10.713Z",
+          "endTime": null,
+          "duration": 0,
+          "error": "Analysis does not include document type",
+          "screenshots": [
+            "DEEPSEEK-04-step-1-failure.png"
+          ]
+        }
+      ],
+      "error": "Analysis does not include document type",
+      "screenshots": []
+    },
+    {
+      "id": "DEEPSEEK-05",
+      "name": "Test Question Answering",
+      "status": "passed",
+      "startTime": "2025-04-29T21:25:10.784Z",
+      "endTime": "2025-04-29T21:25:10.791Z",
+      "duration": 7,
+      "steps": [
+        {
+          "number": 1,
+          "name": "Step 1",
+          "status": "passed",
+          "startTime": "2025-04-29T21:25:10.784Z",
+          "endTime": "2025-04-29T21:25:10.791Z",
+          "duration": 7,
+          "error": null,
+          "screenshots": []
+        }
+      ],
+      "error": null,
+      "screenshots": []
+    }
+  ]
+}

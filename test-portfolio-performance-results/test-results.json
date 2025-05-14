@@ -1,0 +1,47 @@
+{
+  "tests": [
+    {
+      "name": "Create tenant",
+      "status": "passed",
+      "duration": 6218,
+      "error": null
+    },
+    {
+      "name": "Create document",
+      "status": "passed",
+      "duration": 10,
+      "error": null
+    },
+    {
+      "name": "Process document",
+      "status": "passed",
+      "duration": 1012,
+      "error": null
+    },
+    {
+      "name": "Analyze portfolio performance",
+      "status": "passed",
+      "duration": 621,
+      "error": null
+    },
+    {
+      "name": "Generate portfolio performance report",
+      "status": "passed",
+      "duration": 9,
+      "error": null
+    },
+    {
+      "name": "Generate portfolio performance report with custom options",
+      "status": "passed",
+      "duration": 10,
+      "error": null
+    }
+  ],
+  "summary": {
+    "total": 6,
+    "passed": 6,
+    "failed": 0
+  },
+  "tenantId": "2676b775-e703-4c2c-b645-a4ca565324ab",
+  "documentId": "4c443557-b9e9-4bbc-97cc-857b7cfc1511"
+}

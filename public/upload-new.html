@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Upload Document - FinDoc Analyzer</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <link rel="stylesheet" href="/css/enhanced-ui.css">
+  <style>
+    body {
+      padding-top: 60px;
+    }
+    
+    .main-content {
+      padding: 20px;
+    }
+    
+    .upload-container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    
+    .upload-area {
+      border: 2px dashed #ddd;
+      border-radius: 5px;
+      padding: 40px;
+      text-align: center;
+      margin-bottom: 20px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .upload-area:hover {
+      border-color: #3498db;
+    }
+    
+    .upload-icon {
+      font-size: 48px;
+      color: #3498db;
+      margin-bottom: 15px;
+    }
+    
+    .selected-file {
+      display: none;
+      padding: 15px;
+      background-color: #f8f9fa;
+      border-radius: 5px;
+      margin-bottom: 20px;
+    }
+    
+    .file-info {
+      display: flex;
+      align-items: center;
+    }
+    
+    .file-icon {
+      font-size: 24px;
+      margin-right: 15px;
+      color: #e74c3c;
+    }
+    
+    .file-details {
+      flex: 1;
+    }
+    
+    .file-name {
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+    
+    .file-size {
+      color: #7f8c8d;
+      font-size: 14px;
+    }
+    
+    .form-actions {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20px;
+    }
+    
+    .progress-container {
+      display: none;
+      margin-top: 20px;
+    }
+    
+    .progress-bar-container {
+      height: 10px;
+      background-color: #e9ecef;
+      border-radius: 5px;
+      overflow: hidden;
+      margin-bottom: 5px;
+    }
+    
+    .progress-bar {
+      height: 100%;
+      background-color: #3498db;
+      border-radius: 5px;
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+    
+    .progress-text {
+      text-align: right;
+      font-size: 14px;
+      color: #7f8c8d;
+    }
+    
+    .processing-container {
+      display: none;
+      margin-top: 30px;
+      padding: 20px;
+      background-color: #f8f9fa;
+      border-radius: 5px;
+      border: 1px solid #ddd;
+    }
+    
+    .processing-title {
+      font-weight: bold;
+      margin-bottom: 15px;
+      font-size: 18px;
+    }
+    
+    .processing-status {
+      margin-bottom: 10px;
+    }
+  </style>
+  <script src="/js/ui-chat-component.js"></script>
+</head>
+<body>
+  <header class="header">
+    <div class="header-logo">FinDoc Analyzer</div>
+    <nav class="header-nav">
+      <a href="/" id="home-link"><i class="fas fa-home"></i> Home</a>
+      <a href="/upload-new" id="upload-link" class="active"><i class="fas fa-upload"></i> Upload</a>
+      <a href="/documents" id="documents-link"><i class="fas fa-file-alt"></i> Documents</a>
+      <a href="/document-chat" id="chat-link"><i class="fas fa-comments"></i> Chat</a>
+      <a href="/compare" id="compare-link"><i class="fas fa-balance-scale"></i> Compare</a>
+    </nav>
+  </header>
+  
+  <div class="sidebar">
+    <ul class="sidebar-nav">
+      <li><a href="/" id="sidebar-home-link"><i class="fas fa-home"></i> Home</a></li>
+      <li><a href="/upload-new" id="sidebar-upload-link" class="active"><i class="fas fa-upload"></i> Upload</a></li>
+      <li><a href="/documents" id="sidebar-documents-link"><i class="fas fa-file-alt"></i> Documents</a></li>
+      <li><a href="/document-chat" id="sidebar-chat-link"><i class="fas fa-comments"></i> Chat</a></li>
+      <li><a href="/compare" id="sidebar-compare-link"><i class="fas fa-balance-scale"></i> Compare</a></li>
+      <li><a href="/analytics" id="sidebar-analytics-link"><i class="fas fa-chart-bar"></i> Analytics</a></li>
+      <li><a href="/settings" id="sidebar-settings-link"><i class="fas fa-cog"></i> Settings</a></li>
+    </ul>
+  </div>
+  
+  <div class="main-content">
+    <div class="upload-container">
+      <h1>Upload Document</h1>
+      <p>Upload a financial document (PDF, Excel, CSV) for analysis.</p>
+      
+      <form class="upload-form">
+        <div class="form-group">
+          <label for="document-type">Document Type</label>
+          <select id="document-type" class="form-control">
+            <option value="portfolio">Portfolio Statement</option>
+            <option value="financial">Financial Statement</option>
+            <option value="holdings">Holdings Report</option>
+            <option value="performance">Performance Report</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+        
+        <div id="upload-area" class="upload-area">
+          <i class="fas fa-file-upload upload-icon"></i>
+          <h3>Drag & Drop your file here</h3>
+          <p>or</p>
+          <input type="file" id="file-input" style="display: none;" accept=".pdf,.xls,.xlsx,.csv">
+          <button type="button" id="browse-btn" class="btn btn-primary">Browse Files</button>
+          <p class="mt-2">Supported formats: PDF, Excel, CSV</p>
+        </div>
+        
+        <div id="selected-file" class="selected-file">
+          <div class="file-info">
+            <i class="fas fa-file-pdf file-icon"></i>
+            <div class="file-details">
+              <div id="file-name" class="file-name">filename.pdf</div>
+              <div id="file-size" class="file-size">0 KB</div>
+            </div>
+            <button type="button" id="remove-file-btn" class="btn btn-outline">
+              <i class="fas fa-times"></i>
+            </button>
+          </div>
+        </div>
+        
+        <div class="progress-container" id="progress-container">
+          <div class="progress-bar-container">
+            <div class="progress-bar" id="progress-bar"></div>
+          </div>
+          <div class="progress-text">
+            <span id="progress-text">0%</span>
+          </div>
+        </div>
+        
+        <div class="form-actions">
+          <button type="button" id="cancel-btn" class="btn btn-outline">Cancel</button>
+          <button type="button" id="upload-btn" class="btn btn-primary">Upload</button>
+        </div>
+      </form>
+      
+      <div class="processing-container" id="processing-container">
+        <div class="processing-title">Processing Document</div>
+        <div class="processing-status" id="processing-status">Initializing document processing...</div>
+        <div class="progress-bar-container">
+          <div class="progress-bar" id="processing-progress-bar"></div>
+        </div>
+        <div class="progress-text">
+          <span id="processing-progress-text">0%</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Scripts -->
+  <script src="/js/ui-fixes.js"></script>
+  <script src="/js/ui-fix.js"></script>
+  <script src='/js/claude-simple-fix.js'></script>
+  <script src='/js/process-button-fix.js'></script>
+  <script src='/js/route-fix.js'></script>
+  <script src='/js/agent-manager-fix.js'></script>
+  <script src='/js/launchdarkly-fix.js'></script>
+  <script src='/js/google-auth-fix.js'></script>
+  <script src='/js/complete-local-fix.js'></script>
+  <script src='/js/error-handler.js'></script>
+  <script src='/js/pdf-processor.js'></script>
+  
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Elements
+      const fileInput = document.getElementById('file-input');
+      const browseBtn = document.getElementById('browse-btn');
+      const uploadArea = document.getElementById('upload-area');
+      const selectedFile = document.getElementById('selected-file');
+      const fileName = document.getElementById('file-name');
+      const fileSize = document.getElementById('file-size');
+      const removeFileBtn = document.getElementById('remove-file-btn');
+      const uploadBtn = document.getElementById('upload-btn');
+      const cancelBtn = document.getElementById('cancel-btn');
+      const progressContainer = document.getElementById('progress-container');
+      const progressBar = document.getElementById('progress-bar');
+      const progressText = document.getElementById('progress-text');
+      const processingContainer = document.getElementById('processing-container');
+      
+      // Browse button click
+      browseBtn.addEventListener('click', function() {
+        fileInput.click();
+      });
+      
+      // Upload area click
+      uploadArea.addEventListener('click', function() {
+        fileInput.click();
+      });
+      
+      // File input change
+      fileInput.addEventListener('change', function() {
+        handleFileSelect(this.files);
+      });
+      
+      // Drag and drop
+      uploadArea.addEventListener('dragover', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        this.style.borderColor = '#3498db';
+        this.style.backgroundColor = '#f8f9fa';
+      });
+      
+      uploadArea.addEventListener('dragleave', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        this.style.borderColor = '#ddd';
+        this.style.backgroundColor = '';
+      });
+      
+      uploadArea.addEventListener('drop', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        this.style.borderColor = '#ddd';
+        this.style.backgroundColor = '';
+        
+        handleFileSelect(e.dataTransfer.files);
+      });
+      
+      // Remove file button click
+      removeFileBtn.addEventListener('click', function() {
+        resetFileInput();
+      });
+      
+      // Cancel button click
+      cancelBtn.addEventListener('click', function() {
+        resetFileInput();
+      });
+      
+      // Upload button click
+      uploadBtn.addEventListener('click', function() {
+        if (fileInput.files.length === 0) {
+          alert('Please select a file to upload');
+          return;
+        }
+        
+        uploadFile();
+      });
+      
+      // Handle file select
+      function handleFileSelect(files) {
+        if (files.length === 0) return;
+        
+        const file = files[0];
+        
+        // Check file type
+        const validTypes = ['.pdf', '.xls', '.xlsx', '.csv'];
+        const fileExtension = '.' + file.name.split('.').pop().toLowerCase();
+        
+        if (!validTypes.includes(fileExtension)) {
+          alert('Invalid file type. Please select a PDF, Excel, or CSV file.');
+          resetFileInput();
+          return;
+        }
+        
+        // Update UI
+        fileName.textContent = file.name;
+        fileSize.textContent = formatFileSize(file.size);
+        
+        uploadArea.style.display = 'none';
+        selectedFile.style.display = 'block';
+      }
+      
+      // Format file size
+      function formatFileSize(bytes) {
+        if (bytes === 0) return '0 Bytes';
+        
+        const k = 1024;
+        const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+        const i = Math.floor(Math.log(bytes) / Math.log(k));
+        
+        return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+      }
+      
+      // Reset file input
+      function resetFileInput() {
+        fileInput.value = '';
+        uploadArea.style.display = 'block';
+        selectedFile.style.display = 'none';
+        progressContainer.style.display = 'none';
+        progressBar.style.width = '0%';
+        progressText.textContent = '0%';
+      }
+      
+      // Upload file
+      function uploadFile() {
+        const file = fileInput.files[0];
+        const documentType = document.getElementById('document-type').value;
+        
+        // Show progress
+        progressContainer.style.display = 'block';
+        
+        // Simulate upload progress
+        let progress = 0;
+        const interval = setInterval(() => {
+          progress += 10;
+          progressBar.style.width = progress + '%';
+          progressText.textContent = progress + '%';
+          
+          if (progress >= 100) {
+            clearInterval(interval);
+            
+            // Save file info to localStorage
+            const fileInfo = {
+              id: 'file-' + Date.now(),
+              name: file.name,
+              size: file.size,
+              type: file.type,
+              documentType: documentType,
+              uploadDate: new Date().toISOString(),
+              processed: false,
+              processing: false
+            };
+            
+            // Get existing files
+            let files = JSON.parse(localStorage.getItem('localFiles') || '[]');
+            
+            // Add new file
+            files.push(fileInfo);
+            
+            // Save to localStorage
+            localStorage.setItem('localFiles', JSON.stringify(files));
+            
+            // Show success message
+            alert('File uploaded successfully!');
+            
+            // Show processing container
+            processingContainer.style.display = 'block';
+            
+            // Process the file
+            processFile(fileInfo.id);
+          }
+        }, 200);
+      }
+      
+      // Process file
+      function processFile(fileId) {
+        console.log('Processing file:', fileId);
+        
+        // Use the PDF processor
+        if (window.pdfProcessor) {
+          window.pdfProcessor.processFile(fileId)
+            .then(data => {
+              console.log('Processing complete:', data);
+              
+              // Show success message
+              alert('Document processed successfully! You can now chat with this document.');
+              
+              // Redirect to document chat page
+              setTimeout(() => {
+                // Store selected document ID for chat page
+                localStorage.setItem('selectedDocumentId', fileId);
+                
+                // Navigate to chat page
+                window.location.href = '/document-chat';
+              }, 1000);
+            })
+            .catch(error => {
+              console.error('Processing failed:', error);
+              
+              // Show error message
+              if (window.errorHandler) {
+                window.errorHandler.handleError(
+                  'Failed to process document: ' + error.message,
+                  window.errorHandler.ERROR_TYPES.PROCESSING,
+                  window.errorHandler.SEVERITY.ERROR,
+                  { fileId: fileId, error: error }
+                );
+              } else {
+                alert('Failed to process document: ' + error.message);
+              }
+            });
+        } else {
+          console.error('PDF processor not found');
+          
+          // Show error message
+          if (window.errorHandler) {
+            window.errorHandler.handleError(
+              'PDF processor not found',
+              window.errorHandler.ERROR_TYPES.PROCESSING,
+              window.errorHandler.SEVERITY.ERROR,
+              { fileId: fileId }
+            );
+          } else {
+            alert('PDF processor not found');
+          }
+        }
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,90 @@
+[2025-05-01T07:38:39.799Z] Starting document processing test
+[2025-05-01T07:38:40.641Z] Step 1: Navigate to the upload page
+[2025-05-01T07:38:41.740Z] Screenshot saved to C:\Users\aviad\OneDrive\Desktop\backv2-main\test-document-processing-results-new\01-upload-page.png
+[2025-05-01T07:38:41.741Z] Step 2: Upload the test PDF
+[2025-05-01T07:38:41.944Z] Screenshot saved to C:\Users\aviad\OneDrive\Desktop\backv2-main\test-document-processing-results-new\02-file-selected.png
+[2025-05-01T07:38:41.945Z] Step 3: Select document type
+[2025-05-01T07:38:41.970Z] Selected document type: portfolio
+[2025-05-01T07:38:41.970Z] Step 4: Select processing options
+[2025-05-01T07:38:42.063Z] Selected a processing option
+[2025-05-01T07:38:42.257Z] Screenshot saved to C:\Users\aviad\OneDrive\Desktop\backv2-main\test-document-processing-results-new\03-options-selected.png
+[2025-05-01T07:38:42.258Z] Step 5: Submit the form
+[2025-05-01T07:38:42.298Z] Form submitted
+[2025-05-01T07:38:42.476Z] Screenshot saved to C:\Users\aviad\OneDrive\Desktop\backv2-main\test-document-processing-results-new\04-form-submitted.png
+[2025-05-01T07:38:42.476Z] Step 6: Wait for processing to start
+[2025-05-01T07:38:42.486Z] Processing started
+[2025-05-01T07:38:42.702Z] Screenshot saved to C:\Users\aviad\OneDrive\Desktop\backv2-main\test-document-processing-results-new\05-processing-started.png
+[2025-05-01T07:38:42.703Z] Step 7: Wait for processing to complete (max 5 minutes)
+[2025-05-01T07:38:47.691Z] Processing completed successfully
+[2025-05-01T07:38:48.009Z] Screenshot saved to C:\Users\aviad\OneDrive\Desktop\backv2-main\test-document-processing-results-new\06-processing-complete.png
+[2025-05-01T07:38:48.010Z] Step 8: Navigate to document chat
+[2025-05-01T07:38:48.361Z] Screenshot saved to C:\Users\aviad\OneDrive\Desktop\backv2-main\test-document-processing-results-new\07-document-chat.png
+[2025-05-01T07:38:48.361Z] Step 9: Select the document
+[2025-05-01T07:39:18.379Z] Document options did not load within the timeout period
+[2025-05-01T07:39:48.559Z] Document options still not loaded after refresh
+[2025-05-01T07:39:48.564Z] Available documents: [{"value":"","text":"-- Select a document --"}]
+[2025-05-01T07:39:48.565Z] No document options found, adding mock options
+[2025-05-01T07:39:48.568Z] Added mock document options
+[2025-05-01T07:39:48.578Z] Selected document
+[2025-05-01T07:39:48.791Z] Screenshot saved to C:\Users\aviad\OneDrive\Desktop\backv2-main\test-document-processing-results-new\08-document-selected.png
+[2025-05-01T07:39:48.792Z] Step 10: Ask questions about the document
+[2025-05-01T07:39:48.802Z] Asking question 1: What is the total value of the portfolio?
+[2025-05-01T07:39:49.014Z] Screenshot saved to C:\Users\aviad\OneDrive\Desktop\backv2-main\test-document-processing-results-new\09-question-1.png
+[2025-05-01T07:39:49.070Z] Question 1 sent
+[2025-05-01T07:39:59.077Z] Error waiting for element .typing-indicator: page.waitForSelector: Timeout 10000ms exceeded.
+Call log:
+[2m  - waiting for locator('.typing-indicator') to be visible[22m
+
+[2025-05-01T07:39:59.274Z] Screenshot saved to C:\Users\aviad\OneDrive\Desktop\backv2-main\test-document-processing-results-new\11-response-1.png
+[2025-05-01T07:39:59.286Z] Response 1: 
+                  Hello! I'm your financial document assistant. Select a document and ask me questi...
+[2025-05-01T07:40:01.302Z] Asking question 2: List all securities in the portfolio with their ISINs
+[2025-05-01T07:40:01.491Z] Screenshot saved to C:\Users\aviad\OneDrive\Desktop\backv2-main\test-document-processing-results-new\09-question-2.png
+[2025-05-01T07:40:01.533Z] Question 2 sent
+[2025-05-01T07:40:11.552Z] Error waiting for element .typing-indicator: page.waitForSelector: Timeout 10000ms exceeded.
+Call log:
+[2m  - waiting for locator('.typing-indicator') to be visible[22m
+
+[2025-05-01T07:40:11.721Z] Screenshot saved to C:\Users\aviad\OneDrive\Desktop\backv2-main\test-document-processing-results-new\11-response-2.png
+[2025-05-01T07:40:11.733Z] Response 2: 
+                  Hello! I'm your financial document assistant. Select a document and ask me questi...
+[2025-05-01T07:40:13.778Z] Asking question 3: What is the asset allocation of the portfolio?
+[2025-05-01T07:40:14.039Z] Screenshot saved to C:\Users\aviad\OneDrive\Desktop\backv2-main\test-document-processing-results-new\09-question-3.png
+[2025-05-01T07:40:14.090Z] Question 3 sent
+[2025-05-01T07:40:24.093Z] Error waiting for element .typing-indicator: page.waitForSelector: Timeout 10000ms exceeded.
+Call log:
+[2m  - waiting for locator('.typing-indicator') to be visible[22m
+
+[2025-05-01T07:40:24.266Z] Screenshot saved to C:\Users\aviad\OneDrive\Desktop\backv2-main\test-document-processing-results-new\11-response-3.png
+[2025-05-01T07:40:24.277Z] Response 3: 
+                  Hello! I'm your financial document assistant. Select a document and ask me questi...
+[2025-05-01T07:40:26.281Z] Asking question 4: What are the top 5 holdings by value?
+[2025-05-01T07:40:26.452Z] Screenshot saved to C:\Users\aviad\OneDrive\Desktop\backv2-main\test-document-processing-results-new\09-question-4.png
+[2025-05-01T07:40:26.487Z] Question 4 sent
+[2025-05-01T07:40:36.494Z] Error waiting for element .typing-indicator: page.waitForSelector: Timeout 10000ms exceeded.
+Call log:
+[2m  - waiting for locator('.typing-indicator') to be visible[22m
+
+[2025-05-01T07:40:36.672Z] Screenshot saved to C:\Users\aviad\OneDrive\Desktop\backv2-main\test-document-processing-results-new\11-response-4.png
+[2025-05-01T07:40:36.683Z] Response 4: 
+                  Hello! I'm your financial document assistant. Select a document and ask me questi...
+[2025-05-01T07:40:38.691Z] Asking question 5: What is the performance of the portfolio?
+[2025-05-01T07:40:38.873Z] Screenshot saved to C:\Users\aviad\OneDrive\Desktop\backv2-main\test-document-processing-results-new\09-question-5.png
+[2025-05-01T07:40:38.911Z] Question 5 sent
+[2025-05-01T07:40:48.921Z] Error waiting for element .typing-indicator: page.waitForSelector: Timeout 10000ms exceeded.
+Call log:
+[2m  - waiting for locator('.typing-indicator') to be visible[22m
+
+[2025-05-01T07:40:49.105Z] Screenshot saved to C:\Users\aviad\OneDrive\Desktop\backv2-main\test-document-processing-results-new\11-response-5.png
+[2025-05-01T07:40:49.116Z] Response 5: 
+                  Hello! I'm your financial document assistant. Select a document and ask me questi...
+[2025-05-01T07:40:51.126Z] Step 11: Navigate to documents page
+[2025-05-01T07:40:51.472Z] Screenshot saved to C:\Users\aviad\OneDrive\Desktop\backv2-main\test-document-processing-results-new\12-documents-page.png
+[2025-05-01T07:40:51.473Z] Step 12: Generate a report (mock)
+[2025-05-01T07:40:51.485Z] Found 3 documents
+[2025-05-01T07:40:51.518Z] Clicked on document
+[2025-05-01T07:40:51.689Z] Screenshot saved to C:\Users\aviad\OneDrive\Desktop\backv2-main\test-document-processing-results-new\13-document-details.png
+[2025-05-01T07:40:51.739Z] Clicked on report/export button
+[2025-05-01T07:40:51.982Z] Screenshot saved to C:\Users\aviad\OneDrive\Desktop\backv2-main\test-document-processing-results-new\14-report-options.png
+[2025-05-01T07:40:51.988Z] Generate button not found
+[2025-05-01T07:40:51.988Z] Document processing test completed successfully

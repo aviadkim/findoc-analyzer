@@ -1,0 +1,19 @@
+{
+  "success": true,
+  "question": "What is the current price of AAPL?",
+  "answer": "The current price of AAPL is $213.32. It is down $0 (0%) today.",
+  "type": "price",
+  "data": {
+    "priceResult": {
+      "success": true,
+      "symbol": "AAPL",
+      "price": "213.32",
+      "change": "0.00",
+      "changePercent": "0.00",
+      "currency": "USD",
+      "timestamp": "2025-05-01T21:38:40.334Z",
+      "source": "yahoo-finance"
+    }
+  },
+  "processingTime": 0.231
+}

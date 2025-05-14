@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
+import SecuritiesViewer from '../../components/SecuritiesViewer';
+import { Box, Heading, Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react';
 
 export default function DocumentDetail() {
   const router = useRouter();
@@ -183,6 +185,53 @@ export default function DocumentDetail() {
       }}>
         {document.content}
       </div>
+
+      {/* Document Analysis Tabs */}
+      <Box mt={8} borderRadius="md" boxShadow="md">
+        <Tabs isLazy colorScheme="blue">
+          <TabList>
+            <Tab>Document Content</Tab>
+            <Tab>Securities</Tab>
+            <Tab>Tables</Tab>
+            <Tab>Insights</Tab>
+          </TabList>
+          
+          <TabPanels>
+            <TabPanel>
+              <Box p={4}>
+                <Heading as="h3" size="md" mb={4}>Document Content</Heading>
+                <Box p={4} bg="gray.50" borderRadius="md" whiteSpace="pre-line">
+                  {document.content}
+                </Box>
+              </Box>
+            </TabPanel>
+            
+            <TabPanel>
+              <Box p={4}>
+                <SecuritiesViewer documentId={id} />
+              </Box>
+            </TabPanel>
+            
+            <TabPanel>
+              <Box p={4}>
+                <Heading as="h3" size="md" mb={4}>Extracted Tables</Heading>
+                <Box p={4} bg="gray.50" borderRadius="md">
+                  <p>Tables extracted from this document will be displayed here.</p>
+                </Box>
+              </Box>
+            </TabPanel>
+            
+            <TabPanel>
+              <Box p={4}>
+                <Heading as="h3" size="md" mb={4}>Document Insights</Heading>
+                <Box p={4} bg="gray.50" borderRadius="md">
+                  <p>AI-generated insights about this document will be displayed here.</p>
+                </Box>
+              </Box>
+            </TabPanel>
+          </TabPanels>
+        </Tabs>
+      </Box>
       
       {/* Delete confirmation dialog */}
       {showDeleteConfirm && (

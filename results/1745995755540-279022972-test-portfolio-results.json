@@ -1,0 +1,53 @@
+{
+  "fileName": "1745995755540-279022972-test-portfolio.pdf",
+  "fileSize": 2386,
+  "processingOptions": {
+    "extractText": true,
+    "extractTables": true,
+    "extractMetadata": true,
+    "extractSecurities": true,
+    "useOcr": false
+  },
+  "text": "Portfolio Statement\nClient: John Doe\nAccount: 123456\nDate: 2023-12-31\nSecurities\nISIN\nName\nQuantity\nPrice\nValue\nCurrency\nUS0378331005\nApple Inc.\n100\n190.50\n19,050.00\nUSD\nUS5949181045\nMicrosoft Corp.\n50\n380.20\n19,010.00\nUSD\nUS88160R1014\nTesla Inc.\n25\n248.48\n6,212.00\nUSD\nAsset Allocation\nAsset Class\nAllocation\nValue\nStocks\n60%\n750,000.00\nBonds\n30%\n375,000.00\nCash\n10%\n125,000.00\n",
+  "pages": [
+    {
+      "page_number": 1,
+      "text": "Portfolio Statement\nClient: John Doe\nAccount: 123456\nDate: 2023-12-31\nSecurities\nISIN\nName\nQuantity\nPrice\nValue\nCurrency\nUS0378331005\nApple Inc.\n100\n190.50\n19,050.00\nUSD\nUS5949181045\nMicrosoft Corp.\n50\n380.20\n19,010.00\nUSD\nUS88160R1014\nTesla Inc.\n25\n248.48\n6,212.00\nUSD\n",
+      "width": 612,
+      "height": 792
+    },
+    {
+      "page_number": 2,
+      "text": "Asset Allocation\nAsset Class\nAllocation\nValue\nStocks\n60%\n750,000.00\nBonds\n30%\n375,000.00\nCash\n10%\n125,000.00\n",
+      "width": 612,
+      "height": 792
+    }
+  ],
+  "pageCount": 2,
+  "tables": [],
+  "tableCount": 0,
+  "extractionMethod": "deepseek",
+  "metadata": {
+    "format": "PDF 1.3",
+    "title": "",
+    "author": "",
+    "subject": "",
+    "keywords": "",
+    "creator": "PDFKit",
+    "producer": "PDFKit",
+    "creationDate": "D:20250430045556Z",
+    "modDate": "",
+    "trapped": "",
+    "encryption": null
+  },
+  "info": {
+    "page_count": 2,
+    "file_size": 2386,
+    "is_encrypted": false,
+    "permissions": -4
+  },
+  "formFields": [],
+  "links": [],
+  "securities": [],
+  "securitiesCount": 0
+}

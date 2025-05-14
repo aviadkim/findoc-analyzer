@@ -1,0 +1,15 @@
+{
+  "fileName": "non-standard-font.pdf",
+  "fileType": ".pdf",
+  "processingDate": "2025-04-29T09:39:33.954Z",
+  "text": "This text uses a non-standard font.",
+  "tables": [],
+  "metadata": {
+    "pageCount": 1,
+    "author": "Unknown",
+    "creationDate": "2025-04-29T09:39:35.849Z",
+    "creator": "Unknown",
+    "producer": "Unknown",
+    "processingMethod": "fallback"
+  }
+}

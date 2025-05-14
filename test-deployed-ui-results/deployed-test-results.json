@@ -1,0 +1,16 @@
+{
+  "passed": 2,
+  "failed": 7,
+  "total": 9,
+  "components": {
+    "Chat Input": true,
+    "Chat Send Button": true,
+    "Progress Container": false,
+    "Document List": false,
+    "Document Item": false,
+    "Document Actions": false,
+    "Agent Card": false,
+    "Agent Status Indicator": false,
+    "Agent Action Button": false
+  }
+}

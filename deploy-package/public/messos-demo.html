@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FinDoc Analyzer - Messos PDF Demo</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      margin: 0;
+      padding: 20px;
+      background-color: #f5f5f5;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      background-color: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    
+    h1, h2, h3 {
+      color: #8A2BE2;
+    }
+    
+    .upload-section {
+      margin-bottom: 30px;
+      padding: 20px;
+      background-color: #f9f9f9;
+      border-radius: 8px;
+    }
+    
+    .form-group {
+      margin-bottom: 15px;
+    }
+    
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+    
+    input[type="file"] {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      background-color: #fff;
+    }
+    
+    button {
+      background-color: #8A2BE2;
+      color: white;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+      margin-right: 10px;
+    }
+    
+    button:hover {
+      background-color: #7B1FA2;
+    }
+    
+    .status {
+      margin-top: 10px;
+      padding: 10px;
+      border-radius: 4px;
+    }
+    
+    .status.success {
+      background-color: #d4edda;
+      color: #155724;
+    }
+    
+    .status.error {
+      background-color: #f8d7da;
+      color: #721c24;
+    }
+    
+    .status.info {
+      background-color: #d1ecf1;
+      color: #0c5460;
+    }
+    
+    .chat-section {
+      margin-top: 30px;
+      padding: 20px;
+      background-color: #f9f9f9;
+      border-radius: 8px;
+    }
+    
+    .chat-messages {
+      max-height: 400px;
+      overflow-y: auto;
+      margin-bottom: 15px;
+      padding: 10px;
+      background-color: #fff;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+    }
+    
+    .message {
+      margin-bottom: 10px;
+      padding: 10px;
+      border-radius: 4px;
+    }
+    
+    .user-message {
+      background-color: #e6f7ff;
+      border-left: 4px solid #1890ff;
+    }
+    
+    .agent-message {
+      background-color: #f6ffed;
+      border-left: 4px solid #52c41a;
+    }
+    
+    .chat-input {
+      display: flex;
+    }
+    
+    .chat-input input {
+      flex: 1;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      margin-right: 10px;
+    }
+    
+    .agent-selector {
+      margin-bottom: 15px;
+    }
+    
+    .agent-selector select {
+      padding: 8px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      background-color: #fff;
+    }
+    
+    .loading {
+      text-align: center;
+      margin: 20px 0;
+    }
+    
+    .spinner {
+      border: 4px solid #f3f3f3;
+      border-top: 4px solid #8A2BE2;
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      animation: spin 2s linear infinite;
+      margin: 0 auto;
+    }
+    
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
+  <script src="/js/ui-chat-component.js"></script>
+</head>
+<body>
+  <div class="container">
+    <h1>FinDoc Analyzer - Messos PDF Demo</h1>
+    <p>This page demonstrates the agent system with the Messos PDF.</p>
+    
+    <div class="upload-section">
+      <h2>Upload Messos PDF</h2>
+      <form id="upload-form">
+        <div class="form-group">
+          <label for="pdf-file">Select PDF File:</label>
+          <input type="file" id="pdf-file" name="file" accept=".pdf" required>
+        </div>
+        <div class="form-group">
+          <label for="document-type">Document Type:</label>
+          <select id="document-type" name="documentType">
+            <option value="portfolio">Portfolio</option>
+            <option value="financial">Financial Report</option>
+            <option value="tax">Tax Document</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+        <button type="submit" id="upload-button">Upload</button>
+      </form>
+      <div id="upload-status" class="status"></div>
+    </div>
+    
+    <div id="document-section" style="display: none;">
+      <h2>Document Information</h2>
+      <div id="document-info"></div>
+      <button id="process-button">Process Document</button>
+      <div id="process-status" class="status"></div>
+    </div>
+    
+    <div id="chat-section" class="chat-section" style="display: none;">
+      <h2>Chat with Messos PDF</h2>
+      <div class="agent-selector">
+        <label for="agent-select">Select Agent:</label>
+        <select id="agent-select">
+          <option value="auto">Auto-select Agent</option>
+          <option value="documentAnalyzer">Document Analyzer</option>
+          <option value="tableUnderstanding">Table Understanding</option>
+          <option value="securitiesExtractor">Securities Extractor</option>
+          <option value="financialReasoner">Financial Reasoner</option>
+          <option value="bloombergAgent">Bloomberg Agent</option>
+        </select>
+      </div>
+      <div id="chat-messages" class="chat-messages"></div>
+      <div class="chat-input">
+        <input type="text" id="chat-input" placeholder="Ask a question about the Messos PDF...">
+        <button id="send-button">Send</button>
+      </div>
+    </div>
+  </div>
+  
+  <script>
+    // Global variables
+    let currentDocumentId = null;
+    
+    // Wait for DOM to be fully loaded
+    document.addEventListener('DOMContentLoaded', function() {
+      // Upload form
+      const uploadForm = document.getElementById('upload-form');
+      const uploadStatus = document.getElementById('upload-status');
+      
+      // Document section
+      const documentSection = document.getElementById('document-section');
+      const documentInfo = document.getElementById('document-info');
+      const processButton = document.getElementById('process-button');
+      const processStatus = document.getElementById('process-status');
+      
+      // Chat section
+      const chatSection = document.getElementById('chat-section');
+      const chatMessages = document.getElementById('chat-messages');
+      const chatInput = document.getElementById('chat-input');
+      const sendButton = document.getElementById('send-button');
+      const agentSelect = document.getElementById('agent-select');
+      
+      // Upload form submit handler
+      uploadForm.addEventListener('submit', function(event) {
+        event.preventDefault();
+        
+        const fileInput = document.getElementById('pdf-file');
+        const documentType = document.getElementById('document-type').value;
+        
+        if (!fileInput.files[0]) {
+          uploadStatus.textContent = 'Please select a file';
+          uploadStatus.className = 'status error';
+          return;
+        }
+        
+        const formData = new FormData();
+        formData.append('file', fileInput.files[0]);
+        formData.append('documentType', documentType);
+        
+        // Show loading
+        uploadStatus.innerHTML = '<div class="loading"><div class="spinner"></div><p>Uploading...</p></div>';
+        uploadStatus.className = 'status info';
+        
+        // Upload file
+        fetch('/api/upload', {
+          method: 'POST',
+          body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+          if (data.success) {
+            uploadStatus.textContent = 'File uploaded successfully';
+            uploadStatus.className = 'status success';
+            
+            // Store document ID
+            currentDocumentId = data.document.id;
+            
+            // Show document info
+            documentInfo.innerHTML = `
+              <p><strong>Document ID:</strong> ${data.document.id}</p>
+              <p><strong>File Name:</strong> ${data.document.fileName}</p>
+              <p><strong>File Size:</strong> ${formatFileSize(data.document.fileSize)}</p>
+              <p><strong>Document Type:</strong> ${data.document.documentType}</p>
+              <p><strong>Upload Date:</strong> ${new Date(data.document.uploadDate).toLocaleString()}</p>
+            `;
+            
+            // Show document section
+            documentSection.style.display = 'block';
+          } else {
+            uploadStatus.textContent = data.message || 'Error uploading file';
+            uploadStatus.className = 'status error';
+          }
+        })
+        .catch(error => {
+          uploadStatus.textContent = 'Error uploading file: ' + error.message;
+          uploadStatus.className = 'status error';
+        });
+      });
+      
+      // Process button click handler
+      processButton.addEventListener('click', function() {
+        if (!currentDocumentId) {
+          processStatus.textContent = 'No document selected';
+          processStatus.className = 'status error';
+          return;
+        }
+        
+        // Show loading
+        processStatus.innerHTML = '<div class="loading"><div class="spinner"></div><p>Processing...</p></div>';
+        processStatus.className = 'status info';
+        
+        // Process document
+        fetch('/api/messos/process', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            documentId: currentDocumentId
+          })
+        })
+        .then(response => response.json())
+        .then(data => {
+          if (data.success) {
+            processStatus.textContent = 'Document processing started';
+            processStatus.className = 'status success';
+            
+            // Check processing status after a delay
+            setTimeout(checkProcessingStatus, 2000);
+          } else {
+            processStatus.textContent = data.message || 'Error processing document';
+            processStatus.className = 'status error';
+          }
+        })
+        .catch(error => {
+          processStatus.textContent = 'Error processing document: ' + error.message;
+          processStatus.className = 'status error';
+        });
+      });
+      
+      // Check processing status
+      function checkProcessingStatus() {
+        fetch(`/api/messos/status/${currentDocumentId}`)
+        .then(response => response.json())
+        .then(data => {
+          if (data.success) {
+            if (data.status === 'completed') {
+              processStatus.textContent = 'Document processing completed';
+              processStatus.className = 'status success';
+              
+              // Show chat section
+              chatSection.style.display = 'block';
+              
+              // Add welcome message
+              addMessage('Welcome to the Messos PDF chat! You can ask questions about the portfolio.', 'agent');
+            } else {
+              processStatus.textContent = 'Document processing in progress...';
+              processStatus.className = 'status info';
+              
+              // Check again after a delay
+              setTimeout(checkProcessingStatus, 2000);
+            }
+          } else {
+            processStatus.textContent = data.message || 'Error checking processing status';
+            processStatus.className = 'status error';
+          }
+        })
+        .catch(error => {
+          processStatus.textContent = 'Error checking processing status: ' + error.message;
+          processStatus.className = 'status error';
+        });
+      }
+      
+      // Send button click handler
+      sendButton.addEventListener('click', sendMessage);
+      
+      // Chat input keypress handler
+      chatInput.addEventListener('keypress', function(event) {
+        if (event.key === 'Enter') {
+          sendMessage();
+        }
+      });
+      
+      // Send message
+      function sendMessage() {
+        const message = chatInput.value.trim();
+        
+        if (!message) {
+          return;
+        }
+        
+        // Add user message
+        addMessage(message, 'user');
+        
+        // Clear input
+        chatInput.value = '';
+        
+        // Get selected agent
+        const agent = agentSelect.value;
+        
+        // Show loading
+        addMessage('<div class="loading"><div class="spinner"></div></div>', 'agent');
+        
+        // Send message to server
+        fetch('/api/messos/chat', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            documentId: currentDocumentId,
+            message: message,
+            agent: agent
+          })
+        })
+        .then(response => response.json())
+        .then(data => {
+          // Remove loading message
+          chatMessages.removeChild(chatMessages.lastChild);
+          
+          if (data.success) {
+            // Add agent message
+            addMessage(`<strong>${getAgentName(data.agent)}:</strong> ${data.response}`, 'agent');
+          } else {
+            // Add error message
+            addMessage('Error: ' + (data.message || 'Failed to get response'), 'agent');
+          }
+        })
+        .catch(error => {
+          // Remove loading message
+          chatMessages.removeChild(chatMessages.lastChild);
+          
+          // Add error message
+          addMessage('Error: ' + error.message, 'agent');
+        });
+      }
+      
+      // Add message to chat
+      function addMessage(message, type) {
+        const messageElement = document.createElement('div');
+        messageElement.className = `message ${type}-message`;
+        messageElement.innerHTML = message;
+        
+        chatMessages.appendChild(messageElement);
+        
+        // Scroll to bottom
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+      }
+      
+      // Format file size
+      function formatFileSize(bytes) {
+        if (bytes < 1024) {
+          return bytes + ' bytes';
+        } else if (bytes < 1024 * 1024) {
+          return (bytes / 1024).toFixed(2) + ' KB';
+        } else {
+          return (bytes / (1024 * 1024)).toFixed(2) + ' MB';
+        }
+      }
+      
+      // Get agent name
+      function getAgentName(agent) {
+        switch (agent) {
+          case 'documentAnalyzer':
+            return 'Document Analyzer';
+          case 'tableUnderstanding':
+            return 'Table Understanding';
+          case 'securitiesExtractor':
+            return 'Securities Extractor';
+          case 'financialReasoner':
+            return 'Financial Reasoner';
+          case 'bloombergAgent':
+            return 'Bloomberg Agent';
+          default:
+            return 'Agent';
+        }
+      }
+    });
+  </script>
+</body>
+</html>

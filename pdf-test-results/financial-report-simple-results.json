@@ -1,0 +1,59 @@
+{
+  "filename": "financial-report.pdf",
+  "timestamp": "2025-05-12T11:52:51.975Z",
+  "textLength": 0,
+  "tableCount": 0,
+  "entityCount": 18,
+  "entityTypes": {
+    "company": 6,
+    "security": 4,
+    "financialMetric": 2,
+    "currency": 2,
+    "isin": 4
+  },
+  "metadata": {
+    "title": "financial-report.pdf",
+    "author": "Unknown",
+    "pages": 0,
+    "creationDate": "",
+    "modificationDate": ""
+  },
+  "sampleText": "",
+  "sampleEntities": [
+    {
+      "type": "company",
+      "name": "Q2 2025\n\n      Performance Summary for Apple",
+      "confidence": 0.95,
+      "ticker": "TICKER",
+      "source": "https://example.com/company/performance-summary"
+    },
+    {
+      "type": "company",
+      "name": "Microsoft",
+      "confidence": 0.95,
+      "ticker": "TICKER",
+      "source": "https://example.com/company/microsoft"
+    },
+    {
+      "type": "company",
+      "name": "Amazon.com",
+      "confidence": 0.95,
+      "ticker": "TICKER",
+      "source": "https://example.com/company/amazon"
+    },
+    {
+      "type": "company",
+      "name": "Tesla",
+      "confidence": 0.95,
+      "ticker": "TICKER",
+      "source": "https://example.com/company/tesla"
+    },
+    {
+      "type": "company",
+      "name": "Apple",
+      "confidence": 0.95,
+      "ticker": "TICKER",
+      "source": "https://example.com/company/apple"
+    }
+  ]
+}

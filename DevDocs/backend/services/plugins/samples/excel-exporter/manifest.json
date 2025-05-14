@@ -1,0 +1,22 @@
+{
+  "name": "excel-exporter",
+  "version": "1.0.0",
+  "description": "Export financial data to Excel format",
+  "main": "plugin.js",
+  "author": "FinDoc Team",
+  "license": "MIT",
+  "engines": {
+    "finDocAnalyzer": ">=1.0.0"
+  },
+  "permissions": [
+    "core",
+    "fs_read",
+    "fs_write",
+    "data_read"
+  ],
+  "extensionPoints": [
+    "dataExporter"
+  ],
+  "dependencies": {},
+  "repository": "https://github.com/findoc/excel-exporter-plugin"
+}

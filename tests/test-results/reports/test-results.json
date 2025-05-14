@@ -1,0 +1,16 @@
+{
+  "testResults": {
+    "startTime": "2025-05-08T21:45:38.817Z",
+    "endTime": "2025-05-08T21:45:42.925Z",
+    "duration": 4108,
+    "tests": [],
+    "issues": [],
+    "summary": {
+      "total": 0,
+      "passed": 0,
+      "failed": 0,
+      "skipped": 0
+    }
+  },
+  "recommendations": []
+}

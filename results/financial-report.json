@@ -1,0 +1,15 @@
+{
+  "fileName": "financial-report.pdf",
+  "fileType": ".pdf",
+  "processingDate": "2025-04-29T09:39:28.684Z",
+  "text": "\nFinancial Report 2023\n\nCompany: ABC Corporation\nDate: December 31, 2023\n\nExecutive Summary\n\nThis financial report presents the financial performance of ABC Corporation for the fiscal year 2023.\n\nFinancial Highlights:\n- Total Revenue: $10,500,000\n- Operating Expenses: $7,200,000\n- Net Profit: $3,300,000\n- Profit Margin: 31.4%\n\nBalance Sheet Summary:\n- Total Assets: $25,000,000\n- Total Liabilities: $12,000,000\n- Shareholders' Equity: $13,000,000\n",
+  "tables": [],
+  "metadata": {
+    "pageCount": 1,
+    "author": "Unknown",
+    "creationDate": "2025-04-29T09:39:30.563Z",
+    "creator": "Unknown",
+    "producer": "Unknown",
+    "processingMethod": "fallback"
+  }
+}

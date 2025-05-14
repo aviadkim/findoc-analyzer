@@ -3,9 +3,35 @@ env: standard
 instance_class: F2
 
 handlers:
-  # Serve static files
+  # Serve static files from /css
+  - url: /css
+    static_dir: public/css
+    secure: always
+
+  # Serve static files from /js
+  - url: /js
+    static_dir: public/js
+    secure: always
+
+  # Serve static files from /images
+  - url: /images
+    static_dir: public/images
+    secure: always
+
+  # Serve static files from /static
   - url: /static
     static_dir: public
+    secure: always
+
+  # Serve static files from /public
+  - url: /public
+    static_dir: public
+    secure: always
+
+  # Serve static files from root
+  - url: /(.*\.(js|css|png|jpg|jpeg|gif|ico|json))$
+    static_files: public/\1
+    upload: public/.*\.(js|css|png|jpg|jpeg|gif|ico|json)$
     secure: always
 
   # Serve all other requests with the app
@@ -15,11 +41,22 @@ handlers:
 
 env_variables:
   NODE_ENV: "production"
-  API_URL: "https://findoc-deploy.ey.r.appspot.com"
+  API_URL: "https://backv2-app-brfi73d4ra-zf.a.run.app"
   PORT: "8080"
   UPLOAD_FOLDER: "/tmp/uploads"
   TEMP_FOLDER: "/tmp/temp"
   RESULTS_FOLDER: "/tmp/results"
+  SUPABASE_URL: "https://dnjnsotemnfrjlotgved.supabase.co"
+  USE_MOCK_API: "false"
+  PYTHONPATH: "/usr/local/lib/python3/site-packages"
+  STORAGE_BUCKET: "backv2-documents"
+  ENABLE_UPLOAD_FORM: "true"
+  ENABLE_CHAT_INTERFACE: "true"
+  ENABLE_ANALYTICS: "true"
+  ENABLE_EXPORT: "true"
+
+includes:
+  - secret.yaml
 
 automatic_scaling:
   min_instances: 1

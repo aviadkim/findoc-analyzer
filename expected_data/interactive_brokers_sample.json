@@ -1,0 +1,66 @@
+{
+  "document_type": "interactive_brokers",
+  "currency": "USD",
+  "securities": [
+    {
+      "ticker": "AAPL",
+      "isin": "US0378331005",
+      "description": "APPLE INC",
+      "nominal": 100,
+      "price": 142.56,
+      "value": 14256.00,
+      "currency": "USD",
+      "type": "equity"
+    },
+    {
+      "ticker": "MSFT",
+      "isin": "US5949181045",
+      "description": "MICROSOFT CORP",
+      "nominal": 50,
+      "price": 258.35,
+      "value": 12917.50,
+      "currency": "USD",
+      "type": "equity"
+    },
+    {
+      "ticker": "AMZN",
+      "isin": "US0231351067",
+      "description": "AMAZON.COM INC",
+      "nominal": 25,
+      "price": 130.36,
+      "value": 3259.00,
+      "currency": "USD",
+      "type": "equity"
+    },
+    {
+      "ticker": "TSLA",
+      "isin": "US88160R1014",
+      "description": "TESLA INC",
+      "nominal": 30,
+      "price": 196.81,
+      "value": 5904.30,
+      "currency": "USD",
+      "type": "equity"
+    },
+    {
+      "ticker": "NVDA",
+      "isin": "US67066G1040",
+      "description": "NVIDIA CORP",
+      "nominal": 40,
+      "price": 229.36,
+      "value": 9174.40,
+      "currency": "USD",
+      "type": "equity"
+    },
+    {
+      "ticker": "BND",
+      "isin": "US9219378356",
+      "description": "VANGUARD TOTAL BOND MARKET ETF",
+      "nominal": 75,
+      "price": 72.65,
+      "value": 5448.75,
+      "currency": "USD",
+      "type": "etf"
+    }
+  ]
+}

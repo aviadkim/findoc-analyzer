@@ -17,8 +17,8 @@
       color: #2c3e50;
     }
     .summary {
-      background-color: #fff3cd;
-      color: #856404;
+      background-color: #f8d7da;
+      color: #721c24;
       padding: 15px;
       border-radius: 5px;
       margin-bottom: 20px;
@@ -159,8 +159,8 @@
     .progress {
       height: 20px;
       border-radius: 5px;
-      background-color: #ffc107;
-      width: 67%;
+      background-color: #dc3545;
+      width: 50%;
       text-align: center;
       line-height: 20px;
       color: white;
@@ -173,121 +173,100 @@
   <div class="summary">
     <h2>Summary</h2>
     <div class="progress-bar">
-      <div class="progress">67%</div>
+      <div class="progress">50%</div>
     </div>
-    <p><strong>2</strong> of <strong>3</strong> tests passed</p>
+    <p><strong>2</strong> of <strong>4</strong> tests passed</p>
     <p><strong>0</strong> network errors detected</p>
-    <p><strong>2</strong> JavaScript errors detected</p>
+    <p><strong>1</strong> JavaScript errors detected</p>
   </div>
 
   <h2>Test Results</h2>
 
   
-    <div class="test-result passed">
-      <h3>Upload Financial PDF <span class="badge passed">passed</span></h3>
-      <p>Duration: 37809ms</p>
-
-      
-
-      
-
-      
-
-      
-        <button class="collapsible">Console Messages (6)</button>
-        <div class="content">
-          <div class="console">
-            
-              <div class="console-info">
-                [2025-04-28T19:43:09.394Z] [log] Initializing mock API...
-              </div>
-            
-              <div class="console-info">
-                [2025-04-28T19:43:09.395Z] [log] Mock API initialized
-              </div>
-            
-              <div class="console-info">
-                [2025-04-28T19:43:37.834Z] [log] Initializing mock API...
-              </div>
-            
-              <div class="console-info">
-                [2025-04-28T19:43:37.835Z] [log] Mock API initialized
-              </div>
-            
-              <div class="console-info">
-                [2025-04-28T19:43:37.836Z] [log] Mock API call: /api/documents/doc-1745869415251
-              </div>
-            
-              <div class="console-error">
-                [2025-04-28T19:43:37.838Z] [error] Error loading document details: JSHandle@error
-              </div>
-            
-          </div>
-        </div>
-      
-
-      
-    </div>
-  
     <div class="test-result failed">
-      <h3>Check Processing Results <span class="badge failed">failed</span></h3>
-      <p>Duration: 3723ms</p>
+      <h3>Upload Page Loads <span class="badge failed">failed</span></h3>
+      <p>Duration: 4081ms</p>
 
       
         <button class="collapsible">Error Details</button>
         <div class="content">
-          <div class="error">No document cards found on documents page
-Error: No document cards found on documents page
-    at C:\Users\aviad\OneDrive\Desktop\backv2-main\processing-test.js:237:15
+          <div class="error">Upload area not found on upload page
+Error: Upload area not found on upload page
+    at C:\Users\aviad\OneDrive\Desktop\backv2-main\upload-test.js:103:15
     at async MicroTestRunner.runTest (C:\Users\aviad\OneDrive\Desktop\backv2-main\micro-test-framework.js:141:7)
-    at async runProcessingTest (C:\Users\aviad\OneDrive\Desktop\backv2-main\processing-test.js:221:5)
-    at async runAllTests (C:\Users\aviad\OneDrive\Desktop\backv2-main\run-findoc-tests.js:83:36)</div>
-        </div>
-      
-
-      
-        <button class="collapsible">JavaScript Errors (1)</button>
-        <div class="content">
-          
-            <div class="error">Identifier 'mockDocuments' has already been declared
-SyntaxError: Identifier 'mockDocuments' has already been declared</div>
-          
+    at async runUploadTest (C:\Users\aviad\OneDrive\Desktop\backv2-main\upload-test.js:91:5)</div>
         </div>
       
 
       
 
       
-        <button class="collapsible">Console Messages (2)</button>
-        <div class="content">
-          <div class="console">
-            
-              <div class="console-info">
-                [2025-04-28T19:43:47.120Z] [log] Initializing mock API...
-              </div>
-            
-              <div class="console-info">
-                [2025-04-28T19:43:47.120Z] [log] Mock API initialized
-              </div>
-            
-          </div>
-        </div>
+
       
 
       
         <button class="collapsible">Screenshots (1)</button>
         <div class="content">
           
-            <h4>Check-Processing-Results-failure.png</h4>
-            <img src="Check-Processing-Results-failure.png" alt="Check-Processing-Results-failure.png" class="screenshot">
+            <h4>Upload-Page-Loads-failure.png</h4>
+            <img src="Upload-Page-Loads-failure.png" alt="Upload-Page-Loads-failure.png" class="screenshot">
           
         </div>
       
     </div>
   
     <div class="test-result passed">
-      <h3>Test Q&A Functionality <span class="badge passed">passed</span></h3>
-      <p>Duration: 3019ms</p>
+      <h3>Upload Options <span class="badge passed">passed</span></h3>
+      <p>Duration: 3702ms</p>
+
+      
+
+      
+
+      
+
+      
+
+      
+    </div>
+  
+    <div class="test-result failed">
+      <h3>Upload File <span class="badge failed">failed</span></h3>
+      <p>Duration: 44847ms</p>
+
+      
+        <button class="collapsible">Error Details</button>
+        <div class="content">
+          <div class="error">Waiting for selector `.error, .alert-danger, .text-danger` failed: Waiting failed: 30000ms exceeded
+TimeoutError: Waiting for selector `.error, .alert-danger, .text-danger` failed: Waiting failed: 30000ms exceeded
+    at new WaitTask (C:\Users\aviad\OneDrive\Desktop\backv2-main\node_modules\puppeteer-core\lib\cjs\puppeteer\common\WaitTask.js:48:34)
+    at IsolatedWorld.waitForFunction (C:\Users\aviad\OneDrive\Desktop\backv2-main\node_modules\puppeteer-core\lib\cjs\puppeteer\api\Realm.js:25:26)
+    at CSSQueryHandler.waitFor (C:\Users\aviad\OneDrive\Desktop\backv2-main\node_modules\puppeteer-core\lib\cjs\puppeteer\common\QueryHandler.js:178:95)
+    at async CdpFrame.waitForSelector (C:\Users\aviad\OneDrive\Desktop\backv2-main\node_modules\puppeteer-core\lib\cjs\puppeteer\api\Frame.js:548:21)
+    at async CdpPage.waitForSelector (C:\Users\aviad\OneDrive\Desktop\backv2-main\node_modules\puppeteer-core\lib\cjs\puppeteer\api\Page.js:1378:20)</div>
+        </div>
+      
+
+      
+
+      
+
+      
+
+      
+        <button class="collapsible">Screenshots (1)</button>
+        <div class="content">
+          
+            <h4>Upload-File-failure.png</h4>
+            <img src="Upload-File-failure.png" alt="Upload-File-failure.png" class="screenshot">
+          
+        </div>
+      
+    </div>
+  
+    <div class="test-result passed">
+      <h3>Check Upload Result <span class="badge passed">passed</span></h3>
+      <p>Duration: 19104ms</p>
 
       
 
@@ -304,16 +283,24 @@ SyntaxError: Identifier 'mockDocuments' has already been declared</div>
       
 
       
-        <button class="collapsible">Console Messages (2)</button>
+        <button class="collapsible">Console Messages (4)</button>
         <div class="content">
           <div class="console">
             
               <div class="console-info">
-                [2025-04-28T19:43:50.851Z] [log] Initializing mock API...
+                [2025-04-30T23:57:03.989Z] [log] Initializing mock API...
               </div>
             
               <div class="console-info">
-                [2025-04-28T19:43:50.851Z] [log] Mock API initialized
+                [2025-04-30T23:57:03.989Z] [log] Mock API initialized
+              </div>
+            
+              <div class="console-info">
+                [2025-04-30T23:57:03.990Z] [log] Current path: /documents-new
+              </div>
+            
+              <div class="console-info">
+                [2025-04-30T23:57:03.990Z] [log] Active link set to: /documents-new
               </div>
             
           </div>

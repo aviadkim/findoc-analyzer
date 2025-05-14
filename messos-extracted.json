@@ -1,0 +1,5020 @@
+{
+  "text": "\n\neuioaeuioa\nValuation\nas of 28.02.2025\nSwift CBLUCH2280A // Clearing 8490 // CHE-105.962.409 IVA\nTel. +41 44 218 10 20 // Fax +41 44218 1029 // info@corner.ch // corner.ch\nCornèr Banca SA\n// Töd istrasse27 // Postfach 16 40 // 8027 Zürich_Switzerland // Hauptsitz Via Canova 16, 6901 Lugano_Switzerland\nMESSOS ENTERPRISES LTD.\n366223\nClient Number //\nUSD\nValuation currency //\nUndefined\nInvestment profile //\nMedium-high\nRisk Profile //\n\nIndex\nMESSOS ENTERPRISES LTD.\nValuation as of 28.02.2025\nClient Number 366223\naeouiAEOUIaeouiAEOUI\nPrint date 01.03.2025 // Page I\nSwift CBLUCH2280A // Clearing 8490 // CHE-105.962.409 IVA\nTel. +41 44 218 10 20 // Fax +41 44218 1029 // info@corner.ch // corner.ch\nCornèr Banca SA\n// Töd istrasse27 // Postfach 16 40 // 8027 Zürich_Switzerland // Hauptsitz Via Canova 16, 6901 Lugano_Switzerland\n1Summary\n2Asset Allocation\n2Assets and Liabilities Structure\n3Currency allocation\n4Performance Overview/Evolution\n5Asset Listing\n5Liquidity and liabilities\n6Bonds\n10E...",
+  "tableCount": 2,
+  "financialData": {
+    "portfolioInfo": {
+      "title": "Valuation\nas of 28.02.2025",
+      "date": "28.02.2025",
+      "totalValue": 19,
+      "currency": "ves",
+      "owner": "Number 366223\naeouiAEOUIaeouiAEOUI",
+      "manager": "will be happy to answer any questions you may have about the terms and positions set forth in the present statement.",
+      "accountNumber": "s47",
+      "custodian": "",
+      "benchmark": "MESSOS ENTERPRISES LTD.\nValuation as of 28.02.2025\nClient Number 366223\naeouiAEOUIaeouiAEOUI",
+      "strategy": ""
+    },
+    "assetAllocation": {
+      "categories": [
+        {
+          "name": "Liquidity47'8500.2",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Bonds11'558'95759.",
+          "percentage": 4,
+          "value": null
+        },
+        {
+          "name": "Equities27'4060.14",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Mixed funds",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Structured product",
+          "percentage": 7,
+          "value": null
+        },
+        {
+          "name": "Precious metals",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Real Estate",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Other assets26'129",
+          "percentage": 0.13,
+          "value": null
+        },
+        {
+          "name": "Thereof ac crued i",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "IncomeCountervalue",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Collected69'055",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Accruals309'516",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "CurrenciesValueExc",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "USD19'483'19399.86",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "CHF24'7201.10860.9",
+          "percentage": 2027,
+          "value": null
+        },
+        {
+          "name": "Print date 01.03.2",
+          "percentage": 25,
+          "value": null
+        },
+        {
+          "name": "Assets and Liabili",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "MESSOS ENTERPRISES",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Valuation as of 28",
+          "percentage": 2.2025,
+          "value": null
+        },
+        {
+          "name": "Client Number 3662",
+          "percentage": 3,
+          "value": null
+        },
+        {
+          "name": "aeouiAEOUIaeouiAEO",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Swift CBLUCH2280A",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Tel. +41 44 218 10",
+          "percentage": 20,
+          "value": null
+        },
+        {
+          "name": "Cornèr Banca SA",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "// Töd istrasse27",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Asset AllocationCo",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Liquidity47'8500.2",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Cash accounts47'85",
+          "percentage": 0.25,
+          "value": null
+        },
+        {
+          "name": "Money Market",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Fixed deposits and",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Bonds11'558'95759.",
+          "percentage": 4,
+          "value": null
+        },
+        {
+          "name": "Bonds10'211'44252.",
+          "percentage": 4,
+          "value": null
+        },
+        {
+          "name": "Bond funds / certi",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Convertibles",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Equities27'4060.14",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Equities27'4060.14",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Equity funds/certi",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Mixed funds",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Structured product",
+          "percentage": 7,
+          "value": null
+        },
+        {
+          "name": "Structured product",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Structured product",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Various Certificat",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Metal accounts and",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Met al  accounts",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Precious metals",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Real Estate",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Other assets26'129",
+          "percentage": 0.13,
+          "value": null
+        },
+        {
+          "name": "Hedge Funds & Priv",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Alternative UCITS",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Commodity funds",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Options",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Liabilities and ob",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Liabilities",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Cash accounts",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Fixed advance",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Profit & loss",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "FRA / IRS",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Futures",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Fx Forwards",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Print date 01.03.2",
+          "percentage": 25,
+          "value": null
+        },
+        {
+          "name": "Currency allocatio",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "MESSOS ENTERPRISES",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Valuation as of 28",
+          "percentage": 2.2025,
+          "value": null
+        },
+        {
+          "name": "Client Number 3662",
+          "percentage": 3,
+          "value": null
+        },
+        {
+          "name": "aeouiAEOUIaeouiAEO",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Swift CBLUCH2280A",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Tel. +41 44 218 10",
+          "percentage": 20,
+          "value": null
+        },
+        {
+          "name": "Cornèr Banca SA",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "// Töd istrasse27",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Asset AllocationCo",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Liquidity47'8500.2",
+          "percentage": 0.25,
+          "value": null
+        },
+        {
+          "name": "Cash accounts47'85",
+          "percentage": 0.25,
+          "value": null
+        },
+        {
+          "name": "Money Market",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Fixed deposits and",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Bonds11'558'95759.",
+          "percentage": 459.24,
+          "value": null
+        },
+        {
+          "name": "Bonds10'211'44252.",
+          "percentage": 452.34,
+          "value": null
+        },
+        {
+          "name": "Bond funds / certi",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Convertibles",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Equities27'4060.14",
+          "percentage": 0.14,
+          "value": null
+        },
+        {
+          "name": "Equities27'4060.14",
+          "percentage": 0.14,
+          "value": null
+        },
+        {
+          "name": "Equity funds/certi",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Mixed funds",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Structured product",
+          "percentage": 7,
+          "value": null
+        },
+        {
+          "name": "Structured product",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Structured product",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Various Certificat",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Metal accounts and",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Met al  accounts",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Precious metals",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Real Estate",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Other assets26'129",
+          "percentage": 0.13,
+          "value": null
+        },
+        {
+          "name": "Hedge Funds & Priv",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Alternative UCITS",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Commodity funds",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Options",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Print date 01.03.2",
+          "percentage": 25,
+          "value": null
+        },
+        {
+          "name": "Performance Overvi",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "MESSOS ENTERPRISES",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Valuation as of 28",
+          "percentage": 2.2025,
+          "value": null
+        },
+        {
+          "name": "Client Number 3662",
+          "percentage": 3,
+          "value": null
+        },
+        {
+          "name": "aeouiAEOUIaeouiAEO",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Swift CBLUCH2280A",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Tel. +41 44 218 10",
+          "percentage": 20,
+          "value": null
+        },
+        {
+          "name": "Cornèr Banca SA",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "// Töd istrasse27",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "in %USDEvaluation",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "19'172'732Val ue a",
+          "percentage": null,
+          "value": 19
+        },
+        {
+          "name": "19'510'599Value as",
+          "percentage": null,
+          "value": 19
+        },
+        {
+          "name": "0Inflows/Outflows",
+          "percentage": null,
+          "value": 0
+        },
+        {
+          "name": "0Money In",
+          "percentage": null,
+          "value": 0
+        },
+        {
+          "name": "0Money Out",
+          "percentage": null,
+          "value": 0
+        },
+        {
+          "name": "0Security In",
+          "percentage": null,
+          "value": 0
+        },
+        {
+          "name": "0Security Out",
+          "percentage": null,
+          "value": 0
+        },
+        {
+          "name": "1.76%337'865Perfor",
+          "percentage": null,
+          "value": 1.76
+        },
+        {
+          "name": "0.00%74Contributio",
+          "percentage": null,
+          "value": 0
+        },
+        {
+          "name": "1.76%337'791In Loc",
+          "percentage": null,
+          "value": 1.76
+        },
+        {
+          "name": "0.36%69'055Thereof",
+          "percentage": null,
+          "value": 0.36
+        },
+        {
+          "name": "Performance 2024",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "0.00%",
+          "percentage": null,
+          "value": 0
+        },
+        {
+          "name": "2.00%",
+          "percentage": null,
+          "value": 2
+        },
+        {
+          "name": "4.00%",
+          "percentage": null,
+          "value": 4
+        },
+        {
+          "name": "6.00%",
+          "percentage": null,
+          "value": 6
+        },
+        {
+          "name": "8.00%",
+          "percentage": null,
+          "value": 8
+        },
+        {
+          "name": "-2.00%",
+          "percentage": null,
+          "value": -2
+        },
+        {
+          "name": "01/202402/202403/2",
+          "percentage": 2404,
+          "value": 1
+        },
+        {
+          "name": "11/2024",
+          "percentage": null,
+          "value": 11
+        },
+        {
+          "name": "12/2024",
+          "percentage": null,
+          "value": 12
+        },
+        {
+          "name": "5.56%",
+          "percentage": null,
+          "value": 5.56
+        },
+        {
+          "name": "Performance 2025",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "0.00%",
+          "percentage": null,
+          "value": 0
+        },
+        {
+          "name": "2.00%",
+          "percentage": null,
+          "value": 2
+        },
+        {
+          "name": "4.00%",
+          "percentage": null,
+          "value": 4
+        },
+        {
+          "name": "6.00%",
+          "percentage": null,
+          "value": 6
+        },
+        {
+          "name": "8.00%",
+          "percentage": null,
+          "value": 8
+        },
+        {
+          "name": "-2.00%",
+          "percentage": null,
+          "value": -2
+        },
+        {
+          "name": "01/202502/202503/2",
+          "percentage": 2504,
+          "value": 1
+        },
+        {
+          "name": "11/2025",
+          "percentage": null,
+          "value": 11
+        },
+        {
+          "name": "12/2025",
+          "percentage": null,
+          "value": 12
+        },
+        {
+          "name": "1.76%",
+          "percentage": null,
+          "value": 1.76
+        },
+        {
+          "name": "Print date 01.03.2",
+          "percentage": 25,
+          "value": null
+        },
+        {
+          "name": "Liquidity and liab",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "MESSOS ENTERPRISES",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Valuation as of 28",
+          "percentage": 2.2025,
+          "value": null
+        },
+        {
+          "name": "Client Number 3662",
+          "percentage": 3,
+          "value": null
+        },
+        {
+          "name": "aeouiAEOUIaeouiAEO",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Swift CBLUCH2280A",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Tel. +41 44 218 10",
+          "percentage": 20,
+          "value": null
+        },
+        {
+          "name": "Cornèr Banca SA",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "// Töd istrasse27",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Currency",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "in %",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "of assets",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Perf Market",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Perf Currency",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Valuation in price",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Thereof accruals",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Countervalue USD",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Actual Price",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Actual Ex. Rate",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Price Date",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Average Acquisitio",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Average Acquisitio",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "DescriptionPerf YT",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Nominal/",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Quantity",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Cash accounts cred",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "USD47'849.640.25%",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Cash Accounts  //",
+          "percentage": 366223,
+          "value": null
+        },
+        {
+          "name": "IBAN: CH1908490000",
+          "percentage": 66223002,
+          "value": null
+        },
+        {
+          "name": "PRC: 1.00",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "47'850",
+          "percentage": null,
+          "value": 47
+        },
+        {
+          "name": "ORDINARY USD",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "thereof Cas h ac c",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Print date 01.03.2",
+          "percentage": 25,
+          "value": null
+        },
+        {
+          "name": "Bonds",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "MESSOS ENTERPRISES",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Valuation as of 28",
+          "percentage": 2.2025,
+          "value": null
+        },
+        {
+          "name": "Client Number 3662",
+          "percentage": 3,
+          "value": null
+        },
+        {
+          "name": "aeouiAEOUIaeouiAEO",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Swift CBLUCH2280A",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Tel. +41 44 218 10",
+          "percentage": 20,
+          "value": null
+        },
+        {
+          "name": "Cornèr Banca SA",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "// Töd istrasse27",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Currency",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "in %",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "of assets",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Perf Market",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Perf Currency",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Valuation in price",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Thereof accruals",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Countervalue USD",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Actual Price",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Actual Ex. Rate",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Price Date",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Average Acquisitio",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Average Acquisitio",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "DescriptionPerf YT",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Nominal/",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Quantity",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Bonds, Bond funds,",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "USD200'000",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "0.36%",
+          "percentage": null,
+          "value": 0.36
+        },
+        {
+          "name": "1.02%",
+          "percentage": null,
+          "value": 1.02
+        },
+        {
+          "name": "ISIN: XS2530201644",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Ordinary Bonds  //",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Coupon: 23.5  //",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Moody's: A2  //  P",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "100.200099.3080198",
+          "percentage": 745,
+          "value": 100.200099
+        },
+        {
+          "name": "-0.89%",
+          "percentage": null,
+          "value": -0.89
+        },
+        {
+          "name": "28.02.2025",
+          "percentage": null,
+          "value": 28.02
+        },
+        {
+          "name": "129",
+          "percentage": null,
+          "value": 129
+        },
+        {
+          "name": "TORONTO DOMINION B",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "USD200'000",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "0.34%",
+          "percentage": null,
+          "value": 0.34
+        },
+        {
+          "name": "1.02%",
+          "percentage": null,
+          "value": 1.02
+        },
+        {
+          "name": "VRN",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "100.200099.5002199",
+          "percentage": 172,
+          "value": 100.200099
+        },
+        {
+          "name": "-0.70%",
+          "percentage": null,
+          "value": -0.7
+        },
+        {
+          "name": "27.02.2025",
+          "percentage": null,
+          "value": 27.02
+        },
+        {
+          "name": "172",
+          "percentage": null,
+          "value": 172
+        },
+        {
+          "name": "CANADIAN IMPERIAL",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "ISIN: XS2588105036",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Ordinary Bonds  //",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Coupon: 23.2  //",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "PRC: 4.00",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "USD1'500'000",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "1.51%",
+          "percentage": null,
+          "value": 1.51
+        },
+        {
+          "name": "7.70%",
+          "percentage": null,
+          "value": 7.7
+        },
+        {
+          "name": "SE.195",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "99.099098.39001'50",
+          "percentage": null,
+          "value": 99.099098
+        },
+        {
+          "name": "-0.72%",
+          "percentage": null,
+          "value": -0.72
+        },
+        {
+          "name": "28.02.2025",
+          "percentage": null,
+          "value": 28.02
+        },
+        {
+          "name": "27'000",
+          "percentage": null,
+          "value": 27
+        },
+        {
+          "name": "HARP ISSUER (4% MI",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "ISIN: XS2665592833",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Ordinary Bonds  //",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Coupon: 18.9  //",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "PRC: 4.00",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "USD690'000",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "1.92%",
+          "percentage": null,
+          "value": 1.92
+        },
+        {
+          "name": "3.77%",
+          "percentage": null,
+          "value": 3.77
+        },
+        {
+          "name": "ISIN: XS2692298537",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Ordinary Bonds  //",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "YTM: -1.35  //  PR",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "100.1000106.570073",
+          "percentage": null,
+          "value": 100.1000106
+        },
+        {
+          "name": "6.46%",
+          "percentage": null,
+          "value": 6.46
+        },
+        {
+          "name": "28.02.2025",
+          "percentage": null,
+          "value": 28.02
+        },
+        {
+          "name": "GOLDMAN SACHS 0% N",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "USD100'000",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "1.70%",
+          "percentage": null,
+          "value": 1.7
+        },
+        {
+          "name": "0.50%",
+          "percentage": null,
+          "value": 0.5
+        },
+        {
+          "name": "ISIN: XS2754416860",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Ordinary Bonds  //",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Coupon: 17.1  //",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "PRC: 4.00",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "100.200097.660098'",
+          "percentage": 71,
+          "value": 100.200097
+        },
+        {
+          "name": "-2.53%",
+          "percentage": null,
+          "value": -2.53
+        },
+        {
+          "name": "28.02.2025",
+          "percentage": null,
+          "value": 28.02
+        },
+        {
+          "name": "611",
+          "percentage": null,
+          "value": 611
+        },
+        {
+          "name": "LUMINIS (4.2 % MIN",
+          "percentage": 5.5,
+          "value": null
+        },
+        {
+          "name": "USD100'000",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "1.73%",
+          "percentage": null,
+          "value": 1.73
+        },
+        {
+          "name": "0.52%",
+          "percentage": null,
+          "value": 0.52
+        },
+        {
+          "name": "ISIN: XS2761230684",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Zero Bonds  //  Ma",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Coupon: 13.2  //",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "PRC: 4.00",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "100.2000101.729110",
+          "percentage": null,
+          "value": 100.2000101
+        },
+        {
+          "name": "1.53%",
+          "percentage": null,
+          "value": 1.53
+        },
+        {
+          "name": "27.02.2025",
+          "percentage": null,
+          "value": 27.02
+        },
+        {
+          "name": "94",
+          "percentage": null,
+          "value": 94
+        },
+        {
+          "name": "CIBC 0% NOTES 2024",
+          "percentage": 13.02,
+          "value": null
+        },
+        {
+          "name": "USD250'000",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "-3.20%",
+          "percentage": null,
+          "value": -3.2
+        },
+        {
+          "name": "1.31%",
+          "percentage": null,
+          "value": 1.31
+        },
+        {
+          "name": "ISIN: XS2736388732",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Ordinary Bonds  //",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Days: 265",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "PRC: 4.00",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "100.200098.6200255",
+          "percentage": 383,
+          "value": 100.200098
+        },
+        {
+          "name": "-1.58%",
+          "percentage": null,
+          "value": -1.58
+        },
+        {
+          "name": "28.02.2025",
+          "percentage": null,
+          "value": 28.02
+        },
+        {
+          "name": "8'833",
+          "percentage": null,
+          "value": 8
+        },
+        {
+          "name": "BANK OF AMERICA NO",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Print date 01.03.2",
+          "percentage": 25,
+          "value": null
+        },
+        {
+          "name": "Bonds",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "MESSOS ENTERPRISES",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Valuation as of 28",
+          "percentage": 2.2025,
+          "value": null
+        },
+        {
+          "name": "Client Number 3662",
+          "percentage": 3,
+          "value": null
+        },
+        {
+          "name": "aeouiAEOUIaeouiAEO",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Swift CBLUCH2280A",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Tel. +41 44 218 10",
+          "percentage": 20,
+          "value": null
+        },
+        {
+          "name": "Cornèr Banca SA",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "// Töd istrasse27",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Currency",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "in %",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "of assets",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Perf Market",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Perf Currency",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Valuation in price",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Thereof accruals",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Countervalue USD",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Actual Price",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Actual Ex. Rate",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Price Date",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Average Acquisitio",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Average Acquisitio",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "DescriptionPerf YT",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Nominal/",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Quantity",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Bonds, Bond funds,",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "USD50'000",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "1.26%",
+          "percentage": null,
+          "value": 1.26
+        },
+        {
+          "name": "0.25%",
+          "percentage": null,
+          "value": 0.25
+        },
+        {
+          "name": "09.05.34",
+          "percentage": null,
+          "value": 9.05
+        },
+        {
+          "name": "100.200097.516048'",
+          "percentage": 58,
+          "value": 100.200097
+        },
+        {
+          "name": "-2.68%",
+          "percentage": null,
+          "value": -2.68
+        },
+        {
+          "name": "28.02.2025",
+          "percentage": null,
+          "value": 28.02
+        },
+        {
+          "name": "CITIGROUP GLBL 5.6",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "ISIN: XS2782869916",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Ordinary Bonds  //",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "PRC: 4.00",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Price to be verifi",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "USD440'000",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "1.55%",
+          "percentage": null,
+          "value": 1.55
+        },
+        {
+          "name": "2.43%",
+          "percentage": null,
+          "value": 2.43
+        },
+        {
+          "name": "ISIN: XS2824054402",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Ordinary Bonds  //",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Coupon: 29.5  //",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "PRC: 4.00",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "100.2000103.720047",
+          "percentage": null,
+          "value": 100.2000103
+        },
+        {
+          "name": "3.51%",
+          "percentage": null,
+          "value": 3.51
+        },
+        {
+          "name": "28.02.2025",
+          "percentage": null,
+          "value": 28.02
+        },
+        {
+          "name": "18'548",
+          "percentage": null,
+          "value": 18
+        },
+        {
+          "name": "BOFA 5. 6%  2024-2",
+          "percentage": 0.05,
+          "value": null
+        },
+        {
+          "name": "USD2'450'000",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "1.33%",
+          "percentage": null,
+          "value": 1.33
+        },
+        {
+          "name": "13.12%",
+          "percentage": null,
+          "value": 13.12
+        },
+        {
+          "name": "ISIN: XS2567543397",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Ordinary Bonds  //",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Coupon: 18.6  //",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "PRC: 4.00",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "100.1000100.59002'",
+          "percentage": 60,
+          "value": 100.10001
+        },
+        {
+          "name": "0.49%",
+          "percentage": null,
+          "value": 0.49
+        },
+        {
+          "name": "27.02.2025",
+          "percentage": null,
+          "value": 27.02
+        },
+        {
+          "name": "96'212",
+          "percentage": null,
+          "value": 96
+        },
+        {
+          "name": "GS 10Y CALLABLE NO",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "USD1'100'000",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "2.08%",
+          "percentage": null,
+          "value": 2.08
+        },
+        {
+          "name": "5.68%",
+          "percentage": null,
+          "value": 5.68
+        },
+        {
+          "name": "ISIN: XS2110079584",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Zero Bonds  //  Ca",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "YTM: 5.76  //  PRC",
+          "percentage": 4,
+          "value": null
+        },
+        {
+          "name": "100.1000100.67001'",
+          "percentage": 7,
+          "value": 100.10001
+        },
+        {
+          "name": "0.57%",
+          "percentage": null,
+          "value": 0.57
+        },
+        {
+          "name": "28.02.2025",
+          "percentage": null,
+          "value": 28.02
+        },
+        {
+          "name": "CITIGROUP 0% MTN 2",
+          "percentage": 24,
+          "value": null
+        },
+        {
+          "name": "USD90'000",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "2.24%",
+          "percentage": null,
+          "value": 2.24
+        },
+        {
+          "name": "0.46%",
+          "percentage": null,
+          "value": 0.46
+        },
+        {
+          "name": "GLOBAL RE",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "100.200099.950089'",
+          "percentage": 55,
+          "value": 100.200099
+        },
+        {
+          "name": "-0.25%",
+          "percentage": null,
+          "value": -0.25
+        },
+        {
+          "name": "28.02.2025",
+          "percentage": null,
+          "value": 28.02
+        },
+        {
+          "name": "CITIGROUP GLBL 0 %",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "ISIN: XS2848820754",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Zero Bonds  //  Ma",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "PRC: 4.00",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "USD100'000",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "1.93%",
+          "percentage": null,
+          "value": 1.93
+        },
+        {
+          "name": "0.48%",
+          "percentage": null,
+          "value": 0.48
+        },
+        {
+          "name": "ISIN: XS2829712830",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Ordinary Bonds  //",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "YTM: 5.51  //  PRC",
+          "percentage": 4,
+          "value": null
+        },
+        {
+          "name": "99.999693.020093'0",
+          "percentage": 0,
+          "value": 99.999693
+        },
+        {
+          "name": "-6.98%",
+          "percentage": null,
+          "value": -6.98
+        },
+        {
+          "name": "27.02.2025",
+          "percentage": null,
+          "value": 27.02
+        },
+        {
+          "name": "GOLDMAN SACHS EMTN",
+          "percentage": 2024,
+          "value": null
+        },
+        {
+          "name": "USD200'000",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "1.11%",
+          "percentage": null,
+          "value": 1.11
+        },
+        {
+          "name": "1.01%",
+          "percentage": null,
+          "value": 1.01
+        },
+        {
+          "name": "ISIN: XS2912278723",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Zero Bonds  //  Ma",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "YTM: 4.86  //  PRC",
+          "percentage": 4,
+          "value": null
+        },
+        {
+          "name": "100.200098.7771197",
+          "percentage": 554,
+          "value": 100.200098
+        },
+        {
+          "name": "-1.42%",
+          "percentage": null,
+          "value": -1.42
+        },
+        {
+          "name": "27.02.2025",
+          "percentage": null,
+          "value": 27.02
+        },
+        {
+          "name": "BANK OF AMERICA 0%",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "USD100'000",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "1.92%",
+          "percentage": null,
+          "value": 1.92
+        },
+        {
+          "name": "0.50%",
+          "percentage": null,
+          "value": 0.5
+        },
+        {
+          "name": "37954",
+          "percentage": null,
+          "value": 37954
+        },
+        {
+          "name": "100.200096.849696'",
+          "percentage": 50,
+          "value": 100.200096
+        },
+        {
+          "name": "-3.34%",
+          "percentage": null,
+          "value": -3.34
+        },
+        {
+          "name": "28.02.2025",
+          "percentage": null,
+          "value": 28.02
+        },
+        {
+          "name": "JPMORGAN CHASE  0",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "ISIN: XS2381723902",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Zero Bonds  //  Ma",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "PRC: 4.00",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Print date 01.03.2",
+          "percentage": 25,
+          "value": null
+        },
+        {
+          "name": "Bonds",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "MESSOS ENTERPRISES",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Valuation as of 28",
+          "percentage": 2.2025,
+          "value": null
+        },
+        {
+          "name": "Client Number 3662",
+          "percentage": 3,
+          "value": null
+        },
+        {
+          "name": "aeouiAEOUIaeouiAEO",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Swift CBLUCH2280A",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Tel. +41 44 218 10",
+          "percentage": 20,
+          "value": null
+        },
+        {
+          "name": "Cornèr Banca SA",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "// Töd istrasse27",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Currency",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "in %",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "of assets",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Perf Market",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Perf Currency",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Valuation in price",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Thereof accruals",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Countervalue USD",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Actual Price",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Actual Ex. Rate",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Price Date",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Average Acquisitio",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Average Acquisitio",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "DescriptionPerf YT",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Nominal/",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Quantity",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Bonds, Bond funds,",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "USD250'000",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "1.81%",
+          "percentage": null,
+          "value": 1.81
+        },
+        {
+          "name": "1.25%",
+          "percentage": null,
+          "value": 1.25
+        },
+        {
+          "name": "18.11.2034",
+          "percentage": null,
+          "value": 18.11
+        },
+        {
+          "name": "99.679097.8700244'",
+          "percentage": 75,
+          "value": 99.679097
+        },
+        {
+          "name": "-1.81%",
+          "percentage": null,
+          "value": -1.81
+        },
+        {
+          "name": "27.02.2025",
+          "percentage": null,
+          "value": 27.02
+        },
+        {
+          "name": "GOLDMAN SACHS 0% E",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "ISIN: XS2829752976",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Ordinary Bonds  //",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "YTM: 5.49  //  PRC",
+          "percentage": 4,
+          "value": null
+        },
+        {
+          "name": "USD150'000",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "2.91%",
+          "percentage": null,
+          "value": 2.91
+        },
+        {
+          "name": "0.76%",
+          "percentage": null,
+          "value": 0.76
+        },
+        {
+          "name": "ISIN: XS2953741100",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Zero Bonds  //  Ma",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "YTM: 5.13  //  PRC",
+          "percentage": 4,
+          "value": null
+        },
+        {
+          "name": "99.198098.7200148'",
+          "percentage": 80,
+          "value": 99.198098
+        },
+        {
+          "name": "-0.48%",
+          "percentage": null,
+          "value": -0.48
+        },
+        {
+          "name": "27.02.2025",
+          "percentage": null,
+          "value": 27.02
+        },
+        {
+          "name": "BANK OF AMERICA 0",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "USD500'000",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "6.51%",
+          "percentage": null,
+          "value": 6.51
+        },
+        {
+          "name": "2.66%",
+          "percentage": null,
+          "value": 2.66
+        },
+        {
+          "name": "ISIN: XS2381717250",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Zero Bonds  //  Ma",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "PRC: 4.00",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "100.2000103.840051",
+          "percentage": null,
+          "value": 100.2000103
+        },
+        {
+          "name": "3.63%",
+          "percentage": null,
+          "value": 3.63
+        },
+        {
+          "name": "26.02.2025",
+          "percentage": null,
+          "value": 26.02
+        },
+        {
+          "name": "JPMORGAN CHASE 0%",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "USD50'000",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "0.79%",
+          "percentage": null,
+          "value": 0.79
+        },
+        {
+          "name": "0.26%",
+          "percentage": null,
+          "value": 0.26
+        },
+        {
+          "name": "ISIN: XS2481066111",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Zero Bonds  //  Ma",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "YTM: -0.09  //  PR",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "100.1000100.890050",
+          "percentage": 445,
+          "value": 100.10001
+        },
+        {
+          "name": "0.79%",
+          "percentage": null,
+          "value": 0.79
+        },
+        {
+          "name": "28.02.2025",
+          "percentage": null,
+          "value": 28.02
+        },
+        {
+          "name": "GOLDMAN SACHS 0% N",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "USD1'470'000",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "1.25%",
+          "percentage": null,
+          "value": 1.25
+        },
+        {
+          "name": "7.63%",
+          "percentage": null,
+          "value": 7.63
+        },
+        {
+          "name": "ISIN: XS2964611052",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Zero Bonds  //  Ma",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "YTM: 5.31  //  PRC",
+          "percentage": 4,
+          "value": null
+        },
+        {
+          "name": "100.0000101.25001'",
+          "percentage": 88,
+          "value": 100.0000101
+        },
+        {
+          "name": "1.25%",
+          "percentage": null,
+          "value": 1.25
+        },
+        {
+          "name": "27.02.2025",
+          "percentage": null,
+          "value": 27.02
+        },
+        {
+          "name": "DEUTSCHE BANK 0 %",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "USD2'581.79",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "0.00%",
+          "percentage": null,
+          "value": 0
+        },
+        {
+          "name": "0.59%",
+          "percentage": null,
+          "value": 0.59
+        },
+        {
+          "name": "SP",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "81.530444.7800115'",
+          "percentage": 13,
+          "value": 81.530444
+        },
+        {
+          "name": "-45.08%",
+          "percentage": null,
+          "value": -45.08
+        },
+        {
+          "name": "13.09.2024",
+          "percentage": null,
+          "value": 13.09
+        },
+        {
+          "name": "PREMIUM ALT.S.A. S",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "ISIN: LU2228214107",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Bond Funds / Certi",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "PRC: 4.00",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "USD350'000",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "0.98%",
+          "percentage": null,
+          "value": 0.98
+        },
+        {
+          "name": "1.75%",
+          "percentage": null,
+          "value": 1.75
+        },
+        {
+          "name": "VRN",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "100.623797.4500341",
+          "percentage": 138,
+          "value": 100.623797
+        },
+        {
+          "name": "-3.15%",
+          "percentage": null,
+          "value": -3.15
+        },
+        {
+          "name": "28.02.2025",
+          "percentage": null,
+          "value": 28.02
+        },
+        {
+          "name": "63",
+          "percentage": null,
+          "value": 63
+        },
+        {
+          "name": "BK JULIUS BAER CAP",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "ISIN: CH1269060229",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Structured Bonds",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Coupon: 26.5  //",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "PRC: 3.00",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Price to be verifi",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "USD690'000",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "0.92%",
+          "percentage": null,
+          "value": 0.92
+        },
+        {
+          "name": "3.61%",
+          "percentage": null,
+          "value": 3.61
+        },
+        {
+          "name": "ISIN: XS0461497009",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Ordinary Bonds  //",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Coupon: 8.11  //",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "PRC: 4.00",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "100.1000100.270070",
+          "percentage": null,
+          "value": 100.10001
+        },
+        {
+          "name": "0.17%",
+          "percentage": null,
+          "value": 0.17
+        },
+        {
+          "name": "27.02.2025",
+          "percentage": null,
+          "value": 27.02
+        },
+        {
+          "name": "11'807",
+          "percentage": null,
+          "value": 11
+        },
+        {
+          "name": "DEUTSCHE BANK NOTE",
+          "percentage": 23,
+          "value": null
+        },
+        {
+          "name": "Print date 01.03.2",
+          "percentage": 25,
+          "value": null
+        },
+        {
+          "name": "Bonds",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "MESSOS ENTERPRISES",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Valuation as of 28",
+          "percentage": 2.2025,
+          "value": null
+        },
+        {
+          "name": "Client Number 3662",
+          "percentage": 3,
+          "value": null
+        },
+        {
+          "name": "aeouiAEOUIaeouiAEO",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Swift CBLUCH2280A",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Tel. +41 44 218 10",
+          "percentage": 20,
+          "value": null
+        },
+        {
+          "name": "Cornèr Banca SA",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "// Töd istrasse27",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Currency",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "in %",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "of assets",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Perf Market",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Perf Currency",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Valuation in price",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Thereof accruals",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Countervalue USD",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Actual Price",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Actual Ex. Rate",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Price Date",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Average Acquisitio",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Average Acquisitio",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "DescriptionPerf YT",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Nominal/",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Quantity",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Bonds, Bond funds,",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "USD140'000",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "2.40%",
+          "percentage": null,
+          "value": 2.4
+        },
+        {
+          "name": "0.96%",
+          "percentage": null,
+          "value": 0.96
+        },
+        {
+          "name": "ISIN: XS2746319610",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Ordinary Bonds  //",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Coupon: Annual  32",
+          "percentage": 46,
+          "value": null
+        },
+        {
+          "name": "PRC: 4.00",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "100.2000101.810018",
+          "percentage": null,
+          "value": 100.2000101
+        },
+        {
+          "name": "1.61%",
+          "percentage": null,
+          "value": 1.61
+        },
+        {
+          "name": "28.02.2025",
+          "percentage": null,
+          "value": 28.02
+        },
+        {
+          "name": "44'560",
+          "percentage": null,
+          "value": 44
+        },
+        {
+          "name": "SOCIETE GENERALE 3",
+          "percentage": 0.46,
+          "value": null
+        },
+        {
+          "name": "Accrued interest",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "11'558'957USD",
+          "percentage": null,
+          "value": 11
+        },
+        {
+          "name": "USD208'029",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "59.24%",
+          "percentage": null,
+          "value": 59.24
+        },
+        {
+          "name": "thereof B ondsUSD1",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "thereof B ond f",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Print date 01.03.2",
+          "percentage": 25,
+          "value": null
+        },
+        {
+          "name": "Equities",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "MESSOS ENTERPRISES",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Valuation as of 28",
+          "percentage": 2.2025,
+          "value": null
+        },
+        {
+          "name": "Client Number 3662",
+          "percentage": 3,
+          "value": null
+        },
+        {
+          "name": "aeouiAEOUIaeouiAEO",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Swift CBLUCH2280A",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Tel. +41 44 218 10",
+          "percentage": 20,
+          "value": null
+        },
+        {
+          "name": "Cornèr Banca SA",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "// Töd istrasse27",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Currency",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "in %",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "of assets",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Perf Market",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Perf Currency",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Valuation in price",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Thereof accruals",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Countervalue USD",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Actual Price",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Actual Ex. Rate",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Price Date",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Average Acquisitio",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Average Acquisitio",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "DescriptionPerf YT",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Nominal/",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Quantity",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Equities, Equity f",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "CHF800",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "11.43%",
+          "percentage": null,
+          "value": 11.43
+        },
+        {
+          "name": "0.14%",
+          "percentage": null,
+          "value": 0.14
+        },
+        {
+          "name": "ISIN: CH0244767585",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Ordinary Stocks  /",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "221.564130.900024'",
+          "percentage": 20,
+          "value": 221.56413
+        },
+        {
+          "name": "1.13401.1086",
+          "percentage": null,
+          "value": 1.13401
+        },
+        {
+          "name": "-86.37%",
+          "percentage": null,
+          "value": -86.37
+        },
+        {
+          "name": "-2.24%",
+          "percentage": null,
+          "value": -2.24
+        },
+        {
+          "name": "28.02.202527'406",
+          "percentage": null,
+          "value": 28.02
+        },
+        {
+          "name": "UBS GROUP INC NAME",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "-86.05%",
+          "percentage": null,
+          "value": -86.05
+        },
+        {
+          "name": "thereof E quities",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Print date 01.03.2",
+          "percentage": 25,
+          "value": null
+        },
+        {
+          "name": "Structured product",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "MESSOS ENTERPRISES",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Valuation as of 28",
+          "percentage": 2.2025,
+          "value": null
+        },
+        {
+          "name": "Client Number 3662",
+          "percentage": 3,
+          "value": null
+        },
+        {
+          "name": "aeouiAEOUIaeouiAEO",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Swift CBLUCH2280A",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Tel. +41 44 218 10",
+          "percentage": 20,
+          "value": null
+        },
+        {
+          "name": "Cornèr Banca SA",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "// Töd istrasse27",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Currency",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "in %",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "of assets",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Perf Market",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Perf Currency",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Valuation in price",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Thereof accruals",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Countervalue USD",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Actual Price",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Actual Ex. Rate",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Price Date",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Average Acquisitio",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Average Acquisitio",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "DescriptionPerf YT",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Nominal/",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Quantity",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Structured product",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "USD200'000",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "-2.01%",
+          "percentage": null,
+          "value": -2.01
+        },
+        {
+          "name": "1.01%",
+          "percentage": null,
+          "value": 1.01
+        },
+        {
+          "name": "CITD  26",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "100.728897.9853197",
+          "percentage": 888,
+          "value": 100.728897
+        },
+        {
+          "name": "-2.72%",
+          "percentage": null,
+          "value": -2.72
+        },
+        {
+          "name": "28.02.2025",
+          "percentage": null,
+          "value": 28.02
+        },
+        {
+          "name": "1'917",
+          "percentage": null,
+          "value": 1
+        },
+        {
+          "name": "BCO SAFRA CAYMAN 5",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "ISIN: XS2519369867",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Other convertible",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Days: 69  //  PRC:",
+          "percentage": 5,
+          "value": null
+        },
+        {
+          "name": "USD500'000",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "-0.08%",
+          "percentage": null,
+          "value": -0.08
+        },
+        {
+          "name": "2.55%",
+          "percentage": null,
+          "value": 2.55
+        },
+        {
+          "name": "ISIN: XS2315191069",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Structured Bonds",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Days: 52  //  PRC:",
+          "percentage": 5,
+          "value": null
+        },
+        {
+          "name": "Price to be verifi",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "100.524198.7000498",
+          "percentage": 133,
+          "value": 100.524198
+        },
+        {
+          "name": "-1.81%",
+          "percentage": null,
+          "value": -1.81
+        },
+        {
+          "name": "28.02.2025",
+          "percentage": null,
+          "value": 28.02
+        },
+        {
+          "name": "4'633",
+          "percentage": null,
+          "value": 4
+        },
+        {
+          "name": "BNP PARIBAS ISS ST",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "USD1'200'000",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "0.08%",
+          "percentage": null,
+          "value": 0.08
+        },
+        {
+          "name": "6.03%",
+          "percentage": null,
+          "value": 6.03
+        },
+        {
+          "name": "ISIN: XS2792098779",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Structured Bonds",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Price to be verifi",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "100.000098.06501'1",
+          "percentage": 6,
+          "value": 100.000098
+        },
+        {
+          "name": "-1.94%",
+          "percentage": null,
+          "value": -1.94
+        },
+        {
+          "name": "28.02.2025",
+          "percentage": null,
+          "value": 28.02
+        },
+        {
+          "name": "CITIGROUP",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "USD690'000",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "1.55%",
+          "percentage": null,
+          "value": 1.55
+        },
+        {
+          "name": "3.72%",
+          "percentage": null,
+          "value": 3.72
+        },
+        {
+          "name": "WELLS F.",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "100.4462102.613072",
+          "percentage": null,
+          "value": 100.4462102
+        },
+        {
+          "name": "2.16%",
+          "percentage": null,
+          "value": 2.16
+        },
+        {
+          "name": "28.02.2025",
+          "percentage": null,
+          "value": 28.02
+        },
+        {
+          "name": "17'109",
+          "percentage": null,
+          "value": 17
+        },
+        {
+          "name": "EMERALD BAY NOTES",
+          "percentage": 3,
+          "value": null
+        },
+        {
+          "name": "ISIN: XS2714429128",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Structured Bonds",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Days: 164  //  PRC",
+          "percentage": 5,
+          "value": null
+        },
+        {
+          "name": "Price to be verifi",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "USD500'000",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "0.93%",
+          "percentage": null,
+          "value": 0.93
+        },
+        {
+          "name": "2.54%",
+          "percentage": null,
+          "value": 2.54
+        },
+        {
+          "name": "34",
+          "percentage": null,
+          "value": 34
+        },
+        {
+          "name": "100.524397.8400494",
+          "percentage": 914,
+          "value": 100.524397
+        },
+        {
+          "name": "-2.67%",
+          "percentage": null,
+          "value": -2.67
+        },
+        {
+          "name": "28.02.2025",
+          "percentage": null,
+          "value": 28.02
+        },
+        {
+          "name": "5'714",
+          "percentage": null,
+          "value": 5
+        },
+        {
+          "name": "GOLDMAN SACHS GR.S",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "ISIN: XS2105981117",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Structured Bonds",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Days: 70  //  PRC:",
+          "percentage": 5,
+          "value": null
+        },
+        {
+          "name": "Price to be verifi",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "USD1'600'000",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "0.82%",
+          "percentage": null,
+          "value": 0.82
+        },
+        {
+          "name": "8.32%",
+          "percentage": null,
+          "value": 8.32
+        },
+        {
+          "name": "ISIN: XS2838389430",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Structured Bonds",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Days: 249  //  PRC",
+          "percentage": 5,
+          "value": null
+        },
+        {
+          "name": "Price to be verifi",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "100.100097.53001'6",
+          "percentage": 3,
+          "value": 100.100097
+        },
+        {
+          "name": "-2.57%",
+          "percentage": null,
+          "value": -2.57
+        },
+        {
+          "name": "28.02.2025",
+          "percentage": null,
+          "value": 28.02
+        },
+        {
+          "name": "63'080",
+          "percentage": null,
+          "value": 63
+        },
+        {
+          "name": "LUMINIS 5.7% STR N",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "USD500'000",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "0.86%",
+          "percentage": null,
+          "value": 0.86
+        },
+        {
+          "name": "2.52%",
+          "percentage": null,
+          "value": 2.52
+        },
+        {
+          "name": "RABOBANK 29",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "98.018198.0600491'",
+          "percentage": 16,
+          "value": 98.018198
+        },
+        {
+          "name": "0.04%",
+          "percentage": null,
+          "value": 0.04
+        },
+        {
+          "name": "28.02.2025",
+          "percentage": null,
+          "value": 28.02
+        },
+        {
+          "name": "1'416",
+          "percentage": null,
+          "value": 1
+        },
+        {
+          "name": "LUMINIS REPACK NOT",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "ISIN: XS2631782468",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Structured Bonds",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Days: 19  //  PRC:",
+          "percentage": 5,
+          "value": null
+        },
+        {
+          "name": "Price to be verifi",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Underlying:FED RES",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Print date 01.03.2",
+          "percentage": 25,
+          "value": null
+        },
+        {
+          "name": "Structured product",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "MESSOS ENTERPRISES",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Valuation as of 28",
+          "percentage": 2.2025,
+          "value": null
+        },
+        {
+          "name": "Client Number 3662",
+          "percentage": 3,
+          "value": null
+        },
+        {
+          "name": "aeouiAEOUIaeouiAEO",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Swift CBLUCH2280A",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Tel. +41 44 218 10",
+          "percentage": 20,
+          "value": null
+        },
+        {
+          "name": "Cornèr Banca SA",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "// Töd istrasse27",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Currency",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "in %",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "of assets",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Perf Market",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Perf Currency",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Valuation in price",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Thereof accruals",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Countervalue USD",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Actual Price",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Actual Ex. Rate",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Price Date",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Average Acquisitio",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Average Acquisitio",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "DescriptionPerf YT",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Nominal/",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Quantity",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Structured product",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "USD100'000",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "0.98%",
+          "percentage": null,
+          "value": 0.98
+        },
+        {
+          "name": "0.51%",
+          "percentage": null,
+          "value": 0.51
+        },
+        {
+          "name": "SRN",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "91.021799.708599'7",
+          "percentage": 9,
+          "value": 91.021799
+        },
+        {
+          "name": "9.54%",
+          "percentage": null,
+          "value": 9.54
+        },
+        {
+          "name": "28.02.2025",
+          "percentage": null,
+          "value": 28.02
+        },
+        {
+          "name": "NATIXIS STRUC.NOTE",
+          "percentage": 19,
+          "value": null
+        },
+        {
+          "name": "ISIN: XS1700087403",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Structured Bonds",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Price to be verifi",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "USD200'000",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "-1.70%",
+          "percentage": null,
+          "value": -1.7
+        },
+        {
+          "name": "0.99%",
+          "percentage": null,
+          "value": 0.99
+        },
+        {
+          "name": "ISIN: XS2594173093",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Structured Bonds",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Days: 3  //  PRC:",
+          "percentage": 0,
+          "value": null
+        },
+        {
+          "name": "Price to be verifi",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "99.059296.4000192'",
+          "percentage": 95,
+          "value": 99.059296
+        },
+        {
+          "name": "-2.68%",
+          "percentage": null,
+          "value": -2.68
+        },
+        {
+          "name": "28.02.2025",
+          "percentage": null,
+          "value": 28.02
+        },
+        {
+          "name": "95",
+          "percentage": null,
+          "value": 95
+        },
+        {
+          "name": "NOVUS CAPITAL CRED",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "USD500'000",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "4.48%",
+          "percentage": null,
+          "value": 4.48
+        },
+        {
+          "name": "2.60%",
+          "percentage": null,
+          "value": 2.6
+        },
+        {
+          "name": "NATWEST GROUP",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "100.5243100.830050",
+          "percentage": null,
+          "value": 100.52431
+        },
+        {
+          "name": "0.30%",
+          "percentage": null,
+          "value": 0.3
+        },
+        {
+          "name": "28.02.2025",
+          "percentage": null,
+          "value": 28.02
+        },
+        {
+          "name": "4'009",
+          "percentage": null,
+          "value": 4
+        },
+        {
+          "name": "NOVUS CAPITAL STRU",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "ISIN: XS2407295554",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Structured Bonds",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Days: 48  //  PRC:",
+          "percentage": 5,
+          "value": null
+        },
+        {
+          "name": "Price to be verifi",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "USD100'000",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "0.89%",
+          "percentage": null,
+          "value": 0.89
+        },
+        {
+          "name": "0.53%",
+          "percentage": null,
+          "value": 0.53
+        },
+        {
+          "name": "ISIN: XS2518123653",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Structured Bonds",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Days: 250  //  PRC",
+          "percentage": 5,
+          "value": null
+        },
+        {
+          "name": "Price to be verifi",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "100.9008100.100010",
+          "percentage": null,
+          "value": 100.90081
+        },
+        {
+          "name": "-0.79%",
+          "percentage": null,
+          "value": -0.79
+        },
+        {
+          "name": "24.02.2025",
+          "percentage": null,
+          "value": 24.02
+        },
+        {
+          "name": "3'514",
+          "percentage": null,
+          "value": 3
+        },
+        {
+          "name": "RBC TORONTO 5,06%",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Structured product",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "USD1'000'000",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "0.38%",
+          "percentage": null,
+          "value": 0.38
+        },
+        {
+          "name": "5.06%",
+          "percentage": null,
+          "value": 5.06
+        },
+        {
+          "name": "GROUP",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "100.366498.7600987",
+          "percentage": 600,
+          "value": 100.366498
+        },
+        {
+          "name": "-1.60%",
+          "percentage": null,
+          "value": -1.6
+        },
+        {
+          "name": "28.02.2025",
+          "percentage": null,
+          "value": 28.02
+        },
+        {
+          "name": "NOVUS CAPITAL STRU",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "ISIN: XS2252299883",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Structured product",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Price to be verifi",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Underlying:INTERBK",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "USD500'000",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "0.93%",
+          "percentage": null,
+          "value": 0.93
+        },
+        {
+          "name": "2.56%",
+          "percentage": null,
+          "value": 2.56
+        },
+        {
+          "name": "ISIN: CH1259345242",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Structured product",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Price to be verifi",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "98.5199100.0700500",
+          "percentage": 350,
+          "value": 98.51991
+        },
+        {
+          "name": "1.57%",
+          "percentage": null,
+          "value": 1.57
+        },
+        {
+          "name": "28.02.2025",
+          "percentage": null,
+          "value": 28.02
+        },
+        {
+          "name": "RAIFF 4.5% STRUC N",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Print date 01.03.2",
+          "percentage": 25,
+          "value": null
+        },
+        {
+          "name": "Structured product",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "MESSOS ENTERPRISES",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Valuation as of 28",
+          "percentage": 2.2025,
+          "value": null
+        },
+        {
+          "name": "Client Number 3662",
+          "percentage": 3,
+          "value": null
+        },
+        {
+          "name": "aeouiAEOUIaeouiAEO",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Swift CBLUCH2280A",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Tel. +41 44 218 10",
+          "percentage": 20,
+          "value": null
+        },
+        {
+          "name": "Cornèr Banca SA",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "// Töd istrasse27",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Currency",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "in %",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "of assets",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Perf Market",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Perf Currency",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Valuation in price",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Thereof accruals",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Countervalue USD",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Actual Price",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Actual Ex. Rate",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Price Date",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Average Acquisitio",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Average Acquisitio",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "DescriptionPerf YT",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Nominal/",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Quantity",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Structured product",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "USD250'000",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "-0.05%",
+          "percentage": null,
+          "value": -0.05
+        },
+        {
+          "name": "1.28%",
+          "percentage": null,
+          "value": 1.28
+        },
+        {
+          "name": "ISIN: CH1259344831",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Structured product",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Price to be verifi",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "97.193499.9200249'",
+          "percentage": 0,
+          "value": 97.193499
+        },
+        {
+          "name": "2.81%",
+          "percentage": null,
+          "value": 2.81
+        },
+        {
+          "name": "28.02.2025",
+          "percentage": null,
+          "value": 28.02
+        },
+        {
+          "name": "RAIFF 4.75% STR.NT",
+          "percentage": 23,
+          "value": null
+        },
+        {
+          "name": "Accrued interest",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "7'850'257USD",
+          "percentage": null,
+          "value": 7
+        },
+        {
+          "name": "USD101'487",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "40.24%",
+          "percentage": null,
+          "value": 40.24
+        },
+        {
+          "name": "thereof S tructure",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "thereof S tructure",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Print date 01.03.2",
+          "percentage": 25,
+          "value": null
+        },
+        {
+          "name": "Other assets",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "MESSOS ENTERPRISES",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Valuation as of 28",
+          "percentage": 2.2025,
+          "value": null
+        },
+        {
+          "name": "Client Number 3662",
+          "percentage": 3,
+          "value": null
+        },
+        {
+          "name": "aeouiAEOUIaeouiAEO",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Swift CBLUCH2280A",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Tel. +41 44 218 10",
+          "percentage": 20,
+          "value": null
+        },
+        {
+          "name": "Cornèr Banca SA",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "// Töd istrasse27",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Currency",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "in %",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "of assets",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Perf Market",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Perf Currency",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Valuation in price",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Thereof accruals",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Countervalue USD",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Actual Price",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Actual Ex. Rate",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Price Date",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Average Acquisitio",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Average Acquisitio",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "DescriptionPerf YT",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Nominal/",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Quantity",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Hedge Funds & Priv",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "USD204.071",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "0.00%",
+          "percentage": null,
+          "value": 0
+        },
+        {
+          "name": "0.13%",
+          "percentage": null,
+          "value": 0.13
+        },
+        {
+          "name": "R",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "1'008.3748128.0395",
+          "percentage": 6,
+          "value": 1
+        },
+        {
+          "name": "-87.30%",
+          "percentage": null,
+          "value": -87.3
+        },
+        {
+          "name": "31.12.2023",
+          "percentage": null,
+          "value": 31.12
+        },
+        {
+          "name": "EXIGENT ENHANCED I",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "ISIN: XD0466760473",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Hedge Funds & Priv",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Price to be verifi",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "thereof Hedge fund",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Print date 01.03.2",
+          "percentage": 25,
+          "value": null
+        },
+        {
+          "name": "Expected Cash Flow",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "MESSOS ENTERPRISES",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Valuation as of 28",
+          "percentage": 2.2025,
+          "value": null
+        },
+        {
+          "name": "Client Number 3662",
+          "percentage": 3,
+          "value": null
+        },
+        {
+          "name": "aeouiAEOUIaeouiAEO",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Swift CBLUCH2280A",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Tel. +41 44 218 10",
+          "percentage": 20,
+          "value": null
+        },
+        {
+          "name": "Cornèr Banca SA",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "// Töd istrasse27",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Next 12 months",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "At sight03 202504",
+          "percentage": 2505,
+          "value": null
+        },
+        {
+          "name": "USD47'8509'84692'8",
+          "percentage": 131,
+          "value": null
+        },
+        {
+          "name": "Next years",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "USD100.00%16'796'6",
+          "percentage": 4420,
+          "value": null
+        },
+        {
+          "name": "Print date 01.03.2",
+          "percentage": 25,
+          "value": null
+        },
+        {
+          "name": "Glossary",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "MESSOS ENTERPRISES",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Valuation as of 28",
+          "percentage": 2.2025,
+          "value": null
+        },
+        {
+          "name": "Client Number 3662",
+          "percentage": 3,
+          "value": null
+        },
+        {
+          "name": "aeouiAEOUIaeouiAEO",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Swift CBLUCH2280A",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Tel. +41 44 218 10",
+          "percentage": 20,
+          "value": null
+        },
+        {
+          "name": "Cornèr Banca SA",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "// Töd istrasse27",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Liquidity",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Liquidity consists",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Money market produ",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "maturity of one ye",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Bonds",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "This segment consi",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "(obligor) at perio",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "In addition to con",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "tracker certificat",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Moreover, this cat",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "category.",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Equities",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "This category incl",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "category includes",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Mixed Funds",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "This category incl",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "used to implement",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Structured Product",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "This category incl",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "or more underlying",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "foreign currencies",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "According to the m",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "capital protection",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "the underlying in",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Metal accounts and",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "This category incl",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "made directly (by",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Real Estate",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "This category incl",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Other assets",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "This category incl",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "enterprises), fund",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Print date 01.03.2",
+          "percentage": 25,
+          "value": null
+        },
+        {
+          "name": "Glossary",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "MESSOS ENTERPRISES",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Valuation as of 28",
+          "percentage": 2.2025,
+          "value": null
+        },
+        {
+          "name": "Client Number 3662",
+          "percentage": 3,
+          "value": null
+        },
+        {
+          "name": "aeouiAEOUIaeouiAEO",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Swift CBLUCH2280A",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Tel. +41 44 218 10",
+          "percentage": 20,
+          "value": null
+        },
+        {
+          "name": "Cornèr Banca SA",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "// Töd istrasse27",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Product Risk Class",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "The PRC (Product R",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "and therefore allo",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "This value is calc",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "The Portfolio Risk",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Performance",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Performance is the",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "fact, the calculat",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "The Bank calculate",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "by the investor (d",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Performance is sta",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "The asset valuatio",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Print date 01.03.2",
+          "percentage": 25,
+          "value": null
+        },
+        {
+          "name": "Notices and other",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "MESSOS ENTERPRISES",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Valuation as of 28",
+          "percentage": 2.2025,
+          "value": null
+        },
+        {
+          "name": "Client Number 3662",
+          "percentage": 3,
+          "value": null
+        },
+        {
+          "name": "aeouiAEOUIaeouiAEO",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Swift CBLUCH2280A",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Tel. +41 44 218 10",
+          "percentage": 20,
+          "value": null
+        },
+        {
+          "name": "Cornèr Banca SA",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "// Töd istrasse27",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Valuations and pri",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "The present valuat",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "banking sector tha",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "The stated prices",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "marked \"price to b",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "The data set forth",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "particularly value",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "The Bank in no way",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "The Bank disclaims",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "This document is n",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Any discrepancies",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Excluded informati",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "The present asset",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "or outstanding tra",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Your financial adv",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "Print date 01.03.2",
+          "percentage": 25,
+          "value": null
+        }
+      ],
+      "total": 44708.11746869994
+    },
+    "securities": {},
+    "performance": {
+      "ytd": null,
+      "oneMonth": null,
+      "threeMonth": null,
+      "sixMonth": null,
+      "oneYear": null,
+      "threeYear": null,
+      "fiveYear": null,
+      "tenYear": null,
+      "sinceInception": null
+    }
+  }
+}

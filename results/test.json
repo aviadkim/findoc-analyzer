@@ -1,50 +1,42 @@
 {
-  "fileName": "test.csv",
-  "fileType": ".csv",
-  "processingDate": "2025-04-29T07:21:23.566Z",
-  "text": "Apple Inc. US0378331005 1000 $150.00 $175.00 7.0% Microsoft US5949181045 800 $250.00 $300.00 9.6% Amazon US0231351067 500 $120.00 $140.00 2.8%",
+  "fileName": "test.pdf",
+  "fileType": ".pdf",
+  "processingDate": "2025-04-29T10:31:32.994Z",
+  "text": "%PDF-1.5\n1 0 obj\n<< /Type /Catalog /Pages 2 0 R >>\nendobj\n2 0 obj\n<< /Type /Pages /Kids [3 0 R] /Count 1 >>\nendobj\n3 0 obj\n<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Contents 4 0 R >>\nendobj\n4 0 obj\n<< /Length 200 >>\nstream\nBT\n/F1 12 Tf\n100 700 Td\n(Financial Report 2023) Tj\n/F1 10 Tf\n100 680 Td\n(ISIN: US0378331005 - Apple Inc.) Tj\n100 660 Td\n(ISIN: US5949181045 - Microsoft) Tj\n100 640 Td\n(ISIN: US0231351067 - Amazon) Tj\nET\nendstream\nendobj\nxref\n0 5\n0000000000 65535 f\n0000000010 00000 n\n0000000059 00000 n\n0000000118 00000 n\n0000000196 00000 n\ntrailer\n<< /Size 5 /Root 1 0 R >>\nstartxref\n450\n%%EOF",
   "tables": [
     {
       "id": "table-1",
-      "title": "CSV Data",
+      "title": "Sample Table",
       "headers": [
-        "Security",
-        "ISIN",
-        "Quantity",
-        "Acquisition Price",
-        "Current Value",
-        "% of Assets"
+        "Column 1",
+        "Column 2",
+        "Column 3"
       ],
       "rows": [
         [
-          "Apple Inc.",
-          "US0378331005",
-          "1000",
-          "$150.00",
-          "$175.00",
-          "7.0%"
+          "Value 1",
+          "Value 2",
+          "Value 3"
         ],
         [
-          "Microsoft",
-          "US5949181045",
-          "800",
-          "$250.00",
-          "$300.00",
-          "9.6%"
+          "Value 4",
+          "Value 5",
+          "Value 6"
         ],
         [
-          "Amazon",
-          "US0231351067",
-          "500",
-          "$120.00",
-          "$140.00",
-          "2.8%"
+          "Value 7",
+          "Value 8",
+          "Value 9"
         ]
       ]
     }
   ],
   "metadata": {
-    "rowCount": 3,
-    "columnCount": 6
+    "pageCount": 1,
+    "author": "Unknown",
+    "creationDate": "2025-04-29T10:31:35.656Z",
+    "creator": "Unknown",
+    "producer": "Unknown",
+    "processingMethod": "fallback"
   }
 }

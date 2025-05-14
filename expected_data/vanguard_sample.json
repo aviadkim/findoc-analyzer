@@ -1,0 +1,56 @@
+{
+  "document_type": "vanguard",
+  "currency": "USD",
+  "securities": [
+    {
+      "ticker": "VFIAX",
+      "isin": "US9229087443",
+      "description": "VANGUARD 500 INDEX FUND ADMIRAL",
+      "nominal": 150.345,
+      "price": 391.37,
+      "value": 58840.52,
+      "currency": "USD",
+      "type": "fund"
+    },
+    {
+      "ticker": "VTSAX",
+      "isin": "US9229087690",
+      "description": "VANGUARD TOTAL STOCK MARKET INDEX FUND ADMIRAL",
+      "nominal": 180.275,
+      "price": 106.48,
+      "value": 19196.69,
+      "currency": "USD",
+      "type": "fund"
+    },
+    {
+      "ticker": "VBTLX",
+      "isin": "US9219378356",
+      "description": "VANGUARD TOTAL BOND MARKET INDEX FUND ADMIRAL",
+      "nominal": 205.431,
+      "price": 10.51,
+      "value": 2159.08,
+      "currency": "USD",
+      "type": "fund"
+    },
+    {
+      "ticker": "VTIAX",
+      "isin": "US9219097732",
+      "description": "VANGUARD TOTAL INTERNATIONAL STOCK INDEX FUND ADMIRAL",
+      "nominal": 175.642,
+      "price": 31.82,
+      "value": 5588.93,
+      "currency": "USD",
+      "type": "fund"
+    },
+    {
+      "ticker": "VOO",
+      "isin": "US9229083632",
+      "description": "VANGUARD S&P 500 ETF",
+      "nominal": 60,
+      "price": 391.37,
+      "value": 23482.20,
+      "currency": "USD",
+      "type": "etf"
+    }
+  ]
+}

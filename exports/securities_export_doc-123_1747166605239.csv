@@ -1,0 +1,11 @@
+isin,name,type,quantity,price,value,currency,marketPrice,marketValue,priceChange,priceChangePercent,lastUpdated,dataProvider,id,symbol,description,sector,country,exchange
+"IL0040648674","Walt Disney Co.","Cash",209,963.95,201465.55,"ILS",928.96,194152.64,-34.99,-3.63,"2025-05-13T20:03:25.239Z","Yahoo Finance","sec-1","WALT",,"Consumer Cyclical","IL",
+"DE7453172225","Alphabet Inc.","Stock",902,127.72,115203.44,"GBP",132.68,119677.36,4.96,3.88,"2025-05-13T20:03:25.239Z","Yahoo Finance","sec-2","ALPHABET",,"Real Estate","DE",
+"DE4316039680","Visa Inc.","Option",658,577.64,380087.12,"ILS",595.55,391871.9,17.91,3.1,"2025-05-13T20:03:25.239Z","Yahoo Finance","sec-3","VISA",,"Consumer Defensive","DE",
+"JP9082230899","Meta Platforms Inc.","ETF",662,212.13,140430.06,"EUR",206.91,136974.42,-5.22,-2.46,"2025-05-13T20:03:25.239Z","Yahoo Finance","sec-4","META",,"Healthcare","JP",
+"DE7032819067","Home Depot Inc.","Cash",377,993.76,374647.52,"ILS",1036.99,390945.23,43.23,4.35,"2025-05-13T20:03:25.239Z","Yahoo Finance","sec-5","HOME",,"Real Estate","DE",
+"FR8306594199","UnitedHealth Group Inc.","Stock",190,153.32,29130.8,"ILS",153.27,29121.3,-0.05,-0.03,"2025-05-13T20:03:25.239Z","Yahoo Finance","sec-6","UNITEDHEALTH",,"Financial Services","FR",
+"JP8088275612","Visa Inc.","Cash",408,463.91,189275.28,"USD",481.86,196598.88,17.95,3.87,"2025-05-13T20:03:25.239Z","Yahoo Finance","sec-7","VISA",,"Financial Services","JP",
+"DE6709003411","Amazon.com Inc.","Stock",413,95.44,39416.72,"ILS",96.94,40036.22,1.5,1.57,"2025-05-13T20:03:25.239Z","Yahoo Finance","sec-8","AMAZON.COM",,"Financial Services","DE",
+"US6656746150","Tesla Inc.","ETF",573,666.89,382127.97,"GBP",695.77,398676.21,28.88,4.33,"2025-05-13T20:03:25.239Z","Yahoo Finance","sec-9","TESLA",,"Real Estate","US",
+"DE3468623967","UnitedHealth Group Inc.","ETF",418,817.01,341510.18,"EUR",814.23,340348.14,-2.78,-0.34,"2025-05-13T20:03:25.239Z","Yahoo Finance","sec-10","UNITEDHEALTH",,"Industrials","DE",

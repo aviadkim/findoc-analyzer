@@ -26,6 +26,7 @@ from ..agents.document_merge_agent import DocumentMergeAgent
 from ..agents.document_preprocessor_agent import DocumentPreprocessorAgent
 from ..agents.hebrew_ocr_agent import HebrewOCRAgent
 from ..agents.isin_extractor_agent import ISINExtractorAgent
+from ..agents.enhanced_securities_extractor_agent import EnhancedSecuritiesExtractorAgent
 
 # Create router
 router = APIRouter(
@@ -110,6 +111,12 @@ class ISINExtractRequest(BaseModel):
     text: str
     validate: Optional[bool] = True
     include_metadata: Optional[bool] = True
+    
+class SecuritiesExtractRequest(BaseModel):
+    """Securities extract request model."""
+    pdf_path: Optional[str] = None
+    document_path: Optional[str] = None
+    enhanced_extraction: Optional[bool] = True
 
 # Helper functions
 def get_agent_manager():
@@ -191,6 +198,15 @@ def get_agent_manager():
         manager.create_agent(
             "isin_extractor",
             ISINExtractorAgent
+        )
+        
+    if "enhanced_securities_extractor" not in manager.agents:
+        manager.create_agent(
+            "enhanced_securities_extractor",
+            EnhancedSecuritiesExtractorAgent,
+            debug=True,
+            log_level="INFO",
+            reference_db_path=os.path.join(os.getcwd(), "data", "securities_reference.json")
         )
 
     return manager
@@ -835,3 +851,102 @@ async def extract_isins(
         return result
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error extracting ISINs: {str(e)}")
+
+@router.post("/extract-securities")
+async def extract_securities(
+    request: SecuritiesExtractRequest,
+    manager: AgentManager = Depends(get_agent_manager)
+):
+    """
+    Extract securities information from a financial document.
+
+    Args:
+        request: Securities extract request
+        manager: Agent manager
+
+    Returns:
+        Extracted securities information
+    """
+    try:
+        # Get the PDF path
+        pdf_path = request.pdf_path
+        if not pdf_path and request.document_path:
+            pdf_path = request.document_path
+            
+        if not pdf_path:
+            return JSONResponse(
+                status_code=400,
+                content={"status": "error", "message": "No PDF path provided"}
+            )
+            
+        # Check if the file exists
+        if not os.path.exists(pdf_path):
+            return JSONResponse(
+                status_code=404,
+                content={"status": "error", "message": f"File not found: {pdf_path}"}
+            )
+        
+        # Extract securities
+        result = manager.run_agent(
+            "enhanced_securities_extractor",
+            pdf_path=pdf_path,
+            enhanced_extraction=request.enhanced_extraction
+        )
+
+        return result
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error extracting securities: {str(e)}")
+
+@router.post("/upload-and-extract-securities")
+async def upload_and_extract_securities(
+    file: UploadFile = File(...),
+    enhanced_extraction: bool = Form(True),
+    manager: AgentManager = Depends(get_agent_manager)
+):
+    """
+    Upload a PDF file and extract securities information.
+
+    Args:
+        file: Uploaded PDF file
+        enhanced_extraction: Whether to use enhanced extraction
+        manager: Agent manager
+
+    Returns:
+        Extracted securities information
+    """
+    try:
+        # Check file type
+        if not file.filename.lower().endswith('.pdf'):
+            return JSONResponse(
+                status_code=400,
+                content={"status": "error", "message": "Only PDF files are supported"}
+            )
+        
+        # Create a temporary file
+        with tempfile.NamedTemporaryFile(delete=False, suffix='.pdf') as temp:
+            # Write content to the temporary file
+            content = await file.read()
+            temp.write(content)
+            temp_path = temp.name
+        
+        try:
+            # Extract securities
+            result = manager.run_agent(
+                "enhanced_securities_extractor",
+                pdf_path=temp_path,
+                enhanced_extraction=enhanced_extraction
+            )
+            
+            # Add filename to result
+            if isinstance(result, dict):
+                result['filename'] = file.filename
+                
+            return result
+            
+        finally:
+            # Clean up the temporary file
+            if os.path.exists(temp_path):
+                os.unlink(temp_path)
+                
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error extracting securities: {str(e)}")

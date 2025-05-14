@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FinDoc Analyzer Micro Test Report</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      color: #333;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    h1, h2, h3, h4 {
+      color: #2c3e50;
+    }
+    .summary {
+      background-color: #fff3cd;
+      color: #856404;
+      padding: 15px;
+      border-radius: 5px;
+      margin-bottom: 20px;
+    }
+    .test-result {
+      margin-bottom: 30px;
+      padding: 15px;
+      border-radius: 5px;
+      border-left: 5px solid #ddd;
+      background-color: #f8f9fa;
+    }
+    .test-result.passed {
+      border-left-color: #28a745;
+    }
+    .test-result.failed {
+      border-left-color: #dc3545;
+    }
+    .badge {
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: 3px;
+      font-size: 12px;
+      font-weight: bold;
+    }
+    .badge.passed {
+      background-color: #d4edda;
+      color: #155724;
+    }
+    .badge.failed {
+      background-color: #f8d7da;
+      color: #721c24;
+    }
+    .badge.warning {
+      background-color: #fff3cd;
+      color: #856404;
+    }
+    .badge.info {
+      background-color: #d1ecf1;
+      color: #0c5460;
+    }
+    .screenshot {
+      max-width: 100%;
+      height: auto;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      margin-top: 10px;
+    }
+    .error {
+      background-color: #f8d7da;
+      color: #721c24;
+      padding: 10px;
+      border-radius: 5px;
+      margin-top: 10px;
+      font-family: monospace;
+      white-space: pre-wrap;
+    }
+    .console {
+      background-color: #f8f9fa;
+      padding: 10px;
+      border-radius: 5px;
+      margin-top: 10px;
+      font-family: monospace;
+      white-space: pre-wrap;
+      max-height: 200px;
+      overflow-y: auto;
+    }
+    .console-error {
+      color: #dc3545;
+    }
+    .console-warning {
+      color: #ffc107;
+    }
+    .console-info {
+      color: #17a2b8;
+    }
+    .network-error {
+      background-color: #f8d7da;
+      color: #721c24;
+      padding: 10px;
+      border-radius: 5px;
+      margin-top: 10px;
+      font-family: monospace;
+      white-space: pre-wrap;
+    }
+    .collapsible {
+      background-color: #f1f1f1;
+      color: #444;
+      cursor: pointer;
+      padding: 10px;
+      width: 100%;
+      border: none;
+      text-align: left;
+      outline: none;
+      font-size: 14px;
+      border-radius: 5px;
+      margin-top: 10px;
+    }
+    .active, .collapsible:hover {
+      background-color: #ddd;
+    }
+    .collapsible:after {
+      content: '\002B';
+      color: #777;
+      font-weight: bold;
+      float: right;
+      margin-left: 5px;
+    }
+    .active:after {
+      content: "\2212";
+    }
+    .content {
+      padding: 0 10px;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.2s ease-out;
+      background-color: #f8f9fa;
+      border-radius: 0 0 5px 5px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+    th, td {
+      padding: 8px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+    th {
+      background-color: #f2f2f2;
+    }
+    .progress-bar {
+      width: 100%;
+      background-color: #e9ecef;
+      border-radius: 5px;
+      margin-bottom: 10px;
+    }
+    .progress {
+      height: 20px;
+      border-radius: 5px;
+      background-color: #ffc107;
+      width: 67%;
+      text-align: center;
+      line-height: 20px;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <h1>FinDoc Analyzer Micro Test Report</h1>
+
+  <div class="summary">
+    <h2>Summary</h2>
+    <div class="progress-bar">
+      <div class="progress">67%</div>
+    </div>
+    <p><strong>2</strong> of <strong>3</strong> tests passed</p>
+    <p><strong>0</strong> network errors detected</p>
+    <p><strong>3</strong> JavaScript errors detected</p>
+  </div>
+
+  <h2>Test Results</h2>
+
+  
+    <div class="test-result passed">
+      <h3>Chat Page Loads <span class="badge passed">passed</span></h3>
+      <p>Duration: 4987ms</p>
+
+      
+
+      
+        <button class="collapsible">JavaScript Errors (1)</button>
+        <div class="content">
+          
+            <div class="error">Identifier 'mockDocuments' has already been declared
+SyntaxError: Identifier 'mockDocuments' has already been declared
+    at <anonymous> (https://backv2-app-brfi73d4ra-zf.a.run.app/document-chat:318:11)</div>
+          
+        </div>
+      
+
+      
+
+      
+        <button class="collapsible">Console Messages (4)</button>
+        <div class="content">
+          <div class="console">
+            
+              <div class="console-info">
+                [2025-05-01T07:30:03.041Z] [log] Initializing mock API...
+              </div>
+            
+              <div class="console-info">
+                [2025-05-01T07:30:03.041Z] [log] Mock API initialized
+              </div>
+            
+              <div class="console-info">
+                [2025-05-01T07:30:03.042Z] [log] Current path: /document-chat
+              </div>
+            
+              <div class="console-info">
+                [2025-05-01T07:30:03.042Z] [log] Active link set to: /document-chat
+              </div>
+            
+          </div>
+        </div>
+      
+
+      
+    </div>
+  
+    <div class="test-result passed">
+      <h3>Document Selection <span class="badge passed">passed</span></h3>
+      <p>Duration: 3238ms</p>
+
+      
+
+      
+        <button class="collapsible">JavaScript Errors (1)</button>
+        <div class="content">
+          
+            <div class="error">Identifier 'mockDocuments' has already been declared
+SyntaxError: Identifier 'mockDocuments' has already been declared
+    at <anonymous> (https://backv2-app-brfi73d4ra-zf.a.run.app/document-chat:318:11)</div>
+          
+        </div>
+      
+
+      
+
+      
+        <button class="collapsible">Console Messages (4)</button>
+        <div class="content">
+          <div class="console">
+            
+              <div class="console-info">
+                [2025-05-01T07:30:07.816Z] [log] Initializing mock API...
+              </div>
+            
+              <div class="console-info">
+                [2025-05-01T07:30:07.816Z] [log] Mock API initialized
+              </div>
+            
+              <div class="console-info">
+                [2025-05-01T07:30:07.817Z] [log] Current path: /document-chat
+              </div>
+            
+              <div class="console-info">
+                [2025-05-01T07:30:07.817Z] [log] Active link set to: /document-chat
+              </div>
+            
+          </div>
+        </div>
+      
+
+      
+    </div>
+  
+    <div class="test-result failed">
+      <h3>Ask Questions <span class="badge failed">failed</span></h3>
+      <p>Duration: 3070ms</p>
+
+      
+        <button class="collapsible">Error Details</button>
+        <div class="content">
+          <div class="error">No document options found in the select
+Error: No document options found in the select
+    at C:\Users\aviad\OneDrive\Desktop\backv2-main\chat-test.js:132:15
+    at async MicroTestRunner.runTest (C:\Users\aviad\OneDrive\Desktop\backv2-main\micro-test-framework.js:141:7)
+    at async runChatTest (C:\Users\aviad\OneDrive\Desktop\backv2-main\chat-test.js:118:5)</div>
+        </div>
+      
+
+      
+        <button class="collapsible">JavaScript Errors (1)</button>
+        <div class="content">
+          
+            <div class="error">Identifier 'mockDocuments' has already been declared
+SyntaxError: Identifier 'mockDocuments' has already been declared
+    at <anonymous> (https://backv2-app-brfi73d4ra-zf.a.run.app/document-chat:318:11)</div>
+          
+        </div>
+      
+
+      
+
+      
+        <button class="collapsible">Console Messages (4)</button>
+        <div class="content">
+          <div class="console">
+            
+              <div class="console-info">
+                [2025-05-01T07:30:11.135Z] [log] Initializing mock API...
+              </div>
+            
+              <div class="console-info">
+                [2025-05-01T07:30:11.136Z] [log] Mock API initialized
+              </div>
+            
+              <div class="console-info">
+                [2025-05-01T07:30:11.136Z] [log] Current path: /document-chat
+              </div>
+            
+              <div class="console-info">
+                [2025-05-01T07:30:11.137Z] [log] Active link set to: /document-chat
+              </div>
+            
+          </div>
+        </div>
+      
+
+      
+        <button class="collapsible">Screenshots (1)</button>
+        <div class="content">
+          
+            <h4>Ask-Questions-failure.png</h4>
+            <img src="Ask-Questions-failure.png" alt="Ask-Questions-failure.png" class="screenshot">
+          
+        </div>
+      
+    </div>
+  
+
+  <script>
+    var coll = document.getElementsByClassName("collapsible");
+    var i;
+
+    for (i = 0; i < coll.length; i++) {
+      coll[i].addEventListener("click", function() {
+        this.classList.toggle("active");
+        var content = this.nextElementSibling;
+        if (content.style.maxHeight){
+          content.style.maxHeight = null;
+        } else {
+          content.style.maxHeight = content.scrollHeight + "px";
+        }
+      });
+    }
+  </script>
+</body>
+</html>

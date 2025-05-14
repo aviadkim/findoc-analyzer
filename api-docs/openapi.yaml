@@ -1,0 +1,1669 @@
+openapi: 3.0.3
+info:
+  title: FinDoc Analyzer API
+  description: |
+    API for FinDoc Analyzer application that processes financial documents, 
+    extracts securities data, and provides portfolio analysis.
+  contact:
+    name: FinDoc Support
+    url: https://findoc.example.com/support
+    email: support@findoc.example.com
+  version: 1.0.0
+servers:
+  - url: https://api.findoc.example.com/v1
+    description: Production server
+  - url: https://api-staging.findoc.example.com/v1
+    description: Staging server
+  - url: http://localhost:3000/api
+    description: Local development server
+tags:
+  - name: auth
+    description: Authentication and authorization
+  - name: documents
+    description: Document management and operations
+  - name: processor
+    description: Document processing and extraction
+  - name: securities
+    description: Securities data and operations
+  - name: comparison
+    description: Document and portfolio comparison
+  - name: analysis
+    description: Portfolio analysis and insights
+  - name: export
+    description: Data export functionality
+  - name: users
+    description: User management
+  - name: system
+    description: System information and health
+
+paths:
+  # Authentication endpoints
+  /auth/login:
+    post:
+      tags:
+        - auth
+      summary: Login with credentials
+      description: Authenticate user with username and password
+      operationId: login
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - username
+                - password
+              properties:
+                username:
+                  type: string
+                  example: johndoe
+                password:
+                  type: string
+                  format: password
+                  example: password123
+      responses:
+        '200':
+          description: Successful authentication
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  token:
+                    type: string
+                    example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+                  user:
+                    $ref: '#/components/schemas/User'
+        '401':
+          description: Invalid credentials
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  
+  /auth/register:
+    post:
+      tags:
+        - auth
+      summary: Register a new user
+      description: Create a new user account
+      operationId: registerUser
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - username
+                - email
+                - password
+              properties:
+                username:
+                  type: string
+                  example: newuser
+                email:
+                  type: string
+                  format: email
+                  example: user@example.com
+                password:
+                  type: string
+                  format: password
+                  example: securepassword123
+                firstName:
+                  type: string
+                  example: John
+                lastName:
+                  type: string
+                  example: Doe
+      responses:
+        '201':
+          description: User created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: User registered successfully
+                  userId:
+                    type: string
+                    example: abc123
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  
+  /auth/refresh:
+    post:
+      tags:
+        - auth
+      summary: Refresh authentication token
+      description: Get a new authentication token using a refresh token
+      operationId: refreshToken
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - refreshToken
+              properties:
+                refreshToken:
+                  type: string
+                  example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+      responses:
+        '200':
+          description: Token refreshed successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  token:
+                    type: string
+                    example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+                  refreshToken:
+                    type: string
+                    example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+        '401':
+          description: Invalid refresh token
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  
+  # Document endpoints
+  /documents:
+    get:
+      tags:
+        - documents
+      summary: Get documents
+      description: Retrieve a list of documents for the authenticated user
+      operationId: getDocuments
+      parameters:
+        - name: page
+          in: query
+          description: Page number for pagination
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+            default: 1
+        - name: limit
+          in: query
+          description: Number of items per page
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 20
+        - name: sort
+          in: query
+          description: Field to sort by
+          required: false
+          schema:
+            type: string
+            enum: [uploadDate, fileName, processingStatus]
+            default: uploadDate
+        - name: order
+          in: query
+          description: Sort order
+          required: false
+          schema:
+            type: string
+            enum: [asc, desc]
+            default: desc
+        - name: filter
+          in: query
+          description: Filter by processing status
+          required: false
+          schema:
+            type: string
+            enum: [all, pending, processing, completed, failed]
+            default: all
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: List of documents
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  documents:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Document'
+                  pagination:
+                    $ref: '#/components/schemas/Pagination'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  
+  /documents/upload:
+    post:
+      tags:
+        - documents
+      summary: Upload document
+      description: Upload a new document for processing
+      operationId: uploadDocument
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required:
+                - file
+              properties:
+                file:
+                  type: string
+                  format: binary
+                  description: The document file to upload (PDF, Excel, etc.)
+                description:
+                  type: string
+                  description: Optional description for the document
+                tags:
+                  type: array
+                  items:
+                    type: string
+                  description: Optional tags for the document
+      responses:
+        '200':
+          description: Document uploaded successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  documentId:
+                    type: string
+                    example: doc-123
+                  fileName:
+                    type: string
+                    example: portfolio-statement.pdf
+        '400':
+          description: Invalid file or request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  
+  /documents/{documentId}:
+    get:
+      tags:
+        - documents
+      summary: Get document
+      description: Retrieve document details by ID
+      operationId: getDocument
+      parameters:
+        - name: documentId
+          in: path
+          description: Document ID
+          required: true
+          schema:
+            type: string
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Document details
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  document:
+                    $ref: '#/components/schemas/Document'
+        '404':
+          description: Document not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      tags:
+        - documents
+      summary: Delete document
+      description: Delete a document by ID
+      operationId: deleteDocument
+      parameters:
+        - name: documentId
+          in: path
+          description: Document ID
+          required: true
+          schema:
+            type: string
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Document deleted successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Document deleted successfully
+        '404':
+          description: Document not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  
+  /documents/process:
+    post:
+      tags:
+        - documents
+        - processor
+      summary: Process document
+      description: Start processing a document
+      operationId: processDocument
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - documentId
+              properties:
+                documentId:
+                  type: string
+                  example: doc-123
+                options:
+                  type: object
+                  properties:
+                    useOcr:
+                      type: boolean
+                      description: Whether to use OCR for processing
+                      default: false
+                    extractTables:
+                      type: boolean
+                      description: Whether to extract tables
+                      default: true
+                    extractSecurities:
+                      type: boolean
+                      description: Whether to extract securities
+                      default: true
+                    processingTier:
+                      type: string
+                      enum: [basic, standard, comprehensive]
+                      description: Processing tier level
+                      default: standard
+      responses:
+        '200':
+          description: Processing started
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  processingId:
+                    type: string
+                    example: proc-456
+                  documentId:
+                    type: string
+                    example: doc-123
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Document not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  
+  /documents/process/status:
+    get:
+      tags:
+        - documents
+        - processor
+      summary: Get processing status
+      description: Check the status of a document processing task
+      operationId: getProcessingStatus
+      parameters:
+        - name: id
+          in: query
+          description: Processing ID
+          required: true
+          schema:
+            type: string
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Processing status
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    enum: [pending, processing, completed, failed]
+                    example: processing
+                  progress:
+                    type: number
+                    format: float
+                    minimum: 0
+                    maximum: 100
+                    example: 45.5
+                  message:
+                    type: string
+                    example: Extracting securities data
+                  error:
+                    type: string
+                    example: null
+                  result:
+                    type: object
+                    description: Result data (if processing is completed)
+        '404':
+          description: Processing task not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  
+  /documents/{documentId}/securities:
+    get:
+      tags:
+        - documents
+        - securities
+      summary: Get securities
+      description: Retrieve securities extracted from a document
+      operationId: getSecurities
+      parameters:
+        - name: documentId
+          in: path
+          description: Document ID
+          required: true
+          schema:
+            type: string
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Securities data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  securities:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Security'
+        '404':
+          description: Document not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  
+  /documents/{documentId}/export:
+    get:
+      tags:
+        - documents
+        - export
+      summary: Export document
+      description: Export document data in various formats
+      operationId: exportDocument
+      parameters:
+        - name: documentId
+          in: path
+          description: Document ID
+          required: true
+          schema:
+            type: string
+        - name: format
+          in: query
+          description: Export format
+          required: true
+          schema:
+            type: string
+            enum: [json, csv, xlsx]
+            default: json
+        - name: includeMetadata
+          in: query
+          description: Whether to include metadata
+          required: false
+          schema:
+            type: boolean
+            default: true
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Exported document data
+          content:
+            application/json:
+              schema:
+                type: object
+            text/csv:
+              schema:
+                type: string
+                format: binary
+            application/vnd.openxmlformats-officedocument.spreadsheetml.sheet:
+              schema:
+                type: string
+                format: binary
+        '404':
+          description: Document not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  
+  /documents/{documentId}/query:
+    post:
+      tags:
+        - documents
+      summary: Query document
+      description: Ask questions about a document
+      operationId: queryDocument
+      parameters:
+        - name: documentId
+          in: path
+          description: Document ID
+          required: true
+          schema:
+            type: string
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - question
+              properties:
+                question:
+                  type: string
+                  example: What securities are in this document?
+      responses:
+        '200':
+          description: Query response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  answer:
+                    type: string
+                    example: The document contains 5 securities, including Apple Inc. (AAPL), Microsoft Corporation (MSFT), and Amazon.com Inc. (AMZN).
+                  confidence:
+                    type: number
+                    format: float
+                    minimum: 0
+                    maximum: 1
+                    example: 0.92
+        '404':
+          description: Document not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  
+  /documents/{documentId}/analyze:
+    post:
+      tags:
+        - documents
+        - analysis
+      summary: Analyze document
+      description: Perform portfolio analysis on a document
+      operationId: analyzeDocument
+      parameters:
+        - name: documentId
+          in: path
+          description: Document ID
+          required: true
+          schema:
+            type: string
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                options:
+                  type: object
+                  properties:
+                    detailLevel:
+                      type: string
+                      enum: [basic, standard, detailed]
+                      default: standard
+      responses:
+        '200':
+          description: Analysis results
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  analysis:
+                    $ref: '#/components/schemas/PortfolioAnalysis'
+        '404':
+          description: Document not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  
+  # Processor endpoints
+  /processor/extract:
+    post:
+      tags:
+        - processor
+      summary: Extract data from document
+      description: Extract specific data from a document without storing it
+      operationId: extractData
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required:
+                - file
+              properties:
+                file:
+                  type: string
+                  format: binary
+                  description: The document file to process
+                extractionType:
+                  type: string
+                  enum: [text, tables, securities, all]
+                  default: all
+                  description: Type of data to extract
+                useOcr:
+                  type: boolean
+                  default: false
+                  description: Whether to use OCR for processing
+      responses:
+        '200':
+          description: Extracted data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  text:
+                    type: string
+                    description: Extracted text (if requested)
+                  tables:
+                    type: array
+                    description: Extracted tables (if requested)
+                    items:
+                      $ref: '#/components/schemas/Table'
+                  securities:
+                    type: array
+                    description: Extracted securities (if requested)
+                    items:
+                      $ref: '#/components/schemas/Security'
+        '400':
+          description: Invalid file or request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  
+  /processor/detect-language:
+    post:
+      tags:
+        - processor
+      summary: Detect document language
+      description: Detect the language of a document
+      operationId: detectLanguage
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required:
+                - file
+              properties:
+                file:
+                  type: string
+                  format: binary
+                  description: The document file to analyze
+      responses:
+        '200':
+          description: Detected language
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  language:
+                    type: string
+                    example: en
+                  confidence:
+                    type: number
+                    format: float
+                    minimum: 0
+                    maximum: 1
+                    example: 0.95
+        '400':
+          description: Invalid file or request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  
+  /processor/extract-isins:
+    post:
+      tags:
+        - processor
+        - securities
+      summary: Extract ISINs from document
+      description: Extract International Securities Identification Numbers from a document
+      operationId: extractIsins
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required:
+                - file
+              properties:
+                file:
+                  type: string
+                  format: binary
+                  description: The document file to analyze
+                useOcr:
+                  type: boolean
+                  default: false
+                  description: Whether to use OCR for processing
+      responses:
+        '200':
+          description: Extracted ISINs
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  isins:
+                    type: array
+                    items:
+                      type: string
+                      example: US0378331005
+                    description: Array of extracted ISINs
+        '400':
+          description: Invalid file or request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  
+  # Comparison endpoints
+  /comparison/compare:
+    post:
+      tags:
+        - comparison
+      summary: Compare documents
+      description: Compare multiple documents
+      operationId: compareDocuments
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - documentIds
+              properties:
+                documentIds:
+                  type: array
+                  items:
+                    type: string
+                  minItems: 2
+                  maxItems: 5
+                  example: [doc-123, doc-456]
+                options:
+                  type: object
+                  properties:
+                    includeDetails:
+                      type: boolean
+                      default: true
+      responses:
+        '200':
+          description: Comparison results
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  comparisonId:
+                    type: string
+                    example: comp-789
+                  results:
+                    $ref: '#/components/schemas/ComparisonResults'
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  
+  /comparison/securities-diff:
+    post:
+      tags:
+        - comparison
+        - securities
+      summary: Compare securities between documents
+      description: Get securities differences between two documents
+      operationId: securitiesDiff
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - documentIds
+              properties:
+                documentIds:
+                  type: array
+                  items:
+                    type: string
+                  minItems: 2
+                  maxItems: 2
+                  example: [doc-123, doc-456]
+      responses:
+        '200':
+          description: Securities differences
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  securitiesDiff:
+                    type: object
+                    properties:
+                      added:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/Security'
+                      removed:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/Security'
+                      changed:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/SecurityChange'
+                      unchanged:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/Security'
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  
+  /comparison/chart-data:
+    post:
+      tags:
+        - comparison
+        - analysis
+      summary: Get comparison chart data
+      description: Generate chart data for document comparison
+      operationId: comparisonChartData
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - documentIds
+                - chartType
+              properties:
+                documentIds:
+                  type: array
+                  items:
+                    type: string
+                  minItems: 2
+                  maxItems: 5
+                  example: [doc-123, doc-456]
+                chartType:
+                  type: string
+                  enum: [assetAllocation, performance, riskMetrics]
+                  example: assetAllocation
+      responses:
+        '200':
+          description: Chart data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  chartData:
+                    $ref: '#/components/schemas/ChartData'
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  
+  /comparison/export:
+    post:
+      tags:
+        - comparison
+        - export
+      summary: Export comparison report
+      description: Generate and export a comparison report
+      operationId: exportComparison
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - documentIds
+                - format
+              properties:
+                documentIds:
+                  type: array
+                  items:
+                    type: string
+                  minItems: 2
+                  maxItems: 5
+                  example: [doc-123, doc-456]
+                format:
+                  type: string
+                  enum: [pdf, xlsx, json]
+                  example: pdf
+      responses:
+        '200':
+          description: Exported comparison report
+          content:
+            application/pdf:
+              schema:
+                type: string
+                format: binary
+            application/vnd.openxmlformats-officedocument.spreadsheetml.sheet:
+              schema:
+                type: string
+                format: binary
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  
+  # System endpoints
+  /system/health:
+    get:
+      tags:
+        - system
+      summary: System health
+      description: Check the health of the system
+      operationId: systemHealth
+      responses:
+        '200':
+          description: System health information
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    enum: [healthy, degraded, unhealthy]
+                    example: healthy
+                  version:
+                    type: string
+                    example: 1.0.0
+                  uptime:
+                    type: number
+                    example: 1234567
+                  services:
+                    type: object
+                    additionalProperties:
+                      type: object
+                      properties:
+                        status:
+                          type: string
+                          enum: [healthy, degraded, unhealthy]
+                          example: healthy
+                        message:
+                          type: string
+                          example: Service is operating normally
+
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+          example: user-123
+        username:
+          type: string
+          example: johndoe
+        email:
+          type: string
+          format: email
+          example: john.doe@example.com
+        firstName:
+          type: string
+          example: John
+        lastName:
+          type: string
+          example: Doe
+        role:
+          type: string
+          enum: [user, admin]
+          example: user
+        createdAt:
+          type: string
+          format: date-time
+          example: '2023-01-15T12:00:00Z'
+    
+    Document:
+      type: object
+      properties:
+        id:
+          type: string
+          example: doc-123
+        fileName:
+          type: string
+          example: portfolio-statement.pdf
+        fileType:
+          type: string
+          example: pdf
+        fileSize:
+          type: integer
+          format: int64
+          example: 1048576
+        uploadDate:
+          type: string
+          format: date-time
+          example: '2023-01-15T12:00:00Z'
+        processingStatus:
+          type: string
+          enum: [pending, processing, completed, failed]
+          example: completed
+        processingDate:
+          type: string
+          format: date-time
+          example: '2023-01-15T12:05:00Z'
+        description:
+          type: string
+          example: Q1 2023 Portfolio Statement
+        tags:
+          type: array
+          items:
+            type: string
+          example: [portfolio, q1, 2023]
+        metadata:
+          type: object
+          properties:
+            pageCount:
+              type: integer
+              example: 5
+            language:
+              type: string
+              example: en
+            securitiesCount:
+              type: integer
+              example: 8
+    
+    Security:
+      type: object
+      properties:
+        id:
+          type: string
+          example: sec-123
+        name:
+          type: string
+          example: Apple Inc.
+        symbol:
+          type: string
+          example: AAPL
+        isin:
+          type: string
+          example: US0378331005
+        assetClass:
+          type: string
+          example: Equity
+        quantity:
+          type: number
+          format: double
+          example: 100
+        price:
+          type: number
+          format: double
+          example: 175.25
+        value:
+          type: number
+          format: double
+          example: 17525.00
+        currency:
+          type: string
+          example: USD
+        sector:
+          type: string
+          example: Technology
+        country:
+          type: string
+          example: US
+        marketCap:
+          type: string
+          example: Large-Cap
+        metadata:
+          type: object
+          additionalProperties: true
+    
+    SecurityChange:
+      type: object
+      properties:
+        security:
+          $ref: '#/components/schemas/Security'
+        changes:
+          type: object
+          properties:
+            quantity:
+              type: object
+              properties:
+                oldValue:
+                  type: number
+                  format: double
+                  example: 100
+                newValue:
+                  type: number
+                  format: double
+                  example: 150
+                percentChange:
+                  type: number
+                  format: double
+                  example: 50.0
+            price:
+              type: object
+              properties:
+                oldValue:
+                  type: number
+                  format: double
+                  example: 150.50
+                newValue:
+                  type: number
+                  format: double
+                  example: 175.25
+                percentChange:
+                  type: number
+                  format: double
+                  example: 16.45
+            value:
+              type: object
+              properties:
+                oldValue:
+                  type: number
+                  format: double
+                  example: 15050.00
+                newValue:
+                  type: number
+                  format: double
+                  example: 26287.50
+                percentChange:
+                  type: number
+                  format: double
+                  example: 74.67
+    
+    Table:
+      type: object
+      properties:
+        pageNumber:
+          type: integer
+          example: 2
+        tableNumber:
+          type: integer
+          example: 1
+        rows:
+          type: array
+          items:
+            type: array
+            items:
+              type: string
+          example: [["Security", "Quantity", "Price", "Value"], ["Apple Inc.", "100", "175.25", "17,525.00"]]
+        tableName:
+          type: string
+          example: Securities Holdings
+        extractionConfidence:
+          type: number
+          format: float
+          minimum: 0
+          maximum: 1
+          example: 0.95
+    
+    PortfolioAnalysis:
+      type: object
+      properties:
+        summary:
+          type: object
+          properties:
+            totalValue:
+              type: number
+              format: double
+              example: 125000.00
+            securityCount:
+              type: integer
+              example: 12
+            assetClassCount:
+              type: integer
+              example: 3
+            currency:
+              type: string
+              example: USD
+        assetAllocation:
+          type: object
+          additionalProperties:
+            type: number
+            format: double
+          example:
+            Equity: 65.4
+            "Fixed Income": 25.3
+            Cash: 9.3
+        sectorAllocation:
+          type: object
+          additionalProperties:
+            type: number
+            format: double
+          example:
+            Technology: 32.5
+            Healthcare: 18.2
+            Financials: 14.7
+            Consumer: 10.6
+            Other: 24.0
+        geographicAllocation:
+          type: object
+          additionalProperties:
+            type: number
+            format: double
+          example:
+            US: 72.5
+            Europe: 15.8
+            Asia: 8.7
+            Other: 3.0
+        riskMetrics:
+          type: object
+          properties:
+            diversificationScore:
+              type: number
+              format: float
+              minimum: 0
+              maximum: 100
+              example: 72.5
+            riskScore:
+              type: number
+              format: float
+              minimum: 0
+              maximum: 100
+              example: 58.3
+            volatility:
+              type: number
+              format: float
+              example: 12.4
+        insights:
+          type: array
+          items:
+            type: object
+            properties:
+              type:
+                type: string
+                enum: [info, warning, suggestion]
+                example: suggestion
+              message:
+                type: string
+                example: Your portfolio has a high concentration in technology stocks, consider diversifying to reduce sector risk.
+              importance:
+                type: number
+                format: float
+                minimum: 0
+                maximum: 1
+                example: 0.8
+    
+    ComparisonResults:
+      type: object
+      properties:
+        summary:
+          type: object
+          properties:
+            documentCount:
+              type: integer
+              example: 2
+            documentsInfo:
+              type: object
+              additionalProperties:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: doc-123
+                  name:
+                    type: string
+                    example: Q1 2023 Portfolio
+                  date:
+                    type: string
+                    format: date-time
+                    example: '2023-01-15T12:00:00Z'
+                  totalValue:
+                    type: number
+                    format: double
+                    example: 125000.00
+        differences:
+          type: object
+          additionalProperties:
+            type: object
+            properties:
+              addedSecurities:
+                type: integer
+                example: 2
+              removedSecurities:
+                type: integer
+                example: 1
+              changedSecurities:
+                type: integer
+                example: 5
+              unchangedSecurities:
+                type: integer
+                example: 4
+              totalValueChange:
+                type: number
+                format: double
+                example: 15000.00
+              totalValueChangePercent:
+                type: number
+                format: double
+                example: 12.5
+        assetAllocationComparison:
+          type: object
+          additionalProperties:
+            type: object
+            additionalProperties:
+              type: number
+              format: double
+          example:
+            "doc-123":
+              Equity: 65.4
+              "Fixed Income": 25.3
+              Cash: 9.3
+            "doc-456":
+              Equity: 70.2
+              "Fixed Income": 20.5
+              Cash: 9.3
+        sectorAllocationComparison:
+          type: object
+          additionalProperties:
+            type: object
+            additionalProperties:
+              type: number
+              format: double
+        topChanges:
+          type: object
+          properties:
+            securities:
+              type: array
+              items:
+                type: object
+                properties:
+                  name:
+                    type: string
+                    example: Apple Inc.
+                  changeType:
+                    type: string
+                    enum: [added, removed, increased, decreased]
+                    example: increased
+                  valueChange:
+                    type: number
+                    format: double
+                    example: 5000.00
+                  percentChange:
+                    type: number
+                    format: double
+                    example: 25.0
+            assetClasses:
+              type: array
+              items:
+                type: object
+                properties:
+                  name:
+                    type: string
+                    example: Equity
+                  percentagePointChange:
+                    type: number
+                    format: double
+                    example: 4.8
+            sectors:
+              type: array
+              items:
+                type: object
+                properties:
+                  name:
+                    type: string
+                    example: Technology
+                  percentagePointChange:
+                    type: number
+                    format: double
+                    example: 3.2
+    
+    ChartData:
+      type: object
+      properties:
+        labels:
+          type: array
+          items:
+            type: string
+          example: ["Equity", "Fixed Income", "Cash"]
+        datasets:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+                example: Q1 2023 Portfolio
+              data:
+                type: array
+                items:
+                  type: number
+                  format: double
+                example: [65.4, 25.3, 9.3]
+              color:
+                type: string
+                example: "#4285F4"
+        title:
+          type: string
+          example: Asset Allocation Comparison
+        description:
+          type: string
+          example: Comparison of asset allocation between portfolios
+    
+    Pagination:
+      type: object
+      properties:
+        page:
+          type: integer
+          example: 1
+        limit:
+          type: integer
+          example: 20
+        totalItems:
+          type: integer
+          example: 54
+        totalPages:
+          type: integer
+          example: 3
+    
+    Error:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: false
+        error:
+          type: string
+          example: Document not found
+        code:
+          type: string
+          example: DOCUMENT_NOT_FOUND
+        status:
+          type: integer
+          example: 404

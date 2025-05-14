@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Processing Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.5;
+        }
+        .container {
+            border: 1px solid #ddd;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            background-color: #f9f9f9;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        #result {
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            display: none;
+            background-color: #fff;
+        }
+        progress {
+            width: 100%;
+            margin: 10px 0;
+            height: 20px;
+        }
+        .document-list {
+            margin-top: 20px;
+        }
+        .document-item {
+            padding: 15px;
+            border: 1px solid #ddd;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            background-color: #fff;
+        }
+        .question-form {
+            margin-top: 15px;
+            display: none;
+            padding: 15px;
+            background-color: #f0f8ff;
+            border-radius: 5px;
+        }
+        pre {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            background-color: #f5f5f5;
+            padding: 10px;
+            border-radius: 4px;
+            overflow-x: auto;
+        }
+        .tabs {
+            display: flex;
+            margin-bottom: 10px;
+        }
+        .tab {
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            background-color: #f1f1f1;
+            cursor: pointer;
+            margin-right: 5px;
+            border-radius: 4px 4px 0 0;
+        }
+        .tab.active {
+            background-color: #fff;
+            border-bottom: 1px solid #fff;
+        }
+        .tab-content {
+            display: none;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 0 4px 4px 4px;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        h1, h2, h3 {
+            color: #333;
+        }
+        .entity-tag {
+            display: inline-block;
+            padding: 3px 8px;
+            margin: 3px;
+            border-radius: 12px;
+            font-size: 12px;
+            color: white;
+        }
+        .entity-company { background-color: #4285F4; }
+        .entity-security { background-color: #34A853; }
+        .entity-isin { background-color: #FBBC05; color: black; }
+        .entity-currency { background-color: #EA4335; }
+        .entity-metric { background-color: #8E44AD; }
+        .status-success { color: green; }
+        .status-error { color: red; }
+    </style>
+</head>
+<body>
+    <h1>FinDoc PDF Processing System</h1>
+    
+    <div class="container">
+        <h2>Upload and Process PDF</h2>
+        <form id="uploadForm" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="pdfFile">Select PDF File:</label>
+                <input type="file" id="pdfFile" name="pdf" accept=".pdf" required>
+            </div>
+            <div class="form-group">
+                <label>
+                    <input type="checkbox" id="useOcr" name="useOcr" value="true">
+                    Use OCR (for scanned PDFs)
+                </label>
+            </div>
+            <button type="submit">Upload and Process</button>
+        </form>
+        
+        <div id="progress-container" style="display: none;">
+            <h3>Processing...</h3>
+            <progress id="progress-bar"></progress>
+            <p id="progress-status">Extracting text and entities...</p>
+        </div>
+        
+        <div id="result">
+            <h3>Processing Result</h3>
+            <div class="tabs">
+                <div class="tab active" data-tab="summary">Summary</div>
+                <div class="tab" data-tab="text">Text</div>
+                <div class="tab" data-tab="entities">Entities</div>
+                <div class="tab" data-tab="tables">Tables</div>
+                <div class="tab" data-tab="json">Raw JSON</div>
+            </div>
+            
+            <div id="summary-tab" class="tab-content active">
+                <h4>Document Summary</h4>
+                <p><strong>Filename:</strong> <span id="summary-filename"></span></p>
+                <p><strong>Text Length:</strong> <span id="summary-text-length"></span> characters</p>
+                <p><strong>Tables:</strong> <span id="summary-tables"></span></p>
+                <p><strong>Entities:</strong> <span id="summary-entities"></span></p>
+                <div id="summary-entity-types"></div>
+            </div>
+            
+            <div id="text-tab" class="tab-content">
+                <h4>Extracted Text</h4>
+                <pre id="text-content"></pre>
+            </div>
+            
+            <div id="entities-tab" class="tab-content">
+                <h4>Extracted Entities</h4>
+                <div id="entities-content"></div>
+            </div>
+            
+            <div id="tables-tab" class="tab-content">
+                <h4>Extracted Tables</h4>
+                <div id="tables-content"></div>
+            </div>
+            
+            <div id="json-tab" class="tab-content">
+                <h4>Raw JSON</h4>
+                <pre id="json-content"></pre>
+            </div>
+            
+            <div class="question-form">
+                <h3>Ask a Question</h3>
+                <div class="form-group">
+                    <label for="question">Your Question:</label>
+                    <input type="text" id="question" style="width: 100%;" placeholder="What is this document about?">
+                </div>
+                <button type="button" id="askButton">Ask</button>
+                <div id="answer-container" style="margin-top: 15px; display: none;">
+                    <h4>Answer</h4>
+                    <div id="answer"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="document-list">
+        <h2>Processed Documents</h2>
+        <div id="documentsList"></div>
+    </div>
+    
+    <script>
+        // Tab switching
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Remove active class from all tabs and content
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                
+                // Add active class to clicked tab and corresponding content
+                tab.classList.add('active');
+                document.getElementById(`${tab.dataset.tab}-tab`).classList.add('active');
+            });
+        });
+        
+        // Upload form submission
+        document.getElementById('uploadForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const formData = new FormData(e.target);
+            const progressContainer = document.getElementById('progress-container');
+            const progressBar = document.getElementById('progress-bar');
+            const progressStatus = document.getElementById('progress-status');
+            
+            // Show progress
+            progressContainer.style.display = 'block';
+            progressBar.removeAttribute('value');
+            progressStatus.textContent = 'Uploading PDF...';
+            
+            try {
+                // Upload the file
+                progressStatus.textContent = 'Processing PDF...';
+                const response = await fetch('/api/process-pdf', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                if (!response.ok) {
+                    throw new Error('Error processing PDF');
+                }
+                
+                const data = await response.json();
+                
+                // Fetch document details
+                progressStatus.textContent = 'Fetching results...';
+                const detailsResponse = await fetch(`/api/documents/${data.id}`);
+                if (!detailsResponse.ok) {
+                    throw new Error('Error fetching document details');
+                }
+                
+                const details = await detailsResponse.json();
+                
+                // Fetch text
+                const textResponse = await fetch(`/api/documents/${data.id}/text`);
+                const textData = await textResponse.json();
+                
+                // Fetch entities
+                const entitiesResponse = await fetch(`/api/documents/${data.id}/entities`);
+                const entitiesData = await entitiesResponse.json();
+                
+                // Fetch tables
+                const tablesResponse = await fetch(`/api/documents/${data.id}/tables`);
+                const tablesData = await tablesResponse.json();
+                
+                // Show result
+                document.getElementById('result').style.display = 'block';
+                
+                // Update summary tab
+                document.getElementById('summary-filename').textContent = data.filename;
+                document.getElementById('summary-text-length').textContent = data.textLength;
+                document.getElementById('summary-tables').textContent = 
+                    `${data.summary.tables.standard || 0} (standard), ${data.summary.tables.mcp || 0} (MCP)`;
+                document.getElementById('summary-entities').textContent = data.summary.entities || 0;
+                
+                // Update entity types summary
+                const entityTypes = document.getElementById('summary-entity-types');
+                entityTypes.innerHTML = '';
+                
+                if (entitiesData.entities && entitiesData.entities.length > 0) {
+                    // Count entity types
+                    const typeCount = {};
+                    entitiesData.entities.forEach(entity => {
+                        const type = entity.type || 'unknown';
+                        typeCount[type] = (typeCount[type] || 0) + 1;
+                    });
+                    
+                    // Display entity type counts with colored tags
+                    entityTypes.innerHTML = '<p><strong>Entity Types:</strong></p>';
+                    Object.entries(typeCount).forEach(([type, count]) => {
+                        const tag = document.createElement('span');
+                        tag.className = `entity-tag entity-${type}`;
+                        tag.textContent = `${type}: ${count}`;
+                        entityTypes.appendChild(tag);
+                    });
+                }
+                
+                // Update text tab
+                document.getElementById('text-content').textContent = textData.text || 'No text extracted';
+                
+                // Update entities tab
+                const entitiesContent = document.getElementById('entities-content');
+                entitiesContent.innerHTML = '';
+                
+                if (entitiesData.entities && entitiesData.entities.length > 0) {
+                    entitiesData.entities.forEach(entity => {
+                        const entityDiv = document.createElement('div');
+                        entityDiv.className = 'document-item';
+                        
+                        let content = '';
+                        content += `<span class="entity-tag entity-${entity.type || 'unknown'}">${entity.type || 'unknown'}</span>`;
+                        
+                        if (entity.name) content += `<p><strong>Name:</strong> ${entity.name}</p>`;
+                        if (entity.value) content += `<p><strong>Value:</strong> ${entity.value}</p>`;
+                        if (entity.isin) content += `<p><strong>ISIN:</strong> ${entity.isin}</p>`;
+                        if (entity.ticker) content += `<p><strong>Ticker:</strong> ${entity.ticker}</p>`;
+                        if (entity.confidence) content += `<p><strong>Confidence:</strong> ${entity.confidence}</p>`;
+                        
+                        entityDiv.innerHTML = content;
+                        entitiesContent.appendChild(entityDiv);
+                    });
+                } else {
+                    entitiesContent.innerHTML = '<p>No entities extracted</p>';
+                }
+                
+                // Update tables tab
+                const tablesContent = document.getElementById('tables-content');
+                tablesContent.innerHTML = '';
+                
+                if ((tablesData.tables && tablesData.tables.length > 0) || 
+                    (tablesData.mcpTables && tablesData.mcpTables.length > 0)) {
+                    
+                    // Standard tables
+                    if (tablesData.tables && tablesData.tables.length > 0) {
+                        tablesData.tables.forEach((table, index) => {
+                            const tableDiv = document.createElement('div');
+                            tableDiv.className = 'document-item';
+                            
+                            let tableHTML = `<h4>Standard Table ${index + 1}</h4>`;
+                            if (table.title) tableHTML += `<p><strong>Title:</strong> ${table.title}</p>`;
+                            
+                            // Create HTML table
+                            tableHTML += '<table border="1" cellpadding="5" style="border-collapse: collapse; margin-top: 10px;">';
+                            
+                            // Add headers
+                            if (table.headers) {
+                                tableHTML += '<thead><tr>';
+                                table.headers.forEach(header => {
+                                    tableHTML += `<th>${header}</th>`;
+                                });
+                                tableHTML += '</tr></thead>';
+                            }
+                            
+                            // Add rows
+                            if (table.rows) {
+                                tableHTML += '<tbody>';
+                                table.rows.forEach(row => {
+                                    tableHTML += '<tr>';
+                                    row.forEach(cell => {
+                                        tableHTML += `<td>${cell}</td>`;
+                                    });
+                                    tableHTML += '</tr>';
+                                });
+                                tableHTML += '</tbody>';
+                            }
+                            
+                            tableHTML += '</table>';
+                            tableDiv.innerHTML = tableHTML;
+                            tablesContent.appendChild(tableDiv);
+                        });
+                    }
+                    
+                    // MCP tables
+                    if (tablesData.mcpTables && tablesData.mcpTables.length > 0) {
+                        tablesData.mcpTables.forEach((table, index) => {
+                            const tableDiv = document.createElement('div');
+                            tableDiv.className = 'document-item';
+                            
+                            let tableHTML = `<h4>MCP Table ${index + 1}</h4>`;
+                            if (table.title) tableHTML += `<p><strong>Title:</strong> ${table.title}</p>`;
+                            
+                            // Create HTML table
+                            tableHTML += '<table border="1" cellpadding="5" style="border-collapse: collapse; margin-top: 10px;">';
+                            
+                            // Add headers
+                            if (table.headers) {
+                                tableHTML += '<thead><tr>';
+                                table.headers.forEach(header => {
+                                    tableHTML += `<th>${header}</th>`;
+                                });
+                                tableHTML += '</tr></thead>';
+                            }
+                            
+                            // Add rows
+                            if (table.rows) {
+                                tableHTML += '<tbody>';
+                                table.rows.forEach(row => {
+                                    tableHTML += '<tr>';
+                                    row.forEach(cell => {
+                                        tableHTML += `<td>${cell}</td>`;
+                                    });
+                                    tableHTML += '</tr>';
+                                });
+                                tableHTML += '</tbody>';
+                            }
+                            
+                            tableHTML += '</table>';
+                            tableDiv.innerHTML = tableHTML;
+                            tablesContent.appendChild(tableDiv);
+                        });
+                    }
+                } else {
+                    tablesContent.innerHTML = '<p>No tables extracted</p>';
+                }
+                
+                // Update JSON tab
+                document.getElementById('json-content').textContent = JSON.stringify(details, null, 2);
+                
+                // Configure question form
+                document.querySelector('.question-form').style.display = 'block';
+                document.getElementById('askButton').dataset.documentId = data.id;
+                
+                // Hide progress
+                progressContainer.style.display = 'none';
+                
+                // Refresh document list
+                loadDocuments();
+            } catch (error) {
+                console.error('Error:', error);
+                progressStatus.innerHTML = `<span class="status-error">Error: ${error.message}</span>`;
+                progressBar.value = 0; // Reset progress bar
+            }
+        });
+        
+        // Ask question
+        document.getElementById('askButton').addEventListener('click', async () => {
+            const questionInput = document.getElementById('question');
+            const question = questionInput.value.trim();
+            const documentId = document.getElementById('askButton').dataset.documentId;
+            
+            if (!question) {
+                alert('Please enter a question');
+                return;
+            }
+            
+            try {
+                const response = await fetch(`/api/documents/${documentId}/questions`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ question })
+                });
+                
+                if (!response.ok) {
+                    throw new Error('Error asking question');
+                }
+                
+                const data = await response.json();
+                
+                // Show answer
+                document.getElementById('answer-container').style.display = 'block';
+                document.getElementById('answer').textContent = data.answer;
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Error asking question: ' + error.message);
+            }
+        });
+        
+        // Load documents
+        async function loadDocuments() {
+            try {
+                const response = await fetch('/api/documents');
+                
+                if (!response.ok) {
+                    throw new Error('Error loading documents');
+                }
+                
+                const data = await response.json();
+                const documentsList = document.getElementById('documentsList');
+                
+                if (data.length === 0) {
+                    documentsList.innerHTML = '<p>No documents processed yet</p>';
+                    return;
+                }
+                
+                documentsList.innerHTML = '';
+                
+                data.forEach(doc => {
+                    const docItem = document.createElement('div');
+                    docItem.className = 'document-item';
+                    
+                    docItem.innerHTML = `
+                        <h3>${doc.filename}</h3>
+                        <p><strong>Processed:</strong> ${new Date(doc.timestamp).toLocaleString()}</p>
+                        <p><strong>ID:</strong> ${doc.id}</p>
+                        <p><strong>Text Length:</strong> ${doc.textLength} characters</p>
+                        <p><strong>Tables:</strong> ${doc.tableCount || 0}</p>
+                        <p><strong>Entities:</strong> ${doc.entityCount || 0}</p>
+                        <p>
+                            <button class="view-tables-btn" data-id="${doc.id}">View Tables</button>
+                            <button class="view-entities-btn" data-id="${doc.id}">View Entities</button>
+                            <button class="ask-question-btn" data-id="${doc.id}">Ask Questions</button>
+                        </p>
+                    `;
+                    
+                    documentsList.appendChild(docItem);
+                });
+                
+                // Add event listeners to buttons
+                document.querySelectorAll('.view-tables-btn').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        const id = e.target.dataset.id;
+                        window.open(`/api/documents/${id}/tables`, '_blank');
+                    });
+                });
+                
+                document.querySelectorAll('.view-entities-btn').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        const id = e.target.dataset.id;
+                        window.open(`/api/documents/${id}/entities`, '_blank');
+                    });
+                });
+                
+                document.querySelectorAll('.ask-question-btn').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        const id = e.target.dataset.id;
+                        document.getElementById('result').style.display = 'block';
+                        document.querySelector('.question-form').style.display = 'block';
+                        document.getElementById('askButton').dataset.documentId = id;
+                        document.getElementById('question').focus();
+                        
+                        // Scroll to question form
+                        document.querySelector('.question-form').scrollIntoView({ behavior: 'smooth' });
+                    });
+                });
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+        
+        // Initial load
+        window.addEventListener('load', loadDocuments);
+    </script>
+</body>
+</html>

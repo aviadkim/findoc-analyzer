@@ -1,0 +1,15 @@
+Enhanced Spreadsheet Processing Summary
+=====================================
+
+This file contains the results of processing a test Excel spreadsheet
+with our enhanced spreadsheet processor.
+
+The processor successfully extracted:
+- 4 tables from the spreadsheet
+- 15 entities including securities and companies
+- Sheet metadata and content
+
+HTML output was generated and saved to enhanced-output.html
+You can view this file in a web browser to see the fully formatted results.
+
+The screenshots directory contains text files with key parts of the output.

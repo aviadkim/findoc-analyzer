@@ -1,0 +1,75 @@
+{
+  "id": "6a8206f1-4c06-4c77-873a-c954f049e66a",
+  "name": "Test Batch Job",
+  "description": "Test batch job for API testing",
+  "status": "completed",
+  "priority": "medium",
+  "progress": 50,
+  "files": [
+    {
+      "id": "0a358fd0-13b2-404d-9815-b07bd2a2ce36",
+      "path": "/virtual/document/doc-123",
+      "name": "Document doc-123",
+      "documentId": "doc-123",
+      "documentType": "generic",
+      "status": "completed",
+      "result": {
+        "id": "doc-123",
+        "fileName": "Test Financial Report.pdf",
+        "originalName": "Test Financial Report.pdf",
+        "documentType": "financial",
+        "uploadDate": "2025-05-10T00:00:00.000Z",
+        "processed": true,
+        "processingDate": "2025-05-14T09:10:48.919Z",
+        "size": 1048576,
+        "path": "C:\\Users\\aviad\\OneDrive\\Desktop\\backv2-main\\uploads\\test-financial-report.pdf"
+      },
+      "processedAt": "2025-05-14T09:10:48.919Z"
+    },
+    {
+      "id": "3a7adfe0-1625-4c23-a786-848759e661b2",
+      "path": "/virtual/document/doc-456",
+      "name": "Document doc-456",
+      "documentId": "doc-456",
+      "documentType": "generic",
+      "status": "pending",
+      "retryCount": 1,
+      "error": {
+        "message": "Document doc-456 not found",
+        "timestamp": "2025-05-14T09:10:48.927Z",
+        "retryCount": 1
+      }
+    }
+  ],
+  "totalFiles": 2,
+  "processedFiles": 1,
+  "failedFiles": 0,
+  "processingOptions": {
+    "extractText": true,
+    "extractTables": true,
+    "extractSecurities": true
+  },
+  "createdAt": "2025-05-14T09:10:48.214Z",
+  "updatedAt": "2025-05-14T09:10:48.928Z",
+  "startedAt": "2025-05-14T09:10:48.915Z",
+  "completedAt": "2025-05-14T09:10:48.928Z",
+  "summary": {
+    "status": "completed",
+    "totalFiles": 2,
+    "processedFiles": 1,
+    "failedFiles": 0,
+    "successRate": 50,
+    "duration": 13,
+    "durationFormatted": "13ms",
+    "startedAt": "2025-05-14T09:10:48.915Z",
+    "completedAt": "2025-05-14T09:10:48.928Z",
+    "documentTypes": {
+      "generic": 2
+    },
+    "processingOptions": {
+      "extractText": true,
+      "extractTables": true,
+      "extractSecurities": true
+    }
+  }
+}

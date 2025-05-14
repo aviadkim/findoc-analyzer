@@ -1,0 +1,11 @@
+{
+  "document_type": "portfolio_statement",
+  "securities": [],
+  "portfolio_summary": {
+    "total_value": "1,250,000",
+    "currency": "USD",
+    "valuation_date": "31.12.2023"
+  },
+  "asset_allocation": {},
+  "tables": []
+}

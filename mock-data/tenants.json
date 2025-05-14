@@ -1,0 +1,149 @@
+[
+  {
+    "id": "31a92a63-0787-4d26-b8c6-cb1e601158ee",
+    "name": "Test Tenant 2025-05-01T09:22:35.744Z",
+    "subscription_tier": "free",
+    "max_documents": 100,
+    "max_api_calls": 1000
+  },
+  {
+    "id": "64a3280a-d5db-4fca-8079-84db521b20c1",
+    "name": "Test Tenant 2025-05-01T09:24:00.726Z",
+    "subscription_tier": "free",
+    "max_documents": 100,
+    "max_api_calls": 1000
+  },
+  {
+    "id": "82c2b64f-b7ec-4300-ad9e-c95c472d575e",
+    "name": "Test Tenant 2025-05-01T09:26:56.073Z",
+    "subscription_tier": "free",
+    "max_documents": 100,
+    "max_api_calls": 1000
+  },
+  {
+    "id": "62fad6ee-e603-480d-9588-2b1c13d6330f",
+    "name": "Test Tenant 2025-05-01T09:27:58.652Z",
+    "subscription_tier": "free",
+    "max_documents": 100,
+    "max_api_calls": 1000
+  },
+  {
+    "id": "efb69c94-a5ed-43ef-b9e3-13ed04679264",
+    "name": "Test Tenant 2025-05-01T09:29:23.724Z",
+    "subscription_tier": "free",
+    "max_documents": 100,
+    "max_api_calls": 1000
+  },
+  {
+    "id": "4ee9a4b6-a851-4a4b-895a-5458c6f64065",
+    "name": "Test Tenant",
+    "subscription_tier": "free",
+    "max_documents": 100,
+    "max_api_calls": 1000
+  },
+  {
+    "id": "afde16d0-fdab-4869-9943-163f0661c3da",
+    "name": "Second Tenant",
+    "subscription_tier": "premium",
+    "max_documents": 500,
+    "max_api_calls": 5000
+  },
+  {
+    "id": "d304d1e3-7d7d-435e-beab-2576d409a458",
+    "name": "Test Tenant 1",
+    "subscription_tier": "free",
+    "max_documents": 100,
+    "max_api_calls": 1000
+  },
+  {
+    "id": "72ebd7b1-3d60-4019-9fa6-6be381a8e9e0",
+    "name": "Test Tenant 2",
+    "subscription_tier": "premium",
+    "max_documents": 500,
+    "max_api_calls": 5000
+  },
+  {
+    "id": "33b4bc88-8638-4255-8d34-5c26b7f5526c",
+    "name": "Test Tenant 1",
+    "subscription_tier": "free",
+    "max_documents": 100,
+    "max_api_calls": 1000
+  },
+  {
+    "id": "d54834f4-be53-47a3-9c33-10aa897f6bdb",
+    "name": "Test Tenant 2",
+    "subscription_tier": "premium",
+    "max_documents": 500,
+    "max_api_calls": 5000
+  },
+  {
+    "id": "fcd50de4-393e-44ca-95d8-ec031a5ce6c1",
+    "name": "Test Tenant 1",
+    "subscription_tier": "free",
+    "max_documents": 100,
+    "max_api_calls": 1000
+  },
+  {
+    "id": "aa68b200-68d6-47b6-86dd-89480e898931",
+    "name": "Test Tenant 2",
+    "subscription_tier": "premium",
+    "max_documents": 500,
+    "max_api_calls": 5000
+  },
+  {
+    "id": "56d72d78-b243-4b64-b236-6b46aaec29ab",
+    "name": "Test Tenant 1",
+    "subscription_tier": "free",
+    "max_documents": 100,
+    "max_api_calls": 1000
+  },
+  {
+    "id": "791c033a-3300-4096-849f-e0fb42fafbcb",
+    "name": "Test Tenant 2",
+    "subscription_tier": "premium",
+    "max_documents": 500,
+    "max_api_calls": 5000
+  },
+  {
+    "id": "3c256e80-e786-4dad-b628-c6dc0d7eae37",
+    "name": "Test Tenant 1",
+    "subscription_tier": "free",
+    "max_documents": 100,
+    "max_api_calls": 1000
+  },
+  {
+    "id": "d8c10e1d-5746-4897-98c9-8f12781fe1e0",
+    "name": "Test Tenant 2",
+    "subscription_tier": "premium",
+    "max_documents": 500,
+    "max_api_calls": 5000
+  },
+  {
+    "id": "daf3d1a7-be60-4c62-9b01-6b7ebb87faa0",
+    "name": "Test Tenant 1",
+    "subscription_tier": "free",
+    "max_documents": 100,
+    "max_api_calls": 1000
+  },
+  {
+    "id": "920d14ea-8aab-4193-ace6-5d0aa8a377b9",
+    "name": "Test Tenant 2",
+    "subscription_tier": "premium",
+    "max_documents": 500,
+    "max_api_calls": 5000
+  },
+  {
+    "id": "2676b775-e703-4c2c-b645-a4ca565324ab",
+    "name": "Test Tenant 1746110392258",
+    "subscription_tier": "premium",
+    "max_documents": 500,
+    "max_api_calls": 5000
+  },
+  {
+    "id": "6f52ceb7-fc80-4629-8b6b-ccb2114c7feb",
+    "name": "Test Tenant 1746113112020",
+    "subscription_tier": "premium",
+    "max_documents": 500,
+    "max_api_calls": 5000
+  }
+]

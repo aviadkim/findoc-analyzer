@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Set Up Multi-Factor Authentication</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <style>
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #4caf50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .alert {
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 4px;
+        }
+        .alert-success {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        .alert-danger {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+        .alert-warning {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+        .hidden {
+            display: none;
+        }
+        .setup-steps {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 30px;
+        }
+        .setup-step {
+            flex: 1;
+            text-align: center;
+            padding: 10px;
+            background-color: #f8f9fa;
+            border-radius: 4px;
+            margin: 0 5px;
+        }
+        .setup-step.active {
+            background-color: #e9f7ef;
+            border-left: 3px solid #4caf50;
+        }
+        .step-number {
+            display: inline-block;
+            width: 24px;
+            height: 24px;
+            background-color: #4caf50;
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 24px;
+            margin-right: 5px;
+        }
+        .qr-container {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .qr-code {
+            max-width: 200px;
+            margin: 0 auto;
+        }
+        .secret-key {
+            text-align: center;
+            margin: 20px 0;
+            padding: 10px;
+            background-color: #f8f9fa;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 1.2em;
+            letter-spacing: 2px;
+        }
+        .recovery-codes {
+            margin: 20px 0;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 4px;
+        }
+        .recovery-code {
+            font-family: monospace;
+            display: inline-block;
+            padding: 5px 10px;
+            margin: 5px;
+            background-color: #e9ecef;
+            border-radius: 4px;
+        }
+        .step-content {
+            display: none;
+        }
+        .step-content.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Set Up Multi-Factor Authentication</h1>
+        <p>Protect your account with an additional layer of security.</p>
+        
+        <div id="error-message" class="alert alert-danger hidden"></div>
+        <div id="success-message" class="alert alert-success hidden"></div>
+        
+        <div class="setup-steps">
+            <div class="setup-step active" data-step="1">
+                <span class="step-number">1</span>
+                <span>Download App</span>
+            </div>
+            <div class="setup-step" data-step="2">
+                <span class="step-number">2</span>
+                <span>Scan QR Code</span>
+            </div>
+            <div class="setup-step" data-step="3">
+                <span class="step-number">3</span>
+                <span>Verify Code</span>
+            </div>
+            <div class="setup-step" data-step="4">
+                <span class="step-number">4</span>
+                <span>Save Recovery Codes</span>
+            </div>
+        </div>
+        
+        <div id="step1" class="step-content active">
+            <h2>Download an Authenticator App</h2>
+            <p>Download and install an authenticator app on your mobile device:</p>
+            <ul>
+                <li><strong>Google Authenticator</strong> - <a href="https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2" target="_blank">Android</a> | <a href="https://apps.apple.com/us/app/google-authenticator/id388497605" target="_blank">iOS</a></li>
+                <li><strong>Microsoft Authenticator</strong> - <a href="https://play.google.com/store/apps/details?id=com.azure.authenticator" target="_blank">Android</a> | <a href="https://apps.apple.com/us/app/microsoft-authenticator/id983156458" target="_blank">iOS</a></li>
+                <li><strong>Authy</strong> - <a href="https://play.google.com/store/apps/details?id=com.authy.authy" target="_blank">Android</a> | <a href="https://apps.apple.com/us/app/authy/id494168017" target="_blank">iOS</a></li>
+            </ul>
+            <button id="step1-next" class="next-step">Next</button>
+        </div>
+        
+        <div id="step2" class="step-content">
+            <h2>Scan the QR Code</h2>
+            <p>Open your authenticator app and scan this QR code:</p>
+            <div class="qr-container">
+                <img id="qr-code" class="qr-code" src="" alt="QR Code">
+            </div>
+            <p>Or enter this key manually if you can't scan the QR code:</p>
+            <div id="secret-key" class="secret-key"></div>
+            <button id="step2-next" class="next-step">Next</button>
+        </div>
+        
+        <div id="step3" class="step-content">
+            <h2>Verify Code</h2>
+            <p>Enter the 6-digit code from your authenticator app:</p>
+            <div class="form-group">
+                <input type="text" id="verification-code" placeholder="000000" maxlength="6" pattern="[0-9]{6}">
+            </div>
+            <button id="verify-code" class="next-step">Verify Code</button>
+        </div>
+        
+        <div id="step4" class="step-content">
+            <h2>Save Your Recovery Codes</h2>
+            <p>Keep these recovery codes in a safe place. If you lose your authenticator app, you can use one of these codes to sign in.</p>
+            <div id="recovery-codes" class="recovery-codes"></div>
+            <p><strong>Important:</strong> Each code can only be used once.</p>
+            <button id="finish-setup">Finish Setup</button>
+        </div>
+    </div>
+
+    <script>
+        // Get session token from localStorage
+        const sessionToken = localStorage.getItem('auth_token');
+        
+        // Check if user is authenticated
+        if (!sessionToken) {
+            window.location.href = '/login.html?redirect=mfa-setup.html';
+        }
+        
+        // Store MFA setup data
+        let mfaData = {
+            secret: '',
+            qrCodeUrl: '',
+            recoveryCodes: []
+        };
+        
+        // Set up step navigation
+        document.querySelectorAll('.next-step').forEach(button => {
+            button.addEventListener('click', function() {
+                const currentStep = parseInt(this.id.split('-')[0].replace('step', ''));
+                goToStep(currentStep + 1);
+            });
+        });
+        
+        function goToStep(stepNumber) {
+            // Hide all steps and deactivate all step indicators
+            document.querySelectorAll('.step-content').forEach(step => {
+                step.classList.remove('active');
+            });
+            
+            document.querySelectorAll('.setup-step').forEach(indicator => {
+                indicator.classList.remove('active');
+            });
+            
+            // Show target step and activate its indicator
+            document.getElementById(`step${stepNumber}`).classList.add('active');
+            document.querySelector(`.setup-step[data-step="${stepNumber}"]`).classList.add('active');
+            
+            // Special handling for steps
+            if (stepNumber === 2 && !mfaData.secret) {
+                // Initialize MFA setup when reaching step 2
+                initMfaSetup();
+            }
+        }
+        
+        // Initialize MFA setup (get QR code and secret)
+        async function initMfaSetup() {
+            try {
+                const response = await fetch('/api/auth/mfa/setup', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        sessionToken,
+                        method: 'totp' // Time-based One-Time Password
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    // Store MFA setup data
+                    mfaData.secret = data.secret;
+                    mfaData.qrCodeUrl = data.qrCodeUrl;
+                    mfaData.recoveryCodes = data.recoveryCodes;
+                    
+                    // Display QR code and secret
+                    document.getElementById('qr-code').src = data.qrCodeUrl;
+                    document.getElementById('secret-key').textContent = data.secret;
+                    
+                    // Prepare recovery codes
+                    const recoveryCodesContainer = document.getElementById('recovery-codes');
+                    recoveryCodesContainer.innerHTML = '';
+                    
+                    data.recoveryCodes.forEach(code => {
+                        const codeElement = document.createElement('div');
+                        codeElement.classList.add('recovery-code');
+                        codeElement.textContent = code;
+                        recoveryCodesContainer.appendChild(codeElement);
+                    });
+                } else {
+                    showError(data.message || 'Failed to set up MFA');
+                }
+            } catch (error) {
+                console.error('Error setting up MFA:', error);
+                showError('An error occurred while setting up MFA. Please try again.');
+            }
+        }
+        
+        // Verify code and enable MFA
+        document.getElementById('verify-code').addEventListener('click', async function() {
+            const code = document.getElementById('verification-code').value.trim();
+            
+            if (!/^\d{6}$/.test(code)) {
+                showError('Please enter a valid 6-digit code');
+                return;
+            }
+            
+            try {
+                const response = await fetch('/api/auth/mfa/verify', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        sessionToken,
+                        code
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    // Move to next step
+                    goToStep(4);
+                    
+                    // Update user info in localStorage
+                    const userJson = localStorage.getItem('auth_user');
+                    if (userJson) {
+                        const user = JSON.parse(userJson);
+                        user.mfaEnabled = true;
+                        localStorage.setItem('auth_user', JSON.stringify(user));
+                    }
+                } else {
+                    showError(data.message || 'Failed to verify code');
+                }
+            } catch (error) {
+                console.error('Error verifying code:', error);
+                showError('An error occurred while verifying the code. Please try again.');
+            }
+        });
+        
+        // Finish setup
+        document.getElementById('finish-setup').addEventListener('click', function() {
+            // Redirect to account settings or home page
+            window.location.href = '/account-settings.html?mfa_setup=success';
+        });
+        
+        // Show error message
+        function showError(message) {
+            const errorElement = document.getElementById('error-message');
+            errorElement.textContent = message;
+            errorElement.classList.remove('hidden');
+            
+            // Hide success message if visible
+            document.getElementById('success-message').classList.add('hidden');
+            
+            // Auto-hide after 5 seconds
+            setTimeout(() => {
+                errorElement.classList.add('hidden');
+            }, 5000);
+        }
+        
+        // Show success message
+        function showSuccess(message) {
+            const successElement = document.getElementById('success-message');
+            successElement.textContent = message;
+            successElement.classList.remove('hidden');
+            
+            // Hide error message if visible
+            document.getElementById('error-message').classList.add('hidden');
+            
+            // Auto-hide after 5 seconds
+            setTimeout(() => {
+                successElement.classList.add('hidden');
+            }, 5000);
+        }
+    </script>
+</body>
+</html>

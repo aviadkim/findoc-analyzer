@@ -1,0 +1,212 @@
+{
+  "https://backv2-app-brfi73d4ra-zf.a.run.app/": [
+    {
+      "selector": "#process-document-btn",
+      "description": "Process Document Button",
+      "found": false,
+      "visible": false
+    },
+    {
+      "selector": "#document-chat-container",
+      "description": "Document Chat Container",
+      "found": false,
+      "visible": false
+    },
+    {
+      "selector": "#document-send-btn",
+      "description": "Document Chat Send Button",
+      "found": false,
+      "visible": false
+    },
+    {
+      "selector": "#login-form",
+      "description": "Login Form",
+      "found": false,
+      "visible": false
+    },
+    {
+      "selector": "#google-login-btn",
+      "description": "Google Login Button",
+      "found": false,
+      "visible": false
+    }
+  ],
+  "https://backv2-app-brfi73d4ra-zf.a.run.app/documents-new": [
+    {
+      "selector": "#process-document-btn",
+      "description": "Process Document Button",
+      "found": false,
+      "visible": false
+    },
+    {
+      "selector": "#document-chat-container",
+      "description": "Document Chat Container",
+      "found": false,
+      "visible": false
+    },
+    {
+      "selector": "#document-send-btn",
+      "description": "Document Chat Send Button",
+      "found": false,
+      "visible": false
+    },
+    {
+      "selector": "#login-form",
+      "description": "Login Form",
+      "found": false,
+      "visible": false
+    },
+    {
+      "selector": "#google-login-btn",
+      "description": "Google Login Button",
+      "found": false,
+      "visible": false
+    }
+  ],
+  "https://backv2-app-brfi73d4ra-zf.a.run.app/upload": [
+    {
+      "selector": "#process-document-btn",
+      "description": "Process Document Button",
+      "found": false,
+      "visible": false
+    },
+    {
+      "selector": "#document-chat-container",
+      "description": "Document Chat Container",
+      "found": false,
+      "visible": false
+    },
+    {
+      "selector": "#document-send-btn",
+      "description": "Document Chat Send Button",
+      "found": false,
+      "visible": false
+    },
+    {
+      "selector": "#login-form",
+      "description": "Login Form",
+      "found": false,
+      "visible": false
+    },
+    {
+      "selector": "#google-login-btn",
+      "description": "Google Login Button",
+      "found": false,
+      "visible": false
+    }
+  ],
+  "https://backv2-app-brfi73d4ra-zf.a.run.app/document-chat": [
+    {
+      "selector": "#process-document-btn",
+      "description": "Process Document Button",
+      "found": false,
+      "visible": false
+    },
+    {
+      "selector": "#document-chat-container",
+      "description": "Document Chat Container",
+      "found": true,
+      "visible": false
+    },
+    {
+      "selector": "#document-send-btn",
+      "description": "Document Chat Send Button",
+      "found": true,
+      "visible": false
+    },
+    {
+      "selector": "#login-form",
+      "description": "Login Form",
+      "found": false,
+      "visible": false
+    },
+    {
+      "selector": "#google-login-btn",
+      "description": "Google Login Button",
+      "found": false,
+      "visible": false
+    }
+  ],
+  "https://backv2-app-brfi73d4ra-zf.a.run.app/login": [
+    {
+      "selector": "#process-document-btn",
+      "description": "Process Document Button",
+      "found": false,
+      "visible": false
+    },
+    {
+      "selector": "#document-chat-container",
+      "description": "Document Chat Container",
+      "found": false,
+      "visible": false
+    },
+    {
+      "selector": "#document-send-btn",
+      "description": "Document Chat Send Button",
+      "found": false,
+      "visible": false
+    },
+    {
+      "selector": "#login-form",
+      "description": "Login Form",
+      "found": true,
+      "visible": true
+    },
+    {
+      "selector": "#google-login-btn",
+      "description": "Google Login Button",
+      "found": true,
+      "visible": true
+    }
+  ],
+  "https://backv2-app-brfi73d4ra-zf.a.run.app/test": [
+    {
+      "selector": "#process-document-btn",
+      "description": "Process Document Button",
+      "found": false,
+      "visible": false
+    },
+    {
+      "selector": "#document-chat-container",
+      "description": "Document Chat Container",
+      "found": false,
+      "visible": false
+    },
+    {
+      "selector": "#document-send-btn",
+      "description": "Document Chat Send Button",
+      "found": false,
+      "visible": false
+    },
+    {
+      "selector": "#login-form",
+      "description": "Login Form",
+      "found": false,
+      "visible": false
+    },
+    {
+      "selector": "#google-login-btn",
+      "description": "Google Login Button",
+      "found": false,
+      "visible": false
+    },
+    {
+      "selector": ".agent-card",
+      "description": "Agent Cards",
+      "found": false,
+      "visible": false
+    },
+    {
+      "selector": ".status-indicator",
+      "description": "Agent Status Indicators",
+      "found": false,
+      "visible": false
+    },
+    {
+      "selector": ".agent-action",
+      "description": "Agent Action Buttons",
+      "found": false,
+      "visible": false
+    }
+  ]
+}

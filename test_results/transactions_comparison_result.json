@@ -1,0 +1,46 @@
+{
+  "status": "success",
+  "comparison_type": "transactions",
+  "document_count": 2,
+  "document_types": [
+    "transaction_history",
+    "transaction_history"
+  ],
+  "timestamp": "2025-05-08 21:22:18",
+  "transactions_comparison": {
+    "status": "success",
+    "total_unique_transactions": 3,
+    "total_new_transactions": 1,
+    "new_transactions_by_document": {
+      "1": [
+        {
+          "transaction_id": "date:2025-02-10",
+          "document_index": 1,
+          "transaction_data": {
+            "date": "2025-02-10",
+            "type": "buy",
+            "security_name": "Tech ETF",
+            "amount": 20000
+          }
+        }
+      ]
+    },
+    "transactions_by_type": {
+      "buy": 5
+    }
+  },
+  "overall_changes": {
+    "total_changes": 1,
+    "significant_changes": 0,
+    "added_items": 1,
+    "removed_items": 0,
+    "changed_items": 0,
+    "change_types": {
+      "transactions": {
+        "added": 1,
+        "removed": 0,
+        "changed": 0
+      }
+    }
+  }
+}

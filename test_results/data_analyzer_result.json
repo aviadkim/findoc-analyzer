@@ -1,0 +1,39 @@
+{
+  "status": "success",
+  "analysis": {
+    "document_type": "portfolio_statement",
+    "analysis_type": "comprehensive",
+    "summary": {
+      "total_value": 57928.75,
+      "total_securities": 5
+    },
+    "asset_allocation": {
+      "Automotive": {
+        "value": 6600.0,
+        "weight": 11.39,
+        "count": 0
+      },
+      "Retail": {
+        "value": 3268.75,
+        "weight": 5.64,
+        "count": 0
+      },
+      "Technology": {
+        "value": 48060.0,
+        "weight": 82.96,
+        "count": 0
+      }
+    },
+    "risk_metrics": {
+      "message": "Risk metrics calculation requires return or risk data"
+    },
+    "performance_metrics": {
+      "message": "Performance metrics calculation requires return and value data"
+    },
+    "diversification_metrics": {
+      "security_count": 5,
+      "asset_type_count": 3,
+      "concentration": 0
+    }
+  }
+}

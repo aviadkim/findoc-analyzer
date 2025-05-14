@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - FinDoc Analyzer</title>
+  <link rel="stylesheet" href="/css/styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    body {
+      background-color: var(--neutral-100);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: var(--spacing-4);
+    }
+
+    .auth-container {
+      width: 100%;
+      max-width: 900px;
+      display: flex;
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      box-shadow: var(--shadow-xl);
+    }
+
+    .auth-banner {
+      flex: 1;
+      background-color: var(--primary-600);
+      color: var(--neutral-50);
+      padding: var(--spacing-8);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      display: none;
+    }
+
+    .auth-banner-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .auth-banner-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0.1;
+      background-image: url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');
+      background-size: cover;
+      background-position: center;
+    }
+
+    .auth-banner h1 {
+      font-size: var(--text-3xl);
+      margin-bottom: var(--spacing-4);
+    }
+
+    .auth-banner p {
+      margin-bottom: var(--spacing-6);
+      opacity: 0.9;
+    }
+
+    .auth-banner-features {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .auth-banner-features li {
+      display: flex;
+      align-items: center;
+      margin-bottom: var(--spacing-3);
+    }
+
+    .auth-banner-features li i {
+      margin-right: var(--spacing-3);
+    }
+
+    .auth-form-container {
+      flex: 1;
+      background-color: var(--neutral-50);
+      padding: var(--spacing-8);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .auth-logo {
+      display: flex;
+      align-items: center;
+      margin-bottom: var(--spacing-6);
+    }
+
+    .auth-logo-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: var(--radius-md);
+      background-color: var(--primary-600);
+      color: var(--neutral-50);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: var(--text-xl);
+      margin-right: var(--spacing-3);
+    }
+
+    .auth-logo-text {
+      font-size: var(--text-xl);
+      font-weight: 700;
+      color: var(--neutral-900);
+    }
+
+    .auth-header {
+      margin-bottom: var(--spacing-6);
+    }
+
+    .auth-header h2 {
+      font-size: var(--text-2xl);
+      margin-bottom: var(--spacing-2);
+    }
+
+    .auth-header p {
+      color: var(--neutral-600);
+    }
+
+    .auth-form {
+      margin-bottom: var(--spacing-6);
+    }
+
+    .auth-form .form-group {
+      margin-bottom: var(--spacing-4);
+    }
+
+    .auth-form .form-label {
+      display: block;
+      margin-bottom: var(--spacing-2);
+      font-weight: 500;
+    }
+
+    .auth-form .form-control {
+      width: 100%;
+      padding: var(--spacing-3) var(--spacing-4);
+      border: 1px solid var(--neutral-300);
+      border-radius: var(--radius-md);
+      transition: var(--transition-all);
+    }
+
+    .auth-form .form-control:focus {
+      border-color: var(--primary-500);
+      box-shadow: 0 0 0 3px var(--primary-100);
+      outline: none;
+    }
+
+    .auth-form .form-text {
+      font-size: var(--text-sm);
+      color: var(--neutral-600);
+      margin-top: var(--spacing-1);
+    }
+
+    .auth-form .form-check {
+      display: flex;
+      align-items: center;
+      margin-bottom: var(--spacing-4);
+    }
+
+    .auth-form .form-check-input {
+      margin-right: var(--spacing-2);
+    }
+
+    .auth-form .form-check-label {
+      font-size: var(--text-sm);
+      color: var(--neutral-700);
+    }
+
+    .auth-form .btn {
+      width: 100%;
+      padding: var(--spacing-3) var(--spacing-4);
+      font-weight: 600;
+    }
+
+    .auth-divider {
+      display: flex;
+      align-items: center;
+      margin: var(--spacing-6) 0;
+      color: var(--neutral-500);
+      font-size: var(--text-sm);
+    }
+
+    .auth-divider::before,
+    .auth-divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background-color: var(--neutral-200);
+    }
+
+    .auth-divider::before {
+      margin-right: var(--spacing-4);
+    }
+
+    .auth-divider::after {
+      margin-left: var(--spacing-4);
+    }
+
+    .auth-social-buttons {
+      display: flex;
+      gap: var(--spacing-3);
+      margin-bottom: var(--spacing-6);
+    }
+
+    .auth-social-button {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: var(--spacing-3);
+      border: 1px solid var(--neutral-300);
+      border-radius: var(--radius-md);
+      background-color: var(--neutral-50);
+      color: var(--neutral-700);
+      transition: var(--transition-all);
+    }
+
+    .auth-social-button:hover {
+      background-color: var(--neutral-100);
+      text-decoration: none;
+    }
+
+    .auth-social-button i {
+      margin-right: var(--spacing-2);
+    }
+
+    .auth-footer {
+      text-align: center;
+      font-size: var(--text-sm);
+      color: var(--neutral-600);
+    }
+
+    .auth-footer a {
+      color: var(--primary-600);
+      font-weight: 500;
+    }
+
+    .auth-alert {
+      padding: var(--spacing-3) var(--spacing-4);
+      border-radius: var(--radius-md);
+      margin-bottom: var(--spacing-4);
+      font-size: var(--text-sm);
+      display: none;
+    }
+
+    .auth-alert.error {
+      background-color: var(--danger-50);
+      color: var(--danger-700);
+      border: 1px solid var(--danger-100);
+    }
+
+    .auth-alert.success {
+      background-color: var(--success-50);
+      color: var(--success-700);
+      border: 1px solid var(--success-100);
+    }
+
+    .auth-tabs {
+      display: flex;
+      margin-bottom: var(--spacing-6);
+      border-bottom: 1px solid var(--neutral-200);
+    }
+
+    .auth-tab {
+      padding: var(--spacing-3) var(--spacing-4);
+      font-weight: 500;
+      color: var(--neutral-600);
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      transition: var(--transition-all);
+    }
+
+    .auth-tab:hover {
+      color: var(--primary-600);
+    }
+
+    .auth-tab.active {
+      color: var(--primary-600);
+      border-bottom-color: var(--primary-600);
+    }
+
+    .auth-form-content {
+      display: none;
+    }
+
+    .auth-form-content.active {
+      display: block;
+    }
+
+    @media (min-width: 768px) {
+      .auth-banner {
+        display: block;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="auth-container">
+    <div class="auth-banner">
+      <div class="auth-banner-bg"></div>
+      <div class="auth-banner-content">
+        <h1>FinDoc Analyzer</h1>
+        <p>The ultimate financial document analysis platform for financial advisors.</p>
+        <ul class="auth-banner-features">
+          <li><i class="fas fa-check-circle"></i> Advanced document processing with AI</li>
+          <li><i class="fas fa-check-circle"></i> Extract securities and financial data</li>
+          <li><i class="fas fa-check-circle"></i> Generate comprehensive portfolio analysis</li>
+          <li><i class="fas fa-check-circle"></i> Compare documents and track changes</li>
+          <li><i class="fas fa-check-circle"></i> Chat with your financial documents</li>
+        </ul>
+      </div>
+    </div>
+    <div class="auth-form-container">
+      <div class="auth-logo">
+        <div class="auth-logo-icon">
+          <i class="fas fa-file-invoice-dollar"></i>
+        </div>
+        <div class="auth-logo-text">FinDoc Analyzer</div>
+      </div>
+
+      <div class="auth-tabs">
+        <div class="auth-tab active" data-tab="login">Login</div>
+        <div class="auth-tab" data-tab="register">Register</div>
+      </div>
+
+      <div class="auth-alert" id="auth-alert"></div>
+
+      <!-- Login Form -->
+      <div class="auth-form-content active" id="login-form-content">
+        <div class="auth-header">
+          <h2>Welcome back</h2>
+          <p>Enter your credentials to access your account</p>
+        </div>
+
+        <form class="auth-form" id="login-form">
+          <div class="form-group">
+            <label for="login-email" class="form-label">Email</label>
+            <input type="email" id="login-email" class="form-control" placeholder="Enter your email" required>
+          </div>
+          <div class="form-group">
+            <label for="login-password" class="form-label">Password</label>
+            <input type="password" id="login-password" class="form-control" placeholder="Enter your password" required>
+            <div class="form-text">
+              <a href="/forgot-password.html">Forgot password?</a>
+            </div>
+          </div>
+          <div class="form-check">
+            <input type="checkbox" id="remember-me" class="form-check-input">
+            <label for="remember-me" class="form-check-label">Remember me</label>
+          </div>
+          <button type="submit" class="btn btn-primary">Login</button>
+        </form>
+
+        <div class="auth-divider">Or continue with</div>
+
+        <div class="auth-social-buttons">
+          <a href="#" class="auth-social-button" id="google-login">
+            <i class="fab fa-google"></i>
+            Google
+          </a>
+          <a href="#" class="auth-social-button" id="microsoft-login">
+            <i class="fab fa-microsoft"></i>
+            Microsoft
+          </a>
+        </div>
+
+        <div class="auth-footer">
+          Don't have an account? <a href="#" class="switch-auth-tab" data-tab="register">Register</a>
+        </div>
+      </div>
+
+      <!-- Register Form -->
+      <div class="auth-form-content" id="register-form-content">
+        <div class="auth-header">
+          <h2>Create an account</h2>
+          <p>Fill in the details to get started</p>
+        </div>
+
+        <form class="auth-form" id="register-form">
+          <div class="form-group">
+            <label for="register-name" class="form-label">Full Name</label>
+            <input type="text" id="register-name" class="form-control" placeholder="Enter your full name" required>
+          </div>
+          <div class="form-group">
+            <label for="register-email" class="form-label">Email</label>
+            <input type="email" id="register-email" class="form-control" placeholder="Enter your email" required>
+          </div>
+          <div class="form-group">
+            <label for="register-password" class="form-label">Password</label>
+            <input type="password" id="register-password" class="form-control" placeholder="Create a password" required>
+            <div class="form-text">
+              Password must be at least 8 characters long with at least one uppercase letter, one lowercase letter, and one number.
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="register-organization" class="form-label">Organization</label>
+            <input type="text" id="register-organization" class="form-control" placeholder="Enter your organization name">
+          </div>
+          <div class="form-check">
+            <input type="checkbox" id="terms" class="form-check-input" required>
+            <label for="terms" class="form-check-label">I agree to the <a href="/terms.html">Terms of Service</a> and <a href="/privacy.html">Privacy Policy</a></label>
+          </div>
+          <button type="submit" class="btn btn-primary">Create Account</button>
+        </form>
+
+        <div class="auth-divider">Or continue with</div>
+
+        <div class="auth-social-buttons">
+          <a href="#" class="auth-social-button" id="google-register">
+            <i class="fab fa-google"></i>
+            Google
+          </a>
+          <a href="#" class="auth-social-button" id="microsoft-register">
+            <i class="fab fa-microsoft"></i>
+            Microsoft
+          </a>
+        </div>
+
+        <div class="auth-footer">
+          Already have an account? <a href="#" class="switch-auth-tab" data-tab="login">Login</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+    // Initialize Supabase client
+    const supabaseUrl = 'https://dnjnsotemnfrjlotgved.supabase.co';
+    const supabaseKey = 'your-supabase-key'; // This should be your public anon key
+    const supabase = supabase.createClient(supabaseUrl, supabaseKey);
+
+    // DOM elements
+    const authTabs = document.querySelectorAll('.auth-tab');
+    const authFormContents = document.querySelectorAll('.auth-form-content');
+    const switchAuthTabLinks = document.querySelectorAll('.switch-auth-tab');
+    const loginForm = document.getElementById('login-form');
+    const registerForm = document.getElementById('register-form');
+    const googleLoginBtn = document.getElementById('google-login');
+    const microsoftLoginBtn = document.getElementById('microsoft-login');
+    const googleRegisterBtn = document.getElementById('google-register');
+    const microsoftRegisterBtn = document.getElementById('microsoft-register');
+    const authAlert = document.getElementById('auth-alert');
+
+    // Switch between login and register tabs
+    function switchTab(tabName) {
+      authTabs.forEach(tab => {
+        if (tab.dataset.tab === tabName) {
+          tab.classList.add('active');
+        } else {
+          tab.classList.remove('active');
+        }
+      });
+
+      authFormContents.forEach(content => {
+        if (content.id === `${tabName}-form-content`) {
+          content.classList.add('active');
+        } else {
+          content.classList.remove('active');
+        }
+      });
+    }
+
+    authTabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        switchTab(tab.dataset.tab);
+      });
+    });
+
+    switchAuthTabLinks.forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        switchTab(link.dataset.tab);
+      });
+    });
+
+    // Show alert message
+    function showAlert(message, type = 'error') {
+      authAlert.textContent = message;
+      authAlert.className = `auth-alert ${type}`;
+      authAlert.style.display = 'block';
+
+      setTimeout(() => {
+        authAlert.style.display = 'none';
+      }, 5000);
+    }
+
+    // Login form submission
+    loginForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const email = document.getElementById('login-email').value;
+      const password = document.getElementById('login-password').value;
+
+      try {
+        const { data, error } = await supabase.auth.signInWithPassword({
+          email,
+          password
+        });
+
+        if (error) {
+          showAlert(error.message);
+          return;
+        }
+
+        // Redirect to dashboard on successful login
+        window.location.href = '/';
+      } catch (error) {
+        showAlert('An unexpected error occurred. Please try again.');
+        console.error('Login error:', error);
+      }
+    });
+
+    // Register form submission
+    registerForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const name = document.getElementById('register-name').value;
+      const email = document.getElementById('register-email').value;
+      const password = document.getElementById('register-password').value;
+      const organization = document.getElementById('register-organization').value;
+
+      try {
+        // Create user in Supabase Auth
+        const { data: authData, error: authError } = await supabase.auth.signUp({
+          email,
+          password,
+          options: {
+            data: {
+              full_name: name,
+              organization
+            }
+          }
+        });
+
+        if (authError) {
+          showAlert(authError.message);
+          return;
+        }
+
+        // Create user in users table with tenant_id
+        const tenantId = organization ? organization.toLowerCase().replace(/\s+/g, '-') : email.split('@')[0];
+        
+        const { error: userError } = await supabase
+          .from('users')
+          .insert({
+            id: authData.user.id,
+            name,
+            email,
+            organization,
+            role: 'user',
+            tenant_id: tenantId
+          });
+
+        if (userError) {
+          showAlert(userError.message);
+          return;
+        }
+
+        showAlert('Registration successful! Please check your email to verify your account.', 'success');
+        
+        // Switch to login tab
+        setTimeout(() => {
+          switchTab('login');
+        }, 2000);
+      } catch (error) {
+        showAlert('An unexpected error occurred. Please try again.');
+        console.error('Registration error:', error);
+      }
+    });
+
+    // Social login handlers
+    googleLoginBtn.addEventListener('click', async (e) => {
+      e.preventDefault();
+      
+      try {
+        const { data, error } = await supabase.auth.signInWithOAuth({
+          provider: 'google',
+          options: {
+            redirectTo: `${window.location.origin}/`
+          }
+        });
+
+        if (error) {
+          showAlert(error.message);
+        }
+      } catch (error) {
+        showAlert('An unexpected error occurred. Please try again.');
+        console.error('Google login error:', error);
+      }
+    });
+
+    microsoftLoginBtn.addEventListener('click', async (e) => {
+      e.preventDefault();
+      
+      try {
+        const { data, error } = await supabase.auth.signInWithOAuth({
+          provider: 'azure',
+          options: {
+            redirectTo: `${window.location.origin}/`
+          }
+        });
+
+        if (error) {
+          showAlert(error.message);
+        }
+      } catch (error) {
+        showAlert('An unexpected error occurred. Please try again.');
+        console.error('Microsoft login error:', error);
+      }
+    });
+
+    googleRegisterBtn.addEventListener('click', async (e) => {
+      e.preventDefault();
+      
+      try {
+        const { data, error } = await supabase.auth.signInWithOAuth({
+          provider: 'google',
+          options: {
+            redirectTo: `${window.location.origin}/`
+          }
+        });
+
+        if (error) {
+          showAlert(error.message);
+        }
+      } catch (error) {
+        showAlert('An unexpected error occurred. Please try again.');
+        console.error('Google register error:', error);
+      }
+    });
+
+    microsoftRegisterBtn.addEventListener('click', async (e) => {
+      e.preventDefault();
+      
+      try {
+        const { data, error } = await supabase.auth.signInWithOAuth({
+          provider: 'azure',
+          options: {
+            redirectTo: `${window.location.origin}/`
+          }
+        });
+
+        if (error) {
+          showAlert(error.message);
+        }
+      } catch (error) {
+        showAlert('An unexpected error occurred. Please try again.');
+        console.error('Microsoft register error:', error);
+      }
+    });
+
+    // Check if user is already logged in
+    async function checkAuth() {
+      const { data: { session } } = await supabase.auth.getSession();
+      
+      if (session) {
+        window.location.href = '/';
+      }
+    }
+
+    // Check auth on page load
+    checkAuth();
+  </script>
+</body>
+</html>

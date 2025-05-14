@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FinDoc Analyzer API Test</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+      color: #333;
+      line-height: 1.6;
+    }
+    h1 {
+      color: #2c3e50;
+      margin-bottom: 10px;
+    }
+    h2 {
+      color: #3498db;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 8px;
+      margin-top: 30px;
+    }
+    .section {
+      background-color: #f8f9fa;
+      border-radius: 8px;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    button {
+      background-color: #3498db;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-right: 5px;
+      margin-bottom: 5px;
+      font-weight: 500;
+    }
+    button:hover {
+      background-color: #2980b9;
+    }
+    input, textarea {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      margin-bottom: 10px;
+    }
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: 500;
+    }
+    pre {
+      background-color: #f1f1f1;
+      padding: 15px;
+      border-radius: 4px;
+      overflow-x: auto;
+      white-space: pre-wrap;
+    }
+    .response {
+      margin-top: 15px;
+      border-top: 1px dashed #ddd;
+      padding-top: 15px;
+    }
+    .response-title {
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+    .file-input {
+      width: 100%;
+      padding: 15px;
+      border: 2px dashed #3498db;
+      border-radius: 4px;
+      background-color: #f8f9fa;
+      text-align: center;
+      margin-bottom: 10px;
+    }
+    .tab {
+      overflow: hidden;
+      border: 1px solid #ccc;
+      background-color: #f1f1f1;
+      border-radius: 4px 4px 0 0;
+    }
+    .tab button {
+      background-color: inherit;
+      color: #333;
+      float: left;
+      border: none;
+      outline: none;
+      cursor: pointer;
+      padding: 14px 16px;
+      transition: 0.3s;
+    }
+    .tab button:hover {
+      background-color: #ddd;
+    }
+    .tab button.active {
+      background-color: #3498db;
+      color: white;
+    }
+    .tabcontent {
+      display: none;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-top: none;
+      border-radius: 0 0 4px 4px;
+      animation: fadeEffect 1s;
+    }
+    @keyframes fadeEffect {
+      from {opacity: 0;}
+      to {opacity: 1;}
+    }
+    .chat-container {
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+    .chat-messages {
+      height: 300px;
+      overflow-y: auto;
+      padding: 10px;
+      background-color: #f8f9fa;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      margin-bottom: 10px;
+    }
+    .chat-input {
+      display: flex;
+    }
+    .chat-input textarea {
+      flex-grow: 1;
+      resize: none;
+      height: 60px;
+      margin-right: 10px;
+    }
+    .chat-input button {
+      align-self: flex-end;
+    }
+    .message {
+      margin-bottom: 10px;
+      padding: 10px;
+      border-radius: 4px;
+    }
+    .user-message {
+      background-color: #3498db;
+      color: white;
+      align-self: flex-end;
+      margin-left: auto;
+      max-width: 80%;
+    }
+    .ai-message {
+      background-color: #eee;
+      color: #333;
+      align-self: flex-start;
+      margin-right: auto;
+      max-width: 80%;
+    }
+  </style>
+</head>
+<body>
+  <h1>FinDoc Analyzer API Test</h1>
+  <p>This page allows you to test the FinDoc Analyzer API endpoints for document and chat functionality.</p>
+
+  <div class="tab">
+    <button class="tablinks active" onclick="openTab(event, 'DocumentTab')">Documents</button>
+    <button class="tablinks" onclick="openTab(event, 'ChatTab')">Chat</button>
+    <button class="tablinks" onclick="openTab(event, 'UtilityTab')">Utilities</button>
+  </div>
+
+  <!-- Document Tab -->
+  <div id="DocumentTab" class="tabcontent" style="display:block;">
+    <div class="section">
+      <h2>Create Sample Documents</h2>
+      <p>Creates sample documents for testing.</p>
+      <button onclick="createSampleDocuments()">Create Sample Documents</button>
+      <div class="response">
+        <div class="response-title">Response:</div>
+        <pre id="createSampleResponse"></pre>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>Get All Documents</h2>
+      <p>Retrieves all documents from the system.</p>
+      <button onclick="getAllDocuments()">Get All Documents</button>
+      <div class="response">
+        <div class="response-title">Response:</div>
+        <pre id="getAllDocumentsResponse"></pre>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>Get Document by ID</h2>
+      <p>Retrieves a specific document by its ID.</p>
+      <label for="documentId">Document ID:</label>
+      <input type="text" id="documentId" placeholder="Enter document ID (e.g., doc-1)">
+      <button onclick="getDocument()">Get Document</button>
+      <div class="response">
+        <div class="response-title">Response:</div>
+        <pre id="getDocumentResponse"></pre>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>Upload Document</h2>
+      <p>Upload a new document to the system.</p>
+      <div class="file-input">
+        <input type="file" id="documentFile" accept=".pdf,.xls,.xlsx">
+      </div>
+      <button onclick="uploadDocument()">Upload Document</button>
+      <div class="response">
+        <div class="response-title">Response:</div>
+        <pre id="uploadDocumentResponse"></pre>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>Process Document</h2>
+      <p>Process a document that has been uploaded.</p>
+      <label for="processDocumentId">Document ID:</label>
+      <input type="text" id="processDocumentId" placeholder="Enter document ID (e.g., doc-1)">
+      <button onclick="processDocument()">Process Document</button>
+      <div class="response">
+        <div class="response-title">Response:</div>
+        <pre id="processDocumentResponse"></pre>
+      </div>
+    </div>
+  </div>
+
+  <!-- Chat Tab -->
+  <div id="ChatTab" class="tabcontent">
+    <div class="section">
+      <h2>Document Chat</h2>
+      <p>Chat with a specific document.</p>
+      <div class="chat-container">
+        <label for="chatDocumentId">Document ID:</label>
+        <input type="text" id="chatDocumentId" placeholder="Enter document ID (e.g., doc-1)">
+        <div class="chat-messages" id="documentChatMessages"></div>
+        <div class="chat-input">
+          <textarea id="documentChatMessage" placeholder="Type your message here..."></textarea>
+          <button onclick="sendDocumentChat()">Send</button>
+        </div>
+      </div>
+      <div class="response">
+        <div class="response-title">Last Response:</div>
+        <pre id="documentChatResponse"></pre>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>General Chat</h2>
+      <p>General chat without a specific document.</p>
+      <div class="chat-container">
+        <div class="chat-messages" id="generalChatMessages"></div>
+        <div class="chat-input">
+          <textarea id="generalChatMessage" placeholder="Type your message here..."></textarea>
+          <button onclick="sendGeneralChat()">Send</button>
+        </div>
+      </div>
+      <div class="response">
+        <div class="response-title">Last Response:</div>
+        <pre id="generalChatResponse"></pre>
+      </div>
+    </div>
+  </div>
+
+  <!-- Utility Tab -->
+  <div id="UtilityTab" class="tabcontent">
+    <div class="section">
+      <h2>API Health Check</h2>
+      <p>Checks if the API is running.</p>
+      <button onclick="checkHealth()">Check Health</button>
+      <div class="response">
+        <div class="response-title">Response:</div>
+        <pre id="healthCheckResponse"></pre>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Document Chat session ID
+    let documentChatSessionId = null;
+    
+    // General Chat session ID
+    let generalChatSessionId = null;
+    
+    // Open tab function
+    function openTab(evt, tabName) {
+      var i, tabcontent, tablinks;
+      tabcontent = document.getElementsByClassName("tabcontent");
+      for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+      }
+      tablinks = document.getElementsByClassName("tablinks");
+      for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+      }
+      document.getElementById(tabName).style.display = "block";
+      evt.currentTarget.className += " active";
+    }
+    
+    // Create sample documents
+    async function createSampleDocuments() {
+      try {
+        const response = await fetch('/api/test/sample-documents');
+        const data = await response.json();
+        document.getElementById('createSampleResponse').textContent = JSON.stringify(data, null, 2);
+      } catch (error) {
+        document.getElementById('createSampleResponse').textContent = 'Error: ' + error.message;
+      }
+    }
+    
+    // Get all documents
+    async function getAllDocuments() {
+      try {
+        const response = await fetch('/api/test/documents');
+        const data = await response.json();
+        document.getElementById('getAllDocumentsResponse').textContent = JSON.stringify(data, null, 2);
+      } catch (error) {
+        document.getElementById('getAllDocumentsResponse').textContent = 'Error: ' + error.message;
+      }
+    }
+    
+    // Get document by ID
+    async function getDocument() {
+      const documentId = document.getElementById('documentId').value;
+      
+      if (!documentId) {
+        document.getElementById('getDocumentResponse').textContent = 'Please enter a document ID';
+        return;
+      }
+      
+      try {
+        const response = await fetch(`/api/test/documents/${documentId}`);
+        const data = await response.json();
+        document.getElementById('getDocumentResponse').textContent = JSON.stringify(data, null, 2);
+      } catch (error) {
+        document.getElementById('getDocumentResponse').textContent = 'Error: ' + error.message;
+      }
+    }
+    
+    // Upload document
+    async function uploadDocument() {
+      const fileInput = document.getElementById('documentFile');
+      
+      if (!fileInput.files || fileInput.files.length === 0) {
+        document.getElementById('uploadDocumentResponse').textContent = 'Please select a file to upload';
+        return;
+      }
+      
+      const formData = new FormData();
+      formData.append('document', fileInput.files[0]);
+      
+      try {
+        const response = await fetch('/api/test/documents/upload', {
+          method: 'POST',
+          body: formData
+        });
+        
+        const data = await response.json();
+        document.getElementById('uploadDocumentResponse').textContent = JSON.stringify(data, null, 2);
+      } catch (error) {
+        document.getElementById('uploadDocumentResponse').textContent = 'Error: ' + error.message;
+      }
+    }
+    
+    // Process document
+    async function processDocument() {
+      const documentId = document.getElementById('processDocumentId').value;
+      
+      if (!documentId) {
+        document.getElementById('processDocumentResponse').textContent = 'Please enter a document ID';
+        return;
+      }
+      
+      try {
+        const response = await fetch(`/api/test/documents/${documentId}/process`, {
+          method: 'POST'
+        });
+        
+        const data = await response.json();
+        document.getElementById('processDocumentResponse').textContent = JSON.stringify(data, null, 2);
+      } catch (error) {
+        document.getElementById('processDocumentResponse').textContent = 'Error: ' + error.message;
+      }
+    }
+    
+    // Send document chat message
+    async function sendDocumentChat() {
+      const documentId = document.getElementById('chatDocumentId').value;
+      const message = document.getElementById('documentChatMessage').value;
+      
+      if (!documentId) {
+        document.getElementById('documentChatResponse').textContent = 'Please enter a document ID';
+        return;
+      }
+      
+      if (!message) {
+        document.getElementById('documentChatResponse').textContent = 'Please enter a message';
+        return;
+      }
+      
+      // Add user message to chat
+      addMessage('documentChatMessages', message, 'user');
+      
+      // Clear input field
+      document.getElementById('documentChatMessage').value = '';
+      
+      try {
+        const response = await fetch(`/api/test/chat/document/${documentId}`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            message,
+            sessionId: documentChatSessionId
+          })
+        });
+        
+        const data = await response.json();
+        
+        // Save session ID for future messages
+        if (data.sessionId) {
+          documentChatSessionId = data.sessionId;
+        }
+        
+        // Add AI response to chat
+        addMessage('documentChatMessages', data.response, 'ai');
+        
+        // Update response display
+        document.getElementById('documentChatResponse').textContent = JSON.stringify(data, null, 2);
+      } catch (error) {
+        document.getElementById('documentChatResponse').textContent = 'Error: ' + error.message;
+        addMessage('documentChatMessages', 'Error: ' + error.message, 'ai');
+      }
+    }
+    
+    // Send general chat message
+    async function sendGeneralChat() {
+      const message = document.getElementById('generalChatMessage').value;
+      
+      if (!message) {
+        document.getElementById('generalChatResponse').textContent = 'Please enter a message';
+        return;
+      }
+      
+      // Add user message to chat
+      addMessage('generalChatMessages', message, 'user');
+      
+      // Clear input field
+      document.getElementById('generalChatMessage').value = '';
+      
+      try {
+        const response = await fetch('/api/test/chat/general', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            message,
+            sessionId: generalChatSessionId
+          })
+        });
+        
+        const data = await response.json();
+        
+        // Save session ID for future messages
+        if (data.sessionId) {
+          generalChatSessionId = data.sessionId;
+        }
+        
+        // Add AI response to chat
+        addMessage('generalChatMessages', data.response, 'ai');
+        
+        // Update response display
+        document.getElementById('generalChatResponse').textContent = JSON.stringify(data, null, 2);
+      } catch (error) {
+        document.getElementById('generalChatResponse').textContent = 'Error: ' + error.message;
+        addMessage('generalChatMessages', 'Error: ' + error.message, 'ai');
+      }
+    }
+    
+    // Check API health
+    async function checkHealth() {
+      try {
+        const response = await fetch('/api/test/ping');
+        const data = await response.json();
+        document.getElementById('healthCheckResponse').textContent = JSON.stringify(data, null, 2);
+      } catch (error) {
+        document.getElementById('healthCheckResponse').textContent = 'Error: ' + error.message;
+      }
+    }
+    
+    // Helper function to add messages to chat
+    function addMessage(containerId, message, type) {
+      const container = document.getElementById(containerId);
+      const messageDiv = document.createElement('div');
+      messageDiv.classList.add('message');
+      messageDiv.classList.add(type === 'user' ? 'user-message' : 'ai-message');
+      messageDiv.textContent = message;
+      container.appendChild(messageDiv);
+      container.scrollTop = container.scrollHeight;
+    }
+    
+    // Add key event listeners for chat inputs
+    document.getElementById('documentChatMessage').addEventListener('keydown', function(event) {
+      if (event.key === 'Enter' && !event.shiftKey) {
+        event.preventDefault();
+        sendDocumentChat();
+      }
+    });
+    
+    document.getElementById('generalChatMessage').addEventListener('keydown', function(event) {
+      if (event.key === 'Enter' && !event.shiftKey) {
+        event.preventDefault();
+        sendGeneralChat();
+      }
+    });
+    
+    // Check health on page load
+    window.onload = function() {
+      checkHealth();
+    };
+  </script>
+</body>
+</html>

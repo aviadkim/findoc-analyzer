@@ -1,0 +1,3 @@
+@echo off
+echo Running Document Processing Tests...
+node run-playwright-tests.js --test=document-processing.spec.js --repeat=1 --env=local

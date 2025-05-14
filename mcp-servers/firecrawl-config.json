@@ -1,0 +1,16 @@
+{
+  "apiKey": "fc-857417811665460e92716b92e08ec398",
+  "defaultHeaders": {
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36"
+  },
+  "port": 8081,
+  "timeoutMs": 30000,
+  "headless": true,
+  "cache": {
+    "enabled": true,
+    "ttlMinutes": 15
+  },
+  "proxy": null,
+  "userDataDir": null,
+  "debug": false
+}

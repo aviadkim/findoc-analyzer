@@ -1,0 +1,14 @@
+# Simple .dockerignore file
+node_modules
+npm-debug.log
+.git
+.github
+.gitignore
+.env
+*.md
+.vscode
+.idea
+*.log
+tests/
+screenshots/
+validation-reports/

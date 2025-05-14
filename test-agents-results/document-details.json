@@ -1,0 +1,92 @@
+{
+  "id": "doc-1746353724564",
+  "fileName": "Document doc-1746353724564.pdf",
+  "fileType": "pdf",
+  "uploadDate": "2025-05-04T10:15:26.181Z",
+  "processed": true,
+  "content": {
+    "text": "Sample document content...",
+    "tables": [
+      {
+        "id": "table-1",
+        "title": "Sample Table",
+        "headers": [
+          "Column 1",
+          "Column 2",
+          "Column 3"
+        ],
+        "rows": [
+          [
+            "Value 1",
+            "Value 2",
+            "Value 3"
+          ],
+          [
+            "Value 4",
+            "Value 5",
+            "Value 6"
+          ],
+          [
+            "Value 7",
+            "Value 8",
+            "Value 9"
+          ]
+        ]
+      }
+    ],
+    "metadata": {
+      "author": "John Doe",
+      "creationDate": "2023-01-01",
+      "pageCount": 10
+    },
+    "securities": [
+      {
+        "name": "Apple Inc.",
+        "isin": "US0378331005",
+        "quantity": "1,000",
+        "acquisitionPrice": "$150.00",
+        "currentValue": "$175.00",
+        "percentOfAssets": "7.0%"
+      },
+      {
+        "name": "Microsoft",
+        "isin": "US5949181045",
+        "quantity": "800",
+        "acquisitionPrice": "$250.00",
+        "currentValue": "$300.00",
+        "percentOfAssets": "9.6%"
+      },
+      {
+        "name": "Amazon",
+        "isin": "US0231351067",
+        "quantity": "500",
+        "acquisitionPrice": "$120.00",
+        "currentValue": "$140.00",
+        "percentOfAssets": "2.8%"
+      }
+    ],
+    "financialSummary": {
+      "totalAssets": "$1,250,000",
+      "totalLiabilities": "$500,000",
+      "netWorth": "$750,000",
+      "annualReturn": "8.5%",
+      "topHoldings": [
+        {
+          "name": "Microsoft",
+          "value": "$300,000",
+          "percent": "9.6%"
+        },
+        {
+          "name": "Apple Inc.",
+          "value": "$175,000",
+          "percent": "7.0%"
+        },
+        {
+          "name": "Amazon",
+          "value": "$140,000",
+          "percent": "2.8%"
+        }
+      ]
+    }
+  }
+}

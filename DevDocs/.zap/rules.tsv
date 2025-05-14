@@ -1,0 +1,10 @@
+10020	IGNORE	X-Frame-Options Header	Low risk in controlled application context
+10021	IGNORE	X-Content-Type-Options Header	Low risk in controlled application context
+10038	IGNORE	Content Security Policy (CSP) Header Not Set	Will be addressed in next phase
+10063	WARN	Permissions Policy Header	Acceptable risk level
+10096	WARN	Timestamp Disclosure	Most of these are false positives
+10109	WARN	Modern Web Application	Informational scan
+40012	WARN	Cross Site Scripting (Reflected)	Require manual verification
+40025	WARN	Proxy Disclosure	Non-critical environment information
+40035	WARN	Hidden File Found	Some hidden files are expected
+90022	WARN	Application Error Disclosure	Requires review and analysis

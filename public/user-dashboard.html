@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FinDoc Analyzer - User Dashboard</title>
+  <link rel="stylesheet" href="/css/styles.css">
+  <link rel="stylesheet" href="/css/agent-styles.css">
+  <script src="/js/mock-api.js"></script>
+  <script src="/js/notification.js"></script>
+  <script src="/js/auth.js"></script>
+  <script src="/js/agent-manager.js"></script>
+  <script src="/js/document-processor.js"></script>
+  <script src="/js/sidebar.js"></script>
+  <script src="/js/router.js"></script>
+  <script src="/js/ui-components.js"></script>
+  <script src="/js/ui-validator.js"></script>
+  <link rel="stylesheet" href="/css/ui-fixes.css">
+  
+  <!-- Multi-tenant SaaS integration -->
+  <script src='/js/api-key-manager.js'></script>
+  <script src='/js/tenant-manager.js'></script>
+  <script src='/js/agent-manager-fix.js'></script>
+  <script src='/js/google-auth-fix.js'></script>
+  <script src='/js/document-chat-fix.js'></script>
+  <script src='/js/findoc-integration.js'></script>
+  
+  <style>
+    .dashboard-header {
+      background-color: #8A2BE2;
+      color: white;
+      padding: 20px;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    
+    .dashboard-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    
+    .dashboard-row {
+      display: flex;
+      flex-wrap: wrap;
+      margin: -10px;
+    }
+    
+    .dashboard-col {
+      flex: 1;
+      min-width: 300px;
+      padding: 10px;
+    }
+    
+    .dashboard-card {
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+      overflow: hidden;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .dashboard-card-header {
+      padding: 15px;
+      background-color: #f5f5f5;
+      border-bottom: 1px solid #eee;
+    }
+    
+    .dashboard-card-header h2 {
+      margin: 0;
+      font-size: 1.25rem;
+      color: #2c3e50;
+    }
+    
+    .dashboard-card-body {
+      padding: 20px;
+      flex: 1;
+    }
+    
+    .dashboard-card-footer {
+      padding: 15px;
+      background-color: #f5f5f5;
+      border-top: 1px solid #eee;
+    }
+    
+    .subscription-badge {
+      display: inline-block;
+      padding: 5px 10px;
+      border-radius: 20px;
+      font-size: 0.875rem;
+      font-weight: 500;
+      margin-bottom: 10px;
+    }
+    
+    .subscription-badge.free {
+      background-color: #e9ecef;
+      color: #495057;
+    }
+    
+    .subscription-badge.basic {
+      background-color: #d1ecf1;
+      color: #0c5460;
+    }
+    
+    .subscription-badge.professional {
+      background-color: #d4edda;
+      color: #155724;
+    }
+    
+    .subscription-badge.enterprise {
+      background-color: #cce5ff;
+      color: #004085;
+    }
+    
+    .usage-bar {
+      height: 20px;
+      background-color: #e9ecef;
+      border-radius: 10px;
+      overflow: hidden;
+      margin-bottom: 5px;
+    }
+    
+    .usage-bar-fill {
+      height: 100%;
+      background-color: #8A2BE2;
+    }
+    
+    .usage-bar-fill.warning {
+      background-color: #ffc107;
+    }
+    
+    .usage-bar-fill.danger {
+      background-color: #dc3545;
+    }
+    
+    .usage-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.875rem;
+      color: #6c757d;
+    }
+    
+    .recent-documents {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    
+    .recent-documents li {
+      padding: 10px 0;
+      border-bottom: 1px solid #eee;
+    }
+    
+    .recent-documents li:last-child {
+      border-bottom: none;
+    }
+    
+    .document-title {
+      font-weight: 500;
+      color: #2c3e50;
+      margin-bottom: 5px;
+    }
+    
+    .document-meta {
+      font-size: 0.875rem;
+      color: #6c757d;
+    }
+    
+    .btn {
+      display: inline-block;
+      padding: 8px 16px;
+      background-color: #8A2BE2;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 500;
+    }
+    
+    .btn:hover {
+      background-color: #7B1FA2;
+    }
+    
+    .btn-outline {
+      background-color: transparent;
+      border: 1px solid #8A2BE2;
+      color: #8A2BE2;
+    }
+    
+    .btn-outline:hover {
+      background-color: #8A2BE2;
+      color: white;
+    }
+  </style>
+  <script src="/js/ui-chat-component.js"></script>
+</head>
+<body>
+  <!-- Notifications -->
+  <div id="notification" class="notification"></div>
+  <div id="agent-notification" class="notification"></div>
+
+  <div class="findoc-layout">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <a href="/" class="sidebar-logo">FinDoc Analyzer</a>
+      </div>
+      <ul class="sidebar-nav">
+        <li><a href="/" class="active"><span class="icon">🏠</span>Dashboard</a></li>
+        <li><a href="/documents-new"><span class="icon">📄</span>My Documents</a></li>
+        <li><a href="/analytics-new"><span class="icon">📊</span>Analytics</a></li>
+        <li><a href="/upload"><span class="icon">📤</span>Upload</a></li>
+        <li><a href="/chat"><span class="icon">💬</span>Chat</a></li>
+        <li><a href="/document-chat"><span class="icon">💬</span>Document Chat</a></li>
+        <li><a href="/document-comparison"><span class="icon">🔄</span>Document Comparison</a></li>
+        <li><a href="/user-dashboard"><span class="icon">👤</span>My Account</a></li>
+        <li><a href="/feedback"><span class="icon">📝</span>Feedback</a></li>
+      </ul>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <!-- Auth Nav -->
+      <div class="auth-container">
+        <div id="auth-nav" class="auth-nav">
+          <a href="/login" class="btn btn-outline">Login</a>
+          <a href="/signup" class="btn btn-primary">Sign Up</a>
+        </div>
+        <div id="user-nav" class="user-nav" style="display: none;">
+          <span id="user-name">User</span>
+          <button id="logout-btn" class="btn btn-outline">Logout</button>
+        </div>
+      </div>
+
+      <div id="page-content">
+        <div class="dashboard-header">
+          <h1>My Account</h1>
+          <p>View your subscription, API usage, and recent documents</p>
+        </div>
+        
+        <div class="dashboard-container">
+          <div class="dashboard-row">
+            <div class="dashboard-col">
+              <div class="dashboard-card">
+                <div class="dashboard-card-header">
+                  <h2>Subscription</h2>
+                </div>
+                <div class="dashboard-card-body">
+                  <div id="subscription-info">
+                    <!-- Subscription info will be loaded here -->
+                  </div>
+                </div>
+                <div class="dashboard-card-footer">
+                  <a href="#" class="btn">Upgrade Subscription</a>
+                </div>
+              </div>
+            </div>
+            
+            <div class="dashboard-col">
+              <div class="dashboard-card">
+                <div class="dashboard-card-header">
+                  <h2>API Usage</h2>
+                </div>
+                <div class="dashboard-card-body">
+                  <div id="api-usage">
+                    <!-- API usage will be loaded here -->
+                  </div>
+                </div>
+                <div class="dashboard-card-footer">
+                  <p>Usage resets on the 1st of each month</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="dashboard-row" style="margin-top: 20px;">
+            <div class="dashboard-col">
+              <div class="dashboard-card">
+                <div class="dashboard-card-header">
+                  <h2>Recent Documents</h2>
+                </div>
+                <div class="dashboard-card-body">
+                  <ul class="recent-documents" id="recent-documents">
+                    <!-- Recent documents will be loaded here -->
+                  </ul>
+                </div>
+                <div class="dashboard-card-footer">
+                  <a href="/documents-new" class="btn">View All Documents</a>
+                </div>
+              </div>
+            </div>
+            
+            <div class="dashboard-col">
+              <div class="dashboard-card">
+                <div class="dashboard-card-header">
+                  <h2>Account Information</h2>
+                </div>
+                <div class="dashboard-card-body">
+                  <div id="account-info">
+                    <!-- Account info will be loaded here -->
+                  </div>
+                </div>
+                <div class="dashboard-card-footer">
+                  <a href="#" class="btn">Edit Profile</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Initialize
+      loadUserData();
+      
+      // Set up event listeners
+      document.addEventListener('findocIntegrationReady', function() {
+        loadUserData();
+      });
+    });
+    
+    // Load user data
+    function loadUserData() {
+      loadSubscriptionInfo();
+      loadApiUsage();
+      loadRecentDocuments();
+      loadAccountInfo();
+    }
+    
+    // Load subscription info
+    function loadSubscriptionInfo() {
+      const subscriptionInfo = document.getElementById('subscription-info');
+      
+      if (window.apiKeyManager) {
+        const stats = window.apiKeyManager.getUsageStats();
+        const subscription = stats.subscription;
+        
+        subscriptionInfo.innerHTML = `
+          <span class="subscription-badge ${subscription}">${subscription.charAt(0).toUpperCase() + subscription.slice(1)}</span>
+          <h3>Your Plan</h3>
+          <p>You are currently on the <strong>${subscription.charAt(0).toUpperCase() + subscription.slice(1)}</strong> plan.</p>
+          <p>This plan includes:</p>
+          <ul>
+            <li>${stats.quotas.openrouter === -1 ? 'Unlimited' : stats.quotas.openrouter} OpenRouter API requests per month</li>
+            <li>${stats.quotas.openai === -1 ? 'Unlimited' : stats.quotas.openai} OpenAI API requests per month</li>
+            <li>${stats.quotas.gemini === -1 ? 'Unlimited' : stats.quotas.gemini} Gemini API requests per month</li>
+            <li>${stats.quotas.anthropic === -1 ? 'Unlimited' : stats.quotas.anthropic} Anthropic API requests per month</li>
+          </ul>
+        `;
+      } else {
+        subscriptionInfo.innerHTML = '<p>Subscription information not available</p>';
+      }
+    }
+    
+    // Load API usage
+    function loadApiUsage() {
+      const apiUsage = document.getElementById('api-usage');
+      
+      if (window.apiKeyManager) {
+        const stats = window.apiKeyManager.getUsageStats();
+        const usage = stats.usage;
+        const quotas = stats.quotas;
+        
+        let html = '';
+        
+        // OpenRouter usage
+        const openrouterPercentage = quotas.openrouter === -1 ? 0 : Math.min(100, Math.round((usage.openrouter / quotas.openrouter) * 100));
+        const openrouterClass = openrouterPercentage > 90 ? 'danger' : openrouterPercentage > 70 ? 'warning' : '';
+        
+        html += `
+          <h3>OpenRouter</h3>
+          <div class="usage-bar">
+            <div class="usage-bar-fill ${openrouterClass}" style="width: ${openrouterPercentage}%"></div>
+          </div>
+          <div class="usage-label">
+            <span>${usage.openrouter} used</span>
+            <span>${quotas.openrouter === -1 ? 'Unlimited' : quotas.openrouter} total</span>
+          </div>
+        `;
+        
+        // OpenAI usage
+        const openaiPercentage = quotas.openai === -1 ? 0 : Math.min(100, Math.round((usage.openai / quotas.openai) * 100));
+        const openaiClass = openaiPercentage > 90 ? 'danger' : openaiPercentage > 70 ? 'warning' : '';
+        
+        html += `
+          <h3>OpenAI</h3>
+          <div class="usage-bar">
+            <div class="usage-bar-fill ${openaiClass}" style="width: ${openaiPercentage}%"></div>
+          </div>
+          <div class="usage-label">
+            <span>${usage.openai} used</span>
+            <span>${quotas.openai === -1 ? 'Unlimited' : quotas.openai} total</span>
+          </div>
+        `;
+        
+        // Gemini usage
+        const geminiPercentage = quotas.gemini === -1 ? 0 : Math.min(100, Math.round((usage.gemini / quotas.gemini) * 100));
+        const geminiClass = geminiPercentage > 90 ? 'danger' : geminiPercentage > 70 ? 'warning' : '';
+        
+        html += `
+          <h3>Gemini</h3>
+          <div class="usage-bar">
+            <div class="usage-bar-fill ${geminiClass}" style="width: ${geminiPercentage}%"></div>
+          </div>
+          <div class="usage-label">
+            <span>${usage.gemini} used</span>
+            <span>${quotas.gemini === -1 ? 'Unlimited' : quotas.gemini} total</span>
+          </div>
+        `;
+        
+        // Anthropic usage
+        const anthropicPercentage = quotas.anthropic === -1 ? 0 : Math.min(100, Math.round((usage.anthropic / quotas.anthropic) * 100));
+        const anthropicClass = anthropicPercentage > 90 ? 'danger' : anthropicPercentage > 70 ? 'warning' : '';
+        
+        html += `
+          <h3>Anthropic</h3>
+          <div class="usage-bar">
+            <div class="usage-bar-fill ${anthropicClass}" style="width: ${anthropicPercentage}%"></div>
+          </div>
+          <div class="usage-label">
+            <span>${usage.anthropic} used</span>
+            <span>${quotas.anthropic === -1 ? 'Unlimited' : quotas.anthropic} total</span>
+          </div>
+        `;
+        
+        apiUsage.innerHTML = html;
+      } else {
+        apiUsage.innerHTML = '<p>API usage information not available</p>';
+      }
+    }
+    
+    // Load recent documents
+    function loadRecentDocuments() {
+      const recentDocuments = document.getElementById('recent-documents');
+      
+      if (window.tenantManager) {
+        const documents = window.tenantManager.getTenantDocuments();
+        
+        if (documents.length > 0) {
+          let html = '';
+          
+          // Show the 5 most recent documents
+          documents.slice(0, 5).forEach(document => {
+            html += `
+              <li>
+                <div class="document-title">${document.name}</div>
+                <div class="document-meta">
+                  <span>Uploaded: ${new Date(document.uploadedAt).toLocaleDateString()}</span>
+                  <span>Type: ${document.type}</span>
+                </div>
+              </li>
+            `;
+          });
+          
+          recentDocuments.innerHTML = html;
+        } else {
+          recentDocuments.innerHTML = '<li>No documents found</li>';
+        }
+      } else {
+        recentDocuments.innerHTML = '<li>Document information not available</li>';
+      }
+    }
+    
+    // Load account info
+    function loadAccountInfo() {
+      const accountInfo = document.getElementById('account-info');
+      
+      if (window.auth && window.auth.currentUser) {
+        const user = window.auth.currentUser;
+        
+        accountInfo.innerHTML = `
+          <h3>User Information</h3>
+          <p><strong>Name:</strong> ${user.name}</p>
+          <p><strong>Email:</strong> ${user.email}</p>
+          <p><strong>Account ID:</strong> ${user.id}</p>
+          <p><strong>Provider:</strong> ${user.provider}</p>
+          <p><strong>Created:</strong> ${new Date().toLocaleDateString()}</p>
+        `;
+      } else {
+        accountInfo.innerHTML = `
+          <p>You are not logged in. Please <a href="/login">login</a> to view your account information.</p>
+        `;
+      }
+    }
+  </script>
+</body>
+</html>

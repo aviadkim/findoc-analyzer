@@ -1,0 +1,365 @@
+/**
+ * FinDoc Analyzer - Modern Agent Cards
+ * A modern agent cards component for the FinDoc Analyzer application
+ */
+
+/* Agent Cards Container */
+.agent-cards-container {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: var(--spacing-6);
+  margin-bottom: var(--spacing-8);
+}
+
+@media (min-width: 640px) {
+  .agent-cards-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .agent-cards-container {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 1280px) {
+  .agent-cards-container {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* Agent Card */
+.agent-card {
+  position: relative;
+  background-color: var(--bg-primary);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+  transition: transform var(--transition-normal) var(--transition-ease), 
+              box-shadow var(--transition-normal) var(--transition-ease);
+}
+
+.agent-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* Agent Card Header */
+.agent-card-header {
+  position: relative;
+  padding: var(--spacing-6);
+  background-color: var(--bg-secondary);
+  border-bottom: 1px solid var(--border-light);
+}
+
+.agent-card-title {
+  display: flex;
+  align-items: center;
+  font-size: var(--text-xl);
+  font-weight: var(--font-semibold);
+  color: var(--text-primary);
+  margin-bottom: var(--spacing-2);
+}
+
+.agent-card-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  margin-right: var(--spacing-3);
+  font-size: var(--text-xl);
+  color: var(--primary);
+  background-color: rgba(99, 102, 241, 0.1);
+  border-radius: var(--radius-lg);
+}
+
+.agent-card-subtitle {
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+}
+
+/* Agent Card Status */
+.status-indicator {
+  position: absolute;
+  top: var(--spacing-4);
+  right: var(--spacing-4);
+  display: flex;
+  align-items: center;
+  padding: var(--spacing-1) var(--spacing-2);
+  font-size: var(--text-xs);
+  font-weight: var(--font-medium);
+  border-radius: var(--radius-full);
+}
+
+.status-indicator-icon {
+  margin-right: var(--spacing-1);
+}
+
+.status-indicator.active {
+  color: var(--success);
+  background-color: rgba(34, 197, 94, 0.1);
+}
+
+.status-indicator.inactive {
+  color: var(--neutral-500);
+  background-color: rgba(107, 114, 128, 0.1);
+}
+
+.status-indicator.processing {
+  color: var(--warning);
+  background-color: rgba(245, 158, 11, 0.1);
+}
+
+.status-indicator.error {
+  color: var(--danger);
+  background-color: rgba(239, 68, 68, 0.1);
+}
+
+/* Agent Card Body */
+.agent-card-body {
+  padding: var(--spacing-6);
+}
+
+.agent-card-description {
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  margin-bottom: var(--spacing-4);
+  line-height: var(--leading-relaxed);
+}
+
+/* Agent Card Stats */
+.agent-card-stats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--spacing-4);
+  margin-bottom: var(--spacing-4);
+}
+
+.agent-card-stat {
+  display: flex;
+  flex-direction: column;
+}
+
+.agent-card-stat-value {
+  font-size: var(--text-xl);
+  font-weight: var(--font-bold);
+  color: var(--text-primary);
+  margin-bottom: var(--spacing-1);
+}
+
+.agent-card-stat-label {
+  font-size: var(--text-xs);
+  color: var(--text-tertiary);
+}
+
+/* Agent Card Progress */
+.agent-card-progress {
+  margin-bottom: var(--spacing-4);
+}
+
+.agent-card-progress-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--spacing-2);
+}
+
+.agent-card-progress-label {
+  font-size: var(--text-xs);
+  font-weight: var(--font-medium);
+  color: var(--text-secondary);
+}
+
+.agent-card-progress-value {
+  font-size: var(--text-xs);
+  color: var(--text-tertiary);
+}
+
+.agent-card-progress-bar {
+  width: 100%;
+  height: 6px;
+  background-color: var(--neutral-200);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.agent-card-progress-fill {
+  height: 100%;
+  background-color: var(--primary);
+  border-radius: var(--radius-full);
+}
+
+/* Agent Card Footer */
+.agent-card-footer {
+  padding: var(--spacing-4) var(--spacing-6);
+  border-top: 1px solid var(--border-light);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.agent-card-updated {
+  font-size: var(--text-xs);
+  color: var(--text-tertiary);
+}
+
+.agent-card-actions {
+  display: flex;
+  gap: var(--spacing-2);
+}
+
+.agent-action {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-2);
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  background-color: transparent;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all var(--transition-fast) var(--transition-ease);
+}
+
+.agent-action:hover {
+  color: var(--text-primary);
+  background-color: var(--neutral-50);
+  border-color: var(--border-medium);
+}
+
+.agent-action-icon {
+  margin-right: var(--spacing-1);
+}
+
+/* Agent Card Types */
+.agent-card.document-processor .agent-card-icon {
+  color: var(--primary);
+  background-color: rgba(99, 102, 241, 0.1);
+}
+
+.agent-card.financial-analyzer .agent-card-icon {
+  color: var(--success);
+  background-color: rgba(34, 197, 94, 0.1);
+}
+
+.agent-card.securities-extractor .agent-card-icon {
+  color: var(--warning);
+  background-color: rgba(245, 158, 11, 0.1);
+}
+
+.agent-card.chat-agent .agent-card-icon {
+  color: var(--info);
+  background-color: rgba(59, 130, 246, 0.1);
+}
+
+/* Agent Card Loading */
+.agent-card-loading {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+}
+
+.agent-card-spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid rgba(99, 102, 241, 0.3);
+  border-radius: 50%;
+  border-top-color: var(--primary);
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Agent Card Expanded */
+.agent-card-expanded {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: var(--z-50);
+  padding: var(--spacing-6);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--transition-normal) var(--transition-ease),
+              visibility var(--transition-normal) var(--transition-ease);
+}
+
+.agent-card-expanded.visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+.agent-card-expanded-content {
+  width: 100%;
+  max-width: 800px;
+  max-height: 80vh;
+  background-color: var(--bg-primary);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-xl);
+  overflow: hidden;
+  transform: translateY(20px);
+  transition: transform var(--transition-normal) var(--transition-ease);
+}
+
+.agent-card-expanded.visible .agent-card-expanded-content {
+  transform: translateY(0);
+}
+
+.agent-card-expanded-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--spacing-4) var(--spacing-6);
+  background-color: var(--bg-secondary);
+  border-bottom: 1px solid var(--border-light);
+}
+
+.agent-card-expanded-title {
+  font-size: var(--text-xl);
+  font-weight: var(--font-semibold);
+  color: var(--text-primary);
+}
+
+.agent-card-expanded-close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  color: var(--text-tertiary);
+  background-color: transparent;
+  border: none;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition: all var(--transition-fast) var(--transition-ease);
+}
+
+.agent-card-expanded-close:hover {
+  color: var(--text-primary);
+  background-color: var(--neutral-100);
+}
+
+.agent-card-expanded-body {
+  padding: var(--spacing-6);
+  overflow-y: auto;
+  max-height: calc(80vh - 120px);
+}

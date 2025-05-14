@@ -1,0 +1,751 @@
+[
+  {
+    "name": "Homepage Load",
+    "category": "Navigation",
+    "passed": true,
+    "timestamp": "2025-05-14T12:27:03.148Z",
+    "screenshotPath": "puppeteer-test-screenshots\\nav-homepage-load.png"
+  },
+  {
+    "name": "Documents Page Load",
+    "category": "Navigation",
+    "passed": true,
+    "timestamp": "2025-05-14T12:27:04.280Z",
+    "screenshotPath": "puppeteer-test-screenshots\\nav-documents-page-load.png"
+  },
+  {
+    "name": "Analytics Page Load",
+    "category": "Navigation",
+    "passed": true,
+    "timestamp": "2025-05-14T12:27:05.625Z",
+    "screenshotPath": "puppeteer-test-screenshots\\nav-analytics-page-load.png"
+  },
+  {
+    "name": "Upload Page Load",
+    "category": "Navigation",
+    "passed": true,
+    "timestamp": "2025-05-14T12:27:06.824Z",
+    "screenshotPath": "puppeteer-test-screenshots\\nav-upload-page-load.png"
+  },
+  {
+    "name": "Document Chat Page Load",
+    "category": "Navigation",
+    "passed": true,
+    "timestamp": "2025-05-14T12:27:07.988Z",
+    "screenshotPath": "puppeteer-test-screenshots\\nav-document-chat-page-load.png"
+  },
+  {
+    "name": "Login Page Load",
+    "category": "Navigation",
+    "passed": true,
+    "timestamp": "2025-05-14T12:27:09.295Z",
+    "screenshotPath": "puppeteer-test-screenshots\\nav-login-page-load.png"
+  },
+  {
+    "name": "API Health Check",
+    "category": "Navigation",
+    "passed": true,
+    "timestamp": "2025-05-14T12:27:10.786Z",
+    "screenshotPath": "puppeteer-test-screenshots\\nav-api-health-check.png"
+  },
+  {
+    "name": "Navigation - Home to Documents",
+    "category": "Navigation",
+    "passed": true,
+    "timestamp": "2025-05-14T12:27:12.310Z",
+    "screenshotPath": "puppeteer-test-screenshots\\nav-navigation---home-to-documents-after.png"
+  },
+  {
+    "name": "Navigation - Documents to Analytics",
+    "category": "Navigation",
+    "passed": true,
+    "timestamp": "2025-05-14T12:27:14.624Z",
+    "screenshotPath": "puppeteer-test-screenshots\\nav-navigation---documents-to-analytics-after.png"
+  },
+  {
+    "name": "Navigation - Sidebar Toggle",
+    "category": "Navigation",
+    "passed": false,
+    "timestamp": "2025-05-14T12:27:16.152Z",
+    "screenshotPath": "puppeteer-test-screenshots\\nav-navigation---sidebar-toggle-error.png",
+    "error": "Node is either not clickable or not an Element"
+  },
+  {
+    "name": "Login Page Has Form",
+    "category": "Authentication",
+    "passed": true,
+    "timestamp": "2025-05-14T12:27:17.317Z",
+    "screenshotPath": "puppeteer-test-screenshots\\auth-login-page-has-form.png"
+  },
+  {
+    "name": "Login Page Has Google Button",
+    "category": "Authentication",
+    "passed": true,
+    "timestamp": "2025-05-14T12:27:18.581Z",
+    "screenshotPath": "puppeteer-test-screenshots\\auth-login-page-has-google-button.png"
+  },
+  {
+    "name": "Login Form Has Email Field",
+    "category": "Authentication",
+    "passed": true,
+    "timestamp": "2025-05-14T12:27:19.779Z",
+    "screenshotPath": "puppeteer-test-screenshots\\auth-login-form-has-email-field.png"
+  },
+  {
+    "name": "Login Form Has Password Field",
+    "category": "Authentication",
+    "passed": true,
+    "timestamp": "2025-05-14T12:27:21.024Z",
+    "screenshotPath": "puppeteer-test-screenshots\\auth-login-form-has-password-field.png"
+  },
+  {
+    "name": "Login Form Has Submit Button",
+    "category": "Authentication",
+    "passed": true,
+    "timestamp": "2025-05-14T12:27:22.199Z",
+    "screenshotPath": "puppeteer-test-screenshots\\auth-login-form-has-submit-button.png"
+  },
+  {
+    "name": "Login Page Has Remember Me",
+    "category": "Authentication",
+    "passed": true,
+    "timestamp": "2025-05-14T12:27:23.381Z",
+    "screenshotPath": "puppeteer-test-screenshots\\auth-login-page-has-remember-me.png"
+  },
+  {
+    "name": "Login Page Has Forgot Password",
+    "category": "Authentication",
+    "passed": false,
+    "timestamp": "2025-05-14T12:27:24.602Z",
+    "screenshotPath": "puppeteer-test-screenshots\\auth-login-page-has-forgot-password.png",
+    "error": "Element a:contains(\"Forgot\"), a:contains(\"forgot\") not found"
+  },
+  {
+    "name": "Login Page Has Sign Up Link",
+    "category": "Authentication",
+    "passed": false,
+    "timestamp": "2025-05-14T12:27:25.778Z",
+    "screenshotPath": "puppeteer-test-screenshots\\auth-login-page-has-sign-up-link.png",
+    "error": "Element a:contains(\"Sign up\"), a:contains(\"Register\") not found"
+  },
+  {
+    "name": "Login Page Has Logo",
+    "category": "Authentication",
+    "passed": true,
+    "timestamp": "2025-05-14T12:27:27.260Z",
+    "screenshotPath": "puppeteer-test-screenshots\\auth-login-page-has-logo.png"
+  },
+  {
+    "name": "Login Page Has Title",
+    "category": "Authentication",
+    "passed": true,
+    "timestamp": "2025-05-14T12:27:28.472Z",
+    "screenshotPath": "puppeteer-test-screenshots\\auth-login-page-has-title.png"
+  },
+  {
+    "name": "Documents Page Has Document List",
+    "category": "Document List",
+    "passed": false,
+    "timestamp": "2025-05-14T12:27:29.687Z",
+    "screenshotPath": "puppeteer-test-screenshots\\doclist-documents-page-has-document-list.png",
+    "error": "Element .document-list, .documents-container not found"
+  },
+  {
+    "name": "Documents Page Has Document Cards",
+    "category": "Document List",
+    "passed": true,
+    "timestamp": "2025-05-14T12:27:30.882Z",
+    "screenshotPath": "puppeteer-test-screenshots\\doclist-documents-page-has-document-cards.png"
+  },
+  {
+    "name": "Documents Page Has Search Bar",
+    "category": "Document List",
+    "passed": false,
+    "timestamp": "2025-05-14T12:27:32.062Z",
+    "screenshotPath": "puppeteer-test-screenshots\\doclist-documents-page-has-search-bar.png",
+    "error": "Element input[type=\"search\"], input[placeholder*=\"search\"], .search-input not found"
+  },
+  {
+    "name": "Documents Page Has Filter Options",
+    "category": "Document List",
+    "passed": false,
+    "timestamp": "2025-05-14T12:27:33.505Z",
+    "screenshotPath": "puppeteer-test-screenshots\\doclist-documents-page-has-filter-options.png",
+    "error": "Element .filter-options, .filters, select not found"
+  },
+  {
+    "name": "Documents Page Has Sort Options",
+    "category": "Document List",
+    "passed": false,
+    "timestamp": "2025-05-14T12:27:35.014Z",
+    "screenshotPath": "puppeteer-test-screenshots\\doclist-documents-page-has-sort-options.png",
+    "error": "Element .sort-options, .sort-by not found"
+  },
+  {
+    "name": "Document Card Has Title",
+    "category": "Document List",
+    "passed": true,
+    "timestamp": "2025-05-14T12:27:36.275Z",
+    "screenshotPath": "puppeteer-test-screenshots\\doclist-document-card-has-title.png"
+  },
+  {
+    "name": "Document Card Has Date",
+    "category": "Document List",
+    "passed": false,
+    "timestamp": "2025-05-14T12:27:37.449Z",
+    "screenshotPath": "puppeteer-test-screenshots\\doclist-document-card-has-date.png",
+    "error": "Element .document-card .document-date, .document-card .date not found"
+  },
+  {
+    "name": "Document Card Has Type",
+    "category": "Document List",
+    "passed": false,
+    "timestamp": "2025-05-14T12:27:38.743Z",
+    "screenshotPath": "puppeteer-test-screenshots\\doclist-document-card-has-type.png",
+    "error": "Element .document-card .document-type, .document-card .type not found"
+  },
+  {
+    "name": "Document Card Has Status",
+    "category": "Document List",
+    "passed": false,
+    "timestamp": "2025-05-14T12:27:39.981Z",
+    "screenshotPath": "puppeteer-test-screenshots\\doclist-document-card-has-status.png",
+    "error": "Element .document-card .document-status, .document-card .status not found"
+  },
+  {
+    "name": "Document Card Is Clickable",
+    "category": "Document List",
+    "passed": false,
+    "timestamp": "2025-05-14T12:27:41.146Z",
+    "screenshotPath": "puppeteer-test-screenshots\\doclist-document-card-is-clickable.png",
+    "error": "Element .document-card a, .document-card[onclick], .document-card button not found"
+  },
+  {
+    "name": "Document Detail Page Has Header",
+    "category": "Document Detail",
+    "passed": true,
+    "timestamp": "2025-05-14T12:27:43.457Z",
+    "screenshotPath": "puppeteer-test-screenshots\\docdetail-document-detail-page-has-header.png"
+  },
+  {
+    "name": "Document Detail Page Has Info Section",
+    "category": "Document Detail",
+    "passed": false,
+    "timestamp": "2025-05-14T12:27:44.647Z",
+    "screenshotPath": "puppeteer-test-screenshots\\docdetail-document-detail-page-has-info-section.png",
+    "error": "Element .document-info, .info-section, .metadata not found"
+  },
+  {
+    "name": "Document Detail Page Has Content Section",
+    "category": "Document Detail",
+    "passed": false,
+    "timestamp": "2025-05-14T12:27:45.797Z",
+    "screenshotPath": "puppeteer-test-screenshots\\docdetail-document-detail-page-has-content-section.png",
+    "error": "Element .document-content, .content-section, .document-body not found"
+  },
+  {
+    "name": "Document Detail Page Has Action Buttons",
+    "category": "Document Detail",
+    "passed": true,
+    "timestamp": "2025-05-14T12:27:47.069Z",
+    "screenshotPath": "puppeteer-test-screenshots\\docdetail-document-detail-page-has-action-buttons.png"
+  },
+  {
+    "name": "Document Detail Page Has Process Button",
+    "category": "Document Detail",
+    "passed": true,
+    "timestamp": "2025-05-14T12:27:48.247Z",
+    "screenshotPath": "puppeteer-test-screenshots\\docdetail-document-detail-page-has-process-button.png"
+  },
+  {
+    "name": "Document Detail Page Has Export Button",
+    "category": "Document Detail",
+    "passed": false,
+    "timestamp": "2025-05-14T12:27:49.395Z",
+    "screenshotPath": "puppeteer-test-screenshots\\docdetail-document-detail-page-has-export-button.png",
+    "error": "Element button:contains(\"Export\"), .export-btn not found"
+  },
+  {
+    "name": "Document Detail Page Has Refresh Button",
+    "category": "Document Detail",
+    "passed": false,
+    "timestamp": "2025-05-14T12:27:50.544Z",
+    "screenshotPath": "puppeteer-test-screenshots\\docdetail-document-detail-page-has-refresh-button.png",
+    "error": "Element #refresh-btn, button:contains(\"Refresh\"), .refresh-btn not found"
+  },
+  {
+    "name": "Document Detail Page Has Tables Section",
+    "category": "Document Detail",
+    "passed": false,
+    "timestamp": "2025-05-14T12:27:51.699Z",
+    "screenshotPath": "puppeteer-test-screenshots\\docdetail-document-detail-page-has-tables-section.png",
+    "error": "Element .tables-section, .tables, table not found"
+  },
+  {
+    "name": "Document Detail Page Has Securities Section",
+    "category": "Document Detail",
+    "passed": false,
+    "timestamp": "2025-05-14T12:27:52.952Z",
+    "screenshotPath": "puppeteer-test-screenshots\\docdetail-document-detail-page-has-securities-section.png",
+    "error": "Element .securities-section, .securities, .holdings not found"
+  },
+  {
+    "name": "Document Detail Page Has Metadata Section",
+    "category": "Document Detail",
+    "passed": false,
+    "timestamp": "2025-05-14T12:27:54.188Z",
+    "screenshotPath": "puppeteer-test-screenshots\\docdetail-document-detail-page-has-metadata-section.png",
+    "error": "Element .metadata-section, .metadata, .document-metadata not found"
+  },
+  {
+    "name": "Process Button Exists",
+    "category": "Document Processing",
+    "passed": true,
+    "timestamp": "2025-05-14T12:27:56.422Z",
+    "screenshotPath": "puppeteer-test-screenshots\\processing-process-button-exists.png"
+  },
+  {
+    "name": "Reprocess Button Exists",
+    "category": "Document Processing",
+    "passed": false,
+    "timestamp": "2025-05-14T12:27:57.568Z",
+    "screenshotPath": "puppeteer-test-screenshots\\processing-reprocess-button-exists.png",
+    "error": "Element #reprocess-document-btn, button:contains(\"Reprocess\"), .reprocess-btn not found"
+  },
+  {
+    "name": "Process Status Indicator Exists",
+    "category": "Document Processing",
+    "passed": false,
+    "timestamp": "2025-05-14T12:27:58.755Z",
+    "screenshotPath": "puppeteer-test-screenshots\\processing-process-status-indicator-exists.png",
+    "error": "Element .status-indicator, .processing-status, .status not found"
+  },
+  {
+    "name": "Document Tables Exist",
+    "category": "Document Processing",
+    "passed": false,
+    "timestamp": "2025-05-14T12:27:59.979Z",
+    "screenshotPath": "puppeteer-test-screenshots\\processing-document-tables-exist.png",
+    "error": "Element table, .table, .data-table not found"
+  },
+  {
+    "name": "Document Securities Exist",
+    "category": "Document Processing",
+    "passed": false,
+    "timestamp": "2025-05-14T12:28:01.191Z",
+    "screenshotPath": "puppeteer-test-screenshots\\processing-document-securities-exist.png",
+    "error": "Element .securities, .holdings, .securities-list not found"
+  },
+  {
+    "name": "Document Metadata Exists",
+    "category": "Document Processing",
+    "passed": false,
+    "timestamp": "2025-05-14T12:28:02.354Z",
+    "screenshotPath": "puppeteer-test-screenshots\\processing-document-metadata-exists.png",
+    "error": "Element .metadata, .document-metadata, .meta-data not found"
+  },
+  {
+    "name": "Document Processing API Endpoint",
+    "category": "Document Processing",
+    "passed": true,
+    "timestamp": "2025-05-14T12:28:03.515Z",
+    "screenshotPath": "puppeteer-test-screenshots\\processing-document-processing-api-endpoint.png"
+  },
+  {
+    "name": "Document Processing Progress Bar",
+    "category": "Document Processing",
+    "passed": false,
+    "timestamp": "2025-05-14T12:28:04.672Z",
+    "screenshotPath": "puppeteer-test-screenshots\\processing-document-processing-progress-bar.png",
+    "error": "Element .progress-bar, .progress, progress not found"
+  },
+  {
+    "name": "Document Processing Error Handling",
+    "category": "Document Processing",
+    "passed": false,
+    "timestamp": "2025-05-14T12:28:05.826Z",
+    "screenshotPath": "puppeteer-test-screenshots\\processing-document-processing-error-handling.png",
+    "error": "Element .error-message, .alert-danger, .error not found"
+  },
+  {
+    "name": "Document Processing Success Message",
+    "category": "Document Processing",
+    "passed": false,
+    "timestamp": "2025-05-14T12:28:07.013Z",
+    "screenshotPath": "puppeteer-test-screenshots\\processing-document-processing-success-message.png",
+    "error": "Element .success-message, .alert-success, .success not found"
+  },
+  {
+    "name": "Chat Page Accessibility",
+    "category": "Document Chat",
+    "passed": true,
+    "timestamp": "2025-05-14T12:28:08.252Z",
+    "screenshotPath": "puppeteer-test-screenshots\\chat-chat-page-accessibility.png"
+  },
+  {
+    "name": "Chat Input Field",
+    "category": "Document Chat",
+    "passed": true,
+    "timestamp": "2025-05-14T12:28:09.420Z",
+    "screenshotPath": "puppeteer-test-screenshots\\chat-chat-input-field.png"
+  },
+  {
+    "name": "Chat Send Button",
+    "category": "Document Chat",
+    "passed": true,
+    "timestamp": "2025-05-14T12:28:10.650Z",
+    "screenshotPath": "puppeteer-test-screenshots\\chat-chat-send-button.png"
+  },
+  {
+    "name": "Document Selection Dropdown",
+    "category": "Document Chat",
+    "passed": true,
+    "timestamp": "2025-05-14T12:28:11.838Z",
+    "screenshotPath": "puppeteer-test-screenshots\\chat-document-selection-dropdown.png"
+  },
+  {
+    "name": "Chat Messages Container",
+    "category": "Document Chat",
+    "passed": true,
+    "timestamp": "2025-05-14T12:28:13.004Z",
+    "screenshotPath": "puppeteer-test-screenshots\\chat-chat-messages-container.png"
+  },
+  {
+    "name": "User Message Styling",
+    "category": "Document Chat",
+    "passed": false,
+    "timestamp": "2025-05-14T12:28:14.189Z",
+    "screenshotPath": "puppeteer-test-screenshots\\chat-user-message-styling.png",
+    "error": "Element .user-message, .message.user, .message.outgoing not found"
+  },
+  {
+    "name": "Bot Message Styling",
+    "category": "Document Chat",
+    "passed": false,
+    "timestamp": "2025-05-14T12:28:15.473Z",
+    "screenshotPath": "puppeteer-test-screenshots\\chat-bot-message-styling.png",
+    "error": "Element .bot-message, .message.bot, .message.incoming not found"
+  },
+  {
+    "name": "Chat Header",
+    "category": "Document Chat",
+    "passed": true,
+    "timestamp": "2025-05-14T12:28:16.641Z",
+    "screenshotPath": "puppeteer-test-screenshots\\chat-chat-header.png"
+  },
+  {
+    "name": "Loading Indicator",
+    "category": "Document Chat",
+    "passed": false,
+    "timestamp": "2025-05-14T12:28:17.805Z",
+    "screenshotPath": "puppeteer-test-screenshots\\chat-loading-indicator.png",
+    "error": "Element .loading, .spinner, .loader not found"
+  },
+  {
+    "name": "Error Message Display",
+    "category": "Document Chat",
+    "passed": false,
+    "timestamp": "2025-05-14T12:28:18.960Z",
+    "screenshotPath": "puppeteer-test-screenshots\\chat-error-message-display.png",
+    "error": "Element .error, .error-message, .alert-danger not found"
+  },
+  {
+    "name": "Analytics Page Accessibility",
+    "category": "Analytics",
+    "passed": false,
+    "timestamp": "2025-05-14T12:28:20.274Z",
+    "screenshotPath": "puppeteer-test-screenshots\\analytics-analytics-page-accessibility.png",
+    "error": "Element .analytics-container, #analytics-container not found"
+  },
+  {
+    "name": "Charts Container",
+    "category": "Analytics",
+    "passed": false,
+    "timestamp": "2025-05-14T12:28:21.646Z",
+    "screenshotPath": "puppeteer-test-screenshots\\analytics-charts-container.png",
+    "error": "Element .charts, .charts-container, #charts not found"
+  },
+  {
+    "name": "Document Type Distribution Chart",
+    "category": "Analytics",
+    "passed": false,
+    "timestamp": "2025-05-14T12:28:22.902Z",
+    "screenshotPath": "puppeteer-test-screenshots\\analytics-document-type-distribution-chart.png",
+    "error": "Element .document-type-chart, #document-type-chart, .pie-chart not found"
+  },
+  {
+    "name": "Processing Time Chart",
+    "category": "Analytics",
+    "passed": false,
+    "timestamp": "2025-05-14T12:28:24.164Z",
+    "screenshotPath": "puppeteer-test-screenshots\\analytics-processing-time-chart.png",
+    "error": "Element .processing-time-chart, #processing-time-chart, .bar-chart not found"
+  },
+  {
+    "name": "Securities Distribution Chart",
+    "category": "Analytics",
+    "passed": false,
+    "timestamp": "2025-05-14T12:28:25.567Z",
+    "screenshotPath": "puppeteer-test-screenshots\\analytics-securities-distribution-chart.png",
+    "error": "Element .securities-chart, #securities-chart, .distribution-chart not found"
+  },
+  {
+    "name": "Date Range Selector",
+    "category": "Analytics",
+    "passed": false,
+    "timestamp": "2025-05-14T12:28:26.865Z",
+    "screenshotPath": "puppeteer-test-screenshots\\analytics-date-range-selector.png",
+    "error": "Element .date-range, .date-picker, input[type=\"date\"] not found"
+  },
+  {
+    "name": "Analytics Filters",
+    "category": "Analytics",
+    "passed": false,
+    "timestamp": "2025-05-14T12:28:28.204Z",
+    "screenshotPath": "puppeteer-test-screenshots\\analytics-analytics-filters.png",
+    "error": "Element .filters, .filter-options, select not found"
+  },
+  {
+    "name": "Data Table",
+    "category": "Analytics",
+    "passed": true,
+    "timestamp": "2025-05-14T12:28:29.559Z",
+    "screenshotPath": "puppeteer-test-screenshots\\analytics-data-table.png"
+  },
+  {
+    "name": "Export Analytics Button",
+    "category": "Analytics",
+    "passed": false,
+    "timestamp": "2025-05-14T12:28:30.823Z",
+    "screenshotPath": "puppeteer-test-screenshots\\analytics-export-analytics-button.png",
+    "error": "Element button:contains(\"Export\"), .export-btn not found"
+  },
+  {
+    "name": "Analytics Header",
+    "category": "Analytics",
+    "passed": true,
+    "timestamp": "2025-05-14T12:28:32.089Z",
+    "screenshotPath": "puppeteer-test-screenshots\\analytics-analytics-header.png"
+  },
+  {
+    "name": "Upload Page Accessibility",
+    "category": "Upload",
+    "passed": false,
+    "timestamp": "2025-05-14T12:28:33.349Z",
+    "screenshotPath": "puppeteer-test-screenshots\\upload-upload-page-accessibility.png",
+    "error": "Element .upload-container, #upload-container not found"
+  },
+  {
+    "name": "File Input Field",
+    "category": "Upload",
+    "passed": true,
+    "timestamp": "2025-05-14T12:28:34.591Z",
+    "screenshotPath": "puppeteer-test-screenshots\\upload-file-input-field.png"
+  },
+  {
+    "name": "Document Type Selector",
+    "category": "Upload",
+    "passed": true,
+    "timestamp": "2025-05-14T12:28:35.754Z",
+    "screenshotPath": "puppeteer-test-screenshots\\upload-document-type-selector.png"
+  },
+  {
+    "name": "Upload Button",
+    "category": "Upload",
+    "passed": true,
+    "timestamp": "2025-05-14T12:28:36.885Z",
+    "screenshotPath": "puppeteer-test-screenshots\\upload-upload-button.png"
+  },
+  {
+    "name": "Drag and Drop Area",
+    "category": "Upload",
+    "passed": false,
+    "timestamp": "2025-05-14T12:28:38.108Z",
+    "screenshotPath": "puppeteer-test-screenshots\\upload-drag-and-drop-area.png",
+    "error": "Element .drop-area, .drag-drop, .dropzone not found"
+  },
+  {
+    "name": "Upload Progress Bar",
+    "category": "Upload",
+    "passed": false,
+    "timestamp": "2025-05-14T12:28:39.302Z",
+    "screenshotPath": "puppeteer-test-screenshots\\upload-upload-progress-bar.png",
+    "error": "Element .progress-bar, .progress, progress not found"
+  },
+  {
+    "name": "File Name Display",
+    "category": "Upload",
+    "passed": true,
+    "timestamp": "2025-05-14T12:28:40.473Z",
+    "screenshotPath": "puppeteer-test-screenshots\\upload-file-name-display.png"
+  },
+  {
+    "name": "Upload Instructions",
+    "category": "Upload",
+    "passed": false,
+    "timestamp": "2025-05-14T12:28:41.633Z",
+    "screenshotPath": "puppeteer-test-screenshots\\upload-upload-instructions.png",
+    "error": "Element .instructions, .upload-instructions, .help-text not found"
+  },
+  {
+    "name": "Error Message Display",
+    "category": "Upload",
+    "passed": true,
+    "timestamp": "2025-05-14T12:28:42.893Z",
+    "screenshotPath": "puppeteer-test-screenshots\\upload-error-message-display.png"
+  },
+  {
+    "name": "Success Message Display",
+    "category": "Upload",
+    "passed": false,
+    "timestamp": "2025-05-14T12:28:44.061Z",
+    "screenshotPath": "puppeteer-test-screenshots\\upload-success-message-display.png",
+    "error": "Element .success, .success-message, .alert-success not found"
+  },
+  {
+    "name": "API Health Endpoint",
+    "category": "API",
+    "passed": true,
+    "timestamp": "2025-05-14T12:28:45.236Z",
+    "screenshotPath": "puppeteer-test-screenshots\\api-api-health-endpoint.png"
+  },
+  {
+    "name": "Documents API Endpoint",
+    "category": "API",
+    "passed": true,
+    "timestamp": "2025-05-14T12:28:46.414Z",
+    "screenshotPath": "puppeteer-test-screenshots\\api-documents-api-endpoint.png"
+  },
+  {
+    "name": "Document Detail API Endpoint",
+    "category": "API",
+    "passed": true,
+    "timestamp": "2025-05-14T12:28:47.563Z",
+    "screenshotPath": "puppeteer-test-screenshots\\api-document-detail-api-endpoint.png"
+  },
+  {
+    "name": "Chat API Endpoint",
+    "category": "API",
+    "passed": true,
+    "timestamp": "2025-05-14T12:28:48.718Z",
+    "screenshotPath": "puppeteer-test-screenshots\\api-chat-api-endpoint.png"
+  },
+  {
+    "name": "Upload API Endpoint",
+    "category": "API",
+    "passed": true,
+    "timestamp": "2025-05-14T12:28:49.928Z",
+    "screenshotPath": "puppeteer-test-screenshots\\api-upload-api-endpoint.png"
+  },
+  {
+    "name": "Process API Endpoint",
+    "category": "API",
+    "passed": true,
+    "timestamp": "2025-05-14T12:28:51.065Z",
+    "screenshotPath": "puppeteer-test-screenshots\\api-process-api-endpoint.png"
+  },
+  {
+    "name": "Analytics API Endpoint",
+    "category": "API",
+    "passed": true,
+    "timestamp": "2025-05-14T12:28:52.224Z",
+    "screenshotPath": "puppeteer-test-screenshots\\api-analytics-api-endpoint.png"
+  },
+  {
+    "name": "Securities API Endpoint",
+    "category": "API",
+    "passed": true,
+    "timestamp": "2025-05-14T12:28:53.367Z",
+    "screenshotPath": "puppeteer-test-screenshots\\api-securities-api-endpoint.png"
+  },
+  {
+    "name": "Tables API Endpoint",
+    "category": "API",
+    "passed": true,
+    "timestamp": "2025-05-14T12:28:54.549Z",
+    "screenshotPath": "puppeteer-test-screenshots\\api-tables-api-endpoint.png"
+  },
+  {
+    "name": "API Documentation",
+    "category": "API",
+    "passed": true,
+    "timestamp": "2025-05-14T12:28:55.723Z",
+    "screenshotPath": "puppeteer-test-screenshots\\api-api-documentation.png"
+  },
+  {
+    "name": "Navigation Bar",
+    "category": "UI Components",
+    "passed": false,
+    "timestamp": "2025-05-14T12:28:57.063Z",
+    "screenshotPath": "puppeteer-test-screenshots\\ui-navigation-bar.png",
+    "error": "Element nav, .navbar, .navigation not found"
+  },
+  {
+    "name": "Sidebar",
+    "category": "UI Components",
+    "passed": true,
+    "timestamp": "2025-05-14T12:28:58.324Z",
+    "screenshotPath": "puppeteer-test-screenshots\\ui-sidebar.png"
+  },
+  {
+    "name": "Footer",
+    "category": "UI Components",
+    "passed": false,
+    "timestamp": "2025-05-14T12:28:59.424Z",
+    "screenshotPath": "puppeteer-test-screenshots\\ui-footer.png",
+    "error": "Element footer, .footer not found"
+  },
+  {
+    "name": "Logo",
+    "category": "UI Components",
+    "passed": false,
+    "timestamp": "2025-05-14T12:29:00.678Z",
+    "screenshotPath": "puppeteer-test-screenshots\\ui-logo.png",
+    "error": "Element .logo, img[alt*=\"logo\"], .brand not found"
+  },
+  {
+    "name": "Primary Buttons",
+    "category": "UI Components",
+    "passed": true,
+    "timestamp": "2025-05-14T12:29:02.111Z",
+    "screenshotPath": "puppeteer-test-screenshots\\ui-primary-buttons.png"
+  },
+  {
+    "name": "Secondary Buttons",
+    "category": "UI Components",
+    "passed": false,
+    "timestamp": "2025-05-14T12:29:03.347Z",
+    "screenshotPath": "puppeteer-test-screenshots\\ui-secondary-buttons.png",
+    "error": "Element .btn-secondary, .secondary-button, button.secondary not found"
+  },
+  {
+    "name": "Input Fields",
+    "category": "UI Components",
+    "passed": true,
+    "timestamp": "2025-05-14T12:29:04.523Z",
+    "screenshotPath": "puppeteer-test-screenshots\\ui-input-fields.png"
+  },
+  {
+    "name": "Dropdown Menus",
+    "category": "UI Components",
+    "passed": false,
+    "timestamp": "2025-05-14T12:29:05.825Z",
+    "screenshotPath": "puppeteer-test-screenshots\\ui-dropdown-menus.png",
+    "error": "Element select, .dropdown, .select not found"
+  },
+  {
+    "name": "Alert Messages",
+    "category": "UI Components",
+    "passed": true,
+    "timestamp": "2025-05-14T12:29:07.249Z",
+    "screenshotPath": "puppeteer-test-screenshots\\ui-alert-messages.png"
+  },
+  {
+    "name": "Modal Dialogs",
+    "category": "UI Components",
+    "passed": false,
+    "timestamp": "2025-05-14T12:29:08.539Z",
+    "screenshotPath": "puppeteer-test-screenshots\\ui-modal-dialogs.png",
+    "error": "Element .modal, .dialog, .popup not found"
+  }
+]

@@ -1,0 +1,29 @@
+FROM node:18
+
+WORKDIR /app
+
+# Copy package.json and package-lock.json
+COPY package*.json ./
+
+# Install dependencies
+RUN npm install
+
+# Copy the rest of the application
+COPY . .
+
+# Create UI components directory if it doesn't exist
+RUN mkdir -p /app/public/js
+
+# Create a simple UI components file if it doesn't exist
+RUN if [ ! -f /app/public/js/ui-components.js ]; then \
+    echo "console.log('UI Components loaded');" > /app/public/js/ui-components.js; \
+    fi
+
+# List files for debugging
+RUN ls -la /app/public/js
+
+# Expose the port
+EXPOSE 8080
+
+# Start the application
+CMD ["node", "server.js"]

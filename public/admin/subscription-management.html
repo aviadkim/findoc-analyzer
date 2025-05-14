@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FinDoc Analyzer - Subscription Management</title>
+  <link rel="stylesheet" href="/css/styles.css">
+  <link rel="stylesheet" href="/css/agent-styles.css">
+  <style>
+    .admin-header {
+      background-color: #343a40;
+      color: white;
+      padding: 20px;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    
+    .admin-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    
+    .admin-card {
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+      overflow: hidden;
+      margin-bottom: 20px;
+    }
+    
+    .admin-card-header {
+      padding: 15px;
+      background-color: #f5f5f5;
+      border-bottom: 1px solid #eee;
+    }
+    
+    .admin-card-header h2 {
+      margin: 0;
+      font-size: 1.25rem;
+      color: #2c3e50;
+    }
+    
+    .admin-card-body {
+      padding: 20px;
+    }
+    
+    .admin-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    
+    .admin-table th,
+    .admin-table td {
+      padding: 12px 15px;
+      text-align: left;
+      border-bottom: 1px solid #eee;
+    }
+    
+    .admin-table th {
+      background-color: #f5f5f5;
+      font-weight: 500;
+      color: #2c3e50;
+    }
+    
+    .admin-table tr:hover {
+      background-color: #f9f9f9;
+    }
+    
+    .admin-badge {
+      display: inline-block;
+      padding: 5px 10px;
+      border-radius: 20px;
+      font-size: 0.875rem;
+      font-weight: 500;
+    }
+    
+    .admin-badge.free {
+      background-color: #e9ecef;
+      color: #495057;
+    }
+    
+    .admin-badge.basic {
+      background-color: #d1ecf1;
+      color: #0c5460;
+    }
+    
+    .admin-badge.professional {
+      background-color: #d4edda;
+      color: #155724;
+    }
+    
+    .admin-badge.enterprise {
+      background-color: #cce5ff;
+      color: #004085;
+    }
+    
+    .admin-actions {
+      display: flex;
+      gap: 10px;
+    }
+    
+    .admin-btn {
+      padding: 8px 12px;
+      border-radius: 4px;
+      font-size: 0.875rem;
+      cursor: pointer;
+      border: none;
+    }
+    
+    .admin-btn-primary {
+      background-color: #007bff;
+      color: white;
+    }
+    
+    .admin-btn-secondary {
+      background-color: #6c757d;
+      color: white;
+    }
+    
+    .admin-btn-success {
+      background-color: #28a745;
+      color: white;
+    }
+    
+    .admin-btn-danger {
+      background-color: #dc3545;
+      color: white;
+    }
+    
+    .admin-form-group {
+      margin-bottom: 15px;
+    }
+    
+    .admin-form-group label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: 500;
+      color: #2c3e50;
+    }
+    
+    .admin-form-group select,
+    .admin-form-group input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 1rem;
+    }
+    
+    .admin-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .admin-modal-content {
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 500px;
+    }
+    
+    .admin-modal-header {
+      padding: 15px;
+      background-color: #f5f5f5;
+      border-bottom: 1px solid #eee;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .admin-modal-header h3 {
+      margin: 0;
+      font-size: 1.25rem;
+      color: #2c3e50;
+    }
+    
+    .admin-modal-close {
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: #6c757d;
+    }
+    
+    .admin-modal-body {
+      padding: 20px;
+    }
+    
+    .admin-modal-footer {
+      padding: 15px;
+      background-color: #f5f5f5;
+      border-top: 1px solid #eee;
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+    }
+  </style>
+  <script src="/js/ui-chat-component.js"></script>
+</head>
+<body>
+  <div class="admin-header">
+    <h1>FinDoc Analyzer - Subscription Management</h1>
+    <p>Manage tenant subscriptions and API usage</p>
+  </div>
+  
+  <div class="admin-container">
+    <div class="admin-card">
+      <div class="admin-card-header">
+        <h2>Tenant Subscriptions</h2>
+      </div>
+      <div class="admin-card-body">
+        <table class="admin-table" id="tenant-table">
+          <thead>
+            <tr>
+              <th>Tenant ID</th>
+              <th>Subscription</th>
+              <th>API Usage</th>
+              <th>Last Active</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Tenant data will be loaded here -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+    
+    <div class="admin-card">
+      <div class="admin-card-header">
+        <h2>API Keys</h2>
+      </div>
+      <div class="admin-card-body">
+        <form id="api-key-form">
+          <div class="admin-form-group">
+            <label for="openrouter-key">OpenRouter API Key</label>
+            <input type="text" id="openrouter-key" placeholder="sk-or-v1-...">
+          </div>
+          <div class="admin-form-group">
+            <label for="openai-key">OpenAI API Key</label>
+            <input type="text" id="openai-key" placeholder="sk-...">
+          </div>
+          <div class="admin-form-group">
+            <label for="gemini-key">Gemini API Key</label>
+            <input type="text" id="gemini-key" placeholder="AIza...">
+          </div>
+          <div class="admin-form-group">
+            <label for="anthropic-key">Anthropic API Key</label>
+            <input type="text" id="anthropic-key" placeholder="sk-ant-...">
+          </div>
+          <button type="submit" class="admin-btn admin-btn-primary">Update API Keys</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Edit Subscription Modal -->
+  <div class="admin-modal" id="edit-subscription-modal">
+    <div class="admin-modal-content">
+      <div class="admin-modal-header">
+        <h3>Edit Subscription</h3>
+        <button class="admin-modal-close">&times;</button>
+      </div>
+      <div class="admin-modal-body">
+        <form id="edit-subscription-form">
+          <input type="hidden" id="edit-tenant-id">
+          <div class="admin-form-group">
+            <label for="subscription-tier">Subscription Tier</label>
+            <select id="subscription-tier">
+              <option value="free">Free</option>
+              <option value="basic">Basic</option>
+              <option value="professional">Professional</option>
+              <option value="enterprise">Enterprise</option>
+            </select>
+          </div>
+        </form>
+      </div>
+      <div class="admin-modal-footer">
+        <button class="admin-btn admin-btn-secondary modal-cancel">Cancel</button>
+        <button class="admin-btn admin-btn-primary" id="save-subscription">Save Changes</button>
+      </div>
+    </div>
+  </div>
+  
+  <script src="/js/api-key-manager.js"></script>
+  <script src="/js/tenant-manager.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Initialize
+      loadTenantData();
+      loadApiKeys();
+      
+      // Set up event listeners
+      document.getElementById('api-key-form').addEventListener('submit', updateApiKeys);
+      document.getElementById('save-subscription').addEventListener('click', saveSubscription);
+      
+      // Close modal when clicking the close button or cancel button
+      document.querySelectorAll('.admin-modal-close, .modal-cancel').forEach(element => {
+        element.addEventListener('click', function() {
+          document.getElementById('edit-subscription-modal').style.display = 'none';
+        });
+      });
+    });
+    
+    // Load tenant data
+    function loadTenantData() {
+      const tenantTable = document.getElementById('tenant-table').querySelector('tbody');
+      tenantTable.innerHTML = '';
+      
+      if (window.apiKeyManager) {
+        const tenantUsage = window.apiKeyManager.tenantUsage || {};
+        
+        Object.keys(tenantUsage).forEach(tenantId => {
+          const tenant = tenantUsage[tenantId];
+          const row = document.createElement('tr');
+          
+          // Calculate total API usage
+          const totalUsage = Object.values(tenant.usage || {}).reduce((sum, value) => sum + value, 0);
+          
+          // Format last active date
+          let lastActiveDate = 'Never';
+          const lastActiveDates = Object.values(tenant.lastUsed || {}).filter(date => date);
+          if (lastActiveDates.length > 0) {
+            const mostRecent = new Date(Math.max(...lastActiveDates.map(date => new Date(date))));
+            lastActiveDate = mostRecent.toLocaleDateString();
+          }
+          
+          row.innerHTML = `
+            <td>${tenantId}</td>
+            <td><span class="admin-badge ${tenant.subscription}">${tenant.subscription.charAt(0).toUpperCase() + tenant.subscription.slice(1)}</span></td>
+            <td>${totalUsage} requests</td>
+            <td>${lastActiveDate}</td>
+            <td class="admin-actions">
+              <button class="admin-btn admin-btn-primary edit-subscription" data-tenant="${tenantId}">Edit</button>
+              <button class="admin-btn admin-btn-danger reset-usage" data-tenant="${tenantId}">Reset Usage</button>
+            </td>
+          `;
+          
+          tenantTable.appendChild(row);
+        });
+        
+        // Add event listeners to buttons
+        document.querySelectorAll('.edit-subscription').forEach(button => {
+          button.addEventListener('click', function() {
+            const tenantId = this.getAttribute('data-tenant');
+            openEditSubscriptionModal(tenantId);
+          });
+        });
+        
+        document.querySelectorAll('.reset-usage').forEach(button => {
+          button.addEventListener('click', function() {
+            const tenantId = this.getAttribute('data-tenant');
+            resetTenantUsage(tenantId);
+          });
+        });
+      } else {
+        tenantTable.innerHTML = '<tr><td colspan="5">API Key Manager not available</td></tr>';
+      }
+    }
+    
+    // Load API keys
+    function loadApiKeys() {
+      if (window.apiKeyManager) {
+        const keys = window.apiKeyManager.centralKeys || {};
+        
+        document.getElementById('openrouter-key').value = keys.openrouter || '';
+        document.getElementById('openai-key').value = keys.openai || '';
+        document.getElementById('gemini-key').value = keys.gemini || '';
+        document.getElementById('anthropic-key').value = keys.anthropic || '';
+      }
+    }
+    
+    // Update API keys
+    function updateApiKeys(event) {
+      event.preventDefault();
+      
+      if (window.apiKeyManager) {
+        window.apiKeyManager.centralKeys = {
+          openrouter: document.getElementById('openrouter-key').value,
+          openai: document.getElementById('openai-key').value,
+          gemini: document.getElementById('gemini-key').value,
+          anthropic: document.getElementById('anthropic-key').value
+        };
+        
+        alert('API keys updated successfully');
+      } else {
+        alert('API Key Manager not available');
+      }
+    }
+    
+    // Open edit subscription modal
+    function openEditSubscriptionModal(tenantId) {
+      if (window.apiKeyManager) {
+        const tenant = window.apiKeyManager.tenantUsage[tenantId];
+        
+        if (tenant) {
+          document.getElementById('edit-tenant-id').value = tenantId;
+          document.getElementById('subscription-tier').value = tenant.subscription;
+          document.getElementById('edit-subscription-modal').style.display = 'flex';
+        }
+      }
+    }
+    
+    // Save subscription changes
+    function saveSubscription() {
+      const tenantId = document.getElementById('edit-tenant-id').value;
+      const subscription = document.getElementById('subscription-tier').value;
+      
+      if (window.apiKeyManager) {
+        window.apiKeyManager.updateTenantSubscription(tenantId, subscription);
+        document.getElementById('edit-subscription-modal').style.display = 'none';
+        loadTenantData();
+        alert(`Subscription updated to ${subscription} for tenant ${tenantId}`);
+      } else {
+        alert('API Key Manager not available');
+      }
+    }
+    
+    // Reset tenant usage
+    function resetTenantUsage(tenantId) {
+      if (confirm(`Are you sure you want to reset usage for tenant ${tenantId}?`)) {
+        if (window.apiKeyManager) {
+          window.apiKeyManager.resetTenantUsage(tenantId);
+          loadTenantData();
+          alert(`Usage reset for tenant ${tenantId}`);
+        } else {
+          alert('API Key Manager not available');
+        }
+      }
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,59 @@
+# Bloomberg Integration Service Dockerfile for FinDoc Analyzer
+FROM node:18-alpine AS builder
+
+# Set working directory
+WORKDIR /app
+
+# Install build dependencies
+RUN apk add --no-cache python3 make g++ git
+
+# Copy package files
+COPY package*.json ./
+
+# Install dependencies
+RUN npm ci
+
+# Copy source code
+COPY . .
+
+# Production Stage
+FROM node:18-alpine
+
+# Set working directory
+WORKDIR /app
+
+# Install runtime dependencies
+RUN apk add --no-cache curl tini
+
+# Set node environment
+ENV NODE_ENV=production
+
+# Create necessary directories and set permissions
+RUN mkdir -p /app/logs /app/config && \
+    chown -R node:node /app
+
+# Copy from builder
+COPY --from=builder --chown=node:node /app/package*.json ./
+COPY --from=builder --chown=node:node /app/node_modules ./node_modules
+COPY --from=builder --chown=node:node /app/services/bloomberg ./services/bloomberg
+COPY --from=builder --chown=node:node /app/utils ./utils
+COPY --from=builder --chown=node:node /app/models ./models
+
+# Copy the Bloomberg service entry point
+COPY --from=builder --chown=node:node /app/bloomberg-service.js ./
+
+# Add healthcheck
+HEALTHCHECK --interval=30s --timeout=10s --start-period=30s --retries=3 \
+    CMD curl -f http://localhost:${PORT:-3300}/health || exit 1
+
+# Expose API port
+EXPOSE 3300
+
+# Use tini as entrypoint to manage signals and zombie processes
+ENTRYPOINT ["/sbin/tini", "--"]
+
+# Switch to non-root user
+USER node
+
+# Start the Bloomberg service
+CMD ["node", "bloomberg-service.js"]

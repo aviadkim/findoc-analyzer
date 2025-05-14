@@ -1,0 +1,18 @@
+{
+  "feature": "Document Upload",
+  "url": "http://localhost:8081/upload",
+  "steps": {
+    "navigate": {
+      "success": true
+    },
+    "form": {
+      "success": true
+    },
+    "upload": {
+      "success": false,
+      "error": "Waiting for selector `#progress-container, .progress-bar, .alert-success` failed: Waiting failed: 10000ms exceeded"
+    }
+  },
+  "success": false,
+  "error": "Waiting for selector `#progress-container, .progress-bar, .alert-success` failed: Waiting failed: 10000ms exceeded"
+}

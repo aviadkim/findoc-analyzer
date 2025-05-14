@@ -1,0 +1,31 @@
+{
+  "startTime": 1745993264530,
+  "endTime": 1745993283525,
+  "duration": 18995,
+  "total": 4,
+  "passed": 4,
+  "failed": 0,
+  "skipped": 0,
+  "tests": [
+    {
+      "name": "PDF Upload and Processing",
+      "status": "passed",
+      "duration": 4193
+    },
+    {
+      "name": "Document Chat",
+      "status": "passed",
+      "duration": 4073
+    },
+    {
+      "name": "Data Visualization",
+      "status": "passed",
+      "duration": 4011
+    },
+    {
+      "name": "Export",
+      "status": "passed",
+      "duration": 3758
+    }
+  ]
+}

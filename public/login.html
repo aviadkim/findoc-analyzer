@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FinDoc Analyzer - Login</title>
+  <!-- Modern UI CSS -->
+  <link rel="stylesheet" href="/css/modern-ui.css">
+  <!-- Original CSS -->
+  <link rel="stylesheet" href="/css/styles.css">
+  <!-- JavaScript Libraries -->
+  <script src="/js/auth.js"></script>
+  <script src="/js/router.js"></script>
+  <!-- Modern UI JavaScript -->
+  <script src="/js/modern-ui-components.js"></script>
+</head>
+<body>
+  <div class="login-page">
+    <div class="login-container">
+      <div class="login-header">
+        <div class="login-logo">
+          <img src="/images/logo.png" alt="FinDoc Analyzer Logo" onerror="this.src='https://via.placeholder.com/150x50?text=FinDoc+Analyzer'; this.onerror=null;">
+        </div>
+        <h1 class="login-title">Welcome to FinDoc Analyzer</h1>
+        <p class="login-subtitle">Sign in to your account to continue</p>
+      </div>
+
+      <div id="auth-error" class="login-error" style="display: none;">
+        <span class="login-error-icon">⚠️</span>
+        <span id="auth-error-message">Invalid email or password</span>
+      </div>
+
+      <form id="login-form" class="login-form">
+        <div class="login-form-group">
+          <label for="email" class="login-form-label">Email Address</label>
+          <input type="email" id="email" class="login-form-input" placeholder="Enter your email" required>
+        </div>
+
+        <div class="login-form-group">
+          <label for="password" class="login-form-label">Password</label>
+          <input type="password" id="password" class="login-form-input" placeholder="Enter your password" required>
+        </div>
+
+        <div class="login-form-options">
+          <div class="login-form-remember">
+            <input type="checkbox" id="remember" checked>
+            <label for="remember">Remember me</label>
+          </div>
+          <a href="/forgot-password" class="login-form-forgot">Forgot password?</a>
+        </div>
+
+        <button type="submit" class="login-form-submit">
+          <span class="login-form-submit-icon">🔒</span>
+          Sign In
+        </button>
+      </form>
+
+      <div class="login-divider">OR</div>
+
+      <div class="social-login">
+        <button id="google-login-btn" type="button">
+          <span class="google-login-icon">G</span>
+          Sign in with Google
+        </button>
+      </div>
+
+      <div class="login-footer">
+        <p class="login-signup">
+          Don't have an account? <a href="/register" class="login-signup-link">Sign up</a>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Handle form submission
+      document.getElementById('login-form').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+
+        // Simple validation
+        if (!email || !password) {
+          showAuthError('Please enter email and password');
+          return;
+        }
+
+        // Show loading state
+        const submitButton = document.querySelector('.login-form-submit');
+        submitButton.disabled = true;
+        submitButton.innerHTML = '<span class="login-form-submit-icon">⏳</span> Signing In...';
+
+        // Mock login for demo purposes
+        setTimeout(() => {
+          if (email === 'demo@example.com' && password === 'password') {
+            // Store user info in localStorage
+            const user = {
+              id: '123',
+              name: 'Demo User',
+              email: 'demo@example.com'
+            };
+
+            localStorage.setItem('auth_token', 'demo_token');
+            localStorage.setItem('auth_user', JSON.stringify(user));
+
+            // Redirect to dashboard
+            window.location.href = '/';
+          } else {
+            // Reset button state
+            submitButton.disabled = false;
+            submitButton.innerHTML = '<span class="login-form-submit-icon">🔒</span> Sign In';
+
+            // Show error
+            showAuthError('Invalid email or password');
+          }
+        }, 1500);
+      });
+
+      // Handle Google login
+      document.getElementById('google-login-btn').addEventListener('click', function() {
+        handleGoogleLogin();
+      });
+    });
+
+    // Google login handler
+    function handleGoogleLogin() {
+      console.log('Google login clicked');
+
+      // Show loading state
+      const googleButton = document.getElementById('google-login-btn');
+      googleButton.disabled = true;
+      googleButton.innerHTML = '<span class="google-login-icon">G</span> Signing in with Google...';
+
+      // Create OAuth URL
+      const clientId = '1234567890-abcdefghijklmnopqrstuvwxyz.apps.googleusercontent.com'; // Replace with your actual client ID
+      const redirectUri = window.location.origin + '/auth/google/callback';
+      const scope = 'email profile';
+      const responseType = 'token';
+      const state = generateRandomString(16);
+
+      // Store state in localStorage for verification
+      localStorage.setItem('auth_state', state);
+
+      // Simulate OAuth redirect
+      setTimeout(() => {
+        // For demo purposes, we'll just redirect to the dashboard
+        // In a real app, this would redirect to Google OAuth
+
+        // Store mock user info
+        const user = {
+          id: '456',
+          name: 'Google User',
+          email: 'google@example.com'
+        };
+
+        localStorage.setItem('auth_token', 'google_token');
+        localStorage.setItem('auth_user', JSON.stringify(user));
+
+        // Redirect to dashboard
+        window.location.href = '/';
+      }, 1500);
+    }
+
+    // Generate random string for state parameter
+    function generateRandomString(length) {
+      const charset = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+      let result = '';
+
+      for (let i = 0; i < length; i++) {
+        const randomIndex = Math.floor(Math.random() * charset.length);
+        result += charset[randomIndex];
+      }
+
+      return result;
+    }
+
+    // Show auth error
+    function showAuthError(message) {
+      const authError = document.getElementById('auth-error');
+      const authErrorMessage = document.getElementById('auth-error-message');
+      authErrorMessage.textContent = message;
+      authError.style.display = 'block';
+
+      // Add shake animation
+      authError.classList.add('shake');
+      setTimeout(() => {
+        authError.classList.remove('shake');
+      }, 500);
+    }
+  </script>
+
+  <style>
+    /* Shake animation for error messages */
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+      20%, 40%, 60%, 80% { transform: translateX(5px); }
+    }
+
+    .shake {
+      animation: shake 0.5s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+    }
+  </style>
+</body>
+</html>

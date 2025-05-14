@@ -1,0 +1,119 @@
+{
+  "testFiles": {
+    "pdf": {
+      "samplePortfolio": "/test-data/sample_portfolio.pdf",
+      "messos": "/test-data/messos.pdf",
+      "invalidFile": "/test-data/invalid-file.txt"
+    },
+    "images": {
+      "screenshots": {
+        "homepage": "/test-data/homepage.png",
+        "documents": "/test-data/documents.png",
+        "uploadPage": "/test-data/upload.png",
+        "processingPage": "/test-data/processing.png"
+      }
+    },
+    "mockData": {
+      "securities": [
+        {
+          "id": "1",
+          "name": "Apple Inc.",
+          "symbol": "AAPL",
+          "isin": "US0378331005",
+          "quantity": 100,
+          "price": 175.25,
+          "value": 17525.00,
+          "currency": "USD",
+          "assetClass": "Equity"
+        },
+        {
+          "id": "2",
+          "name": "Microsoft Corporation",
+          "symbol": "MSFT",
+          "isin": "US5949181045",
+          "quantity": 50,
+          "price": 325.89,
+          "value": 16294.50,
+          "currency": "USD",
+          "assetClass": "Equity"
+        },
+        {
+          "id": "3",
+          "name": "U.S. Treasury Bond 2.75% 2032",
+          "isin": "US912810SU99",
+          "quantity": 10000,
+          "price": 96.75,
+          "value": 9675.00,
+          "currency": "USD",
+          "assetClass": "Fixed Income"
+        },
+        {
+          "id": "4",
+          "name": "Vanguard Total Stock Market ETF",
+          "symbol": "VTI",
+          "isin": "US9229087690",
+          "quantity": 75,
+          "price": 217.45,
+          "value": 16308.75,
+          "currency": "USD",
+          "assetClass": "ETF"
+        },
+        {
+          "id": "5",
+          "name": "Amazon.com Inc.",
+          "symbol": "AMZN",
+          "isin": "US0231351067",
+          "quantity": 25,
+          "price": 130.22,
+          "value": 3255.50,
+          "currency": "USD",
+          "assetClass": "Equity"
+        }
+      ],
+      "portfolios": [
+        {
+          "id": "portfolio-1",
+          "name": "Growth Portfolio",
+          "totalValue": 62984.75,
+          "currency": "USD",
+          "securities": ["1", "2", "4", "5"],
+          "assetAllocation": {
+            "Equity": 58.75,
+            "ETF": 25.89,
+            "Fixed Income": 15.36
+          }
+        },
+        {
+          "id": "portfolio-2",
+          "name": "Income Portfolio",
+          "totalValue": 47225.30,
+          "currency": "USD",
+          "securities": ["3", "4"],
+          "assetAllocation": {
+            "Equity": 12.45,
+            "ETF": 34.52,
+            "Fixed Income": 53.03
+          }
+        }
+      ]
+    }
+  },
+  "testEnvironments": {
+    "local": {
+      "baseUrl": "http://localhost:3000",
+      "apiUrl": "http://localhost:3000/api"
+    },
+    "development": {
+      "baseUrl": "https://findoc-dev.example.com",
+      "apiUrl": "https://findoc-dev.example.com/api"
+    },
+    "staging": {
+      "baseUrl": "https://findoc-staging.example.com",
+      "apiUrl": "https://findoc-staging.example.com/api"
+    },
+    "production": {
+      "baseUrl": "https://findoc-prod.example.com",
+      "apiUrl": "https://findoc-prod.example.com/api"
+    }
+  }
+}

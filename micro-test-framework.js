@@ -10,8 +10,8 @@ const path = require('path');
 
 // Configuration
 const config = {
-  baseUrl: 'http://localhost:8080',
-  screenshotsDir: path.join(__dirname, 'micro-test-results'),
+  baseUrl: 'https://backv2-app-brfi73d4ra-zf.a.run.app',
+  screenshotsDir: path.join(__dirname, 'micro-test-results-new'),
   timeout: 30000, // 30 seconds
   headless: false, // Set to false for visible browser
   slowMo: 500, // Slow down Puppeteer operations by 500ms for better visibility

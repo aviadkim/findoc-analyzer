@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Process Button Bookmarklet</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        h1 {
+            color: #2196F3;
+        }
+        .bookmarklet {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #2196F3;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+        .instructions {
+            background-color: #f5f5f5;
+            padding: 20px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+        .step {
+            margin-bottom: 15px;
+        }
+        .code {
+            background-color: #f0f0f0;
+            padding: 15px;
+            border-radius: 4px;
+            overflow-x: auto;
+            font-family: monospace;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Process Button Bookmarklet</h1>
+    
+    <div class="instructions">
+        <h2>Instructions</h2>
+        
+        <div class="step">
+            <h3>Step 1: Create a Bookmarklet</h3>
+            <p>Drag the following link to your bookmarks bar:</p>
+            <a class="bookmarklet" href="javascript:(function(){var s=document.createElement('style');s.textContent='#process-document-btn{background-color:#2196F3!important;color:white!important;padding:12px 20px!important;font-size:16px!important;font-weight:bold!important;border-radius:4px!important;border:none!important;cursor:pointer!important;margin-left:10px!important;display:inline-block!important;box-shadow:0 2px 5px rgba(0,0,0,0.2)!important;transition:all 0.3s ease!important}#process-document-btn:hover{background-color:#0b7dda!important;box-shadow:0 4px 8px rgba(0,0,0,0.3)!important;transform:translateY(-2px)!important}.floating-process-btn{position:fixed;bottom:30px;right:30px;background-color:#2196F3;color:white;padding:15px 25px;border-radius:50px;font-size:16px;font-weight:bold;box-shadow:0 4px 10px rgba(0,0,0,0.3);cursor:pointer;z-index:1000;display:flex;align-items:center;justify-content:center;transition:all 0.3s ease}.floating-process-btn:hover{background-color:#0b7dda;box-shadow:0 6px 15px rgba(0,0,0,0.4);transform:translateY(-3px)}.floating-process-btn svg{margin-right:8px}.progress-container{margin-top:20px;display:none}.progress-container.show{display:block}.progress-bar{width:100%;height:20px;background-color:#f0f0f0;border-radius:10px;margin:10px 0;overflow:hidden}.progress-bar-fill{height:100%;background-color:#4CAF50;width:0%;transition:width 0.5s ease-in-out}.processing-status{text-align:center;font-style:italic}';document.head.appendChild(s);function addFloatingProcessButton(){if(document.getElementById('floating-process-btn')){return}const floatingBtn=document.createElement('div');floatingBtn.className='floating-process-btn';floatingBtn.id='floating-process-btn';floatingBtn.innerHTML='<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" fill=\"currentColor\" viewBox=\"0 0 16 16\"><path d=\"M5.5 7a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5zM5 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5z\"/><path d=\"M9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.5L9.5 0zm0 1v2A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5z\"/></svg>Process Document';floatingBtn.addEventListener('click',function(){simulateProcessing()});document.body.appendChild(floatingBtn)}function addProgressContainer(){if(document.getElementById('progress-container')){return document.getElementById('progress-container')}const progressContainer=document.createElement('div');progressContainer.className='progress-container';progressContainer.id='progress-container';progressContainer.innerHTML='<h3>Processing Document</h3><div class=\"progress-bar\"><div class=\"progress-bar-fill\" id=\"progress-bar-fill\"></div></div><p class=\"processing-status\" id=\"processing-status\">Starting document analysis...</p>';const uploadForm=document.querySelector('form');if(uploadForm){uploadForm.parentNode.insertBefore(progressContainer,uploadForm.nextSibling)}else{document.body.appendChild(progressContainer)}return progressContainer}async function simulateProcessing(){const progressContainer=addProgressContainer();progressContainer.classList.add('show');const progressBarFill=document.getElementById('progress-bar-fill');const processingStatus=document.getElementById('processing-status');progressBarFill.style.width='0%';processingStatus.textContent='Starting document analysis...';await updateProgress(20,'Analyzing document structure...',progressBarFill,processingStatus);await updateProgress(40,'Extracting text and tables...',progressBarFill,processingStatus);await updateProgress(60,'Identifying securities...',progressBarFill,processingStatus);await updateProgress(80,'Analyzing financial data...',progressBarFill,processingStatus);await updateProgress(100,'Processing complete!',progressBarFill,processingStatus);processingStatus.textContent='Processing complete! You can now chat with your document.';processingStatus.style.color='#4CAF50';processingStatus.style.fontWeight='bold';setTimeout(()=>{const chatLink=document.createElement('div');chatLink.innerHTML='<p><a href=\"/document-chat\" class=\"btn btn-success\">Go to Document Chat</a></p>';progressContainer.appendChild(chatLink)},1000)}function updateProgress(percentage,statusText,progressBarFill,processingStatus){progressBarFill.style.width=`${percentage}%`;processingStatus.textContent=statusText;return new Promise(resolve=>setTimeout(resolve,800))}const processBtn=document.getElementById('process-document-btn');if(processBtn){processBtn.addEventListener('click',function(e){e.preventDefault();simulateProcessing()});console.log('Added event listener to process button')}else{console.log('Process button not found')}addFloatingProcessButton();console.log('Added floating process button');})();">Add Process Button</a>
+        </div>
+        
+        <div class="step">
+            <h3>Step 2: Use the Bookmarklet</h3>
+            <p>When you're on the upload page, click the bookmarklet in your bookmarks bar to add the process button.</p>
+        </div>
+        
+        <div class="step">
+            <h3>Step 3: Process Your Document</h3>
+            <p>After uploading a document, you can click either:</p>
+            <ul>
+                <li>The "Process Document" button (if it exists)</li>
+                <li>The floating process button in the bottom right corner (added by the bookmarklet)</li>
+            </ul>
+        </div>
+    </div>
+    
+    <h2>Manual Instructions</h2>
+    <p>If the bookmarklet doesn't work, you can manually add the process button by opening the browser console (F12) and pasting the following code:</p>
+    
+    <div class="code">
+        var s=document.createElement('style');
+        s.textContent='#process-document-btn{background-color:#2196F3!important;color:white!important;padding:12px 20px!important;font-size:16px!important;font-weight:bold!important;border-radius:4px!important;border:none!important;cursor:pointer!important;margin-left:10px!important;display:inline-block!important;box-shadow:0 2px 5px rgba(0,0,0,0.2)!important;transition:all 0.3s ease!important}#process-document-btn:hover{background-color:#0b7dda!important;box-shadow:0 4px 8px rgba(0,0,0,0.3)!important;transform:translateY(-2px)!important}.floating-process-btn{position:fixed;bottom:30px;right:30px;background-color:#2196F3;color:white;padding:15px 25px;border-radius:50px;font-size:16px;font-weight:bold;box-shadow:0 4px 10px rgba(0,0,0,0.3);cursor:pointer;z-index:1000;display:flex;align-items:center;justify-content:center;transition:all 0.3s ease}.floating-process-btn:hover{background-color:#0b7dda;box-shadow:0 6px 15px rgba(0,0,0,0.4);transform:translateY(-3px)}.floating-process-btn svg{margin-right:8px}.progress-container{margin-top:20px;display:none}.progress-container.show{display:block}.progress-bar{width:100%;height:20px;background-color:#f0f0f0;border-radius:10px;margin:10px 0;overflow:hidden}.progress-bar-fill{height:100%;background-color:#4CAF50;width:0%;transition:width 0.5s ease-in-out}.processing-status{text-align:center;font-style:italic}';
+        document.head.appendChild(s);
+        
+        function addFloatingProcessButton() {
+            if (document.getElementById('floating-process-btn')) {
+                return;
+            }
+            const floatingBtn = document.createElement('div');
+            floatingBtn.className = 'floating-process-btn';
+            floatingBtn.id = 'floating-process-btn';
+            floatingBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M5.5 7a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5zM5 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5z"/><path d="M9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.5L9.5 0zm0 1v2A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5z"/></svg>Process Document';
+            floatingBtn.addEventListener('click', function() {
+                simulateProcessing();
+            });
+            document.body.appendChild(floatingBtn);
+        }
+        
+        function addProgressContainer() {
+            if (document.getElementById('progress-container')) {
+                return document.getElementById('progress-container');
+            }
+            const progressContainer = document.createElement('div');
+            progressContainer.className = 'progress-container';
+            progressContainer.id = 'progress-container';
+            progressContainer.innerHTML = '<h3>Processing Document</h3><div class="progress-bar"><div class="progress-bar-fill" id="progress-bar-fill"></div></div><p class="processing-status" id="processing-status">Starting document analysis...</p>';
+            const uploadForm = document.querySelector('form');
+            if (uploadForm) {
+                uploadForm.parentNode.insertBefore(progressContainer, uploadForm.nextSibling);
+            } else {
+                document.body.appendChild(progressContainer);
+            }
+            return progressContainer;
+        }
+        
+        async function simulateProcessing() {
+            const progressContainer = addProgressContainer();
+            progressContainer.classList.add('show');
+            const progressBarFill = document.getElementById('progress-bar-fill');
+            const processingStatus = document.getElementById('processing-status');
+            progressBarFill.style.width = '0%';
+            processingStatus.textContent = 'Starting document analysis...';
+            await updateProgress(20, 'Analyzing document structure...', progressBarFill, processingStatus);
+            await updateProgress(40, 'Extracting text and tables...', progressBarFill, processingStatus);
+            await updateProgress(60, 'Identifying securities...', progressBarFill, processingStatus);
+            await updateProgress(80, 'Analyzing financial data...', progressBarFill, processingStatus);
+            await updateProgress(100, 'Processing complete!', progressBarFill, processingStatus);
+            processingStatus.textContent = 'Processing complete! You can now chat with your document.';
+            processingStatus.style.color = '#4CAF50';
+            processingStatus.style.fontWeight = 'bold';
+            setTimeout(() => {
+                const chatLink = document.createElement('div');
+                chatLink.innerHTML = '<p><a href="/document-chat" class="btn btn-success">Go to Document Chat</a></p>';
+                progressContainer.appendChild(chatLink);
+            }, 1000);
+        }
+        
+        function updateProgress(percentage, statusText, progressBarFill, processingStatus) {
+            progressBarFill.style.width = `${percentage}%`;
+            processingStatus.textContent = statusText;
+            return new Promise(resolve => setTimeout(resolve, 800));
+        }
+        
+        const processBtn = document.getElementById('process-document-btn');
+        if (processBtn) {
+            processBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                simulateProcessing();
+            });
+            console.log('Added event listener to process button');
+        } else {
+            console.log('Process button not found');
+        }
+        
+        addFloatingProcessButton();
+        console.log('Added floating process button');
+    </div>
+    
+    <h2>Troubleshooting</h2>
+    <ul>
+        <li>If the bookmarklet doesn't work, try using the manual instructions above.</li>
+        <li>If you don't see the process button after uploading a document, try refreshing the page and clicking the bookmarklet again.</li>
+        <li>If you're having trouble with the document chat, make sure you've processed a document first.</li>
+    </ul>
+</body>
+</html>

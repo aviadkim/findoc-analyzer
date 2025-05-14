@@ -121,6 +121,11 @@ def extract_isins(text):
     isin_pattern = r'[A-Z]{2}[A-Z0-9]{10}'
     return re.findall(isin_pattern, text)
 
+@app.route("/")
+def index():
+    """Serve the static index.html file at the root URL"""
+    return send_from_directory("static", "index.html")
+
 @app.route("/api/health")
 def health():
     return jsonify({"status": "healthy"})

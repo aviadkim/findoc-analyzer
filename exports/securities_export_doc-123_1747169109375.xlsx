@@ -1,0 +1,3 @@
+Mock Excel export file
+Format: XLSX
+Data: {"Securities":[{"isin":"IL8443665832","name":"NVIDIA Corp.","type":"Fund","quantity":873,"price":656.5,"value":573124.5,"currency":"ILS","marketPrice":642.84,"marketValue":561199.32,"priceChange":-13.66,"priceChangePercent":-2.08,"lastUpdated":"2025-05-13T20:45:09.374Z","dataProvider":"Yahoo Finance","id":"sec-1","symbol":"NVIDIA","sector":"Consumer Cyclical","country":"IL"},{"isin":"DE5883639907","name":"JPMorgan Chase & Co.","type":"Bond","quantity":691,"price":804.92,"value":556199.72,"curren...

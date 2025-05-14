@@ -1,0 +1,112 @@
+{
+  "mcpServers": {
+    "brave": {
+      "command": "node",
+      "args": ["C:\\Users\\aviad\\OneDrive\\Desktop\\MCP\\mcp-packages\\custom-mcps\\brave-search-mcp.js"]
+    },
+    "github": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-github"]
+    },
+    "sqlite": {
+      "command": "cmd",
+      "args": ["/c", "npx", "-y", "@modelcontextprotocol/server-sqlite", "--db-path", "C:\\Users\\aviad\\test.db"]
+    },
+    "magic": {
+      "command": "cmd",
+      "args": ["/c", "npx", "-y", "@21st-dev/magic@latest"]
+    },
+    "supabase": {
+      "command": "cmd",
+      "args": ["/c", "npx", "-y", "@supabase/mcp-server-supabase@latest", "--access-token", "sbp_cdcfec9d48c88f29d0e7c24a36cc450104b35055"]
+    },
+    "browserTools": {
+      "command": "cmd",
+      "args": ["/c", "npx", "-y", "@agentdeskai/browser-tools-mcp@latest"]
+    },
+    "firecrawl": {
+      "command": "npx",
+      "args": ["-y", "firecrawl-mcp"]
+    },
+    "puppeteer": {
+      "command": "cmd",
+      "args": ["/c", "npx", "-y", "@modelcontextprotocol/server-puppeteer"]
+    },
+    "git": {
+      "command": "python",
+      "args": ["-m", "mcp_server_git"]
+    },
+    "filesystem": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-filesystem"]
+    },
+    "vscode": {
+      "command": "node",
+      "args": ["C:\\Users\\aviad\\OneDrive\\Desktop\\MCP\\mcp-packages\\custom-mcps\\vscode-mcp.js"]
+    },
+    "fetch": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-fetch"]
+    },
+    "postgres": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-postgres"]
+    },
+    "redis": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-redis"]
+    },
+    "sequentialthinking": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-sequentialthinking"]
+    },
+    "memory": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-memory"]
+    },
+    "qdrant": {
+      "command": "python",
+      "args": ["C:\\Users\\aviad\\OneDrive\\Desktop\\MCP\\mcp-packages\\custom-mcps\\qdrant_mcp.py"]
+    },
+    "langchain": {
+      "command": "node",
+      "args": ["C:\\Users\\aviad\\OneDrive\\Desktop\\MCP\\mcp-packages\\custom-mcps\\langchain-mcp.js"]
+    },
+    "semgrep": {
+      "command": "python",
+      "args": ["-m", "semgrep_mcp"]
+    },
+    "eslint": {
+      "command": "node",
+      "args": ["C:\\Users\\aviad\\OneDrive\\Desktop\\MCP\\mcp-packages\\custom-mcps\\eslint-mcp.js"]
+    },
+    "typescript": {
+      "command": "node",
+      "args": ["C:\\Users\\aviad\\OneDrive\\Desktop\\MCP\\mcp-packages\\custom-mcps\\typescript-mcp.js"]
+    },
+    "prettier": {
+      "command": "node",
+      "args": ["C:\\Users\\aviad\\OneDrive\\Desktop\\MCP\\mcp-packages\\custom-mcps\\prettier-mcp.js"]
+    },
+    "jest": {
+      "command": "node",
+      "args": ["C:\\Users\\aviad\\OneDrive\\Desktop\\MCP\\mcp-packages\\custom-mcps\\jest-mcp.js"]
+    },
+    "docker": {
+      "command": "node",
+      "args": ["C:\\Users\\aviad\\OneDrive\\Desktop\\MCP\\mcp-packages\\custom-mcps\\docker-mcp.js"]
+    },
+    "kubernetes": {
+      "command": "npx",
+      "args": ["-y", "kubernetes-mcp"]
+    },
+    "time": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-time"]
+    },
+    "taskmaster": {
+      "command": "npx",
+      "args": ["-y", "@mcpso/taskmaster"]
+    }
+  }
+}

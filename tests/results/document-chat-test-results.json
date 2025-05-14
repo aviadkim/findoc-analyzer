@@ -1,0 +1,25 @@
+{
+  "feature": "Document Chat",
+  "url": "http://localhost:8081/document-chat",
+  "steps": {
+    "navigate": {
+      "success": true
+    },
+    "selector": {
+      "success": true,
+      "optionCount": 1
+    },
+    "document-selection": {
+      "success": false,
+      "error": "No documents available for selection"
+    },
+    "chat-controls": {
+      "success": true
+    },
+    "chat-interaction": {
+      "success": false,
+      "error": "Waiting failed: 5000ms exceeded"
+    }
+  },
+  "success": false
+}

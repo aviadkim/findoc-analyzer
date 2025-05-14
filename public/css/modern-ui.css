@@ -1,0 +1,304 @@
+/**
+ * FinDoc Analyzer - Modern UI
+ * A comprehensive modern UI for the FinDoc Analyzer application
+ */
+
+/* Import Design System */
+@import url('modern-design-system.css');
+
+/* Import Layout */
+@import url('modern-layout.css');
+
+/* Import Components */
+@import url('modern-components.css');
+
+/* Import Sidebar */
+@import url('modern-sidebar.css');
+
+/* Import Header */
+@import url('modern-header.css');
+
+/* Import Dashboard */
+@import url('modern-dashboard.css');
+
+/* Import Document List */
+@import url('modern-document-list.css');
+
+/* Import Document Details */
+@import url('modern-document-details.css');
+
+/* Import Upload */
+@import url('modern-upload.css');
+
+/* Import Chat */
+@import url('modern-chat.css');
+
+/* Import Login */
+@import url('modern-login.css');
+
+/* Import Agent Cards */
+@import url('modern-agent-cards.css');
+
+/* Animations */
+.fade-in {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.slide-up {
+  animation: slideUp 0.3s ease-in-out;
+}
+
+.slide-down {
+  animation: slideDown 0.3s ease-in-out;
+}
+
+.slide-left {
+  animation: slideLeft 0.3s ease-in-out;
+}
+
+.slide-right {
+  animation: slideRight 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideLeft {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideRight {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Transitions */
+.transition-all {
+  transition: all var(--transition-normal) var(--transition-ease);
+}
+
+.transition-transform {
+  transition: transform var(--transition-normal) var(--transition-ease);
+}
+
+.transition-opacity {
+  transition: opacity var(--transition-normal) var(--transition-ease);
+}
+
+.transition-colors {
+  transition: background-color var(--transition-normal) var(--transition-ease),
+              border-color var(--transition-normal) var(--transition-ease),
+              color var(--transition-normal) var(--transition-ease);
+}
+
+/* Utilities */
+.text-center {
+  text-align: center;
+}
+
+.text-left {
+  text-align: left;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.font-bold {
+  font-weight: var(--font-bold);
+}
+
+.font-semibold {
+  font-weight: var(--font-semibold);
+}
+
+.font-medium {
+  font-weight: var(--font-medium);
+}
+
+.font-normal {
+  font-weight: var(--font-normal);
+}
+
+.text-primary {
+  color: var(--text-primary);
+}
+
+.text-secondary {
+  color: var(--text-secondary);
+}
+
+.text-tertiary {
+  color: var(--text-tertiary);
+}
+
+.text-success {
+  color: var(--success);
+}
+
+.text-warning {
+  color: var(--warning);
+}
+
+.text-danger {
+  color: var(--danger);
+}
+
+.text-info {
+  color: var(--info);
+}
+
+.bg-primary {
+  background-color: var(--bg-primary);
+}
+
+.bg-secondary {
+  background-color: var(--bg-secondary);
+}
+
+.bg-tertiary {
+  background-color: var(--bg-tertiary);
+}
+
+.rounded-sm {
+  border-radius: var(--radius-sm);
+}
+
+.rounded-md {
+  border-radius: var(--radius-md);
+}
+
+.rounded-lg {
+  border-radius: var(--radius-lg);
+}
+
+.rounded-xl {
+  border-radius: var(--radius-xl);
+}
+
+.rounded-full {
+  border-radius: var(--radius-full);
+}
+
+.shadow-sm {
+  box-shadow: var(--shadow-sm);
+}
+
+.shadow-md {
+  box-shadow: var(--shadow-md);
+}
+
+.shadow-lg {
+  box-shadow: var(--shadow-lg);
+}
+
+.shadow-xl {
+  box-shadow: var(--shadow-xl);
+}
+
+/* Dark Mode Toggle */
+.dark-mode-toggle {
+  position: fixed;
+  bottom: var(--spacing-6);
+  left: var(--spacing-6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-full);
+  box-shadow: var(--shadow-md);
+  cursor: pointer;
+  transition: all var(--transition-fast) var(--transition-ease);
+  z-index: var(--z-20);
+}
+
+.dark-mode-toggle:hover {
+  background-color: var(--neutral-100);
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+.dark-mode-toggle-icon {
+  font-size: var(--text-xl);
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--neutral-100);
+  border-radius: var(--radius-full);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--neutral-300);
+  border-radius: var(--radius-full);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--neutral-400);
+}
+
+/* Focus Styles */
+:focus {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* Selection */
+::selection {
+  background-color: rgba(99, 102, 241, 0.2);
+  color: var(--text-primary);
+}

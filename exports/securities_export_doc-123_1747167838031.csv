@@ -1,0 +1,11 @@
+isin,name,type,quantity,price,value,currency,marketPrice,marketValue,priceChange,priceChangePercent,lastUpdated,dataProvider,id,symbol,description,sector,country,exchange
+"GB5713197165","Johnson & Johnson","Bond",152,859.55,130651.6,"GBP",853.71,129763.92,-5.84,-0.68,"2025-05-13T20:23:58.031Z","Yahoo Finance","sec-1","JOHNSON",,"Communication Services","GB",
+"DE2155560198","UnitedHealth Group Inc.","ETF",966,401.57,387916.62,"EUR",394.18,380777.88,-7.39,-1.84,"2025-05-13T20:23:58.031Z","Yahoo Finance","sec-2","UNITEDHEALTH",,"Energy","DE",
+"GB9009482757","Amazon.com Inc.","ETF",490,865.99,424335.1,"USD",891.36,436766.4,25.37,2.93,"2025-05-13T20:23:58.031Z","Yahoo Finance","sec-3","AMAZON.COM",,"Financial Services","GB",
+"US4143944188","Johnson & Johnson","Option",680,290.64,197635.2,"USD",295.73,201096.4,5.09,1.75,"2025-05-13T20:23:58.031Z","Yahoo Finance","sec-4","JOHNSON",,"Healthcare","US",
+"US6461113015","Meta Platforms Inc.","Stock",919,409.25,376100.75,"GBP",408.15,375089.85,-1.1,-0.27,"2025-05-13T20:23:58.031Z","Yahoo Finance","sec-5","META",,"Real Estate","US",
+"GB7744595405","NVIDIA Corp.","Bond",212,375.11,79523.32,"GBP",367.76,77965.12,-7.35,-1.96,"2025-05-13T20:23:58.031Z","Yahoo Finance","sec-6","NVIDIA",,"Real Estate","GB",
+"US7071554103","NVIDIA Corp.","ETF",591,543.33,321108.03,"EUR",532.52,314719.32,-10.81,-1.99,"2025-05-13T20:23:58.031Z","Yahoo Finance","sec-7","NVIDIA",,"Real Estate","US",
+"GB5147913526","Amazon.com Inc.","Fund",893,112.49,100453.57,"GBP",114.71,102436.03,2.22,1.97,"2025-05-13T20:23:58.031Z","Yahoo Finance","sec-8","AMAZON.COM",,"Consumer Defensive","GB",
+"DE6615986350","JPMorgan Chase & Co.","Option",381,154.28,58780.68,"GBP",157.13,59866.53,2.85,1.85,"2025-05-13T20:23:58.031Z","Yahoo Finance","sec-9","JPMORGAN",,"Consumer Defensive","DE",
+"GB3451414435","Home Depot Inc.","Option",192,139.33,26751.36,"ILS",140.88,27048.96,1.55,1.11,"2025-05-13T20:23:58.031Z","Yahoo Finance","sec-10","HOME",,"Consumer Cyclical","GB",

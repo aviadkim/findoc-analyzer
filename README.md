@@ -1,36 +1,304 @@
-# FinDoc Analyzer - MAIN APPLICATION
+# FinDoc Analyzer SaaS
 
-## IMPORTANT: APPLICATION IDENTIFICATION
+A comprehensive financial document processing system designed to extract, analyze, and provide insights from financial documents with high accuracy. Delivered as a Software as a Service (SaaS) solution with secure API key management.
 
-**The FinDoc Analyzer with the dark sidebar UI is the MAIN and DEFAULT application for this project.**
+## About the Project
 
-This README serves as the definitive guide for the FinDoc Analyzer application, clarifying its status as the main application and documenting the extensive development work completed over the past 30 weeks.
+FinDoc Analyzer helps financial professionals and individuals extract meaningful information from various financial documents such as portfolio statements, investment reports, and financial summaries. The application uses advanced document processing techniques and specialized agents to analyze documents and provide valuable insights.
 
-![FinDoc Analyzer UI](DevDocs/assets/findoc-analyzer-ui.png)
+## Key Features
 
-## RUNNING THE MAIN APPLICATION
+- **Automated Document Processing**: Extract data from various financial document formats (PDF, Excel, CSV)
+- **Specialized Financial Agents**: Twelve specialized agents for different processing tasks
+- **Interactive Analytics Dashboard**: Visualization of portfolio data with customizable views
+- **Agent Pipeline System**: Configurable processing pipelines for document analysis
+- **Document Comparison**: Compare multiple financial documents with side-by-side and diff views
+- **Financial Recommendations**: Personalized investment advice based on portfolio analysis
+- **Export Capabilities**: Export data in various formats (JSON, CSV, Excel, PDF, HTML)
+- **Responsive UI**: Intuitive user interface that works on all screen sizes
+- **Accessibility Features**: WCAG-compliant interface with various accessibility options
+- **Secure API Key Management**: API keys are securely stored and managed in Google Secret Manager
+- **Multi-Tenant Support**: Support for multiple tenants with isolated data and API keys
+- **SaaS Deployment**: Easy deployment to Google Cloud Run for SaaS delivery
 
-```powershell
-powershell -ExecutionPolicy Bypass -File .\run-findoc-fixed.ps1
+### New Enhanced Features (June 2024)
+
+- **Interactive Drill-Down Visualizations**: Explore portfolio data at multiple levels with interactive charts
+- **Comparative Document Analysis**: Advanced side-by-side comparison with change highlighting
+- **Portfolio Performance Tracking**: Track portfolio performance over time with benchmarks
+- **Advanced Security Extraction**: Enhanced ISIN, CUSIP, and SEDOL detection and validation
+- **Table Comparison**: Identify changes in financial tables across documents
+- **Multi-Document Analysis**: Analyze trends across multiple financial statements
+- **Improved Error Handling**: Robust error handling with detailed error messages and recovery options
+- **Enhanced UI**: Modern, responsive UI with improved user experience
+- **Document Comparison Tool**: Compare multiple financial documents side-by-side
+- **Export Functionality**: Export document data in various formats (CSV, Excel, PDF, JSON)
+- **Local Authentication**: Simplified authentication for local development
+- **Comprehensive Testing**: Automated testing for all features
+
+## Quick Start
+
+### Prerequisites
+
+- Node.js (v16+)
+- npm (v7+)
+- For PDF processing: Python 3.8+ with PyMuPDF and Camelot-py
+
+### Installation
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/yourusername/findoc-analyzer.git
+   cd findoc-analyzer
+   ```
+
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+3. Install Python dependencies:
+   ```bash
+   pip install -r DevDocs/backend/requirements.txt
+   ```
+
+4. Start the development server:
+   ```bash
+   # Run the backend server
+   node server.js
+
+   # Or use the PowerShell script for both frontend and backend
+   powershell -ExecutionPolicy Bypass -File .\run-findoc-with-rag.ps1
+   ```
+
+5. Open http://localhost:8080 in your browser.
+
+### Using Docker
+
+1. Build and run using Docker:
+   ```bash
+   docker-compose up
+   ```
+
+2. Open http://localhost:8080 in your browser.
+
+## Running Tests
+
+```bash
+# Run all tests
+node test-all-functionality.js
+
+# Run specific test categories
+node test-login.js             # Authentication tests
+node test-upload-process.js    # Document upload and processing tests
+node test-document-chat.js     # Document chat tests
+node test-comparison.js        # Document comparison tests
+node test-export.js            # Export functionality tests
+node test-error-handling.js    # Error handling tests
 ```
 
-This script:
-1. Stops any existing Node.js and Python processes
-2. Starts the backend server (Flask) from the `DevDocs/backend` directory
-3. Starts the frontend server (Next.js) from the `DevDocs/frontend` directory
-4. Opens the application in the browser at http://localhost:3002
+### UI Validation Tests
 
-## 30-WEEK DEVELOPMENT SUMMARY
+```bash
+# Run UI validation tests
+node ui-validation.js
 
-Over the past 30 weeks, we have developed a comprehensive financial document analysis platform with the following components:
+# Run UI validation tests on deployed application
+$env:DEPLOYMENT_URL="https://your-deployed-app-url.com" node ui-validation.js
+```
 
-### Core Application
-- **FinDoc Analyzer UI**: Dark sidebar interface with comprehensive navigation
-- **Backend API**: Flask-based API for document processing and financial analysis
-- **Frontend**: Next.js application with React components
-- **Database**: Supabase PostgreSQL database for document and financial data storage
+## Deployment
 
-### Financial Agents (12 Total)
+### Local Development Setup
+
+1. Clone the repository:
+   ```bash
+   git clone <repository-url>
+   cd findoc-analyzer
+   ```
+
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+3. Create a `.env` file with required API keys:
+   ```
+   API_KEY_GEMINI=your_gemini_api_key
+   API_KEY_OPENAI=your_openai_api_key
+   API_KEY_OPENROUTER=your_openrouter_api_key
+   API_KEY_ANTHROPIC=your_anthropic_api_key
+   ```
+
+4. Start the development server:
+   ```bash
+   npm start
+   ```
+
+5. Run local tests:
+   ```bash
+   chmod +x run-local-tests.sh
+   ./run-local-tests.sh
+   ```
+
+### Google Cloud Deployment Options
+
+#### Option 1: Google App Engine Deployment
+
+1. Set up your Google Cloud environment:
+   ```bash
+   # Install Google Cloud SDK if not already installed
+   # https://cloud.google.com/sdk/docs/install
+
+   # Login to Google Cloud
+   gcloud auth login
+
+   # Set your project ID
+   gcloud config set project findoc-deploy
+   ```
+
+2. Update API keys in Secret Manager (replace with your actual keys):
+   ```bash
+   echo "your_gemini_api_key" | gcloud secrets versions add gemini-api-key --data-file=-
+   echo "your_openai_api_key" | gcloud secrets versions add openai-api-key --data-file=-
+   echo "your_openrouter_api_key" | gcloud secrets versions add openrouter-api-key --data-file=-
+   echo "your_anthropic_api_key" | gcloud secrets versions add anthropic-api-key --data-file=-
+   ```
+
+3. Deploy to Google App Engine using the provided script:
+   ```bash
+   # On Windows
+   .\deploy-to-gae.ps1
+
+   # On Linux/Mac
+   chmod +x deploy-to-gae.sh
+   ./deploy-to-gae.sh
+   ```
+
+4. Access your SaaS application:
+   ```
+   https://findoc-deploy.ey.r.appspot.com
+   ```
+
+#### Option 2: Google Cloud Run Deployment
+
+1. Set up your Google Cloud environment:
+   ```bash
+   # Login to Google Cloud
+   gcloud auth login
+
+   # Set your project ID
+   gcloud config set project findoc-deploy
+   ```
+
+2. Update API keys in Secret Manager (same as above)
+
+3. Deploy to Google Cloud Run using the provided script:
+   ```bash
+   # On Windows
+   .\deploy-to-cloud-run.ps1
+
+   # On Linux/Mac
+   chmod +x deploy-to-cloud-run.sh
+   ./deploy-to-cloud-run.sh
+   ```
+
+4. Access your SaaS application:
+   ```
+   https://findoc-analyzer-[PROJECT-ID].a.run.app
+   ```
+
+#### Option 3: Automated CI/CD with GitHub Actions
+
+1. Set up GitHub repository secrets:
+   - `GCP_PROJECT_ID`: Your Google Cloud project ID
+   - `GCP_SA_KEY`: Your Google Cloud service account key (JSON)
+   - `GEMINI_API_KEY`: Your Gemini API key
+   - `DEEPSEEK_API_KEY`: Your DeepSeek API key
+   - `SUPABASE_KEY`: Your Supabase key
+   - `SUPABASE_SERVICE_KEY`: Your Supabase service key
+
+2. Push to GitHub to trigger deployment:
+   ```bash
+   git push origin main     # Deploys to staging
+   git push origin develop  # Deploys to development
+   ```
+
+3. For production deployment, use the GitHub Actions workflow dispatch with environment set to "production"
+
+### Docker Deployment
+
+1. Build the Docker image:
+   ```bash
+   docker build -t findoc-analyzer:latest .
+   ```
+
+2. Run the Docker container:
+   ```bash
+   docker run -p 8080:8080 \
+     -e API_KEY_GEMINI=your_gemini_api_key \
+     -e API_KEY_OPENAI=your_openai_api_key \
+     -e API_KEY_OPENROUTER=your_openrouter_api_key \
+     -e API_KEY_ANTHROPIC=your_anthropic_api_key \
+     findoc-analyzer:latest
+   ```
+
+## Project Structure
+
+```
+findoc-analyzer/
+├── DevDocs/                  # Documentation and backend code
+│   ├── backend/              # Backend server code
+│   │   ├── agents/           # Financial processing agents
+│   │   ├── routes/           # API routes
+│   │   └── services/         # Service implementations
+│   ├── frontend/             # Frontend UI code
+│   │   ├── components/       # UI components
+│   │   │   ├── charts/       # Visualization components
+│   │   │   └── ...
+│   │   ├── pages/            # Next.js pages
+│   │   └── ...
+│   └── docs/                 # Documentation files
+├── FinDocRAG/                # Financial Document RAG implementation
+├── public/                   # Static assets
+├── services/                 # Service implementations
+├── controllers/              # API controllers
+├── routes/                   # API routes
+├── middleware/               # Express middleware
+├── tests/                    # Test suites
+└── uploads/                  # Uploaded files directory
+```
+
+## Technologies Used
+
+- **Frontend**: Next.js with React, Tailwind CSS for styling
+- **Backend**: Flask API with Python for document processing, Node.js with Express for web server
+- **Database**: Supabase (PostgreSQL) for data storage
+- **Financial Analysis**: Python-based agents for document processing
+- **Visualization**: Chart.js, React-ChartJS-2 for interactive visualizations
+- **AI Integration**: Multiple AI models integrated:
+  - OpenRouter API for financial analysis and RAG
+  - Gemini API for enhanced document understanding
+  - OpenAI API for financial reasoning
+  - Anthropic Claude for advanced financial insights
+- **OCR Processing**: Tesseract, Camelot, PDFPlumber, Unstructured
+- **Testing**: Jest, Playwright for testing
+- **Deployment**: Google Cloud Run
+- **Security**: Google Secret Manager for API key management
+- **API Management**: Custom API key provider with round-robin support
+
+## Documentation
+
+- [Project Summary](./DevDocs/PROJECT_SUMMARY.md)
+- [Implementation Plan](./DevDocs/IMPLEMENTATION_PLAN.md)
+- [Implementation Report](./DevDocs/IMPLEMENTATION_REPORT.md)
+- [Enhanced Visualizations Guide](./DevDocs/docs/ENHANCED_VISUALIZATIONS_GUIDE.md)
+- [API Documentation](./DevDocs/API_DOCUMENTATION.md)
+- [User Guide](./DevDocs/USER_GUIDE.md)
+- [Developer Guide](./DevDocs/DEVELOPER_GUIDE.md)
+
+## Financial Agents (12 Total)
+
 1. **DocumentPreprocessorAgent**: Prepares documents for analysis
 2. **HebrewOCRAgent**: Optimized OCR for Hebrew financial documents
 3. **FinancialTableDetectorAgent**: Identifies and extracts tables from financial documents
@@ -44,147 +312,56 @@ Over the past 30 weeks, we have developed a comprehensive financial document ana
 11. **FinancialReportGeneratorAgent**: Generates financial reports
 12. **PortfolioAnalysisAgent**: Analyzes investment portfolios
 
-### Key Features
-- **Document Upload and Storage**: Secure document management
-- **OCR Processing**: Advanced OCR with Hebrew optimization
-- **RAG Multimodal Processing**: AI-powered document understanding
-- **Financial Data Analysis**: Securities identification and portfolio metrics
-- **Query Engine**: Natural language questions about financial documents
-- **Document Comparison**: Identify changes and trends across documents
-- **Data Export**: Multiple export formats (Excel, CSV, PDF, JSON)
-- **Financial Advisor**: AI-powered financial recommendations
-- **Portfolio Analysis**: Comprehensive investment portfolio analysis
-- **ISIN Processing**: Extraction and validation of ISIN codes
+## API Key Management
 
-## Tech Stack
+FinDoc Analyzer uses a secure API key management system:
 
-- **Frontend**: Next.js, React
-- **Backend**: Flask, Python
-- **Database**: Supabase (PostgreSQL)
-- **AI**: OpenRouter API (Claude, GPT-4), RAG (Retrieval-Augmented Generation)
-- **OCR**: Tesseract, Camelot, PDFPlumber, Unstructured
-- **Deployment**: Google Cloud Run
-- **CI/CD**: GitHub Actions
+- In development: API keys are stored in environment variables (.env file)
+- In production: API keys are securely stored in Google Secret Manager
+- Multi-tenant support: Different API keys for different tenants
 
-## DEVELOPMENT RULES
+### Managing API Keys
 
-### 1. Application Identification
-- **ALWAYS** refer to the FinDoc Analyzer with dark sidebar UI as the main application
-- **ALL** development work must be focused on this application
-- **NEVER** create alternative UIs or applications without explicit approval
+API keys can be managed through the `/api/keys/` endpoints:
 
-### 2. Code Organization
-- Backend code goes in `DevDocs/backend/`
-- Frontend code goes in `DevDocs/frontend/`
-- Agent implementations go in `DevDocs/backend/agents/`
-- Tests go in `DevDocs/` with appropriate naming (e.g., `test_agent_name.py`)
+- `GET /api/keys/status/:service` - Check if API key exists for a service
+- `POST /api/keys/:service` - Store API key for a service
+- `DELETE /api/keys/:service` - Delete API key for a service
 
-### 3. UI Components
-- The main UI is defined in `DevDocs/frontend/components/FinDocLayout.js`
-- The sidebar navigation is defined in this component
-- **NEVER** modify the core UI structure without approval
-- New features should be added as pages or components within the existing structure
+Example for storing an API key:
 
-### 4. Agent Development
-- All agents must follow the established pattern in `DevDocs/backend/agents/`
-- Each agent must have a corresponding test file
-- Agents must be integrated into the main application
-- New agents must be added to the sidebar navigation
-
-### 5. Testing
-- All code must have corresponding tests
-- Tests must verify 100% accuracy in financial document processing
-- Tests must check all ISINs, holdings names, values, and quantities
-- Run tests before pushing to GitHub
-
-### 6. API Keys and Secrets
-- **NEVER** commit API keys or secrets to GitHub
-- Use GitHub secrets for CI/CD
-- The OpenRouter API key should be stored in GitHub secrets
-- Local development should use `.env.local` files (not committed to GitHub)
-
-### 7. Deployment
-- The application will be deployed to Google Cloud Run
-- Deployment is configured in `cloudbuild.yaml`
-- The main branch is the source for deployment
-- The service account is `github@github-456508.iam.gserviceaccount.com`
-
-## RECENT UPDATES
-
-### UI Improvements
-- **Fixed UI Implementation Issues**: Updated the deployment process to properly deploy React components
-- **Enhanced Document Page**: Improved the Documents page with a modern, responsive design
-- **Enhanced Analytics Page**: Improved the Analytics page with better visualizations
-- **Added Feedback Page**: Created a dedicated page for user feedback
-- **Added Document Comparison Page**: Created a page for comparing documents
-- **Enhanced Upload Functionality**: Improved the document upload process with drag-and-drop support and progress tracking
-
-### Testing Improvements
-- **Comprehensive UI Tests**: Created a comprehensive test suite for all UI elements
-- **Automated Testing**: Implemented Puppeteer tests for automated UI testing
-- **Test Reports**: Generated detailed test reports with screenshots and statistics
-
-### Documentation Improvements
-- **Updated Documentation**: Created detailed documentation for the application
-- **API Documentation**: Documented all API endpoints
-- **Development Guide**: Created a guide for setting up the development environment
-
-### Next Steps
-1. **Enhance OCR Implementation**
-   - Improve OCR accuracy for financial documents
-   - Add support for more languages
-   - Optimize OCR performance
-
-2. **Expand RAG Processor**
-   - Add support for more document types
-   - Improve document understanding capabilities
-   - Enhance query answering
-
-3. **Add More Visualizations**
-   - Implement interactive charts for portfolio analysis
-   - Add data visualization for financial metrics
-   - Create customizable dashboards
-
-4. **Implement Multi-Tenant Features**
-   - Add user authentication and authorization
-   - Implement data isolation between tenants
-   - Create tenant-specific settings
-
-5. **Enhance Testing**
-   - Expand test coverage for all components
-   - Implement end-to-end testing
-   - Create performance tests
-
-## DEPLOYMENT
-
-This project is configured for deployment on Google Cloud Run in the me-west1 (Tel Aviv) region:
-
-```yaml
-Project: github (ID: github-456508, Number: 683496987674)
-Service Account: github@github-456508.iam.gserviceaccount.com (ID: 104645681997583496565)
-Region: me-west1 (Tel Aviv)
-Allows unauthenticated invocations
+```bash
+curl -X POST http://localhost:8080/api/keys/gemini \
+  -H "Content-Type: application/json" \
+  -d '{"apiKey": "your-api-key", "tenantId": "optional-tenant-id"}'
 ```
 
-See [DevDocs/DEPLOYMENT.md](DevDocs/DEPLOYMENT.md) for detailed deployment instructions.
+## Contributing
 
-## SECURITY
+Contributions are welcome! Please feel free to submit a Pull Request.
 
-### API Keys and Secrets
+1. Fork the project
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
-This project uses several API keys and secrets that should never be committed to the repository:
+## License
 
-- **OpenRouter API Key**: `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`
-- **Supabase Database**: `db.dnjnsotemnfrjlotgved.supabase.co:5432/postgres`
-- **Google Cloud Service Account**: `github@github-456508.iam.gserviceaccount.com`
+Distributed under the MIT License. See `LICENSE` for more information.
 
-### Security Best Practices
+## Contact
 
-1. **Environment Variables**: Store all secrets as environment variables in `.env.local`
-2. **GitHub Secrets**: Use GitHub secrets for CI/CD pipelines
-3. **Access Control**: Limit access to production environments
-4. **Git Hygiene**: Never commit secrets to the repository
+Project Link: [https://github.com/aviadkim/backv2-main](https://github.com/aviadkim/backv2-main)
 
-## CONTACT
+## Acknowledgements
 
-For questions or support, please contact aviadkim@gmail.com.
+- [Chart.js](https://www.chartjs.org/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [Next.js](https://nextjs.org/)
+- [PyMuPDF](https://pymupdf.readthedocs.io/)
+- [Camelot-py](https://camelot-py.readthedocs.io/)
+- [OpenRouter API](https://openrouter.ai/)
+- [Tesseract OCR](https://github.com/tesseract-ocr/tesseract)
+- [PDFPlumber](https://github.com/jsvine/pdfplumber)
+- [Unstructured](https://unstructured.io/)

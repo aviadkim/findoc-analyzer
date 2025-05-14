@@ -1,0 +1,13 @@
+[
+  {
+    "role": "user",
+    "content": "What is the total value of securities?",
+    "timestamp": "2025-05-13T13:59:21.535Z"
+  },
+  {
+    "role": "assistant",
+    "content": "I don't have that information in the document.",
+    "timestamp": "2025-05-13T13:59:21.535Z",
+    "provider": "rule-based"
+  }
+]

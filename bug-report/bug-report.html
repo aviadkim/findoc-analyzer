@@ -1,0 +1,131 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FinDoc Analyzer Bug Report</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; padding: 20px; color: #333; }
+    h1, h2, h3 { margin-top: 0; }
+    .container { max-width: 1200px; margin: 0 auto; }
+    .summary { display: flex; margin-bottom: 20px; }
+    .summary-item { flex: 1; padding: 15px; border-radius: 5px; margin-right: 10px; color: white; text-align: center; }
+    .total { background-color: #2c3e50; }
+    .critical { background-color: #e74c3c; }
+    .major { background-color: #e67e22; }
+    .minor { background-color: #f1c40f; }
+    .cosmetic { background-color: #3498db; }
+    .bug-list { margin-bottom: 30px; }
+    .bug-item { border: 1px solid #ddd; border-radius: 5px; padding: 15px; margin-bottom: 15px; }
+    .bug-header { display: flex; justify-content: space-between; margin-bottom: 10px; }
+    .bug-title { font-weight: bold; font-size: 1.1em; }
+    .bug-severity { padding: 3px 8px; border-radius: 3px; color: white; font-size: 0.8em; }
+    .bug-severity.critical { background-color: #e74c3c; }
+    .bug-severity.major { background-color: #e67e22; }
+    .bug-severity.minor { background-color: #f1c40f; }
+    .bug-severity.cosmetic { background-color: #3498db; }
+    .bug-component { color: #7f8c8d; font-size: 0.9em; }
+    .bug-description { margin-bottom: 10px; }
+    .bug-steps { background-color: #f9f9f9; padding: 10px; border-radius: 3px; }
+    .bug-steps h4 { margin-top: 0; margin-bottom: 5px; }
+    .bug-steps ol { margin-top: 5px; padding-left: 20px; }
+    .timestamp { color: #666; font-size: 0.9em; margin-bottom: 20px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>FinDoc Analyzer Bug Report</h1>
+    <div class="timestamp">Generated on: 5/13/2025, 4:28:46 PM</div>
+    
+    <div class="summary">
+      <div class="summary-item total">
+        <h2>Total</h2>
+        <div>3</div>
+      </div>
+      <div class="summary-item critical">
+        <h2>Critical</h2>
+        <div>3</div>
+      </div>
+      <div class="summary-item major">
+        <h2>Major</h2>
+        <div>0</div>
+      </div>
+      <div class="summary-item minor">
+        <h2>Minor</h2>
+        <div>0</div>
+      </div>
+      <div class="summary-item cosmetic">
+        <h2>Cosmetic</h2>
+        <div>0</div>
+      </div>
+    </div>
+    
+    <h2>Critical Bugs</h2>
+    <div class="bug-list">
+      
+    <div class="bug-item">
+      <div class="bug-header">
+        <div class="bug-title">BUG-1: Login API not functioning correctly</div>
+        <div class="bug-severity critical">Critical</div>
+      </div>
+      <div class="bug-component">Component: Authentication</div>
+      <div class="bug-description">Login API returns unexpected status code 404</div>
+      <div class="bug-steps">
+        <h4>Steps to Reproduce:</h4>
+        <ol>
+          <li>POST to /api/auth/login with email and password</li>
+        </ol>
+      </div>
+    </div>
+  
+    <div class="bug-item">
+      <div class="bug-header">
+        <div class="bug-title">BUG-2: Document chat API not functioning correctly</div>
+        <div class="bug-severity critical">Critical</div>
+      </div>
+      <div class="bug-component">Component: Chatbot</div>
+      <div class="bug-description">Chat API returns status code 400</div>
+      <div class="bug-steps">
+        <h4>Steps to Reproduce:</h4>
+        <ol>
+          <li>POST to /api/chat/document/{id} with question</li>
+        </ol>
+      </div>
+    </div>
+  
+    <div class="bug-item">
+      <div class="bug-header">
+        <div class="bug-title">BUG-3: API key verification not functioning correctly</div>
+        <div class="bug-severity critical">Critical</div>
+      </div>
+      <div class="bug-component">Component: API Key Management</div>
+      <div class="bug-description">API key verification returns status code 500</div>
+      <div class="bug-steps">
+        <h4>Steps to Reproduce:</h4>
+        <ol>
+          <li>POST to /api/scan1/verify-gemini-key with apiKey</li>
+        </ol>
+      </div>
+    </div>
+  
+    </div>
+    
+    <h2>Major Bugs</h2>
+    <div class="bug-list">
+      <p>No bugs found.</p>
+    </div>
+    
+    <h2>Minor Bugs</h2>
+    <div class="bug-list">
+      <p>No bugs found.</p>
+    </div>
+    
+    <h2>Cosmetic Bugs</h2>
+    <div class="bug-list">
+      <p>No bugs found.</p>
+    </div>
+  </div>
+</body>
+</html>
+  

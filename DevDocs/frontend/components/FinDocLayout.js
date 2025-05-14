@@ -2,11 +2,13 @@ import React, { useState } from 'react';
 import AccessibilityWrapper from './AccessibilityWrapper';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import UploadDialog from './UploadDialog';
 
 function FinDocLayout({ children }) {
   const router = useRouter();
   const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
+  const [isUploadDialogOpen, setIsUploadDialogOpen] = useState(false);
 
   const navItems = [
     { name: 'Dashboard', path: '/', icon: 'home' },
@@ -67,12 +69,24 @@ function FinDocLayout({ children }) {
             <span className="icon icon-search"></span>
           </div>
           <div className="header-actions">
-            <Link href="/upload" className="upload-btn" passHref>
-              <a className="upload-btn">
+            <div className="upload-options">
+              <button className="upload-btn" onClick={() => setIsUploadDialogOpen(true)}>
                 <span className="icon icon-upload"></span>
-                <span>Upload Document</span>
-              </a>
-            </Link>
+                <span>Quick Upload</span>
+              </button>
+              <div className="upload-dropdown">
+                <Link href="/upload" className="upload-option" passHref>
+                  <a className="upload-option">
+                    <span className="icon icon-file-plus"></span>
+                    <span>Upload Page</span>
+                  </a>
+                </Link>
+                <button className="upload-option" onClick={() => setIsUploadDialogOpen(true)}>
+                  <span className="icon icon-upload-cloud"></span>
+                  <span>Quick Upload</span>
+                </button>
+              </div>
+            </div>
             <button className="icon-btn" onClick={() => setIsNotificationsOpen(!isNotificationsOpen)}>
               <span className="icon icon-bell"></span>
             </button>
@@ -104,6 +118,12 @@ function FinDocLayout({ children }) {
             </ul>
           </div>
         )}
+
+        {/* Upload Dialog */}
+        <UploadDialog 
+          isOpen={isUploadDialogOpen} 
+          onClose={() => setIsUploadDialogOpen(false)} 
+        />
 
         {/* Page content */}
         <div className="page-content">
@@ -293,6 +313,10 @@ function FinDocLayout({ children }) {
           gap: 15px;
         }
 
+        .upload-options {
+          position: relative;
+        }
+
         .upload-btn {
           display: flex;
           align-items: center;
@@ -308,6 +332,49 @@ function FinDocLayout({ children }) {
 
         .upload-btn .icon {
           margin-right: 8px;
+        }
+
+        .upload-options:hover .upload-dropdown {
+          display: block;
+        }
+
+        .upload-dropdown {
+          display: none;
+          position: absolute;
+          top: 100%;
+          left: 0;
+          background-color: white;
+          border: 1px solid #e1e5eb;
+          border-radius: 5px;
+          box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+          z-index: 100;
+          min-width: 180px;
+          margin-top: 5px;
+        }
+
+        .upload-option {
+          display: flex;
+          align-items: center;
+          padding: 10px 15px;
+          color: #4a5568;
+          font-size: 0.9rem;
+          cursor: pointer;
+          text-decoration: none;
+          border: none;
+          background: none;
+          width: 100%;
+          text-align: left;
+          transition: all 0.2s;
+        }
+
+        .upload-option:hover {
+          background-color: #f7fafc;
+          color: #3498db;
+        }
+
+        .upload-option .icon {
+          margin-right: 10px;
+          font-size: 1rem;
         }
 
         .icon-btn {
@@ -402,6 +469,8 @@ function FinDocLayout({ children }) {
         .icon-tool:before { content: '\f7d9'; }
         .icon-message-circle:before { content: '\f4ad'; }
         .icon-git-compare:before { content: '\f387'; }
+        .icon-file-plus:before { content: '\f319'; }
+        .icon-upload-cloud:before { content: '\f0ee'; }
       `}</style>
     </div>
     </AccessibilityWrapper>

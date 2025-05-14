@@ -1,0 +1,58 @@
+{
+  "tests": [
+    {
+      "name": "Create tenant",
+      "status": "passed",
+      "duration": 7281,
+      "error": null
+    },
+    {
+      "name": "Get stock price",
+      "status": "passed",
+      "duration": 530,
+      "error": null
+    },
+    {
+      "name": "Get historical data",
+      "status": "passed",
+      "duration": 11,
+      "error": null
+    },
+    {
+      "name": "Generate chart",
+      "status": "passed",
+      "duration": 8,
+      "error": null
+    },
+    {
+      "name": "Answer price question",
+      "status": "passed",
+      "duration": 12,
+      "error": null
+    },
+    {
+      "name": "Answer historical question",
+      "status": "passed",
+      "duration": 12,
+      "error": null
+    },
+    {
+      "name": "Answer comparison question",
+      "status": "passed",
+      "duration": 10,
+      "error": null
+    },
+    {
+      "name": "Answer analysis question",
+      "status": "passed",
+      "duration": 24,
+      "error": null
+    }
+  ],
+  "summary": {
+    "total": 8,
+    "passed": 8,
+    "failed": 0
+  },
+  "tenantId": "6f52ceb7-fc80-4629-8b6b-ccb2114c7feb"
+}

@@ -1,0 +1,244 @@
+@import 'tokens.css';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    font-family: var(--font-family-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+
+  /* Set default focus styles */
+  *:focus-visible {
+    @apply outline-none ring-2 ring-ring ring-offset-2 ring-offset-background;
+  }
+
+  /* Typography scales */
+  h1, .h1 {
+    @apply text-4xl font-bold tracking-tight;
+    line-height: var(--line-height-tight);
+  }
+
+  h2, .h2 {
+    @apply text-3xl font-semibold tracking-tight;
+    line-height: var(--line-height-tight);
+  }
+
+  h3, .h3 {
+    @apply text-2xl font-semibold tracking-tight;
+    line-height: var(--line-height-tight);
+  }
+
+  h4, .h4 {
+    @apply text-xl font-semibold tracking-tight;
+    line-height: var(--line-height-tight);
+  }
+
+  h5, .h5 {
+    @apply text-lg font-semibold tracking-tight;
+    line-height: var(--line-height-tight);
+  }
+
+  h6, .h6 {
+    @apply text-base font-semibold tracking-tight;
+    line-height: var(--line-height-tight);
+  }
+
+  .lead {
+    @apply text-xl text-muted-foreground;
+    line-height: var(--line-height-normal);
+  }
+
+  .large {
+    @apply text-lg font-medium;
+    line-height: var(--line-height-normal);
+  }
+
+  .small {
+    @apply text-sm font-medium leading-none;
+  }
+
+  .muted {
+    @apply text-sm text-muted-foreground;
+  }
+
+  .financial {
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: "tnum";
+    font-family: var(--font-family-mono);
+  }
+
+  /* Mark up positive values in financial contexts */
+  .positive {
+    @apply text-gain;
+  }
+
+  /* Mark up negative values in financial contexts */
+  .negative {
+    @apply text-loss;
+  }
+
+  /* Risk indicators */
+  .risk-indicator {
+    @apply inline-block w-3 h-3 rounded-full mr-2;
+  }
+
+  .risk-indicator.low {
+    @apply bg-risk-low;
+  }
+
+  .risk-indicator.medium {
+    @apply bg-risk-medium;
+  }
+
+  .risk-indicator.high {
+    @apply bg-risk-high;
+  }
+}
+
+@layer components {
+  /* Data card for financial metrics */
+  .metric-card {
+    @apply p-6 bg-card rounded-lg border border-border shadow-sm;
+  }
+
+  .metric-card-title {
+    @apply text-sm font-medium text-muted-foreground mb-1;
+  }
+
+  .metric-card-value {
+    @apply text-2xl font-bold financial;
+  }
+
+  .metric-card-change {
+    @apply text-xs mt-1;
+  }
+
+  /* DataTable styles */
+  .financial-data-table th {
+    @apply text-left text-muted-foreground font-medium;
+  }
+
+  .financial-data-table td {
+    @apply py-3 align-middle;
+  }
+
+  .financial-data-table .numeric {
+    @apply text-right financial;
+  }
+
+  /* Chart container */
+  .chart-container {
+    @apply rounded-lg border border-border bg-card p-4;
+  }
+
+  /* Document card */
+  .document-card {
+    @apply relative rounded-lg border border-border overflow-hidden transition-all hover:shadow-md;
+  }
+
+  .document-card-content {
+    @apply p-4;
+  }
+
+  .document-card-title {
+    @apply font-semibold truncate;
+  }
+
+  .document-card-meta {
+    @apply text-sm text-muted-foreground mt-1;
+  }
+
+  /* Badge variants for financial statuses */
+  .badge-status {
+    @apply inline-flex items-center rounded-full px-2.5 py-1 text-xs font-medium;
+  }
+
+  .badge-status.processed {
+    @apply bg-success/20 text-success;
+  }
+
+  .badge-status.pending {
+    @apply bg-warning/20 text-warning;
+  }
+
+  .badge-status.failed {
+    @apply bg-destructive/20 text-destructive;
+  }
+
+  .badge-status.new {
+    @apply bg-info/20 text-info;
+  }
+  
+  /* Toast variants for financial notifications */
+  .toast-success {
+    @apply bg-success text-success-foreground;
+  }
+  
+  .toast-error {
+    @apply bg-destructive text-destructive-foreground;
+  }
+  
+  .toast-warning {
+    @apply bg-warning text-warning-foreground;
+  }
+  
+  .toast-info {
+    @apply bg-info text-info-foreground;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  
+  /* Financial data formatting utilities */
+  .currency {
+    @apply financial;
+  }
+  
+  .percentage {
+    @apply financial;
+  }
+  
+  .date-financial {
+    @apply financial whitespace-nowrap;
+  }
+  
+  /* Gain/Loss indicators */
+  .trend-up::before {
+    content: "▲ ";
+    @apply text-gain;
+  }
+  
+  .trend-down::before {
+    content: "▼ ";
+    @apply text-loss;
+  }
+  
+  .trend-neutral::before {
+    content: "◆ ";
+    @apply text-neutral;
+  }
+  
+  /* Risk level indicators */
+  .risk-level-low {
+    @apply text-risk-low;
+  }
+  
+  .risk-level-medium {
+    @apply text-risk-medium;
+  }
+  
+  .risk-level-high {
+    @apply text-risk-high;
+  }
+}

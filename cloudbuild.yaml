@@ -1,95 +1,11 @@
+# Google Cloud Build configuration
 steps:
-  # Build the backend image
-  - name: 'gcr.io/cloud-builders/docker'
-    args: ['build', '-t', 'gcr.io/$PROJECT_ID/findoc-backend', '-f', 'Dockerfile.backend', '.']
+  # Install dependencies
+  - name: 'gcr.io/cloud-builders/npm'
+    args: ['install']
 
-  # Build the frontend image
-  - name: 'gcr.io/cloud-builders/docker'
-    args: ['build', '-t', 'gcr.io/$PROJECT_ID/findoc-frontend', '-f', 'Dockerfile.frontend', '.']
+  # Deploy to App Engine
+  - name: 'gcr.io/cloud-builders/gcloud'
+    args: ['app', 'deploy', 'app.yaml', '--quiet', '--project=findoc-deploy']
 
-  # Build the agent image
-  - name: 'gcr.io/cloud-builders/docker'
-    args: ['build', '-t', 'gcr.io/$PROJECT_ID/findoc-agent', '-f', 'Dockerfile.agent', '.']
-
-  # Deploy backend to Cloud Run
-  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
-    entrypoint: 'gcloud'
-    args:
-      - 'run'
-      - 'deploy'
-      - 'findoc-backend'
-      - '--image=gcr.io/$PROJECT_ID/findoc-backend'
-      - '--platform=managed'
-      - '--region=us-central1'
-      - '--allow-unauthenticated'
-      - '--memory=2Gi'
-      - '--cpu=1'
-      - '--timeout=300s'
-      - '--set-env-vars=STORAGE_BUCKET=$PROJECT_ID-documents,GEMINI_API_KEY=$$GEMINI_API_KEY'
-
-  # Get the backend URL
-  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
-    entrypoint: 'bash'
-    args:
-      - '-c'
-      - |
-        BACKEND_URL=$(gcloud run services describe findoc-backend --platform managed --region us-central1 --format 'value(status.url)')
-        echo "Backend URL: $BACKEND_URL"
-        echo $BACKEND_URL > /workspace/backend_url.txt
-
-  # Deploy agent to Cloud Run
-  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
-    entrypoint: 'bash'
-    args:
-      - '-c'
-      - |
-        BACKEND_URL=$(cat /workspace/backend_url.txt)
-        gcloud run deploy findoc-agent \
-          --image=gcr.io/$PROJECT_ID/findoc-agent \
-          --platform=managed \
-          --region=us-central1 \
-          --no-allow-unauthenticated \
-          --memory=2Gi \
-          --cpu=1 \
-          --timeout=600s \
-          --set-env-vars=STORAGE_BUCKET=$PROJECT_ID-documents,BACKEND_URL=$BACKEND_URL,GEMINI_API_KEY=$$GEMINI_API_KEY
-
-  # Deploy frontend to Cloud Run
-  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
-    entrypoint: 'bash'
-    args:
-      - '-c'
-      - |
-        BACKEND_URL=$(cat /workspace/backend_url.txt)
-        gcloud run deploy findoc-frontend \
-          --image=gcr.io/$PROJECT_ID/findoc-frontend \
-          --platform=managed \
-          --region=us-central1 \
-          --allow-unauthenticated \
-          --memory=1Gi \
-          --set-env-vars=NEXT_PUBLIC_API_URL=$BACKEND_URL
-
-  # Configure service-to-service authentication
-  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
-    entrypoint: 'bash'
-    args:
-      - '-c'
-      - |
-        AGENT_SERVICE_ACCOUNT=$(gcloud run services describe findoc-agent --platform managed --region us-central1 --format 'value(spec.template.spec.serviceAccountName)')
-        gcloud run services add-iam-policy-binding findoc-backend \
-          --platform managed \
-          --region us-central1 \
-          --member="serviceAccount:$AGENT_SERVICE_ACCOUNT" \
-          --role="roles/run.invoker"
-
-# Images to be pushed to Container Registry
-images:
-  - 'gcr.io/$PROJECT_ID/findoc-backend'
-  - 'gcr.io/$PROJECT_ID/findoc-frontend'
-  - 'gcr.io/$PROJECT_ID/findoc-agent'
-
-# Store artifacts
-artifacts:
-  objects:
-    location: 'gs://$PROJECT_ID-documents/build-artifacts/'
-    paths: ['/workspace/backend_url.txt']
+timeout: '1800s'

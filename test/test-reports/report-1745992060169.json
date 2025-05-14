@@ -1,0 +1,18 @@
+{
+  "total": 2,
+  "passed": 2,
+  "failed": 0,
+  "skipped": 0,
+  "tests": [
+    {
+      "name": "Ask a question about a document",
+      "status": "passed",
+      "duration": 6363
+    },
+    {
+      "name": "Ask a question about securities",
+      "status": "passed",
+      "duration": 6262
+    }
+  ]
+}

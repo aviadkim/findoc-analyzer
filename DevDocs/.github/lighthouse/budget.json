@@ -1,0 +1,70 @@
+{
+  "ci": {
+    "collect": {
+      "settings": {
+        "preset": "desktop"
+      }
+    },
+    "assert": {
+      "assertions": {
+        "categories:performance": ["warn", {"minScore": 0.8}],
+        "categories:accessibility": ["error", {"minScore": 0.9}],
+        "categories:best-practices": ["warn", {"minScore": 0.85}],
+        "categories:seo": ["warn", {"minScore": 0.8}],
+        "first-contentful-paint": ["warn", {"maxNumericValue": 2000}],
+        "largest-contentful-paint": ["warn", {"maxNumericValue": 2500}],
+        "cumulative-layout-shift": ["error", {"maxNumericValue": 0.1}],
+        "total-blocking-time": ["warn", {"maxNumericValue": 200}]
+      }
+    }
+  },
+  "budgets": [
+    {
+      "path": "/*",
+      "resourceSizes": [
+        {
+          "resourceType": "document",
+          "budget": 20
+        },
+        {
+          "resourceType": "stylesheet",
+          "budget": 100
+        },
+        {
+          "resourceType": "font",
+          "budget": 100
+        },
+        {
+          "resourceType": "image",
+          "budget": 250
+        },
+        {
+          "resourceType": "script",
+          "budget": 300
+        },
+        {
+          "resourceType": "third-party",
+          "budget": 200
+        },
+        {
+          "resourceType": "total",
+          "budget": 1000
+        }
+      ],
+      "timings": [
+        {
+          "metric": "interactive",
+          "budget": 3000
+        },
+        {
+          "metric": "first-contentful-paint",
+          "budget": 1800
+        },
+        {
+          "metric": "largest-contentful-paint",
+          "budget": 2500
+        }
+      ]
+    }
+  ]
+}

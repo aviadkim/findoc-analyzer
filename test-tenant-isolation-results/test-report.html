@@ -1,0 +1,226 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tenant Isolation Test Report</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      margin: 0;
+      padding: 20px;
+      color: #333;
+    }
+    
+    h1, h2, h3 {
+      color: #0066cc;
+    }
+    
+    .summary {
+      background-color: #f5f5f5;
+      padding: 15px;
+      border-radius: 5px;
+      margin-bottom: 20px;
+    }
+    
+    .summary-item {
+      margin-bottom: 10px;
+    }
+    
+    .test {
+      margin-bottom: 15px;
+      padding: 15px;
+      border-radius: 5px;
+    }
+    
+    .test-passed {
+      background-color: #e6ffe6;
+      border-left: 5px solid #00cc00;
+    }
+    
+    .test-failed {
+      background-color: #ffe6e6;
+      border-left: 5px solid #cc0000;
+    }
+    
+    .test-name {
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+    
+    .test-duration {
+      color: #666;
+      font-size: 0.9em;
+    }
+    
+    .test-error {
+      color: #cc0000;
+      margin-top: 10px;
+      font-family: monospace;
+      white-space: pre-wrap;
+    }
+    
+    .progress-bar {
+      height: 20px;
+      background-color: #f5f5f5;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      overflow: hidden;
+    }
+    
+    .progress {
+      height: 100%;
+      background-color: #0066cc;
+      text-align: center;
+      line-height: 20px;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <h1>Tenant Isolation Test Report</h1>
+  
+  <div class="summary">
+    <h2>Summary</h2>
+    
+    <div class="progress-bar">
+      <div class="progress" style="width: 100%">
+        17/17 (100%)
+      </div>
+    </div>
+    
+    <div class="summary-item">
+      <strong>Total Tests:</strong> 17
+    </div>
+    
+    <div class="summary-item">
+      <strong>Passed:</strong> 17
+    </div>
+    
+    <div class="summary-item">
+      <strong>Failed:</strong> 0
+    </div>
+    
+    <div class="summary-item">
+      <strong>Duration:</strong> 16.66s
+    </div>
+    
+    <div class="summary-item">
+      <strong>Tenant 1 ID:</strong> daf3d1a7-be60-4c62-9b01-6b7ebb87faa0
+    </div>
+    
+    <div class="summary-item">
+      <strong>Tenant 2 ID:</strong> 920d14ea-8aab-4193-ace6-5d0aa8a377b9
+    </div>
+  </div>
+  
+  <h2>Test Results</h2>
+  
+  
+    <div class="test test-passed">
+      <div class="test-name">Create first tenant</div>
+      <div class="test-duration">Duration: 5.29s</div>
+      
+    </div>
+  
+    <div class="test test-passed">
+      <div class="test-name">Create second tenant</div>
+      <div class="test-duration">Duration: 5.11s</div>
+      
+    </div>
+  
+    <div class="test test-passed">
+      <div class="test-name">Get API usage for first tenant</div>
+      <div class="test-duration">Duration: 0.02s</div>
+      
+    </div>
+  
+    <div class="test test-passed">
+      <div class="test-name">Get API usage for second tenant</div>
+      <div class="test-duration">Duration: 0.04s</div>
+      
+    </div>
+  
+    <div class="test test-passed">
+      <div class="test-name">Get agent statuses for first tenant</div>
+      <div class="test-duration">Duration: 0.05s</div>
+      
+    </div>
+  
+    <div class="test test-passed">
+      <div class="test-name">Get agent statuses for second tenant</div>
+      <div class="test-duration">Duration: 0.04s</div>
+      
+    </div>
+  
+    <div class="test test-passed">
+      <div class="test-name">Create document for first tenant</div>
+      <div class="test-duration">Duration: 0.01s</div>
+      
+    </div>
+  
+    <div class="test test-passed">
+      <div class="test-name">Create document for second tenant</div>
+      <div class="test-duration">Duration: 0.01s</div>
+      
+    </div>
+  
+    <div class="test test-passed">
+      <div class="test-name">Process document for first tenant</div>
+      <div class="test-duration">Duration: 1.02s</div>
+      
+    </div>
+  
+    <div class="test test-passed">
+      <div class="test-name">Process document for second tenant</div>
+      <div class="test-duration">Duration: 1.02s</div>
+      
+    </div>
+  
+    <div class="test test-passed">
+      <div class="test-name">Verify tenant isolation for documents</div>
+      <div class="test-duration">Duration: 0.01s</div>
+      
+    </div>
+  
+    <div class="test test-passed">
+      <div class="test-name">Verify tenant isolation for document processing</div>
+      <div class="test-duration">Duration: 0.01s</div>
+      
+    </div>
+  
+    <div class="test test-passed">
+      <div class="test-name">Verify tenant isolation for question answering</div>
+      <div class="test-duration">Duration: 0.01s</div>
+      
+    </div>
+  
+    <div class="test test-passed">
+      <div class="test-name">Ask question about document for first tenant</div>
+      <div class="test-duration">Duration: 2.02s</div>
+      
+    </div>
+  
+    <div class="test test-passed">
+      <div class="test-name">Ask question about document for second tenant</div>
+      <div class="test-duration">Duration: 2.01s</div>
+      
+    </div>
+  
+    <div class="test test-passed">
+      <div class="test-name">Check API usage for first tenant after operations</div>
+      <div class="test-duration">Duration: 0.00s</div>
+      
+    </div>
+  
+    <div class="test test-passed">
+      <div class="test-name">Check API usage for second tenant after operations</div>
+      <div class="test-duration">Duration: 0.01s</div>
+      
+    </div>
+  
+</body>
+</html>
+  

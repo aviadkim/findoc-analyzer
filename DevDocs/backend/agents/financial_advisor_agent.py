@@ -1,1480 +1,818 @@
+#!/usr/bin/env python3
 """
-Financial Advisor Agent for advanced financial analysis and recommendations.
+FinancialAdvisorAgent for FinDoc Analyzer
+This agent provides financial advice based on portfolio analysis.
 """
-from datetime import datetime, timedelta
-from typing import Dict, List, Any, Optional, Tuple
-import re
-import uuid
-from .base_agent import BaseAgent
 
-class FinancialAdvisorAgent(BaseAgent):
-    """Agent for financial analysis, accounting, and investment advice."""
+import os
+import json
+import pandas as pd
+import numpy as np
+from datetime import datetime
+from typing import Dict, List, Any, Optional, Tuple, Union
 
-    def __init__(
-        self,
-        api_key: Optional[str] = None,
-        **kwargs
-    ):
+class FinancialAdvisorAgent:
+    """
+    Agent that provides financial advice based on portfolio analysis.
+    """
+    
+    def __init__(self):
+        """Initialize the FinancialAdvisorAgent"""
+        self.name = "FinancialAdvisorAgent"
+        self.version = "1.0.0"
+        
+        # Load reference data for benchmarks
+        self.benchmarks = self._load_benchmarks()
+        
+        # Load risk tolerance profiles
+        self.risk_profiles = self._load_risk_profiles()
+        
+        # Load recommendation templates
+        self.templates = self._load_recommendation_templates()
+    
+    def _load_benchmarks(self) -> Dict[str, Any]:
         """
-        Initialize the financial advisor agent.
-
-        Args:
-            api_key: OpenRouter API key
-            **kwargs: Additional parameters for the base agent
-        """
-        super().__init__(name="Financial Advisor Agent")
-        self.api_key = api_key
-        self.description = "I provide financial analysis, accounting, and investment advice."
-
-        # Asset class classification dictionary
-        self.asset_classes = {
-            "stocks": ["מניות", "stocks", "equities", "מניה", "stock"],
-            "bonds": ["אג\"ח", "אגח", "אגרות חוב", "bonds", "bond", "fixed income"],
-            "cash": ["מזומן", "פקדון", "פקדונות", "עו\"ש", "cash", "deposit", "deposits"],
-            "etf": ["תעודות סל", "קרנות סל", "etf", "exchange traded fund"],
-            "funds": ["קרן", "קרנות", "fund", "funds", "mutual fund"],
-            "real_estate": ["נדל\"ן", "נדלן", "real estate", "reit"],
-            "commodities": ["סחורות", "זהב", "כסף", "נפט", "commodities", "gold", "silver", "oil"],
-            "alternatives": ["השקעות אלטרנטיביות", "גידור", "alternatives", "hedge", "private equity"]
-        }
-
-        # Industry sector classification dictionary
-        self.industry_sectors = {
-            "technology": ["טכנולוגיה", "מחשבים", "תוכנה", "technology", "software", "computers"],
-            "healthcare": ["בריאות", "רפואה", "תרופות", "healthcare", "medical", "pharma"],
-            "finance": ["פיננסים", "בנקאות", "ביטוח", "finance", "banking", "insurance"],
-            "consumer": ["צריכה", "קמעונאות", "מזון", "consumer", "retail", "food"],
-            "energy": ["אנרגיה", "נפט", "גז", "energy", "oil", "gas"],
-            "materials": ["חומרי גלם", "כימיקלים", "מתכות", "materials", "chemicals", "metals"],
-            "utilities": ["תשתיות", "חשמל", "מים", "utilities", "electricity", "water"],
-            "telecom": ["תקשורת", "מדיה", "telecom", "media"],
-            "industrial": ["תעשייה", "ייצור", "industrial", "manufacturing"]
-        }
-
-        # Risk thresholds
-        self.risk_thresholds = {
-            "low": {
-                "volatility": 10.0,  # Annual volatility
-                "max_single_holding": 5.0,  # Maximum percentage of portfolio in a single asset
-                "min_investment_grade": 70.0  # Minimum percentage of investment grade bonds
-            },
-            "medium": {
-                "volatility": 15.0,
-                "max_single_holding": 10.0,
-                "min_investment_grade": 50.0
-            },
-            "high": {
-                "volatility": 25.0,
-                "max_single_holding": 20.0,
-                "min_investment_grade": 30.0
-            }
-        }
-
-    def process(self, task: Dict[str, Any]) -> Dict[str, Any]:
-        """
-        Process a task to provide financial advice.
-
-        Args:
-            task: Task dictionary with the following keys:
-                - analysis_type: Type of analysis to perform (portfolio, financial_statements, salary, investment_suggestion)
-                - document_data: Document data to analyze
-                - risk_profile: Optional risk profile for portfolio analysis (low, medium, high)
-                - investment_amount: Optional investment amount for investment suggestions
-
+        Load benchmark data for comparisons.
         Returns:
-            Dictionary with analysis results
+            Dictionary of benchmark data
         """
-        # Get the required data
-        analysis_type = task.get('analysis_type', 'portfolio')
-        document_data = task.get('document_data', {})
-        risk_profile = task.get('risk_profile', 'medium')
-        investment_amount = task.get('investment_amount', 0)
-
-        # Check if we have document data to analyze
-        if not document_data:
-            return {
-                'status': 'error',
-                'message': 'No document data provided for analysis'
+        # In a real implementation, this would load from files or a database
+        return {
+            "market_indices": {
+                "SP500": {"annual_return": 10.5, "volatility": 15.0},
+                "MSCI_World": {"annual_return": 9.8, "volatility": 14.2},
+                "MSCI_EM": {"annual_return": 11.2, "volatility": 18.5},
+                "Agg_Bond": {"annual_return": 4.2, "volatility": 5.5}
+            },
+            "asset_allocations": {
+                "conservative": {"equity": 30, "fixed_income": 60, "alternatives": 5, "cash": 5},
+                "moderate": {"equity": 50, "fixed_income": 40, "alternatives": 7, "cash": 3},
+                "aggressive": {"equity": 70, "fixed_income": 20, "alternatives": 8, "cash": 2}
+            },
+            "expense_ratios": {
+                "equity_funds": {"low": 0.1, "average": 0.6, "high": 1.2},
+                "bond_funds": {"low": 0.05, "average": 0.45, "high": 0.9},
+                "alternative_funds": {"low": 0.3, "average": 1.0, "high": 2.0}
             }
-
-        # Perform the analysis based on type
+        }
+    
+    def _load_risk_profiles(self) -> Dict[str, Any]:
+        """
+        Load risk tolerance profiles.
+        Returns:
+            Dictionary of risk profiles
+        """
+        return {
+            "conservative": {
+                "description": "Primarily focused on capital preservation with modest growth potential",
+                "target_allocation": {"equity": 20, "fixed_income": 60, "alternatives": 10, "cash": 10},
+                "max_volatility": 8.0,
+                "return_expectation": 4.0,
+                "time_horizon": "3-5 years"
+            },
+            "moderate": {
+                "description": "Balanced approach between growth and capital preservation",
+                "target_allocation": {"equity": 50, "fixed_income": 40, "alternatives": 7, "cash": 3},
+                "max_volatility": 12.0,
+                "return_expectation": 6.5,
+                "time_horizon": "5-10 years"
+            },
+            "growth": {
+                "description": "Primarily focused on long-term growth with higher volatility tolerance",
+                "target_allocation": {"equity": 70, "fixed_income": 25, "alternatives": 5, "cash": 0},
+                "max_volatility": 15.0,
+                "return_expectation": 8.0,
+                "time_horizon": "7+ years"
+            },
+            "aggressive": {
+                "description": "Maximizing long-term growth potential with high volatility tolerance",
+                "target_allocation": {"equity": 85, "fixed_income": 10, "alternatives": 5, "cash": 0},
+                "max_volatility": 20.0,
+                "return_expectation": 9.5,
+                "time_horizon": "10+ years"
+            }
+        }
+    
+    def _load_recommendation_templates(self) -> Dict[str, str]:
+        """
+        Load recommendation templates.
+        Returns:
+            Dictionary of recommendation templates
+        """
+        return {
+            "allocation_adjustment": (
+                "Based on your {risk_profile} risk profile, we recommend adjusting your asset allocation to "
+                "increase {increase_asset_class} exposure by approximately {increase_percentage}% and "
+                "decrease {decrease_asset_class} exposure by approximately {decrease_percentage}%."
+            ),
+            "diversification": (
+                "Your portfolio shows {diversification_level} diversification. We recommend adding exposure to "
+                "{recommended_sectors} to enhance diversification and potentially reduce portfolio volatility."
+            ),
+            "expense_ratio": (
+                "Your portfolio has an average expense ratio of {current_ratio}%, which is {comparison} "
+                "the industry average. Consider {action} to funds with lower expense ratios, which could "
+                "improve your net returns by approximately {improvement}% annually."
+            ),
+            "risk_assessment": (
+                "Your portfolio has an estimated volatility of {volatility}%, which is {risk_comparison} "
+                "your stated risk tolerance. Consider {risk_action} to better align with your investment goals."
+            )
+        }
+    
+    def analyze_portfolio(self, portfolio_data: Dict[str, Any], client_profile: Dict[str, Any]) -> Dict[str, Any]:
+        """
+        Analyze a portfolio and provide recommendations based on client profile.
+        
+        Args:
+            portfolio_data: Portfolio data dictionary with securities and analysis
+            client_profile: Client profile with risk tolerance, goals, and constraints
+        
+        Returns:
+            Dictionary with recommendations and analysis
+        """
+        # Extract essential portfolio metrics
         try:
-            if analysis_type == 'portfolio':
-                result = self.analyze_portfolio(document_data, risk_profile)
-            elif analysis_type == 'financial_statements':
-                result = self.analyze_financial_statements(document_data)
-            elif analysis_type == 'salary':
-                result = self.analyze_salary(document_data)
-            elif analysis_type == 'investment_suggestion':
-                result = self.generate_investment_suggestion(document_data, investment_amount, risk_profile)
-            else:
-                return {
-                    'status': 'error',
-                    'message': f'Unsupported analysis type: {analysis_type}'
-                }
-
-            # Add analysis ID and timestamp
-            result['analysis_id'] = str(uuid.uuid4())
-            if 'analysis_date' not in result:
-                result['analysis_date'] = datetime.now().isoformat()
-
+            # Calculate key metrics if not already present
+            if 'analysis' not in portfolio_data:
+                portfolio_data['analysis'] = self._calculate_portfolio_metrics(portfolio_data)
+            
+            portfolio_metrics = portfolio_data['analysis']
+            
+            # Extract client's risk profile
+            risk_profile = client_profile.get('risk_profile', 'moderate')
+            
+            # Generate recommendations
+            allocation_recommendations = self._recommend_allocation(portfolio_metrics, risk_profile)
+            diversification_recommendations = self._recommend_diversification(portfolio_metrics, risk_profile)
+            expense_recommendations = self._recommend_expense_optimization(portfolio_metrics)
+            risk_recommendations = self._assess_risk_alignment(portfolio_metrics, risk_profile)
+            
+            # Create comprehensive recommendations
+            recommendations = {
+                'summary': self._generate_recommendation_summary(portfolio_metrics, risk_profile),
+                'allocation': allocation_recommendations,
+                'diversification': diversification_recommendations,
+                'expenses': expense_recommendations,
+                'risk': risk_recommendations,
+                'implementation_steps': self._generate_implementation_steps(
+                    allocation_recommendations,
+                    diversification_recommendations,
+                    expense_recommendations,
+                    risk_recommendations
+                )
+            }
+            
+            # Prepare the result
+            result = {
+                'status': 'success',
+                'recommendations': recommendations,
+                'portfolio_summary': self._generate_portfolio_summary(portfolio_metrics),
+                'timestamp': datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+            }
+            
             return result
+            
         except Exception as e:
             return {
                 'status': 'error',
-                'message': f'Error performing financial analysis: {str(e)}'
+                'message': f"Failed to generate recommendations: {str(e)}",
+                'timestamp': datetime.now().strftime('%Y-%m-%d %H:%M:%S')
             }
-
-    def analyze_portfolio(self, document_data: Dict[str, Any], risk_profile: str = "medium") -> Dict[str, Any]:
+    
+    def _calculate_portfolio_metrics(self, portfolio_data: Dict[str, Any]) -> Dict[str, Any]:
         """
-        Analyze a portfolio and provide recommendations.
-
+        Calculate essential portfolio metrics if not already provided.
+        
         Args:
-            document_data: Processed document data
-            risk_profile: Desired risk profile (low / medium / high)
-
+            portfolio_data: Portfolio data dictionary
+        
         Returns:
-            Dictionary with analysis and recommendations
+            Dictionary with calculated metrics
         """
-        # Validate risk profile
-        if risk_profile not in self.risk_thresholds:
-            risk_profile = "medium"
-
-        # Extract portfolio data
-        portfolio_data = self._extract_portfolio_data(document_data)
-        if not portfolio_data:
-            return {
-                "status": "error",
-                "message": "No portfolio data found in the document"
-            }
-
-        # Basic portfolio analysis
-        basic_analysis = self._analyze_basic_portfolio(portfolio_data)
-
-        # Asset allocation analysis
-        asset_allocation = self._analyze_asset_allocation(portfolio_data)
-
-        # Performance analysis
-        performance_analysis = self._analyze_performance(portfolio_data)
-
-        # Risk analysis
-        risk_analysis = self._analyze_risk(portfolio_data, risk_profile)
-
-        # Generate recommendations
-        recommendations = self._generate_recommendations(
-            basic_analysis,
-            asset_allocation,
-            performance_analysis,
-            risk_analysis,
-            risk_profile
-        )
-
-        return {
-            "status": "success",
-            "analysis_date": datetime.now().isoformat(),
-            "basic_analysis": basic_analysis,
-            "asset_allocation": asset_allocation,
-            "performance": performance_analysis,
-            "risk_analysis": risk_analysis,
-            "recommendations": recommendations
-        }
-
-    def _extract_portfolio_data(self, document_data: Dict[str, Any]) -> Dict[str, Any]:
-        """Extract portfolio data from a document."""
-        portfolio_data = {}
-
-        # Look in financial data
-        if "financial_data" in document_data and "portfolio" in document_data["financial_data"]:
-            portfolio = document_data["financial_data"]["portfolio"]
-
-            # Summary
-            if "summary" in portfolio:
-                portfolio_data.update(portfolio["summary"])
-
-            # Securities list
-            if "securities" in portfolio:
-                portfolio_data["securities"] = portfolio["securities"]
-
-                # Calculate summaries
-                if "securities" in portfolio_data:
-                    securities = portfolio_data["securities"]
-                    total_value = sum(sec.get("value", 0) for sec in securities
-                                   if isinstance(sec.get("value", 0), (int, float)))
-
-                    portfolio_data["total_value"] = total_value
-
-        # If no portfolio info found, look in general summary
-        elif "summary" in document_data and "total_portfolio_value" in document_data["summary"]:
-            portfolio_data["total_value"] = document_data["summary"]["total_portfolio_value"]
-
-        # Look in tables
-        elif "tables" in document_data:
-            for table in document_data["tables"]:
-                if table.get("type") == "portfolio" and "data" in table:
-                    # Create securities list from table
-                    securities = []
-
-                    for row in table["data"]:
-                        security = {}
-
-                        # Look for common fields
-                        for key, value in row.items():
-                            key_lower = str(key).lower()
-
-                            # Security name
-                            if "name" in key_lower or "description" in key_lower:
-                                security["name"] = value
-                            # ISIN
-                            elif "isin" in key_lower:
-                                security["isin"] = value
-                            # Security type
-                            elif "type" in key_lower:
-                                security["type"] = value
-                            # Quantity
-                            elif "quantity" in key_lower or "amount" in key_lower:
-                                security["quantity"] = self._parse_numeric(value)
-                            # Price
-                            elif "price" in key_lower or "rate" in key_lower:
-                                security["price"] = self._parse_numeric(value)
-                            # Value
-                            elif "value" in key_lower or "total" in key_lower:
-                                security["value"] = self._parse_numeric(value)
-                            # Return
-                            elif "return" in key_lower or "yield" in key_lower:
-                                security["return"] = self._parse_numeric(value)
-
-                        if security:
-                            securities.append(security)
-
-                    if securities:
-                        portfolio_data["securities"] = securities
-
-                        # Calculate summaries
-                        total_value = sum(sec.get("value", 0) for sec in securities
-                                       if isinstance(sec.get("value", 0), (int, float)))
-
-                        portfolio_data["total_value"] = total_value
-
-                        break
-
-        return portfolio_data
-
-    def _analyze_basic_portfolio(self, portfolio_data: Dict[str, Any]) -> Dict[str, Any]:
-        """Basic portfolio analysis."""
-        basic_analysis = {
-            "total_value": portfolio_data.get("total_value", 0),
-            "security_count": 0,
-            "average_security_value": 0,
-            "largest_holdings": [],
-            "asset_types": {}
-        }
-
-        if "securities" in portfolio_data:
-            securities = portfolio_data["securities"]
-            basic_analysis["security_count"] = len(securities)
-
-            if securities and basic_analysis["total_value"] > 0:
-                basic_analysis["average_security_value"] = basic_analysis["total_value"] / len(securities)
-
-                # Find largest holdings
-                sorted_securities = sorted(
-                    [sec for sec in securities if isinstance(sec.get("value", 0), (int, float))],
-                    key=lambda x: x.get("value", 0),
-                    reverse=True
-                )
-
-                basic_analysis["largest_holdings"] = sorted_securities[:5]
-
-                # Classify by asset type
-                for security in securities:
-                    asset_type = self._classify_asset_type(security)
-
-                    if asset_type not in basic_analysis["asset_types"]:
-                        basic_analysis["asset_types"][asset_type] = {
-                            "count": 0,
-                            "total_value": 0,
-                            "percentage": 0
-                        }
-
-                    basic_analysis["asset_types"][asset_type]["count"] += 1
-
-                    if isinstance(security.get("value", 0), (int, float)):
-                        basic_analysis["asset_types"][asset_type]["total_value"] += security.get("value", 0)
-
-                # Calculate percentages
-                for asset_type, data in basic_analysis["asset_types"].items():
-                    if basic_analysis["total_value"] > 0:
-                        data["percentage"] = (data["total_value"] / basic_analysis["total_value"]) * 100
-
-        return basic_analysis
-
-    def _analyze_asset_allocation(self, portfolio_data: Dict[str, Any]) -> Dict[str, Any]:
-        """Analyze asset allocation in the portfolio."""
-        allocation = {
-            "current_allocation": {},
-            "allocation_by_sector": {},
-            "allocation_by_region": {},
-            "allocation_by_currency": {}
-        }
-
-        if "securities" in portfolio_data:
-            securities = portfolio_data["securities"]
-            total_value = portfolio_data.get("total_value", 0)
-
-            if securities and total_value > 0:
-                # Allocation by asset type
-                asset_types = {}
-
-                for security in securities:
-                    asset_type = self._classify_asset_type(security)
-
-                    if asset_type not in asset_types:
-                        asset_types[asset_type] = 0
-
-                    if isinstance(security.get("value", 0), (int, float)):
-                        asset_types[asset_type] += security.get("value", 0)
-
-                # Calculate percentages
-                for asset_type, value in asset_types.items():
-                    allocation["current_allocation"][asset_type] = (value / total_value) * 100
-
-                # Try to classify by sector
-                sectors = {}
-
-                for security in securities:
-                    sector = self._classify_industry_sector(security)
-
-                    if sector not in sectors:
-                        sectors[sector] = 0
-
-                    if isinstance(security.get("value", 0), (int, float)):
-                        sectors[sector] += security.get("value", 0)
-
-                # Calculate percentages
-                for sector, value in sectors.items():
-                    allocation["allocation_by_sector"][sector] = (value / total_value) * 100
-
-        return allocation
-
-    def _analyze_performance(self, portfolio_data: Dict[str, Any]) -> Dict[str, Any]:
-        """Analyze portfolio performance."""
-        performance = {
-            "average_return": None,
-            "total_return": None,
-            "best_performers": [],
-            "worst_performers": []
-        }
-
-        if "securities" in portfolio_data:
-            securities = portfolio_data["securities"]
-            securities_with_return = [sec for sec in securities
-                                   if isinstance(sec.get("return", None), (int, float))]
-
-            if securities_with_return:
-                # Calculate average return
-                returns = [sec["return"] for sec in securities_with_return]
-                performance["average_return"] = sum(returns) / len(returns)
-
-                # Find best and worst performers
-                sorted_by_return = sorted(securities_with_return, key=lambda x: x["return"], reverse=True)
-
-                performance["best_performers"] = sorted_by_return[:3]
-                performance["worst_performers"] = sorted_by_return[-3:] if len(sorted_by_return) > 3 else sorted_by_return[::-1]
-
-                # Calculate weighted total return
-                if portfolio_data.get("total_value", 0) > 0:
-                    weighted_returns = []
-
-                    for security in securities_with_return:
-                        if isinstance(security.get("value", 0), (int, float)) and security["value"] > 0:
-                            weight = security["value"] / portfolio_data["total_value"]
-                            weighted_return = security["return"] * weight
-                            weighted_returns.append(weighted_return)
-
-                    if weighted_returns:
-                        performance["total_return"] = sum(weighted_returns)
-
-        return performance
-
-    def _analyze_risk(self, portfolio_data: Dict[str, Any], risk_profile: str) -> Dict[str, Any]:
-        """Analyze portfolio risk."""
-        risk_analysis = {
-            "risk_level": "unknown",
-            "concentration_risk": [],
-            "risk_metrics": {},
-            "risk_profile": risk_profile,
-            "risk_profile_match": None
-        }
-
-        if "securities" in portfolio_data:
-            securities = portfolio_data["securities"]
-            total_value = portfolio_data.get("total_value", 0)
-
-            if securities and total_value > 0:
-                # Check concentration
-                for security in securities:
-                    if isinstance(security.get("value", 0), (int, float)) and security["value"] > 0:
-                        percentage = (security["value"] / total_value) * 100
-
-                        if percentage > self.risk_thresholds[risk_profile]["max_single_holding"]:
-                            risk_analysis["concentration_risk"].append({
-                                "security_name": security.get("name", security.get("security_name", "")),
-                                "isin": security.get("isin", ""),
-                                "percentage": percentage,
-                                "threshold": self.risk_thresholds[risk_profile]["max_single_holding"]
-                            })
-
-                # Analyze risk by asset allocation
-                allocation = self._analyze_asset_allocation(portfolio_data)
-                current_allocation = allocation["current_allocation"]
-
-                # Calculate risk score
-                risk_score = self._calculate_risk_score(current_allocation)
-                risk_analysis["risk_metrics"]["risk_score"] = risk_score
-
-                # Determine risk level
-                if risk_score < 25:
-                    risk_analysis["risk_level"] = "low"
-                elif risk_score < 50:
-                    risk_analysis["risk_level"] = "medium"
-                else:
-                    risk_analysis["risk_level"] = "high"
-
-                # Check profile match
-                risk_analysis["risk_profile_match"] = (risk_analysis["risk_level"] == risk_profile)
-
-        return risk_analysis
-
-    def _calculate_risk_score(self, asset_allocation: Dict[str, float]) -> float:
-        """Calculate risk score based on asset allocation."""
-        risk_weights = {
-            "stocks": 80,
-            "bonds": 30,
-            "cash": 5,
-            "etf": 60,
-            "funds": 50,
-            "real_estate": 70,
-            "commodities": 75,
-            "alternatives": 90,
-            "unknown": 50
-        }
-
-        risk_score = 0
-        total_percentage = 0
-
-        for asset_type, percentage in asset_allocation.items():
-            weight = risk_weights.get(asset_type, risk_weights["unknown"])
-            risk_score += weight * percentage
-            total_percentage += percentage
-
-        if total_percentage > 0:
-            return risk_score / total_percentage
-
-        return 0
-
-    def _classify_asset_type(self, security: Dict[str, Any]) -> str:
-        """Classify asset type."""
-        # Look for explicit type
-        if "type" in security:
-            security_type = str(security["type"]).lower()
-
-            for asset_class, keywords in self.asset_classes.items():
-                if any(keyword in security_type for keyword in keywords):
-                    return asset_class
-
-        # Look in security name
-        if "name" in security or "security_name" in security:
-            security_name = str(security.get("name", security.get("security_name", ""))).lower()
-
-            for asset_class, keywords in self.asset_classes.items():
-                if any(keyword in security_name for keyword in keywords):
-                    return asset_class
-
-        return "unknown"
-
-    def _classify_industry_sector(self, security: Dict[str, Any]) -> str:
-        """Classify industry sector."""
-        # Look in security description
-        for field in ["name", "security_name", "description", "sector", "industry"]:
-            if field in security:
-                value = str(security[field]).lower()
-
-                for sector, keywords in self.industry_sectors.items():
-                    if any(keyword in value for keyword in keywords):
-                        return sector
-
-        return "unknown"
-
-    def _generate_recommendations(self, basic_analysis, asset_allocation, performance_analysis, risk_analysis, risk_profile) -> List[Dict[str, Any]]:
-        """Generate investment recommendations."""
-        recommendations = []
-
-        # Diversification recommendations
-        if risk_analysis["concentration_risk"]:
-            for concentration in risk_analysis["concentration_risk"]:
-                recommendations.append({
-                    "type": "diversification",
-                    "priority": "high",
-                    "title": f"Reduce concentration in {concentration['security_name']}",
-                    "description": f"The security represents {concentration['percentage']:.2f}% of the portfolio, above the recommended threshold of {concentration['threshold']}%.",
-                    "action": f"Consider reducing the position or diversifying the risk."
-                })
-
-        # Asset allocation recommendations
-        target_allocation = self._get_target_allocation(risk_profile)
-        current_allocation = asset_allocation["current_allocation"]
-
-        for asset_type, target_pct in target_allocation.items():
-            current_pct = current_allocation.get(asset_type, 0)
-            gap = target_pct - current_pct
-
-            if abs(gap) >= 10:  # Significant gap
-                action = "increase" if gap > 0 else "decrease"
-
-                recommendations.append({
-                    "type": "asset_allocation",
-                    "priority": "medium",
-                    "title": f"Adjust asset allocation: {asset_type}",
-                    "description": f"Current allocation: {current_pct:.2f}%, recommended allocation: {target_pct:.2f}%.",
-                    "action": f"Consider {action}ing exposure to {asset_type} by {abs(gap):.2f}%."
-                })
-
-        # Performance recommendations
-        if performance_analysis.get("worst_performers"):
-            for performer in performance_analysis["worst_performers"]:
-                if performer.get("return", 0) < -10:  # Poor performance
-                    recommendations.append({
-                        "type": "performance",
-                        "priority": "medium",
-                        "title": f"Reevaluate {performer.get('name', performer.get('security_name', ''))}",
-                        "description": f"Return of {performer.get('return', 0):.2f}%.",
-                        "action": "Consider replacing with an alternative security or reevaluate the investment thesis."
-                    })
-
-        # Risk profile match recommendations
-        if risk_analysis["risk_level"] != risk_profile:
-            action = "reduce" if risk_analysis["risk_level"] == "high" and risk_profile in ["low", "medium"] else "increase"
-
-            recommendations.append({
-                "type": "risk_profile",
-                "priority": "high",
-                "title": "Adjust risk level to match investor profile",
-                "description": f"Current risk level ({risk_analysis['risk_level']}) does not match the desired risk profile ({risk_profile}).",
-                "action": f"Consider {action}ing portfolio risk through asset allocation changes."
-            })
-
-        return recommendations
-
-    def _get_target_allocation(self, risk_profile: str) -> Dict[str, float]:
-        """Get recommended asset allocation based on risk profile."""
-        if risk_profile == "low":
-            return {
-                "cash": 15,
-                "bonds": 55,
-                "stocks": 25,
-                "alternatives": 5
-            }
-        elif risk_profile == "medium":
-            return {
-                "cash": 10,
-                "bonds": 35,
-                "stocks": 45,
-                "alternatives": 10
-            }
-        elif risk_profile == "high":
-            return {
-                "cash": 5,
-                "bonds": 15,
-                "stocks": 65,
-                "alternatives": 15
-            }
-        else:
-            return {
-                "cash": 10,
-                "bonds": 40,
-                "stocks": 40,
-                "alternatives": 10
-            }
-
-    def analyze_financial_statements(self, document_data: Dict[str, Any]) -> Dict[str, Any]:
-        """
-        Analyze financial statements (balance sheet, income statement).
-
-        Args:
-            document_data: Processed document data
-
-        Returns:
-            Dictionary with balance sheet and income statement analysis
-        """
-        result = {
-            "status": "error",
-            "message": "No financial statement data found in the document",
-            "analysis_date": datetime.now().isoformat()
-        }
-
-        # Analyze balance sheet
-        balance_sheet_data = self._extract_balance_sheet_data(document_data)
-        if balance_sheet_data:
-            balance_analysis = self._analyze_balance_sheet(balance_sheet_data)
-            result["balance_sheet_analysis"] = balance_analysis
-            result["status"] = "success"
-            result["message"] = None
-
-        # Analyze income statement
-        income_statement_data = self._extract_income_statement_data(document_data)
-        if income_statement_data:
-            income_analysis = self._analyze_income_statement(income_statement_data)
-            result["income_statement_analysis"] = income_analysis
-            result["status"] = "success"
-            result["message"] = None
-
-        # Analyze financial ratios
-        if balance_sheet_data and income_statement_data:
-            ratios_analysis = self._analyze_financial_ratios(balance_sheet_data, income_statement_data)
-            result["financial_ratios"] = ratios_analysis
-
-        return result
-
-    def _extract_balance_sheet_data(self, document_data: Dict[str, Any]) -> Dict[str, Any]:
-        """Extract balance sheet data from a document."""
-        balance_data = {}
-
-        # Look in financial data
-        if "financial_data" in document_data and "balance_sheet" in document_data["financial_data"]:
-            balance_data = document_data["financial_data"]["balance_sheet"]
-
-        # Look in tables
-        elif "tables" in document_data:
-            for table in document_data["tables"]:
-                if table.get("type") == "balance_sheet" and "data" in table:
-                    balance_data = self._convert_table_to_balance_sheet(table["data"])
-                    break
-
-        return balance_data
-
-    def _extract_income_statement_data(self, document_data: Dict[str, Any]) -> Dict[str, Any]:
-        """Extract income statement data from a document."""
-        income_data = {}
-
-        # Look in financial data
-        if "financial_data" in document_data and "income_statement" in document_data["financial_data"]:
-            income_data = document_data["financial_data"]["income_statement"]
-
-        # Look in tables
-        elif "tables" in document_data:
-            for table in document_data["tables"]:
-                if table.get("type") == "income_statement" and "data" in table:
-                    income_data = self._convert_table_to_income_statement(table["data"])
-                    break
-
-        return income_data
-
-    def _convert_table_to_balance_sheet(self, table_data: List[Dict[str, Any]]) -> Dict[str, Any]:
-        """Convert table to balance sheet data."""
-        balance_sheet = {
-            "assets": {},
-            "liabilities": {},
-            "equity": {}
-        }
-
-        for row in table_data:
-            row_type = None
-            item_name = None
-            item_value = None
-
-            # Identify row type (assets, liabilities, equity)
-            for key, value in row.items():
-                key_lower = str(key).lower()
-
-                # Look for item type
-                if isinstance(value, str):
-                    value_lower = value.lower()
-
-                    if any(kw in value_lower for kw in ["נכסים", "רכוש", "assets"]):
-                        row_type = "assets"
-                        item_name = value
-                    elif any(kw in value_lower for kw in ["התחייבויות", "אשראי", "liabilities"]):
-                        row_type = "liabilities"
-                        item_name = value
-                    elif any(kw in value_lower for kw in ["הון", "equity"]):
-                        row_type = "equity"
-                        item_name = value
-
-                # If we've already identified the row type, look for the numeric value
-                if row_type and item_name and isinstance(value, (int, float)):
-                    item_value = value
-                    break
-                elif row_type and item_name and isinstance(value, str):
-                    # Try to parse as number
-                    parsed_value = self._parse_numeric(value)
-                    if parsed_value is not None:
-                        item_value = parsed_value
-                        break
-
-            # Add item to balance sheet
-            if row_type and item_name and item_value is not None:
-                balance_sheet[row_type][item_name] = item_value
-
-        # Calculate summaries
-        balance_sheet["summary"] = {
-            "total_assets": sum(balance_sheet["assets"].values()),
-            "total_liabilities": sum(balance_sheet["liabilities"].values()),
-            "total_equity": sum(balance_sheet["equity"].values())
-        }
-
-        return balance_sheet
-
-    def _convert_table_to_income_statement(self, table_data: List[Dict[str, Any]]) -> Dict[str, Any]:
-        """Convert table to income statement data."""
-        income_statement = {
-            "revenues": {},
-            "expenses": {},
-            "profits": {}
-        }
-
-        for row in table_data:
-            row_type = None
-            item_name = None
-            item_value = None
-
-            # Identify row type (revenues, expenses, profits)
-            for key, value in row.items():
-                key_lower = str(key).lower()
-
-                # Look for item type
-                if isinstance(value, str):
-                    value_lower = value.lower()
-
-                    if any(kw in value_lower for kw in ["הכנסות", "מכירות", "revenues", "sales"]):
-                        row_type = "revenues"
-                        item_name = value
-                    elif any(kw in value_lower for kw in ["הוצאות", "עלות", "expenses", "costs"]):
-                        row_type = "expenses"
-                        item_name = value
-                    elif any(kw in value_lower for kw in ["רווח", "הפסד", "profit", "loss"]):
-                        row_type = "profits"
-                        item_name = value
-
-                # If we've already identified the row type, look for the numeric value
-                if row_type and item_name and isinstance(value, (int, float)):
-                    item_value = value
-                    break
-                elif row_type and item_name and isinstance(value, str):
-                    # Try to parse as number
-                    parsed_value = self._parse_numeric(value)
-                    if parsed_value is not None:
-                        item_value = parsed_value
-                        break
-
-            # Add item to income statement
-            if row_type and item_name and item_value is not None:
-                income_statement[row_type][item_name] = item_value
-
-        # Calculate summaries
-        income_statement["summary"] = {
-            "total_revenue": sum(income_statement["revenues"].values()),
-            "total_expenses": sum(income_statement["expenses"].values()),
-            "net_profit": sum(income_statement["revenues"].values()) - sum(income_statement["expenses"].values())
-        }
-
-        return income_statement
-
-    def _analyze_balance_sheet(self, balance_data: Dict[str, Any]) -> Dict[str, Any]:
-        """Analyze balance sheet."""
-        analysis = {
-            "total_assets": 0,
-            "total_liabilities": 0,
-            "total_equity": 0,
-            "current_ratio": None,
-            "debt_to_equity": None,
-            "debt_to_assets": None,
-            "major_assets": [],
-            "major_liabilities": []
-        }
-
-        # Summaries
-        if "summary" in balance_data:
-            analysis["total_assets"] = balance_data["summary"].get("total_assets", 0)
-            analysis["total_liabilities"] = balance_data["summary"].get("total_liabilities", 0)
-            analysis["total_equity"] = balance_data["summary"].get("total_equity", 0)
-        else:
-            analysis["total_assets"] = sum(balance_data.get("assets", {}).values())
-            analysis["total_liabilities"] = sum(balance_data.get("liabilities", {}).values())
-            analysis["total_equity"] = sum(balance_data.get("equity", {}).values())
-
-        # Calculate ratios
-        if analysis["total_assets"] > 0:
-            analysis["debt_to_assets"] = analysis["total_liabilities"] / analysis["total_assets"]
-
-            # Identify current assets and liabilities
-            current_assets = 0
-            current_liabilities = 0
-
-            for name, value in balance_data.get("assets", {}).items():
-                name_lower = str(name).lower()
-                if any(keyword in name_lower for keyword in ["current", "שוטף", "מזומנים", "cash"]):
-                    current_assets += value
-
-            for name, value in balance_data.get("liabilities", {}).items():
-                name_lower = str(name).lower()
-                if any(keyword in name_lower for keyword in ["current", "שוטף", "זכאים", "payable"]):
-                    current_liabilities += value
-
-            if current_liabilities > 0:
-                analysis["current_ratio"] = current_assets / current_liabilities
-
-        if analysis["total_equity"] > 0:
-            analysis["debt_to_equity"] = analysis["total_liabilities"] / analysis["total_equity"]
-
-        # Identify major assets and liabilities
-        if "assets" in balance_data:
-            sorted_assets = sorted(balance_data["assets"].items(), key=lambda x: x[1], reverse=True)
-            analysis["major_assets"] = [{"name": name, "value": value} for name, value in sorted_assets[:3]]
-
-        if "liabilities" in balance_data:
-            sorted_liabilities = sorted(balance_data["liabilities"].items(), key=lambda x: x[1], reverse=True)
-            analysis["major_liabilities"] = [{"name": name, "value": value} for name, value in sorted_liabilities[:3]]
-
-        return analysis
-
-    def _analyze_income_statement(self, income_data: Dict[str, Any]) -> Dict[str, Any]:
-        """Analyze income statement."""
-        analysis = {
-            "total_revenue": 0,
-            "total_expenses": 0,
-            "net_profit": 0,
-            "gross_profit": None,
-            "operating_profit": None,
-            "profit_margin": None,
-            "major_revenue_sources": [],
-            "major_expenses": []
-        }
-
-        # Summaries
-        if "summary" in income_data:
-            analysis["total_revenue"] = income_data["summary"].get("total_revenue", 0)
-            analysis["total_expenses"] = income_data["summary"].get("total_expenses", 0)
-            analysis["net_profit"] = income_data["summary"].get("net_profit", 0)
-        else:
-            analysis["total_revenue"] = sum(income_data.get("revenues", {}).values())
-            analysis["total_expenses"] = sum(income_data.get("expenses", {}).values())
-            analysis["net_profit"] = analysis["total_revenue"] - analysis["total_expenses"]
-
-        # Calculate ratios
-        if analysis["total_revenue"] > 0:
-            analysis["profit_margin"] = (analysis["net_profit"] / analysis["total_revenue"]) * 100
-
-            # Look for gross profit
-            gross_profit = None
-            for name, value in income_data.get("profits", {}).items():
-                name_lower = str(name).lower()
-                if any(keyword in name_lower for keyword in ["gross", "גולמי"]):
-                    gross_profit = value
-                    break
-
-            if gross_profit is not None:
-                analysis["gross_profit"] = gross_profit
-                analysis["gross_margin"] = (gross_profit / analysis["total_revenue"]) * 100
-
-            # Look for operating profit
-            operating_profit = None
-            for name, value in income_data.get("profits", {}).items():
-                name_lower = str(name).lower()
-                if any(keyword in name_lower for keyword in ["operating", "תפעולי"]):
-                    operating_profit = value
-                    break
-
-            if operating_profit is not None:
-                analysis["operating_profit"] = operating_profit
-                analysis["operating_margin"] = (operating_profit / analysis["total_revenue"]) * 100
-
-        # Identify major revenue sources and expenses
-        if "revenues" in income_data:
-            sorted_revenues = sorted(income_data["revenues"].items(), key=lambda x: x[1], reverse=True)
-            analysis["major_revenue_sources"] = [{"name": name, "value": value} for name, value in sorted_revenues[:3]]
-
-        if "expenses" in income_data:
-            sorted_expenses = sorted(income_data["expenses"].items(), key=lambda x: x[1], reverse=True)
-            analysis["major_expenses"] = [{"name": name, "value": value} for name, value in sorted_expenses[:3]]
-
-        return analysis
-
-    def _analyze_financial_ratios(self, balance_data: Dict[str, Any], income_data: Dict[str, Any]) -> Dict[str, Any]:
-        """Analyze financial ratios."""
-        ratios = {
-            "liquidity_ratios": {},
-            "profitability_ratios": {},
-            "efficiency_ratios": {},
-            "solvency_ratios": {}
-        }
-
-        # Balance sheet summaries
-        total_assets = balance_data.get("summary", {}).get("total_assets", 0)
-        total_liabilities = balance_data.get("summary", {}).get("total_liabilities", 0)
-        total_equity = balance_data.get("summary", {}).get("total_equity", 0)
-
-        # Income statement summaries
-        total_revenue = income_data.get("summary", {}).get("total_revenue", 0)
-        net_profit = income_data.get("summary", {}).get("net_profit", 0)
-
-        # Liquidity ratios
-        current_assets = 0
-        current_liabilities = 0
-
-        for name, value in balance_data.get("assets", {}).items():
-            name_lower = str(name).lower()
-            if any(keyword in name_lower for keyword in ["current", "שוטף", "מזומנים", "cash"]):
-                current_assets += value
-
-        for name, value in balance_data.get("liabilities", {}).items():
-            name_lower = str(name).lower()
-            if any(keyword in name_lower for keyword in ["current", "שוטף", "זכאים", "payable"]):
-                current_liabilities += value
-
-        if current_liabilities > 0:
-            ratios["liquidity_ratios"]["current_ratio"] = current_assets / current_liabilities
-
-        # Profitability ratios
-        if total_revenue > 0:
-            ratios["profitability_ratios"]["net_profit_margin"] = (net_profit / total_revenue) * 100
-
-        if total_assets > 0:
-            ratios["profitability_ratios"]["return_on_assets"] = (net_profit / total_assets) * 100
-
-        if total_equity > 0:
-            ratios["profitability_ratios"]["return_on_equity"] = (net_profit / total_equity) * 100
-
-        # Solvency ratios
-        if total_assets > 0:
-            ratios["solvency_ratios"]["debt_to_assets"] = (total_liabilities / total_assets) * 100
-
-        if total_equity > 0:
-            ratios["solvency_ratios"]["debt_to_equity"] = (total_liabilities / total_equity) * 100
-
-        return ratios
-
-    def analyze_salary(self, document_data: Dict[str, Any]) -> Dict[str, Any]:
-        """
-        Analyze salary data.
-
-        Args:
-            document_data: Processed document data
-
-        Returns:
-            Dictionary with salary analysis
-        """
-        # Extract salary data
-        salary_data = self._extract_salary_data(document_data)
-        if not salary_data:
-            return {
-                "status": "error",
-                "message": "No salary data found in the document"
-            }
-
-        # Basic salary analysis
-        basic_analysis = self._analyze_basic_salary(salary_data)
-
-        # Pension contributions analysis
-        pension_analysis = self._analyze_pension_contributions(salary_data)
-
-        # Tax analysis
-        tax_analysis = self._analyze_tax(salary_data)
-
-        # Generate recommendations
-        recommendations = self._generate_salary_recommendations(basic_analysis, pension_analysis, tax_analysis)
-
-        return {
-            "status": "success",
-            "analysis_date": datetime.now().isoformat(),
-            "basic_analysis": basic_analysis,
-            "pension_analysis": pension_analysis,
-            "tax_analysis": tax_analysis,
-            "recommendations": recommendations
-        }
-
-    def _extract_salary_data(self, document_data: Dict[str, Any]) -> Dict[str, Any]:
-        """Extract salary data from a document."""
-        salary_data = {
-            "gross_salary": 0,
-            "net_salary": 0,
-            "deductions": {},
-            "additions": {},
-            "details": {}
-        }
-
-        # Look in tables
-        if "tables" in document_data:
-            for table in document_data["tables"]:
-                # Check if it's a salary table
-                if "data" in table:
-                    # Look for keywords in columns
-                    is_salary_table = False
-
-                    if "columns" in table:
-                        columns = table["columns"]
-                        salary_keywords = ["שכר", "ברוטו", "נטו", "מס הכנסה", "ביטוח לאומי", "פנסיה", "salary", "gross", "net", "tax", "pension"]
-
-                        if any(any(keyword in str(col).lower() for keyword in salary_keywords) for col in columns):
-                            is_salary_table = True
-
-                    if is_salary_table:
-                        salary_data = self._convert_table_to_salary_data(table["data"])
-                        break
-
-        # Look in text
-        if not salary_data["gross_salary"] and "metadata" in document_data and "text" in document_data["metadata"]:
-            salary_data = self._extract_salary_from_text(document_data["metadata"]["text"])
-
-        return salary_data
-
-    def _convert_table_to_salary_data(self, table_data: List[Dict[str, Any]]) -> Dict[str, Any]:
-        """Convert table to salary data."""
-        salary_data = {
-            "gross_salary": 0,
-            "net_salary": 0,
-            "deductions": {},
-            "additions": {},
-            "details": {}
-        }
-
-        # Map relevant fields
-        salary_field_mapping = {
-            "gross": ["שכר ברוטו", "ברוטו", "gross salary", "gross"],
-            "net": ["שכר נטו", "נטו", "net salary", "net"],
-            "income_tax": ["מס הכנסה", "מס", "income tax", "tax"],
-            "social_security": ["ביטוח לאומי", "national insurance", "social security"],
-            "health_insurance": ["ביטוח בריאות", "health insurance", "health"],
-            "pension": ["פנסיה", "קרן פנסיה", "pension", "pension fund"],
-            "further_education": ["קרן השתלמות", "השתלמות", "education fund"],
-            "overtime": ["שעות נוספות", "overtime", "extra hours"],
-            "vacation": ["דמי חופשה", "חופשה", "vacation", "vacation pay"],
-            "sickness": ["דמי מחלה", "מחלה", "sickness", "sick pay"]
-        }
-
-        # Process the table
-        for row in table_data:
-            found_match = False
-
-            for key, value in row.items():
-                key_lower = str(key).lower()
-
-                # Check for field matches
-                for field_name, keywords in salary_field_mapping.items():
-                    if any(kw in key_lower for kw in keywords):
-                        salary_data["details"][field_name] = self._parse_numeric(value) or value
-                        found_match = True
-
-                        # Add to appropriate summaries
-                        if field_name == "gross":
-                            salary_data["gross_salary"] = self._parse_numeric(value) or 0
-                        elif field_name == "net":
-                            salary_data["net_salary"] = self._parse_numeric(value) or 0
-                        elif field_name in ["income_tax", "social_security", "health_insurance", "pension", "further_education"]:
-                            num_value = self._parse_numeric(value) or 0
-                            if num_value > 0:
-                                salary_data["deductions"][field_name] = num_value
-                        elif field_name in ["overtime", "vacation", "sickness"]:
-                            num_value = self._parse_numeric(value) or 0
-                            if num_value > 0:
-                                salary_data["additions"][field_name] = num_value
-
-                        break
-
-                if not found_match and isinstance(value, (int, float)):
-                    # Try to identify by field name
-                    for field_name, keywords in salary_field_mapping.items():
-                        if any(kw in str(key).lower() for kw in keywords):
-                            salary_data["details"][field_name] = value
-
-                            # Add to appropriate summaries
-                            if field_name == "gross":
-                                salary_data["gross_salary"] = value
-                            elif field_name == "net":
-                                salary_data["net_salary"] = value
-                            elif field_name in ["income_tax", "social_security", "health_insurance", "pension", "further_education"]:
-                                if value > 0:
-                                    salary_data["deductions"][field_name] = value
-                            elif field_name in ["overtime", "vacation", "sickness"]:
-                                if value > 0:
-                                    salary_data["additions"][field_name] = value
-
-                            break
-
-        # Calculate summaries
-        if salary_data["gross_salary"] > 0 and not salary_data["net_salary"]:
-            # Calculate net salary if not present
-            total_deductions = sum(salary_data["deductions"].values())
-            salary_data["net_salary"] = salary_data["gross_salary"] - total_deductions
-
-        return salary_data
-
-    def _extract_salary_from_text(self, text: str) -> Dict[str, Any]:
-        """Extract salary data from text."""
-        salary_data = {
-            "gross_salary": 0,
-            "net_salary": 0,
-            "deductions": {},
-            "additions": {},
-            "details": {}
-        }
-
-        # Look for salary data
-        patterns = {
-            "gross_salary": [
-                r'שכר ברוטו:?\s*([\d,]+(?:\.\d+)?)',
-                r'ברוטו:?\s*([\d,]+(?:\.\d+)?)',
-                r'gross salary:?\s*([\d,]+(?:\.\d+)?)'
-            ],
-            "net_salary": [
-                r'שכר נטו:?\s*([\d,]+(?:\.\d+)?)',
-                r'נטו:?\s*([\d,]+(?:\.\d+)?)',
-                r'net salary:?\s*([\d,]+(?:\.\d+)?)'
-            ],
-            "income_tax": [
-                r'מס הכנסה:?\s*([\d,]+(?:\.\d+)?)',
-                r'income tax:?\s*([\d,]+(?:\.\d+)?)'
-            ],
-            "social_security": [
-                r'ביטוח לאומי:?\s*([\d,]+(?:\.\d+)?)',
-                r'social security:?\s*([\d,]+(?:\.\d+)?)'
-            ],
-            "pension": [
-                r'פנסיה:?\s*([\d,]+(?:\.\d+)?)',
-                r'pension:?\s*([\d,]+(?:\.\d+)?)'
-            ]
-        }
-
-        for field, pattern_list in patterns.items():
-            for pattern in pattern_list:
-                match = re.search(pattern, text)
-                if match:
-                    value = self._parse_numeric(match.group(1))
-                    if value is not None:
-                        salary_data["details"][field] = value
-
-                        # Add to appropriate summaries
-                        if field == "gross_salary":
-                            salary_data["gross_salary"] = value
-                        elif field == "net_salary":
-                            salary_data["net_salary"] = value
-                        elif field in ["income_tax", "social_security", "pension"]:
-                            salary_data["deductions"][field] = value
-
-                    break
-
-        return salary_data
-
-    def _analyze_basic_salary(self, salary_data: Dict[str, Any]) -> Dict[str, Any]:
-        """Basic salary analysis."""
-        analysis = {
-            "gross_salary": salary_data.get("gross_salary", 0),
-            "net_salary": salary_data.get("net_salary", 0),
-            "deduction_total": sum(salary_data.get("deductions", {}).values()),
-            "addition_total": sum(salary_data.get("additions", {}).values()),
-            "deduction_percentage": 0,
-            "effective_tax_rate": 0
-        }
-
-        # Calculate percentages
-        if analysis["gross_salary"] > 0:
-            analysis["deduction_percentage"] = (analysis["deduction_total"] / analysis["gross_salary"]) * 100
-
-            # Calculate effective tax rate
-            income_tax = salary_data.get("deductions", {}).get("income_tax", 0)
-            if income_tax > 0:
-                analysis["effective_tax_rate"] = (income_tax / analysis["gross_salary"]) * 100
-
-        return analysis
-
-    def _analyze_pension_contributions(self, salary_data: Dict[str, Any]) -> Dict[str, Any]:
-        """Analyze pension contributions."""
-        analysis = {
-            "pension_contribution": salary_data.get("deductions", {}).get("pension", 0),
-            "further_education_contribution": salary_data.get("deductions", {}).get("further_education", 0),
-            "total_saving": 0,
-            "contribution_percentage": 0,
-            "recommended_contribution": 0
-        }
-
-        # Calculate total savings
-        analysis["total_saving"] = analysis["pension_contribution"] + analysis["further_education_contribution"]
-
-        # Calculate contribution percentage
-        gross_salary = salary_data.get("gross_salary", 0)
-        if gross_salary > 0:
-            analysis["contribution_percentage"] = (analysis["total_saving"] / gross_salary) * 100
-
-            # Recommended contribution
-            recommended_percentage = 20  # Recommended contribution percentage
-            analysis["recommended_contribution"] = (gross_salary * recommended_percentage) / 100
-
-        return analysis
-
-    def _analyze_tax(self, salary_data: Dict[str, Any]) -> Dict[str, Any]:
-        """Analyze tax."""
-        analysis = {
-            "income_tax": salary_data.get("deductions", {}).get("income_tax", 0),
-            "social_security": salary_data.get("deductions", {}).get("social_security", 0),
-            "health_insurance": salary_data.get("deductions", {}).get("health_insurance", 0),
-            "total_tax": 0,
-            "tax_percentage": 0,
-            "tax_bracket": None
-        }
-
-        # Calculate total tax
-        analysis["total_tax"] = analysis["income_tax"] + analysis["social_security"] + analysis["health_insurance"]
-
-        # Calculate tax percentage
-        gross_salary = salary_data.get("gross_salary", 0)
-        if gross_salary > 0:
-            analysis["tax_percentage"] = (analysis["total_tax"] / gross_salary) * 100
-
-            # Determine tax bracket
-            if analysis["tax_percentage"] < 15:
-                analysis["tax_bracket"] = "low"
-            elif analysis["tax_percentage"] < 30:
-                analysis["tax_bracket"] = "medium"
+        # Extract securities data
+        securities = portfolio_data.get('securities', [])
+        
+        if not securities:
+            raise ValueError("Portfolio contains no securities data")
+        
+        # Calculate asset allocation
+        asset_allocation = {}
+        total_value = sum(security.get('value', 0) for security in securities)
+        
+        if total_value == 0:
+            raise ValueError("Portfolio total value is zero")
+        
+        # Group securities by asset class
+        for security in securities:
+            asset_class = security.get('asset_class', 'unknown')
+            value = security.get('value', 0)
+            
+            if asset_class in asset_allocation:
+                asset_allocation[asset_class] += value
             else:
-                analysis["tax_bracket"] = "high"
-
-        return analysis
-
-    def _generate_salary_recommendations(self, basic_analysis, pension_analysis, tax_analysis) -> List[Dict[str, Any]]:
-        """Generate salary recommendations."""
-        recommendations = []
-
-        # Pension contribution recommendations
-        if pension_analysis["contribution_percentage"] < 15:
-            recommendations.append({
-                "type": "pension",
-                "priority": "high",
-                "title": "Increase pension contribution",
-                "description": f"Current contribution ({pension_analysis['contribution_percentage']:.2f}%) is below the recommended level (20%).",
-                "action": f"Consider increasing your pension contribution."
-            })
-
-        # Tax recommendations
-        if tax_analysis["tax_bracket"] == "high" and tax_analysis["tax_percentage"] > 35:
-            recommendations.append({
-                "type": "tax",
-                "priority": "medium",
-                "title": "Tax consultation",
-                "description": f"Effective tax rate ({tax_analysis['tax_percentage']:.2f}%) is high.",
-                "action": "Consider meeting with a tax advisor to explore tax reduction options."
-            })
-
-        # Further education fund recommendations
-        if pension_analysis["further_education_contribution"] == 0:
-            recommendations.append({
-                "type": "further_education",
-                "priority": "medium",
-                "title": "Further education fund contribution",
-                "description": "No contribution to further education fund detected.",
-                "action": "Consider contributing to a further education fund to maximize tax benefits."
-            })
-
-        return recommendations
-
-    def generate_investment_suggestion(self, document_data: Dict[str, Any], investment_amount: float = 0, risk_profile: str = "medium") -> Dict[str, Any]:
-        """
-        Generate investment suggestions based on document data and risk profile.
-
-        Args:
-            document_data: Processed document data
-            investment_amount: Amount to invest
-            risk_profile: Risk profile (low, medium, high)
-
-        Returns:
-            Dictionary with investment suggestions
-        """
-        # Validate risk profile
-        if risk_profile not in self.risk_thresholds:
-            risk_profile = "medium"
-
-        # Analyze current portfolio if available
-        portfolio_data = self._extract_portfolio_data(document_data)
-        current_allocation = {}
-
-        if portfolio_data and "securities" in portfolio_data:
-            # Get current asset allocation
-            allocation_analysis = self._analyze_asset_allocation(portfolio_data)
-            current_allocation = allocation_analysis.get("current_allocation", {})
-
-        # Generate target allocation based on risk profile
-        target_allocation = self._get_target_allocation(risk_profile)
-
-        # Generate investment suggestions
-        suggestions = self._generate_investment_suggestions(current_allocation, target_allocation, investment_amount, risk_profile)
-
+                asset_allocation[asset_class] = value
+        
+        # Convert to percentages
+        for asset_class in asset_allocation:
+            asset_allocation[asset_class] = (asset_allocation[asset_class] / total_value) * 100
+        
+        # Calculate average expense ratio if available
+        total_weight = 0
+        weighted_expense = 0
+        
+        for security in securities:
+            expense_ratio = security.get('expense_ratio')
+            value = security.get('value', 0)
+            
+            if expense_ratio is not None and value > 0:
+                weight = value / total_value
+                weighted_expense += expense_ratio * weight
+                total_weight += weight
+        
+        avg_expense_ratio = weighted_expense / total_weight if total_weight > 0 else None
+        
+        # Calculate diversification metrics
+        num_securities = len(securities)
+        asset_classes = set(security.get('asset_class', 'unknown') for security in securities)
+        num_asset_classes = len(asset_classes)
+        
+        # Prepare the result
         return {
-            "status": "success",
-            "analysis_date": datetime.now().isoformat(),
-            "investment_amount": investment_amount,
-            "risk_profile": risk_profile,
-            "current_allocation": current_allocation,
-            "target_allocation": target_allocation,
-            "suggestions": suggestions
+            'asset_allocation': asset_allocation,
+            'total_value': total_value,
+            'num_securities': num_securities,
+            'num_asset_classes': num_asset_classes,
+            'avg_expense_ratio': avg_expense_ratio,
+            'estimated_volatility': self._estimate_portfolio_volatility(securities, asset_allocation),
+            'estimated_return': self._estimate_portfolio_return(securities, asset_allocation)
+        }
+    
+    def _estimate_portfolio_volatility(self, securities: List[Dict[str, Any]], 
+                                      asset_allocation: Dict[str, float]) -> float:
+        """
+        Estimate portfolio volatility based on asset allocation.
+        
+        Args:
+            securities: List of securities
+            asset_allocation: Asset allocation dictionary
+        
+        Returns:
+            Estimated volatility as a percentage
+        """
+        # Simplified volatility estimation based on asset class weights
+        volatility_by_class = {
+            'equity': 15.0,
+            'fixed_income': 5.0,
+            'alternatives': 12.0,
+            'cash': 0.5,
+            'unknown': 10.0
+        }
+        
+        estimated_volatility = 0
+        for asset_class, percentage in asset_allocation.items():
+            class_volatility = volatility_by_class.get(asset_class.lower(), volatility_by_class['unknown'])
+            estimated_volatility += (percentage / 100) * class_volatility
+        
+        return round(estimated_volatility, 2)
+    
+    def _estimate_portfolio_return(self, securities: List[Dict[str, Any]], 
+                                  asset_allocation: Dict[str, float]) -> float:
+        """
+        Estimate portfolio return based on asset allocation.
+        
+        Args:
+            securities: List of securities
+            asset_allocation: Asset allocation dictionary
+        
+        Returns:
+            Estimated annual return as a percentage
+        """
+        # Simplified return estimation based on asset class weights
+        return_by_class = {
+            'equity': 9.0,
+            'fixed_income': 4.0,
+            'alternatives': 7.0,
+            'cash': 1.0,
+            'unknown': 6.0
+        }
+        
+        estimated_return = 0
+        for asset_class, percentage in asset_allocation.items():
+            class_return = return_by_class.get(asset_class.lower(), return_by_class['unknown'])
+            estimated_return += (percentage / 100) * class_return
+        
+        return round(estimated_return, 2)
+    
+    def _recommend_allocation(self, portfolio_metrics: Dict[str, Any], 
+                             risk_profile: str) -> Dict[str, Any]:
+        """
+        Generate asset allocation recommendations based on risk profile.
+        
+        Args:
+            portfolio_metrics: Portfolio metrics
+            risk_profile: Client risk profile
+        
+        Returns:
+            Dictionary with allocation recommendations
+        """
+        current_allocation = portfolio_metrics.get('asset_allocation', {})
+        target_allocation = self.risk_profiles.get(risk_profile, {}).get('target_allocation', {})
+        
+        if not target_allocation:
+            return {
+                'status': 'error',
+                'message': f"Invalid risk profile: {risk_profile}"
+            }
+        
+        # Find allocation differences
+        differences = {}
+        for asset_class, target_pct in target_allocation.items():
+            current_pct = current_allocation.get(asset_class, 0)
+            diff = target_pct - current_pct
+            differences[asset_class] = round(diff, 1)
+        
+        # Find asset classes to increase and decrease
+        increases = {k: v for k, v in differences.items() if v > 0}
+        decreases = {k: v for k, v in differences.items() if v < 0}
+        
+        # Format recommendations
+        recommendations = []
+        
+        if increases:
+            for asset_class, value in sorted(increases.items(), key=lambda x: abs(x[1]), reverse=True):
+                recommendations.append(f"Increase {asset_class} allocation by approximately {abs(value)}%")
+        
+        if decreases:
+            for asset_class, value in sorted(decreases.items(), key=lambda x: abs(x[1]), reverse=True):
+                recommendations.append(f"Decrease {asset_class} allocation by approximately {abs(value)}%")
+        
+        # Calculate alignment score (0-100%)
+        alignment_score = self._calculate_allocation_alignment(current_allocation, target_allocation)
+        
+        return {
+            'status': 'success',
+            'current_allocation': current_allocation,
+            'target_allocation': target_allocation,
+            'recommendations': recommendations,
+            'alignment_score': alignment_score
+        }
+    
+    def _calculate_allocation_alignment(self, current: Dict[str, float], 
+                                       target: Dict[str, float]) -> float:
+        """
+        Calculate how well current allocation aligns with target.
+        
+        Args:
+            current: Current allocation
+            target: Target allocation
+        
+        Returns:
+            Alignment score (0-100%)
+        """
+        # Combine all asset classes
+        all_classes = set(list(current.keys()) + list(target.keys()))
+        
+        # Calculate sum of absolute differences
+        total_diff = 0
+        for asset_class in all_classes:
+            current_val = current.get(asset_class, 0)
+            target_val = target.get(asset_class, 0)
+            total_diff += abs(current_val - target_val)
+        
+        # Convert to alignment score (100% - total difference percentage)
+        # Cap at 0% floor
+        alignment = max(0, 100 - total_diff)
+        
+        return round(alignment, 1)
+    
+    def _recommend_diversification(self, portfolio_metrics: Dict[str, Any], 
+                                  risk_profile: str) -> Dict[str, Any]:
+        """
+        Generate diversification recommendations.
+        
+        Args:
+            portfolio_metrics: Portfolio metrics
+            risk_profile: Client risk profile
+        
+        Returns:
+            Dictionary with diversification recommendations
+        """
+        num_securities = portfolio_metrics.get('num_securities', 0)
+        num_asset_classes = portfolio_metrics.get('num_asset_classes', 0)
+        
+        # Determine diversification level
+        if num_securities >= 15 and num_asset_classes >= 4:
+            diversification_level = "high"
+            score = 80
+        elif num_securities >= 8 and num_asset_classes >= 3:
+            diversification_level = "moderate"
+            score = 60
+        else:
+            diversification_level = "low"
+            score = 30
+        
+        # Generate recommendations based on diversification level
+        recommendations = []
+        
+        if diversification_level == "low":
+            recommendations.append("Increase the number of securities to at least 10-15 for better diversification")
+            recommendations.append("Add exposure to more asset classes (aim for at least 4 different classes)")
+        elif diversification_level == "moderate":
+            recommendations.append("Consider adding international exposure if not already present")
+            recommendations.append("Ensure sector diversification within equity holdings")
+        else:
+            recommendations.append("Review for potential overlap between funds to avoid over-diversification")
+            recommendations.append("Consider simplifying portfolio if managing costs is a priority")
+        
+        return {
+            'status': 'success',
+            'diversification_level': diversification_level,
+            'diversification_score': score,
+            'recommendations': recommendations
+        }
+    
+    def _recommend_expense_optimization(self, portfolio_metrics: Dict[str, Any]) -> Dict[str, Any]:
+        """
+        Generate expense optimization recommendations.
+        
+        Args:
+            portfolio_metrics: Portfolio metrics
+        
+        Returns:
+            Dictionary with expense optimization recommendations
+        """
+        avg_expense_ratio = portfolio_metrics.get('avg_expense_ratio')
+        
+        if avg_expense_ratio is None:
+            return {
+                'status': 'warning',
+                'message': "Expense ratio data not available for analysis"
+            }
+        
+        # Compare to industry benchmarks
+        equity_avg = self.benchmarks['expense_ratios']['equity_funds']['average']
+        bond_avg = self.benchmarks['expense_ratios']['bond_funds']['average']
+        overall_avg = (equity_avg + bond_avg) / 2
+        
+        if avg_expense_ratio > overall_avg:
+            expense_status = "high"
+            potential_savings = round((avg_expense_ratio - overall_avg), 2)
+            recommendations = [
+                f"Reduce average expense ratio from {avg_expense_ratio}% to near {overall_avg}%",
+                f"Consider lower-cost index funds or ETFs for core positions",
+                f"Review high-expense funds for viable alternatives"
+            ]
+        elif avg_expense_ratio > overall_avg * 0.7:
+            expense_status = "moderate"
+            potential_savings = round((avg_expense_ratio - overall_avg * 0.7), 2)
+            recommendations = [
+                f"Current expense ratio is reasonable but could be optimized further",
+                f"Consider replacing highest expense funds with lower-cost alternatives"
+            ]
+        else:
+            expense_status = "low"
+            potential_savings = 0
+            recommendations = [
+                "Expense ratio is already well-optimized",
+                "Continue monitoring for any increases in fund expenses"
+            ]
+        
+        return {
+            'status': 'success',
+            'expense_status': expense_status,
+            'current_ratio': avg_expense_ratio,
+            'industry_average': overall_avg,
+            'potential_savings': potential_savings,
+            'recommendations': recommendations
+        }
+    
+    def _assess_risk_alignment(self, portfolio_metrics: Dict[str, Any], 
+                              risk_profile: str) -> Dict[str, Any]:
+        """
+        Assess how well portfolio risk aligns with risk profile.
+        
+        Args:
+            portfolio_metrics: Portfolio metrics
+            risk_profile: Client risk profile
+        
+        Returns:
+            Dictionary with risk alignment assessment
+        """
+        estimated_volatility = portfolio_metrics.get('estimated_volatility')
+        estimated_return = portfolio_metrics.get('estimated_return')
+        
+        if estimated_volatility is None or estimated_return is None:
+            return {
+                'status': 'warning',
+                'message': "Volatility or return data not available for analysis"
+            }
+        
+        # Get target risk metrics from profile
+        profile_data = self.risk_profiles.get(risk_profile, {})
+        target_volatility = profile_data.get('max_volatility')
+        target_return = profile_data.get('return_expectation')
+        
+        if not target_volatility or not target_return:
+            return {
+                'status': 'error',
+                'message': f"Invalid risk profile: {risk_profile}"
+            }
+        
+        # Assess volatility alignment
+        volatility_diff = estimated_volatility - target_volatility
+        if volatility_diff > 2:
+            risk_status = "too high"
+            vol_recommendations = ["Consider reducing portfolio risk by increasing allocation to fixed income and cash"]
+        elif volatility_diff < -2:
+            risk_status = "too low"
+            vol_recommendations = ["Consider increasing growth potential by adding more equity exposure"]
+        else:
+            risk_status = "well aligned"
+            vol_recommendations = ["Current risk level is well aligned with your risk tolerance"]
+        
+        # Assess return alignment
+        return_diff = estimated_return - target_return
+        if return_diff < -1:
+            return_status = "below target"
+            ret_recommendations = ["Consider strategies to enhance portfolio yield and growth potential"]
+        elif return_diff > 1:
+            return_status = "above target"
+            ret_recommendations = ["Current return potential exceeds target, suggesting higher risk than necessary"]
+        else:
+            return_status = "on target"
+            ret_recommendations = ["Expected return is well aligned with your financial goals"]
+        
+        # Calculate risk efficiency (return per unit of risk)
+        risk_efficiency = round(estimated_return / estimated_volatility, 2) if estimated_volatility > 0 else 0
+        
+        # Combine recommendations
+        recommendations = vol_recommendations + ret_recommendations
+        
+        return {
+            'status': 'success',
+            'risk_status': risk_status,
+            'return_status': return_status,
+            'current_volatility': estimated_volatility,
+            'target_volatility': target_volatility,
+            'current_return': estimated_return,
+            'target_return': target_return,
+            'risk_efficiency': risk_efficiency,
+            'recommendations': recommendations
+        }
+    
+    def _generate_recommendation_summary(self, portfolio_metrics: Dict[str, Any], 
+                                        risk_profile: str) -> str:
+        """
+        Generate an executive summary of recommendations.
+        
+        Args:
+            portfolio_metrics: Portfolio metrics
+            risk_profile: Client risk profile
+        
+        Returns:
+            Summary string
+        """
+        # Get key metrics
+        allocation = portfolio_metrics.get('asset_allocation', {})
+        volatility = portfolio_metrics.get('estimated_volatility')
+        expected_return = portfolio_metrics.get('estimated_return')
+        
+        # Get profile targets
+        profile_data = self.risk_profiles.get(risk_profile, {})
+        target_allocation = profile_data.get('target_allocation', {})
+        target_volatility = profile_data.get('max_volatility')
+        target_return = profile_data.get('return_expectation')
+        
+        # Create summary
+        summary = f"Based on your {risk_profile} risk profile, our analysis shows that your portfolio "
+        
+        # Assess allocation alignment
+        alignment_score = self._calculate_allocation_alignment(allocation, target_allocation)
+        if alignment_score > 80:
+            summary += "has a well-aligned asset allocation structure. "
+        elif alignment_score > 60:
+            summary += "has a moderately aligned asset allocation that could benefit from some adjustments. "
+        else:
+            summary += "has significant asset allocation misalignments that should be addressed. "
+        
+        # Assess risk alignment
+        if volatility and target_volatility:
+            vol_diff = volatility - target_volatility
+            if abs(vol_diff) < 2:
+                summary += f"The portfolio's estimated risk level ({volatility}%) is well-aligned with your risk tolerance. "
+            elif vol_diff > 0:
+                summary += f"The portfolio's estimated risk level ({volatility}%) is higher than your risk tolerance. "
+            else:
+                summary += f"The portfolio's estimated risk level ({volatility}%) is lower than needed for your goals. "
+        
+        # Assess return potential
+        if expected_return and target_return:
+            ret_diff = expected_return - target_return
+            if abs(ret_diff) < 1:
+                summary += f"The expected return ({expected_return}%) is appropriate for your financial goals."
+            elif ret_diff > 0:
+                summary += f"The expected return ({expected_return}%) exceeds your target, possibly indicating excessive risk."
+            else:
+                summary += f"The expected return ({expected_return}%) is below your target, which may impact your financial goals."
+        
+        return summary
+    
+    def _generate_implementation_steps(self, allocation_rec: Dict[str, Any],
+                                      diversification_rec: Dict[str, Any],
+                                      expense_rec: Dict[str, Any],
+                                      risk_rec: Dict[str, Any]) -> List[str]:
+        """
+        Generate concrete implementation steps based on recommendations.
+        
+        Args:
+            allocation_rec: Allocation recommendations
+            diversification_rec: Diversification recommendations
+            expense_rec: Expense recommendations
+            risk_rec: Risk recommendations
+        
+        Returns:
+            List of implementation steps
+        """
+        implementation_steps = []
+        
+        # Get main recommendations
+        allocation_changes = allocation_rec.get('recommendations', [])
+        diversification_changes = diversification_rec.get('recommendations', [])
+        expense_changes = expense_rec.get('recommendations', [])
+        risk_changes = risk_rec.get('recommendations', [])
+        
+        # Add step numbers and organize by priority
+        priority = 1
+        
+        # Add risk alignment steps first
+        if risk_rec.get('risk_status') != 'well aligned':
+            for rec in risk_changes:
+                if 'Current risk level is well aligned' not in rec:
+                    implementation_steps.append(f"{priority}. {rec}")
+                    priority += 1
+        
+        # Add allocation changes
+        for rec in allocation_changes:
+            implementation_steps.append(f"{priority}. {rec}")
+            priority += 1
+        
+        # Add diversification steps
+        for rec in diversification_changes:
+            if rec not in [s.replace(f"{i}. ", "") for i, s in enumerate(implementation_steps, 1)]:
+                implementation_steps.append(f"{priority}. {rec}")
+                priority += 1
+        
+        # Add expense optimization steps
+        for rec in expense_changes:
+            if 'already well-optimized' not in rec and rec not in [s.replace(f"{i}. ", "") for i, s in enumerate(implementation_steps, 1)]:
+                implementation_steps.append(f"{priority}. {rec}")
+                priority += 1
+        
+        # Add implementation timing
+        implementation_steps.append(f"{priority}. Implement changes gradually to minimize market timing risks")
+        
+        # Add review recommendation
+        implementation_steps.append(f"{priority + 1}. Schedule a portfolio review in 6 months to assess progress")
+        
+        return implementation_steps
+    
+    def _generate_portfolio_summary(self, portfolio_metrics: Dict[str, Any]) -> Dict[str, Any]:
+        """
+        Generate a concise portfolio summary.
+        
+        Args:
+            portfolio_metrics: Portfolio metrics
+        
+        Returns:
+            Dictionary with portfolio summary
+        """
+        return {
+            'total_value': portfolio_metrics.get('total_value', 0),
+            'num_securities': portfolio_metrics.get('num_securities', 0),
+            'asset_allocation': portfolio_metrics.get('asset_allocation', {}),
+            'estimated_return': portfolio_metrics.get('estimated_return'),
+            'estimated_volatility': portfolio_metrics.get('estimated_volatility'),
+            'expense_ratio': portfolio_metrics.get('avg_expense_ratio')
+        }
+    
+    def generate_report(self, portfolio_data: Dict[str, Any], 
+                       client_profile: Dict[str, Any], 
+                       analysis_result: Dict[str, Any]) -> Dict[str, Any]:
+        """
+        Generate a comprehensive financial advice report.
+        
+        Args:
+            portfolio_data: Portfolio data
+            client_profile: Client profile
+            analysis_result: Analysis result from analyze_portfolio method
+        
+        Returns:
+            Dictionary with formatted report
+        """
+        if analysis_result.get('status') != 'success':
+            return {
+                'status': 'error',
+                'message': "Cannot generate report from unsuccessful analysis",
+                'original_error': analysis_result.get('message', 'Unknown error')
+            }
+        
+        recommendations = analysis_result.get('recommendations', {})
+        
+        # Extract client information
+        client_name = client_profile.get('name', 'Client')
+        risk_profile = client_profile.get('risk_profile', 'moderate')
+        time_horizon = self.risk_profiles.get(risk_profile, {}).get('time_horizon', '5-10 years')
+        
+        # Format the report
+        report = {
+            'title': f"Investment Recommendations for {client_name}",
+            'date': datetime.now().strftime('%Y-%m-%d'),
+            'client_profile': {
+                'name': client_name,
+                'risk_profile': risk_profile,
+                'time_horizon': time_horizon
+            },
+            'executive_summary': recommendations.get('summary', ''),
+            'portfolio_analysis': analysis_result.get('portfolio_summary', {}),
+            'key_recommendations': {
+                'asset_allocation': recommendations.get('allocation', {}).get('recommendations', []),
+                'diversification': recommendations.get('diversification', {}).get('recommendations', []),
+                'expense_optimization': recommendations.get('expenses', {}).get('recommendations', []),
+                'risk_management': recommendations.get('risk', {}).get('recommendations', [])
+            },
+            'implementation_plan': {
+                'steps': recommendations.get('implementation_steps', []),
+                'timeline': f"Recommended implementation over the next 1-3 months",
+                'priority_actions': recommendations.get('implementation_steps', [])[:3] if len(recommendations.get('implementation_steps', [])) > 3 else recommendations.get('implementation_steps', [])
+            },
+            'disclaimer': (
+                "This report is for informational purposes only and does not constitute financial advice. "
+                "Please consult with a qualified financial advisor before making investment decisions."
+            )
+        }
+        
+        return {
+            'status': 'success',
+            'report': report
+        }
+    
+    def print_info(self) -> Dict[str, Any]:
+        """
+        Print information about the FinancialAdvisorAgent.
+        
+        Returns:
+            Dictionary with agent information
+        """
+        return {
+            'name': self.name,
+            'version': self.version,
+            'description': 'Agent that provides financial advice based on portfolio analysis',
+            'capabilities': [
+                'Portfolio analysis',
+                'Asset allocation recommendations',
+                'Diversification assessment',
+                'Expense optimization recommendations',
+                'Risk alignment analysis',
+                'Implementation planning',
+                'Report generation'
+            ]
         }
 
-    def _generate_investment_suggestions(self, current_allocation: Dict[str, float], target_allocation: Dict[str, float], investment_amount: float, risk_profile: str) -> List[Dict[str, Any]]:
-        """
-        Generate specific investment suggestions.
-
-        Args:
-            current_allocation: Current asset allocation
-            target_allocation: Target asset allocation
-            investment_amount: Amount to invest
-            risk_profile: Risk profile
-
-        Returns:
-            List of investment suggestions
-        """
-        suggestions = []
-
-        # Calculate allocation amounts
-        allocation_amounts = {}
-        for asset_type, percentage in target_allocation.items():
-            allocation_amounts[asset_type] = (percentage / 100) * investment_amount
-
-        # Generate suggestions for each asset type
-        for asset_type, amount in allocation_amounts.items():
-            if amount > 0:
-                suggestion = self._generate_asset_type_suggestion(asset_type, amount, risk_profile)
-                suggestions.append(suggestion)
-
-        # Add general advice
-        suggestions.append({
-            "type": "general",
-            "asset_type": "general",
-            "title": "Diversification Strategy",
-            "description": f"For a {risk_profile} risk profile, maintain a diversified portfolio across different asset classes.",
-            "allocation_percentage": 100,
-            "allocation_amount": investment_amount,
-            "specific_suggestions": [
-                "Consider dollar-cost averaging by investing gradually over time rather than all at once.",
-                "Rebalance your portfolio periodically to maintain your target asset allocation.",
-                "Review your investment strategy annually or when your financial situation changes."
-            ]
-        })
-
-        return suggestions
-
-    def _generate_asset_type_suggestion(self, asset_type: str, amount: float, risk_profile: str) -> Dict[str, Any]:
-        """
-        Generate suggestion for a specific asset type.
-
-        Args:
-            asset_type: Asset type
-            amount: Amount to invest
-            risk_profile: Risk profile
-
-        Returns:
-            Suggestion dictionary
-        """
-        suggestion = {
-            "type": "asset_type",
-            "asset_type": asset_type,
-            "title": f"{asset_type.capitalize()} Investment",
-            "description": "",
-            "allocation_percentage": 0,
-            "allocation_amount": amount,
-            "specific_suggestions": []
-        }
-
-        # Calculate percentage
-        target_allocation = self._get_target_allocation(risk_profile)
-        suggestion["allocation_percentage"] = target_allocation.get(asset_type, 0)
-
-        # Generate specific suggestions based on asset type
-        if asset_type == "stocks":
-            suggestion["description"] = "Equity investments for long-term growth."
-
-            if risk_profile == "low":
-                suggestion["specific_suggestions"] = [
-                    "Consider large-cap, dividend-paying stocks with stable earnings.",
-                    "Look for low-volatility ETFs that track major indices.",
-                    "Focus on defensive sectors like utilities, consumer staples, and healthcare."
-                ]
-            elif risk_profile == "medium":
-                suggestion["specific_suggestions"] = [
-                    "Balance between growth and value stocks across various sectors.",
-                    "Consider a mix of domestic and international equity ETFs.",
-                    "Include mid-cap stocks for growth potential with moderate risk."
-                ]
-            else:  # high
-                suggestion["specific_suggestions"] = [
-                    "Consider growth-oriented stocks and emerging markets for higher return potential.",
-                    "Explore small-cap stocks with strong growth prospects.",
-                    "Consider sector-specific ETFs in technology, healthcare, or other high-growth areas."
-                ]
-
-        elif asset_type == "bonds":
-            suggestion["description"] = "Fixed income investments for stability and income."
-
-            if risk_profile == "low":
-                suggestion["specific_suggestions"] = [
-                    "Focus on high-quality government and investment-grade corporate bonds.",
-                    "Consider short to intermediate-term bonds to minimize interest rate risk.",
-                    "Look for bond ETFs with low expense ratios for broad exposure."
-                ]
-            elif risk_profile == "medium":
-                suggestion["specific_suggestions"] = [
-                    "Mix of government, corporate, and municipal bonds.",
-                    "Consider adding some high-yield bonds for increased income.",
-                    "Explore international bonds for diversification."
-                ]
-            else:  # high
-                suggestion["specific_suggestions"] = [
-                    "Higher allocation to corporate and high-yield bonds for increased returns.",
-                    "Consider emerging market bonds for growth potential.",
-                    "Look for convertible bonds that offer equity upside potential."
-                ]
-
-        elif asset_type == "cash":
-            suggestion["description"] = "Cash and cash equivalents for liquidity and safety."
-
-            suggestion["specific_suggestions"] = [
-                "Keep emergency funds in high-yield savings accounts.",
-                "Consider money market funds for slightly higher yields with minimal risk.",
-                "Use certificates of deposit (CDs) for funds not needed immediately."
-            ]
-
-        elif asset_type == "alternatives":
-            suggestion["description"] = "Alternative investments for diversification and potential higher returns."
-
-            if risk_profile == "low":
-                suggestion["specific_suggestions"] = [
-                    "Consider REITs for real estate exposure with regular income.",
-                    "Look for low-volatility alternative ETFs.",
-                    "Explore inflation-protected securities for wealth preservation."
-                ]
-            elif risk_profile == "medium":
-                suggestion["specific_suggestions"] = [
-                    "Consider a mix of REITs, commodities, and infrastructure investments.",
-                    "Explore market-neutral or long-short funds for reduced correlation with traditional markets.",
-                    "Look into precious metals as a hedge against inflation and market volatility."
-                ]
-            else:  # high
-                suggestion["specific_suggestions"] = [
-                    "Consider private equity or venture capital funds for high growth potential.",
-                    "Explore hedge funds with various strategies for diversification.",
-                    "Look into specialized REITs or real estate crowdfunding platforms."
-                ]
-
-        return suggestion
-
-    def _parse_numeric(self, value) -> Optional[float]:
-        """Parse a value to a number."""
-        if isinstance(value, (int, float)):
-            return float(value)
-
-        if isinstance(value, str):
-            # Remove non-numeric characters
-            clean_val = re.sub(r'[^\d.-]', '', value.replace(',', ''))
-
-            try:
-                return float(clean_val)
-            except (ValueError, TypeError):
-                pass
-
-        return None
+# Demo code
+if __name__ == "__main__":
+    # Create an instance of the agent
+    advisor_agent = FinancialAdvisorAgent()
+    
+    # Print agent information
+    print(json.dumps(advisor_agent.print_info(), indent=2))
+    
+    # Sample portfolio data
+    sample_portfolio = {
+        'securities': [
+            {'name': 'US Large Cap Fund', 'asset_class': 'equity', 'value': 50000, 'expense_ratio': 0.8},
+            {'name': 'US Bond Fund', 'asset_class': 'fixed_income', 'value': 25000, 'expense_ratio': 0.6},
+            {'name': 'International Equity Fund', 'asset_class': 'equity', 'value': 15000, 'expense_ratio': 1.2},
+            {'name': 'Cash', 'asset_class': 'cash', 'value': 10000, 'expense_ratio': 0.0}
+        ]
+    }
+    
+    # Sample client profile
+    sample_profile = {
+        'name': 'John Doe',
+        'risk_profile': 'moderate',
+        'age': 45,
+        'financial_goals': ['retirement', 'college_funding']
+    }
+    
+    # Analyze portfolio
+    analysis_result = advisor_agent.analyze_portfolio(sample_portfolio, sample_profile)
+    
+    # Generate report
+    report_result = advisor_agent.generate_report(sample_portfolio, sample_profile, analysis_result)
+    
+    # Print report
+    if report_result['status'] == 'success':
+        print(json.dumps(report_result['report'], indent=2))
+    else:
+        print(f"Error: {report_result['message']}")

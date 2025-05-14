@@ -1,0 +1,7 @@
+{
+  "port": 8084,
+  "bufferSize": 20000,
+  "maxThinkingSteps": 50,
+  "timeout": 60000,
+  "debug": true
+}

@@ -1,0 +1,24 @@
+{
+  "feature": "Frontend-Backend Integration",
+  "url": "http://localhost:8081",
+  "apiTests": {
+    "Health Check": {
+      "success": true,
+      "status": 200,
+      "hasData": true
+    },
+    "Get Documents": {
+      "success": true,
+      "status": 200,
+      "hasData": true
+    },
+    "Get Agents": {
+      "success": true,
+      "status": 200,
+      "hasData": true
+    }
+  },
+  "uiTests": {},
+  "success": false,
+  "error": "Navigation timeout of 30000 ms exceeded"
+}

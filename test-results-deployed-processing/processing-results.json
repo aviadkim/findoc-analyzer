@@ -1,0 +1,10 @@
+{
+  "testName": "document-processing",
+  "passed": true,
+  "uploadSuccessful": true,
+  "processingStarted": true,
+  "processingCompleted": true,
+  "hasSuccessMessage": true,
+  "hasErrorMessage": true,
+  "finalUrl": "https://backv2-app-326324779592.me-west1.run.app/upload"
+}

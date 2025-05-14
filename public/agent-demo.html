@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FinDoc Analyzer - Agent System Demo</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      margin: 0;
+      padding: 20px;
+      background-color: #f5f5f5;
+      color: #333;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      background-color: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    
+    h1, h2, h3 {
+      color: #8A2BE2;
+    }
+    
+    .agent-card {
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      margin-bottom: 20px;
+      overflow: hidden;
+    }
+    
+    .agent-card-header {
+      padding: 15px;
+      background-color: #8A2BE2;
+      color: white;
+      font-weight: bold;
+    }
+    
+    .agent-card-body {
+      padding: 20px;
+    }
+    
+    .agent-example {
+      background-color: #f9f9f9;
+      padding: 15px;
+      border-radius: 8px;
+      margin-top: 15px;
+    }
+    
+    .agent-example h4 {
+      margin-top: 0;
+      color: #333;
+    }
+    
+    .question {
+      font-weight: bold;
+      color: #8A2BE2;
+    }
+    
+    .answer {
+      margin-top: 10px;
+      padding: 10px;
+      background-color: #f0f0f0;
+      border-radius: 4px;
+    }
+    
+    .agent-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
+      gap: 20px;
+      margin-top: 20px;
+    }
+    
+    .messos-info {
+      background-color: #e9ecef;
+      padding: 20px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+    }
+    
+    .messos-info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
+      margin-top: 20px;
+    }
+    
+    .messos-info-card {
+      background-color: white;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+    
+    .messos-info-card h3 {
+      margin-top: 0;
+      color: #8A2BE2;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 10px;
+      margin-bottom: 10px;
+    }
+    
+    .messos-info-card ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    
+    .messos-info-card li {
+      padding: 5px 0;
+      border-bottom: 1px solid #f5f5f5;
+    }
+    
+    .messos-info-card li:last-child {
+      border-bottom: none;
+    }
+    
+    .messos-value {
+      font-weight: bold;
+      color: #333;
+    }
+    
+    .messos-label {
+      color: #666;
+    }
+    
+    .collaboration-diagram {
+      margin-top: 30px;
+      padding: 20px;
+      background-color: #f9f9f9;
+      border-radius: 8px;
+    }
+    
+    .collaboration-diagram h3 {
+      margin-top: 0;
+    }
+    
+    .collaboration-diagram img {
+      max-width: 100%;
+      height: auto;
+      margin-top: 15px;
+    }
+    
+    .collaboration-steps {
+      margin-top: 15px;
+    }
+    
+    .collaboration-step {
+      margin-bottom: 10px;
+      padding-left: 20px;
+      position: relative;
+    }
+    
+    .collaboration-step:before {
+      content: "→";
+      position: absolute;
+      left: 0;
+      color: #8A2BE2;
+    }
+  </style>
+  <script src="/js/ui-chat-component.js"></script>
+</head>
+<body>
+  <div class="container">
+    <h1>FinDoc Analyzer - Agent System Demo</h1>
+    <p>This page demonstrates how the multi-agent system in FinDoc Analyzer works together to analyze financial documents like the Messos portfolio.</p>
+    
+    <!-- Messos Info -->
+    <div class="messos-info">
+      <h2>Messos Enterprises Ltd. Portfolio</h2>
+      <p>This is the sample portfolio we'll use to demonstrate the agent system.</p>
+      
+      <div class="messos-info-grid">
+        <div class="messos-info-card">
+          <h3>Portfolio Overview</h3>
+          <ul>
+            <li><span class="messos-label">Total Value:</span> <span class="messos-value">$19,510,599</span></li>
+            <li><span class="messos-label">Valuation Date:</span> <span class="messos-value">28.02.2025</span></li>
+            <li><span class="messos-label">YTD Performance:</span> <span class="messos-value">1.76%</span></li>
+            <li><span class="messos-label">1-Year Performance:</span> <span class="messos-value">4.32%</span></li>
+            <li><span class="messos-label">3-Year Performance:</span> <span class="messos-value">12.87%</span></li>
+            <li><span class="messos-label">5-Year Performance:</span> <span class="messos-value">21.45%</span></li>
+          </ul>
+        </div>
+        
+        <div class="messos-info-card">
+          <h3>Asset Allocation</h3>
+          <ul>
+            <li><span class="messos-label">Bonds:</span> <span class="messos-value">$11,558,957 (59.24%)</span></li>
+            <li><span class="messos-label">Structured Products:</span> <span class="messos-value">$7,851,642 (40.24%)</span></li>
+            <li><span class="messos-label">Cash:</span> <span class="messos-value">$100,000 (0.52%)</span></li>
+          </ul>
+        </div>
+        
+        <div class="messos-info-card">
+          <h3>Top Holdings</h3>
+          <ul>
+            <li><span class="messos-label">US Treasury Bond 2.5% 2030:</span> <span class="messos-value">$2,500,000 (12.81%)</span></li>
+            <li><span class="messos-label">German Bund 1.75% 2032:</span> <span class="messos-value">$2,000,000 (10.25%)</span></li>
+            <li><span class="messos-label">Credit Suisse Structured Note:</span> <span class="messos-value">$1,500,000 (7.69%)</span></li>
+            <li><span class="messos-label">UBS Autocallable on EURO STOXX 50:</span> <span class="messos-value">$1,350,000 (6.92%)</span></li>
+            <li><span class="messos-label">JP Morgan Corporate Bond 3.25% 2028:</span> <span class="messos-value">$1,200,000 (6.15%)</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    
+    <h2>The Multi-Agent System</h2>
+    <p>FinDoc Analyzer uses a multi-agent system to provide comprehensive analysis of financial documents. Each agent specializes in a specific aspect of financial document analysis.</p>
+    
+    <div class="agent-grid">
+      <div class="agent-card">
+        <div class="agent-card-header">Document Analyzer Agent</div>
+        <div class="agent-card-body">
+          <p>The Document Analyzer agent is responsible for understanding the general content of the document.</p>
+          <p><strong>Model:</strong> Claude 3 Sonnet (via OpenRouter)</p>
+          <p><strong>Specialization:</strong> General document understanding and basic information extraction</p>
+          
+          <div class="agent-example">
+            <h4>Example Interaction</h4>
+            <p class="question">Q: What is the total value of the Messos portfolio?</p>
+            <p class="answer">A: Based on the document data, the total value of the Messos portfolio is $19,510,599 as of February 28, 2025.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="agent-card">
+        <div class="agent-card-header">Table Understanding Agent</div>
+        <div class="agent-card-body">
+          <p>The Table Understanding agent specializes in extracting and analyzing tabular data from documents.</p>
+          <p><strong>Model:</strong> Claude 3 Sonnet (via OpenRouter)</p>
+          <p><strong>Specialization:</strong> Parsing and analyzing tables, extracting structured data</p>
+          
+          <div class="agent-example">
+            <h4>Example Interaction</h4>
+            <p class="question">Q: What is the asset allocation of the Messos portfolio?</p>
+            <p class="answer">A: The asset allocation of the Messos portfolio is:
+            <br>- Bonds: $11,558,957 (59.24%)
+            <br>- Structured Products: $7,851,642 (40.24%)
+            <br>- Cash: $100,000 (0.52%)</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="agent-card">
+        <div class="agent-card-header">Securities Extractor Agent</div>
+        <div class="agent-card-body">
+          <p>The Securities Extractor agent focuses on identifying and extracting information about financial securities.</p>
+          <p><strong>Model:</strong> DeepSeek Coder (via OpenRouter)</p>
+          <p><strong>Specialization:</strong> Identifying securities, extracting details, categorizing instruments</p>
+          
+          <div class="agent-example">
+            <h4>Example Interaction</h4>
+            <p class="question">Q: List all the bond holdings in the Messos portfolio.</p>
+            <p class="answer">A: The bond holdings in the Messos portfolio are:
+            <br>1. US Treasury Bond 2.5% 2030: $2,500,000 (12.81%)
+            <br>2. German Bund 1.75% 2032: $2,000,000 (10.25%)
+            <br>3. JP Morgan Corporate Bond 3.25% 2028: $1,200,000 (6.15%)</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="agent-card">
+        <div class="agent-card-header">Financial Reasoner Agent</div>
+        <div class="agent-card-body">
+          <p>The Financial Reasoner agent performs financial analysis and calculations based on the document data.</p>
+          <p><strong>Model:</strong> Claude 3 Sonnet (via OpenRouter)</p>
+          <p><strong>Specialization:</strong> Financial analysis, calculations, ratios, performance metrics</p>
+          
+          <div class="agent-example">
+            <h4>Example Interaction</h4>
+            <p class="question">Q: What is the risk profile of the Messos portfolio?</p>
+            <p class="answer">A: Based on the asset allocation, the Messos portfolio has a moderate risk profile. With 59.24% in bonds, 40.24% in structured products, and 0.52% in cash, it balances stability (bonds and cash) with potential higher returns (structured products). The significant allocation to structured products (40.24%) introduces some complexity and potentially higher risk compared to a traditional bond-heavy portfolio.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="agent-card">
+        <div class="agent-card-header">Bloomberg Agent</div>
+        <div class="agent-card-body">
+          <p>The Bloomberg Agent fetches real-time financial data from external sources to provide context and current information.</p>
+          <p><strong>Model:</strong> Gemini Pro (via OpenRouter)</p>
+          <p><strong>Specialization:</strong> Real-time market data, current prices, market trends</p>
+          
+          <div class="agent-example">
+            <h4>Example Interaction</h4>
+            <p class="question">Q: What is the current price of the US Treasury Bond 2.5% 2030?</p>
+            <p class="answer">A: As the Bloomberg Agent, I would normally fetch the current price of the US Treasury Bond 2.5% 2030 from financial data providers. Based on recent market data, this bond is trading at approximately 98.75, yielding about 2.65%. Please note that this is an estimate and the actual current price may vary based on market conditions.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="collaboration-diagram">
+      <h3>How the Agents Work Together</h3>
+      <p>The power of this multi-agent system comes from how they collaborate to provide comprehensive analysis:</p>
+      
+      <div class="collaboration-steps">
+        <div class="collaboration-step">The Document Analyzer first understands the document structure and extracts basic information</div>
+        <div class="collaboration-step">The Table Understanding agent extracts detailed tabular data</div>
+        <div class="collaboration-step">The Securities Extractor identifies specific securities and their details</div>
+        <div class="collaboration-step">The Financial Reasoner performs calculations and analysis</div>
+        <div class="collaboration-step">The Bloomberg Agent adds real-time market context</div>
+      </div>
+      
+      <h4>Example of Collaborative Analysis</h4>
+      <p>When a user asks "What is the current value of my US Treasury Bond compared to its valuation in the document?", the system:</p>
+      
+      <div class="collaboration-steps">
+        <div class="collaboration-step">Routes the question to the Bloomberg Agent (due to "current value")</div>
+        <div class="collaboration-step">Accesses the document data (from Document Analyzer)</div>
+        <div class="collaboration-step">Identifies the US Treasury Bond (using Securities Extractor's categorization)</div>
+        <div class="collaboration-step">Retrieves the valuation from the document ($2,500,000)</div>
+        <div class="collaboration-step">Fetches the current market price from external sources</div>
+        <div class="collaboration-step">Calculates the difference and provides a comprehensive answer</div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,65 @@
+{
+  "status": "success",
+  "comparison_type": "comprehensive",
+  "document_count": 2,
+  "document_types": [
+    "portfolio_statement",
+    "portfolio_statement"
+  ],
+  "timestamp": "2025-05-08 21:22:18",
+  "summary_comparison": {
+    "status": "success",
+    "summary_changes": [
+      {
+        "old_document_index": 0,
+        "new_document_index": 1,
+        "changes": [
+          {
+            "field": "total_securities",
+            "change_type": "changed",
+            "old_value": 2,
+            "new_value": 3
+          },
+          {
+            "field": "total_value",
+            "change_type": "changed",
+            "old_value": 80000,
+            "new_value": 101000
+          }
+        ]
+      }
+    ],
+    "key_metrics_changes": {
+      "total_value": [
+        {
+          "old_document_index": 0,
+          "new_document_index": 1,
+          "old_value": 80000,
+          "new_value": 101000,
+          "absolute_change": 21000,
+          "percent_change": 26.25,
+          "is_significant": true
+        }
+      ],
+      "total_securities": [
+        {
+          "old_document_index": 0,
+          "new_document_index": 1,
+          "old_value": 2,
+          "new_value": 3,
+          "absolute_change": 1,
+          "percent_change": 50.0,
+          "is_significant": true
+        }
+      ]
+    }
+  },
+  "overall_changes": {
+    "total_changes": 0,
+    "significant_changes": 2,
+    "added_items": 0,
+    "removed_items": 0,
+    "changed_items": 0,
+    "change_types": {}
+  }
+}

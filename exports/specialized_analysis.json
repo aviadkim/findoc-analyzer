@@ -1,0 +1,26 @@
+{
+  "document_type": "portfolio_analysis",
+  "portfolio_summary": {
+    "total_value": 100000,
+    "total_securities": 3,
+    "asset_allocation": {
+      "equity": 70,
+      "fixed_income": 30
+    }
+  },
+  "risk_metrics": {
+    "volatility": 12.5,
+    "sharpe_ratio": 0.8,
+    "max_drawdown": 15.2
+  },
+  "performance_metrics": {
+    "ytd_return": 8.2,
+    "1y_return": 12.5,
+    "3y_return": 9.8
+  },
+  "recommendations": [
+    "Consider increasing international exposure",
+    "Review high expense ratio funds",
+    "Add more diversification to fixed income"
+  ]
+}

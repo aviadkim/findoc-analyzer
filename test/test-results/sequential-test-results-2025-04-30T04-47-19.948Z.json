@@ -1,0 +1,141 @@
+{
+  "startTime": "2025-04-30T04:46:46.289Z",
+  "endTime": "2025-04-30T04:47:19.948Z",
+  "totalTests": 3,
+  "passedTests": 1,
+  "failedTests": 2,
+  "skippedTests": 0,
+  "tests": [
+    {
+      "id": "PDF-01",
+      "name": "Create Test PDF",
+      "status": "passed",
+      "startTime": "2025-04-30T04:46:46.543Z",
+      "endTime": "2025-04-30T04:46:46.545Z",
+      "duration": 2,
+      "steps": [
+        {
+          "number": 1,
+          "name": "Step 1",
+          "status": "passed",
+          "startTime": "2025-04-30T04:46:46.543Z",
+          "endTime": "2025-04-30T04:46:46.545Z",
+          "duration": 2,
+          "error": null,
+          "screenshots": [],
+          "filePath": "C:\\Users\\aviad\\OneDrive\\Desktop\\backv2-main\\test\\test-files\\test-portfolio.pdf"
+        }
+      ],
+      "error": null,
+      "screenshots": []
+    },
+    {
+      "id": "PDF-02",
+      "name": "Upload PDF",
+      "status": "failed",
+      "startTime": "2025-04-30T04:46:46.545Z",
+      "endTime": "2025-04-30T04:46:49.080Z",
+      "duration": 2535,
+      "steps": [
+        {
+          "number": 1,
+          "name": "Step 1",
+          "status": "passed",
+          "startTime": "2025-04-30T04:46:46.546Z",
+          "endTime": "2025-04-30T04:46:49.020Z",
+          "duration": 2474,
+          "error": null,
+          "screenshots": [],
+          "results": {
+            "fileName": "1745988406609-141676291-test-portfolio.pdf",
+            "fileSize": 659,
+            "processingOptions": {
+              "extractText": true,
+              "extractTables": true,
+              "extractMetadata": true,
+              "extractSecurities": true,
+              "useOcr": false
+            },
+            "text": "",
+            "pages": [],
+            "pageCount": 0,
+            "error": "Failed to open file 'C:\\\\Users\\\\aviad\\\\OneDrive\\\\Desktop\\\\backv2-main\\\\uploads\\\\1745988406609-141676291-test-portfolio.pdf'.",
+            "tables": [],
+            "tableCount": 0,
+            "extractionMethod": "deepseek",
+            "metadata": {},
+            "info": {},
+            "formFields": [],
+            "links": [],
+            "securities": [],
+            "securitiesCount": 0
+          }
+        },
+        {
+          "number": 2,
+          "name": "Step 2",
+          "status": "failed",
+          "startTime": "2025-04-30T04:46:49.020Z",
+          "endTime": null,
+          "duration": 0,
+          "error": "No results returned",
+          "screenshots": [
+            "PDF-02-step-2-failure.png"
+          ]
+        }
+      ],
+      "error": "No results returned",
+      "screenshots": []
+    },
+    {
+      "id": "PDF-03",
+      "name": "Batch Processing",
+      "status": "failed",
+      "startTime": "2025-04-30T04:46:49.080Z",
+      "endTime": "2025-04-30T04:47:19.948Z",
+      "duration": 30868,
+      "steps": [
+        {
+          "number": 1,
+          "name": "Step 1",
+          "status": "passed",
+          "startTime": "2025-04-30T04:46:49.080Z",
+          "endTime": "2025-04-30T04:46:49.084Z",
+          "duration": 4,
+          "error": null,
+          "screenshots": [],
+          "filePaths": [
+            "C:\\Users\\aviad\\OneDrive\\Desktop\\backv2-main\\test\\test-files\\test-batch-1.pdf",
+            "C:\\Users\\aviad\\OneDrive\\Desktop\\backv2-main\\test\\test-files\\test-batch-2.pdf",
+            "C:\\Users\\aviad\\OneDrive\\Desktop\\backv2-main\\test\\test-files\\test-batch-3.pdf"
+          ]
+        },
+        {
+          "number": 2,
+          "name": "Step 2",
+          "status": "passed",
+          "startTime": "2025-04-30T04:46:49.084Z",
+          "endTime": "2025-04-30T04:46:49.123Z",
+          "duration": 39,
+          "error": null,
+          "screenshots": [],
+          "batchId": "d6d318b5-3f94-4bd8-a0d0-90dc48203d70"
+        },
+        {
+          "number": 3,
+          "name": "Step 3",
+          "status": "failed",
+          "startTime": "2025-04-30T04:46:49.124Z",
+          "endTime": null,
+          "duration": 0,
+          "error": "Failed to get batch job status",
+          "screenshots": [
+            "PDF-03-step-3-failure.png"
+          ]
+        }
+      ],
+      "error": "Failed to get batch job status",
+      "screenshots": []
+    }
+  ]
+}

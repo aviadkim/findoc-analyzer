@@ -1,0 +1,35 @@
+runtime: nodejs18
+env: standard
+instance_class: F2
+
+handlers:
+  # Serve static files from /static
+  - url: /static
+    static_dir: public
+    secure: always
+
+  # Serve static files from /public
+  - url: /public
+    static_dir: public
+    secure: always
+
+  # Serve static files from root
+  - url: /(.*\.(js|css|png|jpg|jpeg|gif|ico|json))$
+    static_files: public/\1
+    upload: public/.*\.(js|css|png|jpg|jpeg|gif|ico|json)$
+    secure: always
+
+  # Serve all other requests with the app
+  - url: /.*
+    secure: always
+    script: minimal-server.js
+
+env_variables:
+  NODE_ENV: "production"
+  PORT: "8080"
+
+automatic_scaling:
+  min_instances: 1
+  max_instances: 5
+  min_idle_instances: 1
+  max_concurrent_requests: 50

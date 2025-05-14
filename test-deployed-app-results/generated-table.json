@@ -1,0 +1,46 @@
+{
+  "title": "Generated Table",
+  "description": "Table generated from prompt: \"Create a table of all securities with their values and weights\"",
+  "headers": [
+    "Security",
+    "ISIN",
+    "Quantity",
+    "Price",
+    "Value",
+    "Weight"
+  ],
+  "rows": [
+    [
+      "Apple Inc.",
+      "US0378331005",
+      "100",
+      "$180.00",
+      "$18,000.00",
+      "25.7%"
+    ],
+    [
+      "Microsoft Corp.",
+      "US5949181045",
+      "150",
+      "$340.00",
+      "$51,000.00",
+      "72.9%"
+    ],
+    [
+      "Cash",
+      "",
+      "",
+      "",
+      "$1,000.00",
+      "1.4%"
+    ],
+    [
+      "Total",
+      "",
+      "",
+      "",
+      "$70,000.00",
+      "100.0%"
+    ]
+  ]
+}

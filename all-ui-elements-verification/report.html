@@ -1,0 +1,1498 @@
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>All UI Elements Verification Report</title>
+      <style>
+        body {
+          font-family: Arial, sans-serif;
+          line-height: 1.6;
+          margin: 0;
+          padding: 20px;
+          color: #333;
+        }
+        
+        h1, h2, h3 {
+          color: #444;
+        }
+        
+        .summary {
+          background-color: #f5f5f5;
+          padding: 20px;
+          border-radius: 5px;
+          margin-bottom: 20px;
+        }
+        
+        .summary-item {
+          margin-bottom: 10px;
+        }
+        
+        .pass {
+          color: #28a745;
+        }
+        
+        .warning {
+          color: #ffc107;
+        }
+        
+        .fail {
+          color: #dc3545;
+        }
+        
+        table {
+          width: 100%;
+          border-collapse: collapse;
+          margin-bottom: 20px;
+        }
+        
+        th, td {
+          padding: 12px 15px;
+          text-align: left;
+          border-bottom: 1px solid #ddd;
+        }
+        
+        th {
+          background-color: #f8f9fa;
+          font-weight: bold;
+        }
+        
+        tr:hover {
+          background-color: #f5f5f5;
+        }
+        
+        .details-table {
+          margin-top: 10px;
+          margin-bottom: 10px;
+        }
+        
+        .details-table th, .details-table td {
+          padding: 8px 10px;
+          font-size: 14px;
+        }
+        
+        button {
+          padding: 5px 10px;
+          background-color: #007bff;
+          color: white;
+          border: none;
+          border-radius: 3px;
+          cursor: pointer;
+        }
+        
+        button:hover {
+          background-color: #0069d9;
+        }
+        
+        code {
+          background-color: #f8f9fa;
+          padding: 2px 4px;
+          border-radius: 3px;
+          font-family: monospace;
+        }
+        
+        .timestamp {
+          color: #6c757d;
+          font-size: 14px;
+          margin-bottom: 20px;
+        }
+      </style>
+    </head>
+    <body>
+      <h1>All UI Elements Verification Report</h1>
+      
+      <div class="timestamp">
+        Generated on: 5/4/2025, 8:51:31 AM
+      </div>
+      
+      <div class="summary">
+        <h2>Summary</h2>
+        <div class="summary-item">Total elements: <strong>150</strong></div>
+        <div class="summary-item">Found elements: <strong class="pass">27</strong></div>
+        <div class="summary-item">Missing elements: <strong class="fail">123</strong></div>
+        <div class="summary-item">Pass rate: <strong class="fail">18.00%</strong></div>
+      </div>
+      
+      <h2>Results by Page</h2>
+      
+      <table>
+        <thead>
+          <tr>
+            <th>Page</th>
+            <th>Path</th>
+            <th>Total Elements</th>
+            <th>Found Elements</th>
+            <th>Missing Elements</th>
+            <th>Pass Rate</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          
+      <tr>
+        <td>Home</td>
+        <td>/</td>
+        <td>20</td>
+        <td>4</td>
+        <td>16</td>
+        <td class="fail">20.00%</td>
+        <td><button onclick="toggleDetails('Home')">Details</button></td>
+      </tr>
+      <tr id="Home-details" class="details-row" style="display: none;">
+        <td colspan="7">
+          <table class="details-table">
+            <thead>
+              <tr>
+                <th>Element</th>
+                <th>Selector</th>
+                <th>Status</th>
+                <th>Required</th>
+              </tr>
+            </thead>
+            <tbody>
+              
+                  <tr>
+                    <td>Navigation Bar</td>
+                    <td><code>.navbar</code></td>
+                    <td class="fail">Missing</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Sidebar</td>
+                    <td><code>.sidebar</code></td>
+                    <td class="pass">Found</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Main Content</td>
+                    <td><code>.main-content</code></td>
+                    <td class="pass">Found</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Quick Upload Section</td>
+                    <td><code>.quick-upload</code></td>
+                    <td class="fail">Missing</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Recent Documents Section</td>
+                    <td><code>.recent-documents</code></td>
+                    <td class="fail">Missing</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Analytics Section</td>
+                    <td><code>.analytics-section</code></td>
+                    <td class="fail">Missing</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Document Chat Section</td>
+                    <td><code>.document-chat-section</code></td>
+                    <td class="fail">Missing</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Features Section</td>
+                    <td><code>.features-section</code></td>
+                    <td class="fail">Missing</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Agents Section</td>
+                    <td><code>.agents-section</code></td>
+                    <td class="fail">Missing</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Show Chat Button</td>
+                    <td><code>#show-chat-btn</code></td>
+                    <td class="fail">Missing</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Document Chat Container</td>
+                    <td><code>#document-chat-container</code></td>
+                    <td class="warning">Missing</td>
+                    <td>No</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Navigation Bar</td>
+                    <td><code>.navbar</code></td>
+                    <td class="fail">Missing</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Sidebar</td>
+                    <td><code>.sidebar</code></td>
+                    <td class="pass">Found</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Main Content</td>
+                    <td><code>.main-content</code></td>
+                    <td class="pass">Found</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Footer</td>
+                    <td><code>.footer</code></td>
+                    <td class="fail">Missing</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Logo</td>
+                    <td><code>.logo</code></td>
+                    <td class="fail">Missing</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>User Menu</td>
+                    <td><code>.user-menu</code></td>
+                    <td class="fail">Missing</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Notifications</td>
+                    <td><code>.notifications</code></td>
+                    <td class="fail">Missing</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Search</td>
+                    <td><code>.search</code></td>
+                    <td class="fail">Missing</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Settings</td>
+                    <td><code>.settings</code></td>
+                    <td class="fail">Missing</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Show Chat Button</td>
+                    <td><code>#show-chat-btn</code></td>
+                    <td class="fail">Missing</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Document Chat Container</td>
+                    <td><code>#document-chat-container</code></td>
+                    <td class="warning">Missing</td>
+                    <td>No</td>
+                  </tr>
+                
+            </tbody>
+          </table>
+        </td>
+      </tr>
+    
+      <tr>
+        <td>Upload</td>
+        <td>/upload</td>
+        <td>16</td>
+        <td>6</td>
+        <td>10</td>
+        <td class="fail">37.50%</td>
+        <td><button onclick="toggleDetails('Upload')">Details</button></td>
+      </tr>
+      <tr id="Upload-details" class="details-row" style="display: none;">
+        <td colspan="7">
+          <table class="details-table">
+            <thead>
+              <tr>
+                <th>Element</th>
+                <th>Selector</th>
+                <th>Status</th>
+                <th>Required</th>
+              </tr>
+            </thead>
+            <tbody>
+              
+                  <tr>
+                    <td>Upload Form</td>
+                    <td><code>.upload-form</code></td>
+                    <td class="pass">Found</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Form Group</td>
+                    <td><code>.form-group</code></td>
+                    <td class="pass">Found</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Form Control</td>
+                    <td><code>.form-control</code></td>
+                    <td class="pass">Found</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Form Actions</td>
+                    <td><code>.form-actions</code></td>
+                    <td class="pass">Found</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Process Document Button</td>
+                    <td><code>#process-document-btn</code></td>
+                    <td class="fail">Missing</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Progress Container</td>
+                    <td><code>#progress-container</code></td>
+                    <td class="pass">Found</td>
+                    <td>No</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Progress Bar</td>
+                    <td><code>#progress-bar</code></td>
+                    <td class="pass">Found</td>
+                    <td>No</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Upload Status</td>
+                    <td><code>#upload-status</code></td>
+                    <td class="warning">Missing</td>
+                    <td>No</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Show Chat Button</td>
+                    <td><code>#show-chat-btn</code></td>
+                    <td class="fail">Missing</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Navigation Bar</td>
+                    <td><code>.navbar</code></td>
+                    <td class="fail">Missing</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Sidebar</td>
+                    <td><code>.sidebar</code></td>
+                    <td class="pass">Found</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Main Content</td>
+                    <td><code>.main-content</code></td>
+                    <td class="pass">Found</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Footer</td>
+                    <td><code>.footer</code></td>
+                    <td class="fail">Missing</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Logo</td>
+                    <td><code>.logo</code></td>
+                    <td class="fail">Missing</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>User Menu</td>
+                    <td><code>.user-menu</code></td>
+                    <td class="fail">Missing</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Notifications</td>
+                    <td><code>.notifications</code></td>
+                    <td class="fail">Missing</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Search</td>
+                    <td><code>.search</code></td>
+                    <td class="fail">Missing</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Settings</td>
+                    <td><code>.settings</code></td>
+                    <td class="fail">Missing</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Show Chat Button</td>
+                    <td><code>#show-chat-btn</code></td>
+                    <td class="fail">Missing</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Document Chat Container</td>
+                    <td><code>#document-chat-container</code></td>
+                    <td class="warning">Missing</td>
+                    <td>No</td>
+                  </tr>
+                
+            </tbody>
+          </table>
+        </td>
+      </tr>
+    
+      <tr>
+        <td>Documents</td>
+        <td>/documents-new</td>
+        <td>19</td>
+        <td>3</td>
+        <td>16</td>
+        <td class="fail">15.79%</td>
+        <td><button onclick="toggleDetails('Documents')">Details</button></td>
+      </tr>
+      <tr id="Documents-details" class="details-row" style="display: none;">
+        <td colspan="7">
+          <table class="details-table">
+            <thead>
+              <tr>
+                <th>Element</th>
+                <th>Selector</th>
+                <th>Status</th>
+                <th>Required</th>
+              </tr>
+            </thead>
+            <tbody>
+              
+                  <tr>
+                    <td>Document List</td>
+                    <td><code>.document-list</code></td>
+                    <td class="fail">Missing</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Document Item</td>
+                    <td><code>.document-item</code></td>
+                    <td class="fail">Missing</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Document Actions</td>
+                    <td><code>.document-actions</code></td>
+                    <td class="pass">Found</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Document Filter</td>
+                    <td><code>.document-filter</code></td>
+                    <td class="fail">Missing</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Document Search</td>
+                    <td><code>.document-search</code></td>
+                    <td class="fail">Missing</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Document Sort</td>
+                    <td><code>.document-sort</code></td>
+                    <td class="fail">Missing</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Document Pagination</td>
+                    <td><code>.document-pagination</code></td>
+                    <td class="fail">Missing</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Document Upload Button</td>
+                    <td><code>.document-upload-btn</code></td>
+                    <td class="fail">Missing</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Show Chat Button</td>
+                    <td><code>#show-chat-btn</code></td>
+                    <td class="fail">Missing</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Navigation Bar</td>
+                    <td><code>.navbar</code></td>
+                    <td class="fail">Missing</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Sidebar</td>
+                    <td><code>.sidebar</code></td>
+                    <td class="pass">Found</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Main Content</td>
+                    <td><code>.main-content</code></td>
+                    <td class="pass">Found</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Footer</td>
+                    <td><code>.footer</code></td>
+                    <td class="fail">Missing</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Logo</td>
+                    <td><code>.logo</code></td>
+                    <td class="fail">Missing</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>User Menu</td>
+                    <td><code>.user-menu</code></td>
+                    <td class="fail">Missing</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Notifications</td>
+                    <td><code>.notifications</code></td>
+                    <td class="fail">Missing</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Search</td>
+                    <td><code>.search</code></td>
+                    <td class="fail">Missing</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Settings</td>
+                    <td><code>.settings</code></td>
+                    <td class="fail">Missing</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Show Chat Button</td>
+                    <td><code>#show-chat-btn</code></td>
+                    <td class="fail">Missing</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Document Chat Container</td>
+                    <td><code>#document-chat-container</code></td>
+                    <td class="warning">Missing</td>
+                    <td>No</td>
+                  </tr>
+                
+            </tbody>
+          </table>
+        </td>
+      </tr>
+    
+      <tr>
+        <td>Analytics</td>
+        <td>/analytics-new</td>
+        <td>19</td>
+        <td>2</td>
+        <td>17</td>
+        <td class="fail">10.53%</td>
+        <td><button onclick="toggleDetails('Analytics')">Details</button></td>
+      </tr>
+      <tr id="Analytics-details" class="details-row" style="display: none;">
+        <td colspan="7">
+          <table class="details-table">
+            <thead>
+              <tr>
+                <th>Element</th>
+                <th>Selector</th>
+                <th>Status</th>
+                <th>Required</th>
+              </tr>
+            </thead>
+            <tbody>
+              
+                  <tr>
+                    <td>Analytics Dashboard</td>
+                    <td><code>.analytics-dashboard</code></td>
+                    <td class="fail">Missing</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Analytics Chart</td>
+                    <td><code>.analytics-chart</code></td>
+                    <td class="fail">Missing</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Analytics Filters</td>
+                    <td><code>.analytics-filters</code></td>
+                    <td class="fail">Missing</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Analytics Metrics</td>
+                    <td><code>.analytics-metrics</code></td>
+                    <td class="fail">Missing</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Analytics Summary</td>
+                    <td><code>.analytics-summary</code></td>
+                    <td class="fail">Missing</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Analytics Period</td>
+                    <td><code>.analytics-period</code></td>
+                    <td class="fail">Missing</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Analytics Export</td>
+                    <td><code>.analytics-export</code></td>
+                    <td class="fail">Missing</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Analytics Refresh</td>
+                    <td><code>.analytics-refresh</code></td>
+                    <td class="fail">Missing</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Show Chat Button</td>
+                    <td><code>#show-chat-btn</code></td>
+                    <td class="fail">Missing</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Navigation Bar</td>
+                    <td><code>.navbar</code></td>
+                    <td class="fail">Missing</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Sidebar</td>
+                    <td><code>.sidebar</code></td>
+                    <td class="pass">Found</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Main Content</td>
+                    <td><code>.main-content</code></td>
+                    <td class="pass">Found</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Footer</td>
+                    <td><code>.footer</code></td>
+                    <td class="fail">Missing</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Logo</td>
+                    <td><code>.logo</code></td>
+                    <td class="fail">Missing</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>User Menu</td>
+                    <td><code>.user-menu</code></td>
+                    <td class="fail">Missing</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Notifications</td>
+                    <td><code>.notifications</code></td>
+                    <td class="fail">Missing</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Search</td>
+                    <td><code>.search</code></td>
+                    <td class="fail">Missing</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Settings</td>
+                    <td><code>.settings</code></td>
+                    <td class="fail">Missing</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Show Chat Button</td>
+                    <td><code>#show-chat-btn</code></td>
+                    <td class="fail">Missing</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Document Chat Container</td>
+                    <td><code>#document-chat-container</code></td>
+                    <td class="warning">Missing</td>
+                    <td>No</td>
+                  </tr>
+                
+            </tbody>
+          </table>
+        </td>
+      </tr>
+    
+      <tr>
+        <td>Document Details</td>
+        <td>/document-details.html</td>
+        <td>19</td>
+        <td>3</td>
+        <td>16</td>
+        <td class="fail">15.79%</td>
+        <td><button onclick="toggleDetails('Document-Details')">Details</button></td>
+      </tr>
+      <tr id="Document-Details-details" class="details-row" style="display: none;">
+        <td colspan="7">
+          <table class="details-table">
+            <thead>
+              <tr>
+                <th>Element</th>
+                <th>Selector</th>
+                <th>Status</th>
+                <th>Required</th>
+              </tr>
+            </thead>
+            <tbody>
+              
+                  <tr>
+                    <td>Document Metadata</td>
+                    <td><code>.document-metadata</code></td>
+                    <td class="fail">Missing</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Document Content</td>
+                    <td><code>.document-content</code></td>
+                    <td class="fail">Missing</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Document Tables</td>
+                    <td><code>.document-tables</code></td>
+                    <td class="fail">Missing</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Document Actions</td>
+                    <td><code>.document-actions</code></td>
+                    <td class="pass">Found</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Document Export</td>
+                    <td><code>.document-export</code></td>
+                    <td class="fail">Missing</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Document Process</td>
+                    <td><code>.document-process</code></td>
+                    <td class="fail">Missing</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Document Share</td>
+                    <td><code>.document-share</code></td>
+                    <td class="fail">Missing</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Document Delete</td>
+                    <td><code>.document-delete</code></td>
+                    <td class="fail">Missing</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Show Chat Button</td>
+                    <td><code>#show-chat-btn</code></td>
+                    <td class="fail">Missing</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Navigation Bar</td>
+                    <td><code>.navbar</code></td>
+                    <td class="fail">Missing</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Sidebar</td>
+                    <td><code>.sidebar</code></td>
+                    <td class="pass">Found</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Main Content</td>
+                    <td><code>.main-content</code></td>
+                    <td class="pass">Found</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Footer</td>
+                    <td><code>.footer</code></td>
+                    <td class="fail">Missing</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Logo</td>
+                    <td><code>.logo</code></td>
+                    <td class="fail">Missing</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>User Menu</td>
+                    <td><code>.user-menu</code></td>
+                    <td class="fail">Missing</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Notifications</td>
+                    <td><code>.notifications</code></td>
+                    <td class="fail">Missing</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Search</td>
+                    <td><code>.search</code></td>
+                    <td class="fail">Missing</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Settings</td>
+                    <td><code>.settings</code></td>
+                    <td class="fail">Missing</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Show Chat Button</td>
+                    <td><code>#show-chat-btn</code></td>
+                    <td class="fail">Missing</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Document Chat Container</td>
+                    <td><code>#document-chat-container</code></td>
+                    <td class="warning">Missing</td>
+                    <td>No</td>
+                  </tr>
+                
+            </tbody>
+          </table>
+        </td>
+      </tr>
+    
+      <tr>
+        <td>Document Chat</td>
+        <td>/document-chat</td>
+        <td>19</td>
+        <td>4</td>
+        <td>15</td>
+        <td class="fail">21.05%</td>
+        <td><button onclick="toggleDetails('Document-Chat')">Details</button></td>
+      </tr>
+      <tr id="Document-Chat-details" class="details-row" style="display: none;">
+        <td colspan="7">
+          <table class="details-table">
+            <thead>
+              <tr>
+                <th>Element</th>
+                <th>Selector</th>
+                <th>Status</th>
+                <th>Required</th>
+              </tr>
+            </thead>
+            <tbody>
+              
+                  <tr>
+                    <td>Document Selector</td>
+                    <td><code>.document-selector</code></td>
+                    <td class="pass">Found</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Chat History</td>
+                    <td><code>.chat-history</code></td>
+                    <td class="fail">Missing</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Chat Input</td>
+                    <td><code>.chat-input</code></td>
+                    <td class="pass">Found</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Chat Send</td>
+                    <td><code>.chat-send</code></td>
+                    <td class="fail">Missing</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Chat Clear</td>
+                    <td><code>.chat-clear</code></td>
+                    <td class="fail">Missing</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Chat Export</td>
+                    <td><code>.chat-export</code></td>
+                    <td class="fail">Missing</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Chat Settings</td>
+                    <td><code>.chat-settings</code></td>
+                    <td class="fail">Missing</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Chat Message</td>
+                    <td><code>.chat-message</code></td>
+                    <td class="fail">Missing</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Show Chat Button</td>
+                    <td><code>#show-chat-btn</code></td>
+                    <td class="fail">Missing</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Navigation Bar</td>
+                    <td><code>.navbar</code></td>
+                    <td class="fail">Missing</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Sidebar</td>
+                    <td><code>.sidebar</code></td>
+                    <td class="pass">Found</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Main Content</td>
+                    <td><code>.main-content</code></td>
+                    <td class="pass">Found</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Footer</td>
+                    <td><code>.footer</code></td>
+                    <td class="fail">Missing</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Logo</td>
+                    <td><code>.logo</code></td>
+                    <td class="fail">Missing</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>User Menu</td>
+                    <td><code>.user-menu</code></td>
+                    <td class="fail">Missing</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Notifications</td>
+                    <td><code>.notifications</code></td>
+                    <td class="fail">Missing</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Search</td>
+                    <td><code>.search</code></td>
+                    <td class="fail">Missing</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Settings</td>
+                    <td><code>.settings</code></td>
+                    <td class="fail">Missing</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Show Chat Button</td>
+                    <td><code>#show-chat-btn</code></td>
+                    <td class="fail">Missing</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Document Chat Container</td>
+                    <td><code>#document-chat-container</code></td>
+                    <td class="pass">Found</td>
+                    <td>No</td>
+                  </tr>
+                
+            </tbody>
+          </table>
+        </td>
+      </tr>
+    
+      <tr>
+        <td>Document Comparison</td>
+        <td>/document-comparison</td>
+        <td>19</td>
+        <td>3</td>
+        <td>16</td>
+        <td class="fail">15.79%</td>
+        <td><button onclick="toggleDetails('Document-Comparison')">Details</button></td>
+      </tr>
+      <tr id="Document-Comparison-details" class="details-row" style="display: none;">
+        <td colspan="7">
+          <table class="details-table">
+            <thead>
+              <tr>
+                <th>Element</th>
+                <th>Selector</th>
+                <th>Status</th>
+                <th>Required</th>
+              </tr>
+            </thead>
+            <tbody>
+              
+                  <tr>
+                    <td>Comparison Container</td>
+                    <td><code>.comparison-container</code></td>
+                    <td class="fail">Missing</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Document Selector</td>
+                    <td><code>.document-selector</code></td>
+                    <td class="fail">Missing</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Comparison Results</td>
+                    <td><code>.comparison-results</code></td>
+                    <td class="pass">Found</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Comparison Diff</td>
+                    <td><code>.comparison-diff</code></td>
+                    <td class="fail">Missing</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Comparison Summary</td>
+                    <td><code>.comparison-summary</code></td>
+                    <td class="fail">Missing</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Comparison Export</td>
+                    <td><code>.comparison-export</code></td>
+                    <td class="fail">Missing</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Comparison Settings</td>
+                    <td><code>.comparison-settings</code></td>
+                    <td class="fail">Missing</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Comparison Refresh</td>
+                    <td><code>.comparison-refresh</code></td>
+                    <td class="fail">Missing</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Show Chat Button</td>
+                    <td><code>#show-chat-btn</code></td>
+                    <td class="fail">Missing</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Navigation Bar</td>
+                    <td><code>.navbar</code></td>
+                    <td class="fail">Missing</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Sidebar</td>
+                    <td><code>.sidebar</code></td>
+                    <td class="pass">Found</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Main Content</td>
+                    <td><code>.main-content</code></td>
+                    <td class="pass">Found</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Footer</td>
+                    <td><code>.footer</code></td>
+                    <td class="fail">Missing</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Logo</td>
+                    <td><code>.logo</code></td>
+                    <td class="fail">Missing</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>User Menu</td>
+                    <td><code>.user-menu</code></td>
+                    <td class="fail">Missing</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Notifications</td>
+                    <td><code>.notifications</code></td>
+                    <td class="fail">Missing</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Search</td>
+                    <td><code>.search</code></td>
+                    <td class="fail">Missing</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Settings</td>
+                    <td><code>.settings</code></td>
+                    <td class="fail">Missing</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Show Chat Button</td>
+                    <td><code>#show-chat-btn</code></td>
+                    <td class="fail">Missing</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Document Chat Container</td>
+                    <td><code>#document-chat-container</code></td>
+                    <td class="warning">Missing</td>
+                    <td>No</td>
+                  </tr>
+                
+            </tbody>
+          </table>
+        </td>
+      </tr>
+    
+      <tr>
+        <td>Test</td>
+        <td>/test</td>
+        <td>19</td>
+        <td>2</td>
+        <td>17</td>
+        <td class="fail">10.53%</td>
+        <td><button onclick="toggleDetails('Test')">Details</button></td>
+      </tr>
+      <tr id="Test-details" class="details-row" style="display: none;">
+        <td colspan="7">
+          <table class="details-table">
+            <thead>
+              <tr>
+                <th>Element</th>
+                <th>Selector</th>
+                <th>Status</th>
+                <th>Required</th>
+              </tr>
+            </thead>
+            <tbody>
+              
+                  <tr>
+                    <td>Test Page Content</td>
+                    <td><code>.test-page-content</code></td>
+                    <td class="fail">Missing</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Agent Card</td>
+                    <td><code>.agent-card</code></td>
+                    <td class="fail">Missing</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Status Indicator</td>
+                    <td><code>.status-indicator</code></td>
+                    <td class="fail">Missing</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Agent Action</td>
+                    <td><code>.agent-action</code></td>
+                    <td class="fail">Missing</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Agent Card Header</td>
+                    <td><code>.agent-card-header</code></td>
+                    <td class="fail">Missing</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Agent Card Body</td>
+                    <td><code>.agent-card-body</code></td>
+                    <td class="fail">Missing</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Agent Card Footer</td>
+                    <td><code>.agent-card-footer</code></td>
+                    <td class="fail">Missing</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Agent Cards Container</td>
+                    <td><code>.agent-cards-container</code></td>
+                    <td class="fail">Missing</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Show Chat Button</td>
+                    <td><code>#show-chat-btn</code></td>
+                    <td class="fail">Missing</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Navigation Bar</td>
+                    <td><code>.navbar</code></td>
+                    <td class="fail">Missing</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Sidebar</td>
+                    <td><code>.sidebar</code></td>
+                    <td class="pass">Found</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Main Content</td>
+                    <td><code>.main-content</code></td>
+                    <td class="pass">Found</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Footer</td>
+                    <td><code>.footer</code></td>
+                    <td class="fail">Missing</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Logo</td>
+                    <td><code>.logo</code></td>
+                    <td class="fail">Missing</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>User Menu</td>
+                    <td><code>.user-menu</code></td>
+                    <td class="fail">Missing</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Notifications</td>
+                    <td><code>.notifications</code></td>
+                    <td class="fail">Missing</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Search</td>
+                    <td><code>.search</code></td>
+                    <td class="fail">Missing</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Settings</td>
+                    <td><code>.settings</code></td>
+                    <td class="fail">Missing</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Show Chat Button</td>
+                    <td><code>#show-chat-btn</code></td>
+                    <td class="fail">Missing</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Document Chat Container</td>
+                    <td><code>#document-chat-container</code></td>
+                    <td class="warning">Missing</td>
+                    <td>No</td>
+                  </tr>
+                
+            </tbody>
+          </table>
+        </td>
+      </tr>
+    
+        </tbody>
+      </table>
+      
+      <script>
+        function toggleDetails(pageName) {
+          const detailsRow = document.getElementById(pageName + '-details');
+          if (detailsRow.style.display === 'none') {
+            detailsRow.style.display = 'table-row';
+          } else {
+            detailsRow.style.display = 'none';
+          }
+        }
+      </script>
+    </body>
+    </html>
+  

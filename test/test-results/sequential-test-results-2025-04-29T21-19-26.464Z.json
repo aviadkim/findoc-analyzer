@@ -1,0 +1,128 @@
+{
+  "startTime": "2025-04-29T21:19:24.924Z",
+  "endTime": "2025-04-29T21:19:26.464Z",
+  "totalTests": 5,
+  "passedTests": 1,
+  "failedTests": 4,
+  "skippedTests": 0,
+  "tests": [
+    {
+      "id": "DEEPSEEK-01",
+      "name": "Test DeepSeek API Key Retrieval",
+      "status": "passed",
+      "startTime": "2025-04-29T21:19:26.022Z",
+      "endTime": "2025-04-29T21:19:26.023Z",
+      "duration": 1,
+      "steps": [
+        {
+          "number": 1,
+          "name": "Step 1",
+          "status": "passed",
+          "startTime": "2025-04-29T21:19:26.022Z",
+          "endTime": "2025-04-29T21:19:26.023Z",
+          "duration": 1,
+          "error": null,
+          "screenshots": []
+        }
+      ],
+      "error": null,
+      "screenshots": []
+    },
+    {
+      "id": "DEEPSEEK-02",
+      "name": "Test Text Generation",
+      "status": "failed",
+      "startTime": "2025-04-29T21:19:26.024Z",
+      "endTime": "2025-04-29T21:19:26.255Z",
+      "duration": 231,
+      "steps": [
+        {
+          "number": 1,
+          "name": "Step 1",
+          "status": "failed",
+          "startTime": "2025-04-29T21:19:26.024Z",
+          "endTime": null,
+          "duration": 0,
+          "error": "Failed to call DeepSeek API: getaddrinfo ENOTFOUND api.openrouter.ai",
+          "screenshots": [
+            "DEEPSEEK-02-step-1-failure.png"
+          ]
+        }
+      ],
+      "error": "Failed to call DeepSeek API: getaddrinfo ENOTFOUND api.openrouter.ai",
+      "screenshots": []
+    },
+    {
+      "id": "DEEPSEEK-03",
+      "name": "Test Table Extraction",
+      "status": "failed",
+      "startTime": "2025-04-29T21:19:26.256Z",
+      "endTime": "2025-04-29T21:19:26.331Z",
+      "duration": 75,
+      "steps": [
+        {
+          "number": 1,
+          "name": "Step 1",
+          "status": "failed",
+          "startTime": "2025-04-29T21:19:26.256Z",
+          "endTime": null,
+          "duration": 0,
+          "error": "Cannot read properties of undefined (reading 'testFilesDir')",
+          "screenshots": [
+            "DEEPSEEK-03-step-1-failure.png"
+          ]
+        }
+      ],
+      "error": "Cannot read properties of undefined (reading 'testFilesDir')",
+      "screenshots": []
+    },
+    {
+      "id": "DEEPSEEK-04",
+      "name": "Test Document Analysis",
+      "status": "failed",
+      "startTime": "2025-04-29T21:19:26.331Z",
+      "endTime": "2025-04-29T21:19:26.404Z",
+      "duration": 73,
+      "steps": [
+        {
+          "number": 1,
+          "name": "Step 1",
+          "status": "failed",
+          "startTime": "2025-04-29T21:19:26.331Z",
+          "endTime": null,
+          "duration": 0,
+          "error": "Cannot read properties of undefined (reading 'testFilesDir')",
+          "screenshots": [
+            "DEEPSEEK-04-step-1-failure.png"
+          ]
+        }
+      ],
+      "error": "Cannot read properties of undefined (reading 'testFilesDir')",
+      "screenshots": []
+    },
+    {
+      "id": "DEEPSEEK-05",
+      "name": "Test Question Answering",
+      "status": "failed",
+      "startTime": "2025-04-29T21:19:26.404Z",
+      "endTime": "2025-04-29T21:19:26.464Z",
+      "duration": 60,
+      "steps": [
+        {
+          "number": 1,
+          "name": "Step 1",
+          "status": "failed",
+          "startTime": "2025-04-29T21:19:26.404Z",
+          "endTime": null,
+          "duration": 0,
+          "error": "Cannot read properties of undefined (reading 'testFilesDir')",
+          "screenshots": [
+            "DEEPSEEK-05-step-1-failure.png"
+          ]
+        }
+      ],
+      "error": "Cannot read properties of undefined (reading 'testFilesDir')",
+      "screenshots": []
+    }
+  ]
+}

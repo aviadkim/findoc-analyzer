@@ -1,7 +1,7 @@
 {
   "testId": "Test-04",
   "testName": "Document Upload",
-  "date": "2025-04-28T07:31:25.604Z",
+  "date": "2025-05-08T17:15:30.826Z",
   "steps": [
     {
       "step": 1,
@@ -19,28 +19,53 @@
     },
     {
       "step": 3,
-      "description": "Click upload button",
-      "expectedResult": "Upload dialog appears",
-      "actualResult": "Upload dialog did not appear",
-      "status": "Fail"
+      "description": "Navigate to upload page",
+      "expectedResult": "Upload page appears with file input",
+      "actualResult": "Upload page appeared (input[type=\"file\"]) with file input",
+      "status": "Pass"
     },
     {
       "step": 4,
-      "description": "Unexpected error",
-      "expectedResult": "No errors",
-      "actualResult": "Error: Upload dialog did not appear",
+      "description": "Select file",
+      "expectedResult": "File is selected and name appears",
+      "actualResult": "Could not verify that file was selected",
+      "status": "Fail"
+    },
+    {
+      "step": 5,
+      "description": "Select document type",
+      "expectedResult": "Document type is selected",
+      "actualResult": "Document type dropdown not found",
+      "status": "Fail"
+    },
+    {
+      "step": 6,
+      "description": "Click upload button in dialog",
+      "expectedResult": "Upload process starts",
+      "actualResult": "Upload button clicked",
+      "status": "Pass"
+    },
+    {
+      "step": 7,
+      "description": "Wait for upload to complete",
+      "expectedResult": "Upload completes successfully or shows progress",
+      "actualResult": "Upload did not complete within timeout",
       "status": "Fail"
     }
   ],
   "issues": [
-    "Upload dialog did not appear",
-    "Unexpected error: Upload dialog did not appear"
+    "Could not verify that file was selected",
+    "Document type dropdown not found",
+    "Upload did not complete within timeout"
   ],
   "screenshots": [
     "test-04-step-01.png",
     "test-04-step-02.png",
     "test-04-step-03.png",
-    "test-04-error.png"
+    "test-04-step-04.png",
+    "test-04-step-05.png",
+    "test-04-step-06.png",
+    "test-04-step-07.png"
   ],
   "overallStatus": "Fail"
 }

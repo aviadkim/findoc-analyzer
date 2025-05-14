@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FinDoc Analyzer - Responsive UI Test</title>
+  <link rel="stylesheet" href="/css/styles.css">
+  <link rel="stylesheet" href="/css/responsive.css">
+  <link rel="stylesheet" href="/css/touch-friendly.css">
+  <style>
+    .test-section {
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+      margin-bottom: 20px;
+      padding: 20px;
+    }
+    
+    .test-section h2 {
+      margin-top: 0;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 10px;
+      margin-bottom: 20px;
+    }
+    
+    .test-item {
+      background-color: #f5f5f5;
+      border-radius: 4px;
+      padding: 15px;
+      margin-bottom: 10px;
+    }
+    
+    .color-box {
+      width: 100%;
+      height: 100px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 600;
+      border-radius: 4px;
+    }
+    
+    .resize-helper {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      background-color: rgba(0,0,0,0.7);
+      color: white;
+      padding: 10px;
+      border-radius: 4px;
+      font-size: 14px;
+      z-index: 9999;
+    }
+    
+    .test-card {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .test-card-body {
+      flex: 1;
+    }
+    
+    .box-xs-only { background-color: #e74c3c; }
+    .box-sm-only { background-color: #e67e22; }
+    .box-md-only { background-color: #f1c40f; }
+    .box-lg-only { background-color: #2ecc71; }
+    .box-xl-only { background-color: #3498db; }
+    
+    /* Sample document for document viewer */
+    .sample-document {
+      font-family: Arial, sans-serif;
+      padding: 30px;
+      max-width: 800px;
+      margin: 0 auto;
+      border: 1px solid #ddd;
+      background-color: white;
+    }
+    
+    .sample-document h1 {
+      text-align: center;
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+    
+    .sample-document p {
+      line-height: 1.6;
+      margin-bottom: 15px;
+    }
+    
+    .sample-document table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+    }
+    
+    .sample-document th,
+    .sample-document td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: left;
+    }
+    
+    .sample-document th {
+      background-color: #f5f5f5;
+    }
+    
+    /* Fake chart for data visualization test */
+    .fake-chart {
+      width: 100%;
+      height: 200px;
+      background: linear-gradient(45deg, #3498db, #2ecc71);
+      border-radius: 8px;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .fake-chart::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 100%;
+      background: repeating-linear-gradient(
+        45deg,
+        rgba(255,255,255,0.1),
+        rgba(255,255,255,0.1) 10px,
+        rgba(255,255,255,0.2) 10px,
+        rgba(255,255,255,0.2) 20px
+      );
+    }
+    
+    .fake-chart::after {
+      content: 'Chart Visualization';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: white;
+      font-weight: bold;
+      font-size: 18px;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
+  </style>
+</head>
+<body>
+  <div class="resize-helper">
+    Width: <span id="screen-width">0</span>px<br>
+    Breakpoint: <span id="breakpoint">-</span>
+  </div>
+
+  <div class="findoc-layout">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <a href="/" class="sidebar-logo">FinDoc Analyzer</a>
+      </div>
+      <ul class="sidebar-nav">
+        <li><a href="/"><span class="icon">🏠</span>Dashboard</a></li>
+        <li><a href="/documents-new"><span class="icon">📄</span>My Documents</a></li>
+        <li><a href="/analytics-new"><span class="icon">📊</span>Analytics</a></li>
+        <li><a href="/upload"><span class="icon">📤</span>Upload</a></li>
+        <li><a href="/document-chat"><span class="icon">💬</span>Document Chat</a></li>
+        <li><a href="/document-comparison"><span class="icon">🔄</span>Document Comparison</a></li>
+        <li><a href="/test-responsive" class="active"><span class="icon">📱</span>Responsive Test</a></li>
+      </ul>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <div id="page-content">
+        <div class="test-page">
+          <h1 class="page-title">Responsive UI Test Page</h1>
+          <p class="page-description">This page demonstrates the responsive UI components across different screen sizes.</p>
+          
+          <!-- Grid System -->
+          <div class="test-section">
+            <h2>Responsive Grid System</h2>
+            <div class="row">
+              <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                <div class="test-item">
+                  <h3>Column 1</h3>
+                  <p>col-12 col-sm-6 col-md-4 col-lg-3</p>
+                </div>
+              </div>
+              <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                <div class="test-item">
+                  <h3>Column 2</h3>
+                  <p>col-12 col-sm-6 col-md-4 col-lg-3</p>
+                </div>
+              </div>
+              <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                <div class="test-item">
+                  <h3>Column 3</h3>
+                  <p>col-12 col-sm-6 col-md-4 col-lg-3</p>
+                </div>
+              </div>
+              <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                <div class="test-item">
+                  <h3>Column 4</h3>
+                  <p>col-12 col-sm-6 col-md-4 col-lg-3</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Responsive Display -->
+          <div class="test-section">
+            <h2>Responsive Display</h2>
+            <div class="row">
+              <div class="col-12">
+                <div class="d-block d-sm-none">
+                  <div class="color-box box-xs-only">Visible only on XS (Mobile)</div>
+                </div>
+                <div class="d-none d-sm-block d-md-none">
+                  <div class="color-box box-sm-only">Visible only on SM (Small Tablets)</div>
+                </div>
+                <div class="d-none d-md-block d-lg-none">
+                  <div class="color-box box-md-only">Visible only on MD (Tablets)</div>
+                </div>
+                <div class="d-none d-lg-block d-xl-none">
+                  <div class="color-box box-lg-only">Visible only on LG (Desktop)</div>
+                </div>
+                <div class="d-none d-xl-block">
+                  <div class="color-box box-xl-only">Visible only on XL (Large Desktop)</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Responsive Cards -->
+          <div class="test-section">
+            <h2>Responsive Cards</h2>
+            <div class="card-deck">
+              <div class="card">
+                <div class="card-header">
+                  <h3 class="card-title">Card 1</h3>
+                </div>
+                <div class="card-body">
+                  <p>This is the content for card 1. Cards will resize and reflow based on screen size.</p>
+                </div>
+                <div class="card-footer">
+                  <button class="btn btn-primary touch-friendly">Action</button>
+                </div>
+              </div>
+              
+              <div class="card">
+                <div class="card-header">
+                  <h3 class="card-title">Card 2</h3>
+                </div>
+                <div class="card-body">
+                  <p>This is the content for card 2. On mobile, cards will stack vertically.</p>
+                </div>
+                <div class="card-footer">
+                  <button class="btn btn-primary touch-friendly">Action</button>
+                </div>
+              </div>
+              
+              <div class="card">
+                <div class="card-header">
+                  <h3 class="card-title">Card 3</h3>
+                </div>
+                <div class="card-body">
+                  <p>This is the content for card 3. On desktop, cards will display side by side.</p>
+                </div>
+                <div class="card-footer">
+                  <button class="btn btn-primary touch-friendly">Action</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Dashboard Cards -->
+          <div class="test-section">
+            <h2>Dashboard Cards</h2>
+            <div class="dashboard-cards">
+              <div class="dashboard-card">
+                <div class="dashboard-card-header">
+                  <h3>Upload Document</h3>
+                </div>
+                <div class="dashboard-card-body">
+                  <p>Upload and analyze financial documents.</p>
+                  <div class="dashboard-card-actions">
+                    <button class="btn btn-primary">Upload</button>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="dashboard-card">
+                <div class="dashboard-card-header">
+                  <h3>Recent Documents</h3>
+                </div>
+                <div class="dashboard-card-body">
+                  <p>View and manage your recently uploaded documents.</p>
+                  <div class="dashboard-card-actions">
+                    <button class="btn btn-primary">View Documents</button>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="dashboard-card">
+                <div class="dashboard-card-header">
+                  <h3>Analytics</h3>
+                </div>
+                <div class="dashboard-card-body">
+                  <p>View analytics and insights from your financial documents.</p>
+                  <div class="dashboard-card-actions">
+                    <button class="btn btn-primary">View Analytics</button>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="dashboard-card">
+                <div class="dashboard-card-header">
+                  <h3>Document Chat</h3>
+                </div>
+                <div class="dashboard-card-body">
+                  <p>Ask questions about your financial documents.</p>
+                  <div class="dashboard-card-actions">
+                    <button class="btn btn-primary">Start Chat</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Responsive Tables -->
+          <div class="test-section">
+            <h2>Responsive Tables</h2>
+            <div class="table-responsive">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Document Name</th>
+                    <th>Upload Date</th>
+                    <th>Type</th>
+                    <th>Size</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td data-label="Document Name">Financial Report 2023.pdf</td>
+                    <td data-label="Upload Date">2023-12-15</td>
+                    <td data-label="Type">Financial</td>
+                    <td data-label="Size">2.4 MB</td>
+                    <td data-label="Status">Processed</td>
+                    <td data-label="Actions">
+                      <button class="btn btn-sm btn-primary touch-friendly">View</button>
+                      <button class="btn btn-sm btn-danger touch-friendly">Delete</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td data-label="Document Name">Investment Portfolio.pdf</td>
+                    <td data-label="Upload Date">2023-11-30</td>
+                    <td data-label="Type">Portfolio</td>
+                    <td data-label="Size">1.8 MB</td>
+                    <td data-label="Status">Processed</td>
+                    <td data-label="Actions">
+                      <button class="btn btn-sm btn-primary touch-friendly">View</button>
+                      <button class="btn btn-sm btn-danger touch-friendly">Delete</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td data-label="Document Name">Tax Documents 2023.pdf</td>
+                    <td data-label="Upload Date">2023-10-22</td>
+                    <td data-label="Type">Tax</td>
+                    <td data-label="Size">3.2 MB</td>
+                    <td data-label="Status">Processing</td>
+                    <td data-label="Actions">
+                      <button class="btn btn-sm btn-primary touch-friendly">View</button>
+                      <button class="btn btn-sm btn-danger touch-friendly">Delete</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          
+          <!-- Document Items -->
+          <div class="test-section">
+            <h2>Document Items</h2>
+            <div class="document-item">
+              <div class="document-info">
+                <h3 class="document-name">Financial Report 2023.pdf</h3>
+                <div class="document-meta">
+                  Uploaded on 2023-12-15 • 2.4 MB • Financial
+                </div>
+              </div>
+              <div class="document-actions">
+                <button class="btn btn-sm btn-primary document-action touch-friendly">View</button>
+                <button class="btn btn-sm btn-secondary document-action touch-friendly">Chat</button>
+                <button class="btn btn-sm btn-danger document-action touch-friendly">Delete</button>
+              </div>
+            </div>
+            
+            <div class="document-item">
+              <div class="document-info">
+                <h3 class="document-name">Investment Portfolio.pdf</h3>
+                <div class="document-meta">
+                  Uploaded on 2023-11-30 • 1.8 MB • Portfolio
+                </div>
+              </div>
+              <div class="document-actions">
+                <button class="btn btn-sm btn-primary document-action touch-friendly">View</button>
+                <button class="btn btn-sm btn-secondary document-action touch-friendly">Chat</button>
+                <button class="btn btn-sm btn-danger document-action touch-friendly">Delete</button>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Chat Interface -->
+          <div class="test-section">
+            <h2>Chat Interface</h2>
+            <div class="chat-container">
+              <div class="chat">
+                <div class="chat-messages" id="test-chat-messages">
+                  <div class="message ai-message">
+                    Hello! I'm your financial document assistant. How can I help you today?
+                  </div>
+                  <div class="message user-message">
+                    Can you tell me about the revenue in the financial report?
+                  </div>
+                  <div class="message ai-message">
+                    According to the financial report, the total revenue is $10,500,000. This represents a 12% increase compared to the previous year.
+                  </div>
+                  <div class="message user-message">
+                    What about the profit margin?
+                  </div>
+                  <div class="message ai-message">
+                    The profit margin is 31.4%. The net profit is $3,300,000 from the total revenue of $10,500,000.
+                  </div>
+                </div>
+                <div class="chat-input">
+                  <input type="text" placeholder="Type your question here..." class="form-control">
+                  <button class="btn btn-primary">Send</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Touch-Friendly Forms -->
+          <div class="test-section">
+            <h2>Touch-Friendly Forms</h2>
+            <form class="touch-friendly-form">
+              <div class="form-group touch-friendly">
+                <label for="fullName">Full Name</label>
+                <input type="text" id="fullName" class="form-control touch-friendly" placeholder="Enter your full name">
+              </div>
+              
+              <div class="form-group touch-friendly">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" class="form-control touch-friendly" placeholder="Enter your email">
+              </div>
+              
+              <div class="form-group touch-friendly">
+                <label for="documentType">Document Type</label>
+                <select id="documentType" class="form-control touch-friendly mobile-select">
+                  <option value="">Select a document type</option>
+                  <option value="financial">Financial Report</option>
+                  <option value="portfolio">Investment Portfolio</option>
+                  <option value="tax">Tax Document</option>
+                </select>
+              </div>
+              
+              <div class="form-group touch-friendly">
+                <div class="touch-friendly-checkbox">
+                  <input type="checkbox" id="terms" class="touch-friendly">
+                  <label for="terms">I agree to the terms and conditions</label>
+                </div>
+              </div>
+              
+              <div class="form-group touch-friendly">
+                <label>Document Processing Options</label>
+                <div class="touch-friendly-radio">
+                  <input type="radio" id="basic" name="processing" class="touch-friendly" checked>
+                  <label for="basic">Basic Processing</label>
+                </div>
+                <div class="touch-friendly-radio">
+                  <input type="radio" id="advanced" name="processing" class="touch-friendly">
+                  <label for="advanced">Advanced Processing</label>
+                </div>
+              </div>
+              
+              <div class="form-group touch-friendly">
+                <div class="touch-file-input">
+                  <div class="touch-file-btn">Choose File</div>
+                  <input type="file" id="document" class="touch-friendly">
+                  <div class="touch-file-label">No file chosen</div>
+                </div>
+              </div>
+              
+              <button type="submit" class="btn btn-primary btn-block touch-friendly">Submit</button>
+            </form>
+          </div>
+          
+          <!-- Mobile Document Viewer -->
+          <div class="test-section">
+            <h2>Mobile Document Viewer</h2>
+            <p>This container demonstrates the touch-optimized document viewer. On touch devices, you can pinch to zoom and swipe to navigate.</p>
+            <div id="document-viewer-container" style="width: 100%; height: 400px; border: 1px solid #ddd; border-radius: 8px; overflow: hidden;">
+              <!-- Document content will be loaded here -->
+            </div>
+          </div>
+          
+          <!-- Data Visualization -->
+          <div class="test-section">
+            <h2>Data Visualization</h2>
+            <div class="row">
+              <div class="col-12 col-md-6">
+                <div class="fake-chart"></div>
+              </div>
+              <div class="col-12 col-md-6">
+                <div class="fake-chart"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+  
+  <!-- Sample document content (hidden) -->
+  <div id="sample-document" style="display: none;">
+    <div class="sample-document">
+      <h1>Financial Report 2023</h1>
+      
+      <p>This financial report provides an overview of the company's financial performance for the fiscal year 2023. The company has shown strong growth in revenue and profitability.</p>
+      
+      <h2>Executive Summary</h2>
+      <p>The company achieved a total revenue of $10,500,000, representing a 12% increase compared to the previous year. The net profit was $3,300,000, with a profit margin of 31.4%.</p>
+      
+      <h2>Financial Highlights</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Metric</th>
+            <th>2023</th>
+            <th>2022</th>
+            <th>Change</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Revenue</td>
+            <td>$10,500,000</td>
+            <td>$9,375,000</td>
+            <td>+12%</td>
+          </tr>
+          <tr>
+            <td>Operating Expenses</td>
+            <td>$7,200,000</td>
+            <td>$6,580,000</td>
+            <td>+9.4%</td>
+          </tr>
+          <tr>
+            <td>Net Profit</td>
+            <td>$3,300,000</td>
+            <td>$2,795,000</td>
+            <td>+18.1%</td>
+          </tr>
+          <tr>
+            <td>Profit Margin</td>
+            <td>31.4%</td>
+            <td>29.8%</td>
+            <td>+1.6%</td>
+          </tr>
+        </tbody>
+      </table>
+      
+      <h2>Asset Allocation</h2>
+      <p>The company's assets are allocated as follows:</p>
+      <ul>
+        <li>Cash and Equivalents: $4,200,000 (16.8%)</li>
+        <li>Accounts Receivable: $3,500,000 (14%)</li>
+        <li>Inventory: $5,800,000 (23.2%)</li>
+        <li>Property and Equipment: $9,000,000 (36%)</li>
+        <li>Intangible Assets: $2,500,000 (10%)</li>
+      </ul>
+      
+      <h2>Revenue by Region</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Region</th>
+            <th>Revenue</th>
+            <th>% of Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>North America</td>
+            <td>$5,250,000</td>
+            <td>50%</td>
+          </tr>
+          <tr>
+            <td>Europe</td>
+            <td>$2,625,000</td>
+            <td>25%</td>
+          </tr>
+          <tr>
+            <td>Asia-Pacific</td>
+            <td>$1,575,000</td>
+            <td>15%</td>
+          </tr>
+          <tr>
+            <td>Rest of World</td>
+            <td>$1,050,000</td>
+            <td>10%</td>
+          </tr>
+        </tbody>
+      </table>
+      
+      <h2>Outlook for 2024</h2>
+      <p>The company expects continued growth in 2024, with projected revenue of $12,000,000 (14.3% increase) and a target profit margin of 33%.</p>
+    </div>
+  </div>
+
+  <!-- Responsive UI Scripts -->
+  <script src="/js/responsive-ui.js"></script>
+  <script src="/components/ResponsiveWrapper.js"></script>
+  <script src="/components/MobileDocumentViewer.js"></script>
+  
+  <script>
+    // Update window size and breakpoint info
+    function updateSizeInfo() {
+      document.getElementById('screen-width').textContent = window.innerWidth;
+      
+      // Determine breakpoint
+      let breakpoint = 'xs';
+      if (window.innerWidth >= 1400) {
+        breakpoint = 'xxl';
+      } else if (window.innerWidth >= 1200) {
+        breakpoint = 'xl';
+      } else if (window.innerWidth >= 992) {
+        breakpoint = 'lg';
+      } else if (window.innerWidth >= 768) {
+        breakpoint = 'md';
+      } else if (window.innerWidth >= 576) {
+        breakpoint = 'sm';
+      }
+      
+      document.getElementById('breakpoint').textContent = breakpoint;
+    }
+    
+    // Initialize mobile document viewer
+    function initDocumentViewer() {
+      const container = document.getElementById('document-viewer-container');
+      if (!container) return;
+      
+      // Create document content
+      const sampleDoc = document.getElementById('sample-document').innerHTML;
+      
+      // Create a blob URL for the sample document
+      const blob = new Blob([sampleDoc], { type: 'text/html' });
+      const url = URL.createObjectURL(blob);
+      
+      // Initialize the viewer
+      const viewer = new MobileDocumentViewer({
+        container: container,
+        documentUrl: url,
+        documentType: 'html',
+        enableGestures: true
+      });
+      
+      viewer.init();
+    }
+    
+    // Add message to chat
+    function addChatMessage(text, isUser = false) {
+      const messagesContainer = document.getElementById('test-chat-messages');
+      if (!messagesContainer) return;
+      
+      const messageDiv = document.createElement('div');
+      messageDiv.className = `message ${isUser ? 'user-message' : 'ai-message'}`;
+      messageDiv.textContent = text;
+      
+      messagesContainer.appendChild(messageDiv);
+      messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    }
+    
+    // Initialize on document load
+    document.addEventListener('DOMContentLoaded', function() {
+      // Update size info
+      updateSizeInfo();
+      window.addEventListener('resize', updateSizeInfo);
+      
+      // Initialize document viewer
+      initDocumentViewer();
+      
+      // Initialize responsive components
+      const responsiveWrapper = window.responsiveWrapper;
+      if (responsiveWrapper) {
+        // Wrap all testable components
+        document.querySelectorAll('.findoc-layout, .dashboard-cards, table, form, .document-item, .chat-container').forEach(element => {
+          responsiveWrapper.wrap(element);
+        });
+      }
+      
+      // Add chat functionality
+      const chatInput = document.querySelector('.chat-input input');
+      const chatSendBtn = document.querySelector('.chat-input .btn');
+      
+      if (chatInput && chatSendBtn) {
+        const sendMessage = () => {
+          const text = chatInput.value.trim();
+          if (!text) return;
+          
+          // Add user message
+          addChatMessage(text, true);
+          chatInput.value = '';
+          
+          // Simulate AI response
+          setTimeout(() => {
+            let response = "I'm analyzing your question...";
+            
+            if (text.toLowerCase().includes('hello') || text.toLowerCase().includes('hi')) {
+              response = "Hello! How can I help you with your financial documents today?";
+            } else if (text.toLowerCase().includes('revenue')) {
+              response = "The company's revenue for 2023 is $10,500,000, which is a 12% increase from the previous year.";
+            } else if (text.toLowerCase().includes('profit')) {
+              response = "The net profit for 2023 is $3,300,000, with a profit margin of 31.4%.";
+            } else if (text.toLowerCase().includes('expense')) {
+              response = "The operating expenses for 2023 are $7,200,000, which is 9.4% higher than the previous year.";
+            } else if (text.toLowerCase().includes('region')) {
+              response = "The revenue by region is: North America (50%), Europe (25%), Asia-Pacific (15%), and Rest of World (10%).";
+            } else {
+              response = "I don't have specific information about that in the document. Is there something else you'd like to know about the financial report?";
+            }
+            
+            addChatMessage(response, false);
+          }, 1000);
+        };
+        
+        chatSendBtn.addEventListener('click', sendMessage);
+        chatInput.addEventListener('keypress', (e) => {
+          if (e.key === 'Enter') {
+            sendMessage();
+          }
+        });
+      }
+      
+      // Add form functionality
+      const fileInput = document.querySelector('input[type="file"]');
+      if (fileInput) {
+        fileInput.addEventListener('change', function() {
+          const label = this.parentElement.querySelector('.touch-file-label');
+          if (label) {
+            label.textContent = this.files && this.files[0] ? this.files[0].name : 'No file chosen';
+          }
+        });
+      }
+      
+      // Initialize touch enhancements if on a touch device
+      if ('ontouchstart' in window) {
+        document.body.classList.add('touch-device');
+        
+        // Enhance chat for mobile
+        window.responsiveUI.enhanceChatForMobile('test-chat-messages');
+      }
+    });
+  </script>
+</body>
+</html>

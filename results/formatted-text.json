@@ -1,0 +1,15 @@
+{
+  "fileName": "formatted-text.pdf",
+  "fileType": ".pdf",
+  "processingDate": "2025-04-29T09:39:32.443Z",
+  "text": "\nThis text is normal.\nThis text is bold.\nThis text is italic.\nThis text is underlined.\n",
+  "tables": [],
+  "metadata": {
+    "pageCount": 1,
+    "author": "Unknown",
+    "creationDate": "2025-04-29T09:39:33.947Z",
+    "creator": "Unknown",
+    "producer": "Unknown",
+    "processingMethod": "fallback"
+  }
+}

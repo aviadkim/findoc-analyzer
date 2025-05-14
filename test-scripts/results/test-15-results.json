@@ -1,7 +1,7 @@
 {
   "testId": "Test-15",
   "testName": "Document Chat Interface",
-  "date": "2025-04-28T07:31:52.713Z",
+  "date": "2025-05-08T15:58:04.024Z",
   "steps": [
     {
       "step": 1,
@@ -28,7 +28,7 @@
       "step": 4,
       "description": "Check if document selection is available",
       "expectedResult": "Document selection is available",
-      "actualResult": "Document selection is available (selector: .document-list)",
+      "actualResult": "Document selection is available (selector: select)",
       "status": "Pass"
     },
     {
@@ -40,28 +40,22 @@
     },
     {
       "step": 6,
-      "description": "Try to type a question",
-      "expectedResult": "Question text can be entered",
-      "actualResult": "Question text was entered successfully",
-      "status": "Pass"
-    },
-    {
-      "step": 7,
-      "description": "Check for send button",
-      "expectedResult": "Send button is visible",
-      "actualResult": "Send button is visible",
-      "status": "Pass"
+      "description": "Unexpected error",
+      "expectedResult": "No errors",
+      "actualResult": "Error: elementHandle.fill: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m    - fill(\"What is this document about?\")\u001b[22m\n\u001b[2m  - attempting fill action\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and editable\u001b[22m\n\u001b[2m      - element is not enabled\u001b[22m\n\u001b[2m    - retrying fill action\u001b[22m\n\u001b[2m    - waiting 20ms\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and editable\u001b[22m\n\u001b[2m      - element is not enabled\u001b[22m\n\u001b[2m    - retrying fill action\u001b[22m\n\u001b[2m      - waiting 100ms\u001b[22m\n\u001b[2m    58 × waiting for element to be visible, enabled and editable\u001b[22m\n\u001b[2m       - element is not enabled\u001b[22m\n\u001b[2m     - retrying fill action\u001b[22m\n\u001b[2m       - waiting 500ms\u001b[22m\n",
+      "status": "Fail"
     }
   ],
-  "issues": [],
+  "issues": [
+    "Unexpected error: elementHandle.fill: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m    - fill(\"What is this document about?\")\u001b[22m\n\u001b[2m  - attempting fill action\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and editable\u001b[22m\n\u001b[2m      - element is not enabled\u001b[22m\n\u001b[2m    - retrying fill action\u001b[22m\n\u001b[2m    - waiting 20ms\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and editable\u001b[22m\n\u001b[2m      - element is not enabled\u001b[22m\n\u001b[2m    - retrying fill action\u001b[22m\n\u001b[2m      - waiting 100ms\u001b[22m\n\u001b[2m    58 × waiting for element to be visible, enabled and editable\u001b[22m\n\u001b[2m       - element is not enabled\u001b[22m\n\u001b[2m     - retrying fill action\u001b[22m\n\u001b[2m       - waiting 500ms\u001b[22m\n"
+  ],
   "screenshots": [
     "test-15-step-01.png",
     "test-15-step-02.png",
     "test-15-step-03.png",
     "test-15-step-04.png",
     "test-15-step-05.png",
-    "test-15-step-06.png",
-    "test-15-step-07.png"
+    "test-15-error.png"
   ],
-  "overallStatus": "Pass"
+  "overallStatus": "Fail"
 }

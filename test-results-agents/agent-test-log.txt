@@ -1,0 +1,30 @@
+[2025-04-30T20:19:19.458Z] Starting agent and processing tests
+[2025-04-30T20:19:21.399Z] Testing document processing for sample_portfolio.pdf
+[2025-04-30T20:19:21.400Z] Navigating to upload page
+[2025-04-30T20:19:23.835Z] Screenshot saved to C:\Users\aviad\OneDrive\Desktop\backv2-main\test-screenshots-agents\sample_portfolio.pdf-01-upload-page.png
+[2025-04-30T20:19:23.856Z] Uploading document: sample_portfolio.pdf
+[2025-04-30T20:19:23.944Z] Screenshot saved to C:\Users\aviad\OneDrive\Desktop\backv2-main\test-screenshots-agents\sample_portfolio.pdf-02-file-selected.png
+[2025-04-30T20:19:23.945Z] Checking for agent selection options
+[2025-04-30T20:19:23.963Z] No agent selectors found, assuming default selection
+[2025-04-30T20:19:23.969Z] Submitting the form
+[2025-04-30T20:19:33.987Z] No navigation occurred after submit
+[2025-04-30T20:19:34.076Z] Screenshot saved to C:\Users\aviad\OneDrive\Desktop\backv2-main\test-screenshots-agents\sample_portfolio.pdf-05-form-submitted.png
+[2025-04-30T20:19:34.077Z] Checking for processing indicators
+[2025-04-30T20:19:34.083Z] Processing indicator found, processing started
+[2025-04-30T20:19:34.149Z] Screenshot saved to C:\Users\aviad\OneDrive\Desktop\backv2-main\test-screenshots-agents\sample_portfolio.pdf-06-processing-started.png
+[2025-04-30T20:19:34.150Z] Waiting for processing to complete (max 2 minutes)
+[2025-04-30T20:21:34.155Z] Processing indicator still present after timeout, continuing
+[2025-04-30T20:21:34.253Z] Screenshot saved to C:\Users\aviad\OneDrive\Desktop\backv2-main\test-screenshots-agents\sample_portfolio.pdf-07-processing-complete.png
+[2025-04-30T20:21:34.255Z] Checking for success indicators
+[2025-04-30T20:21:34.266Z] Checking for extracted data
+[2025-04-30T20:21:34.270Z] Securities data found
+[2025-04-30T20:21:34.270Z] Table data found
+[2025-04-30T20:21:34.272Z] ISIN data found
+[2025-04-30T20:21:34.273Z] Navigating to document chat to test agent integration
+[2025-04-30T20:21:35.306Z] Screenshot saved to C:\Users\aviad\OneDrive\Desktop\backv2-main\test-screenshots-agents\sample_portfolio.pdf-08-document-chat.png
+[2025-04-30T20:21:35.317Z] Documents list found in chat interface
+[2025-04-30T20:21:35.411Z] Screenshot saved to C:\Users\aviad\OneDrive\Desktop\backv2-main\test-screenshots-agents\sample_portfolio.pdf-09-document-selected.png
+[2025-04-30T20:21:35.416Z] Chat input found, asking a test question
+[2025-04-30T20:21:35.487Z] Document processing test for sample_portfolio.pdf completed
+[2025-04-30T20:21:35.520Z] HTML report generated at C:\Users\aviad\OneDrive\Desktop\backv2-main\test-results-agents\agent-test-report.html
+[2025-04-30T20:21:35.521Z] Agent and processing tests completed

@@ -125,6 +125,9 @@ class ISINExtractorAgent(BaseAgent):
         Returns:
             List of extracted ISIN numbers
         """
+        if not text:
+            return []
+            
         # ISIN pattern: 2 letters followed by 10 characters (letters or digits)
         # We look for ISINs in various contexts:
         # 1. Standard ISIN format
@@ -134,6 +137,8 @@ class ISINExtractorAgent(BaseAgent):
         # 5. ISIN in a list with dash
         # 6. ISIN in a list with asterisk
         # 7. ISIN in a numbered list
+        # 8. ISIN in a table cell
+        # 9. ISIN with "code" prefix
         patterns = [
             r'\b[A-Z]{2}[A-Z0-9]{10}\b',  # Standard ISIN
             r'ISIN[\s:=]+([A-Z]{2}[A-Z0-9]{10})',  # ISIN with prefix
@@ -141,7 +146,11 @@ class ISINExtractorAgent(BaseAgent):
             r'-\s*([A-Z]{2}[A-Z0-9]{10})',  # ISIN after dash
             r'- ([A-Z]{2}[A-Z0-9]{10})\b',  # ISIN in a list with dash
             r'\* ([A-Z]{2}[A-Z0-9]{10})\b',  # ISIN in a list with asterisk
-            r'\d+\.\s+([A-Z]{2}[A-Z0-9]{10})\b'  # ISIN in a numbered list
+            r'\d+\.\s+([A-Z]{2}[A-Z0-9]{10})\b',  # ISIN in a numbered list
+            r'[\|\t][\s]*([A-Z]{2}[A-Z0-9]{10})[\s]*[\|\t]',  # ISIN in a table cell
+            r'code[\s:=]+([A-Z]{2}[A-Z0-9]{10})',  # ISIN with "code" prefix
+            r'security[\s:=]+([A-Z]{2}[A-Z0-9]{10})',  # ISIN with "security" prefix
+            r'ID[\s:=]+([A-Z]{2}[A-Z0-9]{10})'  # ISIN with "ID" prefix
         ]
 
         # Find all matches
@@ -154,18 +163,31 @@ class ISINExtractorAgent(BaseAgent):
 
         # Then try more specific patterns
         for pattern in patterns:
-            # For patterns with capturing groups, extract the group
-            if '(' in pattern:
-                pattern_matches = re.findall(pattern, text)
-                matches.extend(pattern_matches)
-            else:
-                pattern_matches = re.findall(pattern, text)
-                matches.extend(pattern_matches)
+            try:
+                # For patterns with capturing groups, extract the group
+                if '(' in pattern:
+                    pattern_matches = re.findall(pattern, text)
+                    matches.extend(pattern_matches)
+                else:
+                    pattern_matches = re.findall(pattern, text)
+                    matches.extend(pattern_matches)
+            except Exception as e:
+                self.logger.warning(f"Error matching pattern {pattern}: {str(e)}")
+                continue
 
         # Remove duplicates
         unique_isins = list(set(matches))
 
-        return unique_isins
+        # Filter out ISINs with invalid country codes
+        valid_country_codes = list(self.country_codes.keys())
+        filtered_isins = [isin for isin in unique_isins if isin[:2] in valid_country_codes]
+        
+        # If we filtered out all ISINs, return the original list
+        # This helps catch ISINs with valid formats but countries not in our country codes list
+        if not filtered_isins and unique_isins:
+            return unique_isins
+            
+        return filtered_isins
 
     def extract_and_validate_isins(self, text: str) -> List[str]:
         """
@@ -201,38 +223,42 @@ class ISINExtractorAgent(BaseAgent):
 
         # Check country code
         country_code = isin[:2]
-        if not country_code.isalpha():
+        if not country_code.isalpha() or not country_code.isupper():
             return False
 
         # Check that the rest of the characters are alphanumeric
         if not all(c.isalnum() for c in isin[2:]):
             return False
 
-        # Implement the Luhn algorithm for ISIN validation
-        # Convert letters to numbers (A=10, B=11, ..., Z=35)
-        digits = []
-        for char in isin:
-            if char.isalpha():
-                # Convert letter to number (A=10, B=11, ..., Z=35)
-                digits.append(str(ord(char) - ord('A') + 10))
-            else:
-                digits.append(char)
-        
-        # Join all digits into a single string
-        num_str = ''.join(digits)
-        
-        # Apply Luhn algorithm
-        total = 0
-        for i, digit in enumerate(reversed(num_str)):
-            value = int(digit)
-            if i % 2 == 1:  # Odd position (0-indexed from right)
-                value *= 2
-                if value > 9:
-                    value -= 9
-            total += value
-        
-        # Check if the total is divisible by 10
-        return total % 10 == 0
+        try:
+            # Implement the Luhn algorithm for ISIN validation
+            # Convert letters to numbers (A=10, B=11, ..., Z=35)
+            digits = []
+            for char in isin:
+                if char.isalpha():
+                    # Convert letter to number (A=10, B=11, ..., Z=35)
+                    digits.append(str(ord(char.upper()) - ord('A') + 10))
+                else:
+                    digits.append(char)
+            
+            # Join all digits into a single string
+            num_str = ''.join(digits)
+            
+            # Apply Luhn algorithm (for ISINs, calculate from right to left)
+            total = 0
+            for i, digit in enumerate(reversed(num_str)):
+                value = int(digit)
+                if i % 2 == 1:  # Odd position (0-indexed from right)
+                    value *= 2
+                    if value > 9:
+                        value -= 9
+                total += value
+            
+            # Check if the total is divisible by 10
+            return total % 10 == 0
+        except Exception as e:
+            self.logger.error(f"Error validating ISIN {isin}: {str(e)}")
+            return False
 
     def get_isin_metadata(self, isin: str) -> Dict[str, Any]:
         """
@@ -361,7 +387,13 @@ class ISINExtractorAgent(BaseAgent):
             # Pattern for "Security Name ISIN"
             r'([A-Za-z0-9\u0590-\u05FF\s\.,\-\&\'\"\\/()\+\%]+)\s+$',
             # Pattern for table format with security name in a separate column
-            r'([A-Za-z0-9\u0590-\u05FF\s\.,\-\&\'\"\\/()\+\%]+)\s*[\|\t]\s*$'
+            r'([A-Za-z0-9\u0590-\u05FF\s\.,\-\&\'\"\\/()\+\%]+)\s*[\|\t]\s*$',
+            # Pattern for company names with Ltd, Inc, etc.
+            r'([A-Za-z0-9\s\.,\-\&]+\s(Ltd|Inc|Corp|plc|SA|AG|NV))\s*[\(\-\s]+$',
+            # Pattern for funds with "Fund" in the name
+            r'([A-Za-z0-9\s\.,\-\&]+\sFund)\s*[\(\-\s]+$',
+            # Pattern for "ETF" or "Index"
+            r'([A-Za-z0-9\s\.,\-\&]+\s(ETF|Index))\s*[\(\-\s]+$'
         ]
 
         for pattern in name_patterns:
@@ -370,14 +402,19 @@ class ISINExtractorAgent(BaseAgent):
                 name = name_match.group(1).strip()
                 # Clean up the name
                 name = re.sub(r'\s+', ' ', name)  # Replace multiple spaces with single space
-                return name
+                if len(name) > 2:  # Ensure name is at least 3 characters
+                    return name
 
         # If not found, try after context
         after_patterns = [
             # Pattern for "ISIN - Security Name" or "ISIN: Security Name"
             r'^[\:\-\s]+([A-Za-z0-9\u0590-\u05FF\s\.,\-\&\'\"\\/()\+\%]+)',
             # Pattern for table format with security name in a separate column
-            r'^\s*[\|\t]\s*([A-Za-z0-9\u0590-\u05FF\s\.,\-\&\'\"\\/()\+\%]+)'
+            r'^\s*[\|\t]\s*([A-Za-z0-9\u0590-\u05FF\s\.,\-\&\'\"\\/()\+\%]+)',
+            # Pattern for parentheses with company name
+            r'^\s*\(([A-Za-z0-9\s\.,\-\&]+)\)',
+            # Pattern for company names after parentheses
+            r'^\s*\)[^A-Za-z0-9]*([A-Za-z0-9\s\.,\-\&]+)'
         ]
 
         for pattern in after_patterns:
@@ -386,10 +423,37 @@ class ISINExtractorAgent(BaseAgent):
                 name = name_match.group(1).strip()
                 # Clean up the name
                 name = re.sub(r'\s+', ' ', name)  # Replace multiple spaces with single space
-                return name
+                if len(name) > 2:  # Ensure name is at least 3 characters
+                    return name
 
-        # If still not found, return empty string
-        return ""
+        # If still not found, try looking for common security name patterns in the combined context
+        combined_context = before_context + after_context
+        common_patterns = [
+            # Pattern for a parenthetical security name
+            r'\(([A-Za-z0-9\s\.,\-\&]{3,}?)\)',
+            # Pattern for something that looks like a ticker symbol
+            r'\b([A-Z]{1,5})\b(?=\s*[-:]\s*[A-Z]{2}[A-Z0-9]{10}|\s*ISIN)',
+            # Pattern for company names with common suffixes
+            r'\b([A-Za-z0-9\s\.,\-\&]+\s(Ltd|Inc|Corp|plc|SA|AG|NV|SE))\b'
+        ]
+
+        for pattern in common_patterns:
+            name_match = re.search(pattern, combined_context)
+            if name_match:
+                name = name_match.group(1).strip()
+                # Clean up the name
+                name = re.sub(r'\s+', ' ', name)  # Replace multiple spaces with single space
+                if len(name) > 2:  # Ensure name is at least 3 characters
+                    return name
+
+        # If no patterns matched, look for capitalized words before the ISIN
+        # This is a fallback method that might catch company names
+        words = re.findall(r'\b([A-Z][a-z]+(?:\s+[A-Z][a-z]+){1,5})\b', before_context)
+        if words and len(words[-1]) > 5:  # Use the last capitalized phrase if it's long enough
+            return words[-1]
+
+        # If still not found, return "Unknown"
+        return "Unknown"
 
     def save_results(self, isins: List[Dict[str, Any]], output_dir: str) -> str:
         """

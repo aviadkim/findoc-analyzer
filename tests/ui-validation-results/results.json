@@ -1,0 +1,571 @@
+{
+  "timestamp": "2025-05-04T07:45:45.036Z",
+  "pages": [
+    {
+      "name": "Home",
+      "path": "/",
+      "type": "all",
+      "elements": [
+        {
+          "description": "Show Chat Button",
+          "selector": "#show-chat-btn",
+          "found": true,
+          "optional": false
+        },
+        {
+          "description": "Document Chat Container",
+          "selector": "#document-chat-container",
+          "found": true,
+          "optional": true
+        },
+        {
+          "description": "Document Chat Input",
+          "selector": "#document-chat-input",
+          "found": false,
+          "optional": true
+        },
+        {
+          "description": "Document Chat Send Button",
+          "selector": "#document-send-btn",
+          "found": true,
+          "optional": true
+        },
+        {
+          "description": "Login Form",
+          "selector": "#login-form",
+          "found": true,
+          "optional": true
+        },
+        {
+          "description": "Google Login Button",
+          "selector": "#google-login-btn",
+          "found": true,
+          "optional": true
+        },
+        {
+          "description": "Show Chat Button",
+          "selector": "#show-chat-btn",
+          "found": true,
+          "optional": false
+        },
+        {
+          "description": "Document Chat Container",
+          "selector": "#document-chat-container",
+          "found": true,
+          "optional": true
+        },
+        {
+          "description": "Document Chat Input",
+          "selector": "#document-chat-input",
+          "found": false,
+          "optional": true
+        },
+        {
+          "description": "Document Chat Send Button",
+          "selector": "#document-send-btn",
+          "found": true,
+          "optional": true
+        },
+        {
+          "description": "Login Form",
+          "selector": "#login-form",
+          "found": true,
+          "optional": true
+        },
+        {
+          "description": "Google Login Button",
+          "selector": "#google-login-btn",
+          "found": true,
+          "optional": true
+        }
+      ],
+      "summary": {
+        "totalElements": 2,
+        "foundElements": 2,
+        "missingElements": 0,
+        "passRate": 100
+      }
+    },
+    {
+      "name": "Upload",
+      "path": "/upload",
+      "type": "upload",
+      "elements": [
+        {
+          "description": "Show Chat Button",
+          "selector": "#show-chat-btn",
+          "found": true,
+          "optional": false
+        },
+        {
+          "description": "Document Chat Container",
+          "selector": "#document-chat-container",
+          "found": true,
+          "optional": true
+        },
+        {
+          "description": "Document Chat Input",
+          "selector": "#document-chat-input",
+          "found": true,
+          "optional": true
+        },
+        {
+          "description": "Document Chat Send Button",
+          "selector": "#document-send-btn",
+          "found": true,
+          "optional": true
+        },
+        {
+          "description": "Login Form",
+          "selector": "#login-form",
+          "found": true,
+          "optional": true
+        },
+        {
+          "description": "Google Login Button",
+          "selector": "#google-login-btn",
+          "found": true,
+          "optional": true
+        },
+        {
+          "description": "Process Document Button",
+          "selector": "#process-document-btn",
+          "found": true,
+          "optional": false
+        },
+        {
+          "description": "Progress Container",
+          "selector": "#progress-container",
+          "found": false,
+          "optional": true
+        },
+        {
+          "description": "Progress Bar",
+          "selector": "#progress-bar",
+          "found": false,
+          "optional": true
+        },
+        {
+          "description": "Upload Status",
+          "selector": "#upload-status",
+          "found": false,
+          "optional": true
+        }
+      ],
+      "summary": {
+        "totalElements": 2,
+        "foundElements": 2,
+        "missingElements": 0,
+        "passRate": 100
+      }
+    },
+    {
+      "name": "Documents",
+      "path": "/documents-new",
+      "type": "documents-new",
+      "elements": [
+        {
+          "description": "Show Chat Button",
+          "selector": "#show-chat-btn",
+          "found": true,
+          "optional": false
+        },
+        {
+          "description": "Document Chat Container",
+          "selector": "#document-chat-container",
+          "found": true,
+          "optional": true
+        },
+        {
+          "description": "Document Chat Input",
+          "selector": "#document-chat-input",
+          "found": true,
+          "optional": true
+        },
+        {
+          "description": "Document Chat Send Button",
+          "selector": "#document-send-btn",
+          "found": true,
+          "optional": true
+        },
+        {
+          "description": "Login Form",
+          "selector": "#login-form",
+          "found": true,
+          "optional": true
+        },
+        {
+          "description": "Google Login Button",
+          "selector": "#google-login-btn",
+          "found": true,
+          "optional": true
+        },
+        {
+          "description": "Document List",
+          "selector": ".document-list",
+          "found": false,
+          "optional": false
+        },
+        {
+          "description": "Document Items",
+          "selector": ".document-item",
+          "found": false,
+          "optional": false
+        },
+        {
+          "description": "Document Actions",
+          "selector": ".document-actions",
+          "found": false,
+          "optional": false
+        }
+      ],
+      "summary": {
+        "totalElements": 4,
+        "foundElements": 1,
+        "missingElements": 3,
+        "passRate": 25
+      }
+    },
+    {
+      "name": "Analytics",
+      "path": "/analytics-new",
+      "type": "analytics-new",
+      "elements": [
+        {
+          "description": "Show Chat Button",
+          "selector": "#show-chat-btn",
+          "found": true,
+          "optional": false
+        },
+        {
+          "description": "Document Chat Container",
+          "selector": "#document-chat-container",
+          "found": true,
+          "optional": true
+        },
+        {
+          "description": "Document Chat Input",
+          "selector": "#document-chat-input",
+          "found": true,
+          "optional": true
+        },
+        {
+          "description": "Document Chat Send Button",
+          "selector": "#document-send-btn",
+          "found": true,
+          "optional": true
+        },
+        {
+          "description": "Login Form",
+          "selector": "#login-form",
+          "found": true,
+          "optional": true
+        },
+        {
+          "description": "Google Login Button",
+          "selector": "#google-login-btn",
+          "found": true,
+          "optional": true
+        },
+        {
+          "description": "Analytics Dashboard",
+          "selector": ".analytics-dashboard",
+          "found": false,
+          "optional": false
+        },
+        {
+          "description": "Analytics Charts",
+          "selector": ".analytics-chart",
+          "found": false,
+          "optional": false
+        },
+        {
+          "description": "Analytics Filters",
+          "selector": ".analytics-filters",
+          "found": false,
+          "optional": false
+        }
+      ],
+      "summary": {
+        "totalElements": 4,
+        "foundElements": 1,
+        "missingElements": 3,
+        "passRate": 25
+      }
+    },
+    {
+      "name": "Document Details",
+      "path": "/document-details.html",
+      "type": "document-details",
+      "elements": [
+        {
+          "description": "Show Chat Button",
+          "selector": "#show-chat-btn",
+          "found": true,
+          "optional": false
+        },
+        {
+          "description": "Document Chat Container",
+          "selector": "#document-chat-container",
+          "found": true,
+          "optional": true
+        },
+        {
+          "description": "Document Chat Input",
+          "selector": "#document-chat-input",
+          "found": true,
+          "optional": true
+        },
+        {
+          "description": "Document Chat Send Button",
+          "selector": "#document-send-btn",
+          "found": true,
+          "optional": true
+        },
+        {
+          "description": "Login Form",
+          "selector": "#login-form",
+          "found": true,
+          "optional": true
+        },
+        {
+          "description": "Google Login Button",
+          "selector": "#google-login-btn",
+          "found": true,
+          "optional": true
+        },
+        {
+          "description": "Document Metadata",
+          "selector": ".document-metadata",
+          "found": false,
+          "optional": false
+        },
+        {
+          "description": "Document Content",
+          "selector": ".document-content",
+          "found": false,
+          "optional": false
+        },
+        {
+          "description": "Document Tables",
+          "selector": ".document-tables",
+          "found": false,
+          "optional": false
+        }
+      ],
+      "summary": {
+        "totalElements": 4,
+        "foundElements": 1,
+        "missingElements": 3,
+        "passRate": 25
+      }
+    },
+    {
+      "name": "Document Chat",
+      "path": "/document-chat",
+      "type": "document-chat",
+      "elements": [
+        {
+          "description": "Show Chat Button",
+          "selector": "#show-chat-btn",
+          "found": true,
+          "optional": false
+        },
+        {
+          "description": "Document Chat Container",
+          "selector": "#document-chat-container",
+          "found": true,
+          "optional": true
+        },
+        {
+          "description": "Document Chat Input",
+          "selector": "#document-chat-input",
+          "found": true,
+          "optional": true
+        },
+        {
+          "description": "Document Chat Send Button",
+          "selector": "#document-send-btn",
+          "found": true,
+          "optional": true
+        },
+        {
+          "description": "Login Form",
+          "selector": "#login-form",
+          "found": true,
+          "optional": true
+        },
+        {
+          "description": "Google Login Button",
+          "selector": "#google-login-btn",
+          "found": true,
+          "optional": true
+        },
+        {
+          "description": "Document Selector",
+          "selector": ".document-selector",
+          "found": true,
+          "optional": false
+        },
+        {
+          "description": "Chat History",
+          "selector": ".chat-history",
+          "found": false,
+          "optional": false
+        },
+        {
+          "description": "Chat Input",
+          "selector": ".chat-input",
+          "found": true,
+          "optional": false
+        }
+      ],
+      "summary": {
+        "totalElements": 4,
+        "foundElements": 3,
+        "missingElements": 1,
+        "passRate": 75
+      }
+    },
+    {
+      "name": "Document Comparison",
+      "path": "/document-comparison",
+      "type": "document-comparison",
+      "elements": [
+        {
+          "description": "Show Chat Button",
+          "selector": "#show-chat-btn",
+          "found": true,
+          "optional": false
+        },
+        {
+          "description": "Document Chat Container",
+          "selector": "#document-chat-container",
+          "found": true,
+          "optional": true
+        },
+        {
+          "description": "Document Chat Input",
+          "selector": "#document-chat-input",
+          "found": true,
+          "optional": true
+        },
+        {
+          "description": "Document Chat Send Button",
+          "selector": "#document-send-btn",
+          "found": true,
+          "optional": true
+        },
+        {
+          "description": "Login Form",
+          "selector": "#login-form",
+          "found": true,
+          "optional": true
+        },
+        {
+          "description": "Google Login Button",
+          "selector": "#google-login-btn",
+          "found": true,
+          "optional": true
+        },
+        {
+          "description": "Comparison Container",
+          "selector": ".comparison-container",
+          "found": false,
+          "optional": false
+        },
+        {
+          "description": "Document Selectors",
+          "selector": ".document-selector",
+          "found": false,
+          "optional": false
+        },
+        {
+          "description": "Comparison Results",
+          "selector": ".comparison-results",
+          "found": true,
+          "optional": false
+        }
+      ],
+      "summary": {
+        "totalElements": 4,
+        "foundElements": 2,
+        "missingElements": 2,
+        "passRate": 50
+      }
+    },
+    {
+      "name": "Test",
+      "path": "/test",
+      "type": "test",
+      "elements": [
+        {
+          "description": "Show Chat Button",
+          "selector": "#show-chat-btn",
+          "found": true,
+          "optional": false
+        },
+        {
+          "description": "Document Chat Container",
+          "selector": "#document-chat-container",
+          "found": true,
+          "optional": true
+        },
+        {
+          "description": "Document Chat Input",
+          "selector": "#document-chat-input",
+          "found": true,
+          "optional": true
+        },
+        {
+          "description": "Document Chat Send Button",
+          "selector": "#document-send-btn",
+          "found": true,
+          "optional": true
+        },
+        {
+          "description": "Login Form",
+          "selector": "#login-form",
+          "found": true,
+          "optional": true
+        },
+        {
+          "description": "Google Login Button",
+          "selector": "#google-login-btn",
+          "found": true,
+          "optional": true
+        },
+        {
+          "description": "Agent Cards",
+          "selector": ".agent-card",
+          "found": false,
+          "optional": false
+        },
+        {
+          "description": "Agent Status Indicators",
+          "selector": ".status-indicator",
+          "found": false,
+          "optional": false
+        },
+        {
+          "description": "Agent Action Buttons",
+          "selector": ".agent-action",
+          "found": false,
+          "optional": false
+        }
+      ],
+      "summary": {
+        "totalElements": 4,
+        "foundElements": 1,
+        "missingElements": 3,
+        "passRate": 25
+      }
+    }
+  ],
+  "summary": {
+    "totalElements": 28,
+    "foundElements": 13,
+    "missingElements": 15,
+    "passRate": 46.42857142857143
+  }
+}

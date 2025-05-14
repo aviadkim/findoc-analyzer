@@ -1,0 +1,24 @@
+{
+  "fileName": "1745988409089-352844795-test-batch-3.pdf",
+  "fileSize": 120,
+  "processingOptions": {
+    "extractText": true,
+    "extractTables": true,
+    "extractMetadata": true,
+    "extractSecurities": true,
+    "useOcr": false
+  },
+  "text": "",
+  "pages": [],
+  "pageCount": 0,
+  "error": "Failed to open file 'C:\\\\Users\\\\aviad\\\\OneDrive\\\\Desktop\\\\backv2-main\\\\uploads\\\\1745988409089-352844795-test-batch-3.pdf'.",
+  "tables": [],
+  "tableCount": 0,
+  "extractionMethod": "deepseek",
+  "metadata": {},
+  "info": {},
+  "formFields": [],
+  "links": [],
+  "securities": [],
+  "securitiesCount": 0
+}

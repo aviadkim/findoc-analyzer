@@ -1,0 +1,183 @@
+{
+  "id": "6b561c4d-6a17-48b2-a79e-4085f39b8c70",
+  "status": "completed",
+  "createdAt": "2025-04-30T04:50:51.786Z",
+  "updatedAt": "2025-04-30T04:51:00.682Z",
+  "files": [
+    {
+      "path": "C:\\Users\\aviad\\OneDrive\\Desktop\\backv2-main\\uploads\\1745988651782-127451033-test-batch-1.pdf",
+      "name": "test-batch-1.pdf",
+      "status": "completed",
+      "result": {
+        "fileName": "1745988651782-127451033-test-batch-1.pdf",
+        "fileSize": 121,
+        "processingOptions": {
+          "extractText": true,
+          "extractTables": true,
+          "extractMetadata": true,
+          "extractSecurities": true,
+          "useOcr": false
+        },
+        "text": "",
+        "pages": [],
+        "pageCount": 0,
+        "error": "Failed to open file 'C:\\\\Users\\\\aviad\\\\OneDrive\\\\Desktop\\\\backv2-main\\\\uploads\\\\1745988651782-127451033-test-batch-1.pdf'.",
+        "tables": [],
+        "tableCount": 0,
+        "extractionMethod": "deepseek",
+        "metadata": {},
+        "info": {},
+        "formFields": [],
+        "links": [],
+        "securities": [],
+        "securitiesCount": 0
+      },
+      "error": null
+    },
+    {
+      "path": "C:\\Users\\aviad\\OneDrive\\Desktop\\backv2-main\\uploads\\1745988651782-588419474-test-batch-2.pdf",
+      "name": "test-batch-2.pdf",
+      "status": "completed",
+      "result": {
+        "fileName": "1745988651782-588419474-test-batch-2.pdf",
+        "fileSize": 119,
+        "processingOptions": {
+          "extractText": true,
+          "extractTables": true,
+          "extractMetadata": true,
+          "extractSecurities": true,
+          "useOcr": false
+        },
+        "text": "",
+        "pages": [],
+        "pageCount": 0,
+        "error": "Failed to open file 'C:\\\\Users\\\\aviad\\\\OneDrive\\\\Desktop\\\\backv2-main\\\\uploads\\\\1745988651782-588419474-test-batch-2.pdf'.",
+        "tables": [],
+        "tableCount": 0,
+        "extractionMethod": "deepseek",
+        "metadata": {},
+        "info": {},
+        "formFields": [],
+        "links": [],
+        "securities": [],
+        "securitiesCount": 0
+      },
+      "error": null
+    },
+    {
+      "path": "C:\\Users\\aviad\\OneDrive\\Desktop\\backv2-main\\uploads\\1745988651782-23611628-test-batch-3.pdf",
+      "name": "test-batch-3.pdf",
+      "status": "completed",
+      "result": {
+        "fileName": "1745988651782-23611628-test-batch-3.pdf",
+        "fileSize": 120,
+        "processingOptions": {
+          "extractText": true,
+          "extractTables": true,
+          "extractMetadata": true,
+          "extractSecurities": true,
+          "useOcr": false
+        },
+        "text": "",
+        "pages": [],
+        "pageCount": 0,
+        "error": "Failed to open file 'C:\\\\Users\\\\aviad\\\\OneDrive\\\\Desktop\\\\backv2-main\\\\uploads\\\\1745988651782-23611628-test-batch-3.pdf'.",
+        "tables": [],
+        "tableCount": 0,
+        "extractionMethod": "deepseek",
+        "metadata": {},
+        "info": {},
+        "formFields": [],
+        "links": [],
+        "securities": [],
+        "securitiesCount": 0
+      },
+      "error": null
+    }
+  ],
+  "options": {
+    "extractText": true,
+    "extractTables": true,
+    "extractMetadata": true,
+    "extractSecurities": true,
+    "useOcr": false
+  },
+  "results": [
+    {
+      "fileName": "1745988651782-127451033-test-batch-1.pdf",
+      "fileSize": 121,
+      "processingOptions": {
+        "extractText": true,
+        "extractTables": true,
+        "extractMetadata": true,
+        "extractSecurities": true,
+        "useOcr": false
+      },
+      "text": "",
+      "pages": [],
+      "pageCount": 0,
+      "error": "Failed to open file 'C:\\\\Users\\\\aviad\\\\OneDrive\\\\Desktop\\\\backv2-main\\\\uploads\\\\1745988651782-127451033-test-batch-1.pdf'.",
+      "tables": [],
+      "tableCount": 0,
+      "extractionMethod": "deepseek",
+      "metadata": {},
+      "info": {},
+      "formFields": [],
+      "links": [],
+      "securities": [],
+      "securitiesCount": 0
+    },
+    {
+      "fileName": "1745988651782-588419474-test-batch-2.pdf",
+      "fileSize": 119,
+      "processingOptions": {
+        "extractText": true,
+        "extractTables": true,
+        "extractMetadata": true,
+        "extractSecurities": true,
+        "useOcr": false
+      },
+      "text": "",
+      "pages": [],
+      "pageCount": 0,
+      "error": "Failed to open file 'C:\\\\Users\\\\aviad\\\\OneDrive\\\\Desktop\\\\backv2-main\\\\uploads\\\\1745988651782-588419474-test-batch-2.pdf'.",
+      "tables": [],
+      "tableCount": 0,
+      "extractionMethod": "deepseek",
+      "metadata": {},
+      "info": {},
+      "formFields": [],
+      "links": [],
+      "securities": [],
+      "securitiesCount": 0
+    },
+    {
+      "fileName": "1745988651782-23611628-test-batch-3.pdf",
+      "fileSize": 120,
+      "processingOptions": {
+        "extractText": true,
+        "extractTables": true,
+        "extractMetadata": true,
+        "extractSecurities": true,
+        "useOcr": false
+      },
+      "text": "",
+      "pages": [],
+      "pageCount": 0,
+      "error": "Failed to open file 'C:\\\\Users\\\\aviad\\\\OneDrive\\\\Desktop\\\\backv2-main\\\\uploads\\\\1745988651782-23611628-test-batch-3.pdf'.",
+      "tables": [],
+      "tableCount": 0,
+      "extractionMethod": "deepseek",
+      "metadata": {},
+      "info": {},
+      "formFields": [],
+      "links": [],
+      "securities": [],
+      "securitiesCount": 0
+    }
+  ],
+  "progress": 100,
+  "totalFiles": 3,
+  "processedFiles": 3,
+  "errors": []
+}

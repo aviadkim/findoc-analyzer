@@ -1,0 +1,119 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Application Test Results</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      color: #333;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    h1, h2 {
+      color: #0066cc;
+    }
+    .summary {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin-bottom: 30px;
+    }
+    .card {
+      background-color: #f5f5f5;
+      border-radius: 8px;
+      padding: 15px;
+      min-width: 150px;
+      text-align: center;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .card.critical {
+      background-color: #ffebee;
+      border-left: 5px solid #f44336;
+    }
+    .card.high {
+      background-color: #fff8e1;
+      border-left: 5px solid #ffc107;
+    }
+    .card.medium {
+      background-color: #e8f5e9;
+      border-left: 5px solid #4caf50;
+    }
+    .number {
+      font-size: 2em;
+      font-weight: bold;
+      margin: 10px 0;
+    }
+    .issues {
+      margin-top: 30px;
+    }
+    .issue {
+      background-color: #f9f9f9;
+      border-radius: 8px;
+      padding: 15px;
+      margin-bottom: 15px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .issue.critical {
+      background-color: #ffebee;
+      border-left: 5px solid #f44336;
+    }
+    .issue.high {
+      background-color: #fff8e1;
+      border-left: 5px solid #ffc107;
+    }
+    .issue.medium {
+      background-color: #e8f5e9;
+      border-left: 5px solid #4caf50;
+    }
+  </style>
+</head>
+<body>
+  <h1>Application Test Results</h1>
+  <p>Test run on: 5/12/2025, 4:11:27 PM</p>
+  
+  <div class="summary">
+    <div class="card">
+      <div>Total Issues</div>
+      <div class="number">2</div>
+    </div>
+    <div class="card critical">
+      <div>Critical Issues</div>
+      <div class="number">1</div>
+    </div>
+    <div class="card high">
+      <div>High-Priority Issues</div>
+      <div class="number">1</div>
+    </div>
+    <div class="card medium">
+      <div>Medium-Priority Issues</div>
+      <div class="number">0</div>
+    </div>
+  </div>
+  
+  <div class="issues">
+    <h2>Issues Found</h2>
+    
+      <div class="issue critical">
+        <h3>Issue on upload page</h3>
+        <p><strong>Description:</strong> No process button found on upload page</p>
+        <p><strong>Severity:</strong> critical</p>
+      </div>
+    
+      <div class="issue high">
+        <h3>Issue on global page</h3>
+        <p><strong>Description:</strong> No chat button/widget found</p>
+        <p><strong>Severity:</strong> high</p>
+      </div>
+    
+  </div>
+  
+  <h2>HTML Content</h2>
+  <p>HTML content of tested pages has been saved to the <code>/mnt/c/Users/aviad/OneDrive/Desktop/backv2-main/app-test-results</code> directory.</p>
+</body>
+</html>
+  

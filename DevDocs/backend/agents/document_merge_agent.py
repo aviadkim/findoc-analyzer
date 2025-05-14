@@ -1,1931 +1,1521 @@
+"""
+Document Merge Agent for merging multiple financial documents.
+"""
+import json
+import os
 from datetime import datetime
-from typing import Dict, List, Any, Optional
-import re
+from typing import Dict, Any, List, Optional, Union
+from .base_agent import BaseAgent
 
-class DocumentMergeAgent:
-    """סוכן לאיחוד מידע ממספר דוחות/מסמכים לכדי תמונה כוללת."""
+class DocumentMergeAgent(BaseAgent):
+    """Agent for merging multiple financial documents."""
 
-    def __init__(self):
-        # סוגי מסמכים שהסוכן יודע לאחד
-        self.supported_document_types = [
-            "portfolio_statement",  # דוח תיק השקעות
-            "balance_sheet",        # מאזן
-            "income_statement",     # דוח רווח והפסד
-            "bank_statement",       # דף חשבון בנק
-            "salary_statement"      # תלוש שכר
-        ]
-
-    def merge_documents(self, documents: List[Dict[str, Any]]) -> Dict[str, Any]:
+    def __init__(
+        self,
+        api_key: Optional[str] = None,
+        **kwargs
+    ):
         """
-        איחוד מסמכים לכדי מסמך אחד.
+        Initialize the document merge agent.
 
         Args:
-            documents: רשימת מסמכים מעובדים
+            api_key: OpenRouter API key
+            **kwargs: Additional parameters for the base agent
+        """
+        super().__init__(name="Document Merge Agent")
+        self.api_key = api_key
+        self.description = "I merge multiple financial documents into a single document."
+
+    def process(self, task: Dict[str, Any]) -> Dict[str, Any]:
+        """
+        Process a task to merge multiple documents.
+
+        Args:
+            task: Task dictionary with the following keys:
+                - documents: List of documents to merge
+                - merge_strategy: Strategy for merging (optional)
 
         Returns:
-            מסמך מאוחד עם כל המידע
+            Dictionary with merged document
         """
+        # Get the documents
+        if 'documents' not in task:
+            raise ValueError("Task must contain 'documents'")
+
+        documents = task['documents']
         if not documents:
-            return {"status": "error", "message": "לא סופקו מסמכים לאיחוד"}
+            return {
+                'status': 'error',
+                'message': 'No documents provided'
+            }
 
-        # סיווג המסמכים לפי סוג
-        documents_by_type = self._classify_documents(documents)
+        # Get the merge strategy
+        merge_strategy = task.get('merge_strategy', 'comprehensive')
 
-        # איחוד נתונים לפי סוג
-        merged_document = {
-            "merge_date": datetime.now().isoformat(),
-            "original_documents": len(documents),
-            "document_types": list(documents_by_type.keys()),
-            "merged_data": {},
-            "summary": {}
+        # Merge the documents
+        merged_document = self.merge_documents(documents, merge_strategy=merge_strategy)
+
+        # Extract merged data
+        merged_data = self.extract_merged_data(merged_document)
+
+        return {
+            'status': 'success',
+            'merged_document': merged_document,
+            'merged_data': merged_data
         }
 
-        # איחוד לפי סוג מסמך
-        for doc_type, docs in documents_by_type.items():
-            if doc_type == "portfolio_statement":
-                merged_document["merged_data"]["portfolio"] = self._merge_portfolio_statements(docs)
-            elif doc_type == "balance_sheet":
-                merged_document["merged_data"]["balance_sheet"] = self._merge_balance_sheets(docs)
-            elif doc_type == "income_statement":
-                merged_document["merged_data"]["income_statement"] = self._merge_income_statements(docs)
-            elif doc_type == "bank_statement":
-                merged_document["merged_data"]["bank_statements"] = self._merge_bank_statements(docs)
-            elif doc_type == "salary_statement":
-                merged_document["merged_data"]["salary"] = self._merge_salary_statements(docs)
+    def merge_documents(self, documents: List[Dict[str, Any]], merge_strategy: str) -> Dict[str, Any]:
+        """
+        Merge multiple documents.
 
-        # יצירת סיכום מאוחד
-        merged_document["summary"] = self._create_merged_summary(merged_document["merged_data"])
+        Args:
+            documents: List of documents to merge
+            merge_strategy: Strategy for merging
+
+        Returns:
+            Merged document
+        """
+        if not documents:
+            return {}
+
+        # Initialize merged document with the first document
+        merged_document = documents[0].copy()
+
+        # Merge the rest of the documents
+        for document in documents[1:]:
+            merged_document = self._merge_two_documents(merged_document, document, merge_strategy)
+
+        # Add merge date
+        merged_document['merge_date'] = datetime.now().isoformat()
+        
+        # Add original document count
+        merged_document['original_documents'] = len(documents)
+        
+        # Add document types
+        document_types = []
+        for document in documents:
+            doc_type = document.get('metadata', {}).get('document_type', 'unknown')
+            if doc_type not in document_types:
+                document_types.append(doc_type)
+        merged_document['document_types'] = document_types
 
         return merged_document
 
-    def compare_merged_document_over_time(self, merged_documents: List[Dict[str, Any]]) -> Dict[str, Any]:
+    def _merge_two_documents(self, doc1: Dict[str, Any], doc2: Dict[str, Any], merge_strategy: str) -> Dict[str, Any]:
         """
-        השוואת מסמכים מאוחדים לאורך זמן.
+        Merge two documents.
 
         Args:
-            merged_documents: רשימת מסמכים מאוחדים ממוינת לפי תאריך
+            doc1: First document
+            doc2: Second document
+            merge_strategy: Strategy for merging
 
         Returns:
-            השוואה וניתוח מגמות לאורך זמן
+            Merged document
         """
-        if len(merged_documents) < 2:
-            return {"status": "error", "message": "נדרשים לפחות שני מסמכים מאוחדים להשוואה לאורך זמן"}
+        # Create a new document
+        merged_doc = {}
 
-        # מיון המסמכים לפי תאריך
-        sorted_documents = sorted(merged_documents, key=lambda x: x.get("merge_date", ""))
+        # Merge metadata
+        merged_doc['metadata'] = self._merge_metadata(doc1.get('metadata', {}), doc2.get('metadata', {}))
 
-        comparison = {
-            "comparison_date": datetime.now().isoformat(),
-            "period_start": sorted_documents[0].get("merge_date", ""),
-            "period_end": sorted_documents[-1].get("merge_date", ""),
-            "document_count": len(sorted_documents),
-            "trends": {},
-            "summary": {}
-        }
-
-        # ניתוח מגמות לפי סוג נתונים
-        if all("merged_data" in doc and "portfolio" in doc["merged_data"] for doc in sorted_documents):
-            comparison["trends"]["portfolio"] = self._analyze_portfolio_trends(
-                [doc["merged_data"]["portfolio"] for doc in sorted_documents]
-            )
-
-        if all("merged_data" in doc and "balance_sheet" in doc["merged_data"] for doc in sorted_documents):
-            comparison["trends"]["balance_sheet"] = self._analyze_balance_sheet_trends(
-                [doc["merged_data"]["balance_sheet"] for doc in sorted_documents]
-            )
-
-        if all("merged_data" in doc and "income_statement" in doc["merged_data"] for doc in sorted_documents):
-            comparison["trends"]["income_statement"] = self._analyze_income_statement_trends(
-                [doc["merged_data"]["income_statement"] for doc in sorted_documents]
-            )
-
-        if all("merged_data" in doc and "salary" in doc["merged_data"] for doc in sorted_documents):
-            comparison["trends"]["salary"] = self._analyze_salary_trends(
-                [doc["merged_data"]["salary"] for doc in sorted_documents]
-            )
-
-        # יצירת סיכום מגמות
-        comparison["summary"] = self._generate_comparison_summary(comparison["trends"])
-
-        return comparison
-
-    def generate_comprehensive_report(self, merged_document: Dict[str, Any]) -> Dict[str, Any]:
-        """
-        יצירת דוח מקיף המשלב את כל המידע הפיננסי.
-
-        Args:
-            merged_document: מסמך מאוחד
-
-        Returns:
-            דוח מקיף עם ניתוח פיננסי משולב
-        """
-        report = {
-            "report_date": datetime.now().isoformat(),
-            "report_type": "comprehensive_financial_report",
-            "data_sources": merged_document.get("document_types", []),
-            "financial_snapshot": {},
-            "assets_and_liabilities": {},
-            "income_and_expenses": {},
-            "investments": {},
-            "recommendations": []
-        }
-
-        # יצירת תמונת מצב פיננסית
-        report["financial_snapshot"] = self._create_financial_snapshot(merged_document["merged_data"])
-
-        # ניתוח נכסים והתחייבויות
-        report["assets_and_liabilities"] = self._analyze_assets_and_liabilities(merged_document["merged_data"])
-
-        # ניתוח הכנסות והוצאות
-        report["income_and_expenses"] = self._analyze_income_and_expenses(merged_document["merged_data"])
-
-        # ניתוח השקעות
-        report["investments"] = self._analyze_investments(merged_document["merged_data"])
-
-        # יצירת המלצות
-        report["recommendations"] = self._generate_comprehensive_recommendations(report)
-
-        return report
-
-    def _classify_documents(self, documents: List[Dict[str, Any]]) -> Dict[str, List[Dict[str, Any]]]:
-        """סיווג מסמכים לפי סוג."""
-        documents_by_type = {}
-
-        for doc in documents:
-            doc_type = "unknown"
-
-            # ניסיון לזהות סוג מסמך ממטא-דאטה
-            if "metadata" in doc and "document_type" in doc["metadata"]:
-                doc_type = doc["metadata"]["document_type"]
-
-            # אם לא נמצא במטא-דאטה, ניסיון לזהות לפי תוכן
-            if doc_type == "unknown":
-                doc_type = self._identify_document_type(doc)
-
-            # הוספה לקטגוריה מתאימה
-            if doc_type not in documents_by_type:
-                documents_by_type[doc_type] = []
-
-            documents_by_type[doc_type].append(doc)
-
-        return documents_by_type
-
-    def _identify_document_type(self, document: Dict[str, Any]) -> str:
-        """זיהוי סוג מסמך לפי תוכן."""
-        # זיהוי לפי טבלאות
-        if "tables" in document:
-            for table in document["tables"]:
-                table_type = table.get("type", "")
-                if table_type in ["portfolio", "portfolio_statement"]:
-                    return "portfolio_statement"
-                elif table_type in ["balance_sheet", "balance"]:
-                    return "balance_sheet"
-                elif table_type in ["income_statement", "profit_and_loss"]:
-                    return "income_statement"
-                elif table_type in ["bank_statement", "account"]:
-                    return "bank_statement"
-
-        # זיהוי לפי נתונים פיננסיים
-        if "financial_data" in document:
-            if "portfolio" in document["financial_data"]:
-                return "portfolio_statement"
-            elif "balance_sheet" in document["financial_data"]:
-                return "balance_sheet"
-            elif "income_statement" in document["financial_data"]:
-                return "income_statement"
-
-        # זיהוי תלוש שכר
-        if self._is_salary_statement(document):
-            return "salary_statement"
-
-        return "unknown"
-
-    def _is_salary_statement(self, document: Dict[str, Any]) -> bool:
-        """בדיקה אם המסמך הוא תלוש שכר."""
-        # חיפוש בטבלאות
-        if "tables" in document:
-            for table in document["tables"]:
-                # חיפוש כותרות אופייניות לתלוש שכר
-                if "columns" in table:
-                    salary_keywords = ["שכר", "ברוטו", "נטו", "מס הכנסה", "ביטוח לאומי"]
-
-                    for col in table["columns"]:
-                        if any(keyword in str(col).lower() for keyword in salary_keywords):
-                            return True
-
-        # חיפוש בטקסט
-        if "metadata" in document and "text" in document["metadata"]:
-            text = document["metadata"]["text"]
-            salary_patterns = [
-                r'תלוש שכר',
-                r'משכורת לחודש',
-                r'תשלום שכר',
-                r'שכר ברוטו',
-                r'salary slip',
-                r'pay slip'
-            ]
-
-            for pattern in salary_patterns:
-                if re.search(pattern, text, re.IGNORECASE):
-                    return True
-
-        return False
-
-    def _parse_numeric(self, value) -> Optional[float]:
-        """המרת ערך למספר."""
-        if isinstance(value, (int, float)):
-            return float(value)
-
-        if isinstance(value, str):
-            # הסרת תווים לא מספריים
-            clean_val = re.sub(r'[^\d.-]', '', value.replace(',', ''))
-
-            try:
-                return float(clean_val)
-            except (ValueError, TypeError):
-                pass
-
-        return None
-
-    def _merge_portfolio_statements(self, documents: List[Dict[str, Any]]) -> Dict[str, Any]:
-        """איחוד דוחות תיק השקעות."""
-        if not documents:
-            return {}
-
-        # מיון המסמכים לפי תאריך (מהמאוחר לקדום)
-        sorted_docs = sorted(
-            documents,
-            key=lambda x: x.get("metadata", {}).get("document_date", ""),
-            reverse=True
+        # Merge financial data
+        merged_doc['financial_data'] = self._merge_financial_data(
+            doc1.get('financial_data', {}),
+            doc2.get('financial_data', {}),
+            merge_strategy
         )
 
-        # שימוש במסמך העדכני ביותר כבסיס
-        latest_doc = sorted_docs[0]
+        # Merge other fields
+        for key in set(doc1.keys()) | set(doc2.keys()):
+            if key not in ['metadata', 'financial_data']:
+                if key in doc1 and key in doc2:
+                    # If both documents have the field, use the one from the first document
+                    merged_doc[key] = doc1[key]
+                elif key in doc1:
+                    merged_doc[key] = doc1[key]
+                else:
+                    merged_doc[key] = doc2[key]
 
-        # חילוץ נתוני תיק
-        merged_portfolio = {"securities": [], "summary": {}}
+        return merged_doc
 
-        # חיפוש נתוני תיק בנתיבים שונים במסמך
-        if "financial_data" in latest_doc and "portfolio" in latest_doc["financial_data"]:
-            portfolio_data = latest_doc["financial_data"]["portfolio"]
+    def _merge_metadata(self, metadata1: Dict[str, Any], metadata2: Dict[str, Any]) -> Dict[str, Any]:
+        """
+        Merge metadata from two documents.
 
-            # העתקת נתוני סיכום
-            if "summary" in portfolio_data:
-                merged_portfolio["summary"] = portfolio_data["summary"].copy()
+        Args:
+            metadata1: Metadata from the first document
+            metadata2: Metadata from the second document
 
-            # העתקת רשימת ניירות ערך
-            if "securities" in portfolio_data:
-                merged_portfolio["securities"] = portfolio_data["securities"].copy()
+        Returns:
+            Merged metadata
+        """
+        # Create a new metadata dictionary
+        merged_metadata = {}
 
-        # אם לא נמצאו נתוני תיק, חיפוש בטבלאות
-        elif not merged_portfolio["securities"] and "tables" in latest_doc:
-            for table in latest_doc["tables"]:
-                if table.get("type") in ["portfolio", "portfolio_statement"] and "data" in table:
-                    securities = []
+        # Merge common fields
+        for key in set(metadata1.keys()) | set(metadata2.keys()):
+            if key in metadata1 and key in metadata2:
+                # If both documents have the field, use the one from the first document
+                merged_metadata[key] = metadata1[key]
+            elif key in metadata1:
+                merged_metadata[key] = metadata1[key]
+            else:
+                merged_metadata[key] = metadata2[key]
 
-                    for row in table["data"]:
-                        security = {}
+        return merged_metadata
 
-                        # המרת שורת טבלה לנייר ערך
-                        for key, value in row.items():
-                            key_lower = str(key).lower()
+    def _merge_financial_data(self, data1: Dict[str, Any], data2: Dict[str, Any], merge_strategy: str) -> Dict[str, Any]:
+        """
+        Merge financial data from two documents.
 
-                            # שם נייר
-                            if "שם" in key_lower or "name" in key_lower or "תיאור" in key_lower:
-                                security["name"] = value
-                            # ISIN
-                            elif "isin" in key_lower:
-                                security["isin"] = value
-                            # סוג נייר
-                            elif "סוג" in key_lower or "type" in key_lower:
-                                security["type"] = value
-                            # כמות
-                            elif "כמות" in key_lower or "quantity" in key_lower:
-                                security["quantity"] = self._parse_numeric(value)
-                            # שער
-                            elif "שער" in key_lower or "מחיר" in key_lower or "price" in key_lower:
-                                security["price"] = self._parse_numeric(value)
-                            # שווי
-                            elif "שווי" in key_lower or "ערך" in key_lower or "value" in key_lower:
-                                security["value"] = self._parse_numeric(value)
-                            # תשואה
-                            elif "תשואה" in key_lower or "return" in key_lower:
-                                security["return"] = self._parse_numeric(value)
+        Args:
+            data1: Financial data from the first document
+            data2: Financial data from the second document
+            merge_strategy: Strategy for merging
 
-                        if security:
-                            securities.append(security)
+        Returns:
+            Merged financial data
+        """
+        # Create a new financial data dictionary
+        merged_data = {}
 
-                    if securities:
-                        merged_portfolio["securities"] = securities
+        # Merge portfolio data
+        if 'portfolio' in data1 or 'portfolio' in data2:
+            merged_data['portfolio'] = self._merge_portfolio(
+                data1.get('portfolio', {}),
+                data2.get('portfolio', {}),
+                merge_strategy
+            )
 
-                        # חישוב סיכום
-                        total_value = sum(security.get("value", 0) for security in securities
-                                       if isinstance(security.get("value", 0), (int, float)))
+        # Merge asset allocation data
+        if 'asset_allocation' in data1 or 'asset_allocation' in data2:
+            merged_data['asset_allocation'] = self._merge_asset_allocation(
+                data1.get('asset_allocation', {}),
+                data2.get('asset_allocation', {}),
+                merge_strategy
+            )
 
-                        merged_portfolio["summary"]["total_value"] = total_value
+        # Merge income statement data
+        if 'income_statement' in data1 or 'income_statement' in data2:
+            merged_data['income_statement'] = self._merge_income_statement(
+                data1.get('income_statement', {}),
+                data2.get('income_statement', {}),
+                merge_strategy
+            )
 
-                        break
+        # Merge balance sheet data
+        if 'balance_sheet' in data1 or 'balance_sheet' in data2:
+            merged_data['balance_sheet'] = self._merge_balance_sheet(
+                data1.get('balance_sheet', {}),
+                data2.get('balance_sheet', {}),
+                merge_strategy
+            )
 
-        # איחוד מידע מדוחות נוספים (למשל, ביצועים היסטוריים)
-        if len(sorted_docs) > 1:
-            # חיפוש נתונים היסטוריים
-            historical_data = self._extract_historical_data(sorted_docs[1:])
-            if historical_data:
-                merged_portfolio["historical_data"] = historical_data
+        # Merge bank statements data
+        if 'bank_statements' in data1 or 'bank_statements' in data2:
+            merged_data['bank_statements'] = self._merge_bank_statements(
+                data1.get('bank_statements', {}),
+                data2.get('bank_statements', {}),
+                merge_strategy
+            )
+
+        # Merge salary data
+        if 'salary' in data1 or 'salary' in data2:
+            merged_data['salary'] = self._merge_salary_data(
+                data1.get('salary', {}),
+                data2.get('salary', {}),
+                merge_strategy
+            )
+
+        # Merge other fields
+        for key in set(data1.keys()) | set(data2.keys()):
+            if key not in ['portfolio', 'asset_allocation', 'income_statement', 'balance_sheet', 'bank_statements', 'salary']:
+                if key in data1 and key in data2:
+                    # If both documents have the field, use the one from the first document
+                    merged_data[key] = data1[key]
+                elif key in data1:
+                    merged_data[key] = data1[key]
+                else:
+                    merged_data[key] = data2[key]
+
+        return merged_data
+
+    def _merge_portfolio(self, portfolio1: Dict[str, Any], portfolio2: Dict[str, Any], merge_strategy: str) -> Dict[str, Any]:
+        """
+        Merge portfolio data from two documents.
+
+        Args:
+            portfolio1: Portfolio data from the first document
+            portfolio2: Portfolio data from the second document
+            merge_strategy: Strategy for merging
+
+        Returns:
+            Merged portfolio data
+        """
+        # Create a new portfolio dictionary
+        merged_portfolio = {}
+
+        # Merge securities
+        securities1 = portfolio1.get('securities', [])
+        securities2 = portfolio2.get('securities', [])
+        merged_securities = self._merge_securities(securities1, securities2, merge_strategy)
+        merged_portfolio['securities'] = merged_securities
+
+        # Merge summary
+        summary1 = portfolio1.get('summary', {})
+        summary2 = portfolio2.get('summary', {})
+        merged_summary = self._merge_summary(summary1, summary2, merged_securities)
+        merged_portfolio['summary'] = merged_summary
+
+        # Create historical data
+        historical_data = self._create_historical_data(portfolio1, portfolio2)
+        if historical_data:
+            merged_portfolio['historical_data'] = historical_data
+
+        # Merge other fields
+        for key in set(portfolio1.keys()) | set(portfolio2.keys()):
+            if key not in ['securities', 'summary', 'historical_data']:
+                if key in portfolio1 and key in portfolio2:
+                    # If both documents have the field, use the one from the first document
+                    merged_portfolio[key] = portfolio1[key]
+                elif key in portfolio1:
+                    merged_portfolio[key] = portfolio1[key]
+                else:
+                    merged_portfolio[key] = portfolio2[key]
 
         return merged_portfolio
 
-    def _extract_historical_data(self, older_documents: List[Dict[str, Any]]) -> Dict[str, Any]:
-        """חילוץ נתונים היסטוריים מדוחות ישנים יותר."""
-        historical_data = {
-            "portfolio_values": [],
-            "returns": []
-        }
+    def _create_historical_data(self, portfolio1: Dict[str, Any], portfolio2: Dict[str, Any]) -> Dict[str, Any]:
+        """
+        Create historical data from two portfolios.
 
-        for doc in older_documents:
-            doc_date = doc.get("metadata", {}).get("document_date", "")
-            if not doc_date:
-                continue
+        Args:
+            portfolio1: First portfolio
+            portfolio2: Second portfolio
 
-            # חילוץ שווי תיק
-            portfolio_value = None
+        Returns:
+            Historical data
+        """
+        historical_data = {}
 
-            if "financial_data" in doc and "portfolio" in doc["financial_data"]:
-                portfolio_data = doc["financial_data"]["portfolio"]
-                if "summary" in portfolio_data and "total_value" in portfolio_data["summary"]:
-                    portfolio_value = portfolio_data["summary"]["total_value"]
+        # Extract dates and values
+        date1 = portfolio1.get('metadata', {}).get('document_date', '')
+        date2 = portfolio2.get('metadata', {}).get('document_date', '')
+        value1 = portfolio1.get('summary', {}).get('total_value', 0)
+        value2 = portfolio2.get('summary', {}).get('total_value', 0)
 
-            # אם לא נמצא, חיפוש בסיכום מסמך
-            if portfolio_value is None and "summary" in doc:
-                if "total_portfolio_value" in doc["summary"]:
-                    portfolio_value = doc["summary"]["total_portfolio_value"]
+        # Create portfolio values
+        if date1 and value1 and date2 and value2:
+            portfolio_values = []
+            
+            if date1 < date2:
+                portfolio_values.append({'date': date1, 'value': value1})
+                portfolio_values.append({'date': date2, 'value': value2})
+            else:
+                portfolio_values.append({'date': date2, 'value': value2})
+                portfolio_values.append({'date': date1, 'value': value1})
 
-            if portfolio_value is not None:
-                historical_data["portfolio_values"].append({
-                    "date": doc_date,
-                    "value": portfolio_value
-                })
+            historical_data['portfolio_values'] = portfolio_values
 
-        # מיון לפי תאריך
-        historical_data["portfolio_values"] = sorted(
-            historical_data["portfolio_values"],
-            key=lambda x: x["date"]
-        )
+            # Calculate returns
+            if len(portfolio_values) > 1:
+                returns = []
+                for i in range(1, len(portfolio_values)):
+                    current = portfolio_values[i]
+                    previous = portfolio_values[i-1]
 
-        # חישוב תשואות בין תקופות
-        if len(historical_data["portfolio_values"]) > 1:
-            for i in range(1, len(historical_data["portfolio_values"])):
-                current = historical_data["portfolio_values"][i]
-                previous = historical_data["portfolio_values"][i-1]
+                    if previous['value'] > 0:
+                        return_pct = ((current['value'] - previous['value']) / previous['value']) * 100
 
-                if previous["value"] > 0:
-                    return_pct = ((current["value"] - previous["value"]) / previous["value"]) * 100
+                        returns.append({
+                            'start_date': previous['date'],
+                            'end_date': current['date'],
+                            'start_value': previous['value'],
+                            'end_value': current['value'],
+                            'return_pct': return_pct
+                        })
 
-                    historical_data["returns"].append({
-                        "start_date": previous["date"],
-                        "end_date": current["date"],
-                        "start_value": previous["value"],
-                        "end_value": current["value"],
-                        "return_pct": return_pct
-                    })
-
-        return historical_data
-
-    def _merge_balance_sheets(self, documents: List[Dict[str, Any]]) -> Dict[str, Any]:
-        """איחוד מאזנים."""
-        if not documents:
-            return {}
-
-        # מיון המסמכים לפי תאריך (מהמאוחר לקדום)
-        sorted_docs = sorted(
-            documents,
-            key=lambda x: x.get("metadata", {}).get("document_date", ""),
-            reverse=True
-        )
-
-        # שימוש במסמך העדכני ביותר כבסיס
-        latest_doc = sorted_docs[0]
-
-        # חילוץ נתוני מאזן
-        merged_balance_sheet = {"assets": {}, "liabilities": {}, "equity": {}, "summary": {}}
-
-        # חיפוש נתוני מאזן בנתיבים שונים במסמך
-        if "financial_data" in latest_doc and "balance_sheet" in latest_doc["financial_data"]:
-            balance_data = latest_doc["financial_data"]["balance_sheet"]
-
-            # העתקת קטגוריות
-            for category in ["assets", "liabilities", "equity", "summary"]:
-                if category in balance_data:
-                    merged_balance_sheet[category] = balance_data[category].copy()
-
-        # אם לא נמצאו נתוני מאזן, חיפוש בטבלאות
-        elif "tables" in latest_doc:
-            for table in latest_doc["tables"]:
-                if table.get("type") in ["balance_sheet", "balance"] and "data" in table:
-                    balance_data = self._convert_table_to_balance_sheet(table["data"])
-
-                    if balance_data:
-                        for category in ["assets", "liabilities", "equity", "summary"]:
-                            if category in balance_data:
-                                merged_balance_sheet[category] = balance_data[category].copy()
-
-                        break
-
-        # איחוד מידע מדוחות נוספים (למשל, נתונים היסטוריים)
-        if len(sorted_docs) > 1:
-            # הוספת נתונים היסטוריים
-            merged_balance_sheet["historical_data"] = self._extract_historical_balance_sheet_data(sorted_docs[1:])
-
-        return merged_balance_sheet
-
-    def _convert_table_to_balance_sheet(self, table_data: List[Dict[str, Any]]) -> Dict[str, Any]:
-        """המרת טבלה לנתוני מאזן."""
-        balance_sheet = {
-            "assets": {},
-            "liabilities": {},
-            "equity": {}
-        }
-
-        for row in table_data:
-            row_type = None
-            item_name = None
-            item_value = None
-
-            # זיהוי סוג השורה (נכסים, התחייבויות, הון)
-            for _, value in row.items():
-                # חיפוש סוג הפריט
-                if isinstance(value, str):
-                    value_lower = value.lower()
-
-                    if any(kw in value_lower for kw in ["נכסים", "רכוש", "assets"]):
-                        row_type = "assets"
-                        item_name = value
-                    elif any(kw in value_lower for kw in ["התחייבויות", "אשראי", "liabilities"]):
-                        row_type = "liabilities"
-                        item_name = value
-                    elif any(kw in value_lower for kw in ["הון", "equity"]):
-                        row_type = "equity"
-                        item_name = value
-
-                # אם כבר זיהינו את סוג השורה, חפש את הערך המספרי
-                if row_type and item_name and isinstance(value, (int, float)):
-                    item_value = value
-                    break
-                elif row_type and item_name and isinstance(value, str):
-                    # ניסיון לפרש כמספר
-                    parsed_value = self._parse_numeric(value)
-                    if parsed_value is not None:
-                        item_value = parsed_value
-                        break
-
-            # הוספת הפריט למאזן
-            if row_type and item_name and item_value is not None:
-                balance_sheet[row_type][item_name] = item_value
-
-        # חישוב סיכומים
-        balance_sheet["summary"] = {
-            "total_assets": sum(balance_sheet["assets"].values()),
-            "total_liabilities": sum(balance_sheet["liabilities"].values()),
-            "total_equity": sum(balance_sheet["equity"].values())
-        }
-
-        return balance_sheet
-
-    def _extract_historical_balance_sheet_data(self, older_documents: List[Dict[str, Any]]) -> Dict[str, Any]:
-        """חילוץ נתוני מאזן היסטוריים מדוחות ישנים יותר."""
-        historical_data = {
-            "total_assets": [],
-            "total_liabilities": [],
-            "total_equity": [],
-            "debt_to_equity_ratio": []
-        }
-
-        for doc in older_documents:
-            doc_date = doc.get("metadata", {}).get("document_date", "")
-            if not doc_date:
-                continue
-
-            balance_data = None
-
-            # חיפוש נתוני מאזן
-            if "financial_data" in doc and "balance_sheet" in doc["financial_data"]:
-                balance_data = doc["financial_data"]["balance_sheet"]
-            elif "tables" in doc:
-                for table in doc["tables"]:
-                    if table.get("type") in ["balance_sheet", "balance"] and "data" in table:
-                        balance_data = self._convert_table_to_balance_sheet(table["data"])
-                        break
-
-            if balance_data and "summary" in balance_data:
-                summary = balance_data["summary"]
-
-                if "total_assets" in summary:
-                    historical_data["total_assets"].append({
-                        "date": doc_date,
-                        "value": summary["total_assets"]
-                    })
-
-                if "total_liabilities" in summary:
-                    historical_data["total_liabilities"].append({
-                        "date": doc_date,
-                        "value": summary["total_liabilities"]
-                    })
-
-                if "total_equity" in summary:
-                    historical_data["total_equity"].append({
-                        "date": doc_date,
-                        "value": summary["total_equity"]
-                    })
-
-                # חישוב יחס חוב להון
-                if "total_liabilities" in summary and "total_equity" in summary and summary["total_equity"] > 0:
-                    ratio = summary["total_liabilities"] / summary["total_equity"]
-
-                    historical_data["debt_to_equity_ratio"].append({
-                        "date": doc_date,
-                        "value": ratio
-                    })
-
-        # מיון לפי תאריך
-        for key in historical_data:
-            historical_data[key] = sorted(historical_data[key], key=lambda x: x["date"])
+                if returns:
+                    historical_data['returns'] = returns
 
         return historical_data
 
-    def _merge_income_statements(self, documents: List[Dict[str, Any]]) -> Dict[str, Any]:
-        """איחוד דוחות רווח והפסד."""
-        if not documents:
-            return {}
+    def _merge_securities(self, securities1: List[Dict[str, Any]], securities2: List[Dict[str, Any]], merge_strategy: str) -> List[Dict[str, Any]]:
+        """
+        Merge securities from two documents.
 
-        # מיון המסמכים לפי תאריך (מהמאוחר לקדום)
-        sorted_docs = sorted(
-            documents,
-            key=lambda x: x.get("metadata", {}).get("document_date", ""),
-            reverse=True
-        )
+        Args:
+            securities1: Securities from the first document
+            securities2: Securities from the second document
+            merge_strategy: Strategy for merging
 
-        # שימוש במסמך העדכני ביותר כבסיס
-        latest_doc = sorted_docs[0]
+        Returns:
+            Merged securities
+        """
+        # Create a dictionary of securities by ISIN
+        securities_by_isin = {}
 
-        # חילוץ נתוני רווח והפסד
-        merged_income_statement = {"revenues": {}, "expenses": {}, "profits": {}, "summary": {}}
+        # Add securities from the first document
+        for security in securities1:
+            isin = security.get('isin')
+            if isin:
+                securities_by_isin[isin] = security
 
-        # חיפוש נתוני רווח והפסד בנתיבים שונים במסמך
-        if "financial_data" in latest_doc and "income_statement" in latest_doc["financial_data"]:
-            income_data = latest_doc["financial_data"]["income_statement"]
+        # Add or update securities from the second document
+        for security in securities2:
+            isin = security.get('isin')
+            if isin:
+                if isin in securities_by_isin:
+                    # If the security already exists, update it based on the merge strategy
+                    if merge_strategy == 'comprehensive':
+                        # Merge the security data
+                        merged_security = securities_by_isin[isin].copy()
+                        for key, value in security.items():
+                            if key not in merged_security:
+                                merged_security[key] = value
+                        securities_by_isin[isin] = merged_security
+                    elif merge_strategy == 'latest':
+                        # Use the latest security data
+                        securities_by_isin[isin] = security
+                    elif merge_strategy == 'first':
+                        # Keep the first security data (do nothing)
+                        pass
+                else:
+                    # If the security doesn't exist, add it
+                    securities_by_isin[isin] = security
 
-            # העתקת קטגוריות
-            for category in ["revenues", "expenses", "profits", "summary"]:
-                if category in income_data:
-                    merged_income_statement[category] = income_data[category].copy()
+        # Convert the dictionary back to a list
+        merged_securities = list(securities_by_isin.values())
 
-        # אם לא נמצאו נתוני רווח והפסד, חיפוש בטבלאות
-        elif "tables" in latest_doc:
-            for table in latest_doc["tables"]:
-                if table.get("type") in ["income_statement", "profit_and_loss"] and "data" in table:
-                    income_data = self._convert_table_to_income_statement(table["data"])
+        return merged_securities
 
-                    if income_data:
-                        for category in ["revenues", "expenses", "profits", "summary"]:
-                            if category in income_data:
-                                merged_income_statement[category] = income_data[category].copy()
+    def _merge_summary(self, summary1: Dict[str, Any], summary2: Dict[str, Any], securities: List[Dict[str, Any]]) -> Dict[str, Any]:
+        """
+        Merge summary data from two documents.
 
-                        break
+        Args:
+            summary1: Summary data from the first document
+            summary2: Summary data from the second document
+            securities: Merged securities
 
-        # איחוד מידע מדוחות נוספים (למשל, נתונים היסטוריים)
-        if len(sorted_docs) > 1:
-            # הוספת נתונים היסטוריים
-            merged_income_statement["historical_data"] = self._extract_historical_income_data(sorted_docs[1:])
+        Returns:
+            Merged summary data
+        """
+        # Create a new summary dictionary
+        merged_summary = {}
 
-        return merged_income_statement
+        # Calculate total value
+        total_value = sum(security.get('value', 0) for security in securities)
+        merged_summary['total_value'] = total_value
 
-    def _convert_table_to_income_statement(self, table_data: List[Dict[str, Any]]) -> Dict[str, Any]:
-        """המרת טבלה לנתוני דוח רווח והפסד."""
-        income_statement = {
-            "revenues": {},
-            "expenses": {},
-            "profits": {}
-        }
+        # Calculate total securities
+        merged_summary['total_securities'] = len(securities)
 
-        for row in table_data:
-            row_type = None
-            item_name = None
-            item_value = None
+        # Merge other fields
+        for key in set(summary1.keys()) | set(summary2.keys()):
+            if key not in ['total_value', 'total_securities']:
+                if key in summary1 and key in summary2:
+                    # If both documents have the field, use the one from the first document
+                    merged_summary[key] = summary1[key]
+                elif key in summary1:
+                    merged_summary[key] = summary1[key]
+                else:
+                    merged_summary[key] = summary2[key]
 
-            # זיהוי סוג השורה (הכנסות, הוצאות, רווחים)
-            for _, value in row.items():
-                # חיפוש סוג הפריט
-                if isinstance(value, str):
-                    value_lower = value.lower()
+        return merged_summary
 
-                    if any(kw in value_lower for kw in ["הכנסות", "מכירות", "revenues", "sales"]):
-                        row_type = "revenues"
-                        item_name = value
-                    elif any(kw in value_lower for kw in ["הוצאות", "עלות", "expenses", "costs"]):
-                        row_type = "expenses"
-                        item_name = value
-                    elif any(kw in value_lower for kw in ["רווח", "הפסד", "profit", "loss"]):
-                        row_type = "profits"
-                        item_name = value
+    def _merge_asset_allocation(self, allocation1: Dict[str, Any], allocation2: Dict[str, Any], merge_strategy: str) -> Dict[str, Any]:
+        """
+        Merge asset allocation data from two documents.
 
-                # אם כבר זיהינו את סוג השורה, חפש את הערך המספרי
-                if row_type and item_name and isinstance(value, (int, float)):
-                    item_value = value
-                    break
-                elif row_type and item_name and isinstance(value, str):
-                    # ניסיון לפרש כמספר
-                    parsed_value = self._parse_numeric(value)
-                    if parsed_value is not None:
-                        item_value = parsed_value
-                        break
+        Args:
+            allocation1: Asset allocation data from the first document
+            allocation2: Asset allocation data from the second document
+            merge_strategy: Strategy for merging
 
-            # הוספת הפריט לדוח
-            if row_type and item_name and item_value is not None:
-                income_statement[row_type][item_name] = item_value
+        Returns:
+            Merged asset allocation data
+        """
+        # Create a new asset allocation dictionary
+        merged_allocation = {}
 
-        # חישוב סיכומים
-        income_statement["summary"] = {
-            "total_revenue": sum(income_statement["revenues"].values()),
-            "total_expenses": sum(income_statement["expenses"].values()),
-            "net_profit": sum(income_statement["revenues"].values()) - sum(income_statement["expenses"].values())
-        }
+        # Merge asset types
+        for asset_type in set(allocation1.keys()) | set(allocation2.keys()):
+            if asset_type in allocation1 and asset_type in allocation2:
+                # If both documents have the asset type, merge the data
+                merged_allocation[asset_type] = self._merge_asset_type(
+                    allocation1[asset_type],
+                    allocation2[asset_type],
+                    merge_strategy
+                )
+            elif asset_type in allocation1:
+                merged_allocation[asset_type] = allocation1[asset_type]
+            else:
+                merged_allocation[asset_type] = allocation2[asset_type]
 
-        return income_statement
+        # Recalculate weights
+        total_value = sum(data.get('value', 0) for data in merged_allocation.values())
+        if total_value > 0:
+            for asset_type, data in merged_allocation.items():
+                if 'value' in data:
+                    data['weight'] = (data['value'] / total_value) * 100
 
-    def _extract_historical_income_data(self, older_documents: List[Dict[str, Any]]) -> Dict[str, Any]:
-        """חילוץ נתוני רווח והפסד היסטוריים מדוחות ישנים יותר."""
-        historical_data = {
-            "total_revenue": [],
-            "total_expenses": [],
-            "net_profit": [],
-            "profit_margin": []
-        }
+        return merged_allocation
 
-        for doc in older_documents:
-            doc_date = doc.get("metadata", {}).get("document_date", "")
-            if not doc_date:
-                continue
+    def _merge_asset_type(self, data1: Dict[str, Any], data2: Dict[str, Any], merge_strategy: str) -> Dict[str, Any]:
+        """
+        Merge asset type data from two documents.
 
-            income_data = None
+        Args:
+            data1: Asset type data from the first document
+            data2: Asset type data from the second document
+            merge_strategy: Strategy for merging
 
-            # חיפוש נתוני רווח והפסד
-            if "financial_data" in doc and "income_statement" in doc["financial_data"]:
-                income_data = doc["financial_data"]["income_statement"]
-            elif "tables" in doc:
-                for table in doc["tables"]:
-                    if table.get("type") in ["income_statement", "profit_and_loss"] and "data" in table:
-                        income_data = self._convert_table_to_income_statement(table["data"])
-                        break
+        Returns:
+            Merged asset type data
+        """
+        # Create a new asset type data dictionary
+        merged_data = {}
 
-            if income_data and "summary" in income_data:
-                summary = income_data["summary"]
+        # Merge value
+        value1 = data1.get('value', 0)
+        value2 = data2.get('value', 0)
+        merged_data['value'] = value1 + value2
 
-                if "total_revenue" in summary:
-                    historical_data["total_revenue"].append({
-                        "date": doc_date,
-                        "value": summary["total_revenue"]
-                    })
+        # Merge count
+        count1 = data1.get('count', 0)
+        count2 = data2.get('count', 0)
+        merged_data['count'] = count1 + count2
 
-                if "total_expenses" in summary:
-                    historical_data["total_expenses"].append({
-                        "date": doc_date,
-                        "value": summary["total_expenses"]
-                    })
+        # Weight will be recalculated later
 
-                if "net_profit" in summary:
-                    historical_data["net_profit"].append({
-                        "date": doc_date,
-                        "value": summary["net_profit"]
-                    })
+        # Merge other fields
+        for key in set(data1.keys()) | set(data2.keys()):
+            if key not in ['value', 'weight', 'count']:
+                if key in data1 and key in data2:
+                    # If both documents have the field, use the one from the first document
+                    merged_data[key] = data1[key]
+                elif key in data1:
+                    merged_data[key] = data1[key]
+                else:
+                    merged_data[key] = data2[key]
 
-                # חישוב שולי רווח
-                if "total_revenue" in summary and "net_profit" in summary and summary["total_revenue"] > 0:
-                    margin = (summary["net_profit"] / summary["total_revenue"]) * 100
+        return merged_data
 
-                    historical_data["profit_margin"].append({
-                        "date": doc_date,
-                        "value": margin
-                    })
+    def _merge_income_statement(self, income1: Dict[str, Any], income2: Dict[str, Any], merge_strategy: str) -> Dict[str, Any]:
+        """
+        Merge income statement data from two documents.
 
-        # מיון לפי תאריך
-        for key in historical_data:
-            historical_data[key] = sorted(historical_data[key], key=lambda x: x["date"])
+        Args:
+            income1: Income statement data from the first document
+            income2: Income statement data from the second document
+            merge_strategy: Strategy for merging
+
+        Returns:
+            Merged income statement data
+        """
+        # Create a new income statement dictionary
+        merged_income = {}
+
+        # Merge revenues
+        revenues1 = income1.get('revenues', {})
+        revenues2 = income2.get('revenues', {})
+        merged_revenues = self._merge_financial_items(revenues1, revenues2, merge_strategy)
+        merged_income['revenues'] = merged_revenues
+
+        # Merge expenses
+        expenses1 = income1.get('expenses', {})
+        expenses2 = income2.get('expenses', {})
+        merged_expenses = self._merge_financial_items(expenses1, expenses2, merge_strategy)
+        merged_income['expenses'] = merged_expenses
+
+        # Merge profits
+        profits1 = income1.get('profits', {})
+        profits2 = income2.get('profits', {})
+        merged_profits = self._merge_financial_items(profits1, profits2, merge_strategy)
+        merged_income['profits'] = merged_profits
+
+        # Merge summary
+        summary1 = income1.get('summary', {})
+        summary2 = income2.get('summary', {})
+        merged_summary = self._merge_financial_items(summary1, summary2, merge_strategy)
+
+        # Recalculate summary values
+        total_revenue = sum(value for value in merged_revenues.values() if isinstance(value, (int, float)))
+        total_expenses = sum(value for value in merged_expenses.values() if isinstance(value, (int, float)))
+        net_profit = total_revenue - total_expenses
+        profit_margin = (net_profit / total_revenue) * 100 if total_revenue > 0 else 0
+
+        merged_summary.update({
+            'total_revenue': total_revenue,
+            'total_expenses': total_expenses,
+            'net_profit': net_profit,
+            'profit_margin': profit_margin
+        })
+
+        merged_income['summary'] = merged_summary
+
+        # Create historical data
+        historical_data = self._create_income_historical_data(income1, income2)
+        if historical_data:
+            merged_income['historical_data'] = historical_data
+
+        # Merge other fields
+        for key in set(income1.keys()) | set(income2.keys()):
+            if key not in ['revenues', 'expenses', 'profits', 'summary', 'historical_data']:
+                if key in income1 and key in income2:
+                    # If both documents have the field, use the one from the first document
+                    merged_income[key] = income1[key]
+                elif key in income1:
+                    merged_income[key] = income1[key]
+                else:
+                    merged_income[key] = income2[key]
+
+        return merged_income
+
+    def _create_income_historical_data(self, income1: Dict[str, Any], income2: Dict[str, Any]) -> Dict[str, Any]:
+        """
+        Create historical data from two income statements.
+
+        Args:
+            income1: First income statement
+            income2: Second income statement
+
+        Returns:
+            Historical data
+        """
+        historical_data = {}
+
+        # Extract dates and values
+        date1 = income1.get('metadata', {}).get('document_date', '')
+        date2 = income2.get('metadata', {}).get('document_date', '')
+        revenue1 = income1.get('summary', {}).get('total_revenue', 0)
+        revenue2 = income2.get('summary', {}).get('total_revenue', 0)
+        expenses1 = income1.get('summary', {}).get('total_expenses', 0)
+        expenses2 = income2.get('summary', {}).get('total_expenses', 0)
+        profit1 = income1.get('summary', {}).get('net_profit', 0)
+        profit2 = income2.get('summary', {}).get('net_profit', 0)
+
+        # Create total revenue values
+        if date1 and revenue1 and date2 and revenue2:
+            total_revenue = []
+            
+            if date1 < date2:
+                total_revenue.append({'date': date1, 'value': revenue1})
+                total_revenue.append({'date': date2, 'value': revenue2})
+            else:
+                total_revenue.append({'date': date2, 'value': revenue2})
+                total_revenue.append({'date': date1, 'value': revenue1})
+
+            historical_data['total_revenue'] = total_revenue
+
+        # Create total expenses values
+        if date1 and expenses1 and date2 and expenses2:
+            total_expenses = []
+            
+            if date1 < date2:
+                total_expenses.append({'date': date1, 'value': expenses1})
+                total_expenses.append({'date': date2, 'value': expenses2})
+            else:
+                total_expenses.append({'date': date2, 'value': expenses2})
+                total_expenses.append({'date': date1, 'value': expenses1})
+
+            historical_data['total_expenses'] = total_expenses
+
+        # Create net profit values
+        if date1 and profit1 and date2 and profit2:
+            net_profit = []
+            
+            if date1 < date2:
+                net_profit.append({'date': date1, 'value': profit1})
+                net_profit.append({'date': date2, 'value': profit2})
+            else:
+                net_profit.append({'date': date2, 'value': profit2})
+                net_profit.append({'date': date1, 'value': profit1})
+
+            historical_data['net_profit'] = net_profit
 
         return historical_data
 
-    def _merge_bank_statements(self, documents: List[Dict[str, Any]]) -> Dict[str, Any]:
-        """איחוד דפי חשבון בנק."""
-        if not documents:
-            return {}
+    def _merge_balance_sheet(self, balance1: Dict[str, Any], balance2: Dict[str, Any], merge_strategy: str) -> Dict[str, Any]:
+        """
+        Merge balance sheet data from two documents.
 
-        # מיון המסמכים לפי תאריך (מהמאוחר לקדום)
-        sorted_docs = sorted(
-            documents,
-            key=lambda x: x.get("metadata", {}).get("document_date", ""),
-            reverse=True
-        )
+        Args:
+            balance1: Balance sheet data from the first document
+            balance2: Balance sheet data from the second document
+            merge_strategy: Strategy for merging
 
-        # איסוף כל העסקאות מכל המסמכים
-        all_transactions = []
+        Returns:
+            Merged balance sheet data
+        """
+        # Create a new balance sheet dictionary
+        merged_balance = {}
 
-        for doc in sorted_docs:
-            transactions = self._extract_bank_transactions(doc)
-            all_transactions.extend(transactions)
+        # Merge assets
+        assets1 = balance1.get('assets', {})
+        assets2 = balance2.get('assets', {})
+        merged_assets = self._merge_financial_items(assets1, assets2, merge_strategy)
+        merged_balance['assets'] = merged_assets
 
-        # הסרת כפילויות לפי תאריך ותיאור
-        unique_transactions = self._remove_duplicate_transactions(all_transactions)
+        # Merge liabilities
+        liabilities1 = balance1.get('liabilities', {})
+        liabilities2 = balance2.get('liabilities', {})
+        merged_liabilities = self._merge_financial_items(liabilities1, liabilities2, merge_strategy)
+        merged_balance['liabilities'] = merged_liabilities
 
-        # מיון לפי תאריך
-        sorted_transactions = sorted(unique_transactions, key=lambda x: x.get("date", ""))
+        # Merge equity
+        equity1 = balance1.get('equity', {})
+        equity2 = balance2.get('equity', {})
+        merged_equity = self._merge_financial_items(equity1, equity2, merge_strategy)
+        merged_balance['equity'] = merged_equity
 
-        # חישוב סיכומים
-        summary = self._calculate_bank_summary(sorted_transactions)
+        # Merge summary
+        summary1 = balance1.get('summary', {})
+        summary2 = balance2.get('summary', {})
+        merged_summary = self._merge_financial_items(summary1, summary2, merge_strategy)
 
-        return {
-            "transactions": sorted_transactions,
-            "summary": summary
-        }
+        # Recalculate summary values
+        total_assets = sum(value for value in merged_assets.values() if isinstance(value, (int, float)))
+        total_liabilities = sum(value for value in merged_liabilities.values() if isinstance(value, (int, float)))
+        total_equity = sum(value for value in merged_equity.values() if isinstance(value, (int, float)))
+        debt_to_equity = total_liabilities / total_equity if total_equity > 0 else float('inf')
 
-    def _extract_bank_transactions(self, document: Dict[str, Any]) -> List[Dict[str, Any]]:
-        """חילוץ עסקאות בנק ממסמך."""
-        transactions = []
+        merged_summary.update({
+            'total_assets': total_assets,
+            'total_liabilities': total_liabilities,
+            'total_equity': total_equity,
+            'debt_to_equity': debt_to_equity
+        })
 
-        # חיפוש בטבלאות
-        if "tables" in document:
-            for table in document["tables"]:
-                if table.get("type") in ["bank_statement", "account", "transactions"] and "data" in table:
-                    # עיבוד כל שורה כעסקה
-                    for row in table["data"]:
-                        transaction = {}
+        merged_balance['summary'] = merged_summary
 
-                        for key, value in row.items():
-                            key_lower = str(key).lower()
+        # Create historical data
+        historical_data = self._create_balance_historical_data(balance1, balance2)
+        if historical_data:
+            merged_balance['historical_data'] = historical_data
 
-                            # תאריך
-                            if "תאריך" in key_lower or "date" in key_lower:
-                                transaction["date"] = value
-                            # תיאור
-                            elif "תיאור" in key_lower or "description" in key_lower or "פרטים" in key_lower:
-                                transaction["description"] = value
-                            # סכום
-                            elif "סכום" in key_lower or "amount" in key_lower:
-                                transaction["amount"] = self._parse_numeric(value)
-                            # זכות
-                            elif "זכות" in key_lower or "credit" in key_lower:
-                                amount = self._parse_numeric(value)
-                                if amount is not None and amount != 0:
-                                    transaction["amount"] = amount
-                            # חובה
-                            elif "חובה" in key_lower or "debit" in key_lower:
-                                amount = self._parse_numeric(value)
-                                if amount is not None and amount != 0:
-                                    transaction["amount"] = -amount  # סימון שלילי לחיוב
-                            # יתרה
-                            elif "יתרה" in key_lower or "balance" in key_lower:
-                                transaction["balance"] = self._parse_numeric(value)
+        # Merge other fields
+        for key in set(balance1.keys()) | set(balance2.keys()):
+            if key not in ['assets', 'liabilities', 'equity', 'summary', 'historical_data']:
+                if key in balance1 and key in balance2:
+                    # If both documents have the field, use the one from the first document
+                    merged_balance[key] = balance1[key]
+                elif key in balance1:
+                    merged_balance[key] = balance1[key]
+                else:
+                    merged_balance[key] = balance2[key]
 
-                        # הוספת העסקה רק אם יש לה תאריך וסכום
-                        if "date" in transaction and "amount" in transaction:
-                            transactions.append(transaction)
+        return merged_balance
 
-        return transactions
+    def _create_balance_historical_data(self, balance1: Dict[str, Any], balance2: Dict[str, Any]) -> Dict[str, Any]:
+        """
+        Create historical data from two balance sheets.
 
-    def _remove_duplicate_transactions(self, transactions: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
-        """הסרת עסקאות כפולות."""
-        unique_transactions = {}
+        Args:
+            balance1: First balance sheet
+            balance2: Second balance sheet
 
-        for transaction in transactions:
-            # יצירת מפתח ייחודי לפי תאריך, תיאור וסכום
-            date = transaction.get("date", "")
-            description = transaction.get("description", "")
-            amount = transaction.get("amount", 0)
+        Returns:
+            Historical data
+        """
+        historical_data = {}
 
-            key = f"{date}_{description}_{amount}"
+        # Extract dates and values
+        date1 = balance1.get('metadata', {}).get('document_date', '')
+        date2 = balance2.get('metadata', {}).get('document_date', '')
+        assets1 = balance1.get('summary', {}).get('total_assets', 0)
+        assets2 = balance2.get('summary', {}).get('total_assets', 0)
+        liabilities1 = balance1.get('summary', {}).get('total_liabilities', 0)
+        liabilities2 = balance2.get('summary', {}).get('total_liabilities', 0)
+        equity1 = balance1.get('summary', {}).get('total_equity', 0)
+        equity2 = balance2.get('summary', {}).get('total_equity', 0)
 
-            # שמירת העסקה רק אם לא ראינו כבר מפתח זהה
-            if key not in unique_transactions:
-                unique_transactions[key] = transaction
+        # Create total assets values
+        if date1 and assets1 and date2 and assets2:
+            total_assets = []
+            
+            if date1 < date2:
+                total_assets.append({'date': date1, 'value': assets1})
+                total_assets.append({'date': date2, 'value': assets2})
+            else:
+                total_assets.append({'date': date2, 'value': assets2})
+                total_assets.append({'date': date1, 'value': assets1})
 
-        return list(unique_transactions.values())
+            historical_data['total_assets'] = total_assets
+
+        # Create total liabilities values
+        if date1 and liabilities1 and date2 and liabilities2:
+            total_liabilities = []
+            
+            if date1 < date2:
+                total_liabilities.append({'date': date1, 'value': liabilities1})
+                total_liabilities.append({'date': date2, 'value': liabilities2})
+            else:
+                total_liabilities.append({'date': date2, 'value': liabilities2})
+                total_liabilities.append({'date': date1, 'value': liabilities1})
+
+            historical_data['total_liabilities'] = total_liabilities
+
+        # Create total equity values
+        if date1 and equity1 and date2 and equity2:
+            total_equity = []
+            
+            if date1 < date2:
+                total_equity.append({'date': date1, 'value': equity1})
+                total_equity.append({'date': date2, 'value': equity2})
+            else:
+                total_equity.append({'date': date2, 'value': equity2})
+                total_equity.append({'date': date1, 'value': equity1})
+
+            historical_data['total_equity'] = total_equity
+
+        # Calculate debt-to-equity ratio
+        if historical_data.get('total_liabilities') and historical_data.get('total_equity'):
+            debt_to_equity_ratio = []
+            
+            for i in range(len(historical_data['total_liabilities'])):
+                liabilities = historical_data['total_liabilities'][i]['value']
+                equity = historical_data['total_equity'][i]['value']
+                date = historical_data['total_liabilities'][i]['date']
+                
+                if equity > 0:
+                    ratio = liabilities / equity
+                    debt_to_equity_ratio.append({'date': date, 'value': ratio})
+            
+            if debt_to_equity_ratio:
+                historical_data['debt_to_equity_ratio'] = debt_to_equity_ratio
+
+        return historical_data
+
+    def _merge_bank_statements(self, bank1: Dict[str, Any], bank2: Dict[str, Any], merge_strategy: str) -> Dict[str, Any]:
+        """
+        Merge bank statements data from two documents.
+
+        Args:
+            bank1: Bank statements data from the first document
+            bank2: Bank statements data from the second document
+            merge_strategy: Strategy for merging
+
+        Returns:
+            Merged bank statements data
+        """
+        # Create a new bank statements dictionary
+        merged_bank = {}
+
+        # Merge transactions
+        transactions1 = bank1.get('transactions', [])
+        transactions2 = bank2.get('transactions', [])
+        merged_transactions = self._merge_transactions(transactions1, transactions2)
+        merged_bank['transactions'] = merged_transactions
+
+        # Calculate summary
+        merged_bank['summary'] = self._calculate_bank_summary(merged_transactions)
+
+        # Merge other fields
+        for key in set(bank1.keys()) | set(bank2.keys()):
+            if key not in ['transactions', 'summary']:
+                if key in bank1 and key in bank2:
+                    # If both documents have the field, use the one from the first document
+                    merged_bank[key] = bank1[key]
+                elif key in bank1:
+                    merged_bank[key] = bank1[key]
+                else:
+                    merged_bank[key] = bank2[key]
+
+        return merged_bank
+
+    def _merge_transactions(self, transactions1: List[Dict[str, Any]], transactions2: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+        """
+        Merge transactions from two bank statements.
+
+        Args:
+            transactions1: Transactions from the first bank statement
+            transactions2: Transactions from the second bank statement
+
+        Returns:
+            Merged transactions
+        """
+        # Create a dictionary of transactions by key (date + description + amount)
+        transactions_by_key = {}
+
+        # Add transactions from the first document
+        for transaction in transactions1:
+            key = f"{transaction.get('date', '')}-{transaction.get('description', '')}-{transaction.get('amount', 0)}"
+            transactions_by_key[key] = transaction
+
+        # Add transactions from the second document
+        for transaction in transactions2:
+            key = f"{transaction.get('date', '')}-{transaction.get('description', '')}-{transaction.get('amount', 0)}"
+            if key not in transactions_by_key:
+                transactions_by_key[key] = transaction
+
+        # Convert the dictionary back to a list
+        merged_transactions = list(transactions_by_key.values())
+
+        # Sort by date
+        merged_transactions.sort(key=lambda x: x.get('date', ''))
+
+        return merged_transactions
 
     def _calculate_bank_summary(self, transactions: List[Dict[str, Any]]) -> Dict[str, Any]:
-        """חישוב סיכום עסקאות בנק."""
+        """
+        Calculate bank summary from transactions.
+
+        Args:
+            transactions: Transactions
+
+        Returns:
+            Bank summary
+        """
         summary = {
-            "total_credits": 0,
-            "total_debits": 0,
-            "net_change": 0,
-            "start_balance": None,
-            "end_balance": None,
-            "transaction_count": len(transactions)
+            'total_credits': 0,
+            'total_debits': 0,
+            'net_change': 0,
+            'start_balance': None,
+            'end_balance': None,
+            'transaction_count': len(transactions)
         }
 
         for transaction in transactions:
-            amount = transaction.get("amount", 0)
+            amount = transaction.get('amount', 0)
 
             if amount > 0:
-                summary["total_credits"] += amount
+                summary['total_credits'] += amount
             else:
-                summary["total_debits"] += abs(amount)
+                summary['total_debits'] += abs(amount)
 
-            # יתרה התחלתית וסופית
-            if "balance" in transaction:
-                if summary["start_balance"] is None or transaction["date"] < transactions[0]["date"]:
-                    summary["start_balance"] = transaction["balance"] - transaction["amount"]
+            # Start balance and end balance
+            if 'balance' in transaction:
+                if summary['start_balance'] is None or transaction['date'] < transactions[0]['date']:
+                    summary['start_balance'] = transaction['balance'] - transaction['amount']
 
-                if summary["end_balance"] is None or transaction["date"] > transactions[-1]["date"]:
-                    summary["end_balance"] = transaction["balance"]
+                if summary['end_balance'] is None or transaction['date'] > transactions[-1]['date']:
+                    summary['end_balance'] = transaction['balance']
 
-        summary["net_change"] = summary["total_credits"] - summary["total_debits"]
+        summary['net_change'] = summary['total_credits'] - summary['total_debits']
 
         return summary
 
-    def _merge_salary_statements(self, documents: List[Dict[str, Any]]) -> Dict[str, Any]:
-        """איחוד תלושי שכר."""
-        if not documents:
-            return {}
+    def _merge_salary_data(self, salary1: Dict[str, Any], salary2: Dict[str, Any], merge_strategy: str) -> Dict[str, Any]:
+        """
+        Merge salary data from two documents.
 
-        # מיון המסמכים לפי תאריך (מהמאוחר לקדום)
-        sorted_docs = sorted(
-            documents,
-            key=lambda x: x.get("metadata", {}).get("document_date", ""),
-            reverse=True
-        )
+        Args:
+            salary1: Salary data from the first document
+            salary2: Salary data from the second document
+            merge_strategy: Strategy for merging
 
-        # יצירת רשימת תלושים
-        salary_slips = []
+        Returns:
+            Merged salary data
+        """
+        # Create a new salary data dictionary
+        merged_salary = {}
 
-        for doc in sorted_docs:
-            # חילוץ נתוני שכר
-            salary_data = self._extract_salary_data_from_document(doc)
+        # Merge salary slips
+        salary_slips1 = salary1.get('salary_slips', [])
+        salary_slips2 = salary2.get('salary_slips', [])
+        merged_salary_slips = self._merge_salary_slips(salary_slips1, salary_slips2)
+        merged_salary['salary_slips'] = merged_salary_slips
 
-            if salary_data:
-                # הוספת תאריך המסמך
-                salary_data["date"] = doc.get("metadata", {}).get("document_date", "")
+        # Calculate summary
+        merged_salary['summary'] = self._calculate_salary_summary(merged_salary_slips)
 
-                # הוספת לרשימת התלושים
-                salary_slips.append(salary_data)
+        # Merge other fields
+        for key in set(salary1.keys()) | set(salary2.keys()):
+            if key not in ['salary_slips', 'summary']:
+                if key in salary1 and key in salary2:
+                    # If both documents have the field, use the one from the first document
+                    merged_salary[key] = salary1[key]
+                elif key in salary1:
+                    merged_salary[key] = salary1[key]
+                else:
+                    merged_salary[key] = salary2[key]
 
-        # חישוב סיכומים ומגמות
-        summary = self._calculate_salary_summary(salary_slips)
+        return merged_salary
 
-        return {
-            "salary_slips": salary_slips,
-            "summary": summary
-        }
+    def _merge_salary_slips(self, salary_slips1: List[Dict[str, Any]], salary_slips2: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+        """
+        Merge salary slips from two documents.
 
-    def _extract_salary_data_from_document(self, document: Dict[str, Any]) -> Dict[str, Any]:
-        """חילוץ נתוני שכר ממסמך."""
-        salary_data = {
-            "gross_salary": 0,
-            "net_salary": 0,
-            "deductions": {},
-            "additions": {},
-            "details": {}
-        }
+        Args:
+            salary_slips1: Salary slips from the first document
+            salary_slips2: Salary slips from the second document
 
-        # חיפוש בטבלאות
-        if "tables" in document:
-            for table in document["tables"]:
-                # חיפוש טבלת שכר
-                is_salary_table = False
+        Returns:
+            Merged salary slips
+        """
+        # Create a dictionary of salary slips by date
+        salary_slips_by_date = {}
 
-                if "columns" in table:
-                    columns = table["columns"]
-                    salary_keywords = ["שכר", "ברוטו", "נטו", "מס הכנסה", "ביטוח לאומי"]
+        # Add salary slips from the first document
+        for salary_slip in salary_slips1:
+            date = salary_slip.get('date', '')
+            if date:
+                salary_slips_by_date[date] = salary_slip
 
-                    if any(any(keyword in str(col).lower() for keyword in salary_keywords) for col in columns):
-                        is_salary_table = True
+        # Add salary slips from the second document
+        for salary_slip in salary_slips2:
+            date = salary_slip.get('date', '')
+            if date and date not in salary_slips_by_date:
+                salary_slips_by_date[date] = salary_slip
 
-                if is_salary_table and "data" in table:
-                    # עיבוד הטבלה
-                    for row in table["data"]:
-                        for key, value in row.items():
-                            key_lower = str(key).lower()
+        # Convert the dictionary back to a list
+        merged_salary_slips = list(salary_slips_by_date.values())
 
-                            # ברוטו
-                            if "ברוטו" in key_lower or "gross" in key_lower:
-                                salary_data["gross_salary"] = self._parse_numeric(value) or 0
-                            # נטו
-                            elif "נטו" in key_lower or "net" in key_lower:
-                                salary_data["net_salary"] = self._parse_numeric(value) or 0
-                            # מס הכנסה
-                            elif "מס הכנסה" in key_lower or "income tax" in key_lower:
-                                amount = self._parse_numeric(value) or 0
-                                if amount > 0:
-                                    salary_data["deductions"]["income_tax"] = amount
-                            # ביטוח לאומי
-                            elif "ביטוח לאומי" in key_lower or "social security" in key_lower:
-                                amount = self._parse_numeric(value) or 0
-                                if amount > 0:
-                                    salary_data["deductions"]["social_security"] = amount
-                            # ביטוח בריאות
-                            elif "ביטוח בריאות" in key_lower or "health" in key_lower:
-                                amount = self._parse_numeric(value) or 0
-                                if amount > 0:
-                                    salary_data["deductions"]["health_insurance"] = amount
-                            # פנסיה
-                            elif "פנסיה" in key_lower or "pension" in key_lower:
-                                amount = self._parse_numeric(value) or 0
-                                if amount > 0:
-                                    salary_data["deductions"]["pension"] = amount
-                            # קרן השתלמות
-                            elif "השתלמות" in key_lower or "education" in key_lower:
-                                amount = self._parse_numeric(value) or 0
-                                if amount > 0:
-                                    salary_data["deductions"]["further_education"] = amount
-                            # שעות נוספות
-                            elif "שעות נוספות" in key_lower or "overtime" in key_lower:
-                                amount = self._parse_numeric(value) or 0
-                                if amount > 0:
-                                    salary_data["additions"]["overtime"] = amount
-                            # חופשה
-                            elif "חופשה" in key_lower or "vacation" in key_lower:
-                                amount = self._parse_numeric(value) or 0
-                                if amount > 0:
-                                    salary_data["additions"]["vacation"] = amount
-                            # מחלה
-                            elif "מחלה" in key_lower or "sickness" in key_lower:
-                                amount = self._parse_numeric(value) or 0
-                                if amount > 0:
-                                    salary_data["additions"]["sickness"] = amount
+        # Sort by date
+        merged_salary_slips.sort(key=lambda x: x.get('date', ''))
 
-        # חישוב סיכומים
-        if salary_data["gross_salary"] > 0 and not salary_data["net_salary"]:
-            # חישוב שכר נטו אם אינו קיים
-            total_deductions = sum(salary_data["deductions"].values())
-            salary_data["net_salary"] = salary_data["gross_salary"] - total_deductions
-
-        return salary_data
+        return merged_salary_slips
 
     def _calculate_salary_summary(self, salary_slips: List[Dict[str, Any]]) -> Dict[str, Any]:
-        """חישוב סיכום וניתוח תלושי שכר."""
+        """
+        Calculate salary summary from salary slips.
+
+        Args:
+            salary_slips: Salary slips
+
+        Returns:
+            Salary summary
+        """
         summary = {
-            "average_gross": 0,
-            "average_net": 0,
-            "total_gross": 0,
-            "total_net": 0,
-            "period_start": None,
-            "period_end": None,
-            "salary_slips_count": len(salary_slips),
-            "trends": {}
+            'average_gross': 0,
+            'average_net': 0,
+            'total_gross': 0,
+            'total_net': 0,
+            'period_start': None,
+            'period_end': None,
+            'salary_slips_count': len(salary_slips),
+            'trends': {}
         }
 
         if not salary_slips:
             return summary
 
-        # מיון לפי תאריך
-        sorted_slips = sorted(salary_slips, key=lambda x: x.get("date", ""))
+        # Sort by date
+        sorted_slips = sorted(salary_slips, key=lambda x: x.get('date', ''))
 
-        # הגדרת תקופה
-        if sorted_slips[0].get("date"):
-            summary["period_start"] = sorted_slips[0]["date"]
+        # Set period start and end
+        if sorted_slips[0].get('date'):
+            summary['period_start'] = sorted_slips[0]['date']
 
-        if sorted_slips[-1].get("date"):
-            summary["period_end"] = sorted_slips[-1]["date"]
+        if sorted_slips[-1].get('date'):
+            summary['period_end'] = sorted_slips[-1]['date']
 
-        # חישוב סיכומים
+        # Calculate totals
         for slip in salary_slips:
-            summary["total_gross"] += slip.get("gross_salary", 0)
-            summary["total_net"] += slip.get("net_salary", 0)
+            summary['total_gross'] += slip.get('gross_salary', 0)
+            summary['total_net'] += slip.get('net_salary', 0)
 
+        # Calculate averages
         if salary_slips:
-            summary["average_gross"] = summary["total_gross"] / len(salary_slips)
-            summary["average_net"] = summary["total_net"] / len(salary_slips)
+            summary['average_gross'] = summary['total_gross'] / len(salary_slips)
+            summary['average_net'] = summary['total_net'] / len(salary_slips)
 
-        # ניתוח מגמות
+        # Calculate trends
         if len(sorted_slips) > 1:
-            # מגמת שכר ברוטו
-            gross_values = [slip.get("gross_salary", 0) for slip in sorted_slips]
-            summary["trends"]["gross_salary"] = {
-                "values": gross_values,
-                "change": gross_values[-1] - gross_values[0],
-                "change_pct": ((gross_values[-1] - gross_values[0]) / gross_values[0]) * 100 if gross_values[0] > 0 else 0
+            # Gross salary trend
+            gross_values = [slip.get('gross_salary', 0) for slip in sorted_slips]
+            summary['trends']['gross_salary'] = {
+                'values': gross_values,
+                'change': gross_values[-1] - gross_values[0],
+                'change_pct': ((gross_values[-1] - gross_values[0]) / gross_values[0]) * 100 if gross_values[0] > 0 else 0
             }
 
-            # מגמת שכר נטו
-            net_values = [slip.get("net_salary", 0) for slip in sorted_slips]
-            summary["trends"]["net_salary"] = {
-                "values": net_values,
-                "change": net_values[-1] - net_values[0],
-                "change_pct": ((net_values[-1] - net_values[0]) / net_values[0]) * 100 if net_values[0] > 0 else 0
+            # Net salary trend
+            net_values = [slip.get('net_salary', 0) for slip in sorted_slips]
+            summary['trends']['net_salary'] = {
+                'values': net_values,
+                'change': net_values[-1] - net_values[0],
+                'change_pct': ((net_values[-1] - net_values[0]) / net_values[0]) * 100 if net_values[0] > 0 else 0
             }
-
-            # מגמות ניכויים
-            deduction_types = set()
-            for slip in sorted_slips:
-                deduction_types.update(slip.get("deductions", {}).keys())
-
-            for deduction_type in deduction_types:
-                values = [slip.get("deductions", {}).get(deduction_type, 0) for slip in sorted_slips]
-                if any(values):
-                    summary["trends"][f"deduction_{deduction_type}"] = {
-                        "values": values,
-                        "change": values[-1] - values[0] if values[0] is not None and values[-1] is not None else 0,
-                        "change_pct": ((values[-1] - values[0]) / values[0]) * 100 if values[0] > 0 and values[-1] is not None else 0
-                    }
 
         return summary
 
-    def _generate_comparison_summary(self, trends: Dict[str, Any]) -> Dict[str, Any]:
-        """יצירת סיכום של שינויים משמעותיים בהתבסס על מגמות."""
-        summary = {
-            "significant_changes": []
+    def _merge_financial_items(self, items1: Dict[str, Any], items2: Dict[str, Any], merge_strategy: str) -> Dict[str, Any]:
+        """
+        Merge financial items from two documents.
+
+        Args:
+            items1: Financial items from the first document
+            items2: Financial items from the second document
+            merge_strategy: Strategy for merging
+
+        Returns:
+            Merged financial items
+        """
+        # Create a new financial items dictionary
+        merged_items = {}
+
+        # Merge items
+        for item_name in set(items1.keys()) | set(items2.keys()):
+            if item_name in items1 and item_name in items2:
+                # If both documents have the item, merge them based on the merge strategy
+                if merge_strategy == 'comprehensive' or merge_strategy == 'latest':
+                    # For comprehensive or latest, sum the values
+                    value1 = items1[item_name]
+                    value2 = items2[item_name]
+                    if isinstance(value1, (int, float)) and isinstance(value2, (int, float)):
+                        merged_items[item_name] = value1 + value2
+                    else:
+                        # If not numeric, use the value from the first document
+                        merged_items[item_name] = value1
+                elif merge_strategy == 'first':
+                    # For first, use the value from the first document
+                    merged_items[item_name] = items1[item_name]
+            elif item_name in items1:
+                merged_items[item_name] = items1[item_name]
+            else:
+                merged_items[item_name] = items2[item_name]
+
+        return merged_items
+
+    def extract_merged_data(self, merged_document: Dict[str, Any]) -> Dict[str, Any]:
+        """
+        Extract merged data from the merged document.
+
+        Args:
+            merged_document: Merged document
+
+        Returns:
+            Extracted merged data
+        """
+        # Extract financial data
+        financial_data = merged_document.get('financial_data', {})
+
+        # Extract portfolio data
+        portfolio = financial_data.get('portfolio', {})
+        portfolio_data = {
+            'securities': portfolio.get('securities', []),
+            'summary': portfolio.get('summary', {})
         }
 
-        # סיכום תיק השקעות
-        if "portfolio" in trends and trends["portfolio"]:
-            portfolio_trends = trends["portfolio"]
+        # Extract asset allocation data
+        asset_allocation = financial_data.get('asset_allocation', {})
 
-            # שינוי בשווי התיק
-            if "value_change_pct" in portfolio_trends:
-                change_pct = portfolio_trends["value_change_pct"]
-                change = portfolio_trends["value_change"]
+        # Extract income statement data
+        income_statement = financial_data.get('income_statement', {})
 
-                if abs(change_pct) >= 5:  # שינוי של 5% נחשב משמעותי
-                    direction = "עלה" if change > 0 else "ירד"
-                    summary["portfolio"] = {
-                        "portfolio_value_change": {
-                            "type": "portfolio_value",
-                            "change": change,
-                            "change_pct": change_pct,
-                            "description": f"שווי התיק {direction} ב-{abs(change_pct):.2f}% ({abs(change):.2f} יחידות)."
-                        }
-                    }
+        # Extract balance sheet data
+        balance_sheet = financial_data.get('balance_sheet', {})
 
-                    summary["significant_changes"].append({
-                        "type": "portfolio_value",
-                        "change_pct": change_pct,
-                        "description": f"שווי התיק {direction} ב-{abs(change_pct):.2f}%."
-                    })
+        # Extract bank statements data
+        bank_statements = financial_data.get('bank_statements', {})
 
-        # סיכום מאזן
-        if "balance_sheet" in trends and trends["balance_sheet"]:
-            bs_trends = trends["balance_sheet"]
+        # Extract salary data
+        salary = financial_data.get('salary', {})
 
-            # שינוי בנכסים
-            if "assets_change_pct" in bs_trends:
-                change_pct = bs_trends["assets_change_pct"]
-                change = bs_trends["assets_change"]
-
-                if abs(change_pct) >= 5:  # שינוי של 5% נחשב משמעותי
-                    direction = "עלו" if change > 0 else "ירדו"
-                    summary["financial_health"] = {
-                        "assets_change": {
-                            "type": "assets",
-                            "change": change,
-                            "change_pct": change_pct,
-                            "description": f"סך הנכסים {direction} ב-{abs(change_pct):.2f}% ({abs(change):.2f} יחידות)."
-                        }
-                    }
-
-                    summary["significant_changes"].append({
-                        "type": "assets",
-                        "change_pct": change_pct,
-                        "description": f"סך הנכסים {direction} ב-{abs(change_pct):.2f}%."
-                    })
-
-            # שינוי בהתחייבויות
-            if "liabilities_change_pct" in bs_trends:
-                change_pct = bs_trends["liabilities_change_pct"]
-                change = bs_trends["liabilities_change"]
-
-                if abs(change_pct) >= 5:  # שינוי של 5% נחשב משמעותי
-                    direction = "עלו" if change > 0 else "ירדו"
-                    if "financial_health" not in summary:
-                        summary["financial_health"] = {}
-
-                    summary["financial_health"]["liabilities_change"] = {
-                        "type": "liabilities",
-                        "change": change,
-                        "change_pct": change_pct,
-                        "description": f"סך ההתחייבויות {direction} ב-{abs(change_pct):.2f}% ({abs(change):.2f} יחידות)."
-                    }
-
-                    summary["significant_changes"].append({
-                        "type": "liabilities",
-                        "change_pct": change_pct,
-                        "description": f"סך ההתחייבויות {direction} ב-{abs(change_pct):.2f}%."
-                    })
-
-        # סיכום דוח רווח והפסד
-        if "income_statement" in trends and trends["income_statement"]:
-            is_trends = trends["income_statement"]
-
-            # שינוי בהכנסות
-            if "revenue_change_pct" in is_trends:
-                change_pct = is_trends["revenue_change_pct"]
-                change = is_trends["revenue_change"]
-
-                if abs(change_pct) >= 5:  # שינוי של 5% נחשב משמעותי
-                    direction = "עלו" if change > 0 else "ירדו"
-                    summary["income"] = {
-                        "revenue_change": {
-                            "type": "revenue",
-                            "change": change,
-                            "change_pct": change_pct,
-                            "description": f"סך ההכנסות {direction} ב-{abs(change_pct):.2f}% ({abs(change):.2f} יחידות)."
-                        }
-                    }
-
-                    summary["significant_changes"].append({
-                        "type": "revenue",
-                        "change_pct": change_pct,
-                        "description": f"סך ההכנסות {direction} ב-{abs(change_pct):.2f}%."
-                    })
-
-            # שינוי ברווח
-            if "profit_change_pct" in is_trends:
-                change_pct = is_trends["profit_change_pct"]
-                change = is_trends["profit_change"]
-
-                if abs(change_pct) >= 5:  # שינוי של 5% נחשב משמעותי
-                    direction = "עלה" if change > 0 else "ירד"
-                    if "income" not in summary:
-                        summary["income"] = {}
-
-                    summary["income"]["profit_change"] = {
-                        "type": "profit",
-                        "change": change,
-                        "change_pct": change_pct,
-                        "description": f"הרווח הנקי {direction} ב-{abs(change_pct):.2f}% ({abs(change):.2f} יחידות)."
-                    }
-
-                    summary["significant_changes"].append({
-                        "type": "profit",
-                        "change_pct": change_pct,
-                        "description": f"הרווח הנקי {direction} ב-{abs(change_pct):.2f}%."
-                    })
-
-        # סיכום שכר
-        if "salary" in trends and trends["salary"]:
-            salary_trends = trends["salary"]
-
-            # שינוי בשכר ברוטו
-            if "gross_change_pct" in salary_trends:
-                change_pct = salary_trends["gross_change_pct"]
-                change = salary_trends["gross_change"]
-
-                if abs(change_pct) >= 5:  # שינוי של 5% נחשב משמעותי
-                    direction = "עלה" if change > 0 else "ירד"
-                    summary["salary"] = {
-                        "gross_change": {
-                            "type": "gross_salary",
-                            "change": change,
-                            "change_pct": change_pct,
-                            "description": f"השכר הברוטו הממוצע {direction} ב-{abs(change_pct):.2f}% ({abs(change):.2f} יחידות)."
-                        }
-                    }
-
-                    summary["significant_changes"].append({
-                        "type": "gross_salary",
-                        "change_pct": change_pct,
-                        "description": f"השכר הברוטו הממוצע {direction} ב-{abs(change_pct):.2f}%."
-                    })
-
-        return summary
-
-    def _analyze_salary_trends(self, salary_data_list: List[Dict[str, Any]]) -> Dict[str, Any]:
-        """ניתוח מגמות בנתוני שכר לאורך זמן."""
-        if not salary_data_list or len(salary_data_list) < 2:
-            return {}
-
-        # סינון נתונים ריקים
-        valid_data = [data for data in salary_data_list if data]
-        if len(valid_data) < 2:
-            return {}
-
-        # קבלת הנתונים הישנים והחדשים ביותר
-        oldest = valid_data[0]
-        newest = valid_data[-1]
-
-        # חישוב שינויים בשכר ברוטו ונטו
-        oldest_gross = oldest.get("summary", {}).get("average_gross", 0)
-        newest_gross = newest.get("summary", {}).get("average_gross", 0)
-
-        gross_change = newest_gross - oldest_gross
-        gross_change_pct = (gross_change / oldest_gross * 100) if oldest_gross > 0 else 0
-
-        oldest_net = oldest.get("summary", {}).get("average_net", 0)
-        newest_net = newest.get("summary", {}).get("average_net", 0)
-
-        net_change = newest_net - oldest_net
-        net_change_pct = (net_change / oldest_net * 100) if oldest_net > 0 else 0
-
-        # חישוב שינויים בניכויים
-        deduction_changes = []
-
-        # איתור כל סוגי הניכויים הקיימים
-        deduction_types = set()
-        for data in valid_data:
-            if "salary_slips" in data:
-                for slip in data["salary_slips"]:
-                    if "deductions" in slip:
-                        deduction_types.update(slip["deductions"].keys())
-
-        # חישוב ממוצעי ניכויים לכל סוג
-        for deduction_type in deduction_types:
-            oldest_avg = self._calculate_average_deduction(oldest, deduction_type)
-            newest_avg = self._calculate_average_deduction(newest, deduction_type)
-
-            if oldest_avg > 0 or newest_avg > 0:
-                change = newest_avg - oldest_avg
-                change_pct = (change / oldest_avg * 100) if oldest_avg > 0 else 0
-
-                deduction_changes.append({
-                    "type": deduction_type,
-                    "old_value": oldest_avg,
-                    "new_value": newest_avg,
-                    "change": change,
-                    "change_pct": change_pct
-                })
-
-        # מיון לפי אחוז שינוי מוחלט
-        deduction_changes.sort(key=lambda x: abs(x["change_pct"]), reverse=True)
-
-        return {
-            "gross_change": gross_change,
-            "gross_change_pct": gross_change_pct,
-            "net_change": net_change,
-            "net_change_pct": net_change_pct,
-            "deduction_changes": deduction_changes[:5]  # 5 השינויים המשמעותיים ביותר
+        # Create merged data
+        merged_data = {
+            'portfolio': portfolio_data,
+            'asset_allocation': asset_allocation,
+            'income_statement': income_statement,
+            'balance_sheet': balance_sheet,
+            'bank_statements': bank_statements,
+            'salary': salary
         }
 
-    def _calculate_average_deduction(self, salary_data: Dict[str, Any], deduction_type: str) -> float:
-        """חישוב ממוצע ניכוי מסוג מסוים בכל תלושי השכר."""
-        if "salary_slips" not in salary_data or not salary_data["salary_slips"]:
-            return 0.0
+        return merged_data
 
-        total = 0.0
-        count = 0
+    def generate_comprehensive_report(self, merged_document: Dict[str, Any]) -> Dict[str, Any]:
+        """
+        Generate a comprehensive report from the merged document.
 
-        for slip in salary_data["salary_slips"]:
-            if "deductions" in slip and deduction_type in slip["deductions"]:
-                total += slip["deductions"][deduction_type]
-                count += 1
+        Args:
+            merged_document: Merged document
 
-        return total / count if count > 0 else 0.0
+        Returns:
+            Comprehensive report
+        """
+        # Extract metadata
+        metadata = merged_document.get('metadata', {})
+        document_types = merged_document.get('document_types', [])
 
-    def _analyze_income_statement_trends(self, income_statement_data_list: List[Dict[str, Any]]) -> Dict[str, Any]:
-        """ניתוח מגמות בדוח רווח והפסד לאורך זמן."""
-        if not income_statement_data_list or len(income_statement_data_list) < 2:
-            return {}
+        # Extract financial data
+        financial_data = merged_document.get('financial_data', {})
 
-        # סינון נתונים ריקים
-        valid_data = [data for data in income_statement_data_list if data]
-        if len(valid_data) < 2:
-            return {}
+        # Extract portfolio data
+        portfolio = financial_data.get('portfolio', {})
+        securities = portfolio.get('securities', [])
+        summary = portfolio.get('summary', {})
 
-        # קבלת הנתונים הישנים והחדשים ביותר
-        oldest = valid_data[0]
-        newest = valid_data[-1]
+        # Extract asset allocation data
+        asset_allocation = financial_data.get('asset_allocation', {})
 
-        # חישוב שינויים בהכנסות, הוצאות ורווח
-        oldest_revenue = oldest.get("summary", {}).get("total_revenue", 0)
-        newest_revenue = newest.get("summary", {}).get("total_revenue", 0)
+        # Extract income statement data
+        income_statement = financial_data.get('income_statement', {})
+        income_summary = income_statement.get('summary', {})
 
-        revenue_change = newest_revenue - oldest_revenue
-        revenue_change_pct = (revenue_change / oldest_revenue * 100) if oldest_revenue > 0 else 0
+        # Extract balance sheet data
+        balance_sheet = financial_data.get('balance_sheet', {})
+        balance_summary = balance_sheet.get('summary', {})
 
-        oldest_expenses = oldest.get("summary", {}).get("total_expenses", 0)
-        newest_expenses = newest.get("summary", {}).get("total_expenses", 0)
+        # Extract bank statements data
+        bank_statements = financial_data.get('bank_statements', {})
+        bank_summary = bank_statements.get('summary', {})
 
-        expenses_change = newest_expenses - oldest_expenses
-        expenses_change_pct = (expenses_change / oldest_expenses * 100) if oldest_expenses > 0 else 0
+        # Extract salary data
+        salary = financial_data.get('salary', {})
+        salary_summary = salary.get('summary', {})
 
-        oldest_profit = oldest.get("summary", {}).get("net_profit", 0)
-        newest_profit = newest.get("summary", {}).get("net_profit", 0)
+        # Create financial snapshot
+        financial_snapshot = self._create_financial_snapshot(merged_document)
 
-        profit_change = newest_profit - oldest_profit
-        profit_change_pct = (profit_change / oldest_profit * 100) if oldest_profit > 0 else 0
-
-        # זיהוי שינויים משמעותיים בקטגוריות הכנסה או הוצאה ספציפיות
-        major_changes = []
-
-        # בדיקת הכנסות
-        for revenue_name, revenue_value in newest.get("revenues", {}).items():
-            if revenue_name in oldest.get("revenues", {}):
-                old_value = oldest["revenues"][revenue_name]
-                change = revenue_value - old_value
-                change_pct = (change / old_value * 100) if old_value > 0 else 0
-
-                if abs(change_pct) >= 10:  # שינוי של 10% נחשב משמעותי
-                    major_changes.append({
-                        "name": revenue_name,
-                        "type": "revenue",
-                        "old_value": old_value,
-                        "new_value": revenue_value,
-                        "change": change,
-                        "change_pct": change_pct
-                    })
-
-        # בדיקת הוצאות
-        for expense_name, expense_value in newest.get("expenses", {}).items():
-            if expense_name in oldest.get("expenses", {}):
-                old_value = oldest["expenses"][expense_name]
-                change = expense_value - old_value
-                change_pct = (change / old_value * 100) if old_value > 0 else 0
-
-                if abs(change_pct) >= 10:  # שינוי של 10% נחשב משמעותי
-                    major_changes.append({
-                        "name": expense_name,
-                        "type": "expense",
-                        "old_value": old_value,
-                        "new_value": expense_value,
-                        "change": change,
-                        "change_pct": change_pct
-                    })
-
-        # מיון לפי אחוז שינוי מוחלט
-        major_changes.sort(key=lambda x: abs(x["change_pct"]), reverse=True)
-
-        return {
-            "revenue_change": revenue_change,
-            "revenue_change_pct": revenue_change_pct,
-            "expenses_change": expenses_change,
-            "expenses_change_pct": expenses_change_pct,
-            "profit_change": profit_change,
-            "profit_change_pct": profit_change_pct,
-            "major_changes": major_changes[:5]  # 5 השינויים המשמעותיים ביותר
+        # Create report
+        report = {
+            'report_type': 'comprehensive_financial_report',
+            'report_date': datetime.now().isoformat(),
+            'client_name': metadata.get('client_name', ''),
+            'client_number': metadata.get('client_number', ''),
+            'valuation_currency': metadata.get('valuation_currency', 'USD'),
+            'data_sources': document_types,
+            'financial_snapshot': financial_snapshot,
+            'assets_and_liabilities': self._analyze_assets_and_liabilities(merged_document),
+            'income_and_expenses': self._analyze_income_and_expenses(merged_document),
+            'investments': self._analyze_investments(merged_document),
+            'recommendations': self._generate_recommendations(merged_document)
         }
 
-    def _analyze_balance_sheet_trends(self, balance_sheet_data_list: List[Dict[str, Any]]) -> Dict[str, Any]:
-        """ניתוח מגמות במאזן לאורך זמן."""
-        if not balance_sheet_data_list or len(balance_sheet_data_list) < 2:
-            return {}
+        return report
 
-        # סינון נתונים ריקים
-        valid_data = [data for data in balance_sheet_data_list if data]
-        if len(valid_data) < 2:
-            return {}
+    def _create_financial_snapshot(self, merged_document: Dict[str, Any]) -> Dict[str, Any]:
+        """
+        Create a financial snapshot from the merged document.
 
-        # קבלת הנתונים הישנים והחדשים ביותר
-        oldest = valid_data[0]
-        newest = valid_data[-1]
+        Args:
+            merged_document: Merged document
 
-        # חישוב שינויים בנכסים, התחייבויות והון
-        oldest_assets = oldest.get("summary", {}).get("total_assets", 0)
-        newest_assets = newest.get("summary", {}).get("total_assets", 0)
+        Returns:
+            Financial snapshot
+        """
+        # Extract financial data
+        financial_data = merged_document.get('financial_data', {})
 
-        assets_change = newest_assets - oldest_assets
-        assets_change_pct = (assets_change / oldest_assets * 100) if oldest_assets > 0 else 0
+        # Extract data from different sources
+        portfolio = financial_data.get('portfolio', {})
+        portfolio_summary = portfolio.get('summary', {})
 
-        oldest_liabilities = oldest.get("summary", {}).get("total_liabilities", 0)
-        newest_liabilities = newest.get("summary", {}).get("total_liabilities", 0)
+        balance_sheet = financial_data.get('balance_sheet', {})
+        balance_summary = balance_sheet.get('summary', {})
 
-        liabilities_change = newest_liabilities - oldest_liabilities
-        liabilities_change_pct = (liabilities_change / oldest_liabilities * 100) if oldest_liabilities > 0 else 0
+        income_statement = financial_data.get('income_statement', {})
+        income_summary = income_statement.get('summary', {})
 
-        oldest_equity = oldest.get("summary", {}).get("total_equity", 0)
-        newest_equity = newest.get("summary", {}).get("total_equity", 0)
+        bank_statements = financial_data.get('bank_statements', {})
+        bank_summary = bank_statements.get('summary', {})
 
-        equity_change = newest_equity - oldest_equity
-        equity_change_pct = (equity_change / oldest_equity * 100) if oldest_equity > 0 else 0
+        salary = financial_data.get('salary', {})
+        salary_summary = salary.get('summary', {})
 
-        # זיהוי שינויים משמעותיים בנכסים או התחייבויות ספציפיים
-        major_changes = []
-
-        # בדיקת נכסים
-        for asset_name, asset_value in newest.get("assets", {}).items():
-            if asset_name in oldest.get("assets", {}):
-                old_value = oldest["assets"][asset_name]
-                change = asset_value - old_value
-                change_pct = (change / old_value * 100) if old_value > 0 else 0
-
-                if abs(change_pct) >= 10:  # שינוי של 10% נחשב משמעותי
-                    major_changes.append({
-                        "name": asset_name,
-                        "type": "asset",
-                        "old_value": old_value,
-                        "new_value": asset_value,
-                        "change": change,
-                        "change_pct": change_pct
-                    })
-
-        # בדיקת התחייבויות
-        for liability_name, liability_value in newest.get("liabilities", {}).items():
-            if liability_name in oldest.get("liabilities", {}):
-                old_value = oldest["liabilities"][liability_name]
-                change = liability_value - old_value
-                change_pct = (change / old_value * 100) if old_value > 0 else 0
-
-                if abs(change_pct) >= 10:  # שינוי של 10% נחשב משמעותי
-                    major_changes.append({
-                        "name": liability_name,
-                        "type": "liability",
-                        "old_value": old_value,
-                        "new_value": liability_value,
-                        "change": change,
-                        "change_pct": change_pct
-                    })
-
-        # מיון לפי אחוז שינוי מוחלט
-        major_changes.sort(key=lambda x: abs(x["change_pct"]), reverse=True)
-
-        return {
-            "assets_change": assets_change,
-            "assets_change_pct": assets_change_pct,
-            "liabilities_change": liabilities_change,
-            "liabilities_change_pct": liabilities_change_pct,
-            "equity_change": equity_change,
-            "equity_change_pct": equity_change_pct,
-            "major_changes": major_changes[:5]  # 5 השינויים המשמעותיים ביותר
-        }
-
-    def _analyze_portfolio_trends(self, portfolio_data_list: List[Dict[str, Any]]) -> Dict[str, Any]:
-        """ניתוח מגמות בתיק השקעות לאורך זמן."""
-        if not portfolio_data_list or len(portfolio_data_list) < 2:
-            return {}
-
-        # סינון נתונים ריקים
-        valid_data = [data for data in portfolio_data_list if data]
-        if len(valid_data) < 2:
-            return {}
-
-        # קבלת הנתונים הישנים והחדשים ביותר
-        oldest = valid_data[0]
-        newest = valid_data[-1]
-
-        # חישוב שינוי בשווי התיק
-        oldest_value = oldest.get("summary", {}).get("total_value", 0)
-        newest_value = newest.get("summary", {}).get("total_value", 0)
-
-        value_change = newest_value - oldest_value
-        value_change_pct = (value_change / oldest_value * 100) if oldest_value > 0 else 0
-
-        # זיהוי הניירות המובילים
-        top_performers = []
-        if newest.get("securities"):
-            securities = newest["securities"]
-            # מיון לפי תשואה
-            sorted_securities = sorted(securities, key=lambda x: x.get("return", 0), reverse=True)
-            # לקיחת ה-5 המובילים
-            top_performers = sorted_securities[:min(5, len(sorted_securities))]
-
-            # הוספת נתוני תשואה ממוצעת
-            for security in top_performers:
-                # חיפוש הנייר בנתונים ישנים לחישוב תשואה ממוצעת
-                security_name = security.get("name", "")
-                security_isin = security.get("isin", "")
-
-                historical_returns = []
-                for data in valid_data:
-                    if data.get("securities"):
-                        for old_security in data["securities"]:
-                            if (old_security.get("name") == security_name or
-                                old_security.get("isin") == security_isin):
-                                if "return" in old_security:
-                                    historical_returns.append(old_security["return"])
-                                break
-
-                if historical_returns:
-                    security["average_return"] = sum(historical_returns) / len(historical_returns)
-                else:
-                    security["average_return"] = security.get("return", 0)
-
-        return {
-            "value_change": value_change,
-            "value_change_pct": value_change_pct,
-            "top_performers": top_performers
-        }
-
-    def _analyze_income_and_expenses(self, merged_data: Dict[str, Any]) -> Dict[str, Any]:
-        """ניתוח הכנסות והוצאות מהנתונים המאוחדים."""
-        analysis = {
-            "total_income": 0,
-            "total_expenses": 0,
-            "net_income": 0,
-            "income_breakdown": [],
-            "expense_breakdown": [],
-            "monthly_cash_flow": 0,
-            "recommendations": []
-        }
-
-        # חילוץ נתוני דוח רווח והפסד
-        if "income_statement" in merged_data:
-            income_statement = merged_data["income_statement"]
-
-            if "summary" in income_statement:
-                analysis["total_income"] = income_statement["summary"].get("total_revenue", 0)
-                analysis["total_expenses"] = income_statement["summary"].get("total_expenses", 0)
-                analysis["net_income"] = income_statement["summary"].get("net_profit", 0)
-                analysis["monthly_cash_flow"] = analysis["net_income"] / 12  # הנחה: נתונים שנתיים
-
-            # פירוט הכנסות
-            if "revenues" in income_statement:
-                for income_name, income_value in income_statement["revenues"].items():
-                    analysis["income_breakdown"].append({
-                        "name": income_name,
-                        "value": income_value,
-                        "percentage": (income_value / analysis["total_income"] * 100) if analysis["total_income"] > 0 else 0
-                    })
-
-                # מיון לפי ערך
-                analysis["income_breakdown"].sort(key=lambda x: x["value"], reverse=True)
-
-            # פירוט הוצאות
-            if "expenses" in income_statement:
-                for expense_name, expense_value in income_statement["expenses"].items():
-                    analysis["expense_breakdown"].append({
-                        "name": expense_name,
-                        "value": expense_value,
-                        "percentage": (expense_value / analysis["total_expenses"] * 100) if analysis["total_expenses"] > 0 else 0
-                    })
-
-                # מיון לפי ערך
-                analysis["expense_breakdown"].sort(key=lambda x: x["value"], reverse=True)
-
-        # אם אין נתוני דוח רווח והפסד, השתמש בנתוני שכר
-        if analysis["total_income"] == 0 and "salary" in merged_data:
-            salary_data = merged_data["salary"]
-
-            if "summary" in salary_data:
-                analysis["total_income"] = salary_data["summary"].get("average_gross", 0) * 12  # שנתי
-
-                # הוספת שכר לפירוט הכנסות
-                analysis["income_breakdown"].append({
-                    "name": "שכר עבודה",
-                    "value": analysis["total_income"],
-                    "percentage": 100
-                })
-
-        # אם אין נתוני הוצאות, השתמש בנתוני בנק
-        if analysis["total_expenses"] == 0 and "bank_statements" in merged_data:
-            bank_data = merged_data["bank_statements"]
-
-            if "summary" in bank_data:
-                analysis["total_expenses"] = bank_data["summary"].get("total_debits", 0)  # הנחה: נתונים שנתיים
-
-                # חישוב הכנסה נטו
-                analysis["net_income"] = analysis["total_income"] - analysis["total_expenses"]
-                analysis["monthly_cash_flow"] = analysis["net_income"] / 12
-
-                # הוספת הוצאות כלליות לפירוט הוצאות
-                analysis["expense_breakdown"].append({
-                    "name": "הוצאות כלליות",
-                    "value": analysis["total_expenses"],
-                    "percentage": 100
-                })
-
-        # המלצות
-        # תזרים מזומנים שלילי
-        if analysis["monthly_cash_flow"] < 0:
-            analysis["recommendations"].append({
-                "title": "תזרים מזומנים שלילי",
-                "description": f"ההוצאות שלך גבוהות מההכנסות ב-{abs(analysis['monthly_cash_flow']):.2f} לחודש.",
-                "action": "שקול להפחית הוצאות או להגדיל הכנסות כדי להימנע מהצטברות חובות.",
-                "priority": "high"
-            })
-
-        # ריכוז גבוה של הוצאות
-        if analysis["expense_breakdown"] and analysis["expense_breakdown"][0]["percentage"] > 50:
-            analysis["recommendations"].append({
-                "title": "ריכוז גבוה של הוצאות",
-                "description": f"{analysis['expense_breakdown'][0]['name']} מהווה {analysis['expense_breakdown'][0]['percentage']:.2f}% מסך ההוצאות שלך.",
-                "action": "בדוק אפשרויות להפחתת הוצאה זו או לאזן את התקציב שלך.",
-                "priority": "medium"
-            })
-
-        return analysis
-
-    def _generate_comprehensive_recommendations(self, report: Dict[str, Any]) -> List[Dict[str, Any]]:
-        """יצירת המלצות מקיפות בהתבסס על כל הנתונים המנותחים."""
-        all_recommendations = []
-
-        # איסוף המלצות מכל הניתוחים
-        if "assets_and_liabilities" in report and "recommendations" in report["assets_and_liabilities"]:
-            all_recommendations.extend(report["assets_and_liabilities"]["recommendations"])
-
-        if "income_and_expenses" in report and "recommendations" in report["income_and_expenses"]:
-            all_recommendations.extend(report["income_and_expenses"]["recommendations"])
-
-        if "investments" in report and "recommendations" in report["investments"]:
-            all_recommendations.extend(report["investments"]["recommendations"])
-
-        # הוספת המלצות משולבות בהתבסס על נתונים משולבים
-
-        # בדיקת יחס הוצאות להכנסות
-        if "income_and_expenses" in report:
-            income_data = report["income_and_expenses"]
-            total_income = income_data.get("total_income", 0)
-            total_expenses = income_data.get("total_expenses", 0)
-
-            if total_income > 0 and total_expenses / total_income > 0.9:
-                all_recommendations.append({
-                    "title": "יחס הוצאות להכנסות גבוה",
-                    "description": f"ההוצאות שלך מהוות {(total_expenses / total_income * 100):.2f}% מההכנסות שלך.",
-                    "action": "שקול להגדיל את שיעור החיסכון שלך על ידי הפחתת הוצאות או הגדלת הכנסות.",
-                    "priority": "medium"
-                })
-
-        # בדיקת יחס נכסים נזילים
-        if "assets_and_liabilities" in report and "financial_snapshot" in report:
-            assets_data = report["assets_and_liabilities"]
-            snapshot = report["financial_snapshot"]
-
-            # חישוב נכסים נזילים
-            monthly_expenses = snapshot.get("monthly_expenses", 0) * 6  # 6 חודשי הוצאות
-
-            # בדיקה אם יש מספיק נכסים נזילים
-            liquid_assets = 0
-            for asset in assets_data.get("asset_breakdown", []):
-                if asset["name"].lower() in ["cash", "cash and cash equivalents", "מזומנים", "שווי מזומנים"]:
-                    liquid_assets += asset["value"]
-
-            if monthly_expenses > 0 and liquid_assets < monthly_expenses:
-                all_recommendations.append({
-                    "title": "רמת נזילות נמוכה",
-                    "description": f"הנכסים הנזילים שלך ({liquid_assets:.2f}) נמוכים מהוצאות ל-6 חודשים ({monthly_expenses:.2f}).",
-                    "action": "שקול להגדיל את קרן החירום שלך לכיסוי 6 חודשי הוצאות לפחות.",
-                    "priority": "high"
-                })
-
-        # בדיקת איזון תיק השקעות ביחס לגיל
-        if "investments" in report and "financial_snapshot" in report:
-            # הוספת המלצות נוספות בהתאם לנתונים הקיימים
-            pass
-
-        # מיון המלצות לפי עדיפות
-        priority_order = {"high": 0, "medium": 1, "low": 2}
-        all_recommendations.sort(key=lambda x: priority_order.get(x.get("priority", "low"), 3))
-
-        return all_recommendations
-
-    def _analyze_investments(self, merged_data: Dict[str, Any]) -> Dict[str, Any]:
-        """ניתוח השקעות מהנתונים המאוחדים."""
-        analysis = {
-            "total_portfolio_value": 0,
-            "asset_allocation": [],
-            "top_performers": [],
-            "historical_performance": {},
-            "recommendations": []
-        }
-
-        # חילוץ נתוני תיק השקעות
-        if "portfolio" in merged_data:
-            portfolio = merged_data["portfolio"]
-
-            if "summary" in portfolio:
-                analysis["total_portfolio_value"] = portfolio["summary"].get("total_value", 0)
-
-            # פירוט ניירות ערך
-            if "securities" in portfolio:
-                # חלוקה לפי סוגי נכסים
-                asset_types = {}
-
-                for security in portfolio["securities"]:
-                    security_type = security.get("type", "אחר")
-                    security_value = security.get("value", 0)
-
-                    if security_type not in asset_types:
-                        asset_types[security_type] = 0
-
-                    asset_types[security_type] += security_value
-
-                # יצירת הקצאת נכסים
-                for asset_type, value in asset_types.items():
-                    analysis["asset_allocation"].append({
-                        "type": asset_type,
-                        "value": value,
-                        "percentage": (value / analysis["total_portfolio_value"] * 100) if analysis["total_portfolio_value"] > 0 else 0
-                    })
-
-                # מיון לפי ערך
-                analysis["asset_allocation"].sort(key=lambda x: x["value"], reverse=True)
-
-                # זיהוי המובילים
-                top_performers = sorted(portfolio["securities"], key=lambda x: x.get("return", 0), reverse=True)
-                analysis["top_performers"] = top_performers[:min(5, len(top_performers))]
-
-            # נתונים היסטוריים
-            if "historical_data" in portfolio and "portfolio_values" in portfolio["historical_data"]:
-                analysis["historical_performance"] = {
-                    "values": portfolio["historical_data"]["portfolio_values"],
-                    "returns": portfolio["historical_data"].get("returns", [])
-                }
-
-        # המלצות
-        # איזון תיק
-        if len(analysis["asset_allocation"]) > 0 and analysis["asset_allocation"][0]["percentage"] > 70:
-            analysis["recommendations"].append({
-                "title": "תיק לא מאוזן",
-                "description": f"{analysis['asset_allocation'][0]['type']} מהווה {analysis['asset_allocation'][0]['percentage']:.2f}% מתיק ההשקעות שלך.",
-                "action": "שקול לגוון את התיק על ידי השקעה בסוגי נכסים נוספים.",
-                "priority": "medium"
-            })
-
-        return analysis
-
-    def _analyze_assets_and_liabilities(self, merged_data: Dict[str, Any]) -> Dict[str, Any]:
-        """ניתוח נכסים והתחייבויות מהנתונים המאוחדים."""
-        analysis = {
-            "total_assets": 0,
-            "total_liabilities": 0,
-            "net_worth": 0,
-            "debt_to_equity_ratio": 0,
-            "asset_breakdown": [],
-            "liability_breakdown": [],
-            "recommendations": []
-        }
-
-        # חילוץ נתוני מאזן
-        if "balance_sheet" in merged_data:
-            balance_sheet = merged_data["balance_sheet"]
-
-            if "summary" in balance_sheet:
-                analysis["total_assets"] = balance_sheet["summary"].get("total_assets", 0)
-                analysis["total_liabilities"] = balance_sheet["summary"].get("total_liabilities", 0)
-                analysis["net_worth"] = balance_sheet["summary"].get("total_equity", 0)
-
-                # חישוב יחס חוב להון
-                if analysis["net_worth"] > 0:
-                    analysis["debt_to_equity_ratio"] = analysis["total_liabilities"] / analysis["net_worth"]
-
-            # פירוט נכסים
-            if "assets" in balance_sheet:
-                for asset_name, asset_value in balance_sheet["assets"].items():
-                    analysis["asset_breakdown"].append({
-                        "name": asset_name,
-                        "value": asset_value,
-                        "percentage": (asset_value / analysis["total_assets"] * 100) if analysis["total_assets"] > 0 else 0
-                    })
-
-                # מיון לפי ערך
-                analysis["asset_breakdown"].sort(key=lambda x: x["value"], reverse=True)
-
-            # פירוט התחייבויות
-            if "liabilities" in balance_sheet:
-                for liability_name, liability_value in balance_sheet["liabilities"].items():
-                    analysis["liability_breakdown"].append({
-                        "name": liability_name,
-                        "value": liability_value,
-                        "percentage": (liability_value / analysis["total_liabilities"] * 100) if analysis["total_liabilities"] > 0 else 0
-                    })
-
-                # מיון לפי ערך
-                analysis["liability_breakdown"].sort(key=lambda x: x["value"], reverse=True)
-
-        # הוספת נתוני תיק השקעות
-        if "portfolio" in merged_data and "summary" in merged_data["portfolio"]:
-            portfolio_value = merged_data["portfolio"]["summary"].get("total_value", 0)
-
-            # הוספת תיק השקעות לנכסים
-            if portfolio_value > 0:
-                analysis["asset_breakdown"].append({
-                    "name": "תיק השקעות",
-                    "value": portfolio_value,
-                    "percentage": (portfolio_value / analysis["total_assets"] * 100) if analysis["total_assets"] > 0 else 0
-                })
-
-                # מיון מחדש
-                analysis["asset_breakdown"].sort(key=lambda x: x["value"], reverse=True)
-
-        # המלצות
-        # יחס חוב להון גבוה
-        if analysis["debt_to_equity_ratio"] > 0.8:
-            analysis["recommendations"].append({
-                "title": "יחס חוב להון גבוה",
-                "description": f"יחס החוב להון שלך עומד על {analysis['debt_to_equity_ratio']:.2f}, אשר נחשב גבוה.",
-                "action": "שקול להפחית את רמת החוב או להגדיל את ההון העצמי שלך.",
-                "priority": "high"
-            })
-
-        # ריכוז גבוה של נכסים
-        if analysis["asset_breakdown"] and analysis["asset_breakdown"][0]["percentage"] > 70:
-            analysis["recommendations"].append({
-                "title": "ריכוז גבוה של נכסים",
-                "description": f"{analysis['asset_breakdown'][0]['name']} מהווה {analysis['asset_breakdown'][0]['percentage']:.2f}% מסך הנכסים שלך.",
-                "action": "שקול לגוון את הנכסים שלך להפחתת סיכונים.",
-                "priority": "medium"
-            })
-
-        return analysis
-
-    def _create_financial_snapshot(self, merged_data: Dict[str, Any]) -> Dict[str, Any]:
-        """יצירת תמונת מצב פיננסית עדכנית מהנתונים המאוחדים."""
+        # Create snapshot
         snapshot = {
-            "total_assets": 0,
-            "total_liabilities": 0,
-            "net_worth": 0,
-            "monthly_income": 0,
-            "monthly_expenses": 0,
-            "portfolio_value": 0,
-            "debt_to_equity_ratio": 0,
-            "profit_margin": 0
+            'total_assets': balance_summary.get('total_assets', 0),
+            'total_liabilities': balance_summary.get('total_liabilities', 0),
+            'net_worth': balance_summary.get('total_equity', 0),
+            'monthly_income': income_summary.get('total_revenue', 0) / 12 if income_summary else salary_summary.get('average_gross', 0),
+            'monthly_expenses': income_summary.get('total_expenses', 0) / 12 if income_summary else bank_summary.get('total_debits', 0) / 12 if bank_summary else 0,
+            'portfolio_value': portfolio_summary.get('total_value', 0),
+            'debt_to_equity_ratio': balance_summary.get('debt_to_equity', 0),
+            'profit_margin': income_summary.get('profit_margin', 0)
         }
-
-        # נכסים והתחייבויות
-        if "balance_sheet" in merged_data:
-            balance_sheet = merged_data["balance_sheet"]
-
-            if "summary" in balance_sheet:
-                snapshot["total_assets"] = balance_sheet["summary"].get("total_assets", 0)
-                snapshot["total_liabilities"] = balance_sheet["summary"].get("total_liabilities", 0)
-                snapshot["net_worth"] = balance_sheet["summary"].get("total_equity", 0)
-
-                # חישוב יחס חוב להון
-                if snapshot["net_worth"] > 0:
-                    snapshot["debt_to_equity_ratio"] = snapshot["total_liabilities"] / snapshot["net_worth"]
-
-        # שווי תיק
-        if "portfolio" in merged_data and "summary" in merged_data["portfolio"]:
-            snapshot["portfolio_value"] = merged_data["portfolio"]["summary"].get("total_value", 0)
-
-        # הכנסה והוצאות
-        if "income_statement" in merged_data and "summary" in merged_data["income_statement"]:
-            income_summary = merged_data["income_statement"]["summary"]
-
-            # הנחה: הנתונים הם שנתיים, חלוקה ב-12 לקבלת נתונים חודשיים
-            snapshot["monthly_income"] = income_summary.get("total_revenue", 0) / 12
-            snapshot["monthly_expenses"] = income_summary.get("total_expenses", 0) / 12
-
-            # חישוב שולי רווח
-            if income_summary.get("total_revenue", 0) > 0:
-                snapshot["profit_margin"] = (income_summary.get("net_profit", 0) / income_summary.get("total_revenue", 0)) * 100
-
-        # שכר
-        if "salary" in merged_data and "summary" in merged_data["salary"]:
-            salary_summary = merged_data["salary"]["summary"]
-
-            # אם אין נתוני הכנסה מדוח רווח והפסד, השתמש בנתוני שכר
-            if snapshot["monthly_income"] == 0:
-                snapshot["monthly_income"] = salary_summary.get("average_gross", 0)
-
-        # בנק
-        if "bank_statements" in merged_data and "summary" in merged_data["bank_statements"]:
-            bank_summary = merged_data["bank_statements"]["summary"]
-
-            # אם אין נתוני הוצאות מדוח רווח והפסד, השתמש בנתוני בנק
-            if snapshot["monthly_expenses"] == 0:
-                # הנחה: הנתונים הם שנתיים, חלוקה ב-12 לקבלת נתונים חודשיים
-                snapshot["monthly_expenses"] = bank_summary.get("total_debits", 0) / 12
 
         return snapshot
 
-    def _create_merged_summary(self, merged_data: Dict[str, Any]) -> Dict[str, Any]:
-        """יצירת סיכום כולל של הנתונים המאוחדים."""
-        summary = {
-            "financial_health": {},
-            "asset_overview": {},
-            "income_overview": {},
-            "key_metrics": {}
+    def _analyze_assets_and_liabilities(self, merged_document: Dict[str, Any]) -> Dict[str, Any]:
+        """
+        Analyze assets and liabilities from the merged document.
+
+        Args:
+            merged_document: Merged document
+
+        Returns:
+            Analysis of assets and liabilities
+        """
+        # Extract financial data
+        financial_data = merged_document.get('financial_data', {})
+
+        # Extract balance sheet data
+        balance_sheet = financial_data.get('balance_sheet', {})
+        assets = balance_sheet.get('assets', {})
+        liabilities = balance_sheet.get('liabilities', {})
+        equity = balance_sheet.get('equity', {})
+        balance_summary = balance_sheet.get('summary', {})
+
+        # Extract portfolio data
+        portfolio = financial_data.get('portfolio', {})
+        portfolio_summary = portfolio.get('summary', {})
+
+        # Calculate values
+        total_assets = balance_summary.get('total_assets', 0)
+        total_liabilities = balance_summary.get('total_liabilities', 0)
+        net_worth = balance_summary.get('total_equity', 0)
+        debt_to_equity_ratio = balance_summary.get('debt_to_equity', 0)
+        portfolio_value = portfolio_summary.get('total_value', 0)
+
+        # Create asset breakdown
+        asset_breakdown = []
+        for asset_name, asset_value in assets.items():
+            asset_breakdown.append({
+                'name': asset_name,
+                'value': asset_value,
+                'percentage': (asset_value / total_assets * 100) if total_assets > 0 else 0
+            })
+
+        # Add portfolio to asset breakdown if it's not already included
+        if portfolio_value > 0:
+            # Check if portfolio is already included in assets
+            portfolio_included = False
+            for asset in asset_breakdown:
+                if 'portfolio' in asset['name'].lower() or 'investment' in asset['name'].lower():
+                    portfolio_included = True
+                    break
+
+            if not portfolio_included:
+                asset_breakdown.append({
+                    'name': 'Investment Portfolio',
+                    'value': portfolio_value,
+                    'percentage': (portfolio_value / (total_assets + portfolio_value) * 100) if (total_assets + portfolio_value) > 0 else 0
+                })
+
+        # Create liability breakdown
+        liability_breakdown = []
+        for liability_name, liability_value in liabilities.items():
+            liability_breakdown.append({
+                'name': liability_name,
+                'value': liability_value,
+                'percentage': (liability_value / total_liabilities * 100) if total_liabilities > 0 else 0
+            })
+
+        # Create recommendations
+        recommendations = []
+
+        # Add recommendation if debt-to-equity ratio is high
+        if debt_to_equity_ratio > 0.8:
+            recommendations.append({
+                'title': 'High Debt-to-Equity Ratio',
+                'description': f'Your debt-to-equity ratio is {debt_to_equity_ratio:.2f}, which is considered high.',
+                'action': 'Consider reducing your debt or increasing your equity.',
+                'priority': 'high'
+            })
+
+        # Add recommendation if assets are concentrated
+        if asset_breakdown and asset_breakdown[0]['percentage'] > 70:
+            recommendations.append({
+                'title': 'Asset Concentration',
+                'description': f'Your {asset_breakdown[0]["name"]} represents {asset_breakdown[0]["percentage"]:.2f}% of your total assets.',
+                'action': 'Consider diversifying your assets to reduce risk.',
+                'priority': 'medium'
+            })
+
+        return {
+            'total_assets': total_assets,
+            'total_liabilities': total_liabilities,
+            'net_worth': net_worth,
+            'debt_to_equity_ratio': debt_to_equity_ratio,
+            'asset_breakdown': asset_breakdown,
+            'liability_breakdown': liability_breakdown,
+            'recommendations': recommendations
         }
 
-        # חישוב מצב פיננסי
-        if "portfolio" in merged_data:
-            portfolio = merged_data["portfolio"]
+    def _analyze_income_and_expenses(self, merged_document: Dict[str, Any]) -> Dict[str, Any]:
+        """
+        Analyze income and expenses from the merged document.
 
-            if "summary" in portfolio:
-                summary["asset_overview"]["total_portfolio_value"] = portfolio["summary"].get("total_value", 0)
+        Args:
+            merged_document: Merged document
 
-            if "securities" in portfolio:
-                summary["asset_overview"]["security_count"] = len(portfolio["securities"])
+        Returns:
+            Analysis of income and expenses
+        """
+        # Extract financial data
+        financial_data = merged_document.get('financial_data', {})
 
-        if "balance_sheet" in merged_data:
-            balance_sheet = merged_data["balance_sheet"]
+        # Extract income statement data
+        income_statement = financial_data.get('income_statement', {})
+        revenues = income_statement.get('revenues', {})
+        expenses = income_statement.get('expenses', {})
+        income_summary = income_statement.get('summary', {})
 
-            if "summary" in balance_sheet:
-                summary["financial_health"]["total_assets"] = balance_sheet["summary"].get("total_assets", 0)
-                summary["financial_health"]["total_liabilities"] = balance_sheet["summary"].get("total_liabilities", 0)
-                summary["financial_health"]["total_equity"] = balance_sheet["summary"].get("total_equity", 0)
+        # Extract bank statements data
+        bank_statements = financial_data.get('bank_statements', {})
+        bank_summary = bank_statements.get('summary', {})
 
-                # חישוב יחסים
-                assets = balance_sheet["summary"].get("total_assets", 0)
-                liabilities = balance_sheet["summary"].get("total_liabilities", 0)
-                equity = balance_sheet["summary"].get("total_equity", 0)
+        # Extract salary data
+        salary = financial_data.get('salary', {})
+        salary_summary = salary.get('summary', {})
 
-                if assets > 0:
-                    summary["key_metrics"]["debt_to_assets"] = liabilities / assets
+        # Calculate values
+        total_income = income_summary.get('total_revenue', 0) if income_summary else salary_summary.get('average_gross', 0) * 12 if salary_summary else 0
+        total_expenses = income_summary.get('total_expenses', 0) if income_summary else bank_summary.get('total_debits', 0) if bank_summary else 0
+        net_income = total_income - total_expenses
+        monthly_cash_flow = net_income / 12
 
-                if equity > 0:
-                    summary["key_metrics"]["debt_to_equity"] = liabilities / equity
+        # Create income breakdown
+        income_breakdown = []
+        for income_name, income_value in revenues.items():
+            income_breakdown.append({
+                'name': income_name,
+                'value': income_value,
+                'percentage': (income_value / total_income * 100) if total_income > 0 else 0
+            })
 
-        if "income_statement" in merged_data:
-            income_statement = merged_data["income_statement"]
+        # If no income breakdown and salary data is available, add salary
+        if not income_breakdown and salary_summary:
+            gross_salary = salary_summary.get('average_gross', 0) * 12
+            income_breakdown.append({
+                'name': 'Salary',
+                'value': gross_salary,
+                'percentage': 100
+            })
 
-            if "summary" in income_statement:
-                summary["income_overview"]["total_revenue"] = income_statement["summary"].get("total_revenue", 0)
-                summary["income_overview"]["total_expenses"] = income_statement["summary"].get("total_expenses", 0)
-                summary["income_overview"]["net_profit"] = income_statement["summary"].get("net_profit", 0)
+        # Create expense breakdown
+        expense_breakdown = []
+        for expense_name, expense_value in expenses.items():
+            expense_breakdown.append({
+                'name': expense_name,
+                'value': expense_value,
+                'percentage': (expense_value / total_expenses * 100) if total_expenses > 0 else 0
+            })
 
-                # חישוב שולי רווח
-                revenue = income_statement["summary"].get("total_revenue", 0)
-                net_profit = income_statement["summary"].get("net_profit", 0)
+        # Create recommendations
+        recommendations = []
 
-                if revenue > 0:
-                    summary["key_metrics"]["profit_margin"] = (net_profit / revenue) * 100
+        # Add recommendation if cash flow is negative
+        if monthly_cash_flow < 0:
+            recommendations.append({
+                'title': 'Negative Cash Flow',
+                'description': f'Your monthly expenses exceed your income by {abs(monthly_cash_flow):.2f}.',
+                'action': 'Consider reducing expenses or increasing income to avoid accumulating debt.',
+                'priority': 'high'
+            })
 
-        if "salary" in merged_data:
-            salary = merged_data["salary"]
+        # Add recommendation if expense concentration is high
+        if expense_breakdown and expense_breakdown[0]['percentage'] > 50:
+            recommendations.append({
+                'title': 'Expense Concentration',
+                'description': f'Your {expense_breakdown[0]["name"]} represents {expense_breakdown[0]["percentage"]:.2f}% of your total expenses.',
+                'action': 'Consider ways to reduce this expense or balance your budget.',
+                'priority': 'medium'
+            })
 
-            if "summary" in salary:
-                summary["income_overview"]["average_monthly_gross"] = salary["summary"].get("average_gross", 0)
-                summary["income_overview"]["average_monthly_net"] = salary["summary"].get("average_net", 0)
+        return {
+            'total_income': total_income,
+            'total_expenses': total_expenses,
+            'net_income': net_income,
+            'monthly_cash_flow': monthly_cash_flow,
+            'income_breakdown': income_breakdown,
+            'expense_breakdown': expense_breakdown,
+            'recommendations': recommendations
+        }
 
-        if "bank_statements" in merged_data:
-            bank = merged_data["bank_statements"]
+    def _analyze_investments(self, merged_document: Dict[str, Any]) -> Dict[str, Any]:
+        """
+        Analyze investments from the merged document.
 
-            if "summary" in bank:
-                summary["financial_health"]["bank_balance"] = bank["summary"].get("end_balance", 0)
-                summary["income_overview"]["monthly_credits"] = bank["summary"].get("total_credits", 0) / 12  # הנחה: נתוני שנה
+        Args:
+            merged_document: Merged document
 
-        return summary
+        Returns:
+            Analysis of investments
+        """
+        # Extract financial data
+        financial_data = merged_document.get('financial_data', {})
+
+        # Extract portfolio data
+        portfolio = financial_data.get('portfolio', {})
+        securities = portfolio.get('securities', [])
+        portfolio_summary = portfolio.get('summary', {})
+
+        # Extract asset allocation data
+        asset_allocation = financial_data.get('asset_allocation', {})
+
+        # Calculate values
+        total_portfolio_value = portfolio_summary.get('total_value', 0)
+
+        # Create asset allocation breakdown
+        asset_allocation_breakdown = []
+        for asset_type, data in asset_allocation.items():
+            asset_allocation_breakdown.append({
+                'type': asset_type,
+                'value': data.get('value', 0),
+                'weight': data.get('weight', 0),
+                'count': data.get('count', 0)
+            })
+
+        # Sort securities by return (if available) to find top performers
+        top_performers = []
+        if securities:
+            sorted_securities = sorted(securities, key=lambda x: x.get('return', 0), reverse=True)
+            top_performers = sorted_securities[:min(5, len(sorted_securities))]
+
+        # Create recommendations
+        recommendations = []
+
+        # Add recommendation if asset allocation is unbalanced
+        if asset_allocation_breakdown and asset_allocation_breakdown[0]['weight'] > 70:
+            recommendations.append({
+                'title': 'Unbalanced Portfolio',
+                'description': f'Your {asset_allocation_breakdown[0]["type"]} allocation represents {asset_allocation_breakdown[0]["weight"]:.2f}% of your portfolio.',
+                'action': 'Consider diversifying your portfolio to reduce risk.',
+                'priority': 'medium'
+            })
+
+        return {
+            'total_portfolio_value': total_portfolio_value,
+            'asset_allocation': asset_allocation_breakdown,
+            'top_performers': top_performers,
+            'recommendations': recommendations
+        }
+
+    def _generate_recommendations(self, merged_document: Dict[str, Any]) -> List[Dict[str, Any]]:
+        """
+        Generate recommendations from the merged document.
+
+        Args:
+            merged_document: Merged document
+
+        Returns:
+            List of recommendations
+        """
+        # Collect recommendations from different analyses
+        all_recommendations = []
+
+        # Add recommendations from assets and liabilities analysis
+        assets_and_liabilities = self._analyze_assets_and_liabilities(merged_document)
+        all_recommendations.extend(assets_and_liabilities.get('recommendations', []))
+
+        # Add recommendations from income and expenses analysis
+        income_and_expenses = self._analyze_income_and_expenses(merged_document)
+        all_recommendations.extend(income_and_expenses.get('recommendations', []))
+
+        # Add recommendations from investments analysis
+        investments = self._analyze_investments(merged_document)
+        all_recommendations.extend(investments.get('recommendations', []))
+
+        # Sort recommendations by priority
+        priority_order = {'high': 0, 'medium': 1, 'low': 2}
+        all_recommendations.sort(key=lambda x: priority_order.get(x.get('priority', 'low'), 3))
+
+        return all_recommendations
+
+    def save_results(self, merged_document: Dict[str, Any], output_dir: str) -> str:
+        """
+        Save merged document to a file.
+
+        Args:
+            merged_document: Merged document
+            output_dir: Output directory
+
+        Returns:
+            Path to the saved file
+        """
+        # Create output directory if it doesn't exist
+        os.makedirs(output_dir, exist_ok=True)
+
+        # Save merged document to a JSON file
+        output_file = os.path.join(output_dir, "merged_document.json")
+        with open(output_file, 'w', encoding='utf-8') as f:
+            json.dump(merged_document, f, indent=2)
+
+        return output_file

@@ -1,5 +1,15 @@
 import type { Config } from "tailwindcss"
 
+// Define breakpoint constants for documentation and reference
+const BREAKPOINTS = {
+  xs: '360px',   // Extra small devices (phones)
+  sm: '640px',   // Small devices (large phones, small tablets)
+  md: '768px',   // Medium devices (tablets)
+  lg: '1024px',  // Large devices (desktops)
+  xl: '1280px',  // Extra large devices (large desktops)
+  '2xl': '1536px', // Extra extra large devices
+};
+
 const config = {
   darkMode: ["class"],
   content: [
@@ -7,13 +17,31 @@ const config = {
     './components/**/*.{ts,tsx}',
     './app/**/*.{ts,tsx}',
     './src/**/*.{ts,tsx}',
+    './lib/**/*.{ts,tsx}',
 	],
   prefix: "",
   theme: {
+    // Define breakpoints consistently
+    screens: {
+      'xs': BREAKPOINTS.xs,
+      'sm': BREAKPOINTS.sm,
+      'md': BREAKPOINTS.md,
+      'lg': BREAKPOINTS.lg,
+      'xl': BREAKPOINTS.xl,
+      '2xl': BREAKPOINTS['2xl'],
+    },
     container: {
       center: true,
-      padding: "2rem",
+      padding: {
+        DEFAULT: "1rem",
+        sm: "1.5rem",
+        md: "2rem",
+      },
       screens: {
+        sm: BREAKPOINTS.sm,
+        md: BREAKPOINTS.md,
+        lg: BREAKPOINTS.lg,
+        xl: BREAKPOINTS.xl,
         "2xl": "1400px",
       },
     },
@@ -72,9 +100,26 @@ const config = {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
       },
+      spacing: {
+        // Additional spacing values for responsive layouts
+        '18': '4.5rem',
+        '72': '18rem',
+        '84': '21rem',
+        '96': '24rem',
+      },
+      height: {
+        'screen-80': '80vh',
+        'screen-90': '90vh',
+      },
+      width: {
+        'screen-80': '80vw',
+        'screen-90': '90vw',
+      },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [
+    require("tailwindcss-animate"),
+  ],
 } satisfies Config
 
 export default config

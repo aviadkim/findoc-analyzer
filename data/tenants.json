@@ -1,0 +1,450 @@
+[
+  {
+    "id": "default",
+    "name": "Default Tenant",
+    "tier": "professional",
+    "status": "active",
+    "createdAt": "2025-05-13T20:01:27.265Z",
+    "updatedAt": "2025-05-13T20:01:27.265Z",
+    "expiresAt": "2026-05-13T20:01:27.265Z",
+    "settings": {
+      "enableAdvancedAnalytics": true,
+      "enableBatchProcessing": true,
+      "enableMultiDocumentComparison": true,
+      "defaultLanguage": "en"
+    },
+    "metadata": {},
+    "apiKeys": [],
+    "limits": {
+      "maxUsers": 100,
+      "maxStorage": 107374182400,
+      "maxDocs": 10000,
+      "maxConcurrentProcessing": 10
+    },
+    "usage": {
+      "users": 0,
+      "storage": 0,
+      "docs": 0,
+      "apiCalls": {
+        "total": 0,
+        "lastMonth": 0
+      }
+    }
+  },
+  {
+    "id": "tenant-aca6c857-6a28-43b7-8216-3dd4b832ee0a",
+    "name": "Test Tenant",
+    "tier": "free",
+    "status": "active",
+    "createdAt": "2025-05-13T20:02:21.209Z",
+    "updatedAt": "2025-05-13T20:02:21.209Z",
+    "expiresAt": "2025-08-11T20:02:21.209Z",
+    "settings": {
+      "enableAdvancedAnalytics": false,
+      "enableBatchProcessing": false,
+      "enableMultiDocumentComparison": false,
+      "defaultLanguage": "en"
+    },
+    "metadata": {},
+    "apiKeys": [],
+    "limits": {
+      "maxUsers": 5,
+      "maxStorage": 1073741824,
+      "maxDocs": 100,
+      "maxConcurrentProcessing": 1
+    },
+    "usage": {
+      "users": 0,
+      "storage": 0,
+      "docs": 0,
+      "apiCalls": {
+        "total": 0,
+        "lastMonth": 0
+      }
+    }
+  },
+  {
+    "id": "tenant-876d121d-e18c-4b7a-8bd1-bba2a96159c0",
+    "name": "Test Tenant",
+    "tier": "free",
+    "status": "active",
+    "createdAt": "2025-05-13T20:03:25.302Z",
+    "updatedAt": "2025-05-13T20:03:25.302Z",
+    "expiresAt": "2025-08-11T20:03:25.302Z",
+    "settings": {
+      "enableAdvancedAnalytics": false,
+      "enableBatchProcessing": false,
+      "enableMultiDocumentComparison": false,
+      "defaultLanguage": "en"
+    },
+    "metadata": {},
+    "apiKeys": [],
+    "limits": {
+      "maxUsers": 5,
+      "maxStorage": 1073741824,
+      "maxDocs": 100,
+      "maxConcurrentProcessing": 1
+    },
+    "usage": {
+      "users": 0,
+      "storage": 0,
+      "docs": 0,
+      "apiCalls": {
+        "total": 0,
+        "lastMonth": 0
+      }
+    }
+  },
+  {
+    "id": "tenant-f51d18c9-a8a5-468e-8b58-a5a04dc8d9f7",
+    "name": "Test Tenant",
+    "tier": "free",
+    "status": "active",
+    "createdAt": "2025-05-13T20:13:54.941Z",
+    "updatedAt": "2025-05-13T20:13:54.941Z",
+    "expiresAt": "2025-08-11T20:13:54.941Z",
+    "settings": {
+      "enableAdvancedAnalytics": false,
+      "enableBatchProcessing": false,
+      "enableMultiDocumentComparison": false,
+      "defaultLanguage": "en"
+    },
+    "metadata": {},
+    "apiKeys": [],
+    "limits": {
+      "maxUsers": 5,
+      "maxStorage": 1073741824,
+      "maxDocs": 100,
+      "maxConcurrentProcessing": 1
+    },
+    "usage": {
+      "users": 0,
+      "storage": 0,
+      "docs": 0,
+      "apiCalls": {
+        "total": 0,
+        "lastMonth": 0
+      }
+    }
+  },
+  {
+    "id": "tenant-c80621f6-46c8-415d-8cb9-950ba2a7efb4",
+    "name": "Test Tenant",
+    "tier": "free",
+    "status": "active",
+    "createdAt": "2025-05-13T20:14:37.978Z",
+    "updatedAt": "2025-05-13T20:14:37.978Z",
+    "expiresAt": "2025-08-11T20:14:37.978Z",
+    "settings": {
+      "enableAdvancedAnalytics": false,
+      "enableBatchProcessing": false,
+      "enableMultiDocumentComparison": false,
+      "defaultLanguage": "en"
+    },
+    "metadata": {},
+    "apiKeys": [],
+    "limits": {
+      "maxUsers": 5,
+      "maxStorage": 1073741824,
+      "maxDocs": 100,
+      "maxConcurrentProcessing": 1
+    },
+    "usage": {
+      "users": 0,
+      "storage": 0,
+      "docs": 0,
+      "apiCalls": {
+        "total": 0,
+        "lastMonth": 0
+      }
+    }
+  },
+  {
+    "id": "tenant-921e75f9-0f7d-49dd-b789-17bd95318c11",
+    "name": "Test Tenant",
+    "tier": "free",
+    "status": "active",
+    "createdAt": "2025-05-13T20:23:58.083Z",
+    "updatedAt": "2025-05-13T20:23:58.083Z",
+    "expiresAt": "2025-08-11T20:23:58.083Z",
+    "settings": {
+      "enableAdvancedAnalytics": false,
+      "enableBatchProcessing": false,
+      "enableMultiDocumentComparison": false,
+      "defaultLanguage": "en"
+    },
+    "metadata": {},
+    "apiKeys": [],
+    "limits": {
+      "maxUsers": 5,
+      "maxStorage": 1073741824,
+      "maxDocs": 100,
+      "maxConcurrentProcessing": 1
+    },
+    "usage": {
+      "users": 0,
+      "storage": 0,
+      "docs": 0,
+      "apiCalls": {
+        "total": 0,
+        "lastMonth": 0
+      }
+    }
+  },
+  {
+    "id": "tenant-225832c4-73fb-4d48-b027-671208a8df54",
+    "name": "Test Tenant",
+    "tier": "free",
+    "status": "active",
+    "createdAt": "2025-05-13T20:31:13.110Z",
+    "updatedAt": "2025-05-13T20:31:13.110Z",
+    "expiresAt": "2025-08-11T20:31:13.110Z",
+    "settings": {
+      "enableAdvancedAnalytics": false,
+      "enableBatchProcessing": false,
+      "enableMultiDocumentComparison": false,
+      "defaultLanguage": "en"
+    },
+    "metadata": {},
+    "apiKeys": [],
+    "limits": {
+      "maxUsers": 5,
+      "maxStorage": 1073741824,
+      "maxDocs": 100,
+      "maxConcurrentProcessing": 1
+    },
+    "usage": {
+      "users": 0,
+      "storage": 0,
+      "docs": 0,
+      "apiCalls": {
+        "total": 0,
+        "lastMonth": 0
+      }
+    }
+  },
+  {
+    "id": "tenant-06e1ad6c-761e-4dab-acc3-d8348e5ad6d5",
+    "name": "Test Tenant",
+    "tier": "free",
+    "status": "active",
+    "createdAt": "2025-05-13T20:31:36.539Z",
+    "updatedAt": "2025-05-13T20:31:36.539Z",
+    "expiresAt": "2025-08-11T20:31:36.539Z",
+    "settings": {
+      "enableAdvancedAnalytics": false,
+      "enableBatchProcessing": false,
+      "enableMultiDocumentComparison": false,
+      "defaultLanguage": "en"
+    },
+    "metadata": {},
+    "apiKeys": [],
+    "limits": {
+      "maxUsers": 5,
+      "maxStorage": 1073741824,
+      "maxDocs": 100,
+      "maxConcurrentProcessing": 1
+    },
+    "usage": {
+      "users": 0,
+      "storage": 0,
+      "docs": 0,
+      "apiCalls": {
+        "total": 0,
+        "lastMonth": 0
+      }
+    }
+  },
+  {
+    "id": "tenant-78f2d2f7-48a4-4cb9-9a2b-012d0ede3dcb",
+    "name": "Test Tenant",
+    "tier": "free",
+    "status": "active",
+    "createdAt": "2025-05-13T20:41:51.726Z",
+    "updatedAt": "2025-05-13T20:41:51.726Z",
+    "expiresAt": "2025-08-11T20:41:51.726Z",
+    "settings": {
+      "enableAdvancedAnalytics": false,
+      "enableBatchProcessing": false,
+      "enableMultiDocumentComparison": false,
+      "defaultLanguage": "en"
+    },
+    "metadata": {},
+    "apiKeys": [],
+    "limits": {
+      "maxUsers": 5,
+      "maxStorage": 1073741824,
+      "maxDocs": 100,
+      "maxConcurrentProcessing": 1
+    },
+    "usage": {
+      "users": 0,
+      "storage": 0,
+      "docs": 0,
+      "apiCalls": {
+        "total": 0,
+        "lastMonth": 0
+      }
+    }
+  },
+  {
+    "id": "tenant-67a31f95-cbdf-43a5-b23f-c92bf1f46493",
+    "name": "Test Tenant",
+    "tier": "free",
+    "status": "active",
+    "createdAt": "2025-05-13T20:45:09.405Z",
+    "updatedAt": "2025-05-13T20:45:09.405Z",
+    "expiresAt": "2025-08-11T20:45:09.405Z",
+    "settings": {
+      "enableAdvancedAnalytics": false,
+      "enableBatchProcessing": false,
+      "enableMultiDocumentComparison": false,
+      "defaultLanguage": "en"
+    },
+    "metadata": {},
+    "apiKeys": [],
+    "limits": {
+      "maxUsers": 5,
+      "maxStorage": 1073741824,
+      "maxDocs": 100,
+      "maxConcurrentProcessing": 1
+    },
+    "usage": {
+      "users": 0,
+      "storage": 0,
+      "docs": 0,
+      "apiCalls": {
+        "total": 0,
+        "lastMonth": 0
+      }
+    }
+  },
+  {
+    "id": "tenant-09e29d5f-2ba0-48f2-881f-b3af5bed0c46",
+    "name": "Test Tenant",
+    "tier": "free",
+    "status": "active",
+    "createdAt": "2025-05-13T20:50:24.568Z",
+    "updatedAt": "2025-05-13T20:50:24.568Z",
+    "expiresAt": "2025-08-11T20:50:24.568Z",
+    "settings": {
+      "enableAdvancedAnalytics": false,
+      "enableBatchProcessing": false,
+      "enableMultiDocumentComparison": false,
+      "defaultLanguage": "en"
+    },
+    "metadata": {},
+    "apiKeys": [],
+    "limits": {
+      "maxUsers": 5,
+      "maxStorage": 1073741824,
+      "maxDocs": 100,
+      "maxConcurrentProcessing": 1
+    },
+    "usage": {
+      "users": 0,
+      "storage": 0,
+      "docs": 0,
+      "apiCalls": {
+        "total": 0,
+        "lastMonth": 0
+      }
+    }
+  },
+  {
+    "id": "tenant-1a1db23f-ae79-46b9-bc0f-6a5b9a514838",
+    "name": "Test Tenant",
+    "tier": "free",
+    "status": "active",
+    "createdAt": "2025-05-13T21:12:55.534Z",
+    "updatedAt": "2025-05-13T21:12:55.534Z",
+    "expiresAt": "2025-08-11T21:12:55.534Z",
+    "settings": {
+      "enableAdvancedAnalytics": false,
+      "enableBatchProcessing": false,
+      "enableMultiDocumentComparison": false,
+      "defaultLanguage": "en"
+    },
+    "metadata": {},
+    "apiKeys": [],
+    "limits": {
+      "maxUsers": 5,
+      "maxStorage": 1073741824,
+      "maxDocs": 100,
+      "maxConcurrentProcessing": 1
+    },
+    "usage": {
+      "users": 0,
+      "storage": 0,
+      "docs": 0,
+      "apiCalls": {
+        "total": 0,
+        "lastMonth": 0
+      }
+    }
+  },
+  {
+    "id": "tenant-abcb0094-ebf1-402c-8200-ca95ecbef353",
+    "name": "Test Tenant",
+    "tier": "free",
+    "status": "active",
+    "createdAt": "2025-05-13T21:15:49.072Z",
+    "updatedAt": "2025-05-13T21:15:49.072Z",
+    "expiresAt": "2025-08-11T21:15:49.072Z",
+    "settings": {
+      "enableAdvancedAnalytics": false,
+      "enableBatchProcessing": false,
+      "enableMultiDocumentComparison": false,
+      "defaultLanguage": "en"
+    },
+    "metadata": {},
+    "apiKeys": [],
+    "limits": {
+      "maxUsers": 5,
+      "maxStorage": 1073741824,
+      "maxDocs": 100,
+      "maxConcurrentProcessing": 1
+    },
+    "usage": {
+      "users": 0,
+      "storage": 0,
+      "docs": 0,
+      "apiCalls": {
+        "total": 0,
+        "lastMonth": 0
+      }
+    }
+  },
+  {
+    "id": "tenant-92e722b4-d6a4-470c-bbcf-61aa6ffb9a1b",
+    "name": "Test Tenant",
+    "tier": "free",
+    "status": "active",
+    "createdAt": "2025-05-14T09:10:48.238Z",
+    "updatedAt": "2025-05-14T09:10:48.238Z",
+    "expiresAt": "2025-08-12T09:10:48.238Z",
+    "settings": {
+      "enableAdvancedAnalytics": false,
+      "enableBatchProcessing": false,
+      "enableMultiDocumentComparison": false,
+      "defaultLanguage": "en"
+    },
+    "metadata": {},
+    "apiKeys": [],
+    "limits": {
+      "maxUsers": 5,
+      "maxStorage": 1073741824,
+      "maxDocs": 100,
+      "maxConcurrentProcessing": 1
+    },
+    "usage": {
+      "users": 0,
+      "storage": 0,
+      "docs": 0,
+      "apiCalls": {
+        "total": 0,
+        "lastMonth": 0
+      }
+    }
+  }
+]

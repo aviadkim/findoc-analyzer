@@ -1,0 +1,115 @@
+{
+  "tests": [
+    {
+      "name": "Create first tenant",
+      "status": "passed",
+      "duration": 5290,
+      "error": null
+    },
+    {
+      "name": "Create second tenant",
+      "status": "passed",
+      "duration": 5112,
+      "error": null
+    },
+    {
+      "name": "Get API usage for first tenant",
+      "status": "passed",
+      "duration": 21,
+      "error": null
+    },
+    {
+      "name": "Get API usage for second tenant",
+      "status": "passed",
+      "duration": 35,
+      "error": null
+    },
+    {
+      "name": "Get agent statuses for first tenant",
+      "status": "passed",
+      "duration": 52,
+      "error": null
+    },
+    {
+      "name": "Get agent statuses for second tenant",
+      "status": "passed",
+      "duration": 37,
+      "error": null
+    },
+    {
+      "name": "Create document for first tenant",
+      "status": "passed",
+      "duration": 7,
+      "error": null
+    },
+    {
+      "name": "Create document for second tenant",
+      "status": "passed",
+      "duration": 6,
+      "error": null
+    },
+    {
+      "name": "Process document for first tenant",
+      "status": "passed",
+      "duration": 1017,
+      "error": null
+    },
+    {
+      "name": "Process document for second tenant",
+      "status": "passed",
+      "duration": 1020,
+      "error": null
+    },
+    {
+      "name": "Verify tenant isolation for documents",
+      "status": "passed",
+      "duration": 5,
+      "error": null
+    },
+    {
+      "name": "Verify tenant isolation for document processing",
+      "status": "passed",
+      "duration": 5,
+      "error": null
+    },
+    {
+      "name": "Verify tenant isolation for question answering",
+      "status": "passed",
+      "duration": 6,
+      "error": null
+    },
+    {
+      "name": "Ask question about document for first tenant",
+      "status": "passed",
+      "duration": 2024,
+      "error": null
+    },
+    {
+      "name": "Ask question about document for second tenant",
+      "status": "passed",
+      "duration": 2010,
+      "error": null
+    },
+    {
+      "name": "Check API usage for first tenant after operations",
+      "status": "passed",
+      "duration": 4,
+      "error": null
+    },
+    {
+      "name": "Check API usage for second tenant after operations",
+      "status": "passed",
+      "duration": 6,
+      "error": null
+    }
+  ],
+  "summary": {
+    "total": 17,
+    "passed": 17,
+    "failed": 0
+  },
+  "tenant1Id": "daf3d1a7-be60-4c62-9b01-6b7ebb87faa0",
+  "tenant2Id": "920d14ea-8aab-4193-ace6-5d0aa8a377b9",
+  "document1Id": "6f443864-2f1c-4670-9bc0-5aa6ce00b1ec",
+  "document2Id": "1629eff4-e1c7-43e4-9a7b-9539beb33e4f"
+}

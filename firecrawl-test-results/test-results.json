@@ -1,0 +1,27 @@
+{
+  "timestamp": "2025-05-12T13:37:45.441Z",
+  "tests": [
+    {
+      "name": "Homepage test",
+      "passed": false,
+      "details": "fetch is not a function"
+    },
+    {
+      "name": "Upload page test",
+      "passed": false,
+      "details": "fetch is not a function"
+    },
+    {
+      "name": "Documents page test",
+      "passed": false,
+      "details": "fetch is not a function"
+    },
+    {
+      "name": "Chat button test",
+      "passed": false,
+      "details": "fetch is not a function"
+    }
+  ],
+  "passed": 0,
+  "failed": 4
+}

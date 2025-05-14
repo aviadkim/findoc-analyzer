@@ -1,0 +1,34 @@
+# Use Node.js with Python for the application
+FROM node:18-slim
+
+# Set working directory
+WORKDIR /app
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    python3 \
+    python3-pip \
+    && rm -rf /var/lib/apt/lists/*
+
+# Copy package.json and package-lock.json
+COPY package*.json ./
+
+# Install Node.js dependencies
+RUN npm install
+
+# Copy the entire application
+COPY . .
+
+# Create directories for uploads, temp files, and results
+RUN mkdir -p uploads temp results
+
+# Set environment variables
+ENV PORT=8080
+ENV NODE_ENV=production
+ENV USE_MOCK_API=true
+
+# Expose port
+EXPOSE 8080
+
+# Start the application
+CMD ["node", "server-simple.js"]

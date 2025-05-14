@@ -1,0 +1,2014 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Securities Extraction Monitoring Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css">
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --success-color: #2ecc71;
+            --danger-color: #e74c3c;
+            --warning-color: #f39c12;
+            --info-color: #3498db;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3e50;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+        .dashboard-container {
+            padding: 20px;
+        }
+        .card {
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            border: none;
+        }
+        .card-header {
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 10px 10px 0 0 !important;
+            padding: 15px 20px;
+            font-weight: 600;
+        }
+        .card-body {
+            padding: 20px;
+        }
+        .metric-card {
+            text-align: center;
+            padding: 15px;
+            border-radius: 8px;
+            background-color: white;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+        .metric-value {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin: 10px 0;
+        }
+        .metric-label {
+            font-size: 0.9rem;
+            color: #6c757d;
+            text-transform: uppercase;
+        }
+        .success-metric {
+            color: var(--success-color);
+        }
+        .warning-metric {
+            color: var(--warning-color);
+        }
+        .danger-metric {
+            color: var(--danger-color);
+        }
+        .info-metric {
+            color: var(--info-color);
+        }
+        .sidebar {
+            background-color: var(--primary-color);
+            color: white;
+            height: 100vh;
+            position: fixed;
+            padding-top: 20px;
+        }
+        .sidebar-link {
+            color: white;
+            text-decoration: none;
+            padding: 10px 15px;
+            display: block;
+            transition: all 0.3s;
+            border-left: 3px solid transparent;
+        }
+        .sidebar-link:hover, .sidebar-link.active {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-left: 3px solid var(--secondary-color);
+        }
+        .sidebar-link i {
+            margin-right: 10px;
+        }
+        .content {
+            margin-left: 250px;
+            padding: 20px;
+        }
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+                padding-top: 0;
+            }
+            .content {
+                margin-left: 0;
+            }
+        }
+        .chart-container {
+            position: relative;
+            height: 300px;
+            width: 100%;
+        }
+        .data-table {
+            width: 100%;
+            margin-top: 15px;
+        }
+        .data-table th {
+            background-color: var(--light-color);
+            color: var(--dark-color);
+        }
+        .filters {
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+        .badge-custom {
+            padding: 5px 10px;
+            border-radius: 10px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        .bg-success-light {
+            background-color: rgba(46, 204, 113, 0.2);
+            color: var(--success-color);
+        }
+        .bg-danger-light {
+            background-color: rgba(231, 76, 60, 0.2);
+            color: var(--danger-color);
+        }
+        .bg-warning-light {
+            background-color: rgba(243, 156, 18, 0.2);
+            color: var(--warning-color);
+        }
+        .bg-info-light {
+            background-color: rgba(52, 152, 219, 0.2);
+            color: var(--info-color);
+        }
+        .loader {
+            border: 6px solid #f3f3f3;
+            border-top: 6px solid var(--primary-color);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .alert-section {
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .alert-danger {
+            background-color: rgba(231, 76, 60, 0.2);
+            border-left: 4px solid var(--danger-color);
+        }
+        .alert-warning {
+            background-color: rgba(243, 156, 18, 0.2);
+            border-left: 4px solid var(--warning-color);
+        }
+        .alert-success {
+            background-color: rgba(46, 204, 113, 0.2);
+            border-left: 4px solid var(--success-color);
+        }
+        .refresh-btn {
+            border-radius: 20px;
+            padding: 5px 15px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            font-size: 0.8rem;
+        }
+        .refresh-btn:hover {
+            background-color: var(--secondary-color);
+        }
+        .tab-content {
+            padding-top: 20px;
+        }
+        .nav-tabs .nav-link {
+            border: none;
+            color: var(--dark-color);
+            font-weight: 500;
+        }
+        .nav-tabs .nav-link.active {
+            color: var(--secondary-color);
+            border-bottom: 3px solid var(--secondary-color);
+            background-color: transparent;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-md-2 col-lg-2 d-md-block sidebar collapse">
+                <div class="position-sticky">
+                    <h5 class="px-3 pb-3">Securities Dashboard</h5>
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="sidebar-link active" id="overview-link" href="#overview">
+                                <i class="bi bi-speedometer2"></i> Overview
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="sidebar-link" id="performance-link" href="#performance">
+                                <i class="bi bi-graph-up"></i> Performance
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="sidebar-link" id="errors-link" href="#errors">
+                                <i class="bi bi-exclamation-triangle"></i> Errors
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="sidebar-link" id="documents-link" href="#documents">
+                                <i class="bi bi-file-earmark-text"></i> Documents
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="sidebar-link" id="resources-link" href="#resources">
+                                <i class="bi bi-cpu"></i> Resources
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="sidebar-link" id="tenants-link" href="#tenants">
+                                <i class="bi bi-people"></i> Tenants
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="sidebar-link" id="cache-link" href="#cache">
+                                <i class="bi bi-hdd"></i> Cache
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="sidebar-link" id="queue-link" href="#queue">
+                                <i class="bi bi-list-ol"></i> Queue
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Main Content -->
+            <main class="col-md-10 ms-sm-auto col-lg-10 px-md-4 content">
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    <h1>Securities Extraction Monitoring</h1>
+                    <div class="btn-toolbar mb-2 mb-md-0">
+                        <div class="btn-group me-2">
+                            <button type="button" class="btn btn-sm btn-outline-secondary refresh-btn" id="refresh-data">
+                                <i class="bi bi-arrow-clockwise"></i> Refresh Data
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section content -->
+                <div id="section-content">
+                    <!-- Overview Section -->
+                    <div id="overview-section" class="dashboard-section">
+                        <!-- Date Range Filter -->
+                        <div class="filters">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label for="daterange">Date Range:</label>
+                                    <input type="text" class="form-control" id="daterange" name="daterange">
+                                </div>
+                                <div class="col-md-3">
+                                    <label for="document-type-filter">Document Type:</label>
+                                    <select class="form-select" id="document-type-filter">
+                                        <option value="all">All Document Types</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-3">
+                                    <label for="tenant-filter">Tenant:</label>
+                                    <select class="form-select" id="tenant-filter">
+                                        <option value="all">All Tenants</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-2 d-flex align-items-end">
+                                    <button class="btn btn-primary w-100" id="apply-filters">Apply</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Key Metrics -->
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="metric-card">
+                                    <div class="metric-label">Total Extractions</div>
+                                    <div class="metric-value info-metric" id="total-extractions">--</div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="metric-card">
+                                    <div class="metric-label">Success Rate</div>
+                                    <div class="metric-value success-metric" id="success-rate">--</div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="metric-card">
+                                    <div class="metric-label">Avg. Processing Time</div>
+                                    <div class="metric-value info-metric" id="avg-processing-time">--</div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="metric-card">
+                                    <div class="metric-label">Cache Hit Rate</div>
+                                    <div class="metric-value success-metric" id="cache-hit-rate">--</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Alerts -->
+                        <div class="row mt-4">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <i class="bi bi-bell"></i> Alerts
+                                    </div>
+                                    <div class="card-body" id="alerts-container">
+                                        <!-- Alerts will be added dynamically -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Success Rate Chart -->
+                        <div class="row mt-4">
+                            <div class="col-md-6">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <i class="bi bi-check-circle"></i> Success Rate Over Time
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="chart-container">
+                                            <canvas id="success-rate-chart"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <i class="bi bi-clock"></i> Processing Time
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="chart-container">
+                                            <canvas id="processing-time-chart"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Document Type Distribution -->
+                        <div class="row mt-4">
+                            <div class="col-md-6">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <i class="bi bi-pie-chart"></i> Document Type Distribution
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="chart-container">
+                                            <canvas id="document-type-chart"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <i class="bi bi-exclamation-triangle"></i> Common Error Types
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="chart-container">
+                                            <canvas id="error-types-chart"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Performance Section -->
+                    <div id="performance-section" class="dashboard-section" style="display: none;">
+                        <div class="card">
+                            <div class="card-header">
+                                <i class="bi bi-graph-up"></i> Extraction Performance Metrics
+                            </div>
+                            <div class="card-body">
+                                <!-- Period Filter -->
+                                <div class="row mb-4">
+                                    <div class="col-md-4">
+                                        <label for="performance-period">Time Period:</label>
+                                        <select class="form-select" id="performance-period">
+                                            <option value="hourly">Hourly</option>
+                                            <option value="daily" selected>Daily</option>
+                                            <option value="weekly">Weekly</option>
+                                            <option value="monthly">Monthly</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="performance-days">Number of Days:</label>
+                                        <select class="form-select" id="performance-days">
+                                            <option value="1">1 Day</option>
+                                            <option value="7" selected>7 Days</option>
+                                            <option value="30">30 Days</option>
+                                            <option value="90">90 Days</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4 d-flex align-items-end">
+                                        <button class="btn btn-primary w-100" id="update-performance">Update</button>
+                                    </div>
+                                </div>
+
+                                <!-- Performance Metrics Chart -->
+                                <div class="chart-container" style="height: 400px;">
+                                    <canvas id="performance-chart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Document Completion Rate -->
+                        <div class="card mt-4">
+                            <div class="card-header">
+                                <i class="bi bi-check-all"></i> Securities Completion Rate
+                            </div>
+                            <div class="card-body">
+                                <div class="chart-container" style="height: 400px;">
+                                    <canvas id="completion-rate-chart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Performance by Document Type -->
+                        <div class="card mt-4">
+                            <div class="card-header">
+                                <i class="bi bi-file-earmark-text"></i> Performance by Document Type
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-striped data-table" id="document-type-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Document Type</th>
+                                                <th>Total Extractions</th>
+                                                <th>Success Rate</th>
+                                                <th>Avg. Processing Time</th>
+                                                <th>Avg. Securities</th>
+                                                <th>Completion Rate</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <!-- Data will be added dynamically -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Errors Section -->
+                    <div id="errors-section" class="dashboard-section" style="display: none;">
+                        <div class="card">
+                            <div class="card-header">
+                                <i class="bi bi-exclamation-triangle"></i> Extraction Errors
+                            </div>
+                            <div class="card-body">
+                                <!-- Error Type Filter -->
+                                <div class="row mb-4">
+                                    <div class="col-md-4">
+                                        <label for="error-type-filter">Error Type:</label>
+                                        <select class="form-select" id="error-type-filter">
+                                            <option value="all">All Error Types</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="error-limit">Limit:</label>
+                                        <select class="form-select" id="error-limit">
+                                            <option value="50">50 Errors</option>
+                                            <option value="100" selected>100 Errors</option>
+                                            <option value="200">200 Errors</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4 d-flex align-items-end">
+                                        <button class="btn btn-primary w-100" id="update-errors">Update</button>
+                                    </div>
+                                </div>
+
+                                <!-- Error Distribution Chart -->
+                                <div class="chart-container">
+                                    <canvas id="error-distribution-chart"></canvas>
+                                </div>
+
+                                <!-- Errors Table -->
+                                <div class="table-responsive mt-4">
+                                    <table class="table table-striped data-table" id="errors-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Timestamp</th>
+                                                <th>Document Type</th>
+                                                <th>Document ID</th>
+                                                <th>Error Type</th>
+                                                <th>Error Message</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <!-- Data will be added dynamically -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Documents Section -->
+                    <div id="documents-section" class="dashboard-section" style="display: none;">
+                        <div class="card">
+                            <div class="card-header">
+                                <i class="bi bi-file-earmark-text"></i> Recent Extractions
+                            </div>
+                            <div class="card-body">
+                                <!-- Document Filter -->
+                                <div class="row mb-4">
+                                    <div class="col-md-4">
+                                        <label for="document-status-filter">Status:</label>
+                                        <select class="form-select" id="document-status-filter">
+                                            <option value="all">All Status</option>
+                                            <option value="success">Success</option>
+                                            <option value="error">Error</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="document-limit">Limit:</label>
+                                        <select class="form-select" id="document-limit">
+                                            <option value="50">50 Documents</option>
+                                            <option value="100" selected>100 Documents</option>
+                                            <option value="200">200 Documents</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4 d-flex align-items-end">
+                                        <button class="btn btn-primary w-100" id="update-documents">Update</button>
+                                    </div>
+                                </div>
+
+                                <!-- Documents Table -->
+                                <div class="table-responsive">
+                                    <table class="table table-striped data-table" id="documents-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Timestamp</th>
+                                                <th>Document ID</th>
+                                                <th>Document Type</th>
+                                                <th>Status</th>
+                                                <th>Processing Time</th>
+                                                <th>Securities</th>
+                                                <th>Complete Securities</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <!-- Data will be added dynamically -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Resources Section -->
+                    <div id="resources-section" class="dashboard-section" style="display: none;">
+                        <div class="card">
+                            <div class="card-header">
+                                <i class="bi bi-cpu"></i> Resource Usage
+                            </div>
+                            <div class="card-body">
+                                <!-- Resource Period Filter -->
+                                <div class="row mb-4">
+                                    <div class="col-md-4">
+                                        <label for="resource-period">Time Period:</label>
+                                        <select class="form-select" id="resource-period">
+                                            <option value="hourly">Hourly</option>
+                                            <option value="daily" selected>Daily</option>
+                                            <option value="weekly">Weekly</option>
+                                            <option value="monthly">Monthly</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="resource-days">Number of Days:</label>
+                                        <select class="form-select" id="resource-days">
+                                            <option value="1">1 Day</option>
+                                            <option value="7" selected>7 Days</option>
+                                            <option value="30">30 Days</option>
+                                            <option value="90">90 Days</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4 d-flex align-items-end">
+                                        <button class="btn btn-primary w-100" id="update-resources">Update</button>
+                                    </div>
+                                </div>
+
+                                <!-- Resource Usage Charts -->
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="chart-container">
+                                            <canvas id="memory-usage-chart"></canvas>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="chart-container">
+                                            <canvas id="cpu-usage-chart"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Resource Summary -->
+                        <div class="card mt-4">
+                            <div class="card-header">
+                                <i class="bi bi-bar-chart"></i> Resource Usage Summary
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div class="metric-card">
+                                            <div class="metric-label">Avg. Memory Usage</div>
+                                            <div class="metric-value info-metric" id="avg-memory-usage">--</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="metric-card">
+                                            <div class="metric-label">Max Memory Usage</div>
+                                            <div class="metric-value warning-metric" id="max-memory-usage">--</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="metric-card">
+                                            <div class="metric-label">Avg. CPU Usage</div>
+                                            <div class="metric-value info-metric" id="avg-cpu-usage">--</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="metric-card">
+                                            <div class="metric-label">Max CPU Usage</div>
+                                            <div class="metric-value warning-metric" id="max-cpu-usage">--</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tenants Section -->
+                    <div id="tenants-section" class="dashboard-section" style="display: none;">
+                        <div class="card">
+                            <div class="card-header">
+                                <i class="bi bi-people"></i> Tenant Performance
+                            </div>
+                            <div class="card-body">
+                                <!-- Tenant Metrics Table -->
+                                <div class="table-responsive">
+                                    <table class="table table-striped data-table" id="tenants-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Tenant ID</th>
+                                                <th>Total Extractions</th>
+                                                <th>Success Rate</th>
+                                                <th>Avg. Processing Time</th>
+                                                <th>Avg. Securities</th>
+                                                <th>Last Extraction</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <!-- Data will be added dynamically -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Tenant Distribution Chart -->
+                        <div class="card mt-4">
+                            <div class="card-header">
+                                <i class="bi bi-pie-chart"></i> Tenant Extraction Distribution
+                            </div>
+                            <div class="card-body">
+                                <div class="chart-container">
+                                    <canvas id="tenant-distribution-chart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Cache Section -->
+                    <div id="cache-section" class="dashboard-section" style="display: none;">
+                        <div class="card">
+                            <div class="card-header">
+                                <i class="bi bi-hdd"></i> Cache Performance
+                            </div>
+                            <div class="card-body">
+                                <!-- Cache Period Filter -->
+                                <div class="row mb-4">
+                                    <div class="col-md-6">
+                                        <label for="cache-days">Number of Days:</label>
+                                        <select class="form-select" id="cache-days">
+                                            <option value="1">1 Day</option>
+                                            <option value="7" selected>7 Days</option>
+                                            <option value="30">30 Days</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6 d-flex align-items-end">
+                                        <button class="btn btn-primary w-100" id="update-cache">Update</button>
+                                    </div>
+                                </div>
+
+                                <!-- Cache Hit Rate Chart -->
+                                <div class="chart-container">
+                                    <canvas id="cache-hit-rate-chart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Cache Size Chart -->
+                        <div class="card mt-4">
+                            <div class="card-header">
+                                <i class="bi bi-hdd-stack"></i> Cache Size
+                            </div>
+                            <div class="card-body">
+                                <div class="chart-container">
+                                    <canvas id="cache-size-chart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Cache Metrics by Tenant -->
+                        <div class="card mt-4">
+                            <div class="card-header">
+                                <i class="bi bi-people"></i> Cache Metrics by Tenant
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-striped data-table" id="cache-tenant-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Tenant ID</th>
+                                                <th>Cache Size</th>
+                                                <th>Hit Count</th>
+                                                <th>Miss Count</th>
+                                                <th>Hit Rate</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <!-- Data will be added dynamically -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Queue Section -->
+                    <div id="queue-section" class="dashboard-section" style="display: none;">
+                        <div class="card">
+                            <div class="card-header">
+                                <i class="bi bi-list-ol"></i> Document Processing Queue
+                            </div>
+                            <div class="card-body">
+                                <!-- Queue Metrics -->
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div class="metric-card">
+                                            <div class="metric-label">Queue Length</div>
+                                            <div class="metric-value info-metric" id="queue-length">--</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="metric-card">
+                                            <div class="metric-label">Currently Processing</div>
+                                            <div class="metric-value info-metric" id="processing-now">--</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="metric-card">
+                                            <div class="metric-label">Completed Last Hour</div>
+                                            <div class="metric-value success-metric" id="completed-last-hour">--</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="metric-card">
+                                            <div class="metric-label">Queue Status</div>
+                                            <div class="metric-value success-metric" id="queue-status">--</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Queue Age Chart -->
+                                <div class="chart-container mt-4">
+                                    <canvas id="queue-age-chart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/moment@2.29.1/moment.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
+
+    <script>
+        // API endpoint (change this to your actual API endpoint)
+        const API_BASE_URL = '/api/extraction';
+
+        // Chart.js color palette
+        const colors = {
+            primary: '#2c3e50',
+            secondary: '#3498db',
+            success: '#2ecc71',
+            danger: '#e74c3c',
+            warning: '#f39c12',
+            info: '#3498db',
+            light: '#ecf0f1',
+            dark: '#2c3e50',
+            primaryLight: 'rgba(44, 62, 80, 0.2)',
+            secondaryLight: 'rgba(52, 152, 219, 0.2)',
+            successLight: 'rgba(46, 204, 113, 0.2)',
+            dangerLight: 'rgba(231, 76, 60, 0.2)',
+            warningLight: 'rgba(243, 156, 18, 0.2)',
+            infoLight: 'rgba(52, 152, 219, 0.2)'
+        };
+
+        // Initialize charts
+        let charts = {};
+
+        // Initialize date range picker
+        $(function() {
+            // Date range picker initialization
+            $('#daterange').daterangepicker({
+                startDate: moment().subtract(7, 'days'),
+                endDate: moment(),
+                ranges: {
+                   'Today': [moment(), moment()],
+                   'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                   'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+                   'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+                   'This Month': [moment().startOf('month'), moment().endOf('month')],
+                   'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+                }
+            });
+
+            // Initialize charts and load data
+            initializeCharts();
+            loadDashboardData();
+
+            // Navigation event handlers
+            $('.sidebar-link').on('click', function(e) {
+                e.preventDefault();
+                const sectionId = $(this).attr('href').substring(1);
+                showSection(sectionId);
+            });
+
+            // Refresh data button
+            $('#refresh-data').on('click', function() {
+                loadDashboardData();
+            });
+
+            // Filter button event handlers
+            $('#apply-filters').on('click', function() {
+                loadDashboardData();
+            });
+
+            $('#update-performance').on('click', function() {
+                loadPerformanceData();
+            });
+
+            $('#update-errors').on('click', function() {
+                loadErrorsData();
+            });
+
+            $('#update-documents').on('click', function() {
+                loadDocumentsData();
+            });
+
+            $('#update-resources').on('click', function() {
+                loadResourcesData();
+            });
+
+            $('#update-cache').on('click', function() {
+                loadCacheData();
+            });
+        });
+
+        // Show the selected section
+        function showSection(sectionId) {
+            $('.dashboard-section').hide();
+            $(`#${sectionId}-section`).show();
+            $('.sidebar-link').removeClass('active');
+            $(`#${sectionId}-link`).addClass('active');
+
+            // Load section-specific data
+            switch (sectionId) {
+                case 'overview':
+                    loadDashboardData();
+                    break;
+                case 'performance':
+                    loadPerformanceData();
+                    break;
+                case 'errors':
+                    loadErrorsData();
+                    break;
+                case 'documents':
+                    loadDocumentsData();
+                    break;
+                case 'resources':
+                    loadResourcesData();
+                    break;
+                case 'tenants':
+                    loadTenantsData();
+                    break;
+                case 'cache':
+                    loadCacheData();
+                    break;
+                case 'queue':
+                    loadQueueData();
+                    break;
+            }
+        }
+
+        // Initialize all charts
+        function initializeCharts() {
+            // Success Rate Chart
+            charts.successRate = new Chart(
+                document.getElementById('success-rate-chart'),
+                {
+                    type: 'line',
+                    data: {
+                        labels: [],
+                        datasets: [{
+                            label: 'Success Rate (%)',
+                            data: [],
+                            backgroundColor: colors.successLight,
+                            borderColor: colors.success,
+                            tension: 0.1,
+                            fill: true
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                max: 100
+                            }
+                        }
+                    }
+                }
+            );
+
+            // Processing Time Chart
+            charts.processingTime = new Chart(
+                document.getElementById('processing-time-chart'),
+                {
+                    type: 'line',
+                    data: {
+                        labels: [],
+                        datasets: [{
+                            label: 'Avg. Processing Time (ms)',
+                            data: [],
+                            backgroundColor: colors.infoLight,
+                            borderColor: colors.info,
+                            tension: 0.1,
+                            fill: true
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                }
+            );
+
+            // Document Type Chart
+            charts.documentType = new Chart(
+                document.getElementById('document-type-chart'),
+                {
+                    type: 'doughnut',
+                    data: {
+                        labels: [],
+                        datasets: [{
+                            data: [],
+                            backgroundColor: [
+                                colors.primary, 
+                                colors.secondary, 
+                                colors.success, 
+                                colors.danger, 
+                                colors.warning,
+                                colors.info
+                            ]
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'right'
+                            }
+                        }
+                    }
+                }
+            );
+
+            // Error Types Chart
+            charts.errorTypes = new Chart(
+                document.getElementById('error-types-chart'),
+                {
+                    type: 'doughnut',
+                    data: {
+                        labels: [],
+                        datasets: [{
+                            data: [],
+                            backgroundColor: [
+                                colors.danger, 
+                                colors.warning, 
+                                colors.info, 
+                                colors.primary, 
+                                colors.secondary
+                            ]
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'right'
+                            }
+                        }
+                    }
+                }
+            );
+
+            // Performance Chart
+            charts.performance = new Chart(
+                document.getElementById('performance-chart'),
+                {
+                    type: 'bar',
+                    data: {
+                        labels: [],
+                        datasets: [
+                            {
+                                label: 'Success Rate (%)',
+                                data: [],
+                                backgroundColor: colors.successLight,
+                                borderColor: colors.success,
+                                borderWidth: 1,
+                                yAxisID: 'y'
+                            },
+                            {
+                                label: 'Avg. Processing Time (ms)',
+                                data: [],
+                                type: 'line',
+                                backgroundColor: colors.info,
+                                borderColor: colors.info,
+                                yAxisID: 'y1'
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                max: 100,
+                                title: {
+                                    display: true,
+                                    text: 'Success Rate (%)'
+                                }
+                            },
+                            y1: {
+                                beginAtZero: true,
+                                position: 'right',
+                                grid: {
+                                    drawOnChartArea: false
+                                },
+                                title: {
+                                    display: true,
+                                    text: 'Processing Time (ms)'
+                                }
+                            }
+                        }
+                    }
+                }
+            );
+
+            // Completion Rate Chart
+            charts.completionRate = new Chart(
+                document.getElementById('completion-rate-chart'),
+                {
+                    type: 'bar',
+                    data: {
+                        labels: [],
+                        datasets: [
+                            {
+                                label: 'Total Securities',
+                                data: [],
+                                backgroundColor: colors.infoLight,
+                                borderColor: colors.info,
+                                borderWidth: 1
+                            },
+                            {
+                                label: 'Complete Securities',
+                                data: [],
+                                backgroundColor: colors.successLight,
+                                borderColor: colors.success,
+                                borderWidth: 1
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                title: {
+                                    display: true,
+                                    text: 'Number of Securities'
+                                }
+                            }
+                        }
+                    }
+                }
+            );
+
+            // Error Distribution Chart
+            charts.errorDistribution = new Chart(
+                document.getElementById('error-distribution-chart'),
+                {
+                    type: 'bar',
+                    data: {
+                        labels: [],
+                        datasets: [{
+                            label: 'Error Count',
+                            data: [],
+                            backgroundColor: colors.dangerLight,
+                            borderColor: colors.danger,
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                }
+            );
+
+            // Memory Usage Chart
+            charts.memoryUsage = new Chart(
+                document.getElementById('memory-usage-chart'),
+                {
+                    type: 'line',
+                    data: {
+                        labels: [],
+                        datasets: [
+                            {
+                                label: 'Avg. Memory Usage (MB)',
+                                data: [],
+                                backgroundColor: colors.infoLight,
+                                borderColor: colors.info,
+                                tension: 0.1,
+                                fill: true
+                            },
+                            {
+                                label: 'Max Memory Usage (MB)',
+                                data: [],
+                                backgroundColor: 'transparent',
+                                borderColor: colors.warning,
+                                tension: 0.1,
+                                borderDash: [5, 5]
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                }
+            );
+
+            // CPU Usage Chart
+            charts.cpuUsage = new Chart(
+                document.getElementById('cpu-usage-chart'),
+                {
+                    type: 'line',
+                    data: {
+                        labels: [],
+                        datasets: [
+                            {
+                                label: 'Avg. CPU Usage (%)',
+                                data: [],
+                                backgroundColor: colors.infoLight,
+                                borderColor: colors.info,
+                                tension: 0.1,
+                                fill: true
+                            },
+                            {
+                                label: 'Max CPU Usage (%)',
+                                data: [],
+                                backgroundColor: 'transparent',
+                                borderColor: colors.warning,
+                                tension: 0.1,
+                                borderDash: [5, 5]
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                max: 100
+                            }
+                        }
+                    }
+                }
+            );
+
+            // Tenant Distribution Chart
+            charts.tenantDistribution = new Chart(
+                document.getElementById('tenant-distribution-chart'),
+                {
+                    type: 'pie',
+                    data: {
+                        labels: [],
+                        datasets: [{
+                            data: [],
+                            backgroundColor: [
+                                colors.primary, 
+                                colors.secondary, 
+                                colors.success, 
+                                colors.info, 
+                                colors.warning,
+                                colors.danger
+                            ]
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'right'
+                            }
+                        }
+                    }
+                }
+            );
+
+            // Cache Hit Rate Chart
+            charts.cacheHitRate = new Chart(
+                document.getElementById('cache-hit-rate-chart'),
+                {
+                    type: 'line',
+                    data: {
+                        labels: [],
+                        datasets: [{
+                            label: 'Hit Rate (%)',
+                            data: [],
+                            backgroundColor: colors.successLight,
+                            borderColor: colors.success,
+                            tension: 0.1,
+                            fill: true
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                max: 100
+                            }
+                        }
+                    }
+                }
+            );
+
+            // Cache Size Chart
+            charts.cacheSize = new Chart(
+                document.getElementById('cache-size-chart'),
+                {
+                    type: 'line',
+                    data: {
+                        labels: [],
+                        datasets: [{
+                            label: 'Cache Size',
+                            data: [],
+                            backgroundColor: colors.infoLight,
+                            borderColor: colors.info,
+                            tension: 0.1,
+                            fill: true
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                }
+            );
+
+            // Queue Age Chart
+            charts.queueAge = new Chart(
+                document.getElementById('queue-age-chart'),
+                {
+                    type: 'bar',
+                    data: {
+                        labels: ['<1 min', '1-5 min', '5-15 min', '15-30 min', '30-60 min', '>60 min'],
+                        datasets: [{
+                            label: 'Documents in Queue by Age',
+                            data: [0, 0, 0, 0, 0, 0],
+                            backgroundColor: [
+                                colors.successLight,
+                                colors.infoLight,
+                                colors.infoLight,
+                                colors.warningLight,
+                                colors.warningLight,
+                                colors.dangerLight
+                            ],
+                            borderColor: [
+                                colors.success,
+                                colors.info,
+                                colors.info,
+                                colors.warning,
+                                colors.warning,
+                                colors.danger
+                            ],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                }
+            );
+        }
+
+        // Load dashboard data (overview section)
+        function loadDashboardData() {
+            // Show loading indicators
+            $('#total-extractions').text('Loading...');
+            $('#success-rate').text('Loading...');
+            $('#avg-processing-time').text('Loading...');
+            $('#cache-hit-rate').text('Loading...');
+            $('#alerts-container').html('<div class="loader"></div>');
+
+            // Get date range
+            const dateRange = $('#daterange').data('daterangepicker');
+            const startDate = dateRange.startDate.format('YYYY-MM-DDTHH:mm:ss');
+            const endDate = dateRange.endDate.format('YYYY-MM-DDTHH:mm:ss');
+            
+            // Get filters
+            const documentType = $('#document-type-filter').val();
+            const tenant = $('#tenant-filter').val();
+
+            // Fetch summary data
+            fetch(`${API_BASE_URL}/summary`)
+                .then(response => response.json())
+                .then(data => {
+                    updateOverviewMetrics(data);
+                    updateOverviewCharts(data);
+                    updateAlerts(data);
+                })
+                .catch(error => {
+                    console.error('Error fetching summary data:', error);
+                    $('#alerts-container').html('<div class="alert alert-danger">Error fetching data: ' + error.message + '</div>');
+                });
+
+            // Get document types for filter
+            fetch(`${API_BASE_URL}/document-types`)
+                .then(response => response.json())
+                .then(data => {
+                    updateDocumentTypeFilter(data);
+                })
+                .catch(error => {
+                    console.error('Error fetching document types:', error);
+                });
+
+            // Get tenants for filter
+            fetch(`${API_BASE_URL}/tenants`)
+                .then(response => response.json())
+                .then(data => {
+                    updateTenantFilter(data);
+                })
+                .catch(error => {
+                    console.error('Error fetching tenants:', error);
+                });
+        }
+
+        // Update overview metrics
+        function updateOverviewMetrics(data) {
+            $('#total-extractions').text(data.total_jobs || 0);
+            $('#success-rate').text((data.success_rate_percent || 0).toFixed(2) + '%');
+            $('#avg-processing-time').text((data.avg_processing_time_ms || 0).toFixed(2) + ' ms');
+            $('#cache-hit-rate').text((data.cache_performance?.avg_hit_rate_percent || 0).toFixed(2) + '%');
+        }
+
+        // Update overview charts
+        function updateOverviewCharts(data) {
+            // Success Rate Chart
+            const hourlyTrends = data.hourly_trends || {};
+            const hours = Object.keys(hourlyTrends).sort();
+            const successRates = hours.map(hour => hourlyTrends[hour].success_rate_percent || 0);
+            const processingTimes = hours.map(hour => hourlyTrends[hour].avg_processing_time_ms || 0);
+
+            charts.successRate.data.labels = hours.map(hour => `${hour}:00`);
+            charts.successRate.data.datasets[0].data = successRates;
+            charts.successRate.update();
+
+            charts.processingTime.data.labels = hours.map(hour => `${hour}:00`);
+            charts.processingTime.data.datasets[0].data = processingTimes;
+            charts.processingTime.update();
+
+            // Document Type Chart
+            const docTypes = data.document_types || {};
+            const docTypeLabels = Object.keys(docTypes);
+            const docTypeCounts = docTypeLabels.map(type => docTypes[type]);
+
+            charts.documentType.data.labels = docTypeLabels;
+            charts.documentType.data.datasets[0].data = docTypeCounts;
+            charts.documentType.update();
+
+            // Error Types Chart
+            const errorTypes = data.common_error_types || {};
+            const errorTypeLabels = Object.keys(errorTypes);
+            const errorTypeCounts = errorTypeLabels.map(type => errorTypes[type]);
+
+            charts.errorTypes.data.labels = errorTypeLabels;
+            charts.errorTypes.data.datasets[0].data = errorTypeCounts;
+            charts.errorTypes.update();
+        }
+
+        // Update document type filter
+        function updateDocumentTypeFilter(data) {
+            const select = $('#document-type-filter');
+            select.find('option:not(:first-child)').remove();
+            
+            data.forEach(type => {
+                select.append($('<option>', {
+                    value: type.document_type,
+                    text: type.document_type
+                }));
+            });
+        }
+
+        // Update tenant filter
+        function updateTenantFilter(data) {
+            const select = $('#tenant-filter');
+            select.find('option:not(:first-child)').remove();
+            
+            data.forEach(tenant => {
+                if (tenant.tenant_id) {
+                    select.append($('<option>', {
+                        value: tenant.tenant_id,
+                        text: tenant.tenant_id
+                    }));
+                }
+            });
+        }
+
+        // Update alerts
+        function updateAlerts(data) {
+            const alertsContainer = $('#alerts-container');
+            alertsContainer.empty();
+
+            // Add alerts based on the data
+            const alerts = [];
+
+            // Success rate alert
+            if (data.success_rate_percent < 85) {
+                alerts.push({
+                    type: 'danger',
+                    message: `Low success rate: ${data.success_rate_percent.toFixed(2)}% (target: 98%)`
+                });
+            } else if (data.success_rate_percent < 95) {
+                alerts.push({
+                    type: 'warning',
+                    message: `Moderate success rate: ${data.success_rate_percent.toFixed(2)}% (target: 98%)`
+                });
+            }
+
+            // Processing time alert
+            if (data.avg_processing_time_ms > 5000) {
+                alerts.push({
+                    type: 'warning',
+                    message: `High average processing time: ${data.avg_processing_time_ms.toFixed(2)} ms (target: < 3000 ms)`
+                });
+            }
+
+            // Resource usage alerts
+            if (data.resource_usage?.max_memory_usage_mb > 512) {
+                alerts.push({
+                    type: 'warning',
+                    message: `High memory usage detected: ${data.resource_usage.max_memory_usage_mb.toFixed(2)} MB (limit: 512 MB)`
+                });
+            }
+
+            if (data.resource_usage?.max_cpu_usage_percent > 80) {
+                alerts.push({
+                    type: 'warning',
+                    message: `High CPU usage detected: ${data.resource_usage.max_cpu_usage_percent.toFixed(2)}% (limit: 80%)`
+                });
+            }
+
+            // Cache performance alert
+            if (data.cache_performance?.avg_hit_rate_percent < 40) {
+                alerts.push({
+                    type: 'info',
+                    message: `Low cache hit rate: ${data.cache_performance.avg_hit_rate_percent.toFixed(2)}% (target: > 60%)`
+                });
+            }
+
+            // Add alerts to the container
+            if (alerts.length > 0) {
+                alerts.forEach(alert => {
+                    alertsContainer.append(`
+                        <div class="alert alert-${alert.type}">
+                            <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                            ${alert.message}
+                        </div>
+                    `);
+                });
+            } else {
+                alertsContainer.append(`
+                    <div class="alert alert-success">
+                        <i class="bi bi-check-circle-fill me-2"></i>
+                        All systems operating normally. No alerts at this time.
+                    </div>
+                `);
+            }
+        }
+
+        // Load performance section data
+        function loadPerformanceData() {
+            const period = $('#performance-period').val();
+            const days = $('#performance-days').val();
+
+            fetch(`${API_BASE_URL}/performance?period=${period}&days=${days}`)
+                .then(response => response.json())
+                .then(data => {
+                    updatePerformanceChart(data);
+                })
+                .catch(error => {
+                    console.error('Error fetching performance data:', error);
+                });
+
+            fetch(`${API_BASE_URL}/document-types`)
+                .then(response => response.json())
+                .then(data => {
+                    updateDocumentTypeTable(data);
+                    updateCompletionRateChart(data);
+                })
+                .catch(error => {
+                    console.error('Error fetching document types data:', error);
+                });
+        }
+
+        // Update performance chart
+        function updatePerformanceChart(data) {
+            const labels = data.map(item => item.time_period);
+            const successRates = data.map(item => item.success_rate_percent);
+            const processingTimes = data.map(item => item.avg_processing_time_ms);
+
+            charts.performance.data.labels = labels;
+            charts.performance.data.datasets[0].data = successRates;
+            charts.performance.data.datasets[1].data = processingTimes;
+            charts.performance.update();
+        }
+
+        // Update document type table
+        function updateDocumentTypeTable(data) {
+            const tableBody = $('#document-type-table tbody');
+            tableBody.empty();
+
+            data.forEach(item => {
+                tableBody.append(`
+                    <tr>
+                        <td>${item.document_type}</td>
+                        <td>${item.total_jobs}</td>
+                        <td>${item.success_rate_percent.toFixed(2)}%</td>
+                        <td>${item.avg_processing_time_ms.toFixed(2)} ms</td>
+                        <td>${item.avg_securities.toFixed(2)}</td>
+                        <td>${item.completion_rate_percent.toFixed(2)}%</td>
+                    </tr>
+                `);
+            });
+        }
+
+        // Update completion rate chart
+        function updateCompletionRateChart(data) {
+            const labels = data.map(item => item.document_type);
+            const totalSecurities = data.map(item => item.avg_securities);
+            const completeSecurities = data.map(item => item.avg_complete_securities);
+
+            charts.completionRate.data.labels = labels;
+            charts.completionRate.data.datasets[0].data = totalSecurities;
+            charts.completionRate.data.datasets[1].data = completeSecurities;
+            charts.completionRate.update();
+        }
+
+        // Load errors section data
+        function loadErrorsData() {
+            const errorType = $('#error-type-filter').val();
+            const limit = $('#error-limit').val();
+
+            fetch(`${API_BASE_URL}/errors?limit=${limit}`)
+                .then(response => response.json())
+                .then(data => {
+                    updateErrorsTable(data);
+                    updateErrorDistributionChart(data);
+                })
+                .catch(error => {
+                    console.error('Error fetching errors data:', error);
+                });
+        }
+
+        // Update errors table
+        function updateErrorsTable(data) {
+            const tableBody = $('#errors-table tbody');
+            tableBody.empty();
+
+            data.forEach(item => {
+                tableBody.append(`
+                    <tr>
+                        <td>${new Date(item.timestamp).toLocaleString()}</td>
+                        <td>${item.document_type || 'Unknown'}</td>
+                        <td>${item.document_id || 'Unknown'}</td>
+                        <td>${item.error_type}</td>
+                        <td>${item.error_message}</td>
+                    </tr>
+                `);
+            });
+        }
+
+        // Update error distribution chart
+        function updateErrorDistributionChart(data) {
+            // Group errors by type
+            const errorTypes = {};
+            data.forEach(item => {
+                const type = item.error_type || 'Unknown';
+                errorTypes[type] = (errorTypes[type] || 0) + 1;
+            });
+
+            const labels = Object.keys(errorTypes);
+            const counts = Object.values(errorTypes);
+
+            charts.errorDistribution.data.labels = labels;
+            charts.errorDistribution.data.datasets[0].data = counts;
+            charts.errorDistribution.update();
+
+            // Update error type filter
+            const select = $('#error-type-filter');
+            select.find('option:not(:first-child)').remove();
+            
+            labels.forEach(type => {
+                select.append($('<option>', {
+                    value: type,
+                    text: type
+                }));
+            });
+        }
+
+        // Load documents section data
+        function loadDocumentsData() {
+            const status = $('#document-status-filter').val();
+            const limit = $('#document-limit').val();
+
+            fetch(`${API_BASE_URL}/metrics?limit=${limit}`)
+                .then(response => response.json())
+                .then(data => {
+                    // Filter by status if needed
+                    let filteredData = data;
+                    if (status !== 'all') {
+                        const isSuccess = status === 'success';
+                        filteredData = data.filter(item => item.success === isSuccess);
+                    }
+                    
+                    updateDocumentsTable(filteredData);
+                })
+                .catch(error => {
+                    console.error('Error fetching documents data:', error);
+                });
+        }
+
+        // Update documents table
+        function updateDocumentsTable(data) {
+            const tableBody = $('#documents-table tbody');
+            tableBody.empty();
+
+            data.forEach(item => {
+                tableBody.append(`
+                    <tr>
+                        <td>${new Date(item.timestamp).toLocaleString()}</td>
+                        <td>${item.document_id || 'Unknown'}</td>
+                        <td>${item.document_type || 'Unknown'}</td>
+                        <td>
+                            <span class="badge bg-${item.success ? 'success' : 'danger'}-light">
+                                ${item.success ? 'Success' : 'Error'}
+                            </span>
+                        </td>
+                        <td>${item.processing_time_ms} ms</td>
+                        <td>${item.num_securities || 0}</td>
+                        <td>${item.num_complete_securities || 0}</td>
+                    </tr>
+                `);
+            });
+        }
+
+        // Load resources section data
+        function loadResourcesData() {
+            const period = $('#resource-period').val();
+            const days = $('#resource-days').val();
+
+            fetch(`${API_BASE_URL}/resource-usage?period=${period}&days=${days}`)
+                .then(response => response.json())
+                .then(data => {
+                    updateResourceCharts(data);
+                    updateResourceMetrics(data);
+                })
+                .catch(error => {
+                    console.error('Error fetching resource usage data:', error);
+                });
+        }
+
+        // Update resource charts
+        function updateResourceCharts(data) {
+            const labels = data.map(item => item.time_period);
+            const avgMemory = data.map(item => item.avg_memory_usage_mb);
+            const maxMemory = data.map(item => item.max_memory_usage_mb);
+            const avgCpu = data.map(item => item.avg_cpu_usage_percent);
+            const maxCpu = data.map(item => item.max_cpu_usage_percent);
+
+            charts.memoryUsage.data.labels = labels;
+            charts.memoryUsage.data.datasets[0].data = avgMemory;
+            charts.memoryUsage.data.datasets[1].data = maxMemory;
+            charts.memoryUsage.update();
+
+            charts.cpuUsage.data.labels = labels;
+            charts.cpuUsage.data.datasets[0].data = avgCpu;
+            charts.cpuUsage.data.datasets[1].data = maxCpu;
+            charts.cpuUsage.update();
+        }
+
+        // Update resource metrics
+        function updateResourceMetrics(data) {
+            // Calculate overall averages and maximums
+            let totalAvgMemory = 0;
+            let totalMaxMemory = 0;
+            let totalAvgCpu = 0;
+            let totalMaxCpu = 0;
+            let count = 0;
+
+            data.forEach(item => {
+                totalAvgMemory += item.avg_memory_usage_mb;
+                totalMaxMemory = Math.max(totalMaxMemory, item.max_memory_usage_mb);
+                totalAvgCpu += item.avg_cpu_usage_percent;
+                totalMaxCpu = Math.max(totalMaxCpu, item.max_cpu_usage_percent);
+                count++;
+            });
+
+            const avgMemory = count > 0 ? totalAvgMemory / count : 0;
+            const avgCpu = count > 0 ? totalAvgCpu / count : 0;
+
+            $('#avg-memory-usage').text(avgMemory.toFixed(2) + ' MB');
+            $('#max-memory-usage').text(totalMaxMemory.toFixed(2) + ' MB');
+            $('#avg-cpu-usage').text(avgCpu.toFixed(2) + '%');
+            $('#max-cpu-usage').text(totalMaxCpu.toFixed(2) + '%');
+        }
+
+        // Load tenants section data
+        function loadTenantsData() {
+            fetch(`${API_BASE_URL}/tenants`)
+                .then(response => response.json())
+                .then(data => {
+                    updateTenantsTable(data);
+                    updateTenantDistributionChart(data);
+                })
+                .catch(error => {
+                    console.error('Error fetching tenants data:', error);
+                });
+        }
+
+        // Update tenants table
+        function updateTenantsTable(data) {
+            const tableBody = $('#tenants-table tbody');
+            tableBody.empty();
+
+            data.forEach(item => {
+                tableBody.append(`
+                    <tr>
+                        <td>${item.tenant_id}</td>
+                        <td>${item.total_jobs}</td>
+                        <td>${item.success_rate_percent.toFixed(2)}%</td>
+                        <td>${item.avg_processing_time_ms.toFixed(2)} ms</td>
+                        <td>${item.avg_securities.toFixed(2)}</td>
+                        <td>${new Date(item.last_extraction).toLocaleString()}</td>
+                    </tr>
+                `);
+            });
+        }
+
+        // Update tenant distribution chart
+        function updateTenantDistributionChart(data) {
+            const labels = data.map(item => item.tenant_id);
+            const counts = data.map(item => item.total_jobs);
+
+            charts.tenantDistribution.data.labels = labels;
+            charts.tenantDistribution.data.datasets[0].data = counts;
+            charts.tenantDistribution.update();
+        }
+
+        // Load cache section data
+        function loadCacheData() {
+            const days = $('#cache-days').val();
+
+            fetch(`${API_BASE_URL}/cache?days=${days}`)
+                .then(response => response.json())
+                .then(data => {
+                    updateCacheCharts(data);
+                    updateCacheTenantTable(data);
+                })
+                .catch(error => {
+                    console.error('Error fetching cache data:', error);
+                });
+        }
+
+        // Update cache charts
+        function updateCacheCharts(data) {
+            // Group by timestamp (simplified)
+            const timestampGroups = {};
+            const tenantGroups = {};
+
+            data.forEach(item => {
+                const timestamp = new Date(item.timestamp).toLocaleString();
+                
+                if (!timestampGroups[timestamp]) {
+                    timestampGroups[timestamp] = {
+                        hit_rate: 0,
+                        cache_size: 0,
+                        count: 0
+                    };
+                }
+                
+                timestampGroups[timestamp].hit_rate += item.hit_rate_percent || 0;
+                timestampGroups[timestamp].cache_size += item.cache_size || 0;
+                timestampGroups[timestamp].count++;
+
+                // Group by tenant
+                const tenant = item.tenant_id || 'Unknown';
+                if (!tenantGroups[tenant]) {
+                    tenantGroups[tenant] = {
+                        cache_size: 0,
+                        hit_count: 0,
+                        miss_count: 0,
+                        hit_rate: 0,
+                        count: 0
+                    };
+                }
+                
+                tenantGroups[tenant].cache_size += item.cache_size || 0;
+                tenantGroups[tenant].hit_count += item.hit_count || 0;
+                tenantGroups[tenant].miss_count += item.miss_count || 0;
+                tenantGroups[tenant].hit_rate += item.hit_rate_percent || 0;
+                tenantGroups[tenant].count++;
+            });
+
+            // Calculate averages for timestamps
+            const timestamps = Object.keys(timestampGroups).sort((a, b) => new Date(a) - new Date(b));
+            const hitRates = timestamps.map(ts => 
+                timestampGroups[ts].count > 0 ? timestampGroups[ts].hit_rate / timestampGroups[ts].count : 0
+            );
+            const cacheSizes = timestamps.map(ts => 
+                timestampGroups[ts].count > 0 ? timestampGroups[ts].cache_size / timestampGroups[ts].count : 0
+            );
+
+            charts.cacheHitRate.data.labels = timestamps;
+            charts.cacheHitRate.data.datasets[0].data = hitRates;
+            charts.cacheHitRate.update();
+
+            charts.cacheSize.data.labels = timestamps;
+            charts.cacheSize.data.datasets[0].data = cacheSizes;
+            charts.cacheSize.update();
+
+            // Update tenant table data
+            const tableTenants = Object.keys(tenantGroups);
+            const tableBody = $('#cache-tenant-table tbody');
+            tableBody.empty();
+
+            tableTenants.forEach(tenant => {
+                const group = tenantGroups[tenant];
+                const avgCacheSize = group.count > 0 ? group.cache_size / group.count : 0;
+                const avgHitRate = group.count > 0 ? group.hit_rate / group.count : 0;
+
+                tableBody.append(`
+                    <tr>
+                        <td>${tenant}</td>
+                        <td>${avgCacheSize.toFixed(0)}</td>
+                        <td>${group.hit_count}</td>
+                        <td>${group.miss_count}</td>
+                        <td>${avgHitRate.toFixed(2)}%</td>
+                    </tr>
+                `);
+            });
+        }
+
+        // Update cache tenant table
+        function updateCacheTenantTable(data) {
+            // This is handled in the updateCacheCharts function
+        }
+
+        // Load queue section data
+        function loadQueueData() {
+            fetch(`${API_BASE_URL}/queue`)
+                .then(response => response.json())
+                .then(data => {
+                    updateQueueMetrics(data);
+                    updateQueueAgeChart(data);
+                })
+                .catch(error => {
+                    console.error('Error fetching queue data:', error);
+                });
+        }
+
+        // Update queue metrics
+        function updateQueueMetrics(data) {
+            $('#queue-length').text(data.queue_length);
+            $('#processing-now').text(data.processing_now);
+            $('#completed-last-hour').text(data.completed_last_hour);
+            $('#queue-status').text(data.status);
+
+            // Change queue status color based on status
+            if (data.status === 'idle') {
+                $('#queue-status').removeClass('warning-metric danger-metric').addClass('success-metric');
+            } else if (data.status === 'busy') {
+                $('#queue-status').removeClass('success-metric danger-metric').addClass('warning-metric');
+            } else if (data.status === 'overloaded') {
+                $('#queue-status').removeClass('success-metric warning-metric').addClass('danger-metric');
+            }
+        }
+
+        // Update queue age chart
+        function updateQueueAgeChart(data) {
+            // Mock data for the queue age chart
+            // In a real implementation, this would come from the API
+            const mockAgeData = [0, 0, 0, 0, 0, 0];
+            
+            charts.queueAge.data.datasets[0].data = mockAgeData;
+            charts.queueAge.update();
+        }
+    </script>
+</body>
+</html>

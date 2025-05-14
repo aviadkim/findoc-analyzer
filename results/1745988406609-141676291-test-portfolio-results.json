@@ -1,0 +1,24 @@
+{
+  "fileName": "1745988406609-141676291-test-portfolio.pdf",
+  "fileSize": 659,
+  "processingOptions": {
+    "extractText": true,
+    "extractTables": true,
+    "extractMetadata": true,
+    "extractSecurities": true,
+    "useOcr": false
+  },
+  "text": "",
+  "pages": [],
+  "pageCount": 0,
+  "error": "Failed to open file 'C:\\\\Users\\\\aviad\\\\OneDrive\\\\Desktop\\\\backv2-main\\\\uploads\\\\1745988406609-141676291-test-portfolio.pdf'.",
+  "tables": [],
+  "tableCount": 0,
+  "extractionMethod": "deepseek",
+  "metadata": {},
+  "info": {},
+  "formFields": [],
+  "links": [],
+  "securities": [],
+  "securitiesCount": 0
+}

@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FinDoc Analyzer - Financial PDF Upload</title>
+  <link rel="stylesheet" href="/css/styles.css">
+  <style>
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    
+    .upload-form {
+      background-color: #f5f5f5;
+      padding: 20px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+    }
+    
+    .form-group {
+      margin-bottom: 15px;
+    }
+    
+    .form-group label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+    
+    .form-control {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+    }
+    
+    .btn {
+      padding: 10px 15px;
+      background-color: #8A2BE2;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    
+    .btn:hover {
+      background-color: #7B1FA2;
+    }
+    
+    .status {
+      padding: 10px;
+      border-radius: 4px;
+      margin-top: 10px;
+    }
+    
+    .status.success {
+      background-color: #d4edda;
+      color: #155724;
+    }
+    
+    .status.error {
+      background-color: #f8d7da;
+      color: #721c24;
+    }
+    
+    .status.info {
+      background-color: #d1ecf1;
+      color: #0c5460;
+    }
+    
+    .document-list {
+      margin-top: 30px;
+    }
+    
+    .document-card {
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      padding: 15px;
+      margin-bottom: 15px;
+    }
+    
+    .document-card h3 {
+      margin-top: 0;
+      color: #8A2BE2;
+    }
+    
+    .document-card p {
+      margin: 5px 0;
+    }
+    
+    .document-card .actions {
+      margin-top: 10px;
+    }
+    
+    .document-card .actions button {
+      margin-right: 10px;
+    }
+  </style>
+  <script src="/js/ui-chat-component.js"></script>
+</head>
+<body>
+  <div class="container">
+    <h1>Financial PDF Upload</h1>
+    <p>Upload any financial PDF document for analysis.</p>
+    
+    <div class="upload-form">
+      <h2>Upload Document</h2>
+      <form id="upload-form">
+        <div class="form-group">
+          <label for="file">Select PDF File:</label>
+          <input type="file" id="file" name="file" class="form-control" accept=".pdf" required>
+        </div>
+        <div class="form-group">
+          <label for="document-type">Document Type:</label>
+          <select id="document-type" name="documentType" class="form-control">
+            <option value="portfolio">Portfolio Statement</option>
+            <option value="financial-report">Financial Report</option>
+            <option value="investment-summary">Investment Summary</option>
+            <option value="account-statement">Account Statement</option>
+            <option value="other">Other Financial Document</option>
+          </select>
+        </div>
+        <button type="submit" class="btn">Upload</button>
+      </form>
+      <div id="upload-status" class="status"></div>
+    </div>
+    
+    <div class="document-list">
+      <h2>Uploaded Documents</h2>
+      <div id="document-list-container"></div>
+    </div>
+  </div>
+  
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const uploadForm = document.getElementById('upload-form');
+      const uploadStatus = document.getElementById('upload-status');
+      const documentListContainer = document.getElementById('document-list-container');
+      
+      // Load documents on page load
+      loadDocuments();
+      
+      // Handle form submission
+      uploadForm.addEventListener('submit', function(event) {
+        event.preventDefault();
+        
+        const fileInput = document.getElementById('file');
+        const documentType = document.getElementById('document-type').value;
+        
+        if (!fileInput.files[0]) {
+          showStatus('Please select a file', 'error');
+          return;
+        }
+        
+        const formData = new FormData();
+        formData.append('file', fileInput.files[0]);
+        formData.append('documentType', documentType);
+        
+        showStatus('Uploading...', 'info');
+        
+        fetch('/api/financial-pdf/upload', {
+          method: 'POST',
+          body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+          if (data.success) {
+            showStatus('File uploaded successfully', 'success');
+            uploadForm.reset();
+            loadDocuments();
+          } else {
+            showStatus(data.message || 'Error uploading file', 'error');
+          }
+        })
+        .catch(error => {
+          showStatus('Error uploading file: ' + error.message, 'error');
+        });
+      });
+      
+      // Load documents
+      function loadDocuments() {
+        fetch('/api/financial-pdf/documents')
+        .then(response => response.json())
+        .then(data => {
+          if (data.success) {
+            renderDocuments(data.documents);
+          } else {
+            showStatus(data.message || 'Error loading documents', 'error');
+          }
+        })
+        .catch(error => {
+          // If the endpoint doesn't exist yet, just show a message
+          documentListContainer.innerHTML = '<p>No documents available. Upload a document to get started.</p>';
+        });
+      }
+      
+      // Render documents
+      function renderDocuments(documents) {
+        if (!documents || documents.length === 0) {
+          documentListContainer.innerHTML = '<p>No documents available. Upload a document to get started.</p>';
+          return;
+        }
+        
+        let html = '';
+        
+        documents.forEach(doc => {
+          html += `
+            <div class="document-card" data-id="${doc.id}">
+              <h3>${doc.fileName}</h3>
+              <p><strong>Type:</strong> ${doc.documentType}</p>
+              <p><strong>Size:</strong> ${formatFileSize(doc.fileSize)}</p>
+              <p><strong>Uploaded:</strong> ${new Date(doc.uploadDate).toLocaleString()}</p>
+              <p><strong>Status:</strong> <span class="status-text">${doc.processed ? 'Processed' : 'Pending'}</span></p>
+              <div class="actions">
+                <button class="btn process-btn" data-id="${doc.id}" ${doc.processed ? 'disabled' : ''}>Process</button>
+                <button class="btn view-btn" data-id="${doc.id}" ${!doc.processed ? 'disabled' : ''}>View Results</button>
+                <button class="btn chat-btn" data-id="${doc.id}" ${!doc.processed ? 'disabled' : ''}>Chat</button>
+              </div>
+            </div>
+          `;
+        });
+        
+        documentListContainer.innerHTML = html;
+        
+        // Add event listeners to buttons
+        document.querySelectorAll('.process-btn').forEach(btn => {
+          btn.addEventListener('click', function() {
+            processDocument(this.getAttribute('data-id'));
+          });
+        });
+        
+        document.querySelectorAll('.view-btn').forEach(btn => {
+          btn.addEventListener('click', function() {
+            viewResults(this.getAttribute('data-id'));
+          });
+        });
+        
+        document.querySelectorAll('.chat-btn').forEach(btn => {
+          btn.addEventListener('click', function() {
+            chatWithDocument(this.getAttribute('data-id'));
+          });
+        });
+      }
+      
+      // Process document
+      function processDocument(documentId) {
+        const card = document.querySelector(`.document-card[data-id="${documentId}"]`);
+        const statusText = card.querySelector('.status-text');
+        const processBtn = card.querySelector('.process-btn');
+        
+        statusText.textContent = 'Processing...';
+        processBtn.disabled = true;
+        
+        fetch(`/api/financial-pdf/process/${documentId}`, {
+          method: 'POST'
+        })
+        .then(response => response.json())
+        .then(data => {
+          if (data.success) {
+            statusText.textContent = 'Processing started';
+            
+            // Poll for status
+            pollProcessingStatus(documentId);
+          } else {
+            statusText.textContent = 'Error';
+            processBtn.disabled = false;
+            showStatus(data.message || 'Error processing document', 'error');
+          }
+        })
+        .catch(error => {
+          statusText.textContent = 'Error';
+          processBtn.disabled = false;
+          showStatus('Error processing document: ' + error.message, 'error');
+        });
+      }
+      
+      // Poll processing status
+      function pollProcessingStatus(documentId) {
+        const card = document.querySelector(`.document-card[data-id="${documentId}"]`);
+        const statusText = card.querySelector('.status-text');
+        const viewBtn = card.querySelector('.view-btn');
+        const chatBtn = card.querySelector('.chat-btn');
+        
+        const checkStatus = () => {
+          fetch(`/api/financial-pdf/status/${documentId}`)
+          .then(response => response.json())
+          .then(data => {
+            if (data.success) {
+              if (data.status === 'completed') {
+                statusText.textContent = 'Processed';
+                viewBtn.disabled = false;
+                chatBtn.disabled = false;
+                showStatus('Document processing completed', 'success');
+              } else {
+                statusText.textContent = 'Processing...';
+                setTimeout(checkStatus, 2000);
+              }
+            } else {
+              statusText.textContent = 'Error';
+              showStatus(data.message || 'Error checking processing status', 'error');
+            }
+          })
+          .catch(error => {
+            statusText.textContent = 'Error';
+            showStatus('Error checking processing status: ' + error.message, 'error');
+          });
+        };
+        
+        setTimeout(checkStatus, 2000);
+      }
+      
+      // View results
+      function viewResults(documentId) {
+        window.location.href = `/financial-pdf-results.html?id=${documentId}`;
+      }
+      
+      // Chat with document
+      function chatWithDocument(documentId) {
+        window.location.href = `/financial-pdf-chat.html?id=${documentId}`;
+      }
+      
+      // Show status message
+      function showStatus(message, type) {
+        uploadStatus.textContent = message;
+        uploadStatus.className = `status ${type}`;
+      }
+      
+      // Format file size
+      function formatFileSize(bytes) {
+        if (bytes < 1024) {
+          return bytes + ' bytes';
+        } else if (bytes < 1024 * 1024) {
+          return (bytes / 1024).toFixed(2) + ' KB';
+        } else {
+          return (bytes / (1024 * 1024)).toFixed(2) + ' MB';
+        }
+      }
+    });
+  </script>
+</body>
+</html>

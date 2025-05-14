@@ -1,0 +1,40 @@
+[
+  {
+    "id": "sec-123",
+    "name": "Updated Security Name",
+    "symbol": "AAPL",
+    "isin": "US0378331005",
+    "type": "Stock",
+    "quantity": 100,
+    "price": 150.25,
+    "value": 15000,
+    "marketPrice": 155.25,
+    "marketValue": 15525,
+    "priceChange": 5.25,
+    "priceChangePercent": 3.5,
+    "currency": "USD",
+    "sector": "Technology",
+    "country": "US",
+    "lastUpdated": "2025-05-14T09:10:47.904Z",
+    "dataProvider": "Mock Data Provider"
+  },
+  {
+    "id": "sec-456",
+    "name": "Microsoft Corp.",
+    "symbol": "MSFT",
+    "isin": "US5949181045",
+    "type": "Stock",
+    "quantity": 50,
+    "price": 300,
+    "value": 15000,
+    "marketPrice": 310.5,
+    "marketValue": 15525,
+    "priceChange": 10.5,
+    "priceChangePercent": 3.5,
+    "currency": "USD",
+    "sector": "Technology",
+    "country": "US",
+    "lastUpdated": "2025-05-14T09:10:47.904Z",
+    "dataProvider": "Mock Data Provider"
+  }
+]

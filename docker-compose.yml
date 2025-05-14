@@ -1,25 +1,11 @@
-version: '3.8'
-
+version: '3'
 services:
-  app:
-    build:
-      context: .
-      dockerfile: Dockerfile
+  findoc-analyzer:
+    build: .
     ports:
       - "8080:8080"
+    volumes:
+      - ./uploads:/app/uploads
+      - ./results:/app/results
     environment:
       - NODE_ENV=production
-      - PORT=8080
-      - UPLOAD_FOLDER=/app/uploads
-      - TEMP_FOLDER=/app/temp
-      - RESULTS_FOLDER=/app/results
-    volumes:
-      - uploads:/app/uploads
-      - temp:/app/temp
-      - results:/app/results
-    restart: unless-stopped
-
-volumes:
-  uploads:
-  temp:
-  results:

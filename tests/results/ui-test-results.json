@@ -1,0 +1,167 @@
+[
+  {
+    "page": "Dashboard",
+    "path": "/",
+    "components": {
+      "Sidebar": {
+        "exists": true,
+        "selector": ".sidebar"
+      },
+      "Show Chat Button": {
+        "exists": true,
+        "selector": "#show-chat-btn"
+      },
+      "Document Chat Container": {
+        "exists": true,
+        "selector": "#document-chat-container"
+      },
+      "Recent Documents": {
+        "exists": true,
+        "selector": ".recent-documents"
+      }
+    },
+    "total": 4,
+    "found": 4,
+    "missing": 0
+  },
+  {
+    "page": "Documents",
+    "path": "/documents-new",
+    "components": {
+      "Sidebar": {
+        "exists": true,
+        "selector": ".sidebar"
+      },
+      "Show Chat Button": {
+        "exists": true,
+        "selector": "#show-chat-btn"
+      },
+      "Document Chat Container": {
+        "exists": true,
+        "selector": "#document-chat-container"
+      },
+      "Document List": {
+        "exists": true,
+        "selector": "#document-list"
+      },
+      "Document Item": {
+        "exists": true,
+        "selector": ".document-item"
+      },
+      "Document Actions": {
+        "exists": true,
+        "selector": ".document-actions"
+      }
+    },
+    "total": 6,
+    "found": 6,
+    "missing": 0
+  },
+  {
+    "page": "Upload",
+    "path": "/upload",
+    "components": {
+      "Sidebar": {
+        "exists": false,
+        "selector": ".sidebar"
+      },
+      "Show Chat Button": {
+        "exists": true,
+        "selector": "#show-chat-btn"
+      },
+      "Document Chat Container": {
+        "exists": true,
+        "selector": "#document-chat-container"
+      },
+      "Upload Form": {
+        "exists": true,
+        "selector": "form"
+      },
+      "File Input": {
+        "exists": true,
+        "selector": "input[type=\"file\"]"
+      },
+      "Process Document Button": {
+        "exists": true,
+        "selector": "#process-document-btn"
+      },
+      "Progress Container": {
+        "exists": true,
+        "selector": "#progress-container"
+      }
+    },
+    "total": 7,
+    "found": 6,
+    "missing": 1
+  },
+  {
+    "page": "Document Chat",
+    "path": "/document-chat",
+    "components": {
+      "Sidebar": {
+        "exists": true,
+        "selector": ".sidebar"
+      },
+      "Show Chat Button": {
+        "exists": true,
+        "selector": "#show-chat-btn"
+      },
+      "Document Chat Container": {
+        "exists": true,
+        "selector": "#document-chat-container"
+      },
+      "Document Selector": {
+        "exists": true,
+        "selector": ".document-selector"
+      },
+      "Chat Messages": {
+        "exists": true,
+        "selector": ".chat-messages"
+      },
+      "Document Chat Input": {
+        "exists": true,
+        "selector": "#document-chat-input, #question-input"
+      },
+      "Document Chat Send Button": {
+        "exists": true,
+        "selector": "#document-send-btn, #send-btn"
+      }
+    },
+    "total": 7,
+    "found": 7,
+    "missing": 0
+  },
+  {
+    "page": "Test",
+    "path": "/test",
+    "components": {
+      "Sidebar": {
+        "exists": false,
+        "selector": ".sidebar"
+      },
+      "Show Chat Button": {
+        "exists": true,
+        "selector": "#show-chat-btn"
+      },
+      "Document Chat Container": {
+        "exists": true,
+        "selector": "#document-chat-container"
+      },
+      "Agent Card": {
+        "exists": false,
+        "selector": ".agent-card"
+      },
+      "Agent Status Indicator": {
+        "exists": false,
+        "selector": ".status-indicator"
+      },
+      "Agent Action Button": {
+        "exists": false,
+        "selector": ".agent-action"
+      }
+    },
+    "total": 6,
+    "found": 2,
+    "missing": 4
+  }
+]

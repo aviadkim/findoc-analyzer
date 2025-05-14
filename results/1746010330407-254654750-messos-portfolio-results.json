@@ -1,0 +1,47 @@
+{
+  "fileName": "1746010330407-254654750-messos-portfolio.pdf",
+  "fileSize": 4128,
+  "processingOptions": {
+    "extractText": true,
+    "extractTables": true,
+    "extractMetadata": true,
+    "extractSecurities": true,
+    "useOcr": false
+  },
+  "text": "MESSOS ENTERPRISES LTD.\nValuation as of 28.02.2025\nClient Number: 366223\nBonds\nCCY\nNominal\nDescription\nCost PricePrice\nAccrued Int.Perf. YTD Value\nWeight\nUSD\n100'000\nUS TREASURY 2.5% 31.01.2030\nISIN: US91282CJL54\n99.8750\n98.2500\n0.21%\n-1.63%\n98'460\n5.00%\nEUR\n100'000\nGERMANY 2.3% 15.02.2033\nISIN: DE0001102580\n99.7500\n98.5000\n0.15%\n-1.25%\n98'650\n5.00%\nUSD\n100'000\nLUMINIS (4.2 % MIN/5,5 % MAX) NOTES 2024-17.01.30\nISIN: XS2754416961\n100.2000\n97.6600\n1.70%\n-2.53%\n98'271\n0.50%\nEquities\nCCY\nNominal\nDescription\nCost PricePrice\nAccrued Int.Perf. YTD Value\nWeight\nUSD\n100\nAPPLE INC.\nISIN: US0378331005\n190.50\n190.50\n0.00%\n12.35%\n19'050\n1.00%\nUSD\n50\nMICROSOFT CORP\nISIN: US5949181045\n420.25\n420.25\n0.00%\n15.75%\n21'013\n1.10%\nUSD\n200\nTESLA INC\nISIN: US88160R1014\n175.30\n175.30\n0.00%\n-18.25%\n35'060\n1.80%\nUSD\n300\nAMAZON.COM INC\nISIN: US0231351067\n178.75\n178.75\n0.00%\n20.15%\n53'625\n2.70%\nUSD\n150\nALPHABET INC-CL A\nISIN: US02079K3059\n143.96\n143.96\n0.00%\n22.45%\n21'594\n1.10%\nAsset Allocation\nAsset Class\nAllocation\nValue\nStocks\n60%\n750,000.00\nBonds\n30%\n375,000.00\nCash\n10%\n125,000.00\nTotal\n100%\n1,250,000.00\nPortfolio Summary\nProperty\nValue\nTotal Value\nUSD 1,250,000.00\nNumber of Securities\n41\nRisk Profile\nBalanced\nPerformance YTD\n+3.75%\nMESSOS ENTERPRISES LTD. - CONFIDENTIAL\nPage 1 of 1\n",
+  "pages": [
+    {
+      "page_number": 1,
+      "text": "MESSOS ENTERPRISES LTD.\nValuation as of 28.02.2025\nClient Number: 366223\nBonds\nCCY\nNominal\nDescription\nCost PricePrice\nAccrued Int.Perf. YTD Value\nWeight\nUSD\n100'000\nUS TREASURY 2.5% 31.01.2030\nISIN: US91282CJL54\n99.8750\n98.2500\n0.21%\n-1.63%\n98'460\n5.00%\nEUR\n100'000\nGERMANY 2.3% 15.02.2033\nISIN: DE0001102580\n99.7500\n98.5000\n0.15%\n-1.25%\n98'650\n5.00%\nUSD\n100'000\nLUMINIS (4.2 % MIN/5,5 % MAX) NOTES 2024-17.01.30\nISIN: XS2754416961\n100.2000\n97.6600\n1.70%\n-2.53%\n98'271\n0.50%\nEquities\nCCY\nNominal\nDescription\nCost PricePrice\nAccrued Int.Perf. YTD Value\nWeight\nUSD\n100\nAPPLE INC.\nISIN: US0378331005\n190.50\n190.50\n0.00%\n12.35%\n19'050\n1.00%\nUSD\n50\nMICROSOFT CORP\nISIN: US5949181045\n420.25\n420.25\n0.00%\n15.75%\n21'013\n1.10%\nUSD\n200\nTESLA INC\nISIN: US88160R1014\n175.30\n175.30\n0.00%\n-18.25%\n35'060\n1.80%\nUSD\n300\nAMAZON.COM INC\nISIN: US0231351067\n178.75\n178.75\n0.00%\n20.15%\n53'625\n2.70%\nUSD\n150\nALPHABET INC-CL A\nISIN: US02079K3059\n143.96\n143.96\n0.00%\n22.45%\n21'594\n1.10%\nAsset Allocation\nAsset Class\nAllocation\nValue\nStocks\n60%\n750,000.00\nBonds\n30%\n375,000.00\nCash\n10%\n125,000.00\nTotal\n100%\n1,250,000.00\nPortfolio Summary\nProperty\nValue\nTotal Value\nUSD 1,250,000.00\nNumber of Securities\n41\nRisk Profile\nBalanced\nPerformance YTD\n+3.75%\nMESSOS ENTERPRISES LTD. - CONFIDENTIAL\nPage 1 of 1\n",
+      "width": 595.280029296875,
+      "height": 841.8900146484375
+    }
+  ],
+  "pageCount": 1,
+  "tables": [],
+  "tableCount": 0,
+  "extractionMethod": "deepseek",
+  "metadata": {
+    "format": "PDF 1.7",
+    "title": "",
+    "author": "",
+    "subject": "",
+    "keywords": "",
+    "creator": "pdf-lib (https://github.com/Hopding/pdf-lib)",
+    "producer": "pdf-lib (https://github.com/Hopding/pdf-lib)",
+    "creationDate": "D:20250430104718Z",
+    "modDate": "D:20250430104718Z",
+    "trapped": "",
+    "encryption": null
+  },
+  "info": {
+    "page_count": 1,
+    "file_size": 4128,
+    "is_encrypted": false,
+    "permissions": -4
+  },
+  "formFields": [],
+  "links": [],
+  "securities": [],
+  "securitiesCount": 0
+}

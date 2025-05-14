@@ -1,0 +1,10 @@
+runtime: nodejs16
+service: default
+
+env_variables:
+  DOCLING_API_KEY: "your-api-key"
+  DOCLING_API_URL: "https://api.docling.ai"
+
+handlers:
+  - url: /.*
+    script: auto

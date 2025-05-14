@@ -1,0 +1,90 @@
+{
+  "report_type": "comprehensive_financial_report",
+  "report_date": "2025-05-08T21:04:27.724963",
+  "client_name": "John Smith",
+  "client_number": "12345",
+  "valuation_currency": "USD",
+  "data_sources": [
+    "portfolio_statement"
+  ],
+  "financial_snapshot": {
+    "total_assets": 0,
+    "total_liabilities": 0,
+    "net_worth": 0,
+    "monthly_income": 0,
+    "monthly_expenses": 0,
+    "portfolio_value": 33318.75,
+    "debt_to_equity_ratio": 0,
+    "profit_margin": 0
+  },
+  "assets_and_liabilities": {
+    "total_assets": 0,
+    "total_liabilities": 0,
+    "net_worth": 0,
+    "debt_to_equity_ratio": 0,
+    "asset_breakdown": [
+      {
+        "name": "Investment Portfolio",
+        "value": 33318.75,
+        "percentage": 100.0
+      }
+    ],
+    "liability_breakdown": [],
+    "recommendations": [
+      {
+        "title": "Asset Concentration",
+        "description": "Your Investment Portfolio represents 100.00% of your total assets.",
+        "action": "Consider diversifying your assets to reduce risk.",
+        "priority": "medium"
+      }
+    ]
+  },
+  "income_and_expenses": {
+    "total_income": 0,
+    "total_expenses": 0,
+    "net_income": 0,
+    "monthly_cash_flow": 0.0,
+    "income_breakdown": [],
+    "expense_breakdown": [],
+    "recommendations": []
+  },
+  "investments": {
+    "total_portfolio_value": 33318.75,
+    "asset_allocation": [],
+    "top_performers": [
+      {
+        "description": "Apple Inc.",
+        "isin": "US0378331005",
+        "price": 150.25,
+        "quantity": 100,
+        "value": 15025.0,
+        "type": "Technology"
+      },
+      {
+        "description": "Microsoft Corp.",
+        "isin": "US5949181045",
+        "price": 300.5,
+        "quantity": 50,
+        "value": 15025.0,
+        "type": "Technology"
+      },
+      {
+        "description": "Amazon.com Inc.",
+        "isin": "US0231351067",
+        "price": 130.75,
+        "quantity": 25,
+        "value": 3268.75,
+        "type": "Retail"
+      }
+    ],
+    "recommendations": []
+  },
+  "recommendations": [
+    {
+      "title": "Asset Concentration",
+      "description": "Your Investment Portfolio represents 100.00% of your total assets.",
+      "action": "Consider diversifying your assets to reduce risk.",
+      "priority": "medium"
+    }
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "text": "\n\nInvestment Portfolio Statement\nDate: June 30, 2023\nClient: John Smith\nAccount Number: 12345-678\nPortfolio Summary\nDescriptionAmount\nTotal Value$1,250,000.00\nCash Balance$125,000.00\nInvested Amount$1,125,000.00\nUnrealized Gain/Loss+$75,000.00 (+7.14%)\nAsset Allocation\nAsset ClassAllocationValue\nEquities60%$750,000.00\nFixed Income30%$375,000.00\nCash10%$125,000.00\nSecurities Holdings\nISINSecurity \nName\nQuantityPriceValue% of \nPortfolio\nUS03783\n31005\nApple Inc.100$180.00$18,000.0\n0\n1.44%\nUS59491\n81045\nMicrosoft \nCorp.\n150$340.00$51,000.0\n0\n4.08%\nUS02313\n51067\nAmazon.c\nom Inc.\n50$130.00$6,500.000.52%\nUS88160\nR1014\nTesla Inc.75$250.00$18,750.0\n0\n1.50%\nUS30303\nM1027\nMeta \nPlatforms \nInc.\n80$290.00$23,200.0\n0\n1.86%\nUS02079\nK1079\nAlphabet \nInc.\n60$120.00$7,200.000.58%\nUS67066\n\nG1040\nNVIDIA \n\nCorp.\n40$430.00$17,200.0\n\n0\n1.38%\n\nUS08467\n07026\n\nBerkshire \nHathaway \nInc.\n\n25\n\n$350.00\n\n$8,750.00\n\n0.70%\n\nUS46625\nH1005\n\nJPMorgan\n Chase & \nCo.\n\n120\n\n$145.00\n\n$17,400.0\n0\n\n1.39%\n\nUS94974\n61015\n\nWells \nFargo & \nCo.\n\n200\n\n$42.00\n\n$8,400.00\n\n0.67%\n\nFixed \nIncome \nHoldings\nISINSecurity \nName\nFace \nValue\nPriceValue% of \nPortfolio\nUS91282\n8ZT04\nUS \nTreasury \n1.125% 0\n2/15/2031\n$100,00098.75$98,750.0\n0\n7.90%\nUS91281\n0SU88\nUS \nTreasury \n2.375% 0\n5/15/2051\n$75,00097.50$73,125.0\n0\n5.85%\nUS03783\n3DT06\nApple Inc. \n2.400% 0\n8/20/2030\n$50,00096.80$48,400.0\n0\n3.87%\nUS59491\n8BW69\nMicrosoft \nCorp. \n2.921% 0\n3/17/2052\n$50,00094.25$47,125.0\n0\n3.77%\nUS93114\n2EK37\nWalmart \nInc. \n3.050% 0\n7/08/2026\n$25,00099.50$24,875.0\n0\n1.99%\nRecent Tra\nnsactions\nDateTypeISINSecurity\n Name\nQuantit\ny\nPriceAmount\n06/15/20\n23\nBuyUS0378\n331005\nApple \nInc.\n25$175.00$4,375.0\n0\n06/10/20\n23\nSellUS5949\n181045\nMicrosof\nt Corp.\n10$335.00$3,350.0\n0\n06/05/20\n23\nBuyUS6706\n6G1040\nNVIDIA \nCorp.\n15$420.00$6,300.0\n0\n05/28/20\n23\nDividendUS4662\n5H1005\nJPMorg\nan \nChase \n& Co.\n--$120.00\n05/20/20\n23\nInterestUS9128\n28ZT04\nUS Trea\nsury \n1.125% \n02/15/20\n31\n--$562.50\nDisclaimer:\nThisisa\nsample\nportfolio\nstatement\ngeneratedfor\ntesting\npurposes.  The  \nsecurities,\nprices,and\nvalues    shown    \narefictional\nanddonot\nrepresent\nactual\ninvestments.",
+  "tables": [],
+  "metadata": {
+    "title": "sample_portfolio.pdf",
+    "author": "Unknown",
+    "subject": "",
+    "keywords": "",
+    "creator": "PDFKit",
+    "producer": "PDFKit",
+    "pages": 23,
+    "creationDate": "",
+    "modificationDate": ""
+  },
+  "financialData": {
+    "portfolioInfo": {
+      "title": "Investment Portfolio Statement",
+      "date": "June 30, 2023",
+      "totalValue": 1250000,
+      "currency": "USD",
+      "owner": "John Smith",
+      "manager": ""
+    },
+    "assetAllocation": {
+      "categories": [],
+      "total": 0
+    },
+    "securities": [],
+    "performance": {
+      "ytd": null,
+      "oneYear": null,
+      "threeYear": null,
+      "fiveYear": null,
+      "tenYear": null,
+      "sinceInception": null
+    }
+  }
+}

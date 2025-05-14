@@ -39,6 +39,7 @@ class DocumentIntegrationAgent(BaseAgent):
                 - tables_data: Table data detected in the document
                 - financial_data: Financial data extracted from the document
                 - isin_entities: ISIN entities detected in the document (optional)
+                - securities_data: Securities data from the enhanced securities extractor (optional)
                 
         Returns:
             Dictionary with integrated document data
@@ -48,13 +49,15 @@ class DocumentIntegrationAgent(BaseAgent):
         tables_data = task.get('tables_data', [])
         financial_data = task.get('financial_data', {})
         isin_entities = task.get('isin_entities', [])
+        securities_data = task.get('securities_data', {})
         
         # Integrate the data
         integrated_data = self.integrate_document_data(
             extracted_text=extracted_text,
             tables_data=tables_data,
             financial_data=financial_data,
-            isin_entities=isin_entities
+            isin_entities=isin_entities,
+            securities_data=securities_data
         )
         
         # Generate output
@@ -74,7 +77,7 @@ class DocumentIntegrationAgent(BaseAgent):
             'integrated_data': integrated_data
         }
     
-    def integrate_document_data(self, extracted_text, tables_data, financial_data, isin_entities=None):
+    def integrate_document_data(self, extracted_text, tables_data, financial_data, isin_entities=None, securities_data=None):
         """
         Integrate all extracted data into a unified structure.
         
@@ -83,6 +86,7 @@ class DocumentIntegrationAgent(BaseAgent):
             tables_data: Table data detected in the document
             financial_data: Financial data extracted from the document
             isin_entities: ISIN entities detected in the document
+            securities_data: Securities data from the enhanced securities extractor
             
         Returns:
             Dictionary with integrated data
@@ -99,6 +103,33 @@ class DocumentIntegrationAgent(BaseAgent):
             },
             "summary": self._generate_summary(financial_data, tables_data, isin_entities)
         }
+        
+        # Add enhanced securities data if available
+        if securities_data:
+            integrated_data["enhanced_securities"] = securities_data
+            
+            # If securities data contains portfolio information, integrate it with financial_data
+            if "securities" in securities_data:
+                if "portfolio" not in integrated_data["financial_data"]:
+                    integrated_data["financial_data"]["portfolio"] = {}
+                    
+                integrated_data["financial_data"]["portfolio"]["securities"] = securities_data["securities"]
+                
+                # Add portfolio summary if available
+                if "portfolio_summary" in securities_data:
+                    integrated_data["financial_data"]["portfolio"]["summary"] = securities_data["portfolio_summary"]
+                
+                # Add asset allocation if available
+                if "asset_allocation" in securities_data:
+                    integrated_data["financial_data"]["portfolio"]["asset_allocation"] = securities_data["asset_allocation"]
+                    
+                # Update document currency if available
+                if "currency" in securities_data:
+                    integrated_data["metadata"]["currency"] = securities_data["currency"]
+                    
+                # Update document type if available
+                if "document_type" in securities_data:
+                    integrated_data["metadata"]["enhanced_document_type"] = securities_data["document_type"]
         
         return integrated_data
     
@@ -210,6 +241,17 @@ class DocumentIntegrationAgent(BaseAgent):
             
             if "summary" in portfolio_data and "total_value" in portfolio_data["summary"]:
                 summary["total_portfolio_value"] = portfolio_data["summary"]["total_value"]
+            
+            # Add security types count if available
+            if "securities" in portfolio_data and portfolio_data["securities"]:
+                security_types = {}
+                for security in portfolio_data["securities"]:
+                    if "type" in security:
+                        security_type = security["type"]
+                        security_types[security_type] = security_types.get(security_type, 0) + 1
+                
+                if security_types:
+                    summary["security_types"] = security_types
         
         return summary
     

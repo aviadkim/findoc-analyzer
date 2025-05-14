@@ -1,0 +1,93 @@
+[
+  {
+    "name": "Process Document Button",
+    "category": "Critical UI Components",
+    "passed": true,
+    "timestamp": "2025-05-14T12:00:30.130Z",
+    "screenshotPath": "deployment-test-screenshots\\homepage.png"
+  },
+  {
+    "name": "Document Chat Container",
+    "category": "Critical UI Components",
+    "passed": true,
+    "timestamp": "2025-05-14T12:00:30.134Z",
+    "screenshotPath": "deployment-test-screenshots\\homepage.png"
+  },
+  {
+    "name": "Document Chat Send Button",
+    "category": "Critical UI Components",
+    "passed": true,
+    "timestamp": "2025-05-14T12:00:30.137Z",
+    "screenshotPath": "deployment-test-screenshots\\homepage.png"
+  },
+  {
+    "name": "Login Form",
+    "category": "Critical UI Components",
+    "passed": true,
+    "timestamp": "2025-05-14T12:00:30.142Z",
+    "screenshotPath": "deployment-test-screenshots\\homepage.png"
+  },
+  {
+    "name": "Google Login Button",
+    "category": "Critical UI Components",
+    "passed": true,
+    "timestamp": "2025-05-14T12:00:30.149Z",
+    "screenshotPath": "deployment-test-screenshots\\homepage.png"
+  },
+  {
+    "name": "Document Cards",
+    "category": "Document Processing",
+    "passed": true,
+    "timestamp": "2025-05-14T12:00:31.348Z",
+    "screenshotPath": "deployment-test-screenshots\\documents-page.png"
+  },
+  {
+    "name": "Process Button on Documents Page",
+    "category": "Document Processing",
+    "passed": true,
+    "timestamp": "2025-05-14T12:00:31.352Z",
+    "screenshotPath": "deployment-test-screenshots\\documents-page.png"
+  },
+  {
+    "name": "Chat Container",
+    "category": "Document Chat",
+    "passed": true,
+    "timestamp": "2025-05-14T12:00:32.567Z",
+    "screenshotPath": "deployment-test-screenshots\\document-chat-page.png"
+  },
+  {
+    "name": "Chat Input",
+    "category": "Document Chat",
+    "passed": true,
+    "timestamp": "2025-05-14T12:00:32.572Z",
+    "screenshotPath": "deployment-test-screenshots\\document-chat-page.png"
+  },
+  {
+    "name": "Send Button",
+    "category": "Document Chat",
+    "passed": true,
+    "timestamp": "2025-05-14T12:00:32.577Z",
+    "screenshotPath": "deployment-test-screenshots\\document-chat-page.png"
+  },
+  {
+    "name": "Chat Messages Container",
+    "category": "Document Chat",
+    "passed": true,
+    "timestamp": "2025-05-14T12:00:32.581Z",
+    "screenshotPath": "deployment-test-screenshots\\document-chat-page.png"
+  },
+  {
+    "name": "API Health Endpoint",
+    "category": "API Endpoints",
+    "passed": true,
+    "timestamp": "2025-05-14T12:00:33.724Z",
+    "screenshotPath": "deployment-test-screenshots\\api-health.png"
+  },
+  {
+    "name": "Documents API Endpoint",
+    "category": "API Endpoints",
+    "passed": true,
+    "timestamp": "2025-05-14T12:00:34.744Z",
+    "screenshotPath": "deployment-test-screenshots\\api-documents.png"
+  }
+]

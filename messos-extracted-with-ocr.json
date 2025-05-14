@@ -1,0 +1,125 @@
+{
+  "text": "euiiooaa\r\nValuation as of 28.02.2025\r\nMESSOS ENTERPRISES LTD.\r\nClient Number // 366223 Valuation currency // USD Investment profile // Undefined Risk Profile // Medium-high\r\nCorn�r Banca SA // T�distrasse 27 // Postfach 1640 // 8027 Z�rich_Switzerland // Hauptsitz Via Canova 16, 6901 Lugano_Switzerland Tel. +41 44 218 10 20 // Fax +41 44 218 10 29 // info@corner.ch // corner.ch Swift CBLUCH2280A // Clearing 8490 // CHE-105.962.409 IVA\r\n\r\n\faeouiAEOUI\r\n\r\naeouiAEOUI\r\n\r\nSummary Asset Allocation\r\nAssets and Liabilities Structure Currency allocation Performance Overview/Evolution Asset Listing Liquidity and liabilities Bonds Equities Structured products Other assets Expected Cash Flows (Overview) Glossary Notices and other information\r\n\r\nMESSOS ENTERPRISES LTD.\r\nValuation as of 28.02.2025 Client Number 366223\r\nIndex\r\n1 2 2 3 4 5 5 6 10 11 14 15 16 18\r\n\r\nCorn�r Banca SA // T�distrasse 27 // Postfach 1640 // 8027 Z�rich_Switzerland // Hauptsitz Via Canova 16, 6901 Lugano_Switzerland Tel. +41 4...",
+  "tableCount": 0,
+  "financialData": {
+    "portfolioInfo": {
+      "title": "Valuation as of 28.02.2025\r\nMESSOS ENTERPRISES LTD.",
+      "date": "28.02.2025",
+      "totalValue": null,
+      "currency": "ves",
+      "owner": "Number 366223\r\nIndex\r\n1 2 2 3 4 5 5 6 10 11 14 15 16 18",
+      "manager": "will be happy to answer any questions you may have about the terms and positions set forth in the present statement.",
+      "accountNumber": "s",
+      "custodian": "",
+      "benchmark": "es",
+      "strategy": ""
+    },
+    "assetAllocation": {
+      "categories": [
+        {
+          "name": "nd Li",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "NTERP",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "n as",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "4 5 5",
+          "percentage": 6,
+          "value": null
+        },
+        {
+          "name": "anca",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "te 01",
+          "percentage": 3.2025,
+          "value": null
+        },
+        {
+          "name": "OUI",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "UI",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "sets",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "ed pr",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "CHF",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "urren",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "y Bon",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "y Bon",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "ereof",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "d Acc",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "NTERP",
+          "percentage": null,
+          "value": null
+        },
+        {
+          "name": "n as",
+          "percentage": null,
+          "value": null
+        }
+      ],
+      "total": 0
+    },
+    "securities": {},
+    "performance": {
+      "ytd": null,
+      "oneMonth": null,
+      "threeMonth": null,
+      "sixMonth": null,
+      "oneYear": null,
+      "threeYear": null,
+      "fiveYear": null,
+      "tenYear": null,
+      "sinceInception": null
+    }
+  }
+}

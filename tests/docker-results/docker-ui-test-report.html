@@ -1,0 +1,442 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Docker UI Test Results</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    h1, h2, h3 {
+      color: #333;
+    }
+    .summary {
+      background-color: #f8f9fa;
+      padding: 20px;
+      border-radius: 5px;
+      margin-bottom: 30px;
+    }
+    .progress-bar {
+      height: 20px;
+      background-color: #e9ecef;
+      border-radius: 10px;
+      margin: 10px 0;
+      overflow: hidden;
+    }
+    .progress {
+      height: 100%;
+      text-align: center;
+      line-height: 20px;
+      color: white;
+      font-weight: bold;
+      background-color: #ff9800;
+      width: 70.58823529411765%;
+    }
+    .page-results {
+      background-color: #f8f9fa;
+      padding: 20px;
+      border-radius: 5px;
+      margin-bottom: 20px;
+    }
+    .component-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 10px;
+      margin-top: 10px;
+    }
+    .component-item {
+      padding: 10px;
+      border-radius: 5px;
+      display: flex;
+      align-items: center;
+    }
+    .component-item.found {
+      background-color: #e8f5e9;
+    }
+    .component-item.missing {
+      background-color: #ffebee;
+    }
+    .status-icon {
+      margin-right: 10px;
+      font-size: 18px;
+    }
+    .recommendations {
+      background-color: #fff8e1;
+      padding: 15px;
+      border-radius: 5px;
+      margin-top: 20px;
+    }
+    .screenshots {
+      margin-top: 20px;
+    }
+    .screenshot {
+      margin-bottom: 20px;
+    }
+    .screenshot img {
+      max-width: 100%;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+  <h1>FinDoc Analyzer Docker UI Test Results</h1>
+  
+  <div class="summary">
+    <h2>Summary</h2>
+    <div class="progress-bar">
+      <div class="progress">71%</div>
+    </div>
+    <p><strong>Total components:</strong> 17</p>
+    <p><strong>Found components:</strong> 12</p>
+    <p><strong>Missing components:</strong> 5</p>
+    <p><strong>Pass rate:</strong> 71%</p>
+  </div>
+  
+  <h2>Page Results</h2>
+  
+  
+    <div class="page-results">
+      <h3>Dashboard Page (/)</h3>
+      <p><strong>Components:</strong> 1/3 (33%)</p>
+      
+      <div class="component-list">
+        
+          <div class="component-item found">
+            <span class="status-icon">✅</span>
+            <div>
+              <strong>Recent Documents Section</strong>
+              <div><small>.recent-documents</small></div>
+            </div>
+          </div>
+        
+          <div class="component-item missing">
+            <span class="status-icon">❌</span>
+            <div>
+              <strong>Quick Upload Section</strong>
+              <div><small>.quick-upload</small></div>
+            </div>
+          </div>
+        
+          <div class="component-item missing">
+            <span class="status-icon">❌</span>
+            <div>
+              <strong>Features Section</strong>
+              <div><small>.features</small></div>
+            </div>
+          </div>
+        
+      </div>
+      
+      
+        <div class="recommendations">
+          <h4>Recommendations</h4>
+          <ul>
+            
+                <li>Add the <strong>Quick Upload Section</strong> component (selector: <code>.quick-upload</code>)</li>
+              
+                <li>Add the <strong>Features Section</strong> component (selector: <code>.features</code>)</li>
+              
+          </ul>
+        </div>
+      
+      
+      <div class="screenshots">
+        <h4>Screenshots</h4>
+        <div class="screenshot">
+          <h5>Full Page</h5>
+          <img src="../screenshots/dashboard.png" alt="Dashboard Page">
+        </div>
+        
+        
+            <div class="screenshot">
+              <h5>Recent Documents Section</h5>
+              <img src="../screenshots/dashboard-recent-documents-section.png" alt="Recent Documents Section">
+            </div>
+          
+      </div>
+    </div>
+  
+    <div class="page-results">
+      <h3>Documents Page (/documents-new)</h3>
+      <p><strong>Components:</strong> 3/3 (100%)</p>
+      
+      <div class="component-list">
+        
+          <div class="component-item found">
+            <span class="status-icon">✅</span>
+            <div>
+              <strong>Document List</strong>
+              <div><small>#document-list</small></div>
+            </div>
+          </div>
+        
+          <div class="component-item found">
+            <span class="status-icon">✅</span>
+            <div>
+              <strong>Document Item</strong>
+              <div><small>.document-item</small></div>
+            </div>
+          </div>
+        
+          <div class="component-item found">
+            <span class="status-icon">✅</span>
+            <div>
+              <strong>Document Actions</strong>
+              <div><small>.document-actions</small></div>
+            </div>
+          </div>
+        
+      </div>
+      
+      
+      
+      <div class="screenshots">
+        <h4>Screenshots</h4>
+        <div class="screenshot">
+          <h5>Full Page</h5>
+          <img src="../screenshots/documents.png" alt="Documents Page">
+        </div>
+        
+        
+            <div class="screenshot">
+              <h5>Document List</h5>
+              <img src="../screenshots/documents-document-list.png" alt="Document List">
+            </div>
+          
+            <div class="screenshot">
+              <h5>Document Item</h5>
+              <img src="../screenshots/documents-document-item.png" alt="Document Item">
+            </div>
+          
+            <div class="screenshot">
+              <h5>Document Actions</h5>
+              <img src="../screenshots/documents-document-actions.png" alt="Document Actions">
+            </div>
+          
+      </div>
+    </div>
+  
+    <div class="page-results">
+      <h3>Upload Page (/upload)</h3>
+      <p><strong>Components:</strong> 4/4 (100%)</p>
+      
+      <div class="component-list">
+        
+          <div class="component-item found">
+            <span class="status-icon">✅</span>
+            <div>
+              <strong>Upload Form</strong>
+              <div><small>form</small></div>
+            </div>
+          </div>
+        
+          <div class="component-item found">
+            <span class="status-icon">✅</span>
+            <div>
+              <strong>File Input</strong>
+              <div><small>input[type="file"]</small></div>
+            </div>
+          </div>
+        
+          <div class="component-item found">
+            <span class="status-icon">✅</span>
+            <div>
+              <strong>Upload Button</strong>
+              <div><small>button[type="submit"]</small></div>
+            </div>
+          </div>
+        
+          <div class="component-item found">
+            <span class="status-icon">✅</span>
+            <div>
+              <strong>Progress Container</strong>
+              <div><small>#progress-container</small></div>
+            </div>
+          </div>
+        
+      </div>
+      
+      
+      
+      <div class="screenshots">
+        <h4>Screenshots</h4>
+        <div class="screenshot">
+          <h5>Full Page</h5>
+          <img src="../screenshots/upload.png" alt="Upload Page">
+        </div>
+        
+        
+            <div class="screenshot">
+              <h5>Upload Form</h5>
+              <img src="../screenshots/upload-upload-form.png" alt="Upload Form">
+            </div>
+          
+            <div class="screenshot">
+              <h5>File Input</h5>
+              <img src="../screenshots/upload-file-input.png" alt="File Input">
+            </div>
+          
+            <div class="screenshot">
+              <h5>Upload Button</h5>
+              <img src="../screenshots/upload-upload-button.png" alt="Upload Button">
+            </div>
+          
+            <div class="screenshot">
+              <h5>Progress Container</h5>
+              <img src="../screenshots/upload-progress-container.png" alt="Progress Container">
+            </div>
+          
+      </div>
+    </div>
+  
+    <div class="page-results">
+      <h3>Document Chat Page (/document-chat)</h3>
+      <p><strong>Components:</strong> 4/4 (100%)</p>
+      
+      <div class="component-list">
+        
+          <div class="component-item found">
+            <span class="status-icon">✅</span>
+            <div>
+              <strong>Document Selector</strong>
+              <div><small>select</small></div>
+            </div>
+          </div>
+        
+          <div class="component-item found">
+            <span class="status-icon">✅</span>
+            <div>
+              <strong>Chat Messages</strong>
+              <div><small>.chat-messages, .message</small></div>
+            </div>
+          </div>
+        
+          <div class="component-item found">
+            <span class="status-icon">✅</span>
+            <div>
+              <strong>Chat Input</strong>
+              <div><small>#document-chat-input, #question-input</small></div>
+            </div>
+          </div>
+        
+          <div class="component-item found">
+            <span class="status-icon">✅</span>
+            <div>
+              <strong>Send Button</strong>
+              <div><small>#document-send-btn, #send-btn, button[type="submit"]</small></div>
+            </div>
+          </div>
+        
+      </div>
+      
+      
+      
+      <div class="screenshots">
+        <h4>Screenshots</h4>
+        <div class="screenshot">
+          <h5>Full Page</h5>
+          <img src="../screenshots/document chat.png" alt="Document Chat Page">
+        </div>
+        
+        
+            <div class="screenshot">
+              <h5>Document Selector</h5>
+              <img src="../screenshots/document chat-document-selector.png" alt="Document Selector">
+            </div>
+          
+            <div class="screenshot">
+              <h5>Chat Messages</h5>
+              <img src="../screenshots/document chat-chat-messages.png" alt="Chat Messages">
+            </div>
+          
+            <div class="screenshot">
+              <h5>Chat Input</h5>
+              <img src="../screenshots/document chat-chat-input.png" alt="Chat Input">
+            </div>
+          
+            <div class="screenshot">
+              <h5>Send Button</h5>
+              <img src="../screenshots/document chat-send-button.png" alt="Send Button">
+            </div>
+          
+      </div>
+    </div>
+  
+    <div class="page-results">
+      <h3>Test Page (/test)</h3>
+      <p><strong>Components:</strong> 0/3 (0%)</p>
+      
+      <div class="component-list">
+        
+          <div class="component-item missing">
+            <span class="status-icon">❌</span>
+            <div>
+              <strong>Agent Card</strong>
+              <div><small>.agent-card</small></div>
+            </div>
+          </div>
+        
+          <div class="component-item missing">
+            <span class="status-icon">❌</span>
+            <div>
+              <strong>Agent Status Indicator</strong>
+              <div><small>.status-indicator</small></div>
+            </div>
+          </div>
+        
+          <div class="component-item missing">
+            <span class="status-icon">❌</span>
+            <div>
+              <strong>Agent Action Button</strong>
+              <div><small>.agent-action</small></div>
+            </div>
+          </div>
+        
+      </div>
+      
+      
+        <div class="recommendations">
+          <h4>Recommendations</h4>
+          <ul>
+            
+                <li>Add the <strong>Agent Card</strong> component (selector: <code>.agent-card</code>)</li>
+              
+                <li>Add the <strong>Agent Status Indicator</strong> component (selector: <code>.status-indicator</code>)</li>
+              
+                <li>Add the <strong>Agent Action Button</strong> component (selector: <code>.agent-action</code>)</li>
+              
+          </ul>
+        </div>
+      
+      
+      <div class="screenshots">
+        <h4>Screenshots</h4>
+        <div class="screenshot">
+          <h5>Full Page</h5>
+          <img src="../screenshots/test.png" alt="Test Page">
+        </div>
+        
+        
+      </div>
+    </div>
+  
+  
+  <h2>Next Steps</h2>
+  
+  
+    <ol>
+      <li>Fix the missing UI components</li>
+      <li>Run the tests again to verify that all components are present</li>
+      <li>Deploy the fixed UI to Google Cloud Run</li>
+    </ol>
+  
+</body>
+</html>
+  

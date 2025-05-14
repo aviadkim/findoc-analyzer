@@ -85,6 +85,11 @@ key.json
 **/*.key
 **/*.p12
 **/*.pfx
+.secrets/
+.credentials/
+.api-keys/
+service-account-*.json
+api-keys.json
 
 # Files with potential secrets
 test_pdf_processing.js
@@ -175,3 +180,5 @@ jspm_packages/
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
+**/.claude/settings.local.json

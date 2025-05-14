@@ -1,6 +1,6 @@
 /**
  * Comprehensive UI Test
- * 
+ *
  * This script tests all UI elements of the FinDoc Analyzer application to ensure they are visible and functional.
  */
 
@@ -10,7 +10,7 @@ const path = require('path');
 
 // Configuration
 const config = {
-  url: 'https://findoc-deploy.ey.r.appspot.com',
+  url: 'http://localhost:8080',
   screenshotsDir: path.join(__dirname, 'ui-test-results'),
   timeout: 30000 // 30 seconds
 };
@@ -238,7 +238,11 @@ async function runTests() {
           { selector: '.checkbox-group', description: 'Checkbox Group' },
           { selector: '#extract-text', description: 'Extract Text Checkbox' },
           { selector: '.upload-history', description: 'Upload History' },
-          { selector: '.upload-table', description: 'Upload Table' }
+          { selector: '.upload-table', description: 'Upload Table' },
+          { selector: '#process-document-btn', description: 'Process Document Button', interaction: { type: 'click' } },
+          { selector: '#floating-process-btn', description: 'Floating Process Button', interaction: { type: 'click' } },
+          { selector: '#show-chat-btn', description: 'Chat Button', interaction: { type: 'click' } },
+          { selector: '#document-chat-container', description: 'Chat Container' }
         ]
       }
     ];

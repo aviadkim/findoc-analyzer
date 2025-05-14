@@ -1,0 +1,59 @@
+{
+  "filename": "simple-financial-statement.pdf",
+  "timestamp": "2025-05-12T11:53:51.407Z",
+  "textLength": 656,
+  "tableCount": 1,
+  "entityCount": 22,
+  "entityTypes": {
+    "company": 1,
+    "security": 5,
+    "financialMetric": 1,
+    "currency": 10,
+    "isin": 5
+  },
+  "metadata": {
+    "title": "simple-financial-statement.pdf",
+    "author": "Unknown",
+    "subject": "",
+    "keywords": "",
+    "creator": "pdf-lib (https://github.com/Hopding/pdf-lib)",
+    "producer": "pdf-lib (https://github.com/Hopding/pdf-lib)",
+    "pages": 1,
+    "creationDate": "",
+    "modificationDate": ""
+  },
+  "sampleText": "\n\nINVESTMENT PORTFOLIO STATEMENT\nDate: 31.03.2024\nAccount Number: 87654321\nClient: Jane Smith\nPORTFOLIO SUMMARY\nTotal Value: USD 875,000.00\nCurrency: USD\nValuation Date: 31.03.2024\nASSET ALLOCATION\nAsset ClassPercentage\nEquity55%\nFixed Income25%\nCash10%\nAlternative10%\nSECURITIES HOLDINGS\nSecurityISINTypeQuantityPriceValueWeight\nAPPLE INCUS0378331005Equity200USD 175.50USD 35,100.004.01%\nMICROSOFT CORPUS5949181045Equity150USD 420.00USD 63,000.007.20%\nAMAZON.COM INCUS0231351067Equity75USD 180.25USD...",
+  "sampleEntities": [
+    {
+      "type": "company",
+      "name": "Fixed",
+      "confidence": 0.95,
+      "ticker": "TICKER",
+      "source": "https://example.com/company/fixed"
+    },
+    {
+      "type": "security",
+      "name": "SECURITIES HOLDINGS\nSecurityISINTypeQuantityPriceValueWeight\nAPPLE",
+      "isin": "INCUS0378331",
+      "confidence": 0.9
+    },
+    {
+      "type": "security",
+      "name": "MICROSOFT",
+      "isin": "CORPUS594918",
+      "confidence": 0.9
+    },
+    {
+      "type": "security",
+      "name": "AMAZON.COM",
+      "isin": "INCUS0231351",
+      "confidence": 0.9
+    },
+    {
+      "type": "security",
+      "name": "NVIDIA",
+      "isin": "CORPUS67066G",
+      "confidence": 0.9
+    }
+  ]
+}

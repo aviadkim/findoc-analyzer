@@ -1,0 +1,11 @@
+isin,name,type,quantity,price,value,currency,marketPrice,marketValue,priceChange,priceChangePercent,lastUpdated,dataProvider,id,symbol,description,sector,country,exchange
+"DE5983476524","Meta Platforms Inc.","Stock",698,518.96,362234.08,"ILS",501.57,350095.86,-17.39,-3.35,"2025-05-13T20:50:24.518Z","Yahoo Finance","sec-1","META",,"Healthcare","DE",
+"GB9938454096","Home Depot Inc.","Fund",481,258.76,124463.56,"EUR",267.97,128893.57,9.21,3.56,"2025-05-13T20:50:24.518Z","Yahoo Finance","sec-2","HOME",,"Healthcare","GB",
+"US8881500728","Tesla Inc.","Cash",493,524.82,258736.26,"GBP",503.51,248230.43,-21.31,-4.06,"2025-05-13T20:50:24.518Z","Yahoo Finance","sec-3","TESLA",,"Communication Services","US",
+"FR9968135799","UnitedHealth Group Inc.","Option",344,925.88,318502.72,"USD",889.59,306018.96,-36.29,-3.92,"2025-05-13T20:50:24.518Z","Yahoo Finance","sec-4","UNITEDHEALTH",,"Technology","FR",
+"US1444469783","Verizon Communications Inc.","ETF",516,626.29,323165.64,"ILS",614.2,316927.2,-12.09,-1.93,"2025-05-13T20:50:24.518Z","Yahoo Finance","sec-5","VERIZON",,"Financial Services","US",
+"FR0350199409","Berkshire Hathaway Inc.","Option",844,596.57,503505.08,"GBP",620.67,523845.48,24.1,4.04,"2025-05-13T20:50:24.518Z","Yahoo Finance","sec-6","BERKSHIRE",,"Technology","FR",
+"DE4416379399","Procter & Gamble Co.","Fund",999,729.99,729260.01,"GBP",751.74,750988.26,21.75,2.98,"2025-05-13T20:50:24.518Z","Yahoo Finance","sec-7","PROCTER",,"Energy","DE",
+"IL3021204704","Tesla Inc.","Fund",100,750.82,75082,"EUR",748.87,74887,-1.95,-0.26,"2025-05-13T20:50:24.518Z","Yahoo Finance","sec-8","TESLA",,"Energy","IL",
+"US7003724838","Walt Disney Co.","Fund",427,62.49,26683.23,"EUR",63.34,27046.18,0.85,1.36,"2025-05-13T20:50:24.518Z","Yahoo Finance","sec-9","WALT",,"Industrials","US",
+"US2933818952","Visa Inc.","ETF",414,463.34,191822.76,"GBP",480.16,198786.24,16.82,3.63,"2025-05-13T20:50:24.518Z","Yahoo Finance","sec-10","VISA",,"Consumer Defensive","US",

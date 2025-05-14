@@ -1,0 +1,70 @@
+{
+  "files": {
+    "/js/ui-components.js": {
+      "exists": true,
+      "status": 200
+    },
+    "/js/ui-components-simple.js": {
+      "exists": true,
+      "status": 200
+    },
+    "/js/ui-components-enhanced.js": {
+      "exists": true,
+      "status": 200
+    },
+    "/css/ui-components.css": {
+      "exists": true,
+      "status": 200
+    },
+    "/ui-components-validation.html": {
+      "exists": true,
+      "status": 200
+    }
+  },
+  "pages": {
+    "/": {
+      "status": 200,
+      "size": 25179,
+      "hasUIComponents": true,
+      "hasUIComponentsSimple": false,
+      "hasUIComponentsEnhanced": false,
+      "hasUIComponentsCSS": false,
+      "hasChatButton": false,
+      "hasProcessButton": true,
+      "hasAgentCards": true
+    },
+    "/upload.html": {
+      "status": 200,
+      "size": 34295,
+      "hasUIComponents": true,
+      "hasUIComponentsSimple": false,
+      "hasUIComponentsEnhanced": true,
+      "hasUIComponentsCSS": true,
+      "hasChatButton": true,
+      "hasProcessButton": true,
+      "hasAgentCards": true
+    },
+    "/test.html": {
+      "status": 200,
+      "size": 16527,
+      "hasUIComponents": true,
+      "hasUIComponentsSimple": false,
+      "hasUIComponentsEnhanced": false,
+      "hasUIComponentsCSS": false,
+      "hasChatButton": false,
+      "hasProcessButton": true,
+      "hasAgentCards": true
+    },
+    "/document-details.html": {
+      "status": 200,
+      "size": 28718,
+      "hasUIComponents": true,
+      "hasUIComponentsSimple": false,
+      "hasUIComponentsEnhanced": false,
+      "hasUIComponentsCSS": false,
+      "hasChatButton": false,
+      "hasProcessButton": true,
+      "hasAgentCards": true
+    }
+  }
+}

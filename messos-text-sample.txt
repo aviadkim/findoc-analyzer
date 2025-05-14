@@ -1,0 +1,57 @@
+Valuation
+as of 28.02.2025
+Swift CBLUCH2280A // Clearing 8490 // CHE-105.962.409 IVA
+Tel. +41 44 218 10 20 // Fax +41 44218 1029 // info@corner.ch // corner.ch
+Cornèr Banca SA
+// Tödistrasse27 // Postfach 16 40 // 8027 Zürich_Switzerland // Hauptsitz Via Canova 16, 6901 Lugano_Switzerland
+MESSOS ENTERPRISES LTD.
+366223
+Client Number //
+USD
+Valuation currency //
+Undefined
+Investment profile //
+Medium-high
+Risk Profile //
+
+Index
+MESSOS ENTERPRISES LTD.
+Valuation as of 28.02.2025
+Client Number 366223
+Print date 01.03.2025 // Page I
+Swift CBLUCH2280A // Clearing 8490 // CHE-105.962.409 IVA
+Tel. +41 44 218 10 20 // Fax +41 44218 1029 // info@corner.ch // corner.ch
+Cornèr Banca SA
+// Tödistrasse27 // Postfach 16 40 // 8027 Zürich_Switzerland // Hauptsitz Via Canova 16, 6901 Lugano_Switzerland
+
+1Summary
+
+Security Listing
+
+MICROSOFT CORP    US5949181045    100 shares    $300.50    $30,050.00
+APPLE INC         US0378331005    50 shares     $180.95    $9,047.50
+AMAZON.COM INC    US0231351067    20 shares     $130.00    $2,600.00
+ALPHABET INC CL A US02079K3059    30 shares     $138.75    $4,162.50
+NVIDIA CORP       US67066G1040    15 shares     $886.24    $13,293.60
+
+Bond Positions
+
+US TREASURY 2.5% 15.02.2026      US91282CFS26    $10,000    98.5    $9,850.00
+APPLE INC 3.85% 05.05.2027       US037833AK68    $5,000     96.2    $4,810.00
+MICROSOFT 3.3% 06.02.2028        US594918BB96    $7,500     97.8    $7,335.00
+
+Portfolio Summary
+Total Value: $81,148.60
+Cash: $0.00
+Bonds: $21,995.00
+Equities: $59,153.60
+Other: $0.00
+
+Asset Allocation
+Equities: 72.89%
+Bonds: 27.11%
+Cash: 0.00%
+Other: 0.00%
+
+Currency Allocation
+USD: 100.00%

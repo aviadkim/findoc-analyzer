@@ -1,0 +1,115 @@
+[
+  {
+    "page": "Dashboard",
+    "path": "/",
+    "components": {
+      "Recent Documents Section": {
+        "exists": true,
+        "selector": ".recent-documents"
+      },
+      "Quick Upload Section": {
+        "exists": false,
+        "selector": ".quick-upload"
+      },
+      "Features Section": {
+        "exists": false,
+        "selector": ".features"
+      }
+    },
+    "total": 3,
+    "found": 1,
+    "missing": 2
+  },
+  {
+    "page": "Documents",
+    "path": "/documents-new",
+    "components": {
+      "Document List": {
+        "exists": true,
+        "selector": "#document-list"
+      },
+      "Document Item": {
+        "exists": true,
+        "selector": ".document-item"
+      },
+      "Document Actions": {
+        "exists": true,
+        "selector": ".document-actions"
+      }
+    },
+    "total": 3,
+    "found": 3,
+    "missing": 0
+  },
+  {
+    "page": "Upload",
+    "path": "/upload",
+    "components": {
+      "Upload Form": {
+        "exists": true,
+        "selector": "form"
+      },
+      "File Input": {
+        "exists": true,
+        "selector": "input[type=\"file\"]"
+      },
+      "Upload Button": {
+        "exists": true,
+        "selector": "button[type=\"submit\"]"
+      },
+      "Progress Container": {
+        "exists": true,
+        "selector": "#progress-container"
+      }
+    },
+    "total": 4,
+    "found": 4,
+    "missing": 0
+  },
+  {
+    "page": "Document Chat",
+    "path": "/document-chat",
+    "components": {
+      "Document Selector": {
+        "exists": true,
+        "selector": "select"
+      },
+      "Chat Messages": {
+        "exists": true,
+        "selector": ".chat-messages, .message"
+      },
+      "Chat Input": {
+        "exists": true,
+        "selector": "#document-chat-input, #question-input"
+      },
+      "Send Button": {
+        "exists": true,
+        "selector": "#document-send-btn, #send-btn, button[type=\"submit\"]"
+      }
+    },
+    "total": 4,
+    "found": 4,
+    "missing": 0
+  },
+  {
+    "page": "Test",
+    "path": "/test",
+    "components": {
+      "Agent Card": {
+        "exists": false,
+        "selector": ".agent-card"
+      },
+      "Agent Status Indicator": {
+        "exists": false,
+        "selector": ".status-indicator"
+      },
+      "Agent Action Button": {
+        "exists": false,
+        "selector": ".agent-action"
+      }
+    },
+    "total": 3,
+    "found": 0,
+    "missing": 3
+  }
+]

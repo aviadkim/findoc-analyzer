@@ -1,0 +1,295 @@
+name: FinDoc Analyzer CI/CD
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  lint:
+    name: Lint Code
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+          cache: 'npm'
+      - name: Install dependencies
+        run: npm ci
+      - name: Run ESLint
+        run: npm run lint
+      - name: Run TypeScript type-checking
+        run: npm run type-check
+
+  unit-tests:
+    name: Unit Tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+          cache: 'npm'
+      - name: Install dependencies
+        run: npm ci
+      - name: Run unit tests
+        run: npm run test
+      - name: Upload test results
+        uses: actions/upload-artifact@v3
+        with:
+          name: unit-test-results
+          path: coverage/
+
+  python-tests:
+    name: Python Agent Tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+          cache: 'pip'
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r backend/agents/requirements.txt
+          pip install pytest pytest-cov
+      - name: Run Python tests
+        run: pytest backend/agents/tests/ --cov=backend/agents
+      - name: Upload test results
+        uses: actions/upload-artifact@v3
+        with:
+          name: python-test-results
+          path: backend/agents/pytest-cov/
+
+  integration-tests:
+    name: Integration Tests
+    runs-on: ubuntu-latest
+    needs: [unit-tests, python-tests]
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+          cache: 'npm'
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+          cache: 'pip'
+      - name: Install Node.js dependencies
+        run: npm ci
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r backend/agents/requirements.txt
+      - name: Start test database
+        run: npm run start:test-db
+      - name: Start test server
+        run: npm run start:test-server &
+        env:
+          NODE_ENV: test
+      - name: Wait for server to start
+        run: sleep 10
+      - name: Run integration tests
+        run: npm run test:integration
+      - name: Upload test results
+        uses: actions/upload-artifact@v3
+        with:
+          name: integration-test-results
+          path: test-results/integration/
+
+  e2e-tests:
+    name: End-to-End Tests
+    runs-on: ubuntu-latest
+    needs: [integration-tests]
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+          cache: 'npm'
+      - name: Install dependencies
+        run: npm ci
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps
+      - name: Build application
+        run: npm run build
+      - name: Start database
+        run: npm run start:test-db
+      - name: Start application server
+        run: npm run start:prod &
+        env:
+          NODE_ENV: test
+      - name: Wait for server to start
+        run: sleep 10
+      - name: Run E2E tests
+        run: npm run test:e2e
+      - name: Upload test results
+        uses: actions/upload-artifact@v3
+        with:
+          name: e2e-test-results
+          path: |
+            test-results/e2e-screenshots/
+            test-results/e2e-videos/
+            playwright-report/
+
+  security-scan:
+    name: Security Scan
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Run OWASP ZAP scan
+        uses: zaproxy/action-baseline@v0.7.0
+        with:
+          target: 'http://localhost:3000'
+          rules_file_name: '.zap/rules.tsv'
+          cmd_options: '-a'
+      - name: Run npm audit
+        run: npm audit --production
+      - name: Run Snyk scan
+        uses: snyk/actions/node@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          args: --severity-threshold=high
+
+  performance-test:
+    name: Performance Testing
+    runs-on: ubuntu-latest
+    needs: [e2e-tests]
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+          cache: 'npm'
+      - name: Install dependencies
+        run: npm ci
+      - name: Build application
+        run: npm run build
+      - name: Start application server
+        run: npm run start:prod &
+        env:
+          NODE_ENV: test
+      - name: Wait for server to start
+        run: sleep 10
+      - name: Run Lighthouse CI
+        uses: treosh/lighthouse-ci-action@v9
+        with:
+          urls: |
+            http://localhost:3000/
+            http://localhost:3000/login
+            http://localhost:3000/documents
+          budgetPath: ./.github/lighthouse/budget.json
+          uploadArtifacts: true
+      - name: Run k6 load tests
+        run: |
+          curl -L https://github.com/loadimpact/k6/releases/download/v0.37.0/k6-v0.37.0-linux-amd64.tar.gz | tar xzf -
+          ./k6-v0.37.0-linux-amd64/k6 run test/performance/load-test.js
+
+  build:
+    name: Build and Package
+    runs-on: ubuntu-latest
+    needs: [lint, unit-tests, python-tests, integration-tests, e2e-tests, security-scan, performance-test]
+    if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop')
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+          cache: 'npm'
+      - name: Install dependencies
+        run: npm ci
+      - name: Build application
+        run: npm run build
+      - name: Create Docker Image
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          push: false
+          tags: findoc-analyzer:${{ github.sha }}
+      - name: Save Docker Image
+        run: docker save findoc-analyzer:${{ github.sha }} > findoc-analyzer.tar
+      - name: Upload Docker Image artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: docker-image
+          path: findoc-analyzer.tar
+
+  deploy-staging:
+    name: Deploy to Staging
+    runs-on: ubuntu-latest
+    needs: [build]
+    if: github.event_name == 'push' && github.ref == 'refs/heads/develop'
+    environment: staging
+    steps:
+      - uses: actions/checkout@v3
+      - name: Download Docker Image artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: docker-image
+      - name: Load Docker Image
+        run: docker load < findoc-analyzer.tar
+      - name: Set up Google Cloud SDK
+        uses: google-github-actions/setup-gcloud@v0
+        with:
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
+          service_account_key: ${{ secrets.GCP_SA_KEY }}
+          export_default_credentials: true
+      - name: Configure Docker for GCR
+        run: gcloud auth configure-docker
+      - name: Tag Docker Image
+        run: docker tag findoc-analyzer:${{ github.sha }} gcr.io/${{ secrets.GCP_PROJECT_ID }}/findoc-analyzer:staging
+      - name: Push Docker Image to GCR
+        run: docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/findoc-analyzer:staging
+      - name: Deploy to Cloud Run
+        run: |
+          gcloud run deploy findoc-analyzer-staging \
+            --image gcr.io/${{ secrets.GCP_PROJECT_ID }}/findoc-analyzer:staging \
+            --region us-central1 \
+            --platform managed \
+            --allow-unauthenticated
+
+  deploy-production:
+    name: Deploy to Production
+    runs-on: ubuntu-latest
+    needs: [build]
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    environment: production
+    steps:
+      - uses: actions/checkout@v3
+      - name: Download Docker Image artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: docker-image
+      - name: Load Docker Image
+        run: docker load < findoc-analyzer.tar
+      - name: Set up Google Cloud SDK
+        uses: google-github-actions/setup-gcloud@v0
+        with:
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
+          service_account_key: ${{ secrets.GCP_SA_KEY }}
+          export_default_credentials: true
+      - name: Configure Docker for GCR
+        run: gcloud auth configure-docker
+      - name: Tag Docker Image
+        run: docker tag findoc-analyzer:${{ github.sha }} gcr.io/${{ secrets.GCP_PROJECT_ID }}/findoc-analyzer:production
+      - name: Push Docker Image to GCR
+        run: docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/findoc-analyzer:production
+      - name: Deploy to Cloud Run
+        run: |
+          gcloud run deploy findoc-analyzer-production \
+            --image gcr.io/${{ secrets.GCP_PROJECT_ID }}/findoc-analyzer:production \
+            --region us-central1 \
+            --platform managed \
+            --allow-unauthenticated

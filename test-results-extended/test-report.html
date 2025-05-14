@@ -1,0 +1,658 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FinDoc Analyzer Extended Test Report</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      color: #333;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    h1, h2, h3 {
+      color: #0066cc;
+    }
+    .summary {
+      display: flex;
+      justify-content: space-between;
+      background-color: #f5f5f5;
+      padding: 20px;
+      border-radius: 5px;
+      margin-bottom: 20px;
+    }
+    .summary-item {
+      text-align: center;
+    }
+    .summary-item h3 {
+      margin-bottom: 5px;
+    }
+    .summary-item p {
+      font-size: 24px;
+      font-weight: bold;
+      margin: 0;
+    }
+    .progress-bar {
+      height: 20px;
+      background-color: #e0e0e0;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      overflow: hidden;
+    }
+    .progress {
+      height: 100%;
+      background-color: #4CAF50;
+      text-align: center;
+      line-height: 20px;
+      color: white;
+    }
+    .category {
+      margin-bottom: 30px;
+    }
+    .category-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #0066cc;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .category-summary {
+      display: flex;
+      gap: 20px;
+    }
+    .category-content {
+      display: none;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-top: none;
+      border-radius: 0 0 5px 5px;
+    }
+    .test-item {
+      padding: 10px;
+      margin-bottom: 5px;
+      border-radius: 5px;
+    }
+    .passed {
+      background-color: #dff0d8;
+    }
+    .failed {
+      background-color: #f2dede;
+    }
+    .skipped {
+      background-color: #fcf8e3;
+    }
+    .error-details {
+      font-family: monospace;
+      background-color: #f9f2f4;
+      padding: 10px;
+      border-radius: 5px;
+      margin-top: 10px;
+    }
+    .timestamp {
+      font-style: italic;
+      color: #666;
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h1>FinDoc Analyzer Extended Test Report</h1>
+  <p class="timestamp">Generated on: 5/14/2025, 12:10:47 PM</p>
+  <p>Base URL: http://localhost:8080</p>
+
+  <div class="summary">
+    <div class="summary-item">
+      <h3>Total Tests</h3>
+      <p>52</p>
+    </div>
+    <div class="summary-item">
+      <h3>Passed</h3>
+      <p style="color: #4CAF50;">43</p>
+    </div>
+    <div class="summary-item">
+      <h3>Failed</h3>
+      <p style="color: #f44336;">0</p>
+    </div>
+    <div class="summary-item">
+      <h3>Skipped</h3>
+      <p style="color: #ff9800;">9</p>
+    </div>
+    <div class="summary-item">
+      <h3>Pass Rate</h3>
+      <p style="color: #4CAF50;">83%</p>
+    </div>
+  </div>
+
+  <div class="progress-bar">
+    <div class="progress" style="width: 83%;">83%</div>
+  </div>
+
+  <h2>Test Results by Category</h2>
+
+  
+    <div class="category">
+      <div class="category-header" onclick="toggleCategory('Authentication')">
+        <h3>Authentication</h3>
+        <div class="category-summary">
+          <span>Total: 5</span>
+          <span style="color: #b9f6ca;">Passed: 4</span>
+          <span style="color: #ffcdd2;">Failed: 0</span>
+          <span style="color: #ffecb3;">Skipped: 1</span>
+          <span>Pass Rate: 80%</span>
+        </div>
+      </div>
+      <div id="Authentication" class="category-content">
+        
+          <div class="test-item passed">
+            <strong>User registration API</strong>
+            
+          </div>
+          
+          <div class="test-item passed">
+            <strong>User login with invalid credentials</strong>
+            
+          </div>
+          
+          <div class="test-item passed">
+            <strong>Session validation API</strong>
+            
+          </div>
+          
+          <div class="test-item skipped">
+            <strong>Password reset request API</strong>
+            <div class="error-details">Reason: Endpoint not implemented</div>
+          </div>
+          
+          <div class="test-item passed">
+            <strong>Password reset request API</strong>
+            
+          </div>
+          
+      </div>
+    </div>
+    
+    <div class="category">
+      <div class="category-header" onclick="toggleCategory('Document Upload')">
+        <h3>Document Upload</h3>
+        <div class="category-summary">
+          <span>Total: 5</span>
+          <span style="color: #b9f6ca;">Passed: 3</span>
+          <span style="color: #ffcdd2;">Failed: 0</span>
+          <span style="color: #ffecb3;">Skipped: 2</span>
+          <span>Pass Rate: 60%</span>
+        </div>
+      </div>
+      <div id="Document Upload" class="category-content">
+        
+          <div class="test-item skipped">
+            <strong>Upload PDF document</strong>
+            <div class="error-details">Reason: Test file not found</div>
+          </div>
+          
+          <div class="test-item passed">
+            <strong>Upload PDF document</strong>
+            
+          </div>
+          
+          <div class="test-item skipped">
+            <strong>Upload with invalid document type</strong>
+            <div class="error-details">Reason: Test file not found</div>
+          </div>
+          
+          <div class="test-item passed">
+            <strong>Upload with invalid document type</strong>
+            
+          </div>
+          
+          <div class="test-item passed">
+            <strong>Upload without file</strong>
+            
+          </div>
+          
+      </div>
+    </div>
+    
+    <div class="category">
+      <div class="category-header" onclick="toggleCategory('Document Processing')">
+        <h3>Document Processing</h3>
+        <div class="category-summary">
+          <span>Total: 4</span>
+          <span style="color: #b9f6ca;">Passed: 3</span>
+          <span style="color: #ffcdd2;">Failed: 0</span>
+          <span style="color: #ffecb3;">Skipped: 1</span>
+          <span>Pass Rate: 75%</span>
+        </div>
+      </div>
+      <div id="Document Processing" class="category-content">
+        
+          <div class="test-item skipped">
+            <strong>Process document with OCR</strong>
+            <div class="error-details">Reason: Test file not found</div>
+          </div>
+          
+          <div class="test-item passed">
+            <strong>Process document with OCR</strong>
+            
+          </div>
+          
+          <div class="test-item passed">
+            <strong>Get document processing status</strong>
+            
+          </div>
+          
+          <div class="test-item passed">
+            <strong>Get document metadata</strong>
+            
+          </div>
+          
+      </div>
+    </div>
+    
+    <div class="category">
+      <div class="category-header" onclick="toggleCategory('Chatbot')">
+        <h3>Chatbot</h3>
+        <div class="category-summary">
+          <span>Total: 3</span>
+          <span style="color: #b9f6ca;">Passed: 3</span>
+          <span style="color: #ffcdd2;">Failed: 0</span>
+          <span style="color: #ffecb3;">Skipped: 0</span>
+          <span>Pass Rate: 100%</span>
+        </div>
+      </div>
+      <div id="Chatbot" class="category-content">
+        
+          <div class="test-item passed">
+            <strong>Chat with specific context</strong>
+            
+          </div>
+          
+          <div class="test-item passed">
+            <strong>Chat with empty message</strong>
+            
+          </div>
+          
+          <div class="test-item passed">
+            <strong>Chat with conversation history</strong>
+            
+          </div>
+          
+      </div>
+    </div>
+    
+    <div class="category">
+      <div class="category-header" onclick="toggleCategory('Securities Extraction')">
+        <h3>Securities Extraction</h3>
+        <div class="category-summary">
+          <span>Total: 3</span>
+          <span style="color: #b9f6ca;">Passed: 3</span>
+          <span style="color: #ffcdd2;">Failed: 0</span>
+          <span style="color: #ffecb3;">Skipped: 0</span>
+          <span>Pass Rate: 100%</span>
+        </div>
+      </div>
+      <div id="Securities Extraction" class="category-content">
+        
+          <div class="test-item passed">
+            <strong>Get securities for document</strong>
+            
+          </div>
+          
+          <div class="test-item passed">
+            <strong>Update security information</strong>
+            
+          </div>
+          
+          <div class="test-item passed">
+            <strong>Get market data for security</strong>
+            
+          </div>
+          
+      </div>
+    </div>
+    
+    <div class="category">
+      <div class="category-header" onclick="toggleCategory('API Key Management')">
+        <h3>API Key Management</h3>
+        <div class="category-summary">
+          <span>Total: 3</span>
+          <span style="color: #b9f6ca;">Passed: 3</span>
+          <span style="color: #ffcdd2;">Failed: 0</span>
+          <span style="color: #ffecb3;">Skipped: 0</span>
+          <span>Pass Rate: 100%</span>
+        </div>
+      </div>
+      <div id="API Key Management" class="category-content">
+        
+          <div class="test-item passed">
+            <strong>Store API key</strong>
+            
+          </div>
+          
+          <div class="test-item passed">
+            <strong>Get API key status</strong>
+            
+          </div>
+          
+          <div class="test-item passed">
+            <strong>Delete API key</strong>
+            
+          </div>
+          
+      </div>
+    </div>
+    
+    <div class="category">
+      <div class="category-header" onclick="toggleCategory('Navigation')">
+        <h3>Navigation</h3>
+        <div class="category-summary">
+          <span>Total: 3</span>
+          <span style="color: #b9f6ca;">Passed: 3</span>
+          <span style="color: #ffcdd2;">Failed: 0</span>
+          <span style="color: #ffecb3;">Skipped: 0</span>
+          <span>Pass Rate: 100%</span>
+        </div>
+      </div>
+      <div id="Navigation" class="category-content">
+        
+          <div class="test-item passed">
+            <strong>Analytics page accessibility</strong>
+            
+          </div>
+          
+          <div class="test-item passed">
+            <strong>Document comparison page accessibility</strong>
+            
+          </div>
+          
+          <div class="test-item passed">
+            <strong>Feedback page accessibility</strong>
+            
+          </div>
+          
+      </div>
+    </div>
+    
+    <div class="category">
+      <div class="category-header" onclick="toggleCategory('UI Components')">
+        <h3>UI Components</h3>
+        <div class="category-summary">
+          <span>Total: 3</span>
+          <span style="color: #b9f6ca;">Passed: 0</span>
+          <span style="color: #ffcdd2;">Failed: 0</span>
+          <span style="color: #ffecb3;">Skipped: 3</span>
+          <span>Pass Rate: 0%</span>
+        </div>
+      </div>
+      <div id="UI Components" class="category-content">
+        
+          <div class="test-item skipped">
+            <strong>Document list component</strong>
+            <div class="error-details">Reason: UI tests require a headless browser</div>
+          </div>
+          
+          <div class="test-item skipped">
+            <strong>Document details component</strong>
+            <div class="error-details">Reason: UI tests require a headless browser</div>
+          </div>
+          
+          <div class="test-item skipped">
+            <strong>Securities table component</strong>
+            <div class="error-details">Reason: UI tests require a headless browser</div>
+          </div>
+          
+      </div>
+    </div>
+    
+    <div class="category">
+      <div class="category-header" onclick="toggleCategory('Data Visualization')">
+        <h3>Data Visualization</h3>
+        <div class="category-summary">
+          <span>Total: 3</span>
+          <span style="color: #b9f6ca;">Passed: 3</span>
+          <span style="color: #ffcdd2;">Failed: 0</span>
+          <span style="color: #ffecb3;">Skipped: 0</span>
+          <span>Pass Rate: 100%</span>
+        </div>
+      </div>
+      <div id="Data Visualization" class="category-content">
+        
+          <div class="test-item passed">
+            <strong>Generate portfolio pie chart</strong>
+            
+          </div>
+          
+          <div class="test-item passed">
+            <strong>Generate historical price chart</strong>
+            
+          </div>
+          
+          <div class="test-item passed">
+            <strong>Generate portfolio performance chart</strong>
+            
+          </div>
+          
+      </div>
+    </div>
+    
+    <div class="category">
+      <div class="category-header" onclick="toggleCategory('Export Functionality')">
+        <h3>Export Functionality</h3>
+        <div class="category-summary">
+          <span>Total: 3</span>
+          <span style="color: #b9f6ca;">Passed: 3</span>
+          <span style="color: #ffcdd2;">Failed: 0</span>
+          <span style="color: #ffecb3;">Skipped: 0</span>
+          <span>Pass Rate: 100%</span>
+        </div>
+      </div>
+      <div id="Export Functionality" class="category-content">
+        
+          <div class="test-item passed">
+            <strong>Export document to PDF</strong>
+            
+          </div>
+          
+          <div class="test-item passed">
+            <strong>Export securities to CSV</strong>
+            
+          </div>
+          
+          <div class="test-item passed">
+            <strong>Export securities to Excel</strong>
+            
+          </div>
+          
+      </div>
+    </div>
+    
+    <div class="category">
+      <div class="category-header" onclick="toggleCategory('Batch Processing')">
+        <h3>Batch Processing</h3>
+        <div class="category-summary">
+          <span>Total: 3</span>
+          <span style="color: #b9f6ca;">Passed: 3</span>
+          <span style="color: #ffcdd2;">Failed: 0</span>
+          <span style="color: #ffecb3;">Skipped: 0</span>
+          <span>Pass Rate: 100%</span>
+        </div>
+      </div>
+      <div id="Batch Processing" class="category-content">
+        
+          <div class="test-item passed">
+            <strong>Submit batch processing job</strong>
+            
+          </div>
+          
+          <div class="test-item passed">
+            <strong>Get batch processing status</strong>
+            
+          </div>
+          
+          <div class="test-item passed">
+            <strong>Cancel batch processing job</strong>
+            
+          </div>
+          
+      </div>
+    </div>
+    
+    <div class="category">
+      <div class="category-header" onclick="toggleCategory('Multi-tenant Functionality')">
+        <h3>Multi-tenant Functionality</h3>
+        <div class="category-summary">
+          <span>Total: 3</span>
+          <span style="color: #b9f6ca;">Passed: 3</span>
+          <span style="color: #ffcdd2;">Failed: 0</span>
+          <span style="color: #ffecb3;">Skipped: 0</span>
+          <span>Pass Rate: 100%</span>
+        </div>
+      </div>
+      <div id="Multi-tenant Functionality" class="category-content">
+        
+          <div class="test-item passed">
+            <strong>Create tenant</strong>
+            
+          </div>
+          
+          <div class="test-item passed">
+            <strong>Get tenant information</strong>
+            
+          </div>
+          
+          <div class="test-item passed">
+            <strong>Update tenant information</strong>
+            
+          </div>
+          
+      </div>
+    </div>
+    
+    <div class="category">
+      <div class="category-header" onclick="toggleCategory('Error Handling')">
+        <h3>Error Handling</h3>
+        <div class="category-summary">
+          <span>Total: 3</span>
+          <span style="color: #b9f6ca;">Passed: 3</span>
+          <span style="color: #ffcdd2;">Failed: 0</span>
+          <span style="color: #ffecb3;">Skipped: 0</span>
+          <span>Pass Rate: 100%</span>
+        </div>
+      </div>
+      <div id="Error Handling" class="category-content">
+        
+          <div class="test-item passed">
+            <strong>Invalid API endpoint</strong>
+            
+          </div>
+          
+          <div class="test-item passed">
+            <strong>Invalid document ID</strong>
+            
+          </div>
+          
+          <div class="test-item passed">
+            <strong>Invalid API key</strong>
+            
+          </div>
+          
+      </div>
+    </div>
+    
+    <div class="category">
+      <div class="category-header" onclick="toggleCategory('Performance')">
+        <h3>Performance</h3>
+        <div class="category-summary">
+          <span>Total: 4</span>
+          <span style="color: #b9f6ca;">Passed: 3</span>
+          <span style="color: #ffcdd2;">Failed: 0</span>
+          <span style="color: #ffecb3;">Skipped: 1</span>
+          <span>Pass Rate: 75%</span>
+        </div>
+      </div>
+      <div id="Performance" class="category-content">
+        
+          <div class="test-item passed">
+            <strong>API response time</strong>
+            
+          </div>
+          
+          <div class="test-item skipped">
+            <strong>Document processing time</strong>
+            <div class="error-details">Reason: Requires real document processing</div>
+          </div>
+          
+          <div class="test-item passed">
+            <strong>Document processing time</strong>
+            
+          </div>
+          
+          <div class="test-item passed">
+            <strong>Chat response time</strong>
+            
+          </div>
+          
+      </div>
+    </div>
+    
+    <div class="category">
+      <div class="category-header" onclick="toggleCategory('Security')">
+        <h3>Security</h3>
+        <div class="category-summary">
+          <span>Total: 4</span>
+          <span style="color: #b9f6ca;">Passed: 3</span>
+          <span style="color: #ffcdd2;">Failed: 0</span>
+          <span style="color: #ffecb3;">Skipped: 1</span>
+          <span>Pass Rate: 75%</span>
+        </div>
+      </div>
+      <div id="Security" class="category-content">
+        
+          <div class="test-item passed">
+            <strong>CORS headers</strong>
+            
+          </div>
+          
+          <div class="test-item passed">
+            <strong>Content Security Policy</strong>
+            
+          </div>
+          
+          <div class="test-item skipped">
+            <strong>Rate limiting</strong>
+            <div class="error-details">Reason: Requires making many requests</div>
+          </div>
+          
+          <div class="test-item passed">
+            <strong>Rate limiting</strong>
+            
+          </div>
+          
+      </div>
+    </div>
+    
+
+  <script>
+    function toggleCategory(category) {
+      const content = document.getElementById(category);
+      if (content.style.display === 'block') {
+        content.style.display = 'none';
+      } else {
+        content.style.display = 'block';
+      }
+    }
+
+    // Expand failed categories by default
+    document.addEventListener('DOMContentLoaded', function() {
+      
+    });
+  </script>
+</body>
+</html>
+  

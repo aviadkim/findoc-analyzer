@@ -1,0 +1,39 @@
+{
+  "tests": [
+    {
+      "name": "Verify Google OAuth URL",
+      "status": "failed",
+      "duration": 103,
+      "error": "Request failed with status code 404"
+    },
+    {
+      "name": "Verify frontend login page",
+      "status": "failed",
+      "duration": 3011,
+      "error": "page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:3000/login\nCall log:\n\u001b[2m  - navigating to \"http://localhost:3000/login\", waiting until \"load\"\u001b[22m\n"
+    },
+    {
+      "name": "Verify authentication middleware",
+      "status": "failed",
+      "duration": 11,
+      "error": "Expected values to be strictly equal:\n\n404 !== 401\n"
+    },
+    {
+      "name": "Verify tenant middleware",
+      "status": "passed",
+      "duration": 5,
+      "error": null
+    },
+    {
+      "name": "Verify logout endpoint",
+      "status": "failed",
+      "duration": 58,
+      "error": "Request failed with status code 404"
+    }
+  ],
+  "summary": {
+    "total": 5,
+    "passed": 1,
+    "failed": 4
+  }
+}

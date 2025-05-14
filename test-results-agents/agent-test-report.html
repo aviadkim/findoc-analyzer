@@ -1,0 +1,122 @@
+
+  <!DOCTYPE html>
+  <html>
+  <head>
+    <title>Agent and Processing Test Report</title>
+    <style>
+      body { font-family: Arial, sans-serif; margin: 20px; }
+      h1, h2, h3 { color: #333; }
+      .test-result { margin-bottom: 30px; border: 1px solid #ddd; padding: 15px; border-radius: 5px; }
+      .passed { border-left: 5px solid green; }
+      .failed { border-left: 5px solid red; }
+      .test-result h3 { margin-top: 0; }
+      .screenshot { max-width: 100%; border: 1px solid #ddd; margin-top: 10px; }
+      .section { margin-bottom: 20px; }
+      .status { font-weight: bold; }
+      .status.success { color: green; }
+      .status.failure { color: red; }
+      .error { color: red; margin-top: 10px; padding: 10px; background-color: #ffeeee; border-radius: 5px; }
+      .summary { margin-bottom: 30px; }
+      table { border-collapse: collapse; width: 100%; }
+      th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+      th { background-color: #f2f2f2; }
+    </style>
+  </head>
+  <body>
+    <h1>Agent and Processing Test Report</h1>
+    
+    <div class="summary">
+      <h2>Summary</h2>
+      <table>
+        <tr>
+          <th>Document</th>
+          <th>Upload</th>
+          <th>Agent Selection</th>
+          <th>Processing</th>
+          <th>Securities</th>
+          <th>Tables</th>
+          <th>ISINs</th>
+          <th>Status</th>
+        </tr>
+        
+          <tr>
+            <td>sample_portfolio.pdf</td>
+            <td class="status success">Success</td>
+            <td class="status success">Success</td>
+            <td class="status failure">Failed</td>
+            <td class="status success">Found</td>
+            <td class="status success">Found</td>
+            <td class="status success">Found</td>
+            <td class="status success">Passed</td>
+          </tr>
+        
+      </table>
+    </div>
+    
+    <h2>Detailed Results</h2>
+    
+    
+      <div class="test-result passed">
+        <h3>Document: sample_portfolio.pdf</h3>
+        
+        <div class="section">
+          <h4>Test Steps</h4>
+          <p>Upload: <span class="status success">Success</span></p>
+          <p>Agent Selection: <span class="status success">Success</span></p>
+          <p>Processing Started: <span class="status success">Yes</span></p>
+          <p>Processing Completed: <span class="status failure">No</span></p>
+        </div>
+        
+        <div class="section">
+          <h4>Data Extraction</h4>
+          <p>Securities: <span class="status success">Found</span></p>
+          <p>Tables: <span class="status success">Found</span></p>
+          <p>ISINs: <span class="status success">Found</span></p>
+        </div>
+        
+        
+        
+        <div class="section">
+          <h4>Screenshots</h4>
+          
+            <div>
+              <h5>Step 1</h5>
+              <img src="../test-screenshots-agents\sample_portfolio.pdf-01-upload-page.png" class="screenshot" alt="Step 1">
+            </div>
+          
+            <div>
+              <h5>Step 2</h5>
+              <img src="../test-screenshots-agents\sample_portfolio.pdf-02-file-selected.png" class="screenshot" alt="Step 2">
+            </div>
+          
+            <div>
+              <h5>Step 3</h5>
+              <img src="../test-screenshots-agents\sample_portfolio.pdf-05-form-submitted.png" class="screenshot" alt="Step 3">
+            </div>
+          
+            <div>
+              <h5>Step 4</h5>
+              <img src="../test-screenshots-agents\sample_portfolio.pdf-06-processing-started.png" class="screenshot" alt="Step 4">
+            </div>
+          
+            <div>
+              <h5>Step 5</h5>
+              <img src="../test-screenshots-agents\sample_portfolio.pdf-07-processing-complete.png" class="screenshot" alt="Step 5">
+            </div>
+          
+            <div>
+              <h5>Step 6</h5>
+              <img src="../test-screenshots-agents\sample_portfolio.pdf-08-document-chat.png" class="screenshot" alt="Step 6">
+            </div>
+          
+            <div>
+              <h5>Step 7</h5>
+              <img src="../test-screenshots-agents\sample_portfolio.pdf-09-document-selected.png" class="screenshot" alt="Step 7">
+            </div>
+          
+        </div>
+      </div>
+    
+  </body>
+  </html>
+  

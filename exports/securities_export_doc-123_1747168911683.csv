@@ -1,0 +1,11 @@
+isin,name,type,quantity,price,value,currency,marketPrice,marketValue,priceChange,priceChangePercent,lastUpdated,dataProvider,id,symbol,description,sector,country,exchange
+"GB7672773683","Berkshire Hathaway Inc.","Bond",641,594.3,380946.3,"EUR",601.13,385324.33,6.83,1.15,"2025-05-13T20:41:51.683Z","Yahoo Finance","sec-1","BERKSHIRE",,"Communication Services","GB",
+"IL1670119489","Procter & Gamble Co.","Option",471,260.75,122813.25,"GBP",263.46,124089.66,2.71,1.04,"2025-05-13T20:41:51.683Z","Yahoo Finance","sec-2","PROCTER",,"Technology","IL",
+"DE0663774822","Tesla Inc.","Option",841,940.45,790918.45,"GBP",903.77,760070.57,-36.68,-3.9,"2025-05-13T20:41:51.683Z","Yahoo Finance","sec-3","TESLA",,"Real Estate","DE",
+"US5523808781","Alphabet Inc.","Fund",941,736.67,693206.47,"USD",745.22,701252.02,8.55,1.16,"2025-05-13T20:41:51.683Z","Yahoo Finance","sec-4","ALPHABET",,"Financial Services","US",
+"US2291443037","Tesla Inc.","Option",570,447.73,255206.1,"EUR",463.85,264394.5,16.12,3.6,"2025-05-13T20:41:51.683Z","Yahoo Finance","sec-5","TESLA",,"Industrials","US",
+"DE5791359327","Microsoft Corp.","Stock",110,382.99,42128.9,"EUR",396.74,43641.4,13.75,3.59,"2025-05-13T20:41:51.683Z","Yahoo Finance","sec-6","MICROSOFT",,"Utilities","DE",
+"FR6860622609","Mastercard Inc.","Bond",554,694.35,384669.9,"GBP",722.47,400248.38,28.12,4.05,"2025-05-13T20:41:51.683Z","Yahoo Finance","sec-7","MASTERCARD",,"Consumer Defensive","FR",
+"IL2813376657","UnitedHealth Group Inc.","Bond",986,798.95,787764.7,"GBP",792.88,781779.68,-6.07,-0.76,"2025-05-13T20:41:51.683Z","Yahoo Finance","sec-8","UNITEDHEALTH",,"Real Estate","IL",
+"GB8698459802","Tesla Inc.","Stock",404,40.6,16402.4,"GBP",42.62,17218.48,2.02,4.97,"2025-05-13T20:41:51.683Z","Yahoo Finance","sec-9","TESLA",,"Consumer Defensive","GB",
+"FR1962928124","Home Depot Inc.","Cash",216,454.42,98154.72,"GBP",433.79,93698.64,-20.63,-4.54,"2025-05-13T20:41:51.683Z","Yahoo Finance","sec-10","HOME",,"Communication Services","FR",

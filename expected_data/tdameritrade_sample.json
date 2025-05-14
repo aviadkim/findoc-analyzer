@@ -1,0 +1,66 @@
+{
+  "document_type": "tdameritrade",
+  "currency": "USD",
+  "securities": [
+    {
+      "ticker": "AAPL",
+      "isin": "US0378331005",
+      "description": "APPLE INC",
+      "nominal": 95,
+      "price": 142.56,
+      "value": 13543.20,
+      "currency": "USD",
+      "type": "equity"
+    },
+    {
+      "ticker": "MSFT",
+      "isin": "US5949181045",
+      "description": "MICROSOFT CORP",
+      "nominal": 70,
+      "price": 258.35,
+      "value": 18084.50,
+      "currency": "USD",
+      "type": "equity"
+    },
+    {
+      "ticker": "GOOGL",
+      "isin": "US02079K3059",
+      "description": "ALPHABET INC CL A",
+      "nominal": 35,
+      "price": 132.58,
+      "value": 4640.30,
+      "currency": "USD",
+      "type": "equity"
+    },
+    {
+      "ticker": "AMZN",
+      "isin": "US0231351067",
+      "description": "AMAZON.COM INC",
+      "nominal": 45,
+      "price": 130.36,
+      "value": 5866.20,
+      "currency": "USD",
+      "type": "equity"
+    },
+    {
+      "ticker": "SPY",
+      "isin": "US78462F1030",
+      "description": "SPDR S&P 500 ETF TRUST",
+      "nominal": 60,
+      "price": 389.41,
+      "value": 23364.60,
+      "currency": "USD",
+      "type": "etf"
+    },
+    {
+      "ticker": "QQQ",
+      "isin": "US46090E1038",
+      "description": "INVESCO QQQ TRUST SERIES 1",
+      "nominal": 40,
+      "price": 375.65,
+      "value": 15026.00,
+      "currency": "USD",
+      "type": "etf"
+    }
+  ]
+}

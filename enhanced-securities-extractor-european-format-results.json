@@ -1,0 +1,42 @@
+[
+  {
+    "name": "Securities:",
+    "isin": "DE0007236101",
+    "type": "unknown",
+    "quantity": 50,
+    "price": 876,
+    "value": 43800,
+    "percentage": 2,
+    "currency": "EUR"
+  },
+  {
+    "name": "Security with ISIN FR0000121014",
+    "isin": "FR0000121014",
+    "type": "unknown",
+    "quantity": 50,
+    "price": 105.75,
+    "value": 5287.5,
+    "percentage": 2,
+    "currency": "EUR"
+  },
+  {
+    "name": "Security with ISIN CH0038863350",
+    "isin": "CH0038863350",
+    "type": "unknown",
+    "quantity": 50,
+    "price": 105.75,
+    "value": 5287.5,
+    "percentage": 2,
+    "currency": "EUR"
+  },
+  {
+    "name": "Securities:",
+    "isin": "DE0007164600",
+    "type": "unknown",
+    "quantity": 50,
+    "price": 13,
+    "value": 650,
+    "percentage": 2,
+    "currency": "EUR"
+  }
+]

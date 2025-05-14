@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify Multi-Factor Authentication</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <style>
+        .container {
+            max-width: 400px;
+            margin: 100px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 24px;
+            letter-spacing: 4px;
+            text-align: center;
+        }
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #4caf50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 500;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .alert {
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 4px;
+        }
+        .alert-success {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        .alert-danger {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+        .hidden {
+            display: none;
+        }
+        .login-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .auth-icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 15px;
+            display: block;
+        }
+        .code-input-container {
+            position: relative;
+        }
+        .code-legend {
+            display: flex;
+            justify-content: space-between;
+            padding: 0 4px;
+            margin-top: 5px;
+            color: #6c757d;
+        }
+        .attempts-remaining {
+            text-align: center;
+            margin-top: 10px;
+            color: #6c757d;
+            font-size: 14px;
+        }
+        .timer-container {
+            text-align: center;
+            margin-top: 15px;
+            color: #6c757d;
+        }
+        .timer {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="login-header">
+            <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0iIzRjYWY1MCI+PHBhdGggZD0iTTEyLDFMMyw5aDN2MTFoMTJWOWgzTDEyLDF6Ii8+PC9zdmc+" alt="Security Icon" class="auth-icon">
+            <h1>Verification Required</h1>
+            <p>Enter the code from your authenticator app</p>
+        </div>
+        
+        <div id="error-message" class="alert alert-danger hidden"></div>
+        
+        <form id="verification-form">
+            <div class="form-group">
+                <div class="code-input-container">
+                    <input type="text" id="verification-code" placeholder="000000" maxlength="6" pattern="[0-9]{6}" autocomplete="one-time-code" inputmode="numeric" autofocus>
+                    <div class="code-legend">
+                        <span>Code</span>
+                        <span id="timer-container" class="timer-container">Expires in <span id="timer" class="timer">30</span>s</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="attempts-remaining" class="attempts-remaining">3 attempts remaining</div>
+            
+            <button type="submit">Verify</button>
+        </form>
+        
+        <div style="text-align: center; margin-top: 20px;">
+            <a href="/login.html" style="color: #4caf50; text-decoration: none;">Back to login</a>
+        </div>
+    </div>
+
+    <script>
+        // Get verification data from URL query parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const verificationId = urlParams.get('id');
+        const email = urlParams.get('email');
+        
+        // Initialize timer
+        let timerSeconds = 30;
+        const timerElement = document.getElementById('timer');
+        const timerInterval = setInterval(() => {
+            timerSeconds--;
+            timerElement.textContent = timerSeconds;
+            
+            if (timerSeconds <= 0) {
+                clearInterval(timerInterval);
+                // In a real app, this would redirect or refresh to get a new code
+                timerElement.textContent = '0';
+                document.getElementById('timer-container').textContent = 'Code expired';
+            }
+        }, 1000);
+        
+        // Handle form submission
+        document.getElementById('verification-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const code = document.getElementById('verification-code').value.trim();
+            
+            if (!/^\d{6}$/.test(code)) {
+                showError('Please enter a valid 6-digit code');
+                return;
+            }
+            
+            try {
+                const response = await fetch('/api/auth/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        email: email,
+                        password: 'already-verified', // This is just a placeholder; in a real app, we would use a different endpoint
+                        mfaCode: code,
+                        verificationId: verificationId
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    // Store auth info
+                    localStorage.setItem('auth_token', data.sessionToken);
+                    localStorage.setItem('auth_user', JSON.stringify(data.user));
+                    
+                    // Redirect to dashboard or home page
+                    window.location.href = '/';
+                } else {
+                    // Update attempts remaining
+                    if (data.attemptsRemaining !== undefined) {
+                        document.getElementById('attempts-remaining').textContent = 
+                            data.attemptsRemaining + ' attempts remaining';
+                    }
+                    
+                    showError(data.message || 'Failed to verify code');
+                }
+            } catch (error) {
+                console.error('Error verifying code:', error);
+                showError('An error occurred while verifying the code. Please try again.');
+            }
+        });
+        
+        // Show error message
+        function showError(message) {
+            const errorElement = document.getElementById('error-message');
+            errorElement.textContent = message;
+            errorElement.classList.remove('hidden');
+            
+            // Auto-hide after 5 seconds
+            setTimeout(() => {
+                errorElement.classList.add('hidden');
+            }, 5000);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,896 @@
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>UI Validation Test Report</title>
+      <style>
+        body {
+          font-family: Arial, sans-serif;
+          line-height: 1.6;
+          margin: 0;
+          padding: 20px;
+          color: #333;
+        }
+        
+        h1, h2, h3 {
+          color: #444;
+        }
+        
+        .summary {
+          background-color: #f5f5f5;
+          padding: 20px;
+          border-radius: 5px;
+          margin-bottom: 20px;
+        }
+        
+        .summary-item {
+          margin-bottom: 10px;
+        }
+        
+        .pass {
+          color: #28a745;
+        }
+        
+        .warning {
+          color: #ffc107;
+        }
+        
+        .fail {
+          color: #dc3545;
+        }
+        
+        table {
+          width: 100%;
+          border-collapse: collapse;
+          margin-bottom: 20px;
+        }
+        
+        th, td {
+          padding: 12px 15px;
+          text-align: left;
+          border-bottom: 1px solid #ddd;
+        }
+        
+        th {
+          background-color: #f8f9fa;
+          font-weight: bold;
+        }
+        
+        tr:hover {
+          background-color: #f5f5f5;
+        }
+        
+        .details-table {
+          margin-top: 10px;
+          margin-bottom: 10px;
+        }
+        
+        .details-table th, .details-table td {
+          padding: 8px 10px;
+          font-size: 14px;
+        }
+        
+        button {
+          padding: 5px 10px;
+          background-color: #007bff;
+          color: white;
+          border: none;
+          border-radius: 3px;
+          cursor: pointer;
+        }
+        
+        button:hover {
+          background-color: #0069d9;
+        }
+        
+        code {
+          background-color: #f8f9fa;
+          padding: 2px 4px;
+          border-radius: 3px;
+          font-family: monospace;
+        }
+        
+        .timestamp {
+          color: #6c757d;
+          font-size: 14px;
+          margin-bottom: 20px;
+        }
+      </style>
+    </head>
+    <body>
+      <h1>UI Validation Test Report</h1>
+      
+      <div class="timestamp">
+        Generated on: 5/4/2025, 10:45:45 AM
+      </div>
+      
+      <div class="summary">
+        <h2>Summary</h2>
+        <div class="summary-item">Total elements: <strong>28</strong></div>
+        <div class="summary-item">Found elements: <strong class="pass">13</strong></div>
+        <div class="summary-item">Missing elements: <strong class="fail">15</strong></div>
+        <div class="summary-item">Overall pass rate: <strong class="fail">46.43%</strong></div>
+      </div>
+      
+      <h2>Results by Page</h2>
+      
+      <table>
+        <thead>
+          <tr>
+            <th>Page</th>
+            <th>Path</th>
+            <th>Total Elements</th>
+            <th>Found Elements</th>
+            <th>Missing Elements</th>
+            <th>Pass Rate</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          
+      <tr>
+        <td>Home</td>
+        <td>/</td>
+        <td>2</td>
+        <td>2</td>
+        <td>0</td>
+        <td class="pass">100.00%</td>
+        <td><button onclick="toggleDetails('Home')">Details</button></td>
+      </tr>
+      <tr id="Home-details" class="details-row" style="display: none;">
+        <td colspan="7">
+          <table class="details-table">
+            <thead>
+              <tr>
+                <th>Element</th>
+                <th>Selector</th>
+                <th>Status</th>
+                <th>Required</th>
+              </tr>
+            </thead>
+            <tbody>
+              
+                  <tr>
+                    <td>Show Chat Button</td>
+                    <td><code>#show-chat-btn</code></td>
+                    <td class="pass">Found</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Document Chat Container</td>
+                    <td><code>#document-chat-container</code></td>
+                    <td class="pass">Found</td>
+                    <td>No</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Document Chat Input</td>
+                    <td><code>#document-chat-input</code></td>
+                    <td class="warning">Missing</td>
+                    <td>No</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Document Chat Send Button</td>
+                    <td><code>#document-send-btn</code></td>
+                    <td class="pass">Found</td>
+                    <td>No</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Login Form</td>
+                    <td><code>#login-form</code></td>
+                    <td class="pass">Found</td>
+                    <td>No</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Google Login Button</td>
+                    <td><code>#google-login-btn</code></td>
+                    <td class="pass">Found</td>
+                    <td>No</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Show Chat Button</td>
+                    <td><code>#show-chat-btn</code></td>
+                    <td class="pass">Found</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Document Chat Container</td>
+                    <td><code>#document-chat-container</code></td>
+                    <td class="pass">Found</td>
+                    <td>No</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Document Chat Input</td>
+                    <td><code>#document-chat-input</code></td>
+                    <td class="warning">Missing</td>
+                    <td>No</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Document Chat Send Button</td>
+                    <td><code>#document-send-btn</code></td>
+                    <td class="pass">Found</td>
+                    <td>No</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Login Form</td>
+                    <td><code>#login-form</code></td>
+                    <td class="pass">Found</td>
+                    <td>No</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Google Login Button</td>
+                    <td><code>#google-login-btn</code></td>
+                    <td class="pass">Found</td>
+                    <td>No</td>
+                  </tr>
+                
+            </tbody>
+          </table>
+        </td>
+      </tr>
+    
+      <tr>
+        <td>Upload</td>
+        <td>/upload</td>
+        <td>2</td>
+        <td>2</td>
+        <td>0</td>
+        <td class="pass">100.00%</td>
+        <td><button onclick="toggleDetails('Upload')">Details</button></td>
+      </tr>
+      <tr id="Upload-details" class="details-row" style="display: none;">
+        <td colspan="7">
+          <table class="details-table">
+            <thead>
+              <tr>
+                <th>Element</th>
+                <th>Selector</th>
+                <th>Status</th>
+                <th>Required</th>
+              </tr>
+            </thead>
+            <tbody>
+              
+                  <tr>
+                    <td>Show Chat Button</td>
+                    <td><code>#show-chat-btn</code></td>
+                    <td class="pass">Found</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Document Chat Container</td>
+                    <td><code>#document-chat-container</code></td>
+                    <td class="pass">Found</td>
+                    <td>No</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Document Chat Input</td>
+                    <td><code>#document-chat-input</code></td>
+                    <td class="pass">Found</td>
+                    <td>No</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Document Chat Send Button</td>
+                    <td><code>#document-send-btn</code></td>
+                    <td class="pass">Found</td>
+                    <td>No</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Login Form</td>
+                    <td><code>#login-form</code></td>
+                    <td class="pass">Found</td>
+                    <td>No</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Google Login Button</td>
+                    <td><code>#google-login-btn</code></td>
+                    <td class="pass">Found</td>
+                    <td>No</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Process Document Button</td>
+                    <td><code>#process-document-btn</code></td>
+                    <td class="pass">Found</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Progress Container</td>
+                    <td><code>#progress-container</code></td>
+                    <td class="warning">Missing</td>
+                    <td>No</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Progress Bar</td>
+                    <td><code>#progress-bar</code></td>
+                    <td class="warning">Missing</td>
+                    <td>No</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Upload Status</td>
+                    <td><code>#upload-status</code></td>
+                    <td class="warning">Missing</td>
+                    <td>No</td>
+                  </tr>
+                
+            </tbody>
+          </table>
+        </td>
+      </tr>
+    
+      <tr>
+        <td>Documents</td>
+        <td>/documents-new</td>
+        <td>4</td>
+        <td>1</td>
+        <td>3</td>
+        <td class="fail">25.00%</td>
+        <td><button onclick="toggleDetails('Documents')">Details</button></td>
+      </tr>
+      <tr id="Documents-details" class="details-row" style="display: none;">
+        <td colspan="7">
+          <table class="details-table">
+            <thead>
+              <tr>
+                <th>Element</th>
+                <th>Selector</th>
+                <th>Status</th>
+                <th>Required</th>
+              </tr>
+            </thead>
+            <tbody>
+              
+                  <tr>
+                    <td>Show Chat Button</td>
+                    <td><code>#show-chat-btn</code></td>
+                    <td class="pass">Found</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Document Chat Container</td>
+                    <td><code>#document-chat-container</code></td>
+                    <td class="pass">Found</td>
+                    <td>No</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Document Chat Input</td>
+                    <td><code>#document-chat-input</code></td>
+                    <td class="pass">Found</td>
+                    <td>No</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Document Chat Send Button</td>
+                    <td><code>#document-send-btn</code></td>
+                    <td class="pass">Found</td>
+                    <td>No</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Login Form</td>
+                    <td><code>#login-form</code></td>
+                    <td class="pass">Found</td>
+                    <td>No</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Google Login Button</td>
+                    <td><code>#google-login-btn</code></td>
+                    <td class="pass">Found</td>
+                    <td>No</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Document List</td>
+                    <td><code>.document-list</code></td>
+                    <td class="fail">Missing</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Document Items</td>
+                    <td><code>.document-item</code></td>
+                    <td class="fail">Missing</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Document Actions</td>
+                    <td><code>.document-actions</code></td>
+                    <td class="fail">Missing</td>
+                    <td>Yes</td>
+                  </tr>
+                
+            </tbody>
+          </table>
+        </td>
+      </tr>
+    
+      <tr>
+        <td>Analytics</td>
+        <td>/analytics-new</td>
+        <td>4</td>
+        <td>1</td>
+        <td>3</td>
+        <td class="fail">25.00%</td>
+        <td><button onclick="toggleDetails('Analytics')">Details</button></td>
+      </tr>
+      <tr id="Analytics-details" class="details-row" style="display: none;">
+        <td colspan="7">
+          <table class="details-table">
+            <thead>
+              <tr>
+                <th>Element</th>
+                <th>Selector</th>
+                <th>Status</th>
+                <th>Required</th>
+              </tr>
+            </thead>
+            <tbody>
+              
+                  <tr>
+                    <td>Show Chat Button</td>
+                    <td><code>#show-chat-btn</code></td>
+                    <td class="pass">Found</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Document Chat Container</td>
+                    <td><code>#document-chat-container</code></td>
+                    <td class="pass">Found</td>
+                    <td>No</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Document Chat Input</td>
+                    <td><code>#document-chat-input</code></td>
+                    <td class="pass">Found</td>
+                    <td>No</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Document Chat Send Button</td>
+                    <td><code>#document-send-btn</code></td>
+                    <td class="pass">Found</td>
+                    <td>No</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Login Form</td>
+                    <td><code>#login-form</code></td>
+                    <td class="pass">Found</td>
+                    <td>No</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Google Login Button</td>
+                    <td><code>#google-login-btn</code></td>
+                    <td class="pass">Found</td>
+                    <td>No</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Analytics Dashboard</td>
+                    <td><code>.analytics-dashboard</code></td>
+                    <td class="fail">Missing</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Analytics Charts</td>
+                    <td><code>.analytics-chart</code></td>
+                    <td class="fail">Missing</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Analytics Filters</td>
+                    <td><code>.analytics-filters</code></td>
+                    <td class="fail">Missing</td>
+                    <td>Yes</td>
+                  </tr>
+                
+            </tbody>
+          </table>
+        </td>
+      </tr>
+    
+      <tr>
+        <td>Document Details</td>
+        <td>/document-details.html</td>
+        <td>4</td>
+        <td>1</td>
+        <td>3</td>
+        <td class="fail">25.00%</td>
+        <td><button onclick="toggleDetails('Document-Details')">Details</button></td>
+      </tr>
+      <tr id="Document-Details-details" class="details-row" style="display: none;">
+        <td colspan="7">
+          <table class="details-table">
+            <thead>
+              <tr>
+                <th>Element</th>
+                <th>Selector</th>
+                <th>Status</th>
+                <th>Required</th>
+              </tr>
+            </thead>
+            <tbody>
+              
+                  <tr>
+                    <td>Show Chat Button</td>
+                    <td><code>#show-chat-btn</code></td>
+                    <td class="pass">Found</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Document Chat Container</td>
+                    <td><code>#document-chat-container</code></td>
+                    <td class="pass">Found</td>
+                    <td>No</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Document Chat Input</td>
+                    <td><code>#document-chat-input</code></td>
+                    <td class="pass">Found</td>
+                    <td>No</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Document Chat Send Button</td>
+                    <td><code>#document-send-btn</code></td>
+                    <td class="pass">Found</td>
+                    <td>No</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Login Form</td>
+                    <td><code>#login-form</code></td>
+                    <td class="pass">Found</td>
+                    <td>No</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Google Login Button</td>
+                    <td><code>#google-login-btn</code></td>
+                    <td class="pass">Found</td>
+                    <td>No</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Document Metadata</td>
+                    <td><code>.document-metadata</code></td>
+                    <td class="fail">Missing</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Document Content</td>
+                    <td><code>.document-content</code></td>
+                    <td class="fail">Missing</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Document Tables</td>
+                    <td><code>.document-tables</code></td>
+                    <td class="fail">Missing</td>
+                    <td>Yes</td>
+                  </tr>
+                
+            </tbody>
+          </table>
+        </td>
+      </tr>
+    
+      <tr>
+        <td>Document Chat</td>
+        <td>/document-chat</td>
+        <td>4</td>
+        <td>3</td>
+        <td>1</td>
+        <td class="fail">75.00%</td>
+        <td><button onclick="toggleDetails('Document-Chat')">Details</button></td>
+      </tr>
+      <tr id="Document-Chat-details" class="details-row" style="display: none;">
+        <td colspan="7">
+          <table class="details-table">
+            <thead>
+              <tr>
+                <th>Element</th>
+                <th>Selector</th>
+                <th>Status</th>
+                <th>Required</th>
+              </tr>
+            </thead>
+            <tbody>
+              
+                  <tr>
+                    <td>Show Chat Button</td>
+                    <td><code>#show-chat-btn</code></td>
+                    <td class="pass">Found</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Document Chat Container</td>
+                    <td><code>#document-chat-container</code></td>
+                    <td class="pass">Found</td>
+                    <td>No</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Document Chat Input</td>
+                    <td><code>#document-chat-input</code></td>
+                    <td class="pass">Found</td>
+                    <td>No</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Document Chat Send Button</td>
+                    <td><code>#document-send-btn</code></td>
+                    <td class="pass">Found</td>
+                    <td>No</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Login Form</td>
+                    <td><code>#login-form</code></td>
+                    <td class="pass">Found</td>
+                    <td>No</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Google Login Button</td>
+                    <td><code>#google-login-btn</code></td>
+                    <td class="pass">Found</td>
+                    <td>No</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Document Selector</td>
+                    <td><code>.document-selector</code></td>
+                    <td class="pass">Found</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Chat History</td>
+                    <td><code>.chat-history</code></td>
+                    <td class="fail">Missing</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Chat Input</td>
+                    <td><code>.chat-input</code></td>
+                    <td class="pass">Found</td>
+                    <td>Yes</td>
+                  </tr>
+                
+            </tbody>
+          </table>
+        </td>
+      </tr>
+    
+      <tr>
+        <td>Document Comparison</td>
+        <td>/document-comparison</td>
+        <td>4</td>
+        <td>2</td>
+        <td>2</td>
+        <td class="fail">50.00%</td>
+        <td><button onclick="toggleDetails('Document-Comparison')">Details</button></td>
+      </tr>
+      <tr id="Document-Comparison-details" class="details-row" style="display: none;">
+        <td colspan="7">
+          <table class="details-table">
+            <thead>
+              <tr>
+                <th>Element</th>
+                <th>Selector</th>
+                <th>Status</th>
+                <th>Required</th>
+              </tr>
+            </thead>
+            <tbody>
+              
+                  <tr>
+                    <td>Show Chat Button</td>
+                    <td><code>#show-chat-btn</code></td>
+                    <td class="pass">Found</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Document Chat Container</td>
+                    <td><code>#document-chat-container</code></td>
+                    <td class="pass">Found</td>
+                    <td>No</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Document Chat Input</td>
+                    <td><code>#document-chat-input</code></td>
+                    <td class="pass">Found</td>
+                    <td>No</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Document Chat Send Button</td>
+                    <td><code>#document-send-btn</code></td>
+                    <td class="pass">Found</td>
+                    <td>No</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Login Form</td>
+                    <td><code>#login-form</code></td>
+                    <td class="pass">Found</td>
+                    <td>No</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Google Login Button</td>
+                    <td><code>#google-login-btn</code></td>
+                    <td class="pass">Found</td>
+                    <td>No</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Comparison Container</td>
+                    <td><code>.comparison-container</code></td>
+                    <td class="fail">Missing</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Document Selectors</td>
+                    <td><code>.document-selector</code></td>
+                    <td class="fail">Missing</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Comparison Results</td>
+                    <td><code>.comparison-results</code></td>
+                    <td class="pass">Found</td>
+                    <td>Yes</td>
+                  </tr>
+                
+            </tbody>
+          </table>
+        </td>
+      </tr>
+    
+      <tr>
+        <td>Test</td>
+        <td>/test</td>
+        <td>4</td>
+        <td>1</td>
+        <td>3</td>
+        <td class="fail">25.00%</td>
+        <td><button onclick="toggleDetails('Test')">Details</button></td>
+      </tr>
+      <tr id="Test-details" class="details-row" style="display: none;">
+        <td colspan="7">
+          <table class="details-table">
+            <thead>
+              <tr>
+                <th>Element</th>
+                <th>Selector</th>
+                <th>Status</th>
+                <th>Required</th>
+              </tr>
+            </thead>
+            <tbody>
+              
+                  <tr>
+                    <td>Show Chat Button</td>
+                    <td><code>#show-chat-btn</code></td>
+                    <td class="pass">Found</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Document Chat Container</td>
+                    <td><code>#document-chat-container</code></td>
+                    <td class="pass">Found</td>
+                    <td>No</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Document Chat Input</td>
+                    <td><code>#document-chat-input</code></td>
+                    <td class="pass">Found</td>
+                    <td>No</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Document Chat Send Button</td>
+                    <td><code>#document-send-btn</code></td>
+                    <td class="pass">Found</td>
+                    <td>No</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Login Form</td>
+                    <td><code>#login-form</code></td>
+                    <td class="pass">Found</td>
+                    <td>No</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Google Login Button</td>
+                    <td><code>#google-login-btn</code></td>
+                    <td class="pass">Found</td>
+                    <td>No</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Agent Cards</td>
+                    <td><code>.agent-card</code></td>
+                    <td class="fail">Missing</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Agent Status Indicators</td>
+                    <td><code>.status-indicator</code></td>
+                    <td class="fail">Missing</td>
+                    <td>Yes</td>
+                  </tr>
+                
+                  <tr>
+                    <td>Agent Action Buttons</td>
+                    <td><code>.agent-action</code></td>
+                    <td class="fail">Missing</td>
+                    <td>Yes</td>
+                  </tr>
+                
+            </tbody>
+          </table>
+        </td>
+      </tr>
+    
+        </tbody>
+      </table>
+      
+      <script>
+        function toggleDetails(pageName) {
+          const detailsRow = document.getElementById(pageName + '-details');
+          if (detailsRow.style.display === 'none') {
+            detailsRow.style.display = 'table-row';
+          } else {
+            detailsRow.style.display = 'none';
+          }
+        }
+      </script>
+    </body>
+    </html>
+  

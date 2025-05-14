@@ -22,6 +22,14 @@ if (-not (Test-Path ".\results")) {
 Write-Host "Building and starting Docker containers..."
 docker-compose up --build -d
 
+# Wait for the application to start
+Write-Host "Waiting for the application to start..." -ForegroundColor Yellow
+Start-Sleep -Seconds 5
+
+# Open the application in the default browser
+Write-Host "Opening the application in the default browser..." -ForegroundColor Green
+Start-Process "http://localhost:8080"
+
 Write-Host "
 ===================================================
 Docker Containers Started!
@@ -29,8 +37,8 @@ Docker Containers Started!
 
 The FinDoc Analyzer is now running in Docker containers:
 
-- Frontend: http://localhost:3002
-- Backend API: http://localhost:5000
+- Application: http://localhost:8080
+- API Health: http://localhost:8080/api/health
 
 To stop the containers, run:
 docker-compose down

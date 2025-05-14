@@ -1,0 +1,197 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Deployed UI Validation Test Results</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .summary {
+      background-color: #f5f5f5;
+      padding: 20px;
+      border-radius: 5px;
+      margin-bottom: 20px;
+    }
+    .progress-bar {
+      height: 20px;
+      background-color: #e0e0e0;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      overflow: hidden;
+    }
+    .progress {
+      height: 100%;
+      background-color: #f44336;
+      width: 22.22222222222222%;
+      border-radius: 10px;
+      text-align: center;
+      line-height: 20px;
+      color: white;
+      font-size: 12px;
+      font-weight: bold;
+    }
+    .components {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 15px;
+    }
+    .component {
+      padding: 15px;
+      border-radius: 5px;
+      display: flex;
+      align-items: center;
+    }
+    .component.passed {
+      background-color: #e8f5e9;
+    }
+    .component.failed {
+      background-color: #ffebee;
+    }
+    .component-icon {
+      margin-right: 10px;
+      font-size: 20px;
+    }
+    .passed .component-icon {
+      color: #4caf50;
+    }
+    .failed .component-icon {
+      color: #f44336;
+    }
+    .deployed-url {
+      text-align: center;
+      margin-bottom: 20px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1>Deployed UI Validation Test Results</h1>
+  
+  <div class="deployed-url">
+    <p>Deployed URL: <a href="https://backv2-app-brfi73d4ra-zf.a.run.app" target="_blank">https://backv2-app-brfi73d4ra-zf.a.run.app</a></p>
+  </div>
+  
+  <div class="summary">
+    <div class="progress-bar">
+      <div class="progress">22.22%</div>
+    </div>
+    <p><strong>Total components:</strong> 9</p>
+    <p><strong>Found components:</strong> 2</p>
+    <p><strong>Missing components:</strong> 7</p>
+    <p><strong>Pass rate:</strong> 22.22%</p>
+  </div>
+  
+  <h2>Components</h2>
+  
+  <div class="components">
+    
+      <div class="component passed">
+        <span class="component-icon">✅</span>
+        <span class="component-name">Chat Input</span>
+      </div>
+    
+      <div class="component passed">
+        <span class="component-icon">✅</span>
+        <span class="component-name">Chat Send Button</span>
+      </div>
+    
+      <div class="component failed">
+        <span class="component-icon">❌</span>
+        <span class="component-name">Progress Container</span>
+      </div>
+    
+      <div class="component failed">
+        <span class="component-icon">❌</span>
+        <span class="component-name">Document List</span>
+      </div>
+    
+      <div class="component failed">
+        <span class="component-icon">❌</span>
+        <span class="component-name">Document Item</span>
+      </div>
+    
+      <div class="component failed">
+        <span class="component-icon">❌</span>
+        <span class="component-name">Document Actions</span>
+      </div>
+    
+      <div class="component failed">
+        <span class="component-icon">❌</span>
+        <span class="component-name">Agent Card</span>
+      </div>
+    
+      <div class="component failed">
+        <span class="component-icon">❌</span>
+        <span class="component-name">Agent Status Indicator</span>
+      </div>
+    
+      <div class="component failed">
+        <span class="component-icon">❌</span>
+        <span class="component-name">Agent Action Button</span>
+      </div>
+    
+  </div>
+  
+  <h2>Screenshots</h2>
+  
+  <div class="screenshots">
+    
+      <div class="screenshot">
+        <h3>Chat Input</h3>
+        <img src="../test-deployed-ui-screenshots/chat-input.png" alt="Chat Input" style="max-width: 100%; border: 1px solid #ddd;">
+      </div>
+    
+      <div class="screenshot">
+        <h3>Chat Send Button</h3>
+        <img src="../test-deployed-ui-screenshots/chat-send-button.png" alt="Chat Send Button" style="max-width: 100%; border: 1px solid #ddd;">
+      </div>
+    
+      <div class="screenshot">
+        <h3>Progress Container</h3>
+        <img src="../test-deployed-ui-screenshots/progress-container.png" alt="Progress Container" style="max-width: 100%; border: 1px solid #ddd;">
+      </div>
+    
+      <div class="screenshot">
+        <h3>Document List</h3>
+        <img src="../test-deployed-ui-screenshots/document-list.png" alt="Document List" style="max-width: 100%; border: 1px solid #ddd;">
+      </div>
+    
+      <div class="screenshot">
+        <h3>Document Item</h3>
+        <img src="../test-deployed-ui-screenshots/document-item.png" alt="Document Item" style="max-width: 100%; border: 1px solid #ddd;">
+      </div>
+    
+      <div class="screenshot">
+        <h3>Document Actions</h3>
+        <img src="../test-deployed-ui-screenshots/document-actions.png" alt="Document Actions" style="max-width: 100%; border: 1px solid #ddd;">
+      </div>
+    
+      <div class="screenshot">
+        <h3>Agent Card</h3>
+        <img src="../test-deployed-ui-screenshots/agent-card.png" alt="Agent Card" style="max-width: 100%; border: 1px solid #ddd;">
+      </div>
+    
+      <div class="screenshot">
+        <h3>Agent Status Indicator</h3>
+        <img src="../test-deployed-ui-screenshots/agent-status-indicator.png" alt="Agent Status Indicator" style="max-width: 100%; border: 1px solid #ddd;">
+      </div>
+    
+      <div class="screenshot">
+        <h3>Agent Action Button</h3>
+        <img src="../test-deployed-ui-screenshots/agent-action-button.png" alt="Agent Action Button" style="max-width: 100%; border: 1px solid #ddd;">
+      </div>
+    
+  </div>
+</body>
+</html>

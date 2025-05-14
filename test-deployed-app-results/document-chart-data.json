@@ -1,0 +1,25 @@
+{
+  "type": "pie",
+  "title": "Portfolio Allocation",
+  "description": "Chart generated from prompt: \"Create a pie chart showing the portfolio allocation by security\"",
+  "labels": [
+    "Apple Inc.",
+    "Microsoft Corp.",
+    "Cash"
+  ],
+  "datasets": [
+    {
+      "label": "Portfolio Allocation",
+      "data": [
+        25.7,
+        72.9,
+        1.4
+      ],
+      "backgroundColor": [
+        "#FF6384",
+        "#36A2EB",
+        "#FFCE56"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UI Components Test</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      margin: 0;
+      padding: 20px;
+      color: #333;
+    }
+    
+    h1, h2, h3 {
+      color: #444;
+    }
+    
+    .test-section {
+      margin-bottom: 30px;
+      padding: 20px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+    
+    .test-button {
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-right: 10px;
+      margin-bottom: 10px;
+    }
+    
+    .test-button:hover {
+      background-color: #0069d9;
+    }
+    
+    .test-result {
+      margin-top: 10px;
+      padding: 10px;
+      background-color: #f8f9fa;
+      border-radius: 5px;
+      min-height: 100px;
+    }
+    
+    .success {
+      color: #28a745;
+    }
+    
+    .error {
+      color: #dc3545;
+    }
+    
+    .test-page-content {
+      margin-top: 20px;
+    }
+  </style>
+  <link rel="stylesheet" href="/css/ui-fixes.css">
+  <script src="/js/ui-chat-component.js"></script>
+</head>
+<body>
+  <h1>UI Components Test</h1>
+  
+  <div class="test-page-content">
+    <div class="test-section">
+      <h2>Backend API Test</h2>
+      
+      <button class="test-button" onclick="testBackendApi()">Test Backend API</button>
+      
+      <div id="api-test-result" class="test-result"></div>
+    </div>
+    
+    <div class="test-section">
+      <h2>Agent Cards Test</h2>
+      
+      <button class="test-button" onclick="testAgentCards()">Test Agent Cards</button>
+      
+      <div id="agent-cards-test-result" class="test-result"></div>
+    </div>
+    
+    <div class="test-section">
+      <h2>Chat Interface Test</h2>
+      
+      <button class="test-button" onclick="testChatInterface()">Test Chat Interface</button>
+      
+      <div id="chat-interface-test-result" class="test-result"></div>
+    </div>
+    
+    <div class="test-section">
+      <h2>Process Button Test</h2>
+      
+      <p>Note: This test will redirect to the upload page.</p>
+      
+      <button class="test-button" onclick="testProcessButton()">Test Process Button</button>
+      
+      <div id="process-button-test-result" class="test-result"></div>
+    </div>
+  </div>
+  
+  <script>
+    // Test backend API
+    function testBackendApi() {
+      const resultElement = document.getElementById('api-test-result');
+      resultElement.innerHTML = 'Testing backend API...';
+      
+      // Test API status
+      fetch('/api/status')
+        .then(response => response.json())
+        .then(data => {
+          resultElement.innerHTML = `<p class="success">API Status: ${data.status}</p>`;
+          resultElement.innerHTML += `<p>Message: ${data.message}</p>`;
+          
+          // Test agents API
+          return fetch('/api/agents');
+        })
+        .then(response => response.json())
+        .then(data => {
+          resultElement.innerHTML += `<p class="success">Agents API: Success</p>`;
+          resultElement.innerHTML += `<p>Found ${data.length} agents</p>`;
+          
+          // Test chat API
+          return fetch('/api/chat', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ message: 'Test message' })
+          });
+        })
+        .then(response => response.json())
+        .then(data => {
+          resultElement.innerHTML += `<p class="success">Chat API: Success</p>`;
+          resultElement.innerHTML += `<p>Response: ${data.message}</p>`;
+          
+          resultElement.innerHTML += `<p class="success">All API tests passed!</p>`;
+        })
+        .catch(error => {
+          resultElement.innerHTML += `<p class="error">Error: ${error.message}</p>`;
+        });
+    }
+    
+    // Test agent cards
+    function testAgentCards() {
+      const resultElement = document.getElementById('agent-cards-test-result');
+      resultElement.innerHTML = 'Testing agent cards...';
+      
+      // Check if agent cards exist
+      const agentCards = document.querySelectorAll('.agent-card');
+      
+      if (agentCards.length > 0) {
+        resultElement.innerHTML = `<p class="success">Agent cards found: ${agentCards.length}</p>`;
+        
+        // Test agent card actions
+        const configureButtons = document.querySelectorAll('.agent-action.btn-primary');
+        const viewLogsButtons = document.querySelectorAll('.agent-action.btn-secondary');
+        const resetButtons = document.querySelectorAll('.agent-action.btn-danger');
+        
+        resultElement.innerHTML += `<p>Configure buttons: ${configureButtons.length}</p>`;
+        resultElement.innerHTML += `<p>View logs buttons: ${viewLogsButtons.length}</p>`;
+        resultElement.innerHTML += `<p>Reset buttons: ${resetButtons.length}</p>`;
+        
+        resultElement.innerHTML += `<p class="success">Agent cards test passed!</p>`;
+      } else {
+        resultElement.innerHTML = `<p class="error">No agent cards found</p>`;
+        resultElement.innerHTML += `<p>Please make sure you're on the test page and the agent cards component is loaded.</p>`;
+      }
+    }
+    
+    // Test chat interface
+    function testChatInterface() {
+      const resultElement = document.getElementById('chat-interface-test-result');
+      resultElement.innerHTML = 'Testing chat interface...';
+      
+      // Check if chat button exists
+      const chatButton = document.getElementById('show-chat-btn');
+      
+      if (chatButton) {
+        resultElement.innerHTML = `<p class="success">Chat button found</p>`;
+        
+        // Click chat button
+        chatButton.click();
+        
+        // Check if chat container exists
+        const chatContainer = document.getElementById('document-chat-container');
+        
+        if (chatContainer) {
+          resultElement.innerHTML += `<p class="success">Chat container found</p>`;
+          
+          // Check chat input and send button
+          const chatInput = document.getElementById('document-chat-input');
+          const sendButton = document.getElementById('document-send-btn');
+          
+          if (chatInput && sendButton) {
+            resultElement.innerHTML += `<p class="success">Chat input and send button found</p>`;
+            
+            // Test sending a message
+            chatInput.value = 'Test message';
+            sendButton.click();
+            
+            resultElement.innerHTML += `<p class="success">Test message sent</p>`;
+            resultElement.innerHTML += `<p class="success">Chat interface test passed!</p>`;
+          } else {
+            resultElement.innerHTML += `<p class="error">Chat input or send button not found</p>`;
+          }
+        } else {
+          resultElement.innerHTML += `<p class="error">Chat container not found</p>`;
+        }
+      } else {
+        resultElement.innerHTML = `<p class="error">Chat button not found</p>`;
+        resultElement.innerHTML += `<p>Please make sure the chat interface component is loaded.</p>`;
+      }
+    }
+    
+    // Test process button
+    function testProcessButton() {
+      const resultElement = document.getElementById('process-button-test-result');
+      resultElement.innerHTML = 'Testing process button...';
+      
+      // Redirect to upload page
+      resultElement.innerHTML += `<p>Redirecting to upload page...</p>`;
+      
+      setTimeout(() => {
+        window.location.href = '/upload';
+      }, 2000);
+    }
+  </script>
+  <script src="/js/ui-fixes.js"></script>
+
+  <script src="/js/ui-fix.js"></script>
+</body>
+</html>

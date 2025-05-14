@@ -1,0 +1,33 @@
+{
+  "total": 5,
+  "passed": 5,
+  "failed": 0,
+  "skipped": 0,
+  "tests": [
+    {
+      "name": "Data visualization test 1",
+      "status": "passed",
+      "duration": 7490
+    },
+    {
+      "name": "Data visualization test 2",
+      "status": "passed",
+      "duration": 6432
+    },
+    {
+      "name": "Data visualization test 3",
+      "status": "passed",
+      "duration": 6434
+    },
+    {
+      "name": "Data visualization test 4",
+      "status": "passed",
+      "duration": 6300
+    },
+    {
+      "name": "Data visualization test 5",
+      "status": "passed",
+      "duration": 6388
+    }
+  ]
+}

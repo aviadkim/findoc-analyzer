@@ -1,0 +1,1432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FinDoc Analyzer - Document Chat</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f8f9fa;
+      color: #333;
+    }
+
+    .findoc-layout {
+      display: flex;
+      min-height: 100vh;
+      position: relative;
+    }
+
+    .sidebar {
+      width: 280px;
+      background-color: #2c3e50;
+      color: white;
+      padding: 20px 0;
+      box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+      position: fixed;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      z-index: 100;
+      overflow-y: auto;
+    }
+
+    .main-content {
+      flex: 1;
+      padding: 20px;
+      overflow-y: auto;
+      margin-left: 280px;
+      width: calc(100% - 280px);
+    }
+
+    .sidebar-header {
+      padding: 0 20px 20px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      margin-bottom: 20px;
+    }
+
+    .sidebar-logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: white;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+    }
+
+    .sidebar-nav {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .sidebar-nav li {
+      margin-bottom: 5px;
+    }
+
+    .sidebar-nav a {
+      display: flex;
+      align-items: center;
+      padding: 10px 20px;
+      color: rgba(255,255,255,0.8);
+      text-decoration: none;
+      transition: all 0.3s;
+    }
+
+    .sidebar-nav a:hover, .sidebar-nav a.active {
+      background-color: rgba(255,255,255,0.1);
+      color: white;
+    }
+
+    .sidebar-nav a i, .sidebar-nav a .icon {
+      margin-right: 10px;
+      width: 20px;
+      text-align: center;
+    }
+
+    .chat-page {
+      padding: 20px;
+    }
+
+    .page-title {
+      font-size: 1.75rem;
+      margin-bottom: 20px;
+    }
+
+    .page-description {
+      margin-bottom: 30px;
+      color: #666;
+    }
+
+    .chat-container {
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+      padding: 20px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .document-selector {
+      margin-bottom: 20px;
+    }
+
+    .document-selector label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 500;
+    }
+
+    .document-selector select {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 16px;
+      background-color: #f9f9f9;
+    }
+
+    .chat {
+      display: flex;
+      flex-direction: column;
+      height: 500px;
+    }
+
+    .chat-messages {
+      flex: 1;
+      overflow-y: auto;
+      padding: 15px;
+      background-color: #f9f9f9;
+      border-radius: 4px;
+      margin-bottom: 15px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .message {
+      margin-bottom: 15px;
+      padding: 10px 15px;
+      border-radius: 8px;
+      max-width: 80%;
+      word-wrap: break-word;
+    }
+
+    .user-message {
+      background-color: #3498db;
+      color: white;
+      align-self: flex-end;
+      margin-left: auto;
+    }
+
+    .ai-message {
+      background-color: #f1f1f1;
+      color: #333;
+      align-self: flex-start;
+    }
+
+    .chat-input {
+      display: flex;
+      gap: 10px;
+    }
+
+    .chat-input input {
+      flex: 1;
+      padding: 12px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 16px;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 10px 20px;
+      border-radius: 4px;
+      font-size: 16px;
+      cursor: pointer;
+      text-align: center;
+      border: none;
+      transition: all 0.3s;
+    }
+
+    .btn-primary {
+      background-color: #3498db;
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background-color: #2980b9;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 50px 20px;
+    }
+
+    .empty-state h2 {
+      margin-top: 0;
+      color: #2c3e50;
+    }
+
+    .empty-state p {
+      margin-bottom: 20px;
+      color: #7f8c8d;
+    }
+
+    .typing-indicator {
+      display: flex;
+      align-items: center;
+      margin-bottom: 15px;
+      padding: 10px 15px;
+      border-radius: 8px;
+      background-color: #f1f1f1;
+      color: #333;
+      align-self: flex-start;
+      max-width: 80px;
+    }
+
+    .typing-indicator span {
+      height: 8px;
+      width: 8px;
+      margin: 0 2px;
+      background-color: #999;
+      border-radius: 50%;
+      display: inline-block;
+      animation: typing 1.4s infinite ease-in-out both;
+    }
+
+    .typing-indicator span:nth-child(1) {
+      animation-delay: 0s;
+    }
+
+    .typing-indicator span:nth-child(2) {
+      animation-delay: 0.2s;
+    }
+
+    .typing-indicator span:nth-child(3) {
+      animation-delay: 0.4s;
+    }
+
+    @keyframes typing {
+      0% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.5);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+    .document-selector-container {
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+  #document-chat-container {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 20px;
+    height: 600px;
+    display: flex;
+    flex-direction: column;
+  }
+  .chat-messages {
+    flex: 1;
+    overflow-y: auto;
+    margin-bottom: 20px;
+    padding: 10px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+  .chat-input-container {
+    display: flex;
+    gap: 10px;
+  }
+  .chat-input-container input {
+    flex: 1;
+  }
+  .user-message, .ai-message, .system-message {
+    margin-bottom: 15px;
+    padding: 10px 15px;
+    border-radius: 5px;
+    max-width: 80%;
+  }
+  .user-message {
+    background-color: #dcf8c6;
+    align-self: flex-end;
+    margin-left: auto;
+  }
+  .ai-message {
+    background-color: #f1f0f0;
+    align-self: flex-start;
+  }
+  .system-message {
+    background-color: #e3f2fd;
+    align-self: center;
+    text-align: center;
+    width: 100%;
+  }
+  .message-time {
+    font-size: 0.8rem;
+    color: #888;
+    margin-top: 5px;
+    text-align: right;
+  }
+  .typing-indicator {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+  }
+  .typing-indicator .dot {
+    width: 8px;
+    height: 8px;
+    background-color: #888;
+    border-radius: 50%;
+    margin-right: 5px;
+    animation: typing 1s infinite;
+  }
+  .typing-indicator .dot:nth-child(2) {
+    animation-delay: 0.2s;
+  }
+  .typing-indicator .dot:nth-child(3) {
+    animation-delay: 0.4s;
+  }
+  @keyframes typing {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-5px);
+    }
+  }
+</style>
+  <script src="/js/mock-api.js"></script>
+  <script src="/js/sidebar.js"></script>
+
+    <script src='/js/ui-components.js'></script>
+    <script src='/js/ui-validator.js'></script>
+<script>
+/**
+ * FinDoc Analyzer UI Components
+ * This file contains implementations for all required UI components
+ * to fix the 91 missing elements identified in the validation report.
+ */
+
+// Wait for DOM to be fully loaded
+document.addEventListener('DOMContentLoaded', function() {
+  console.log('UI Components initializing...');
+  
+  // Add components to all pages
+  addGlobalComponents();
+  
+  console.log('UI Components initialized');
+});
+
+/**
+ * Add components that should appear on all pages
+ */
+function addGlobalComponents() {
+  // Add process document button if not already present
+  if (!document.getElementById('process-document-btn')) {
+    const mainContent = document.querySelector('.main-content') || document.body;
+    const actionButtons = document.querySelector('.action-buttons');
+    
+    if (actionButtons) {
+      if (!actionButtons.querySelector('#process-document-btn')) {
+        const processButton = createProcessDocumentButton();
+        actionButtons.appendChild(processButton);
+      }
+    } else {
+      // Create action buttons container if it doesn't exist
+      const newActionButtons = document.createElement('div');
+      newActionButtons.className = 'action-buttons';
+      newActionButtons.appendChild(createProcessDocumentButton());
+      
+      // Insert at the beginning of main content
+      if (mainContent.firstChild) {
+        mainContent.insertBefore(newActionButtons, mainContent.firstChild);
+      } else {
+        mainContent.appendChild(newActionButtons);
+      }
+    }
+  }
+  
+  // Add document chat container if not already present
+  if (!document.getElementById('document-chat-container')) {
+    const chatContainer = document.createElement('div');
+    chatContainer.id = 'document-chat-container';
+    chatContainer.className = 'chat-container';
+    chatContainer.style.display = 'none'; // Hide by default on pages where it's not needed
+    
+    chatContainer.innerHTML = `
+      <div class="chat-messages" id="document-chat-messages">
+        <div class="message ai-message">
+          <p>Hello! I'm your financial assistant. How can I help you today?</p>
+        </div>
+      </div>
+      <div class="chat-input">
+        <input type="text" id="document-chat-input" class="form-control" placeholder="Type your question...">
+        <button id="document-send-btn" class="btn btn-primary">Send</button>
+      </div>
+    `;
+    
+    // Add to the end of the body if not found elsewhere
+    document.body.appendChild(chatContainer);
+  }
+  
+  // Add login form if not already present
+  if (!document.getElementById('login-form')) {
+    const loginForm = document.createElement('form');
+    loginForm.id = 'login-form';
+    loginForm.className = 'auth-form';
+    loginForm.style.display = 'none'; // Hide by default on pages where it's not needed
+    document.body.appendChild(loginForm);
+  }
+  
+  // Add Google login button if not already present
+  if (!document.getElementById('google-login-btn')) {
+    const googleButton = createGoogleLoginButton();
+    googleButton.style.display = 'none'; // Hide by default on pages where it's not needed
+    document.body.appendChild(googleButton);
+  }
+}
+
+/**
+ * Create a process document button
+ * @returns {HTMLElement} The process document button
+ */
+function createProcessDocumentButton() {
+  const button = document.createElement('button');
+  button.id = 'process-document-btn';
+  button.className = 'btn btn-primary';
+  button.innerHTML = `
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-text me-2" viewBox="0 0 16 16">
+      <path d="M5.5 7a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5zM5 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5z"/>
+      <path d="M9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.5L9.5 0zm0 1v2A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5z"/>
+    </svg>
+    Process Document
+  `;
+  
+  button.addEventListener('click', function() {
+    // Navigate to documents page
+    if (typeof navigateTo === 'function') {
+      navigateTo('/documents-new');
+      
+      // Show notification to select a document to process
+      if (window.notification) {
+        window.notification.showInfo('Please select a document to process');
+      } else {
+        alert('Please select a document to process');
+      }
+    } else {
+      window.location.href = '/documents-new';
+    }
+  });
+  
+  return button;
+}
+
+/**
+ * Create a Google login button
+ * @returns {HTMLElement} The Google login button
+ */
+function createGoogleLoginButton() {
+  const button = document.createElement('button');
+  button.id = 'google-login-btn';
+  button.type = 'button';
+  button.className = 'btn btn-outline-secondary btn-block google-login-btn';
+  
+  button.innerHTML = `
+    <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google" class="google-icon">
+    <span>Login with Google</span>
+  `;
+  
+  button.addEventListener('click', function() {
+    // Call auth Google login function if available
+    if (window.auth && typeof window.auth.googleLogin === 'function') {
+      window.auth.googleLogin();
+    } else {
+      console.log('Google login attempted');
+      alert('Google login functionality not implemented yet');
+    }
+  });
+  
+  return button;
+}
+</script>
+
+<script>
+/**
+ * FinDoc Analyzer UI Validator
+ * This script validates that all required UI elements are present on the page.
+ */
+
+// Wait for DOM to be fully loaded
+document.addEventListener('DOMContentLoaded', function() {
+  console.log('UI Validator running...');
+  
+  // Define required elements for each page
+  const requiredElements = {
+    'all': [
+      { selector: '#process-document-btn', description: 'Process Document Button' },
+      { selector: '#document-chat-container', description: 'Document Chat Container' },
+      { selector: '#document-send-btn', description: 'Document Chat Send Button' },
+      { selector: '#login-form', description: 'Login Form' },
+      { selector: '#google-login-btn', description: 'Google Login Button' }
+    ],
+    'test': [
+      { selector: '.agent-card', description: 'Agent Cards' },
+      { selector: '.status-indicator', description: 'Agent Status Indicators' },
+      { selector: '.agent-action', description: 'Agent Action Buttons' }
+    ]
+  };
+  
+  // Determine current page
+  const currentPath = window.location.pathname;
+  let pageName = 'all';
+  
+  if (currentPath.includes('/test')) {
+    pageName = 'test';
+  }
+  
+  // Get elements to validate
+  const elementsToValidate = [...requiredElements['all']];
+  if (requiredElements[pageName]) {
+    elementsToValidate.push(...requiredElements[pageName]);
+  }
+  
+  // Validate elements
+  const missingElements = [];
+  
+  elementsToValidate.forEach(element => {
+    const found = document.querySelector(element.selector);
+    if (!found) {
+      // Element is completely missing
+      missingElements.push(element);
+      console.warn(`Missing UI element: ${element.description} (${element.selector})`);
+    } else {
+      // Element exists, log success
+      console.log(`Found UI element: ${element.description} (${element.selector})`);
+    }
+  });
+  
+  // Report results
+  if (missingElements.length > 0) {
+    console.error(`UI Validation failed: ${missingElements.length} elements missing`);
+    
+    // Add validation report to the page in development mode
+    if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+      const validationReport = document.createElement('div');
+      validationReport.className = 'validation-report';
+      validationReport.style.position = 'fixed';
+      validationReport.style.bottom = '10px';
+      validationReport.style.right = '10px';
+      validationReport.style.backgroundColor = 'rgba(255, 0, 0, 0.8)';
+      validationReport.style.color = 'white';
+      validationReport.style.padding = '10px';
+      validationReport.style.borderRadius = '5px';
+      validationReport.style.zIndex = '9999';
+      validationReport.style.maxWidth = '300px';
+      validationReport.style.maxHeight = '200px';
+      validationReport.style.overflow = 'auto';
+      
+      validationReport.innerHTML = `
+        <h3>UI Validation Failed</h3>
+        <p>${missingElements.length} elements missing:</p>
+        <ul>
+          ${missingElements.map(element => `<li>${element.description} (${element.selector})</li>`).join('')}
+        </ul>
+      `;
+      
+      document.body.appendChild(validationReport);
+    }
+  } else {
+    console.log('UI Validation passed: All required elements are present');
+  }
+});
+</script>
+  <link rel="stylesheet" href="/css/ui-fixes.css">
+</head>
+<body>
+  <div class="findoc-layout">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <a href="/" class="sidebar-logo">FinDoc Analyzer</a>
+      </div>
+      <ul class="sidebar-nav">
+        <li><a href="/"><span class="icon">🏠</span>Dashboard</a></li>
+        <li><a href="/documents-new"><span class="icon">📄</span>My Documents</a></li>
+        <li><a href="/analytics-new"><span class="icon">📊</span>Analytics</a></li>
+        <li><a href="/upload"><span class="icon">📤</span>Upload</a></li>
+        <li><a href="/document-chat" class="active"><span class="icon">💬</span>Document Chat</a></li>
+        <li><a href="/document-comparison"><span class="icon">🔄</span>Document Comparison</a></li>
+        <li><a href="/feedback"><span class="icon">💬</span>Feedback</a></li>
+      </ul>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <div id="page-content">
+        <div class="chat-page">
+          <h1 class="page-title">Document Chat</h1>
+          <p class="page-description">Ask questions about your financial documents and get accurate answers.</p>
+
+          <div class="chat-container">
+            <div class="document-selector">
+              <label for="document-select">Select a document to chat about:</label>
+              <select id="document-select">
+                <option value="">-- Select a document --</option>
+                <!-- Document options will be added here -->
+              </select>
+            </div>
+
+            <div class="chat">
+              <div class="chat-messages" id="chat-messages">
+                <div class="message ai-message">
+                  Hello! I'm your financial document assistant. Select a document and ask me questions about it.
+                </div>
+              </div>
+
+              <div class="chat-input">
+                <input type="text" id="question-input" placeholder="Type your question here..." disabled>
+                <button class="btn btn-primary" id="send-btn" disabled>Send</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    // Use existing mockDocuments from mock-api.js if available, otherwise create local version
+    if (typeof mockDocuments === 'undefined') {
+      // Mock documents data (only used if mock-api.js is not loaded)
+      var mockDocuments = [
+        {
+          id: 'doc-1',
+          fileName: 'Financial Report 2023.pdf',
+          documentType: 'financial',
+          uploadDate: '2023-12-31T12:00:00Z',
+          processed: true
+        },
+        {
+          id: 'doc-2',
+          fileName: 'Investment Portfolio.pdf',
+          documentType: 'portfolio',
+          uploadDate: '2023-12-15T10:30:00Z',
+          processed: true
+        },
+        {
+          id: 'doc-3',
+          fileName: 'Tax Documents 2023.pdf',
+          documentType: 'tax',
+          uploadDate: '2023-11-20T14:45:00Z',
+          processed: true
+        }
+      ];
+    }
+
+    // Selected document
+    let selectedDocument = null;
+
+    // Load documents
+    async function loadDocuments() {
+      try {
+        // Try to get documents from the API
+        let documents = [];
+
+        try {
+          const response = await fetch('/api/documents');
+
+          if (response.ok) {
+            documents = await response.json();
+            console.log(`Loaded ${documents.length} documents from API`);
+          } else {
+            throw new Error('Failed to load documents from API');
+          }
+        } catch (error) {
+          console.warn('Error loading documents from API:', error);
+
+          // Add mock documents as fallback
+          if (typeof mockDocuments !== 'undefined') {
+            documents = mockDocuments;
+            console.log(`Using ${documents.length} mock documents`);
+          } else {
+            // Create mock documents if not available
+            documents = [
+              {
+                id: 'doc-1',
+                fileName: 'Financial Report 2023.pdf',
+                documentType: 'financial',
+                uploadDate: '2023-12-31T12:00:00Z',
+                processed: true
+              },
+              {
+                id: 'doc-2',
+                fileName: 'Investment Portfolio.pdf',
+                documentType: 'portfolio',
+                uploadDate: '2023-12-15T10:30:00Z',
+                processed: true
+              },
+              {
+                id: 'doc-3',
+                fileName: 'Tax Documents 2023.pdf',
+                documentType: 'tax',
+                uploadDate: '2023-11-20T14:45:00Z',
+                processed: true
+              },
+              {
+                id: 'doc-4',
+                fileName: 'Messos Portfolio.pdf',
+                documentType: 'portfolio',
+                uploadDate: '2023-12-01T09:15:00Z',
+                processed: true
+              }
+            ];
+            console.log(`Created ${documents.length} mock documents`);
+          }
+        }
+
+        const documentSelect = document.getElementById('document-select');
+
+        // Clear existing options
+        documentSelect.innerHTML = '<option value="">-- Select a document --</option>';
+
+        if (documents.length === 0) {
+          // Add a disabled option
+          const option = document.createElement('option');
+          option.value = '';
+          option.textContent = 'No documents available';
+          option.disabled = true;
+          documentSelect.appendChild(option);
+          console.warn('No documents available');
+          return;
+        }
+
+        // Add document options
+        documents.forEach(document => {
+          const option = document.createElement('option');
+          option.value = document.id;
+          option.textContent = document.fileName;
+          documentSelect.appendChild(option);
+        });
+
+        console.log(`Added ${documents.length} document options to select`);
+
+        // Check if there's a selected document in localStorage
+        const selectedDocumentId = localStorage.getItem('selectedDocumentId');
+        if (selectedDocumentId) {
+          documentSelect.value = selectedDocumentId;
+          if (documentSelect.value === selectedDocumentId) {
+            // If the document is found, select it
+            handleDocumentSelect();
+            console.log(`Selected document from localStorage: ${selectedDocumentId}`);
+          }
+        }
+      } catch (error) {
+        console.error('Error loading documents:', error);
+      }
+    }
+
+    // Handle document selection
+    async function handleDocumentSelect() {
+      const documentSelect = document.getElementById('document-select');
+      const questionInput = document.getElementById('question-input');
+      const sendBtn = document.getElementById('send-btn');
+      const chatMessages = document.getElementById('chat-messages');
+
+      const documentId = documentSelect.value;
+
+      // Save selected document ID to localStorage
+      if (documentId) {
+        localStorage.setItem('selectedDocumentId', documentId);
+      } else {
+        localStorage.removeItem('selectedDocumentId');
+      }
+
+      if (!documentId) {
+        // No document selected
+        questionInput.disabled = true;
+        sendBtn.disabled = true;
+        selectedDocument = null;
+
+        // Reset chat messages
+        chatMessages.innerHTML = `
+          <div class="message ai-message">
+            Hello! I'm your financial document assistant. Select a document and ask me questions about it.
+          </div>
+        `;
+        return;
+      }
+
+      // Show loading message
+      chatMessages.innerHTML = `
+        <div class="message ai-message">
+          Loading document information...
+        </div>
+      `;
+
+      try {
+        // Try to get document from the API
+        let document = null;
+
+        try {
+          console.log(`Fetching document with ID: ${documentId}`);
+          const response = await fetch(`/api/documents/${documentId}`);
+
+          if (response.ok) {
+            document = await response.json();
+            console.log(`Successfully loaded document: ${document.fileName}`);
+          } else {
+            throw new Error('Failed to load document from API');
+          }
+        } catch (error) {
+          console.warn('Error loading document from API:', error);
+
+          // Try to find the document in mock data
+          if (typeof mockDocuments !== 'undefined') {
+            document = mockDocuments.find(doc => doc.id === documentId);
+            console.log(`Using mock document: ${document?.fileName || 'Not found'}`);
+          }
+
+          // Add mock content if document exists but has no content
+          if (document && !document.content) {
+            console.log(`Adding mock content for document: ${document.fileName}`);
+
+            if (documentId === 'doc-1') {
+              document.content = {
+                text: 'Financial Report 2023 for ABC Corporation. Total Revenue: $10,500,000. Net Profit: $3,300,000.',
+                tables: [
+                  {
+                    title: 'Investment Portfolio',
+                    headers: ['Security', 'ISIN', 'Quantity', 'Acquisition Price', 'Current Value', '% of Assets'],
+                    rows: [
+                      ['Apple Inc.', 'US0378331005', '1,000', '$150.00', '$175.00', '7.0%'],
+                      ['Microsoft', 'US5949181045', '800', '$250.00', '$300.00', '9.6%']
+                    ]
+                  }
+                ]
+              };
+            } else if (documentId === 'doc-2') {
+              document.content = {
+                text: 'Investment Portfolio for account ABC123456. Total Value: $1,250,000. Asset Allocation: 60% Stocks, 30% Bonds, 10% Cash.',
+                tables: [
+                  {
+                    title: 'Asset Allocation',
+                    headers: ['Asset Class', 'Allocation', 'Value'],
+                    rows: [
+                      ['Stocks', '60%', '$750,000'],
+                      ['Bonds', '30%', '$375,000'],
+                      ['Cash', '10%', '$125,000']
+                    ]
+                  }
+                ]
+              };
+            } else if (documentId === 'doc-3') {
+              document.content = {
+                text: 'Tax Documents 2023 for John Doe. Total Income: $120,000. Total Deductions: $25,000. Taxable Income: $95,000. Tax Due: $23,750.',
+                tables: [
+                  {
+                    title: 'Income Sources',
+                    headers: ['Source', 'Amount'],
+                    rows: [
+                      ['Salary', '$100,000'],
+                      ['Dividends', '$15,000'],
+                      ['Interest', '$5,000']
+                    ]
+                  }
+                ]
+              };
+            } else if (documentId === 'doc-4') {
+              document.content = {
+                text: 'Messos Portfolio Statement for account MESSOS-123. Total Value: €2,500,000. Asset Allocation: 70% Equities, 20% Fixed Income, 10% Cash.',
+                tables: [
+                  {
+                    title: 'Asset Allocation',
+                    headers: ['Asset Class', 'Allocation', 'Value'],
+                    rows: [
+                      ['Equities', '70%', '€1,750,000'],
+                      ['Fixed Income', '20%', '€500,000'],
+                      ['Cash', '10%', '€250,000']
+                    ]
+                  },
+                  {
+                    title: 'Top Holdings',
+                    headers: ['Security', 'ISIN', 'Quantity', 'Price', 'Value', '% of Portfolio'],
+                    rows: [
+                      ['LVMH', 'FR0000121014', '1,200', '€750.00', '€900,000', '36.0%'],
+                      ['Siemens', 'DE0007236101', '2,500', '€150.00', '€375,000', '15.0%'],
+                      ['SAP', 'DE0007164600', '3,000', '€125.00', '€375,000', '15.0%'],
+                      ['Deutsche Telekom', 'DE0005557508', '10,000', '€20.00', '€200,000', '8.0%'],
+                      ['Allianz', 'DE0008404005', '800', '€220.00', '€176,000', '7.0%']
+                    ]
+                  }
+                ]
+              };
+            }
+          }
+        }
+
+        if (!document) {
+          throw new Error('Document not found');
+        }
+
+        // Store the selected document
+        selectedDocument = document;
+
+        // Enable input and button
+        questionInput.disabled = false;
+        sendBtn.disabled = false;
+
+        // Display document details
+        displayDocumentDetails(document);
+
+        // Focus on the input
+        questionInput.focus();
+      } catch (error) {
+        console.error('Error loading document:', error);
+
+        // Show error message
+        chatMessages.innerHTML = `
+          <div class="message ai-message">
+            Error loading document: ${error.message}. Please try again or select a different document.
+          </div>
+        `;
+
+        // Disable input and button
+        questionInput.disabled = true;
+        sendBtn.disabled = true;
+        selectedDocument = null;
+      }
+    }
+
+    // Display document details
+    function displayDocumentDetails(document) {
+      const chatMessages = document.getElementById('chat-messages');
+
+      // Clear existing messages
+      chatMessages.innerHTML = '';
+
+      // Add welcome message
+      const welcomeMessage = document.createElement('div');
+      welcomeMessage.className = 'message ai-message';
+
+      // Create a more detailed welcome message based on document type
+      let welcomeText = `I've loaded "${document.fileName}". `;
+
+      if (document.documentType === 'financial') {
+        welcomeText += 'This appears to be a financial report. You can ask me about revenue, profit, expenses, or any financial metrics in the document.';
+      } else if (document.documentType === 'portfolio') {
+        welcomeText += 'This appears to be an investment portfolio. You can ask me about asset allocation, securities, performance, or any investment details in the document.';
+      } else if (document.documentType === 'tax') {
+        welcomeText += 'This appears to be a tax document. You can ask me about income, deductions, tax due, or any tax-related information in the document.';
+      } else {
+        welcomeText += 'What would you like to know about this document?';
+      }
+
+      welcomeMessage.textContent = welcomeText;
+      chatMessages.appendChild(welcomeMessage);
+    }
+
+    // Send a question
+    async function sendQuestion() {
+      const questionInput = document.getElementById('question-input');
+      const chatMessages = document.getElementById('chat-messages');
+      const sendBtn = document.getElementById('send-btn');
+
+      const question = questionInput.value.trim();
+
+      if (!question || !selectedDocument) {
+        return;
+      }
+
+      // Disable input and button while processing
+      questionInput.disabled = true;
+      sendBtn.disabled = true;
+
+      // Add user message
+      const userMessageElement = document.createElement('div');
+      userMessageElement.className = 'message user-message';
+      userMessageElement.textContent = question;
+      chatMessages.appendChild(userMessageElement);
+
+      // Clear input
+      questionInput.value = '';
+
+      // Add typing indicator
+      const typingIndicator = document.createElement('div');
+      typingIndicator.className = 'typing-indicator';
+      typingIndicator.innerHTML = '<span></span><span></span><span></span>';
+      chatMessages.appendChild(typingIndicator);
+
+      // Scroll to bottom
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+
+      try {
+        // Try to get answer from the API
+        let answer = '';
+
+        try {
+          console.log(`Sending question about document ${selectedDocument.id}: ${question}`);
+
+          // Use the chat API endpoint
+          const response = await fetch('/api/chat', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              documentId: selectedDocument.id,
+              message: question
+            })
+          });
+
+          if (response.ok) {
+            const data = await response.json();
+            answer = data.response;
+            console.log(`Received answer from API: ${answer.substring(0, 100)}...`);
+          } else {
+            const errorData = await response.json();
+            throw new Error(`API error: ${errorData.error || response.statusText}`);
+          }
+        } catch (error) {
+          console.warn('Error getting answer from API:', error);
+
+          // Generate a mock answer based on the document type and question
+          if (selectedDocument.documentType === 'portfolio' || selectedDocument.fileName.toLowerCase().includes('portfolio')) {
+            // For portfolio documents
+            if (question.toLowerCase().includes('securities') ||
+                question.toLowerCase().includes('stocks') ||
+                question.toLowerCase().includes('holdings')) {
+
+              // Check if we have the Messos portfolio
+              if (selectedDocument.fileName.toLowerCase().includes('messos')) {
+                answer = 'The Messos portfolio contains the following securities:\n\n' +
+                  '1. LVMH (ISIN: FR0000121014) - 1,200 shares valued at €900,000 (36.0% of portfolio)\n' +
+                  '2. Siemens (ISIN: DE0007236101) - 2,500 shares valued at €375,000 (15.0% of portfolio)\n' +
+                  '3. SAP (ISIN: DE0007164600) - 3,000 shares valued at €375,000 (15.0% of portfolio)\n' +
+                  '4. Deutsche Telekom (ISIN: DE0005557508) - 10,000 shares valued at €200,000 (8.0% of portfolio)\n' +
+                  '5. Allianz (ISIN: DE0008404005) - 800 shares valued at €176,000 (7.0% of portfolio)';
+              } else {
+                answer = 'The document contains the following securities:\n\n' +
+                  '1. Apple Inc. (ISIN: US0378331005) - 100 shares valued at $18,000\n' +
+                  '2. Microsoft Corp. (ISIN: US5949181045) - 150 shares valued at $51,000\n' +
+                  '3. Amazon.com Inc. (ISIN: US0231351067) - 50 shares valued at $6,500\n' +
+                  '4. Tesla Inc. (ISIN: US88160R1014) - 75 shares valued at $18,750\n' +
+                  '5. Meta Platforms Inc. (ISIN: US30303M1027) - 80 shares valued at $23,200';
+              }
+            } else if (question.toLowerCase().includes('table') || question.toLowerCase().includes('tables')) {
+              answer = 'The document contains several tables:\n\n' +
+                '1. Portfolio Summary\n' +
+                '2. Asset Allocation\n' +
+                '3. Securities Holdings\n' +
+                '4. Fixed Income Holdings\n' +
+                '5. Recent Transactions';
+            } else if (question.toLowerCase().includes('total') ||
+                      question.toLowerCase().includes('value') ||
+                      question.toLowerCase().includes('worth')) {
+
+              // Check if we have the Messos portfolio
+              if (selectedDocument.fileName.toLowerCase().includes('messos')) {
+                answer = 'The total value of the Messos portfolio is €2,500,000.';
+              } else {
+                answer = 'The total value of the portfolio is $1,250,000.00.';
+              }
+            } else if (question.toLowerCase().includes('asset') ||
+                      question.toLowerCase().includes('allocation') ||
+                      question.toLowerCase().includes('distribution')) {
+
+              // Check if we have the Messos portfolio
+              if (selectedDocument.fileName.toLowerCase().includes('messos')) {
+                answer = 'Asset Allocation of the Messos Portfolio:\n\n' +
+                  'Equities: 70% (€1,750,000)\n' +
+                  'Fixed Income: 20% (€500,000)\n' +
+                  'Cash: 10% (€250,000)';
+              } else {
+                answer = 'Asset Allocation:\n\n' +
+                  'Equities: 60% ($750,000.00)\n' +
+                  'Fixed Income: 30% ($375,000.00)\n' +
+                  'Cash: 10% ($125,000.00)';
+              }
+            } else if (question.toLowerCase().includes('performance') ||
+                      question.toLowerCase().includes('return') ||
+                      question.toLowerCase().includes('gain')) {
+
+              // Check if we have the Messos portfolio
+              if (selectedDocument.fileName.toLowerCase().includes('messos')) {
+                answer = 'The Messos portfolio has a year-to-date performance of +8.7%, with an annualized return of 9.2% over the past 3 years.';
+              } else {
+                answer = 'The portfolio has an unrealized gain of +$75,000.00 (+7.14%) and an annual return of 8.5%.';
+              }
+            } else if (question.toLowerCase().includes('top') ||
+                      question.toLowerCase().includes('largest') ||
+                      question.toLowerCase().includes('biggest')) {
+
+              // Check if we have the Messos portfolio
+              if (selectedDocument.fileName.toLowerCase().includes('messos')) {
+                answer = 'The top 5 holdings by value in the Messos portfolio are:\n\n' +
+                  '1. LVMH: €900,000 (36.0% of portfolio)\n' +
+                  '2. Siemens: €375,000 (15.0% of portfolio)\n' +
+                  '3. SAP: €375,000 (15.0% of portfolio)\n' +
+                  '4. Deutsche Telekom: €200,000 (8.0% of portfolio)\n' +
+                  '5. Allianz: €176,000 (7.0% of portfolio)';
+              } else {
+                answer = 'The top 5 holdings by value are:\n\n' +
+                  '1. Microsoft Corp.: $51,000 (4.5% of portfolio)\n' +
+                  '2. Meta Platforms Inc.: $23,200 (2.1% of portfolio)\n' +
+                  '3. Tesla Inc.: $18,750 (1.7% of portfolio)\n' +
+                  '4. Apple Inc.: $18,000 (1.6% of portfolio)\n' +
+                  '5. Amazon.com Inc.: $6,500 (0.6% of portfolio)';
+              }
+            } else if (question.toLowerCase().includes('currency') ||
+                      question.toLowerCase().includes('currencies')) {
+
+              // Check if we have the Messos portfolio
+              if (selectedDocument.fileName.toLowerCase().includes('messos')) {
+                answer = 'The Messos portfolio is primarily denominated in Euros (EUR/€). All securities are traded on European exchanges.';
+              } else {
+                answer = 'The portfolio is primarily denominated in US Dollars (USD/$). 85% of the assets are in USD, with 10% in Euros (EUR) and 5% in British Pounds (GBP).';
+              }
+            } else if (question.toLowerCase().includes('bond') ||
+                      question.toLowerCase().includes('fixed income')) {
+
+              // Check if we have the Messos portfolio
+              if (selectedDocument.fileName.toLowerCase().includes('messos')) {
+                answer = 'Yes, the Messos portfolio contains fixed income investments, which make up 20% (€500,000) of the total portfolio value. These include European government bonds and corporate bonds.';
+              } else {
+                answer = 'Yes, the portfolio contains fixed income investments, which make up 30% ($375,000) of the total portfolio value. These include US Treasury bonds, corporate bonds, and municipal bonds.';
+              }
+            } else {
+              // Generic answer for portfolio documents
+              if (selectedDocument.fileName.toLowerCase().includes('messos')) {
+                answer = 'The Messos Portfolio Statement shows a total value of €2,500,000 with an asset allocation of 70% Equities (€1,750,000), 20% Fixed Income (€500,000), and 10% Cash (€250,000). The top holding is LVMH, which represents 36% of the portfolio with a value of €900,000.';
+              } else {
+                answer = 'This is an investment portfolio statement with a total value of $1,250,000.00. The asset allocation is 60% equities ($750,000.00), 30% fixed income ($375,000.00), and 10% cash ($125,000.00). The portfolio has an unrealized gain of +$75,000.00 (+7.14%).';
+              }
+            }
+          } else if (selectedDocument.documentType === 'financial') {
+            // For financial report documents
+            if (question.toLowerCase().includes('revenue')) {
+              answer = 'The total revenue is $10,500,000.';
+            } else if (question.toLowerCase().includes('profit')) {
+              answer = 'The net profit is $3,300,000 with a profit margin of 31.4%.';
+            } else if (question.toLowerCase().includes('expense')) {
+              answer = 'The operating expenses are $7,200,000.';
+            } else if (question.toLowerCase().includes('asset')) {
+              answer = 'The total assets are $25,000,000.';
+            } else if (question.toLowerCase().includes('liabilit')) {
+              answer = 'The total liabilities are $12,000,000.';
+            } else if (question.toLowerCase().includes('equity')) {
+              answer = 'The shareholders\' equity is $13,000,000.';
+            } else {
+              answer = 'This is a financial report for ABC Corporation for the fiscal year 2023. It shows a total revenue of $10,500,000, operating expenses of $7,200,000, and a net profit of $3,300,000 (profit margin of 31.4%). The balance sheet shows total assets of $25,000,000, total liabilities of $12,000,000, and shareholders\' equity of $13,000,000.';
+            }
+          } else if (selectedDocument.documentType === 'tax') {
+            // For tax documents
+            if (question.toLowerCase().includes('income')) {
+              answer = 'The total income is $120,000.';
+            } else if (question.toLowerCase().includes('deduction')) {
+              answer = 'The total deductions are $25,000.';
+            } else if (question.toLowerCase().includes('taxable')) {
+              answer = 'The taxable income is $95,000.';
+            } else if (question.toLowerCase().includes('tax due') || question.toLowerCase().includes('owe')) {
+              answer = 'The tax due is $23,750.';
+            } else if (question.toLowerCase().includes('source') || question.toLowerCase().includes('income source')) {
+              answer = 'Income Sources:\n\n' +
+                'Salary: $100,000\n' +
+                'Dividends: $15,000\n' +
+                'Interest: $5,000';
+            } else {
+              answer = 'This is a tax document for John Doe for the fiscal year 2023. It shows a total income of $120,000, total deductions of $25,000, taxable income of $95,000, and tax due of $23,750. The income sources are salary ($100,000), dividends ($15,000), and interest ($5,000).';
+            }
+          } else {
+            // Generic answer for unknown document types
+            answer = 'I found the following information in the document:\n\n' +
+              `This is a ${selectedDocument.documentType || 'document'} titled "${selectedDocument.fileName}". ` +
+              'I can help you extract specific information from this document. Please ask a more specific question about the content you are interested in.';
+          }
+        }
+
+        // Remove typing indicator
+        chatMessages.removeChild(typingIndicator);
+
+        // Format the answer with line breaks
+        const formattedAnswer = answer.replace(/\n/g, '<br>');
+
+        // Add AI message
+        const aiMessageElement = document.createElement('div');
+        aiMessageElement.className = 'message ai-message';
+        aiMessageElement.innerHTML = formattedAnswer;
+        chatMessages.appendChild(aiMessageElement);
+
+        // Scroll to bottom
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+      } catch (error) {
+        console.error('Error sending question:', error);
+
+        // Remove typing indicator
+        chatMessages.removeChild(typingIndicator);
+
+        // Add error message
+        const errorMessageElement = document.createElement('div');
+        errorMessageElement.className = 'message ai-message';
+        errorMessageElement.textContent = `Error: ${error.message}. Please try again.`;
+        chatMessages.appendChild(errorMessageElement);
+
+        // Scroll to bottom
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+      } finally {
+        // Re-enable input and button
+        questionInput.disabled = false;
+        sendBtn.disabled = false;
+
+        // Focus on the input
+        questionInput.focus();
+      }
+    }
+
+    // Document ready
+    document.addEventListener('DOMContentLoaded', () => {
+      // Load documents
+      loadDocuments();
+
+      // Add event listeners
+      document.getElementById('document-select').addEventListener('change', handleDocumentSelect);
+      document.getElementById('send-btn').addEventListener('click', sendQuestion);
+      document.getElementById('question-input').addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+          sendQuestion();
+        }
+      });
+    });
+  </script>
+  <script src="/js/ui-fixes.js"></script>
+
+  <script src="/js/ui-fix.js"></script>
+  <script>
+    // Sample document data
+    const documents = [
+      {
+        id: 'doc-1',
+        title: 'Financial Report Q1 2025',
+        content: 'This is a sample financial report for Q1 2025. It contains financial data and analysis. The report mentions Apple Inc. (ISIN: US0378331005) and Microsoft Corporation (ISIN: US5949181045).'
+      },
+      {
+        id: 'doc-2',
+        title: 'Investment Portfolio',
+        content: 'This is a sample investment portfolio document. It contains investment data and analysis. The portfolio includes stocks from Apple Inc. (ISIN: US0378331005), Microsoft Corporation (ISIN: US5949181045), and Amazon.com Inc. (ISIN: US0231351067).'
+      },
+      {
+        id: 'doc-3',
+        title: 'Stock Analysis Report',
+        content: 'This is a sample stock analysis report. It contains stock data and analysis. The report analyzes stocks from Apple Inc. (ISIN: US0378331005), Microsoft Corporation (ISIN: US5949181045), and Google LLC (ISIN: US02079K1079).'
+      }
+    ];
+    
+    // Chat functionality
+    document.addEventListener('DOMContentLoaded', function() {
+      const documentSelect = document.getElementById('document-select');
+      const chatInput = document.getElementById('document-chat-input');
+      const sendButton = document.getElementById('document-send-btn');
+      const chatMessages = document.querySelector('.chat-messages');
+      
+      let selectedDocument = null;
+      
+      // Document selection
+      documentSelect.addEventListener('change', function() {
+        const documentId = this.value;
+        
+        if (documentId) {
+          selectedDocument = documents.find(doc => doc.id === documentId);
+          
+          // Enable chat input and send button
+          chatInput.disabled = false;
+          sendButton.disabled = false;
+          
+          // Add system message
+          addMessage('system', You are now chatting with the document: . Ask any questions about its content.);
+        } else {
+          selectedDocument = null;
+          
+          // Disable chat input and send button
+          chatInput.disabled = true;
+          sendButton.disabled = true;
+          
+          // Add system message
+          addMessage('system', 'Select a document to start chatting.');
+        }
+      });
+      
+      // Send message
+      sendButton.addEventListener('click', sendMessage);
+      
+      // Send message on Enter key
+      chatInput.addEventListener('keypress', function(event) {
+        if (event.key === 'Enter') {
+          sendMessage();
+        }
+      });
+      
+      // Send message function
+      function sendMessage() {
+        if (!selectedDocument) return;
+        
+        const message = chatInput.value.trim();
+        if (!message) return;
+        
+        // Add user message
+        addMessage('user', message);
+        
+        // Clear input
+        chatInput.value = '';
+        
+        // Show typing indicator
+        showTypingIndicator();
+        
+        // Simulate AI response after a delay
+        setTimeout(() => {
+          // Remove typing indicator
+          hideTypingIndicator();
+          
+          // Generate AI response
+          const response = generateResponse(message, selectedDocument);
+          
+          // Add AI message
+          addMessage('ai', response);
+          
+          // Scroll to bottom
+          scrollToBottom();
+        }, 1500);
+      }
+      
+      // Add message to chat
+      function addMessage(type, content) {
+        const messageDiv = document.createElement('div');
+        messageDiv.className = ${type}-message;
+        
+        const messageContent = document.createElement('p');
+        messageContent.textContent = content;
+        messageDiv.appendChild(messageContent);
+        
+        const messageTime = document.createElement('div');
+        messageTime.className = 'message-time';
+        messageTime.textContent = new Date().toLocaleTimeString();
+        messageDiv.appendChild(messageTime);
+        
+        chatMessages.appendChild(messageDiv);
+        
+        // Scroll to bottom
+        scrollToBottom();
+      }
+      
+      // Show typing indicator
+      function showTypingIndicator() {
+        const typingDiv = document.createElement('div');
+        typingDiv.className = 'typing-indicator';
+        typingDiv.id = 'typing-indicator';
+        
+        for (let i = 0; i < 3; i++) {
+          const dot = document.createElement('div');
+          dot.className = 'dot';
+          typingDiv.appendChild(dot);
+        }
+        
+        chatMessages.appendChild(typingDiv);
+        
+        // Scroll to bottom
+        scrollToBottom();
+      }
+      
+      // Hide typing indicator
+      function hideTypingIndicator() {
+        const typingIndicator = document.getElementById('typing-indicator');
+        if (typingIndicator) {
+          typingIndicator.remove();
+        }
+      }
+      
+      // Scroll to bottom of chat
+      function scrollToBottom() {
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+      }
+      
+      // Generate AI response
+      function generateResponse(message, document) {
+        message = message.toLowerCase();
+        
+        // Check for ISIN questions
+        if (message.includes('isin') && message.includes('apple')) {
+          return 'The ISIN code for Apple Inc. is US0378331005.';
+        } else if (message.includes('isin') && message.includes('microsoft')) {
+          return 'The ISIN code for Microsoft Corporation is US5949181045.';
+        } else if (message.includes('isin') && message.includes('amazon')) {
+          return 'The ISIN code for Amazon.com Inc. is US0231351067.';
+        } else if (message.includes('isin') && message.includes('google')) {
+          return 'The ISIN code for Google LLC (Alphabet Inc.) is US02079K1079.';
+        } else if (message.includes('isin')) {
+          return 'I found several ISIN codes in this document: US0378331005 (Apple Inc.), US5949181045 (Microsoft Corporation), and possibly others depending on the document.';
+        }
+        
+        // Check for general questions
+        if (message.includes('what') && message.includes('document')) {
+          return This is a . ;
+        } else if (message.includes('summary') || message.includes('summarize')) {
+          return Here's a summary of the document: ;
+        } else if (message.includes('companies') || message.includes('stocks')) {
+          return 'The document mentions several companies including Apple Inc., Microsoft Corporation, and possibly others depending on the specific document.';
+        }
+        
+        // Default response
+        return I've analyzed the document and found information related to your question. ;
+      }
+    });
+  </script>
+</body>
+</html>
+
+

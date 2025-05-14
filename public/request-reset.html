@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Request Password Reset</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <style>
+        .container {
+            max-width: 500px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input[type="email"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #4caf50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .alert {
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 4px;
+        }
+        .alert-success {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        .alert-danger {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Reset Your Password</h1>
+        <p>Enter your email address and we'll send you a link to reset your password.</p>
+        
+        <div id="success-message" class="alert alert-success hidden">
+            If a user with that email exists, a password reset link has been sent to your email address.
+        </div>
+        
+        <div id="error-message" class="alert alert-danger hidden"></div>
+        
+        <form id="reset-form">
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            
+            <button type="submit">Send Reset Link</button>
+        </form>
+        
+        <p style="margin-top: 20px;">
+            <a href="/login.html">Back to Login</a>
+        </p>
+    </div>
+
+    <script>
+        document.getElementById('reset-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            
+            try {
+                const response = await fetch('/api/auth/password-reset/request', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ email })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    document.getElementById('success-message').classList.remove('hidden');
+                    document.getElementById('error-message').classList.add('hidden');
+                    document.getElementById('reset-form').reset();
+                    
+                    // For testing purposes, show the reset token if it's included in the response
+                    if (data.debug && data.debug.resetToken) {
+                        const debugInfo = document.createElement('div');
+                        debugInfo.style.marginTop = '20px';
+                        debugInfo.style.padding = '10px';
+                        debugInfo.style.backgroundColor = '#f8f9fa';
+                        debugInfo.style.border = '1px solid #ddd';
+                        debugInfo.innerHTML = `
+                            <strong>Debug Info (for testing only):</strong><br>
+                            Reset Token: ${data.debug.resetToken}<br>
+                            Reset Link: <a href="/reset-password.html?token=${data.debug.resetToken}" target="_blank">Click here</a>
+                        `;
+                        document.querySelector('.container').appendChild(debugInfo);
+                    }
+                } else {
+                    document.getElementById('error-message').textContent = data.message;
+                    document.getElementById('error-message').classList.remove('hidden');
+                    document.getElementById('success-message').classList.add('hidden');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                document.getElementById('error-message').textContent = 'An error occurred. Please try again.';
+                document.getElementById('error-message').classList.remove('hidden');
+                document.getElementById('success-message').classList.add('hidden');
+            }
+        });
+    </script>
+</body>
+</html>

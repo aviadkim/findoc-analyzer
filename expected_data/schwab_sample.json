@@ -1,0 +1,66 @@
+{
+  "document_type": "schwab",
+  "currency": "USD",
+  "securities": [
+    {
+      "ticker": "AAPL",
+      "isin": "US0378331005",
+      "description": "APPLE INC",
+      "nominal": 120,
+      "price": 142.56,
+      "value": 17107.20,
+      "currency": "USD",
+      "type": "equity"
+    },
+    {
+      "ticker": "MSFT",
+      "isin": "US5949181045",
+      "description": "MICROSOFT CORP",
+      "nominal": 65,
+      "price": 258.35,
+      "value": 16792.75,
+      "currency": "USD",
+      "type": "equity"
+    },
+    {
+      "ticker": "VTI",
+      "isin": "US9229087690",
+      "description": "VANGUARD TOTAL STOCK MARKET ETF",
+      "nominal": 80,
+      "price": 212.45,
+      "value": 16996.00,
+      "currency": "USD",
+      "type": "etf"
+    },
+    {
+      "ticker": "SCHX",
+      "isin": "US8085247976",
+      "description": "SCHWAB US LARGE-CAP ETF",
+      "nominal": 90,
+      "price": 51.83,
+      "value": 4664.70,
+      "currency": "USD",
+      "type": "etf"
+    },
+    {
+      "ticker": "SCHB",
+      "isin": "US8085242019",
+      "description": "SCHWAB US BROAD MARKET ETF",
+      "nominal": 110,
+      "price": 52.41,
+      "value": 5765.10,
+      "currency": "USD",
+      "type": "etf"
+    },
+    {
+      "ticker": "SCHF",
+      "isin": "US8085247067",
+      "description": "SCHWAB INTERNATIONAL EQUITY ETF",
+      "nominal": 150,
+      "price": 33.73,
+      "value": 5059.50,
+      "currency": "USD",
+      "type": "etf"
+    }
+  ]
+}

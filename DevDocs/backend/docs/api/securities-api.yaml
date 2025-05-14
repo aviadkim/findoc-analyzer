@@ -1,0 +1,407 @@
+openapi: 3.0.0
+info:
+  title: Enhanced Securities Extraction API
+  version: 1.0.0
+  description: |
+    API endpoints for enhanced securities extraction capabilities,
+    allowing extraction, validation, and lookup of securities information.
+
+servers:
+  - url: '/api'
+    description: API base path
+
+tags:
+  - name: Securities
+    description: Securities extraction endpoints
+
+paths:
+  /securities/extract:
+    post:
+      tags:
+        - Securities
+      summary: Extract securities from an existing document
+      description: |
+        Extracts securities information from a document that has already been uploaded.
+        Document must be a financial PDF, typically a portfolio statement.
+      operationId: extractSecurities
+      security:
+        - bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - documentId
+              properties:
+                documentId:
+                  type: string
+                  description: ID of the document to extract securities from
+      responses:
+        '200':
+          description: Securities extracted successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SecuritiesResponse'
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized access
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Document not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /securities/extract-upload:
+    post:
+      tags:
+        - Securities
+      summary: Upload and extract securities from a PDF
+      description: |
+        Uploads a new financial PDF and extracts securities information in a single operation.
+      operationId: extractUpload
+      security:
+        - bearerAuth: []
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required:
+                - file
+              properties:
+                file:
+                  type: string
+                  format: binary
+                  description: PDF file to upload and process
+      responses:
+        '200':
+          description: Securities extracted successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SecuritiesResponse'
+        '400':
+          description: Invalid request or file
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized access
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /securities/validate/{isin}:
+    get:
+      tags:
+        - Securities
+      summary: Validate an ISIN code
+      description: |
+        Validates an International Securities Identification Number (ISIN) and returns
+        additional information if valid.
+      operationId: validateIsin
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: isin
+          in: path
+          required: true
+          description: ISIN code to validate
+          schema:
+            type: string
+            pattern: '^[A-Z]{2}[A-Z0-9]{9}[0-9]$'
+      responses:
+        '200':
+          description: ISIN validation result
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    enum: [success]
+                  data:
+                    type: object
+                    properties:
+                      isin:
+                        type: string
+                        description: The ISIN code
+                      isValid:
+                        type: boolean
+                        description: Whether the ISIN is valid
+                      isFormatValid:
+                        type: boolean
+                        description: Whether the ISIN format is valid
+                      securityInfo:
+                        type: object
+                        nullable: true
+                        description: Additional information about the security (if available)
+                        properties:
+                          name:
+                            type: string
+                            description: Security name
+                          type:
+                            type: string
+                            description: Security type
+        '400':
+          description: Invalid ISIN format
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized access
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /securities/lookup/{query}:
+    get:
+      tags:
+        - Securities
+      summary: Look up securities by name or identifier
+      description: |
+        Searches for securities by name or identifier and returns matching results.
+      operationId: lookupSecurity
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: query
+          in: path
+          required: true
+          description: Search query (minimum 2 characters)
+          schema:
+            type: string
+            minLength: 2
+      responses:
+        '200':
+          description: Security lookup results
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    enum: [success]
+                  data:
+                    type: object
+                    properties:
+                      query:
+                        type: string
+                        description: The search query
+                      results:
+                        type: array
+                        description: List of matching securities
+                        items:
+                          type: object
+                          properties:
+                            isin:
+                              type: string
+                              description: ISIN code
+                            name:
+                              type: string
+                              description: Security name
+                            type:
+                              type: string
+                              description: Security type
+        '400':
+          description: Invalid query
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized access
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+components:
+  schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          enum: [error]
+        message:
+          type: string
+          description: Error message
+
+    Security:
+      type: object
+      properties:
+        isin:
+          type: string
+          description: ISIN code
+        description:
+          type: string
+          description: Security description or name
+        type:
+          type: string
+          description: Security type (e.g., Equity, Bond)
+        nominal:
+          type: number
+          description: Nominal value or quantity
+        price:
+          type: number
+          description: Price per unit
+        value:
+          type: number
+          description: Total value (price * nominal)
+        currency:
+          type: string
+          description: Currency code
+        weight:
+          type: number
+          description: Percentage of portfolio
+        maturity:
+          type: string
+          description: Maturity date (for bonds)
+        coupon:
+          type: string
+          description: Coupon rate (for bonds)
+
+    AssetAllocation:
+      type: object
+      properties:
+        liquidity:
+          type: object
+          properties:
+            value:
+              type: string
+              description: Value in document currency
+            percentage:
+              type: string
+              description: Percentage of portfolio
+        bonds:
+          type: object
+          properties:
+            value:
+              type: string
+              description: Value in document currency
+            percentage:
+              type: string
+              description: Percentage of portfolio
+        equities:
+          type: object
+          properties:
+            value:
+              type: string
+              description: Value in document currency
+            percentage:
+              type: string
+              description: Percentage of portfolio
+        structured_products:
+          type: object
+          properties:
+            value:
+              type: string
+              description: Value in document currency
+            percentage:
+              type: string
+              description: Percentage of portfolio
+        other_assets:
+          type: object
+          properties:
+            value:
+              type: string
+              description: Value in document currency
+            percentage:
+              type: string
+              description: Percentage of portfolio
+
+    PortfolioSummary:
+      type: object
+      properties:
+        client_number:
+          type: string
+          description: Client number
+        valuation_date:
+          type: string
+          description: Valuation date
+        valuation_currency:
+          type: string
+          description: Valuation currency
+        total_value:
+          type: string
+          description: Total portfolio value
+        performance:
+          type: string
+          description: Portfolio performance
+
+    SecuritiesResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          enum: [success]
+        data:
+          type: object
+          properties:
+            documentId:
+              type: string
+              description: ID of the processed document
+            documentType:
+              type: string
+              description: Type of financial document (e.g., messos, generic)
+            currency:
+              type: string
+              description: Document currency
+            securities:
+              type: array
+              description: Extracted securities
+              items:
+                $ref: '#/components/schemas/Security'
+            assetAllocation:
+              $ref: '#/components/schemas/AssetAllocation'
+            portfolioSummary:
+              $ref: '#/components/schemas/PortfolioSummary'
+
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

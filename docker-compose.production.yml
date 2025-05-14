@@ -1,0 +1,344 @@
+version: '3.8'
+
+services:
+  # Frontend UI service
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+    image: findoc-frontend:latest
+    container_name: findoc-frontend
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - frontend-data:/app/data
+      - ./ssl:/app/ssl:ro
+    environment:
+      - NODE_ENV=production
+      - API_URL=https://api.findoc-analyzer.com
+      - VIRTUAL_HOST=findoc-analyzer.com,www.findoc-analyzer.com
+    depends_on:
+      - backend
+    restart: unless-stopped
+    networks:
+      - findoc-network
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "http://localhost:80"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 512M
+
+  # Backend API service
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile.backend
+    image: findoc-backend:latest
+    container_name: findoc-backend
+    ports:
+      - "8080:8080"
+    volumes:
+      - backend-data:/app/data
+      - ./config:/app/config:ro
+    environment:
+      - NODE_ENV=production
+      - PORT=8080
+      - DB_HOST=database
+      - DB_PORT=5432
+      - DB_NAME=findoc
+      - DB_USER=findocuser
+      - DB_PASSWORD_FILE=/app/config/db_password.txt
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - OPENAI_API_KEY_FILE=/app/config/openai_api_key.txt
+      - BLOOMBERG_API_KEY_FILE=/app/config/bloomberg_api_key.txt
+      - SESSION_SECRET_FILE=/app/config/session_secret.txt
+      - JWT_SECRET_FILE=/app/config/jwt_secret.txt
+      - STORAGE_PATH=/app/data/documents
+      - S3_BUCKET=findoc-documents
+      - AWS_REGION=us-west-2
+    depends_on:
+      - database
+      - redis
+      - document-processor
+    restart: unless-stopped
+    networks:
+      - findoc-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 1G
+
+  # Document processing service
+  document-processor:
+    build:
+      context: .
+      dockerfile: Dockerfile.processor
+    image: findoc-processor:latest
+    container_name: findoc-processor
+    volumes:
+      - processor-data:/app/data
+      - ./config:/app/config:ro
+    environment:
+      - NODE_ENV=production
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - DB_HOST=database
+      - DB_PORT=5432
+      - DB_NAME=findoc
+      - DB_USER=findocuser
+      - DB_PASSWORD_FILE=/app/config/db_password.txt
+      - OPENAI_API_KEY_FILE=/app/config/openai_api_key.txt
+      - STORAGE_PATH=/app/data/processing
+      - S3_BUCKET=findoc-processing
+      - AWS_REGION=us-west-2
+      - OCR_API_KEY_FILE=/app/config/ocr_api_key.txt
+      - CONCURRENCY=2
+      - MAX_FILE_SIZE=50MB
+    depends_on:
+      - database
+      - redis
+    restart: unless-stopped
+    networks:
+      - findoc-network
+    deploy:
+      resources:
+        limits:
+          cpus: '2.0'
+          memory: 2G
+
+  # Database service
+  database:
+    image: postgres:15-alpine
+    container_name: findoc-db
+    volumes:
+      - db-data:/var/lib/postgresql/data
+      - ./init-scripts:/docker-entrypoint-initdb.d:ro
+    environment:
+      - POSTGRES_DB=findoc
+      - POSTGRES_USER=findocuser
+      - POSTGRES_PASSWORD_FILE=/run/secrets/db_password
+    ports:
+      - "5432:5432"
+    secrets:
+      - db_password
+    networks:
+      - findoc-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U findocuser -d findoc"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 1G
+
+  # Redis cache service
+  redis:
+    image: redis:7-alpine
+    container_name: findoc-redis
+    command: ["redis-server", "--appendonly", "yes", "--requirepass", "${REDIS_PASSWORD}"]
+    volumes:
+      - redis-data:/data
+    ports:
+      - "6379:6379"
+    environment:
+      - REDIS_PASSWORD_FILE=/run/secrets/redis_password
+    secrets:
+      - redis_password
+    networks:
+      - findoc-network
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 512M
+
+  # Bloomberg API integration service
+  bloomberg-service:
+    build:
+      context: .
+      dockerfile: Dockerfile.bloomberg
+    image: findoc-bloomberg:latest
+    container_name: findoc-bloomberg
+    volumes:
+      - ./config:/app/config:ro
+    environment:
+      - NODE_ENV=production
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - REDIS_PASSWORD_FILE=/app/config/redis_password.txt
+      - BLOOMBERG_API_KEY_FILE=/app/config/bloomberg_api_key.txt
+      - CACHE_TTL=300
+    depends_on:
+      - redis
+    restart: unless-stopped
+    networks:
+      - findoc-network
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 512M
+
+  # AI chatbot service
+  chatbot-service:
+    build:
+      context: .
+      dockerfile: Dockerfile.chatbot
+    image: findoc-chatbot:latest
+    container_name: findoc-chatbot
+    volumes:
+      - chatbot-data:/app/data
+      - ./config:/app/config:ro
+    environment:
+      - NODE_ENV=production
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - REDIS_PASSWORD_FILE=/app/config/redis_password.txt
+      - OPENAI_API_KEY_FILE=/app/config/openai_api_key.txt
+      - ANTHROPIC_API_KEY_FILE=/app/config/anthropic_api_key.txt
+      - DB_HOST=database
+      - DB_PORT=5432
+      - DB_NAME=findoc
+      - DB_USER=findocuser
+      - DB_PASSWORD_FILE=/app/config/db_password.txt
+      - MODEL=gpt-4-turbo
+      - FALLBACK_MODEL=claude-3-haiku
+      - STORAGE_PATH=/app/data/chat-cache
+      - CONTEXT_WINDOW_SIZE=128000
+    depends_on:
+      - database
+      - redis
+    restart: unless-stopped
+    networks:
+      - findoc-network
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 1G
+
+  # Nginx reverse proxy for SSL termination
+  nginx:
+    image: nginx:stable-alpine
+    container_name: findoc-nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/conf.d:/etc/nginx/conf.d:ro
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./ssl:/etc/nginx/ssl:ro
+      - ./static:/usr/share/nginx/html:ro
+      - nginx-logs:/var/log/nginx
+    depends_on:
+      - frontend
+      - backend
+    restart: unless-stopped
+    networks:
+      - findoc-network
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 256M
+
+  # Prometheus monitoring
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: findoc-prometheus
+    volumes:
+      - ./prometheus:/etc/prometheus:ro
+      - prometheus-data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+      - '--web.enable-lifecycle'
+    ports:
+      - "9090:9090"
+    networks:
+      - findoc-network
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 512M
+
+  # Grafana dashboard
+  grafana:
+    image: grafana/grafana:latest
+    container_name: findoc-grafana
+    volumes:
+      - grafana-data:/var/lib/grafana
+      - ./grafana/provisioning:/etc/grafana/provisioning:ro
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD__FILE=/run/secrets/grafana_admin_password
+      - GF_USERS_ALLOW_SIGN_UP=false
+    ports:
+      - "3000:3000"
+    depends_on:
+      - prometheus
+    secrets:
+      - grafana_admin_password
+    networks:
+      - findoc-network
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 512M
+
+# Custom network for isolation
+networks:
+  findoc-network:
+    driver: bridge
+
+# Persistent volumes
+volumes:
+  frontend-data:
+  backend-data:
+  processor-data:
+  db-data:
+  redis-data:
+  chatbot-data:
+  nginx-logs:
+  prometheus-data:
+  grafana-data:
+
+# Secrets management
+secrets:
+  db_password:
+    file: ./secrets/db_password.txt
+  redis_password:
+    file: ./secrets/redis_password.txt
+  grafana_admin_password:
+    file: ./secrets/grafana_admin_password.txt

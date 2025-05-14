@@ -1,0 +1,3 @@
+Mock Excel export file
+Format: XLSX
+Data: {"Securities":[{"isin":"IL7529133790","name":"Johnson & Johnson","type":"Option","quantity":753,"price":19.09,"value":14374.77,"currency":"EUR","marketPrice":19.24,"marketValue":14487.72,"priceChange":0.15,"priceChangePercent":0.8,"lastUpdated":"2025-05-13T19:56:33.928Z","dataProvider":"Yahoo Finance","id":"sec-1","symbol":"JOHNSON","sector":"Technology","country":"IL"},{"isin":"DE5731726445","name":"Apple Inc.","type":"ETF","quantity":669,"price":586.42,"value":392314.98,"currency":"GBP","marke...

@@ -1,0 +1,63 @@
+{
+  "tasks": [
+    {
+      "id": "dashboard-ui",
+      "name": "Dashboard UI Components",
+      "priority": "high",
+      "status": "pending",
+      "components": [
+        "Recent Documents Section",
+        "Quick Upload Section",
+        "Features Section",
+        "Navigation Bar"
+      ]
+    },
+    {
+      "id": "documents-ui",
+      "name": "Documents Page UI Components",
+      "priority": "high",
+      "status": "pending",
+      "components": [
+        "Document List",
+        "Document Item",
+        "Document Actions",
+        "Filter Controls"
+      ]
+    },
+    {
+      "id": "upload-ui",
+      "name": "Upload Page UI Components",
+      "priority": "high",
+      "status": "pending",
+      "components": [
+        "Upload Form",
+        "File Input",
+        "Process Button",
+        "Progress Indicator"
+      ]
+    },
+    {
+      "id": "document-chat-ui",
+      "name": "Document Chat UI Components",
+      "priority": "medium",
+      "status": "pending",
+      "components": [
+        "Document Selector",
+        "Chat Messages Container",
+        "Chat Input",
+        "Send Button"
+      ]
+    },
+    {
+      "id": "test-ui",
+      "name": "Test Page UI Components",
+      "priority": "low",
+      "status": "pending",
+      "components": [
+        "Agent Cards",
+        "Status Indicators",
+        "Action Buttons"
+      ]
+    }
+  ]
+}

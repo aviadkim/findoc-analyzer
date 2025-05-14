@@ -1,0 +1,79 @@
+{
+  "status": "success",
+  "comparison_type": "securities",
+  "document_count": 2,
+  "document_types": [
+    "portfolio_statement",
+    "portfolio_statement"
+  ],
+  "timestamp": "2025-05-08 21:22:18",
+  "securities_comparison": {
+    "status": "success",
+    "total_unique_securities": 3,
+    "securities_with_changes": 2,
+    "added_securities": [
+      {
+        "security_id": "isin:us5555555555",
+        "security_name": "Tech ETF",
+        "document_index": 1,
+        "previous_document_index": 0,
+        "security_data": {
+          "name": "Tech ETF",
+          "isin": "US5555555555",
+          "value": 20000
+        }
+      }
+    ],
+    "removed_securities": [],
+    "changes": [
+      {
+        "security_id": "isin:us1234567890",
+        "security_name": "US Large Cap Fund",
+        "old_document_index": 0,
+        "new_document_index": 1,
+        "changes": [
+          {
+            "field": "value",
+            "change_type": "changed",
+            "old_value": 50000,
+            "new_value": 52000,
+            "absolute_change": 2000,
+            "percent_change": 4.0,
+            "is_significant": true
+          }
+        ]
+      },
+      {
+        "security_id": "isin:us0987654321",
+        "security_name": "Global Bond Fund",
+        "old_document_index": 0,
+        "new_document_index": 1,
+        "changes": [
+          {
+            "field": "value",
+            "change_type": "changed",
+            "old_value": 30000,
+            "new_value": 29000,
+            "absolute_change": -1000,
+            "percent_change": -3.3333333333333335,
+            "is_significant": true
+          }
+        ]
+      }
+    ]
+  },
+  "overall_changes": {
+    "total_changes": 3,
+    "significant_changes": 0,
+    "added_items": 1,
+    "removed_items": 0,
+    "changed_items": 2,
+    "change_types": {
+      "securities": {
+        "added": 1,
+        "removed": 0,
+        "changed": 2
+      }
+    }
+  }
+}

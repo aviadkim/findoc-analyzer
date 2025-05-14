@@ -1,0 +1,25 @@
+[2025-04-30T20:34:52.795Z] Starting Messos PDF processing test
+[2025-04-30T20:34:54.933Z] Navigating to upload page
+[2025-04-30T20:34:56.318Z] Screenshot saved to C:\Users\aviad\OneDrive\Desktop\backv2-main\test-screenshots-messos\01-upload-page.png
+[2025-04-30T20:34:56.356Z] Uploading Messos PDF
+[2025-04-30T20:34:56.849Z] Screenshot saved to C:\Users\aviad\OneDrive\Desktop\backv2-main\test-screenshots-messos\02-file-selected.png
+[2025-04-30T20:34:56.850Z] Selecting processing options
+[2025-04-30T20:34:56.935Z] Selected a processing option
+[2025-04-30T20:34:57.091Z] Screenshot saved to C:\Users\aviad\OneDrive\Desktop\backv2-main\test-screenshots-messos\03-options-selected.png
+[2025-04-30T20:34:57.094Z] Submitting the form
+[2025-04-30T20:35:07.112Z] No navigation occurred after submit
+[2025-04-30T20:35:07.272Z] Screenshot saved to C:\Users\aviad\OneDrive\Desktop\backv2-main\test-screenshots-messos\04-form-submitted.png
+[2025-04-30T20:35:07.272Z] Waiting for processing to complete (max 2 minutes)
+[2025-04-30T20:35:07.443Z] Screenshot saved to C:\Users\aviad\OneDrive\Desktop\backv2-main\test-screenshots-messos\05-processing-complete.png
+[2025-04-30T20:35:07.443Z] Checking processing results
+[2025-04-30T20:35:07.446Z] Processing succeeded
+[2025-04-30T20:35:07.447Z] Error message detected
+[2025-04-30T20:35:07.451Z] Navigating to document chat
+[2025-04-30T20:35:08.795Z] Screenshot saved to C:\Users\aviad\OneDrive\Desktop\backv2-main\test-screenshots-messos\06-document-chat.png
+[2025-04-30T20:35:08.795Z] Selecting the document
+[2025-04-30T20:35:18.823Z] Document options did not load, continuing
+[2025-04-30T20:35:18.991Z] Screenshot saved to C:\Users\aviad\OneDrive\Desktop\backv2-main\test-screenshots-messos\07-document-selected.png
+[2025-04-30T20:35:18.992Z] Asking test questions
+[2025-04-30T20:35:18.994Z] Asking question 1: What is the total value of the portfolio?
+[2025-04-30T20:35:29.010Z] Error in test: Waiting for selector `#question-input:not([disabled])` failed: Waiting failed: 10000ms exceeded
+[2025-04-30T20:35:29.164Z] Screenshot saved to C:\Users\aviad\OneDrive\Desktop\backv2-main\test-screenshots-messos\error.png

@@ -1,0 +1,66 @@
+# Backend Dockerfile for FinDoc Analyzer
+FROM node:18-alpine AS builder
+
+# Set working directory
+WORKDIR /app
+
+# Install build dependencies
+RUN apk add --no-cache python3 make g++ git
+
+# Copy package files
+COPY package*.json ./
+
+# Install dependencies
+RUN npm ci
+
+# Copy source code
+COPY . .
+
+# Build typescript if needed (uncomment if using typescript)
+# RUN npm run build
+
+# Production Stage
+FROM node:18-alpine
+
+# Set working directory
+WORKDIR /app
+
+# Install production dependencies
+RUN apk add --no-cache curl tini
+
+# Set node environment
+ENV NODE_ENV=production
+
+# Create app directory and set permissions
+RUN mkdir -p /app/data/documents /app/logs /app/config && \
+    chown -R node:node /app
+
+# Copy from builder
+COPY --from=builder --chown=node:node /app/package*.json ./
+COPY --from=builder --chown=node:node /app/node_modules ./node_modules
+COPY --from=builder --chown=node:node /app/controllers ./controllers
+COPY --from=builder --chown=node:node /app/middlewares ./middlewares
+COPY --from=builder --chown=node:node /app/routes ./routes
+COPY --from=builder --chown=node:node /app/services ./services
+COPY --from=builder --chown=node:node /app/utils ./utils
+COPY --from=builder --chown=node:node /app/server.js ./
+
+# Copy scan1Controller and docling integration components
+COPY --from=builder --chown=node:node /app/docling-integration.js ./
+COPY --from=builder --chown=node:node /app/docling-scan1-integration.js ./
+
+# Add healthcheck
+HEALTHCHECK --interval=30s --timeout=10s --start-period=30s --retries=3 \
+    CMD curl -f http://localhost:${PORT:-8080}/api/health || exit 1
+
+# Expose API port
+EXPOSE 8080
+
+# Use tini as entrypoint to manage signals and zombie processes
+ENTRYPOINT ["/sbin/tini", "--"]
+
+# Switch to non-root user
+USER node
+
+# Start the application
+CMD ["node", "server.js"]

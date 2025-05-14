@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload PDF to FinDoc Analyzer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input, select, button {
+            padding: 8px;
+            width: 100%;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: #f9f9f9;
+        }
+        .hidden {
+            display: none;
+        }
+        .chat-container {
+            margin-top: 30px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 15px;
+        }
+        .chat-messages {
+            max-height: 300px;
+            overflow-y: auto;
+            margin-bottom: 15px;
+            padding: 10px;
+            background-color: #f5f5f5;
+            border-radius: 4px;
+        }
+        .message {
+            margin-bottom: 10px;
+            padding: 8px 12px;
+            border-radius: 4px;
+        }
+        .user-message {
+            background-color: #e3f2fd;
+            margin-left: 20px;
+            margin-right: 0;
+        }
+        .bot-message {
+            background-color: #f1f1f1;
+            margin-left: 0;
+            margin-right: 20px;
+        }
+        .chat-input {
+            display: flex;
+        }
+        .chat-input input {
+            flex-grow: 1;
+            margin-right: 10px;
+        }
+        .chat-input button {
+            width: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>Upload PDF to FinDoc Analyzer</h1>
+    
+    <div class="form-group">
+        <label for="pdf-file">Select PDF File:</label>
+        <input type="file" id="pdf-file" accept=".pdf">
+    </div>
+    
+    <div class="form-group">
+        <label for="document-type">Document Type:</label>
+        <select id="document-type">
+            <option value="portfolio">Portfolio</option>
+            <option value="financial_statement">Financial Statement</option>
+            <option value="investment_report">Investment Report</option>
+            <option value="account_statement">Account Statement</option>
+            <option value="other">Other</option>
+        </select>
+    </div>
+    
+    <button id="upload-btn">Upload and Process</button>
+    
+    <div id="upload-result" class="result hidden">
+        <h2>Upload Result</h2>
+        <pre id="upload-result-content"></pre>
+    </div>
+    
+    <div id="chat-container" class="chat-container hidden">
+        <h2>Ask Questions About Your Document</h2>
+        <div id="chat-messages" class="chat-messages"></div>
+        <div class="chat-input">
+            <input type="text" id="chat-input" placeholder="Ask a question about your document...">
+            <button id="send-btn">Send</button>
+        </div>
+    </div>
+    
+    <script>
+        // Global variables
+        let documentId = null;
+        
+        // DOM elements
+        const pdfFileInput = document.getElementById('pdf-file');
+        const documentTypeSelect = document.getElementById('document-type');
+        const uploadBtn = document.getElementById('upload-btn');
+        const uploadResult = document.getElementById('upload-result');
+        const uploadResultContent = document.getElementById('upload-result-content');
+        const chatContainer = document.getElementById('chat-container');
+        const chatMessages = document.getElementById('chat-messages');
+        const chatInput = document.getElementById('chat-input');
+        const sendBtn = document.getElementById('send-btn');
+        
+        // Event listeners
+        uploadBtn.addEventListener('click', uploadAndProcess);
+        sendBtn.addEventListener('click', sendMessage);
+        chatInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+        
+        // Upload and process function
+        async function uploadAndProcess() {
+            const file = pdfFileInput.files[0];
+            if (!file) {
+                alert('Please select a PDF file');
+                return;
+            }
+            
+            const documentType = documentTypeSelect.value;
+            
+            try {
+                uploadBtn.disabled = true;
+                uploadBtn.textContent = 'Uploading...';
+                
+                // Create form data
+                const formData = new FormData();
+                formData.append('file', file);
+                formData.append('documentType', documentType);
+                
+                // Upload the file
+                const uploadResponse = await fetch('/api/documents/upload', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                const uploadData = await uploadResponse.json();
+                
+                // Display upload result
+                uploadResult.classList.remove('hidden');
+                uploadResultContent.textContent = JSON.stringify(uploadData, null, 2);
+                
+                if (uploadData.success) {
+                    documentId = uploadData.documentId;
+                    
+                    // Process the document
+                    uploadBtn.textContent = 'Processing...';
+                    
+                    const processResponse = await fetch('/api/documents/process', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ documentId })
+                    });
+                    
+                    const processData = await processResponse.json();
+                    
+                    // Update result with processing data
+                    uploadResultContent.textContent = JSON.stringify(processData, null, 2);
+                    
+                    if (processData.success) {
+                        // Show chat container
+                        chatContainer.classList.remove('hidden');
+                        
+                        // Add welcome message
+                        addMessage('Welcome! You can now ask questions about your document.', 'bot');
+                    }
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                uploadResultContent.textContent = `Error: ${error.message}`;
+            } finally {
+                uploadBtn.disabled = false;
+                uploadBtn.textContent = 'Upload and Process';
+            }
+        }
+        
+        // Send message function
+        async function sendMessage() {
+            const message = chatInput.value.trim();
+            if (!message || !documentId) return;
+            
+            // Add user message to chat
+            addMessage(message, 'user');
+            
+            // Clear input
+            chatInput.value = '';
+            
+            try {
+                // Send message to API
+                const response = await fetch('/api/documents/chat', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        documentId,
+                        message
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    // Add bot response to chat
+                    addMessage(data.response, 'bot');
+                } else {
+                    // Add error message
+                    addMessage(`Error: ${data.error}`, 'bot');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                addMessage(`Error: ${error.message}`, 'bot');
+            }
+        }
+        
+        // Add message to chat
+        function addMessage(text, sender) {
+            const messageElement = document.createElement('div');
+            messageElement.classList.add('message');
+            messageElement.classList.add(sender === 'user' ? 'user-message' : 'bot-message');
+            messageElement.textContent = text;
+            
+            chatMessages.appendChild(messageElement);
+            
+            // Scroll to bottom
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,201 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+    --primary: 221.2 83.2% 53.3%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 221.2 83.2% 53.3%;
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 217.2 91.2% 59.8%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 224.3 76.3% 48%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+  h1 {
+    @apply text-3xl font-bold md:text-4xl;
+  }
+  h2 {
+    @apply text-2xl font-bold md:text-3xl;
+  }
+  h3 {
+    @apply text-xl font-bold md:text-2xl;
+  }
+  h4 {
+    @apply text-lg font-bold md:text-xl;
+  }
+  h5 {
+    @apply text-base font-bold md:text-lg;
+  }
+  h6 {
+    @apply text-sm font-bold md:text-base;
+  }
+}
+
+/* Responsive Utility Classes */
+@layer utilities {
+  /* Responsive Padding */
+  .p-responsive {
+    @apply p-4 md:p-6 lg:p-8;
+  }
+  .px-responsive {
+    @apply px-4 md:px-6 lg:px-8;
+  }
+  .py-responsive {
+    @apply py-4 md:py-6 lg:py-8;
+  }
+  
+  /* Responsive Margins */
+  .m-responsive {
+    @apply m-4 md:m-6 lg:m-8;
+  }
+  .mx-responsive {
+    @apply mx-4 md:mx-6 lg:mx-8;
+  }
+  .my-responsive {
+    @apply my-4 md:my-6 lg:my-8;
+  }
+  
+  /* Responsive Text */
+  .text-responsive {
+    @apply text-sm md:text-base lg:text-lg;
+  }
+  
+  /* Responsive Gaps */
+  .gap-responsive {
+    @apply gap-3 md:gap-4 lg:gap-6;
+  }
+  
+  /* Responsive Width */
+  .w-responsive {
+    @apply w-full md:w-auto;
+  }
+  
+  /* Content visibility */
+  .mobile-only {
+    @apply md:hidden;
+  }
+  
+  .tablet-up {
+    @apply hidden md:block;
+  }
+  
+  .desktop-up {
+    @apply hidden lg:block;
+  }
+  
+  .tablet-only {
+    @apply hidden md:block lg:hidden;
+  }
+  
+  /* Fixed aspect ratios */
+  .aspect-square {
+    aspect-ratio: 1 / 1;
+  }
+  
+  .aspect-video {
+    aspect-ratio: 16 / 9;
+  }
+  
+  .aspect-portrait {
+    aspect-ratio: 3 / 4;
+  }
+}
+
+/* Components */
+@layer components {
+  /* Responsive Cards */
+  .card-responsive {
+    @apply rounded-lg border bg-card p-4 md:p-6 shadow-sm;
+  }
+  
+  /* Responsive Containers */
+  .container-responsive {
+    @apply w-full px-4 md:px-6 lg:px-8 mx-auto max-w-7xl;
+  }
+  
+  /* Responsive Grids */
+  .grid-responsive-1 {
+    @apply grid grid-cols-1;
+  }
+  
+  .grid-responsive-2 {
+    @apply grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6;
+  }
+  
+  .grid-responsive-3 {
+    @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6;
+  }
+  
+  .grid-responsive-4 {
+    @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6;
+  }
+  
+  /* Stack layouts */
+  .horizontal-stack {
+    @apply flex flex-row gap-responsive;
+  }
+  
+  .vertical-stack {
+    @apply flex flex-col gap-responsive;
+  }
+  
+  .responsive-stack {
+    @apply flex flex-col md:flex-row gap-responsive;
+  }
+  
+  /* Responsive Tables */
+  .table-responsive {
+    @apply w-full overflow-x-auto;
+  }
+  
+  /* Responsive Form Elements */
+  .form-responsive {
+    @apply max-w-full md:max-w-md lg:max-w-lg mx-auto;
+  }
+}

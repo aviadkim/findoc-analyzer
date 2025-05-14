@@ -1,0 +1,66 @@
+{
+  "document_type": "fidelity",
+  "currency": "USD",
+  "securities": [
+    {
+      "ticker": "FXAIX",
+      "isin": "US3160781041",
+      "description": "FIDELITY 500 INDEX FUND",
+      "nominal": 135.756,
+      "price": 163.48,
+      "value": 22193.37,
+      "currency": "USD",
+      "type": "fund"
+    },
+    {
+      "ticker": "FDUS",
+      "isin": "US3160923498",
+      "description": "FIDELITY TOTAL MARKET INDEX FUND",
+      "nominal": 145.325,
+      "price": 142.53,
+      "value": 20712.68,
+      "currency": "USD",
+      "type": "fund"
+    },
+    {
+      "ticker": "FBNDX",
+      "isin": "US3160775795",
+      "description": "FIDELITY BOND FUND",
+      "nominal": 185.643,
+      "price": 10.21,
+      "value": 1895.42,
+      "currency": "USD",
+      "type": "fund"
+    },
+    {
+      "ticker": "FTGBX",
+      "isin": "US3160781850",
+      "description": "FIDELITY TOTAL BOND FUND",
+      "nominal": 175.432,
+      "price": 10.08,
+      "value": 1768.36,
+      "currency": "USD",
+      "type": "fund"
+    },
+    {
+      "ticker": "FZROX",
+      "isin": "US3160923795",
+      "description": "FIDELITY ZERO TOTAL MARKET INDEX FUND",
+      "nominal": 250.432,
+      "price": 14.83,
+      "value": 3713.91,
+      "currency": "USD",
+      "type": "fund"
+    },
+    {
+      "ticker": "AAPL",
+      "isin": "US0378331005",
+      "description": "APPLE INC",
+      "nominal": 85,
+      "price": 142.56,
+      "value": 12117.60,
+      "currency": "USD",
+      "type": "equity"
+    }
+  ]
+}

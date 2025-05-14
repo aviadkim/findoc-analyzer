@@ -1,0 +1,162 @@
+{
+  "id": "76b01214-1279-4edd-bcf1-6dca6691c7d0",
+  "fileName": "sample_portfolio.xlsx",
+  "filePath": "./sample_portfolio.xlsx",
+  "contentType": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+  "userId": "test-user",
+  "tenantId": "test-tenant",
+  "uploadDate": "2025-05-12T05:58:20.199Z",
+  "processed": true,
+  "processingDate": "2025-05-12T05:58:33.712Z",
+  "content": {
+    "metadata": {
+      "fileName": "sample_portfolio.xlsx"
+    },
+    "text": "Sheet: Portfolio Holdings\nSecurity Name\tISIN\tTicker\tQuantity\tPrice\tMarket Value\tAsset Class\t% of Portfolio\nApple Inc.\tUS0378331005\tAAPL\t100\t187.51\t18751\tEquity\t15.5\nMicrosoft Corporation\tUS5949181045\tMSFT\t75\t319.76\t23982\tEquity\t19.8\nAmazon.com Inc.\tUS0231351067\tAMZN\t50\t173.97\t8698.5\tEquity\t7.2\nAlphabet Inc.\tUS02079K1079\tGOOGL\t35\t172.51\t6037.85\tEquity\t5\nMeta Platforms Inc.\tUS30303M1027\tMETA\t40\t478.22\t19128.8\tEquity\t15.8\nTesla Inc.\tUS88160R1014\tTSLA\t60\t175.3\t10518\tEquity\t8.7\nNVIDIA Corporation\tUS67066G1040\tNVDA\t25\t925.61\t23140.25\tEquity\t19.1\nJohnson & Johnson\tUS4781601046\tJNJ\t30\t155.87\t4676.1\tEquity\t3.9\nVisa Inc.\tUS92826C8394\tV\t20\t279.95\t5599\tEquity\t4.6\nJPMorgan Chase & Co.\tUS46625H1005\tJPM\t15\t198.53\t2977.95\tEquity\t2.5\n\nSheet: Asset Allocation\nAsset Class\tMarket Value\t% of Portfolio\nEquities\t121509.45\t85.5\nFixed Income\t12500\t8.8\nCash\t5000\t3.5\nAlternative Investments\t3100\t2.2\nTotal\t142109.45\t100\n\nSheet: Performance\nTime Period\tReturn %\tBenchmark Return %\tDifference %\n1 Month\t2.5\t2.1\t0.4\n3 Months\t5.7\t4.9\t0.8\nYTD\t8.3\t7.6\t0.7\n1 Year\t18.2\t15.8\t2.4\n3 Years\t45.7\t38.2\t7.5\n5 Years\t87.3\t76.5\t10.8\nSince Inception\t132.5\t118.7\t13.8\n\nSheet: Account Information\nAccount Information\t\nAccount Number\t123456789\nAccount Name\tInvestment Portfolio\nAccount Type\tIndividual\nCurrency\tUSD\nStatement Date\t2025-05-12\nPeriod\tQ2 2025\nAccount Manager\tJane Smith\nContact Email\tjane.smith@example.com\nContact Phone\t+1 (555) 123-4567\n\n",
+    "tables": [],
+    "entities": [
+      {
+        "type": "security",
+        "isin": "US0378331005",
+        "confidence": 0.8
+      },
+      {
+        "type": "security",
+        "isin": "US5949181045",
+        "confidence": 0.8
+      },
+      {
+        "type": "security",
+        "isin": "US0231351067",
+        "confidence": 0.8
+      },
+      {
+        "type": "security",
+        "isin": "US02079K1079",
+        "confidence": 0.8
+      },
+      {
+        "type": "security",
+        "isin": "US30303M1027",
+        "confidence": 0.8
+      },
+      {
+        "type": "security",
+        "isin": "US88160R1014",
+        "confidence": 0.8
+      },
+      {
+        "type": "security",
+        "isin": "US67066G1040",
+        "confidence": 0.8
+      },
+      {
+        "type": "security",
+        "isin": "US4781601046",
+        "confidence": 0.8
+      },
+      {
+        "type": "security",
+        "isin": "US92826C8394",
+        "confidence": 0.8
+      },
+      {
+        "type": "security",
+        "isin": "US46625H1005",
+        "confidence": 0.8
+      },
+      {
+        "type": "company",
+        "name": "Apple Inc",
+        "confidence": 0.7
+      },
+      {
+        "type": "company",
+        "name": "Microsoft Corp",
+        "confidence": 0.7
+      },
+      {
+        "type": "company",
+        "name": "Alphabet Inc",
+        "confidence": 0.7
+      },
+      {
+        "type": "company",
+        "name": "Platforms Inc",
+        "confidence": 0.7
+      },
+      {
+        "type": "company",
+        "name": "Tesla Inc",
+        "confidence": 0.7
+      },
+      {
+        "type": "company",
+        "name": "Visa Inc",
+        "confidence": 0.7
+      },
+      {
+        "type": "company",
+        "name": "Fixed Inc",
+        "confidence": 0.7
+      },
+      {
+        "type": "company",
+        "name": "Since Inc",
+        "confidence": 0.7
+      }
+    ],
+    "securities": [
+      {
+        "type": "security",
+        "isin": "US0378331005",
+        "confidence": 0.8
+      },
+      {
+        "type": "security",
+        "isin": "US5949181045",
+        "confidence": 0.8
+      },
+      {
+        "type": "security",
+        "isin": "US0231351067",
+        "confidence": 0.8
+      },
+      {
+        "type": "security",
+        "isin": "US02079K1079",
+        "confidence": 0.8
+      },
+      {
+        "type": "security",
+        "isin": "US30303M1027",
+        "confidence": 0.8
+      },
+      {
+        "type": "security",
+        "isin": "US88160R1014",
+        "confidence": 0.8
+      },
+      {
+        "type": "security",
+        "isin": "US67066G1040",
+        "confidence": 0.8
+      },
+      {
+        "type": "security",
+        "isin": "US4781601046",
+        "confidence": 0.8
+      },
+      {
+        "type": "security",
+        "isin": "US92826C8394",
+        "confidence": 0.8
+      },
+      {
+        "type": "security",
+        "isin": "US46625H1005",
+        "confidence": 0.8
+      }
+    ]
+  }
+}

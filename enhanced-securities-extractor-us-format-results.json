@@ -1,0 +1,72 @@
+[
+  {
+    "name": "Security with ISIN US0231351067",
+    "isin": "US0231351067",
+    "type": "unknown",
+    "quantity": 100,
+    "price": 315,
+    "value": 31500,
+    "percentage": 2,
+    "currency": "USD"
+  },
+  {
+    "name": "Securities:",
+    "isin": "US0378331005",
+    "type": "unknown",
+    "quantity": 100,
+    "price": 182.5,
+    "value": 18250,
+    "percentage": 2,
+    "currency": "USD"
+  },
+  {
+    "name": "Securities:",
+    "isin": "US5949181045",
+    "type": "unknown",
+    "quantity": 100,
+    "price": 182.5,
+    "value": 18250,
+    "percentage": 2,
+    "currency": "USD"
+  },
+  {
+    "name": "Security with ISIN US02079K1079",
+    "isin": "US02079K1079",
+    "type": "unknown",
+    "quantity": 100,
+    "price": 175,
+    "value": 17500,
+    "percentage": 2,
+    "currency": "USD"
+  },
+  {
+    "name": "Security with ISIN US46625H1005",
+    "isin": "US46625H1005",
+    "type": "unknown",
+    "quantity": 25,
+    "price": 450,
+    "value": 11250,
+    "percentage": 4,
+    "currency": "POR"
+  },
+  {
+    "name": "Security with ISIN US88160R1014",
+    "isin": "US88160R1014",
+    "type": "unknown",
+    "quantity": 50,
+    "price": 170,
+    "value": 8500,
+    "percentage": 2,
+    "currency": "POR"
+  },
+  {
+    "name": "Security with ISIN US67066G1040",
+    "isin": "US67066G1040",
+    "type": "unknown",
+    "quantity": 20,
+    "price": 180,
+    "value": 3600,
+    "percentage": 3,
+    "currency": "POR"
+  }
+]

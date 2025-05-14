@@ -1,0 +1,1053 @@
+{
+  "timestamp": "2025-05-04T05:51:31.912Z",
+  "totalElements": 150,
+  "foundElements": 27,
+  "missingElements": 123,
+  "pages": [
+    {
+      "name": "Home",
+      "path": "/",
+      "totalElements": 20,
+      "foundElements": 4,
+      "missingElements": 16,
+      "elements": [
+        {
+          "description": "Navigation Bar",
+          "selector": ".navbar",
+          "found": false,
+          "optional": false
+        },
+        {
+          "description": "Sidebar",
+          "selector": ".sidebar",
+          "found": true,
+          "optional": false
+        },
+        {
+          "description": "Main Content",
+          "selector": ".main-content",
+          "found": true,
+          "optional": false
+        },
+        {
+          "description": "Quick Upload Section",
+          "selector": ".quick-upload",
+          "found": false,
+          "optional": false
+        },
+        {
+          "description": "Recent Documents Section",
+          "selector": ".recent-documents",
+          "found": false,
+          "optional": false
+        },
+        {
+          "description": "Analytics Section",
+          "selector": ".analytics-section",
+          "found": false,
+          "optional": false
+        },
+        {
+          "description": "Document Chat Section",
+          "selector": ".document-chat-section",
+          "found": false,
+          "optional": false
+        },
+        {
+          "description": "Features Section",
+          "selector": ".features-section",
+          "found": false,
+          "optional": false
+        },
+        {
+          "description": "Agents Section",
+          "selector": ".agents-section",
+          "found": false,
+          "optional": false
+        },
+        {
+          "description": "Show Chat Button",
+          "selector": "#show-chat-btn",
+          "found": false,
+          "optional": false
+        },
+        {
+          "description": "Document Chat Container",
+          "selector": "#document-chat-container",
+          "found": false,
+          "optional": true
+        },
+        {
+          "description": "Navigation Bar",
+          "selector": ".navbar",
+          "found": false,
+          "optional": false
+        },
+        {
+          "description": "Sidebar",
+          "selector": ".sidebar",
+          "found": true,
+          "optional": false
+        },
+        {
+          "description": "Main Content",
+          "selector": ".main-content",
+          "found": true,
+          "optional": false
+        },
+        {
+          "description": "Footer",
+          "selector": ".footer",
+          "found": false,
+          "optional": false
+        },
+        {
+          "description": "Logo",
+          "selector": ".logo",
+          "found": false,
+          "optional": false
+        },
+        {
+          "description": "User Menu",
+          "selector": ".user-menu",
+          "found": false,
+          "optional": false
+        },
+        {
+          "description": "Notifications",
+          "selector": ".notifications",
+          "found": false,
+          "optional": false
+        },
+        {
+          "description": "Search",
+          "selector": ".search",
+          "found": false,
+          "optional": false
+        },
+        {
+          "description": "Settings",
+          "selector": ".settings",
+          "found": false,
+          "optional": false
+        },
+        {
+          "description": "Show Chat Button",
+          "selector": "#show-chat-btn",
+          "found": false,
+          "optional": false
+        },
+        {
+          "description": "Document Chat Container",
+          "selector": "#document-chat-container",
+          "found": false,
+          "optional": true
+        }
+      ]
+    },
+    {
+      "name": "Upload",
+      "path": "/upload",
+      "totalElements": 16,
+      "foundElements": 6,
+      "missingElements": 10,
+      "elements": [
+        {
+          "description": "Upload Form",
+          "selector": ".upload-form",
+          "found": true,
+          "optional": false
+        },
+        {
+          "description": "Form Group",
+          "selector": ".form-group",
+          "found": true,
+          "optional": false
+        },
+        {
+          "description": "Form Control",
+          "selector": ".form-control",
+          "found": true,
+          "optional": false
+        },
+        {
+          "description": "Form Actions",
+          "selector": ".form-actions",
+          "found": true,
+          "optional": false
+        },
+        {
+          "description": "Process Document Button",
+          "selector": "#process-document-btn",
+          "found": false,
+          "optional": false
+        },
+        {
+          "description": "Progress Container",
+          "selector": "#progress-container",
+          "found": true,
+          "optional": true
+        },
+        {
+          "description": "Progress Bar",
+          "selector": "#progress-bar",
+          "found": true,
+          "optional": true
+        },
+        {
+          "description": "Upload Status",
+          "selector": "#upload-status",
+          "found": false,
+          "optional": true
+        },
+        {
+          "description": "Show Chat Button",
+          "selector": "#show-chat-btn",
+          "found": false,
+          "optional": false
+        },
+        {
+          "description": "Navigation Bar",
+          "selector": ".navbar",
+          "found": false,
+          "optional": false
+        },
+        {
+          "description": "Sidebar",
+          "selector": ".sidebar",
+          "found": true,
+          "optional": false
+        },
+        {
+          "description": "Main Content",
+          "selector": ".main-content",
+          "found": true,
+          "optional": false
+        },
+        {
+          "description": "Footer",
+          "selector": ".footer",
+          "found": false,
+          "optional": false
+        },
+        {
+          "description": "Logo",
+          "selector": ".logo",
+          "found": false,
+          "optional": false
+        },
+        {
+          "description": "User Menu",
+          "selector": ".user-menu",
+          "found": false,
+          "optional": false
+        },
+        {
+          "description": "Notifications",
+          "selector": ".notifications",
+          "found": false,
+          "optional": false
+        },
+        {
+          "description": "Search",
+          "selector": ".search",
+          "found": false,
+          "optional": false
+        },
+        {
+          "description": "Settings",
+          "selector": ".settings",
+          "found": false,
+          "optional": false
+        },
+        {
+          "description": "Show Chat Button",
+          "selector": "#show-chat-btn",
+          "found": false,
+          "optional": false
+        },
+        {
+          "description": "Document Chat Container",
+          "selector": "#document-chat-container",
+          "found": false,
+          "optional": true
+        }
+      ]
+    },
+    {
+      "name": "Documents",
+      "path": "/documents-new",
+      "totalElements": 19,
+      "foundElements": 3,
+      "missingElements": 16,
+      "elements": [
+        {
+          "description": "Document List",
+          "selector": ".document-list",
+          "found": false,
+          "optional": false
+        },
+        {
+          "description": "Document Item",
+          "selector": ".document-item",
+          "found": false,
+          "optional": false
+        },
+        {
+          "description": "Document Actions",
+          "selector": ".document-actions",
+          "found": true,
+          "optional": false
+        },
+        {
+          "description": "Document Filter",
+          "selector": ".document-filter",
+          "found": false,
+          "optional": false
+        },
+        {
+          "description": "Document Search",
+          "selector": ".document-search",
+          "found": false,
+          "optional": false
+        },
+        {
+          "description": "Document Sort",
+          "selector": ".document-sort",
+          "found": false,
+          "optional": false
+        },
+        {
+          "description": "Document Pagination",
+          "selector": ".document-pagination",
+          "found": false,
+          "optional": false
+        },
+        {
+          "description": "Document Upload Button",
+          "selector": ".document-upload-btn",
+          "found": false,
+          "optional": false
+        },
+        {
+          "description": "Show Chat Button",
+          "selector": "#show-chat-btn",
+          "found": false,
+          "optional": false
+        },
+        {
+          "description": "Navigation Bar",
+          "selector": ".navbar",
+          "found": false,
+          "optional": false
+        },
+        {
+          "description": "Sidebar",
+          "selector": ".sidebar",
+          "found": true,
+          "optional": false
+        },
+        {
+          "description": "Main Content",
+          "selector": ".main-content",
+          "found": true,
+          "optional": false
+        },
+        {
+          "description": "Footer",
+          "selector": ".footer",
+          "found": false,
+          "optional": false
+        },
+        {
+          "description": "Logo",
+          "selector": ".logo",
+          "found": false,
+          "optional": false
+        },
+        {
+          "description": "User Menu",
+          "selector": ".user-menu",
+          "found": false,
+          "optional": false
+        },
+        {
+          "description": "Notifications",
+          "selector": ".notifications",
+          "found": false,
+          "optional": false
+        },
+        {
+          "description": "Search",
+          "selector": ".search",
+          "found": false,
+          "optional": false
+        },
+        {
+          "description": "Settings",
+          "selector": ".settings",
+          "found": false,
+          "optional": false
+        },
+        {
+          "description": "Show Chat Button",
+          "selector": "#show-chat-btn",
+          "found": false,
+          "optional": false
+        },
+        {
+          "description": "Document Chat Container",
+          "selector": "#document-chat-container",
+          "found": false,
+          "optional": true
+        }
+      ]
+    },
+    {
+      "name": "Analytics",
+      "path": "/analytics-new",
+      "totalElements": 19,
+      "foundElements": 2,
+      "missingElements": 17,
+      "elements": [
+        {
+          "description": "Analytics Dashboard",
+          "selector": ".analytics-dashboard",
+          "found": false,
+          "optional": false
+        },
+        {
+          "description": "Analytics Chart",
+          "selector": ".analytics-chart",
+          "found": false,
+          "optional": false
+        },
+        {
+          "description": "Analytics Filters",
+          "selector": ".analytics-filters",
+          "found": false,
+          "optional": false
+        },
+        {
+          "description": "Analytics Metrics",
+          "selector": ".analytics-metrics",
+          "found": false,
+          "optional": false
+        },
+        {
+          "description": "Analytics Summary",
+          "selector": ".analytics-summary",
+          "found": false,
+          "optional": false
+        },
+        {
+          "description": "Analytics Period",
+          "selector": ".analytics-period",
+          "found": false,
+          "optional": false
+        },
+        {
+          "description": "Analytics Export",
+          "selector": ".analytics-export",
+          "found": false,
+          "optional": false
+        },
+        {
+          "description": "Analytics Refresh",
+          "selector": ".analytics-refresh",
+          "found": false,
+          "optional": false
+        },
+        {
+          "description": "Show Chat Button",
+          "selector": "#show-chat-btn",
+          "found": false,
+          "optional": false
+        },
+        {
+          "description": "Navigation Bar",
+          "selector": ".navbar",
+          "found": false,
+          "optional": false
+        },
+        {
+          "description": "Sidebar",
+          "selector": ".sidebar",
+          "found": true,
+          "optional": false
+        },
+        {
+          "description": "Main Content",
+          "selector": ".main-content",
+          "found": true,
+          "optional": false
+        },
+        {
+          "description": "Footer",
+          "selector": ".footer",
+          "found": false,
+          "optional": false
+        },
+        {
+          "description": "Logo",
+          "selector": ".logo",
+          "found": false,
+          "optional": false
+        },
+        {
+          "description": "User Menu",
+          "selector": ".user-menu",
+          "found": false,
+          "optional": false
+        },
+        {
+          "description": "Notifications",
+          "selector": ".notifications",
+          "found": false,
+          "optional": false
+        },
+        {
+          "description": "Search",
+          "selector": ".search",
+          "found": false,
+          "optional": false
+        },
+        {
+          "description": "Settings",
+          "selector": ".settings",
+          "found": false,
+          "optional": false
+        },
+        {
+          "description": "Show Chat Button",
+          "selector": "#show-chat-btn",
+          "found": false,
+          "optional": false
+        },
+        {
+          "description": "Document Chat Container",
+          "selector": "#document-chat-container",
+          "found": false,
+          "optional": true
+        }
+      ]
+    },
+    {
+      "name": "Document Details",
+      "path": "/document-details.html",
+      "totalElements": 19,
+      "foundElements": 3,
+      "missingElements": 16,
+      "elements": [
+        {
+          "description": "Document Metadata",
+          "selector": ".document-metadata",
+          "found": false,
+          "optional": false
+        },
+        {
+          "description": "Document Content",
+          "selector": ".document-content",
+          "found": false,
+          "optional": false
+        },
+        {
+          "description": "Document Tables",
+          "selector": ".document-tables",
+          "found": false,
+          "optional": false
+        },
+        {
+          "description": "Document Actions",
+          "selector": ".document-actions",
+          "found": true,
+          "optional": false
+        },
+        {
+          "description": "Document Export",
+          "selector": ".document-export",
+          "found": false,
+          "optional": false
+        },
+        {
+          "description": "Document Process",
+          "selector": ".document-process",
+          "found": false,
+          "optional": false
+        },
+        {
+          "description": "Document Share",
+          "selector": ".document-share",
+          "found": false,
+          "optional": false
+        },
+        {
+          "description": "Document Delete",
+          "selector": ".document-delete",
+          "found": false,
+          "optional": false
+        },
+        {
+          "description": "Show Chat Button",
+          "selector": "#show-chat-btn",
+          "found": false,
+          "optional": false
+        },
+        {
+          "description": "Navigation Bar",
+          "selector": ".navbar",
+          "found": false,
+          "optional": false
+        },
+        {
+          "description": "Sidebar",
+          "selector": ".sidebar",
+          "found": true,
+          "optional": false
+        },
+        {
+          "description": "Main Content",
+          "selector": ".main-content",
+          "found": true,
+          "optional": false
+        },
+        {
+          "description": "Footer",
+          "selector": ".footer",
+          "found": false,
+          "optional": false
+        },
+        {
+          "description": "Logo",
+          "selector": ".logo",
+          "found": false,
+          "optional": false
+        },
+        {
+          "description": "User Menu",
+          "selector": ".user-menu",
+          "found": false,
+          "optional": false
+        },
+        {
+          "description": "Notifications",
+          "selector": ".notifications",
+          "found": false,
+          "optional": false
+        },
+        {
+          "description": "Search",
+          "selector": ".search",
+          "found": false,
+          "optional": false
+        },
+        {
+          "description": "Settings",
+          "selector": ".settings",
+          "found": false,
+          "optional": false
+        },
+        {
+          "description": "Show Chat Button",
+          "selector": "#show-chat-btn",
+          "found": false,
+          "optional": false
+        },
+        {
+          "description": "Document Chat Container",
+          "selector": "#document-chat-container",
+          "found": false,
+          "optional": true
+        }
+      ]
+    },
+    {
+      "name": "Document Chat",
+      "path": "/document-chat",
+      "totalElements": 19,
+      "foundElements": 4,
+      "missingElements": 15,
+      "elements": [
+        {
+          "description": "Document Selector",
+          "selector": ".document-selector",
+          "found": true,
+          "optional": false
+        },
+        {
+          "description": "Chat History",
+          "selector": ".chat-history",
+          "found": false,
+          "optional": false
+        },
+        {
+          "description": "Chat Input",
+          "selector": ".chat-input",
+          "found": true,
+          "optional": false
+        },
+        {
+          "description": "Chat Send",
+          "selector": ".chat-send",
+          "found": false,
+          "optional": false
+        },
+        {
+          "description": "Chat Clear",
+          "selector": ".chat-clear",
+          "found": false,
+          "optional": false
+        },
+        {
+          "description": "Chat Export",
+          "selector": ".chat-export",
+          "found": false,
+          "optional": false
+        },
+        {
+          "description": "Chat Settings",
+          "selector": ".chat-settings",
+          "found": false,
+          "optional": false
+        },
+        {
+          "description": "Chat Message",
+          "selector": ".chat-message",
+          "found": false,
+          "optional": false
+        },
+        {
+          "description": "Show Chat Button",
+          "selector": "#show-chat-btn",
+          "found": false,
+          "optional": false
+        },
+        {
+          "description": "Navigation Bar",
+          "selector": ".navbar",
+          "found": false,
+          "optional": false
+        },
+        {
+          "description": "Sidebar",
+          "selector": ".sidebar",
+          "found": true,
+          "optional": false
+        },
+        {
+          "description": "Main Content",
+          "selector": ".main-content",
+          "found": true,
+          "optional": false
+        },
+        {
+          "description": "Footer",
+          "selector": ".footer",
+          "found": false,
+          "optional": false
+        },
+        {
+          "description": "Logo",
+          "selector": ".logo",
+          "found": false,
+          "optional": false
+        },
+        {
+          "description": "User Menu",
+          "selector": ".user-menu",
+          "found": false,
+          "optional": false
+        },
+        {
+          "description": "Notifications",
+          "selector": ".notifications",
+          "found": false,
+          "optional": false
+        },
+        {
+          "description": "Search",
+          "selector": ".search",
+          "found": false,
+          "optional": false
+        },
+        {
+          "description": "Settings",
+          "selector": ".settings",
+          "found": false,
+          "optional": false
+        },
+        {
+          "description": "Show Chat Button",
+          "selector": "#show-chat-btn",
+          "found": false,
+          "optional": false
+        },
+        {
+          "description": "Document Chat Container",
+          "selector": "#document-chat-container",
+          "found": true,
+          "optional": true
+        }
+      ]
+    },
+    {
+      "name": "Document Comparison",
+      "path": "/document-comparison",
+      "totalElements": 19,
+      "foundElements": 3,
+      "missingElements": 16,
+      "elements": [
+        {
+          "description": "Comparison Container",
+          "selector": ".comparison-container",
+          "found": false,
+          "optional": false
+        },
+        {
+          "description": "Document Selector",
+          "selector": ".document-selector",
+          "found": false,
+          "optional": false
+        },
+        {
+          "description": "Comparison Results",
+          "selector": ".comparison-results",
+          "found": true,
+          "optional": false
+        },
+        {
+          "description": "Comparison Diff",
+          "selector": ".comparison-diff",
+          "found": false,
+          "optional": false
+        },
+        {
+          "description": "Comparison Summary",
+          "selector": ".comparison-summary",
+          "found": false,
+          "optional": false
+        },
+        {
+          "description": "Comparison Export",
+          "selector": ".comparison-export",
+          "found": false,
+          "optional": false
+        },
+        {
+          "description": "Comparison Settings",
+          "selector": ".comparison-settings",
+          "found": false,
+          "optional": false
+        },
+        {
+          "description": "Comparison Refresh",
+          "selector": ".comparison-refresh",
+          "found": false,
+          "optional": false
+        },
+        {
+          "description": "Show Chat Button",
+          "selector": "#show-chat-btn",
+          "found": false,
+          "optional": false
+        },
+        {
+          "description": "Navigation Bar",
+          "selector": ".navbar",
+          "found": false,
+          "optional": false
+        },
+        {
+          "description": "Sidebar",
+          "selector": ".sidebar",
+          "found": true,
+          "optional": false
+        },
+        {
+          "description": "Main Content",
+          "selector": ".main-content",
+          "found": true,
+          "optional": false
+        },
+        {
+          "description": "Footer",
+          "selector": ".footer",
+          "found": false,
+          "optional": false
+        },
+        {
+          "description": "Logo",
+          "selector": ".logo",
+          "found": false,
+          "optional": false
+        },
+        {
+          "description": "User Menu",
+          "selector": ".user-menu",
+          "found": false,
+          "optional": false
+        },
+        {
+          "description": "Notifications",
+          "selector": ".notifications",
+          "found": false,
+          "optional": false
+        },
+        {
+          "description": "Search",
+          "selector": ".search",
+          "found": false,
+          "optional": false
+        },
+        {
+          "description": "Settings",
+          "selector": ".settings",
+          "found": false,
+          "optional": false
+        },
+        {
+          "description": "Show Chat Button",
+          "selector": "#show-chat-btn",
+          "found": false,
+          "optional": false
+        },
+        {
+          "description": "Document Chat Container",
+          "selector": "#document-chat-container",
+          "found": false,
+          "optional": true
+        }
+      ]
+    },
+    {
+      "name": "Test",
+      "path": "/test",
+      "totalElements": 19,
+      "foundElements": 2,
+      "missingElements": 17,
+      "elements": [
+        {
+          "description": "Test Page Content",
+          "selector": ".test-page-content",
+          "found": false,
+          "optional": false
+        },
+        {
+          "description": "Agent Card",
+          "selector": ".agent-card",
+          "found": false,
+          "optional": false
+        },
+        {
+          "description": "Status Indicator",
+          "selector": ".status-indicator",
+          "found": false,
+          "optional": false
+        },
+        {
+          "description": "Agent Action",
+          "selector": ".agent-action",
+          "found": false,
+          "optional": false
+        },
+        {
+          "description": "Agent Card Header",
+          "selector": ".agent-card-header",
+          "found": false,
+          "optional": false
+        },
+        {
+          "description": "Agent Card Body",
+          "selector": ".agent-card-body",
+          "found": false,
+          "optional": false
+        },
+        {
+          "description": "Agent Card Footer",
+          "selector": ".agent-card-footer",
+          "found": false,
+          "optional": false
+        },
+        {
+          "description": "Agent Cards Container",
+          "selector": ".agent-cards-container",
+          "found": false,
+          "optional": false
+        },
+        {
+          "description": "Show Chat Button",
+          "selector": "#show-chat-btn",
+          "found": false,
+          "optional": false
+        },
+        {
+          "description": "Navigation Bar",
+          "selector": ".navbar",
+          "found": false,
+          "optional": false
+        },
+        {
+          "description": "Sidebar",
+          "selector": ".sidebar",
+          "found": true,
+          "optional": false
+        },
+        {
+          "description": "Main Content",
+          "selector": ".main-content",
+          "found": true,
+          "optional": false
+        },
+        {
+          "description": "Footer",
+          "selector": ".footer",
+          "found": false,
+          "optional": false
+        },
+        {
+          "description": "Logo",
+          "selector": ".logo",
+          "found": false,
+          "optional": false
+        },
+        {
+          "description": "User Menu",
+          "selector": ".user-menu",
+          "found": false,
+          "optional": false
+        },
+        {
+          "description": "Notifications",
+          "selector": ".notifications",
+          "found": false,
+          "optional": false
+        },
+        {
+          "description": "Search",
+          "selector": ".search",
+          "found": false,
+          "optional": false
+        },
+        {
+          "description": "Settings",
+          "selector": ".settings",
+          "found": false,
+          "optional": false
+        },
+        {
+          "description": "Show Chat Button",
+          "selector": "#show-chat-btn",
+          "found": false,
+          "optional": false
+        },
+        {
+          "description": "Document Chat Container",
+          "selector": "#document-chat-container",
+          "found": false,
+          "optional": true
+        }
+      ]
+    }
+  ],
+  "passRate": 18
+}

@@ -1,0 +1,3 @@
+Mock Excel export file
+Format: XLSX
+Data: {"Securities":[{"isin":"US2388700970","name":"Bank of America Corp.","type":"ETF","quantity":369,"price":898.73,"value":331631.37,"currency":"ILS","marketPrice":900.35,"marketValue":332229.15,"priceChange":1.62,"priceChangePercent":0.18,"lastUpdated":"2025-05-14T09:10:48.186Z","dataProvider":"Yahoo Finance","id":"sec-1","symbol":"BANK","sector":"Energy","country":"US"},{"isin":"GB3814966928","name":"NVIDIA Corp.","type":"Stock","quantity":596,"price":403.65,"value":240575.4,"currency":"ILS","mar...

@@ -1,0 +1,75 @@
+{
+  "id": "86910e1f-6ee8-4422-8693-482dfacb0f8a",
+  "name": "Test Batch Job",
+  "description": "Test batch job for API testing",
+  "status": "completed",
+  "priority": "medium",
+  "progress": 50,
+  "files": [
+    {
+      "id": "05b19df7-5433-42f1-8d58-8a718d1bbbbc",
+      "path": "/virtual/document/doc-123",
+      "name": "Document doc-123",
+      "documentId": "doc-123",
+      "documentType": "generic",
+      "status": "completed",
+      "result": {
+        "id": "doc-123",
+        "fileName": "Test Financial Report.pdf",
+        "originalName": "Test Financial Report.pdf",
+        "documentType": "financial",
+        "uploadDate": "2025-05-10T00:00:00.000Z",
+        "processed": true,
+        "processingDate": "2025-05-13T21:15:49.161Z",
+        "size": 1048576,
+        "path": "/mnt/c/Users/aviad/OneDrive/Desktop/backv2-main/uploads/test-financial-report.pdf"
+      },
+      "processedAt": "2025-05-13T21:15:49.162Z"
+    },
+    {
+      "id": "d42df21d-7ea5-48fa-90e2-30d34305fa52",
+      "path": "/virtual/document/doc-456",
+      "name": "Document doc-456",
+      "documentId": "doc-456",
+      "documentType": "generic",
+      "status": "pending",
+      "retryCount": 1,
+      "error": {
+        "message": "Document doc-456 not found",
+        "timestamp": "2025-05-13T21:15:49.172Z",
+        "retryCount": 1
+      }
+    }
+  ],
+  "totalFiles": 2,
+  "processedFiles": 1,
+  "failedFiles": 0,
+  "processingOptions": {
+    "extractText": true,
+    "extractTables": true,
+    "extractSecurities": true
+  },
+  "createdAt": "2025-05-13T21:15:49.052Z",
+  "updatedAt": "2025-05-13T21:15:49.176Z",
+  "startedAt": "2025-05-13T21:15:49.122Z",
+  "completedAt": "2025-05-13T21:15:49.176Z",
+  "summary": {
+    "status": "completed",
+    "totalFiles": 2,
+    "processedFiles": 1,
+    "failedFiles": 0,
+    "successRate": 50,
+    "duration": 54,
+    "durationFormatted": "54ms",
+    "startedAt": "2025-05-13T21:15:49.122Z",
+    "completedAt": "2025-05-13T21:15:49.176Z",
+    "documentTypes": {
+      "generic": 2
+    },
+    "processingOptions": {
+      "extractText": true,
+      "extractTables": true,
+      "extractSecurities": true
+    }
+  }
+}

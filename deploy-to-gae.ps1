@@ -5,8 +5,9 @@
 $ErrorActionPreference = "Stop"
 
 # Configuration
-$appYamlPath = "DevDocs/app.yaml"
+$appYamlPath = "app.yaml"
 $projectRoot = "C:/Users/aviad/OneDrive/Desktop/backv2-main"
+$modernUiEnabled = $true
 
 # Function to display colored messages
 function Write-ColoredOutput {
@@ -80,7 +81,89 @@ Set-Location "$projectRoot/DevDocs"
 # Build the application
 Write-ColoredOutput "Building the application..." "Yellow"
 try {
-    # Add any build steps here if needed
+    # Create necessary directories if they don't exist
+    if ($modernUiEnabled) {
+        Write-ColoredOutput "Setting up Modern UI..." "Yellow"
+        $directories = @("public", "public/css", "public/js", "public/images")
+        foreach ($dir in $directories) {
+            if (-not (Test-Path "$projectRoot/$dir")) {
+                New-Item -ItemType Directory -Path "$projectRoot/$dir" -Force | Out-Null
+                Write-ColoredOutput "Created directory: $dir" "Green"
+            }
+        }
+
+        # Create modern-ui.css if it doesn't exist
+        if (-not (Test-Path "$projectRoot/public/css/modern-ui.css")) {
+            Write-ColoredOutput "Creating modern-ui.css..." "Yellow"
+            @"
+/* FinDoc Analyzer - Modern UI CSS */
+:root {
+  --primary-color: #3498db;
+  --secondary-color: #2c3e50;
+  --accent-color: #e74c3c;
+  --background-color: #f8f9fa;
+  --text-color: #333;
+  --border-radius: 8px;
+  --box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
+/* Modern App Layout */
+.app-layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* Modern Sidebar */
+.sidebar {
+  width: 280px;
+  background-color: var(--secondary-color);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s ease;
+}
+
+/* Modern Header */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background-color: white;
+  box-shadow: var(--box-shadow);
+}
+
+/* Modern Login Page */
+.login-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: var(--background-color);
+}
+
+/* Modern Upload Page */
+.upload-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+"@ | Out-File -FilePath "$projectRoot/public/css/modern-ui.css" -Encoding utf8
+            Write-ColoredOutput "Created modern-ui.css" "Green"
+        }
+    }
+
+    # Add any other build steps here if needed
     Write-ColoredOutput "Build completed successfully." "Green"
 }
 catch {

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>FinDoc Analyzer API Documentation</title>
+    <!-- Needed for responsive design -->
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,700|Roboto:300,400,700" rel="stylesheet">
+
+    <!-- ReDoc doesn't change outer page styles -->
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: Montserrat, sans-serif;
+      }
+
+      .api-logo {
+        text-align: center;
+        padding: 20px 0;
+        background-color: #f8f8f8;
+        border-bottom: 1px solid #e0e0e0;
+      }
+
+      .api-logo img {
+        max-width: 200px;
+      }
+
+      .api-header {
+        text-align: center;
+        padding: 10px 0;
+        background-color: #f8f8f8;
+        color: #333;
+        font-size: 16px;
+      }
+
+      .api-header p {
+        margin: 5px 0;
+      }
+
+      .api-header a {
+        color: #4a6cf7;
+        text-decoration: none;
+      }
+
+      .api-header a:hover {
+        text-decoration: underline;
+      }
+
+      .dark-mode-toggle {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        z-index: 100;
+        background-color: #f8f8f8;
+        border: 1px solid #e0e0e0;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      }
+
+      .dark-mode-toggle:hover {
+        background-color: #e0e0e0;
+      }
+
+      body.dark-mode {
+        background-color: #333;
+        color: #fff;
+      }
+
+      body.dark-mode .api-logo,
+      body.dark-mode .api-header {
+        background-color: #222;
+        border-color: #444;
+        color: #fff;
+      }
+
+      body.dark-mode .dark-mode-toggle {
+        background-color: #444;
+        border-color: #666;
+      }
+
+      body.dark-mode .dark-mode-toggle:hover {
+        background-color: #555;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="api-logo">
+      <img src="https://via.placeholder.com/200x60?text=FinDoc+API" alt="FinDoc API Logo">
+    </div>
+    <div class="api-header">
+      <p>Version 1.0.0 | <a href="https://findoc.example.com/support" target="_blank">Support</a> | <a href="https://findoc.example.com/guides" target="_blank">Developer Guides</a></p>
+    </div>
+    <div class="dark-mode-toggle" id="darkModeToggle" title="Toggle dark mode">
+      🌓
+    </div>
+
+    <!-- ReDoc container -->
+    <redoc spec-url="openapi.yaml" hide-hostname="true" expand-responses="200,201" path-in-middle-panel="true"></redoc>
+
+    <!-- ReDoc script -->
+    <script src="https://cdn.jsdelivr.net/npm/redoc@next/bundles/redoc.standalone.js"></script>
+
+    <!-- Dark mode script -->
+    <script>
+      document.getElementById('darkModeToggle').addEventListener('click', function() {
+        document.body.classList.toggle('dark-mode');
+        
+        // Store preference in localStorage
+        if (document.body.classList.contains('dark-mode')) {
+          localStorage.setItem('darkMode', 'enabled');
+        } else {
+          localStorage.setItem('darkMode', 'disabled');
+        }
+      });
+
+      // Check for saved preference
+      if (localStorage.getItem('darkMode') === 'enabled') {
+        document.body.classList.add('dark-mode');
+      }
+    </script>
+  </body>
+</html>

@@ -35,6 +35,19 @@ const performanceMonitor = require('./services/performance/performanceMonitor');
 const cacheService = require('./services/cache/cacheService');
 const storageService = require('./services/storage/supabaseStorageService');
 
+// Initialize plugin system
+const { initializePluginSystem, pluginApiMiddleware } = require('./services/plugins');
+const pluginSystem = initializePluginSystem({
+  pluginsDir: path.join(__dirname, 'plugins'),
+  configDir: path.join(__dirname, 'config'),
+  coreVersion: require('../package.json').version,
+  autoDiscovery: true,
+  developmentMode: process.env.NODE_ENV === 'development'
+});
+
+// Store plugin system in app locals for global access
+app.locals.pluginSystem = pluginSystem;
+
 // Middleware
 securityMiddleware.applyAll(app); // Apply security middleware (CORS, Helmet, Rate Limiting)
 app.use(express.json()); // Parse JSON bodies
@@ -42,6 +55,7 @@ app.use(express.urlencoded({ extended: true })); // Parse URL-encoded bodies
 app.use(cookieParser()); // Parse cookies
 app.use(morgan('combined', { stream: { write: message => logger.info(message.trim()) } })); // HTTP request logging
 app.use(performanceMonitor.performanceMiddleware()); // Performance monitoring
+app.use(pluginApiMiddleware(pluginSystem)); // Plugin API middleware
 
 // Serve static files
 app.use(express.static(path.join(__dirname, 'public')));
@@ -105,6 +119,15 @@ async function initServices() {
       logger.warn('Database connection failed');
     }
 
+    // Initialize plugin system
+    try {
+      await pluginSystem.manager.discoverPlugins();
+      await pluginSystem.manager.loadPlugins();
+      logger.info(`Loaded ${pluginSystem.manager.loadedPlugins.size} plugins`);
+    } catch (pluginError) {
+      logger.error('Error initializing plugin system:', pluginError);
+    }
+
     logger.info('All services initialized successfully');
   } catch (error) {
     logger.error(`Error initializing services: ${error.message}`, error);
@@ -129,6 +152,12 @@ const gracefulShutdown = (signal) => {
 
     // Perform cleanup
     try {
+      // Unload plugins
+      if (pluginSystem && pluginSystem.manager) {
+        pluginSystem.manager.unloadPlugins();
+        logger.info('Plugins unloaded');
+      }
+
       // Flush cache
       cacheService.flush();
       logger.info('Cache flushed');
@@ -166,3 +195,10 @@ process.on('unhandledRejection', (reason, promise) => {
   logger.error('Unhandled rejection at:', promise, 'reason:', reason);
   // Don't shut down for unhandled rejections
 });
+
+// Export the plugin system for testing and direct access
+module.exports = {
+  app,
+  server,
+  pluginSystem
+};

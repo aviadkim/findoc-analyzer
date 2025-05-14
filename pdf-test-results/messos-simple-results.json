@@ -1,0 +1,62 @@
+{
+  "filename": "messos.pdf",
+  "timestamp": "2025-05-12T11:53:21.047Z",
+  "textLength": 31441,
+  "tableCount": 2,
+  "entityCount": 108,
+  "entityTypes": {
+    "company": 5,
+    "security": 41,
+    "currency": 21,
+    "isin": 41
+  },
+  "metadata": {
+    "title": "messos.pdf",
+    "author": "Unknown",
+    "subject": "",
+    "keywords": "",
+    "creator": "",
+    "producer": "",
+    "pages": 20,
+    "creationDate": "",
+    "modificationDate": ""
+  },
+  "sampleText": "\n\neuioaeuioa\nValuation\nas of 28.02.2025\nSwift CBLUCH2280A // Clearing 8490 // CHE-105.962.409 IVA\nTel. +41 44 218 10 20 // Fax +41 44218 1029 // info@corner.ch // corner.ch\nCornèr Banca SA\n// Töd istrasse27 // Postfach 16 40 // 8027 Zürich_Switzerland // Hauptsitz Via Canova 16, 6901 Lugano_Switzerland\nMESSOS ENTERPRISES LTD.\n366223\nClient Number //\nUSD\nValuation currency //\nUndefined\nInvestment profile //\nMedium-high\nRisk Profile //\n\nIndex\nMESSOS ENTERPRISES LTD.\nValuation as of 28.02.2025\nClie...",
+  "sampleEntities": [
+    {
+      "type": "company",
+      "name": "Banca",
+      "confidence": 0.95,
+      "ticker": "TICKER",
+      "source": "https://example.com/company/banca"
+    },
+    {
+      "type": "company",
+      "name": "GOLDMAN",
+      "confidence": 0.95,
+      "ticker": "TICKER",
+      "source": "https://example.com/company/goldman"
+    },
+    {
+      "type": "company",
+      "name": "BCO",
+      "confidence": 0.95,
+      "ticker": "BCO",
+      "source": "https://example.com/company/bco"
+    },
+    {
+      "type": "company",
+      "name": "EXIGENT ENHANCED INCOME FUND LTD SHS A",
+      "confidence": 0.95,
+      "ticker": "FUND",
+      "source": "https://example.com/company/exigent-enhanced-income-fund-ltd-shs"
+    },
+    {
+      "type": "company",
+      "name": "Meta",
+      "confidence": 0.95,
+      "ticker": "TICKER",
+      "source": "https://example.com/company/meta"
+    }
+  ]
+}

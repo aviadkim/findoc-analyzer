@@ -1,0 +1,27 @@
+[
+  {
+    "question": "What is the total value of the portfolio?",
+    "response": "Portfolio Summary:\n\nTotal Value: $1,250,000.00\nCash Balance: $125,000.00\nInvested Amount: $1,125,000.00\nUnrealized Gain/Loss: +$75,000.00 (+7.14%)",
+    "source": "mock"
+  },
+  {
+    "question": "List all securities in the portfolio",
+    "response": "The document contains the following securities:\n\n1. Apple Inc. (ISIN: US0378331005) - 100 shares valued at $18000\n2. Microsoft Corp. (ISIN: US5949181045) - 150 shares valued at $51000\n3. Amazon.com Inc. (ISIN: US0231351067) - 50 shares valued at $6500\n4. Tesla Inc. (ISIN: US88160R1014) - 75 shares valued at $18750\n5. Meta Platforms Inc. (ISIN: US30303M1027) - 80 shares valued at $23200\n",
+    "source": "mock"
+  },
+  {
+    "question": "What is the asset allocation?",
+    "response": "Asset Allocation:\n\nEquities: 60% ($750,000.00)\nFixed Income: 30% ($375,000.00)\nCash: 10% ($125,000.00)",
+    "source": "mock"
+  },
+  {
+    "question": "What are the top 5 holdings by value?",
+    "response": "I found the following information in the document:\n\nThis is a portfolio document named \"Test Document.pdf\" uploaded on 5/1/2025. The portfolio has a total value of $1,250,000.00 with investments in equities (60%), fixed income (30%), and cash (10%). The document contains details about securities holdings, fixed income investments, and recent transactions.",
+    "source": "mock"
+  },
+  {
+    "question": "What is the performance of the portfolio?",
+    "response": "Portfolio Summary:\n\nTotal Value: $1,250,000.00\nCash Balance: $125,000.00\nInvested Amount: $1,125,000.00\nUnrealized Gain/Loss: +$75,000.00 (+7.14%)",
+    "source": "mock"
+  }
+]

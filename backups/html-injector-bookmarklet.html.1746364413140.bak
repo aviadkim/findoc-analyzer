@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HTML Injector Bookmarklet</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      margin: 0;
+      padding: 20px;
+      color: #333;
+    }
+    
+    h1, h2, h3 {
+      color: #444;
+    }
+    
+    .bookmarklet {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+      margin: 20px 0;
+      font-weight: bold;
+    }
+    
+    .instructions {
+      background-color: #f8f9fa;
+      border-left: 4px solid #007bff;
+      padding: 15px;
+      margin: 20px 0;
+    }
+    
+    ol {
+      margin: 0;
+      padding-left: 20px;
+    }
+  </style>
+  <link rel="stylesheet" href="/css/ui-fixes.css">
+</head>
+<body>
+  <h1>HTML Injector Bookmarklet</h1>
+  
+  <p>This bookmarklet injects the UI components into the FinDoc Analyzer application.</p>
+  
+  <div class="instructions">
+    <h2>How to use:</h2>
+    <ol>
+      <li>Drag the bookmarklet below to your bookmarks bar.</li>
+      <li>Navigate to any page on the FinDoc Analyzer application.</li>
+      <li>Click the bookmarklet to inject the UI components.</li>
+    </ol>
+  </div>
+  
+  <p>Drag this link to your bookmarks bar:</p>
+  
+  <a href="javascript:(function(){
+    // Create script element
+    var script = document.createElement('script');
+    script.src = '/js/ui-components-backend.js';
+    script.async = true;
+    
+    // Add script to head
+    document.head.appendChild(script);
+    
+    // Log success
+    console.log('UI components injected successfully!');
+    alert('UI components injected successfully!');
+  })()" class="bookmarklet">Inject UI Components</a>
+  
+  <h2>What this bookmarklet does:</h2>
+  <ul>
+    <li>Injects the UI components script into the page</li>
+    <li>Adds the process button to the upload page</li>
+    <li>Adds the chat button to all pages</li>
+    <li>Adds the agent cards to the test page</li>
+  </ul>
+  
+  <h2>Testing the UI components:</h2>
+  <p>You can test the UI components by visiting the <a href="/ui-components-test">UI Components Test</a> page.</p>
+  <script src="/js/ui-fixes.js"></script>
+</body>
+</html>

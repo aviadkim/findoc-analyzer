@@ -1,0 +1,20 @@
+{
+  "total": 2,
+  "passed": 0,
+  "failed": 2,
+  "skipped": 0,
+  "tests": [
+    {
+      "name": "Upload and process a PDF file",
+      "status": "failed",
+      "duration": 3397,
+      "error": "page.waitForTimeout is not a function"
+    },
+    {
+      "name": "Process a PDF with OCR",
+      "status": "failed",
+      "duration": 3115,
+      "error": "page.waitForTimeout is not a function"
+    }
+  ]
+}

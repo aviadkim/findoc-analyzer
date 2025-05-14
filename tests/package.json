@@ -1,0 +1,32 @@
+{
+  "name": "findoc-analyzer-tests",
+  "version": "1.0.0",
+  "description": "Automated tests for FinDoc Analyzer",
+  "scripts": {
+    "test": "node run-playwright-tests.js",
+    "test:headed": "node run-playwright-tests.js --headed",
+    "test:ui": "node run-playwright-tests.js --headed --slow-mo",
+    "test:debug": "node run-playwright-tests.js --debug",
+    "test:auth": "node run-playwright-tests.js authentication.spec.js",
+    "test:docs": "node run-playwright-tests.js document-management.spec.js",
+    "test:processing": "node run-playwright-tests.js document-processing.spec.js",
+    "test:analytics": "node run-playwright-tests.js analytics-visualization.spec.js",
+    "test:agents": "node run-playwright-tests.js agent-workspace.spec.js",
+    "test:preferences": "node run-playwright-tests.js user-preferences.spec.js",
+    "test:mobile": "node run-playwright-tests.js mobile-responsiveness.spec.js",
+    "test:a11y": "node run-playwright-tests.js accessibility.spec.js",
+    "test:all-browsers": "node run-playwright-tests.js --all-browsers",
+    "test:firefox": "node run-playwright-tests.js --firefox",
+    "test:webkit": "node run-playwright-tests.js --webkit",
+    "generate-test-pdf": "node test-data/generate-sample-pdf.js",
+    "show-report": "npx playwright show-report test-results/playwright-report"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "dependencies": {
+    "@axe-core/playwright": "^4.5.2",
+    "@playwright/test": "^1.32.1",
+    "pdfkit": "^0.13.0"
+  }
+}

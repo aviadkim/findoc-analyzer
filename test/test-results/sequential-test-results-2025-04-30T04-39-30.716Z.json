@@ -1,0 +1,96 @@
+{
+  "startTime": "2025-04-30T04:39:29.877Z",
+  "endTime": "2025-04-30T04:39:30.716Z",
+  "totalTests": 3,
+  "passedTests": 1,
+  "failedTests": 2,
+  "skippedTests": 0,
+  "tests": [
+    {
+      "id": "PDF-01",
+      "name": "Create Test PDF",
+      "status": "passed",
+      "startTime": "2025-04-30T04:39:30.491Z",
+      "endTime": "2025-04-30T04:39:30.493Z",
+      "duration": 2,
+      "steps": [
+        {
+          "number": 1,
+          "name": "Step 1",
+          "status": "passed",
+          "startTime": "2025-04-30T04:39:30.492Z",
+          "endTime": "2025-04-30T04:39:30.493Z",
+          "duration": 1,
+          "error": null,
+          "screenshots": [],
+          "filePath": "C:\\Users\\aviad\\OneDrive\\Desktop\\backv2-main\\test\\test-files\\test-portfolio.pdf"
+        }
+      ],
+      "error": null,
+      "screenshots": []
+    },
+    {
+      "id": "PDF-02",
+      "name": "Upload PDF",
+      "status": "failed",
+      "startTime": "2025-04-30T04:39:30.493Z",
+      "endTime": "2025-04-30T04:39:30.649Z",
+      "duration": 156,
+      "steps": [
+        {
+          "number": 1,
+          "name": "Step 1",
+          "status": "failed",
+          "startTime": "2025-04-30T04:39:30.494Z",
+          "endTime": null,
+          "duration": 0,
+          "error": "Request failed with status code 404",
+          "screenshots": [
+            "PDF-02-step-1-failure.png"
+          ]
+        }
+      ],
+      "error": "Request failed with status code 404",
+      "screenshots": []
+    },
+    {
+      "id": "PDF-03",
+      "name": "Batch Processing",
+      "status": "failed",
+      "startTime": "2025-04-30T04:39:30.650Z",
+      "endTime": "2025-04-30T04:39:30.716Z",
+      "duration": 66,
+      "steps": [
+        {
+          "number": 1,
+          "name": "Step 1",
+          "status": "passed",
+          "startTime": "2025-04-30T04:39:30.650Z",
+          "endTime": "2025-04-30T04:39:30.654Z",
+          "duration": 4,
+          "error": null,
+          "screenshots": [],
+          "filePaths": [
+            "C:\\Users\\aviad\\OneDrive\\Desktop\\backv2-main\\test\\test-files\\test-batch-1.pdf",
+            "C:\\Users\\aviad\\OneDrive\\Desktop\\backv2-main\\test\\test-files\\test-batch-2.pdf",
+            "C:\\Users\\aviad\\OneDrive\\Desktop\\backv2-main\\test\\test-files\\test-batch-3.pdf"
+          ]
+        },
+        {
+          "number": 2,
+          "name": "Step 2",
+          "status": "failed",
+          "startTime": "2025-04-30T04:39:30.654Z",
+          "endTime": null,
+          "duration": 0,
+          "error": "filePaths is not iterable",
+          "screenshots": [
+            "PDF-03-step-2-failure.png"
+          ]
+        }
+      ],
+      "error": "filePaths is not iterable",
+      "screenshots": []
+    }
+  ]
+}

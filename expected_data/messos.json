@@ -1,0 +1,82 @@
+{
+  "document_type": "messos",
+  "currency": "USD",
+  "securities": [
+    {
+      "isin": "US5949181045",
+      "description": "Microsoft Corporation",
+      "nominal": 100,
+      "price": 300.50,
+      "value": 30050.00,
+      "type": "equity"
+    },
+    {
+      "isin": "US0378331005",
+      "description": "Apple Inc",
+      "nominal": 50,
+      "price": 180.95,
+      "value": 9047.50,
+      "type": "equity"
+    },
+    {
+      "isin": "US0231351067",
+      "description": "Amazon.com Inc",
+      "nominal": 20,
+      "price": 130.00,
+      "value": 2600.00,
+      "type": "equity"
+    },
+    {
+      "isin": "US02079K3059",
+      "description": "Alphabet Inc",
+      "nominal": 30,
+      "price": 138.75,
+      "value": 4162.50,
+      "type": "equity"
+    },
+    {
+      "isin": "US67066G1040",
+      "description": "NVIDIA Corporation",
+      "nominal": 15,
+      "price": 886.24,
+      "value": 13293.60,
+      "type": "equity"
+    },
+    {
+      "isin": "US91282CFS26",
+      "description": "US Treasury 2.5% 15.02.2026",
+      "nominal": 10000,
+      "price": 0.985,
+      "value": 9850.00,
+      "type": "bond"
+    },
+    {
+      "isin": "US037833AK68",
+      "description": "Apple Inc 3.85% 05.05.2027",
+      "nominal": 5000,
+      "price": 0.962,
+      "value": 4810.00,
+      "type": "bond"
+    },
+    {
+      "isin": "US594918BB96",
+      "description": "Microsoft 3.3% 06.02.2028",
+      "nominal": 7500,
+      "price": 0.978,
+      "value": 7335.00,
+      "type": "bond"
+    }
+  ],
+  "portfolio_summary": {
+    "total_value": 81148.60,
+    "equities_value": 59153.60,
+    "bonds_value": 21995.00,
+    "cash_value": 0.00
+  },
+  "asset_allocation": {
+    "equities": 72.89,
+    "bonds": 27.11,
+    "cash": 0.00,
+    "other": 0.00
+  }
+}

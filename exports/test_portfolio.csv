@@ -1,0 +1,4 @@
+name,isin,value,currency,weight
+US Large Cap Fund,US1234567890,50000,USD,0.5
+Global Bond Fund,US0987654321,30000,USD,0.3
+Emerging Markets ETF,US5555555555,20000,USD,0.2

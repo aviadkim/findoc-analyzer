@@ -1,13 +1,13 @@
 {
   "testId": "Test-01",
   "testName": "Basic Website Access",
-  "date": "2025-04-28T07:24:32.687Z",
+  "date": "2025-04-29T09:51:27.744Z",
   "steps": [
     {
       "step": 1,
       "description": "Open the website",
       "expectedResult": "Website loads successfully",
-      "actualResult": "Website loaded successfully in 1194ms",
+      "actualResult": "Website loaded successfully in 925ms",
       "status": "Pass"
     },
     {

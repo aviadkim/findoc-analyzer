@@ -1,0 +1,18 @@
+
+        Portfolio Statement
+        Client: John Doe
+        Account: 123456
+        Date: 2023-12-31
+
+        Securities:
+        ISIN          | Name           | Quantity | Price    | Value     | Currency
+        US0378331005  | Apple Inc.     | 100      | 190.50   | 19,050.00 | USD
+        US5949181045  | Microsoft Corp.| 50       | 380.20   | 19,010.00 | USD
+        US88160R1014  | Tesla Inc.     | 25       | 248.48   | 6,212.00  | USD
+
+        Asset Allocation:
+        Asset Class | Allocation | Value
+        Stocks      | 60%        | 750,000.00
+        Bonds       | 30%        | 375,000.00
+        Cash        | 10%        | 125,000.00
+        

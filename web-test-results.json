@@ -1,0 +1,493 @@
+{
+  "total": 52,
+  "passed": 45,
+  "failed": 3,
+  "skipped": 4,
+  "results": [
+    {
+      "id": "01a7578c",
+      "name": "Server Status",
+      "status": "PASS",
+      "message": "Server is running",
+      "timestamp": "2025-05-12T12:13:08.628Z"
+    },
+    {
+      "id": "467efd4c",
+      "name": "Documents List",
+      "status": "PASS",
+      "message": "Retrieved 3 documents",
+      "timestamp": "2025-05-12T12:13:08.638Z"
+    },
+    {
+      "id": "3901bf0f",
+      "name": "Process Sample PDF",
+      "status": "PASS",
+      "message": "Successfully processed sample PDF",
+      "timestamp": "2025-05-12T12:13:08.650Z"
+    },
+    {
+      "id": "18e00f89",
+      "name": "Process Sample PDF with MCP",
+      "status": "PASS",
+      "message": "Successfully processed sample PDF with MCP",
+      "timestamp": "2025-05-12T12:13:08.663Z"
+    },
+    {
+      "id": "e5edc87e",
+      "name": "Sequential Thinking: Simple Company and ISIN",
+      "status": "PASS",
+      "message": "Successfully extracted entities",
+      "timestamp": "2025-05-12T12:13:08.668Z",
+      "details": {
+        "question": "Extract all financial entities from this text: Apple Inc. (ISIN: US0378331005) reported quarterly earnings.",
+        "steps": [
+          {
+            "step": 1,
+            "content": "Analyzing text for financial entities. The text is 60 characters long."
+          },
+          {
+            "step": 2,
+            "content": "Extracted 1 companies, 1 securities, 0 metrics, 0 currencies, and 1 ISINs."
+          },
+          {
+            "step": 3,
+            "content": "```json\n{\n  \"entities\": [\n  {\n    \"type\": \"company\",\n    \"name\": \"Apple\",\n    \"confidence\": 0.85\n  },\n  {\n    \"type\": \"security\",\n    \"name\": \"Unknown Security\",\n    \"isin\": \"US0378331005\",\n    \"confidence\": 0.9\n  },\n  {\n    \"type\": \"isin\",\n    \"value\": \"US0378331005\",\n    \"confidence\": 0.95\n  }\n]\n}\n```"
+          }
+        ],
+        "result": "{\"entities\":[{\"type\":\"company\",\"name\":\"Apple\",\"confidence\":0.85},{\"type\":\"security\",\"name\":\"Unknown Security\",\"isin\":\"US0378331005\",\"confidence\":0.9},{\"type\":\"isin\",\"value\":\"US0378331005\",\"confidence\":0.95}]}"
+      }
+    },
+    {
+      "id": "1e63c8a4",
+      "name": "Sequential Thinking: Multiple Companies",
+      "status": "PASS",
+      "message": "Successfully extracted entities",
+      "timestamp": "2025-05-12T12:13:08.672Z",
+      "details": {
+        "question": "Extract all financial entities from this text: Portfolio contains shares of Microsoft Corporation, Amazon.com Inc., and Tesla Inc.",
+        "steps": [
+          {
+            "step": 1,
+            "content": "Analyzing text for financial entities. The text is 83 characters long."
+          },
+          {
+            "step": 2,
+            "content": "Extracted 5 companies, 0 securities, 0 metrics, 0 currencies, and 0 ISINs."
+          },
+          {
+            "step": 3,
+            "content": "```json\n{\n  \"entities\": [\n  {\n    \"type\": \"company\",\n    \"name\": \"Portfolio contains shares of Microsoft\",\n    \"confidence\": 0.85\n  },\n  {\n    \"type\": \"company\",\n    \"name\": \"Amazon.com\",\n    \"confidence\": 0.85\n  },\n  {\n    \"type\": \"company\",\n    \"name\": \"Tesla\",\n    \"confidence\": 0.85\n  },\n  {\n    \"type\": \"company\",\n    \"name\": \"Microsoft\",\n    \"confidence\": 0.85\n  },\n  {\n    \"type\": \"company\",\n    \"name\": \"Amazon\",\n    \"confidence\": 0.85\n  }\n]\n}\n```"
+          }
+        ],
+        "result": "{\"entities\":[{\"type\":\"company\",\"name\":\"Portfolio contains shares of Microsoft\",\"confidence\":0.85},{\"type\":\"company\",\"name\":\"Amazon.com\",\"confidence\":0.85},{\"type\":\"company\",\"name\":\"Tesla\",\"confidence\":0.85},{\"type\":\"company\",\"name\":\"Microsoft\",\"confidence\":0.85},{\"type\":\"company\",\"name\":\"Amazon\",\"confidence\":0.85}]}"
+      }
+    },
+    {
+      "id": "d8d83bc9",
+      "name": "Sequential Thinking: Financial Metrics",
+      "status": "PASS",
+      "message": "Successfully extracted entities",
+      "timestamp": "2025-05-12T12:13:08.676Z",
+      "details": {
+        "question": "Extract all financial entities from this text: Total Return: 15.7%, Expense Ratio: 0.82%, Dividend Yield: 3.2%",
+        "steps": [
+          {
+            "step": 1,
+            "content": "Analyzing text for financial entities. The text is 63 characters long."
+          },
+          {
+            "step": 2,
+            "content": "Extracted 0 companies, 0 securities, 4 metrics, 0 currencies, and 0 ISINs."
+          },
+          {
+            "step": 3,
+            "content": "```json\n{\n  \"entities\": [\n  {\n    \"type\": \"financialMetric\",\n    \"name\": \"Total Return\",\n    \"value\": \"15.7%\",\n    \"confidence\": 0.8\n  },\n  {\n    \"type\": \"financialMetric\",\n    \"name\": \"Expense Ratio\",\n    \"value\": \"0.82%\",\n    \"confidence\": 0.8\n  },\n  {\n    \"type\": \"financialMetric\",\n    \"name\": \"Dividend Yield\",\n    \"value\": \"3.2%\",\n    \"confidence\": 0.8\n  },\n  {\n    \"type\": \"financialMetric\",\n    \"name\": \"Expense Ratio\",\n    \"value\": \"0.82\",\n    \"confidence\": 0.8\n  }\n]\n}\n```"
+          }
+        ],
+        "result": "{\"entities\":[{\"type\":\"financialMetric\",\"name\":\"Total Return\",\"value\":\"15.7%\",\"confidence\":0.8},{\"type\":\"financialMetric\",\"name\":\"Expense Ratio\",\"value\":\"0.82%\",\"confidence\":0.8},{\"type\":\"financialMetric\",\"name\":\"Dividend Yield\",\"value\":\"3.2%\",\"confidence\":0.8},{\"type\":\"financialMetric\",\"name\":\"Expense Ratio\",\"value\":\"0.82\",\"confidence\":0.8}]}"
+      }
+    },
+    {
+      "id": "8669e602",
+      "name": "Sequential Thinking: Currency Values",
+      "status": "PASS",
+      "message": "Successfully extracted entities",
+      "timestamp": "2025-05-12T12:13:08.681Z",
+      "details": {
+        "question": "Extract all financial entities from this text: Market Value: $1,245,300.00, Cash Balance: €10,500.00",
+        "steps": [
+          {
+            "step": 1,
+            "content": "Analyzing text for financial entities. The text is 53 characters long."
+          },
+          {
+            "step": 2,
+            "content": "Extracted 0 companies, 0 securities, 1 metrics, 2 currencies, and 0 ISINs."
+          },
+          {
+            "step": 3,
+            "content": "```json\n{\n  \"entities\": [\n  {\n    \"type\": \"financialMetric\",\n    \"name\": \"Market Value\",\n    \"value\": \"$1,245,300.00\",\n    \"confidence\": 0.8\n  },\n  {\n    \"type\": \"currency\",\n    \"name\": \"USD\",\n    \"value\": \"$1,245,300.00\",\n    \"confidence\": 0.95\n  },\n  {\n    \"type\": \"currency\",\n    \"name\": \"EUR\",\n    \"value\": \"€10,500.00\",\n    \"confidence\": 0.95\n  }\n]\n}\n```"
+          }
+        ],
+        "result": "{\"entities\":[{\"type\":\"financialMetric\",\"name\":\"Market Value\",\"value\":\"$1,245,300.00\",\"confidence\":0.8},{\"type\":\"currency\",\"name\":\"USD\",\"value\":\"$1,245,300.00\",\"confidence\":0.95},{\"type\":\"currency\",\"name\":\"EUR\",\"value\":\"€10,500.00\",\"confidence\":0.95}]}"
+      }
+    },
+    {
+      "id": "032243e8",
+      "name": "Sequential Thinking: Multiple ISINs",
+      "status": "PASS",
+      "message": "Successfully extracted entities",
+      "timestamp": "2025-05-12T12:13:08.686Z",
+      "details": {
+        "question": "Extract all financial entities from this text: Securities: US0378331005, US5949181045, US0231351067, US88160R1014",
+        "steps": [
+          {
+            "step": 1,
+            "content": "Analyzing text for financial entities. The text is 66 characters long."
+          },
+          {
+            "step": 2,
+            "content": "Extracted 0 companies, 4 securities, 0 metrics, 0 currencies, and 4 ISINs."
+          },
+          {
+            "step": 3,
+            "content": "```json\n{\n  \"entities\": [\n  {\n    \"type\": \"security\",\n    \"name\": \"Unknown Security\",\n    \"isin\": \"US0378331005\",\n    \"confidence\": 0.9\n  },\n  {\n    \"type\": \"security\",\n    \"name\": \"US0378331005,\",\n    \"isin\": \"US5949181045\",\n    \"confidence\": 0.9\n  },\n  {\n    \"type\": \"security\",\n    \"name\": \"US0378331005, US5949181045,\",\n    \"isin\": \"US0231351067\",\n    \"confidence\": 0.9\n  },\n  {\n    \"type\": \"security\",\n    \"name\": \"US0378331005, US5949181045, US0231351067,\",\n    \"isin\": \"US88160R1014\",\n    \"confidence\": 0.9\n  },\n  {\n    \"type\": \"isin\",\n    \"value\": \"US0378331005\",\n    \"confidence\": 0.95\n  },\n  {\n    \"type\": \"isin\",\n    \"value\": \"US5949181045\",\n    \"confidence\": 0.95\n  },\n  {\n    \"type\": \"isin\",\n    \"value\": \"US0231351067\",\n    \"confidence\": 0.95\n  },\n  {\n    \"type\": \"isin\",\n    \"value\": \"US88160R1014\",\n    \"confidence\": 0.95\n  }\n]\n}\n```"
+          }
+        ],
+        "result": "{\"entities\":[{\"type\":\"security\",\"name\":\"Unknown Security\",\"isin\":\"US0378331005\",\"confidence\":0.9},{\"type\":\"security\",\"name\":\"US0378331005,\",\"isin\":\"US5949181045\",\"confidence\":0.9},{\"type\":\"security\",\"name\":\"US0378331005, US5949181045,\",\"isin\":\"US0231351067\",\"confidence\":0.9},{\"type\":\"security\",\"name\":\"US0378331005, US5949181045, US0231351067,\",\"isin\":\"US88160R1014\",\"confidence\":0.9},{\"type\":\"isin\",\"value\":\"US0378331005\",\"confidence\":0.95},{\"type\":\"isin\",\"value\":\"US5949181045\",\"confidence\":0.95},{\"type\":\"isin\",\"value\":\"US0231351067\",\"confidence\":0.95},{\"type\":\"isin\",\"value\":\"US88160R1014\",\"confidence\":0.95}]}"
+      }
+    },
+    {
+      "id": "e96e6433",
+      "name": "Brave Search: Company Search",
+      "status": "PASS",
+      "message": "Found 3 results",
+      "timestamp": "2025-05-12T12:13:08.690Z",
+      "details": {
+        "query": "Apple Inc. financial information"
+      }
+    },
+    {
+      "id": "2910068f",
+      "name": "Brave Search: ISIN Search",
+      "status": "PASS",
+      "message": "Found 3 results",
+      "timestamp": "2025-05-12T12:13:08.694Z",
+      "details": {
+        "query": "US0378331005 security details"
+      }
+    },
+    {
+      "id": "0b7d772b",
+      "name": "Brave Search: Stock Ticker Search",
+      "status": "PASS",
+      "message": "Found 3 results",
+      "timestamp": "2025-05-12T12:13:08.698Z",
+      "details": {
+        "query": "AAPL stock price"
+      }
+    },
+    {
+      "id": "22c5ee63",
+      "name": "Brave Search: Financial Metric Search",
+      "status": "PASS",
+      "message": "Found 3 results",
+      "timestamp": "2025-05-12T12:13:08.702Z",
+      "details": {
+        "query": "S&P 500 current P/E ratio"
+      }
+    },
+    {
+      "id": "708dcf00",
+      "name": "Brave Search: Portfolio Analysis Search",
+      "status": "PASS",
+      "message": "Found 3 results",
+      "timestamp": "2025-05-12T12:13:08.705Z",
+      "details": {
+        "query": "portfolio diversification strategies"
+      }
+    },
+    {
+      "id": "830decf1",
+      "name": "UI Component: Home Page",
+      "status": "PASS",
+      "message": "Successfully loaded /",
+      "timestamp": "2025-05-12T12:13:08.715Z"
+    },
+    {
+      "id": "da1e4255",
+      "name": "UI Component: Upload Page",
+      "status": "PASS",
+      "message": "Successfully loaded /upload",
+      "timestamp": "2025-05-12T12:13:08.730Z"
+    },
+    {
+      "id": "bc078ff4",
+      "name": "UI Component: Documents Page",
+      "status": "PASS",
+      "message": "Successfully loaded /documents-new",
+      "timestamp": "2025-05-12T12:13:08.743Z"
+    },
+    {
+      "id": "30c41cb7",
+      "name": "UI Component: Analytics Page",
+      "status": "PASS",
+      "message": "Successfully loaded /analytics-new",
+      "timestamp": "2025-05-12T12:13:08.759Z"
+    },
+    {
+      "id": "66ed4b0d",
+      "name": "UI Component: Document Chat Page",
+      "status": "PASS",
+      "message": "Successfully loaded /document-chat",
+      "timestamp": "2025-05-12T12:13:08.776Z"
+    },
+    {
+      "id": "7d5acd43",
+      "name": "UI Component: Document Comparison Page",
+      "status": "PASS",
+      "message": "Successfully loaded /document-comparison",
+      "timestamp": "2025-05-12T12:13:08.791Z"
+    },
+    {
+      "id": "78d61c19",
+      "name": "UI Component: Test Page",
+      "status": "PASS",
+      "message": "Successfully loaded /test",
+      "timestamp": "2025-05-12T12:13:08.806Z"
+    },
+    {
+      "id": "962e13b9",
+      "name": "UI Component: Simple Test Page",
+      "status": "PASS",
+      "message": "Successfully loaded /simple-test",
+      "timestamp": "2025-05-12T12:13:08.819Z"
+    },
+    {
+      "id": "637a23a7",
+      "name": "PDF Processing Files",
+      "status": "PASS",
+      "message": "Found 4 PDF files for testing",
+      "timestamp": "2025-05-12T12:13:08.826Z"
+    },
+    {
+      "id": "09329cea",
+      "name": "PDF Processing: financial-report.pdf",
+      "status": "SKIP",
+      "message": "API endpoint not available, testing with MCP directly",
+      "timestamp": "2025-05-12T12:13:08.841Z"
+    },
+    {
+      "id": "bf66d401",
+      "name": "PDF Processing (MCP): financial-report.pdf",
+      "status": "PASS",
+      "message": "Successfully processed with MCP",
+      "timestamp": "2025-05-12T12:13:22.808Z",
+      "details": {
+        "entities": 18
+      }
+    },
+    {
+      "id": "c09966a6",
+      "name": "PDF Processing: messos.pdf",
+      "status": "SKIP",
+      "message": "API endpoint not available, testing with MCP directly",
+      "timestamp": "2025-05-12T12:13:22.830Z"
+    },
+    {
+      "id": "beaf72e4",
+      "name": "PDF Processing (MCP): messos.pdf",
+      "status": "PASS",
+      "message": "Successfully processed with MCP",
+      "timestamp": "2025-05-12T12:13:51.563Z",
+      "details": {
+        "entities": 108
+      }
+    },
+    {
+      "id": "757a6143",
+      "name": "PDF Processing: sample_portfolio.pdf",
+      "status": "SKIP",
+      "message": "API endpoint not available, testing with MCP directly",
+      "timestamp": "2025-05-12T12:13:51.576Z"
+    },
+    {
+      "id": "a49b832a",
+      "name": "PDF Processing (MCP): sample_portfolio.pdf",
+      "status": "PASS",
+      "message": "Successfully processed with MCP",
+      "timestamp": "2025-05-12T12:14:15.850Z",
+      "details": {
+        "entities": 69
+      }
+    },
+    {
+      "id": "28617d67",
+      "name": "PDF Processing: simple-financial-statement.pdf",
+      "status": "SKIP",
+      "message": "API endpoint not available, testing with MCP directly",
+      "timestamp": "2025-05-12T12:14:15.866Z"
+    },
+    {
+      "id": "62af0a8b",
+      "name": "PDF Processing (MCP): simple-financial-statement.pdf",
+      "status": "PASS",
+      "message": "Successfully processed with MCP",
+      "timestamp": "2025-05-12T12:14:21.584Z",
+      "details": {
+        "entities": 22
+      }
+    },
+    {
+      "id": "2f33545f",
+      "name": "Document Chat: doc-1 - What is this document about?",
+      "status": "PASS",
+      "message": "Successfully received answer",
+      "timestamp": "2025-05-12T12:14:21.849Z"
+    },
+    {
+      "id": "27322d56",
+      "name": "Document Chat: doc-1 - What companies are mentioned in this document?",
+      "status": "PASS",
+      "message": "Successfully received answer",
+      "timestamp": "2025-05-12T12:14:21.855Z"
+    },
+    {
+      "id": "d5640d9b",
+      "name": "Document Chat: doc-1 - What ISINs are in this document?",
+      "status": "PASS",
+      "message": "Successfully received answer",
+      "timestamp": "2025-05-12T12:14:21.862Z"
+    },
+    {
+      "id": "a675acaa",
+      "name": "Document Chat: doc-1 - What are the key financial metrics?",
+      "status": "PASS",
+      "message": "Successfully received answer",
+      "timestamp": "2025-05-12T12:14:21.868Z"
+    },
+    {
+      "id": "89361251",
+      "name": "Document Chat: doc-1 - Are there any tables in this document?",
+      "status": "PASS",
+      "message": "Successfully received answer",
+      "timestamp": "2025-05-12T12:14:21.875Z"
+    },
+    {
+      "id": "0ff50cb6",
+      "name": "Document Chat: doc-2 - What is this document about?",
+      "status": "PASS",
+      "message": "Successfully received answer",
+      "timestamp": "2025-05-12T12:14:21.881Z"
+    },
+    {
+      "id": "22d14cfd",
+      "name": "Document Chat: doc-2 - What companies are mentioned in this document?",
+      "status": "PASS",
+      "message": "Successfully received answer",
+      "timestamp": "2025-05-12T12:14:21.887Z"
+    },
+    {
+      "id": "565dfed3",
+      "name": "Document Chat: doc-2 - What ISINs are in this document?",
+      "status": "PASS",
+      "message": "Successfully received answer",
+      "timestamp": "2025-05-12T12:14:21.894Z"
+    },
+    {
+      "id": "ab252157",
+      "name": "Document Chat: doc-2 - What are the key financial metrics?",
+      "status": "PASS",
+      "message": "Successfully received answer",
+      "timestamp": "2025-05-12T12:14:21.900Z"
+    },
+    {
+      "id": "c0623e6d",
+      "name": "Document Chat: doc-2 - Are there any tables in this document?",
+      "status": "PASS",
+      "message": "Successfully received answer",
+      "timestamp": "2025-05-12T12:14:21.908Z"
+    },
+    {
+      "id": "9a44f043",
+      "name": "Document Chat: doc-3 - What is this document about?",
+      "status": "PASS",
+      "message": "Successfully received answer",
+      "timestamp": "2025-05-12T12:14:21.915Z"
+    },
+    {
+      "id": "b75fa6df",
+      "name": "Document Chat: doc-3 - What companies are mentioned in this document?",
+      "status": "PASS",
+      "message": "Successfully received answer",
+      "timestamp": "2025-05-12T12:14:21.921Z"
+    },
+    {
+      "id": "3a4e0162",
+      "name": "Document Chat: doc-3 - What ISINs are in this document?",
+      "status": "PASS",
+      "message": "Successfully received answer",
+      "timestamp": "2025-05-12T12:14:21.928Z"
+    },
+    {
+      "id": "934b6ca2",
+      "name": "Document Chat: doc-3 - What are the key financial metrics?",
+      "status": "PASS",
+      "message": "Successfully received answer",
+      "timestamp": "2025-05-12T12:14:21.933Z"
+    },
+    {
+      "id": "7a37df75",
+      "name": "Document Chat: doc-3 - Are there any tables in this document?",
+      "status": "PASS",
+      "message": "Successfully received answer",
+      "timestamp": "2025-05-12T12:14:21.940Z"
+    },
+    {
+      "id": "246496b2",
+      "name": "Table Entity Extraction: Portfolio Holdings",
+      "status": "PASS",
+      "message": "Extracted 0 entities",
+      "timestamp": "2025-05-12T12:14:21.945Z"
+    },
+    {
+      "id": "0ad15700",
+      "name": "Table Entity Extraction: Performance Metrics",
+      "status": "PASS",
+      "message": "Extracted 0 entities",
+      "timestamp": "2025-05-12T12:14:21.948Z"
+    },
+    {
+      "id": "15ce3018",
+      "name": "Error Handling: Invalid Endpoint",
+      "status": "FAIL",
+      "message": "Expected error but received success",
+      "timestamp": "2025-05-12T12:14:21.957Z"
+    },
+    {
+      "id": "d3e81c53",
+      "name": "Error Handling: Invalid Document ID",
+      "status": "PASS",
+      "message": "Received expected error: 500",
+      "timestamp": "2025-05-12T12:14:21.966Z"
+    },
+    {
+      "id": "a89b2c9c",
+      "name": "Error Handling: Missing Query Parameter",
+      "status": "FAIL",
+      "message": "Expected error but received success",
+      "timestamp": "2025-05-12T12:14:21.975Z"
+    },
+    {
+      "id": "ef8decff",
+      "name": "Error Handling: Invalid Query",
+      "status": "FAIL",
+      "message": "Expected error but received success",
+      "timestamp": "2025-05-12T12:14:21.982Z"
+    }
+  ],
+  "startTime": "2025-05-12T12:13:08.540Z",
+  "endTime": "2025-05-12T12:14:21.984Z",
+  "durationMs": 73444,
+  "durationFormatted": "1m 13s"
+}

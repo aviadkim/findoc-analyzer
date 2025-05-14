@@ -1,0 +1,3 @@
+Mock Excel export file
+Format: XLSX
+Data: {"Securities":[{"isin":"US1061934925","name":"Alphabet Inc.","type":"Option","quantity":48,"price":816.38,"value":39186.24,"currency":"EUR","marketPrice":844.46,"marketValue":40534.08,"priceChange":28.08,"priceChangePercent":3.44,"lastUpdated":"2025-05-13T20:50:24.529Z","dataProvider":"Yahoo Finance","id":"sec-1","symbol":"ALPHABET","sector":"Energy","country":"US"},{"isin":"DE9823164509","name":"JPMorgan Chase & Co.","type":"Stock","quantity":32,"price":401.94,"value":12862.08,"currency":"GBP",...

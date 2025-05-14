@@ -1,0 +1,125 @@
+/**
+ * Create Sample PDF
+ * 
+ * This script creates a simple sample PDF for testing.
+ * It avoids complex formatting that might cause issues.
+ */
+
+const fs = require('fs');
+const path = require('path');
+
+// Create a very basic PDF structure
+const createSamplePdf = () => {
+  const outputDir = path.join(__dirname, 'test_pdfs');
+  const outputPath = path.join(outputDir, 'sample.pdf');
+  
+  // Create directory if it doesn't exist
+  if (!fs.existsSync(outputDir)) {
+    fs.mkdirSync(outputDir, { recursive: true });
+  }
+  
+  // Create a very simple PDF structure
+  const pdfContent = `%PDF-1.5
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R] /Count 1 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Contents 4 0 R >>
+endobj
+4 0 obj
+<< /Length 1000 >>
+stream
+BT
+/F1 24 Tf
+50 700 Td
+(Portfolio Valuation Statement) Tj
+
+/F1 12 Tf
+50 660 Td
+(Valuation Date: 01.05.2025) Tj
+50 640 Td
+(Account Number: 12345678) Tj
+50 620 Td
+(Currency: USD) Tj
+
+/F1 16 Tf
+50 580 Td
+(Portfolio Summary) Tj
+/F1 12 Tf
+50 560 Td
+(Total Value: 1,235,500.00 USD) Tj
+
+/F1 16 Tf
+50 520 Td
+(Asset Allocation) Tj
+/F1 12 Tf
+50 500 Td
+(Equity: 45%) Tj
+50 480 Td
+(Fixed Income: 35%) Tj
+50 460 Td
+(Cash: 10%) Tj
+50 440 Td
+(Alternative: 10%) Tj
+
+/F1 16 Tf
+50 400 Td
+(Securities) Tj
+/F1 12 Tf
+50 380 Td
+(APPLE INC - ISIN: US0378331005 - Quantity: 1000 - Value: 180,500 USD) Tj
+50 360 Td
+(MICROSOFT CORP - ISIN: US5949181045 - Quantity: 500 - Value: 160,375 USD) Tj
+50 340 Td
+(AMAZON.COM INC - ISIN: US0231351067 - Quantity: 300 - Value: 43,575 USD) Tj
+50 320 Td
+(ALPHABET INC - ISIN: US02079K3059 - Quantity: 200 - Value: 34,080 USD) Tj
+50 300 Td
+(NVIDIA CORP - ISIN: US67066G1040 - Quantity: 400 - Value: 86,320 USD) Tj
+50 280 Td
+(GOLDMAN SACHS - ISIN: XS2692298537 - Quantity: 690,000 - Value: 735,333 USD) Tj
+50 260 Td
+(TORONTO DOMINION BANK - ISIN: XS2530507273 - Quantity: 200,000 - Value: 198,745 USD) Tj
+
+/F1 16 Tf
+50 220 Td
+(Currency Exposure) Tj
+/F1 12 Tf
+50 200 Td
+(USD: 90%) Tj
+50 180 Td
+(EUR: 7%) Tj
+50 160 Td
+(GBP: 3%) Tj
+
+/F1 10 Tf
+50 100 Td
+(DISCLAIMER: This is a sample document generated for testing purposes only.) Tj
+ET
+endstream
+endobj
+xref
+0 5
+0000000000 65535 f
+0000000010 00000 n
+0000000059 00000 n
+0000000118 00000 n
+0000000196 00000 n
+trailer
+<< /Size 5 /Root 1 0 R >>
+startxref
+1249
+%%EOF`;
+  
+  // Write the PDF file
+  fs.writeFileSync(outputPath, pdfContent);
+  
+  console.log(`Sample PDF created at: ${outputPath}`);
+  return outputPath;
+};
+
+// Create the sample PDF
+createSamplePdf();

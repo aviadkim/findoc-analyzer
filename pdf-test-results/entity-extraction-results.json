@@ -1,0 +1,20 @@
+{
+  "pdfs": {
+    "financial-report.pdf": 7,
+    "financial-report.pdf-ocr": 7,
+    "messos.pdf": 41,
+    "messos.pdf-basic": 0,
+    "sample_portfolio.pdf": 4,
+    "sample_portfolio.pdf-basic": 83,
+    "simple-financial-statement.pdf": 6,
+    "simple-financial-statement.pdf-basic": 34
+  },
+  "entityTypes": {
+    "company": 27,
+    "security": 13,
+    "currency": 53,
+    "metric": 43,
+    "isin": 5
+  },
+  "totalEntities": 182
+}

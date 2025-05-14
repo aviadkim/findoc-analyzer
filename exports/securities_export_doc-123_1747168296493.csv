@@ -1,0 +1,11 @@
+isin,name,type,quantity,price,value,currency,marketPrice,marketValue,priceChange,priceChangePercent,lastUpdated,dataProvider,id,symbol,description,sector,country,exchange
+"US1268247933","Meta Platforms Inc.","Fund",929,486.94,452367.26,"EUR",474.08,440420.32,-12.86,-2.64,"2025-05-13T20:31:36.493Z","Yahoo Finance","sec-1","META",,"Consumer Defensive","US",
+"FR4267712838","Alphabet Inc.","Stock",423,261.58,110648.34,"USD",263.8,111587.4,2.22,0.85,"2025-05-13T20:31:36.493Z","Yahoo Finance","sec-2","ALPHABET",,"Real Estate","FR",
+"US3409871920","Berkshire Hathaway Inc.","Fund",59,44.06,2599.54,"ILS",42.83,2526.97,-1.23,-2.8,"2025-05-13T20:31:36.493Z","Yahoo Finance","sec-3","BERKSHIRE",,"Energy","US",
+"US4157477612","JPMorgan Chase & Co.","Fund",327,124.86,40829.22,"EUR",119.47,39066.69,-5.39,-4.32,"2025-05-13T20:31:36.493Z","Yahoo Finance","sec-4","JPMORGAN",,"Energy","US",
+"JP6664335409","JPMorgan Chase & Co.","ETF",99,735.33,72797.67,"ILS",704.67,69762.33,-30.66,-4.17,"2025-05-13T20:31:36.493Z","Yahoo Finance","sec-5","JPMORGAN",,"Communication Services","JP",
+"FR4321014482","Mastercard Inc.","ETF",439,493.42,216611.38,"ILS",473.09,207686.51,-20.33,-4.12,"2025-05-13T20:31:36.493Z","Yahoo Finance","sec-6","MASTERCARD",,"Consumer Cyclical","FR",
+"FR9020263909","Berkshire Hathaway Inc.","Cash",35,120.6,4221,"ILS",126.45,4425.75,5.85,4.85,"2025-05-13T20:31:36.493Z","Yahoo Finance","sec-7","BERKSHIRE",,"Energy","FR",
+"FR0667064283","Microsoft Corp.","Stock",108,604.71,65308.68,"GBP",625.09,67509.72,20.38,3.37,"2025-05-13T20:31:36.493Z","Yahoo Finance","sec-8","MICROSOFT",,"Energy","FR",
+"DE3864500204","Visa Inc.","Fund",535,222.43,119000.05,"ILS",219.36,117357.6,-3.07,-1.38,"2025-05-13T20:31:36.493Z","Yahoo Finance","sec-9","VISA",,"Energy","DE",
+"GB9453263834","Walt Disney Co.","Bond",120,956.38,114765.6,"GBP",935.91,112309.2,-20.47,-2.14,"2025-05-13T20:31:36.493Z","Yahoo Finance","sec-10","WALT",,"Utilities","GB",

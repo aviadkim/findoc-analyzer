@@ -1,0 +1,11 @@
+isin,name,type,quantity,price,value,currency,marketPrice,marketValue,priceChange,priceChangePercent,lastUpdated,dataProvider,id,symbol,description,sector,country,exchange
+"JP0325899692","Amazon.com Inc.","Cash",466,971.27,452611.82,"ILS",959.42,447089.72,-11.85,-1.22,"2025-05-13T20:45:09.365Z","Yahoo Finance","sec-1","AMAZON.COM",,"Utilities","JP",
+"DE9077336987","Alphabet Inc.","ETF",662,868.8,575145.6,"USD",845.6,559787.2,-23.2,-2.67,"2025-05-13T20:45:09.365Z","Yahoo Finance","sec-2","ALPHABET",,"Utilities","DE",
+"GB7458569844","Procter & Gamble Co.","ETF",913,493.62,450675.06,"ILS",471.56,430534.28,-22.06,-4.47,"2025-05-13T20:45:09.365Z","Yahoo Finance","sec-3","PROCTER",,"Financial Services","GB",
+"JP9386241852","Amazon.com Inc.","Cash",543,433.63,235461.09,"GBP",432.89,235059.27,-0.74,-0.17,"2025-05-13T20:45:09.365Z","Yahoo Finance","sec-4","AMAZON.COM",,"Consumer Cyclical","JP",
+"US7597802496","Visa Inc.","Stock",43,758.12,32599.16,"EUR",740.68,31849.24,-17.44,-2.3,"2025-05-13T20:45:09.365Z","Yahoo Finance","sec-5","VISA",,"Financial Services","US",
+"GB8951031279","Amazon.com Inc.","Cash",441,609.97,268996.77,"ILS",630.16,277900.56,20.19,3.31,"2025-05-13T20:45:09.365Z","Yahoo Finance","sec-6","AMAZON.COM",,"Energy","GB",
+"DE4398840980","Walt Disney Co.","ETF",873,245.26,214111.98,"ILS",249.45,217769.85,4.19,1.71,"2025-05-13T20:45:09.365Z","Yahoo Finance","sec-7","WALT",,"Consumer Cyclical","DE",
+"IL3515983344","Microsoft Corp.","Option",108,519.53,56109.24,"EUR",529.35,57169.8,9.82,1.89,"2025-05-13T20:45:09.365Z","Yahoo Finance","sec-8","MICROSOFT",,"Healthcare","IL",
+"GB1797803100","UnitedHealth Group Inc.","Bond",321,266.68,85604.28,"USD",278.76,89481.96,12.08,4.53,"2025-05-13T20:45:09.365Z","Yahoo Finance","sec-9","UNITEDHEALTH",,"Energy","GB",
+"GB4409201784","NVIDIA Corp.","Cash",77,795.37,61243.49,"EUR",785.83,60508.91,-9.54,-1.2,"2025-05-13T20:45:09.365Z","Yahoo Finance","sec-10","NVIDIA",,"Utilities","GB",

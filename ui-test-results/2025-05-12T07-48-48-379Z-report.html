@@ -1,0 +1,270 @@
+
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <title>FinDoc Analyzer UI Components Test Results</title>
+      <style>
+        body {
+          font-family: Arial, sans-serif;
+          line-height: 1.6;
+          color: #333;
+          max-width: 1200px;
+          margin: 0 auto;
+          padding: 20px;
+        }
+        
+        h1, h2, h3 {
+          color: #2c3e50;
+        }
+        
+        .summary {
+          background-color: #f5f5f5;
+          padding: 20px;
+          border-radius: 5px;
+          margin-bottom: 30px;
+        }
+        
+        .stats {
+          display: flex;
+          justify-content: space-between;
+          margin-bottom: 20px;
+        }
+        
+        .stat-box {
+          flex: 1;
+          text-align: center;
+          padding: 15px;
+          margin: 0 10px;
+          border-radius: 5px;
+        }
+        
+        .total {
+          background-color: #f0f0f0;
+        }
+        
+        .passed {
+          background-color: #d4edda;
+          color: #155724;
+        }
+        
+        .failed {
+          background-color: #f8d7da;
+          color: #721c24;
+        }
+        
+        table {
+          width: 100%;
+          border-collapse: collapse;
+          margin-bottom: 20px;
+        }
+        
+        th, td {
+          padding: 10px;
+          border: 1px solid #ddd;
+          text-align: left;
+        }
+        
+        th {
+          background-color: #f5f5f5;
+          font-weight: bold;
+        }
+        
+        .test-pass {
+          color: #155724;
+        }
+        
+        .test-fail {
+          color: #721c24;
+        }
+        
+        .page-result {
+          margin-bottom: 30px;
+        }
+        
+        ul {
+          padding-left: 20px;
+        }
+      </style>
+    </head>
+    <body>
+      <h1>FinDoc Analyzer UI Components Test Results</h1>
+      
+      <div class="summary">
+        <h2>Summary</h2>
+        <div class="stats">
+          <div class="stat-box total">
+            <h3>Total Tests</h3>
+            <p>23</p>
+          </div>
+          <div class="stat-box passed">
+            <h3>Passed</h3>
+            <p>17</p>
+          </div>
+          <div class="stat-box failed">
+            <h3>Failed</h3>
+            <p>6</p>
+          </div>
+        </div>
+        <p><strong>Started:</strong> 5/12/2025, 10:48:48 AM</p>
+        <p><strong>Completed:</strong> 5/12/2025, 10:48:48 AM</p>
+        <p><strong>Duration:</strong> 0 seconds</p>
+      </div>
+      
+      <h2>Page Component Tests</h2>
+      
+      <div class="page-result">
+        <h3>Home Page</h3>
+        <table>
+          <tr>
+            <th>Component</th>
+            <th>Selector</th>
+            <th>Status</th>
+          </tr>
+          
+      <tr>
+        <td>chatButton</td>
+        <td>#show-chat-btn</td>
+        <td>Fail ❌</td>
+      </tr>
+    
+      <tr>
+        <td>processButton</td>
+        <td>#process-document-btn</td>
+        <td>Pass ✅</td>
+      </tr>
+    
+        </table>
+      </div>
+    
+      <div class="page-result">
+        <h3>Upload Page</h3>
+        <table>
+          <tr>
+            <th>Component</th>
+            <th>Selector</th>
+            <th>Status</th>
+          </tr>
+          
+      <tr>
+        <td>chatButton</td>
+        <td>#show-chat-btn</td>
+        <td>Pass ✅</td>
+      </tr>
+    
+      <tr>
+        <td>processButton</td>
+        <td>#process-document-btn</td>
+        <td>Pass ✅</td>
+      </tr>
+    
+      <tr>
+        <td>uploadButton</td>
+        <td>#upload-btn</td>
+        <td>Pass ✅</td>
+      </tr>
+    
+      <tr>
+        <td>fileInput</td>
+        <td>#file-input</td>
+        <td>Pass ✅</td>
+      </tr>
+    
+        </table>
+      </div>
+    
+      <div class="page-result">
+        <h3>Document Details Page</h3>
+        <table>
+          <tr>
+            <th>Component</th>
+            <th>Selector</th>
+            <th>Status</th>
+          </tr>
+          
+      <tr>
+        <td>chatButton</td>
+        <td>#show-chat-btn</td>
+        <td>Fail ❌</td>
+      </tr>
+    
+      <tr>
+        <td>chatInput</td>
+        <td>#document-chat-input</td>
+        <td>Pass ✅</td>
+      </tr>
+    
+      <tr>
+        <td>sendButton</td>
+        <td>#document-send-btn</td>
+        <td>Pass ✅</td>
+      </tr>
+    
+        </table>
+      </div>
+    
+      <div class="page-result">
+        <h3>Documents Page</h3>
+        <table>
+          <tr>
+            <th>Component</th>
+            <th>Selector</th>
+            <th>Status</th>
+          </tr>
+          
+      <tr>
+        <td>chatButton</td>
+        <td>#show-chat-btn</td>
+        <td>Fail ❌</td>
+      </tr>
+    
+      <tr>
+        <td>processButton</td>
+        <td>#process-document-btn</td>
+        <td>Pass ✅</td>
+      </tr>
+    
+        </table>
+      </div>
+    
+      <div class="page-result">
+        <h3>Test Page</h3>
+        <table>
+          <tr>
+            <th>Component</th>
+            <th>Selector</th>
+            <th>Status</th>
+          </tr>
+          
+      <tr>
+        <td>chatButton</td>
+        <td>#show-chat-btn</td>
+        <td>Fail ❌</td>
+      </tr>
+    
+      <tr>
+        <td>processButton</td>
+        <td>#process-document-btn</td>
+        <td>Pass ✅</td>
+      </tr>
+    
+        </table>
+      </div>
+    
+      
+      <h2>CSS Tests</h2>
+      <ul>
+        <li class="test-pass">Process Button style (#process-document-btn: background-color)</li><li class="test-pass">Chat Button style (#show-chat-btn: position)</li><li class="test-pass">Chat Container style (#document-chat-container: position)</li><li class="test-pass">Progress Bar style (#progress-bar: width)</li><li class="test-pass">Chat Messages style (#document-chat-messages: height)</li>
+      </ul>
+      
+      <h2>JavaScript Tests</h2>
+      <ul>
+        <li class="test-pass">Chat Send Function (send.*chat.*message)</li><li class="test-pass">Show Chat Function (show.*chat)</li><li class="test-pass">Progress Animation (progress.*bar.*width)</li><li class="test-fail">Process Button Initialization (process.*button.*init)</li><li class="test-fail">Chat Interface Initialization (chat.*interface.*init)</li>
+      </ul>
+      
+      <h2>HTML Structure Tests</h2>
+      <ul>
+        <li class="test-pass">Home page has Document Chat Container</li><li class="test-pass">Home page has Process Button</li><li class="test-pass">Upload page has Document Chat Container</li><li class="test-pass">Upload page has Process Button</li><li class="test-pass">Document Details page has Document Chat Container</li><li class="test-pass">Document Details page has Process Button</li><li class="test-pass">Documents page has Document Chat Container</li><li class="test-pass">Documents page has Process Button</li><li class="test-pass">Test page has Document Chat Container</li><li class="test-pass">Test page has Process Button</li>
+      </ul>
+    </body>
+    </html>
+  

@@ -1,0 +1,364 @@
+/**
+ * FinDoc Analyzer Touch-Friendly UI Styles
+ * 
+ * Specific enhancements for touch devices (mobile/tablet)
+ */
+
+/* ========= Touch-Friendly Styles ========= */
+
+/* Increase target size for interactive elements on touch devices */
+.touch-target {
+  min-height: 44px; /* Apple's recommended minimum touch target size */
+  min-width: 44px; /* For icon buttons */
+}
+
+/* Ensure adequate spacing between touch targets */
+li .touch-target,
+td .touch-target {
+  margin: 2px;
+  padding: 10px;
+}
+
+/* Enhance touch feedback */
+.touch-target:active {
+  opacity: 0.7;
+  transition: opacity 0.1s ease;
+}
+
+/* Specific enhancements for form elements */
+input.touch-friendly,
+select.touch-friendly,
+textarea.touch-friendly {
+  font-size: 16px; /* Prevents iOS from zooming in */
+  min-height: 44px;
+  padding: 10px 12px;
+}
+
+/* Enhanced selects for touch devices */
+select.mobile-select {
+  background-image: url("data:image/svg+xml;utf8,<svg fill='%23333' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 24px;
+  padding-right: 30px; /* Ensure space for the arrow */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+/* Remove touch callout (context menu) and text selection */
+.no-touch-callout {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+/* Better scrolling on iOS */
+.touch-scroll {
+  -webkit-overflow-scrolling: touch;
+  overflow-y: auto;
+}
+
+/* Touch-friendly buttons */
+.btn.touch-friendly {
+  padding: 12px 20px;
+  font-size: 16px;
+  border-radius: 6px; /* Slightly larger radius for better visual touch affordance */
+}
+
+/* Touch-friendly document list items */
+.document-item-compact {
+  padding: 15px;
+}
+
+.document-item-compact .document-info {
+  margin-bottom: 12px;
+}
+
+.document-item-compact .document-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  gap: 8px;
+}
+
+.document-item-compact .document-action {
+  min-width: 40px;
+  text-align: center;
+}
+
+/* Enhanced chat interface for mobile */
+.chat-mobile {
+  -webkit-overflow-scrolling: touch;
+}
+
+.chat-mobile .message {
+  max-width: 90%; /* Wider on mobile */
+  margin-bottom: 12px;
+}
+
+/* Enhanced mobile tables */
+@media (max-width: 767px) {
+  /* Display tables as cards on mobile */
+  .table-responsive table:not(.keep-structure) { 
+    border: 0;
+    border-collapse: separate;
+  }
+  
+  .table-responsive table:not(.keep-structure) thead { 
+    display: none;
+  }
+  
+  .table-responsive table:not(.keep-structure) tr {
+    margin-bottom: 20px;
+    display: block;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  }
+  
+  .table-responsive table:not(.keep-structure) td {
+    display: block;
+    text-align: right;
+    font-size: 15px;
+    border-bottom: 1px solid #eee;
+    position: relative;
+    padding-left: 45%;
+    min-height: 40px;
+  }
+  
+  .table-responsive table:not(.keep-structure) td:last-child {
+    border-bottom: 0;
+  }
+  
+  .table-responsive table:not(.keep-structure) td::before {
+    content: attr(data-label);
+    position: absolute;
+    left: 12px;
+    width: 40%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-weight: 600;
+    text-align: left;
+  }
+}
+
+/* Enhanced mobile dashboard cards */
+@media (max-width: 576px) {
+  .dashboard-card-header {
+    padding: 12px 15px;
+  }
+  
+  .dashboard-card-body {
+    padding: 15px;
+  }
+  
+  .dashboard-card-actions {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .dashboard-card-actions .btn {
+    width: 100%;
+    margin-bottom: 8px;
+  }
+}
+
+/* Mobile specific sidebar */
+@media (max-width: 767px) {
+  /* Enlarged close button on sidebar for mobile */
+  .sidebar-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 40px;
+    height: 40px;
+    background-color: rgba(255,255,255,0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 1001;
+  }
+  
+  /* Wider navigation links for easier tap */
+  .sidebar-nav a {
+    padding: 15px 20px;
+  }
+  
+  /* More space for the icon */
+  .sidebar-nav a .icon {
+    margin-right: 15px;
+    font-size: 1.2em;
+  }
+}
+
+/* Bottom navigation bar for mobile */
+.mobile-bottom-nav {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 56px;
+  background-color: white;
+  box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
+  z-index: 1000;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.mobile-nav-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 0;
+  color: #555;
+  text-decoration: none;
+}
+
+.mobile-nav-item.active {
+  color: #3498db;
+}
+
+.mobile-nav-icon {
+  font-size: 1.5rem;
+  margin-bottom: 2px;
+}
+
+.mobile-nav-label {
+  font-size: 0.75rem;
+}
+
+@media (max-width: 767px) {
+  .mobile-bottom-nav {
+    display: flex;
+  }
+  
+  /* Add bottom padding to main content when bottom nav is present */
+  .main-content {
+    padding-bottom: 70px !important;
+  }
+}
+
+/* Enhanced Form Groups for Touch */
+.form-group.touch-friendly {
+  margin-bottom: 20px;
+}
+
+.form-group.touch-friendly label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+.form-group.touch-friendly .form-text {
+  margin-top: 8px;
+  font-size: 14px;
+}
+
+/* Enhanced Mobile Checkboxes and Radios */
+.touch-friendly-checkbox,
+.touch-friendly-radio {
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+.touch-friendly-checkbox input,
+.touch-friendly-radio input {
+  width: 24px;
+  height: 24px;
+  margin-right: 10px;
+}
+
+/* Touch Slider Controls */
+.touch-slider {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 30px;
+  border-radius: 15px;
+  background: #f0f0f0;
+  outline: none;
+  padding: 0;
+  margin: 0;
+}
+
+.touch-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: #3498db;
+  cursor: pointer;
+}
+
+.touch-slider::-moz-range-thumb {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: #3498db;
+  cursor: pointer;
+  border: none;
+}
+
+/* Touch-friendly file inputs */
+.touch-file-input {
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+  margin-bottom: 15px;
+}
+
+.touch-file-input input[type="file"] {
+  position: absolute;
+  top: 0;
+  right: 0;
+  min-width: 100%;
+  min-height: 100%;
+  font-size: 100px;
+  text-align: right;
+  filter: alpha(opacity=0);
+  opacity: 0;
+  outline: none;
+  cursor: pointer;
+  display: block;
+}
+
+.touch-file-btn {
+  display: inline-block;
+  padding: 12px 20px;
+  background-color: #f8f9fa;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 16px;
+  color: #333;
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.touch-file-label {
+  margin-top: 8px;
+  display: block;
+  font-size: 14px;
+  color: #555;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+/* Extra space for fixed headers on iOS */
+@supports (-webkit-touch-callout: none) {
+  .ios-fixed-header-padding {
+    padding-top: env(safe-area-inset-top);
+  }
+}

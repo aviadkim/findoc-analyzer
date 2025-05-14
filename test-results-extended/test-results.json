@@ -1,0 +1,281 @@
+{
+  "timestamp": "2025-05-14T09:10:47.320Z",
+  "baseUrl": "http://localhost:8080",
+  "results": [
+    {
+      "category": "Authentication",
+      "name": "User registration API",
+      "status": "passed"
+    },
+    {
+      "category": "Authentication",
+      "name": "User login with invalid credentials",
+      "status": "passed"
+    },
+    {
+      "category": "Authentication",
+      "name": "Session validation API",
+      "status": "passed"
+    },
+    {
+      "category": "Authentication",
+      "name": "Password reset request API",
+      "status": "skipped",
+      "reason": "Endpoint not implemented"
+    },
+    {
+      "category": "Authentication",
+      "name": "Password reset request API",
+      "status": "passed"
+    },
+    {
+      "category": "Document Upload",
+      "name": "Upload PDF document",
+      "status": "skipped",
+      "reason": "Test file not found"
+    },
+    {
+      "category": "Document Upload",
+      "name": "Upload PDF document",
+      "status": "passed"
+    },
+    {
+      "category": "Document Upload",
+      "name": "Upload with invalid document type",
+      "status": "skipped",
+      "reason": "Test file not found"
+    },
+    {
+      "category": "Document Upload",
+      "name": "Upload with invalid document type",
+      "status": "passed"
+    },
+    {
+      "category": "Document Upload",
+      "name": "Upload without file",
+      "status": "passed"
+    },
+    {
+      "category": "Document Processing",
+      "name": "Process document with OCR",
+      "status": "skipped",
+      "reason": "Test file not found"
+    },
+    {
+      "category": "Document Processing",
+      "name": "Process document with OCR",
+      "status": "passed"
+    },
+    {
+      "category": "Document Processing",
+      "name": "Get document processing status",
+      "status": "passed"
+    },
+    {
+      "category": "Document Processing",
+      "name": "Get document metadata",
+      "status": "passed"
+    },
+    {
+      "category": "Chatbot",
+      "name": "Chat with specific context",
+      "status": "passed"
+    },
+    {
+      "category": "Chatbot",
+      "name": "Chat with empty message",
+      "status": "passed"
+    },
+    {
+      "category": "Chatbot",
+      "name": "Chat with conversation history",
+      "status": "passed"
+    },
+    {
+      "category": "Securities Extraction",
+      "name": "Get securities for document",
+      "status": "passed"
+    },
+    {
+      "category": "Securities Extraction",
+      "name": "Update security information",
+      "status": "passed"
+    },
+    {
+      "category": "Securities Extraction",
+      "name": "Get market data for security",
+      "status": "passed"
+    },
+    {
+      "category": "API Key Management",
+      "name": "Store API key",
+      "status": "passed"
+    },
+    {
+      "category": "API Key Management",
+      "name": "Get API key status",
+      "status": "passed"
+    },
+    {
+      "category": "API Key Management",
+      "name": "Delete API key",
+      "status": "passed"
+    },
+    {
+      "category": "Navigation",
+      "name": "Analytics page accessibility",
+      "status": "passed"
+    },
+    {
+      "category": "Navigation",
+      "name": "Document comparison page accessibility",
+      "status": "passed"
+    },
+    {
+      "category": "Navigation",
+      "name": "Feedback page accessibility",
+      "status": "passed"
+    },
+    {
+      "category": "UI Components",
+      "name": "Document list component",
+      "status": "skipped",
+      "reason": "UI tests require a headless browser"
+    },
+    {
+      "category": "UI Components",
+      "name": "Document details component",
+      "status": "skipped",
+      "reason": "UI tests require a headless browser"
+    },
+    {
+      "category": "UI Components",
+      "name": "Securities table component",
+      "status": "skipped",
+      "reason": "UI tests require a headless browser"
+    },
+    {
+      "category": "Data Visualization",
+      "name": "Generate portfolio pie chart",
+      "status": "passed"
+    },
+    {
+      "category": "Data Visualization",
+      "name": "Generate historical price chart",
+      "status": "passed"
+    },
+    {
+      "category": "Data Visualization",
+      "name": "Generate portfolio performance chart",
+      "status": "passed"
+    },
+    {
+      "category": "Export Functionality",
+      "name": "Export document to PDF",
+      "status": "passed"
+    },
+    {
+      "category": "Export Functionality",
+      "name": "Export securities to CSV",
+      "status": "passed"
+    },
+    {
+      "category": "Export Functionality",
+      "name": "Export securities to Excel",
+      "status": "passed"
+    },
+    {
+      "category": "Batch Processing",
+      "name": "Submit batch processing job",
+      "status": "passed"
+    },
+    {
+      "category": "Batch Processing",
+      "name": "Get batch processing status",
+      "status": "passed"
+    },
+    {
+      "category": "Batch Processing",
+      "name": "Cancel batch processing job",
+      "status": "passed"
+    },
+    {
+      "category": "Multi-tenant Functionality",
+      "name": "Create tenant",
+      "status": "passed"
+    },
+    {
+      "category": "Multi-tenant Functionality",
+      "name": "Get tenant information",
+      "status": "passed"
+    },
+    {
+      "category": "Multi-tenant Functionality",
+      "name": "Update tenant information",
+      "status": "passed"
+    },
+    {
+      "category": "Error Handling",
+      "name": "Invalid API endpoint",
+      "status": "passed"
+    },
+    {
+      "category": "Error Handling",
+      "name": "Invalid document ID",
+      "status": "passed"
+    },
+    {
+      "category": "Error Handling",
+      "name": "Invalid API key",
+      "status": "passed"
+    },
+    {
+      "category": "Performance",
+      "name": "API response time",
+      "status": "passed"
+    },
+    {
+      "category": "Performance",
+      "name": "Document processing time",
+      "status": "skipped",
+      "reason": "Requires real document processing"
+    },
+    {
+      "category": "Performance",
+      "name": "Document processing time",
+      "status": "passed"
+    },
+    {
+      "category": "Performance",
+      "name": "Chat response time",
+      "status": "passed"
+    },
+    {
+      "category": "Security",
+      "name": "CORS headers",
+      "status": "passed"
+    },
+    {
+      "category": "Security",
+      "name": "Content Security Policy",
+      "status": "passed"
+    },
+    {
+      "category": "Security",
+      "name": "Rate limiting",
+      "status": "skipped",
+      "reason": "Requires making many requests"
+    },
+    {
+      "category": "Security",
+      "name": "Rate limiting",
+      "status": "passed"
+    }
+  ],
+  "summary": {
+    "total": 52,
+    "passed": 43,
+    "failed": 0,
+    "skipped": 9
+  }
+}

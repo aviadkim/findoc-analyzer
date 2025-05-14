@@ -2,6 +2,25 @@
 
 This folder contains scripts and instructions for installing, testing, and configuring Model Context Protocol (MCP) servers for use with Augment.
 
+## UI Validation with MCP for FinDoc Analyzer
+
+We've added new scripts to validate the UI elements of the FinDoc Analyzer application deployed on Google Cloud Platform using MCP. This helps identify missing buttons, forms, and other UI elements that should be present in the deployed application.
+
+### New Files for UI Validation
+
+- `install-mcp.js`: Script to set up the MCP environment for UI validation
+- `ui-validator.js`: Script to detect missing UI elements
+- `augment-integration.js`: Main script for validating deployed interfaces
+- `ci-integration.js`: Script to run as part of CI/CD pipeline
+
+### Using the UI Validation
+
+1. Install the MCP environment: `node install-mcp.js`
+2. Run the validation: `node augment-integration.js`
+3. Check the `validation-report.json` file for details about any missing UI elements
+
+The validation is also integrated into the deployment process through the `deploy-to-cloud.ps1` script.
+
 ## Available Scripts
 
 ### 1. Check Available MCP Packages

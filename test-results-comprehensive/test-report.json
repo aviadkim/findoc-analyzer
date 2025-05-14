@@ -1,0 +1,25 @@
+{
+  "documentId": "doc-1746086254157",
+  "basicResponses": [
+    {
+      "question": "What is the total value of the portfolio?",
+      "response": "\n                  Hello! I'm your financial document assistant. Select a document and ask me questions about it.\n                "
+    },
+    {
+      "question": "How many securities are in the portfolio?",
+      "response": "\n                  Hello! I'm your financial document assistant. Select a document and ask me questions about it.\n                "
+    },
+    {
+      "question": "What is the document type?",
+      "response": "\n                  Hello! I'm your financial document assistant. Select a document and ask me questions about it.\n                "
+    }
+  ],
+  "securitiesResponses": [],
+  "performanceResponses": [],
+  "analysisResponses": [],
+  "reports": {
+    "securities": null,
+    "summary": null,
+    "performance": null
+  }
+}

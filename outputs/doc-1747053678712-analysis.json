@@ -1,0 +1,28 @@
+{
+  "documentId": "doc-1747053678712",
+  "fileName": "portfolio.pdf",
+  "processingDate": "2025-05-12T12:41:19.107Z",
+  "analysisResult": {
+    "totalPortfolioValue": 0,
+    "securitiesCount": 4,
+    "assetAllocation": {},
+    "metrics": [],
+    "analysisDate": "2025-05-12T12:41:19.112Z"
+  },
+  "reportResult": {
+    "portfolioSummary": {
+      "totalValue": 0,
+      "assetCount": 4,
+      "topHoldings": []
+    },
+    "riskAssessment": {
+      "diversificationScore": 0,
+      "volatilityScore": 15.568515957085594,
+      "recommendedActions": [
+        "Consider rebalancing portfolio to improve diversification",
+        "Review investment strategy for long-term growth"
+      ]
+    },
+    "generatedDate": "2025-05-12T12:41:19.112Z"
+  }
+}

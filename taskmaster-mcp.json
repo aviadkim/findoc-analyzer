@@ -1,0 +1,258 @@
+{
+  "name": "TaskMaster MCP",
+  "description": "A Model Context Protocol (MCP) server for AI-driven development and task tracking.",
+  "version": "1.0.0",
+  "author": "Aviad Kim",
+  "license": "MIT",
+  "repository": "https://github.com/aviadkim/taskmaster-mcp",
+  "homepage": "https://github.com/aviadkim/taskmaster-mcp#readme",
+  "main": "taskmaster.js",
+  "scripts": {
+    "start": "node taskmaster.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
+    "uuid": "^9.0.0"
+  },
+  "config": {
+    "port": 3001,
+    "host": "localhost",
+    "apiPath": "/api/taskmaster",
+    "maxTasks": 100,
+    "maxSubtasks": 20
+  },
+  "projects": [
+    {
+      "id": "findoc-analyzer",
+      "name": "FinDoc Analyzer",
+      "description": "A SaaS application for financial document processing and analysis",
+      "status": "in-progress",
+      "priority": "high",
+      "tasks": [
+        {
+          "id": "pdf-processing",
+          "name": "PDF Processing",
+          "description": "Implement PDF processing functionality",
+          "status": "completed",
+          "priority": "high",
+          "assignee": "aviad",
+          "subtasks": [
+            {
+              "id": "pdf-upload",
+              "name": "PDF Upload",
+              "description": "Implement PDF upload functionality",
+              "status": "completed",
+              "priority": "high"
+            },
+            {
+              "id": "text-extraction",
+              "name": "Text Extraction",
+              "description": "Implement text extraction from PDFs",
+              "status": "completed",
+              "priority": "high"
+            },
+            {
+              "id": "table-extraction",
+              "name": "Table Extraction",
+              "description": "Implement table extraction from PDFs",
+              "status": "completed",
+              "priority": "high"
+            },
+            {
+              "id": "metadata-extraction",
+              "name": "Metadata Extraction",
+              "description": "Implement metadata extraction from PDFs",
+              "status": "completed",
+              "priority": "medium"
+            },
+            {
+              "id": "securities-extraction",
+              "name": "Securities Extraction",
+              "description": "Implement securities extraction from PDFs",
+              "status": "completed",
+              "priority": "high"
+            }
+          ]
+        },
+        {
+          "id": "document-chat",
+          "name": "Document Chat",
+          "description": "Implement document chat functionality",
+          "status": "completed",
+          "priority": "high",
+          "assignee": "aviad",
+          "subtasks": [
+            {
+              "id": "question-answering",
+              "name": "Question Answering",
+              "description": "Implement question answering functionality",
+              "status": "completed",
+              "priority": "high"
+            },
+            {
+              "id": "document-summarization",
+              "name": "Document Summarization",
+              "description": "Implement document summarization functionality",
+              "status": "completed",
+              "priority": "medium"
+            },
+            {
+              "id": "information-extraction",
+              "name": "Information Extraction",
+              "description": "Implement information extraction functionality",
+              "status": "completed",
+              "priority": "medium"
+            }
+          ]
+        },
+        {
+          "id": "data-visualization",
+          "name": "Data Visualization",
+          "description": "Implement data visualization functionality",
+          "status": "completed",
+          "priority": "medium",
+          "assignee": "aviad",
+          "subtasks": [
+            {
+              "id": "chart-generation",
+              "name": "Chart Generation",
+              "description": "Implement chart generation functionality",
+              "status": "completed",
+              "priority": "medium"
+            },
+            {
+              "id": "dashboard-creation",
+              "name": "Dashboard Creation",
+              "description": "Implement dashboard creation functionality",
+              "status": "completed",
+              "priority": "medium"
+            },
+            {
+              "id": "report-generation",
+              "name": "Report Generation",
+              "description": "Implement report generation functionality",
+              "status": "completed",
+              "priority": "medium"
+            }
+          ]
+        },
+        {
+          "id": "export",
+          "name": "Export",
+          "description": "Implement export functionality",
+          "status": "completed",
+          "priority": "medium",
+          "assignee": "aviad",
+          "subtasks": [
+            {
+              "id": "csv-export",
+              "name": "CSV Export",
+              "description": "Implement CSV export functionality",
+              "status": "completed",
+              "priority": "medium"
+            },
+            {
+              "id": "excel-export",
+              "name": "Excel Export",
+              "description": "Implement Excel export functionality",
+              "status": "completed",
+              "priority": "medium"
+            },
+            {
+              "id": "pdf-export",
+              "name": "PDF Export",
+              "description": "Implement PDF export functionality",
+              "status": "completed",
+              "priority": "medium"
+            },
+            {
+              "id": "json-export",
+              "name": "JSON Export",
+              "description": "Implement JSON export functionality",
+              "status": "completed",
+              "priority": "medium"
+            }
+          ]
+        },
+        {
+          "id": "testing",
+          "name": "Testing",
+          "description": "Implement testing functionality",
+          "status": "in-progress",
+          "priority": "high",
+          "assignee": "aviad",
+          "subtasks": [
+            {
+              "id": "unit-testing",
+              "name": "Unit Testing",
+              "description": "Implement unit testing",
+              "status": "completed",
+              "priority": "high"
+            },
+            {
+              "id": "integration-testing",
+              "name": "Integration Testing",
+              "description": "Implement integration testing",
+              "status": "completed",
+              "priority": "high"
+            },
+            {
+              "id": "end-to-end-testing",
+              "name": "End-to-End Testing",
+              "description": "Implement end-to-end testing",
+              "status": "in-progress",
+              "priority": "high"
+            },
+            {
+              "id": "performance-testing",
+              "name": "Performance Testing",
+              "description": "Implement performance testing",
+              "status": "not-started",
+              "priority": "medium"
+            },
+            {
+              "id": "security-testing",
+              "name": "Security Testing",
+              "description": "Implement security testing",
+              "status": "not-started",
+              "priority": "high"
+            }
+          ]
+        },
+        {
+          "id": "deployment",
+          "name": "Deployment",
+          "description": "Deploy the application",
+          "status": "in-progress",
+          "priority": "high",
+          "assignee": "aviad",
+          "subtasks": [
+            {
+              "id": "dockerization",
+              "name": "Dockerization",
+              "description": "Dockerize the application",
+              "status": "in-progress",
+              "priority": "high"
+            },
+            {
+              "id": "google-cloud-deployment",
+              "name": "Google Cloud Deployment",
+              "description": "Deploy the application to Google Cloud",
+              "status": "in-progress",
+              "priority": "high"
+            },
+            {
+              "id": "ci-cd",
+              "name": "CI/CD",
+              "description": "Set up CI/CD pipeline",
+              "status": "in-progress",
+              "priority": "high"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

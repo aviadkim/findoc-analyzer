@@ -1,0 +1,181 @@
+{
+  "filename": "simple-financial-statement.pdf",
+  "path": "/mnt/c/Users/aviad/OneDrive/Desktop/backv2-main/test-pdfs/simple-financial-statement.pdf",
+  "useOcr": false,
+  "fileSize": "0.00 MB",
+  "standard": {
+    "text": "\n\nINVESTMENT PORTFOLIO STATEMENT\nDate: 31.03.2024\nAccount Number: 87654321\nClient: Jane Smith\nPORTFOLIO SUMMARY\nTotal Value: USD 875,000.00\nCurrency: USD\nValuation Date: 31.03.2024\nASSET ALLOCATION\nAsset ClassPercentage\nEquity55%\nFixed Income25%\nCash10%\nAlternative10%\nSECURITIES HOLDINGS\nSecurityISINTypeQuantityPriceValueWeight\nAPPLE INCUS0378331005Equity200USD 175.50USD 35,100.004.01%\nMICROSOFT CORPUS5949181045Equity150USD 420.00USD 63,000.007.20%\nAMAZON.COM INCUS0231351067Equity75USD 180.25USD 13,518.751.55%\nNVIDIA CORPUS67066G1040Equity100USD 950.00USD 95,000.0010.86%\nUS TREASURY 2.0% 15/02/2050US912810SQ26Bond150,000USD 0.92USD 138,000.0015.77%",
+    "metadata": {
+      "title": "simple-financial-statement.pdf",
+      "author": "Unknown",
+      "subject": "",
+      "keywords": "",
+      "creator": "pdf-lib (https://github.com/Hopding/pdf-lib)",
+      "producer": "pdf-lib (https://github.com/Hopding/pdf-lib)",
+      "pages": 1,
+      "creationDate": "",
+      "modificationDate": ""
+    },
+    "textLength": 656,
+    "tableCount": 1,
+    "tableSample": {
+      "title": "",
+      "headers": [
+        "INVESTMENT",
+        "PORTFOLIO",
+        "STATEMENT"
+      ],
+      "rows": [
+        [
+          "Date: 31.0",
+          ".2024",
+          ""
+        ],
+        [
+          "Account Nu",
+          "ber: 8765",
+          "321"
+        ],
+        [
+          "Client: Ja",
+          "e Smith",
+          ""
+        ],
+        [
+          "PORTFOLIO",
+          "UMMARY",
+          ""
+        ],
+        [
+          "Total Valu",
+          ": USD 875",
+          "000.00"
+        ],
+        [
+          "Currency:",
+          "SD",
+          ""
+        ],
+        [
+          "Valuation",
+          "ate: 31.0",
+          ".2024"
+        ],
+        [
+          "ASSET ALLO",
+          "ATION",
+          ""
+        ],
+        [
+          "Asset Clas",
+          "Percentag",
+          ""
+        ],
+        [
+          "Equity55%",
+          "",
+          ""
+        ],
+        [
+          "Fixed Inco",
+          "e25%",
+          ""
+        ],
+        [
+          "Cash10%",
+          "",
+          ""
+        ],
+        [
+          "Alternativ",
+          "10%",
+          ""
+        ],
+        [
+          "SECURITIES",
+          "HOLDINGS",
+          ""
+        ],
+        [
+          "SecurityIS",
+          "NTypeQuan",
+          "ityPriceV"
+        ],
+        [
+          "APPLE INCU",
+          "037833100",
+          "Equity200"
+        ],
+        [
+          "MICROSOFT",
+          "ORPUS5949",
+          "81045Equi"
+        ],
+        [
+          "AMAZON.COM",
+          "INCUS0231",
+          "51067Equi"
+        ],
+        [
+          "NVIDIA COR",
+          "US67066G1",
+          "40Equity1"
+        ],
+        [
+          "US TREASUR",
+          "2.0% 15/",
+          "2/2050US9"
+        ]
+      ]
+    }
+  },
+  "mcp": {
+    "documentId": "64eae3af-b754-4dcc-90ea-ca282ac42166",
+    "fileName": "simple-financial-statement.pdf",
+    "text": "\n\nINVESTMENT PORTFOLIO STATEMENT\nDate: 31.03.2024\nAccount Number: 87654321\nClient: Jane Smith\nPORTFOLIO SUMMARY\nTotal Value: USD 875,000.00\nCurrency: USD\nValuation Date: 31.03.2024\nASSET ALLOCATION\nAsset ClassPercentage\nEquity55%\nFixed Income25%\nCash10%\nAlternative10%\nSECURITIES HOLDINGS\nSecurityISINTypeQuantityPriceValueWeight\nAPPLE INCUS0378331005Equity200USD 175.50USD 35,100.004.01%\nMICROSOFT CORPUS5949181045Equity150USD 420.00USD 63,000.007.20%\nAMAZON.COM INCUS0231351067Equity75USD 180.25USD 13,518.751.55%\nNVIDIA CORPUS67066G1040Equity100USD 950.00USD 95,000.0010.86%\nUS TREASURY 2.0% 15/02/2050US912810SQ26Bond150,000USD 0.92USD 138,000.0015.77%",
+    "metadata": {
+      "title": "simple-financial-statement.pdf",
+      "author": "Unknown",
+      "subject": "",
+      "keywords": "",
+      "creator": "pdf-lib (https://github.com/Hopding/pdf-lib)",
+      "producer": "pdf-lib (https://github.com/Hopding/pdf-lib)",
+      "pages": 1,
+      "creationDate": "",
+      "modificationDate": ""
+    },
+    "processed": true,
+    "processingDate": "2025-05-12T10:39:07.820Z",
+    "textLength": 656,
+    "tableCount": 0,
+    "entityCount": 6,
+    "entitySamples": [
+      {
+        "type": "company",
+        "name": "Fixed Inc",
+        "confidence": 0.7
+      },
+      {
+        "type": "security",
+        "isin": "INCUS0378331",
+        "confidence": 0.8
+      },
+      {
+        "type": "security",
+        "isin": "CORPUS594918",
+        "confidence": 0.8
+      },
+      {
+        "type": "security",
+        "isin": "INCUS0231351",
+        "confidence": 0.8
+      },
+      {
+        "type": "security",
+        "isin": "ORPUS67066G1",
+        "confidence": 0.8
+      }
+    ]
+  },
+  "timestamp": "2025-05-12T10:39:07.820Z"
+}

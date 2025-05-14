@@ -1,0 +1,127 @@
+{
+  "documentId": "doc-1747053678712",
+  "fileName": "portfolio.pdf",
+  "filePath": "/mnt/c/Users/aviad/OneDrive/Desktop/backv2-main/test-files/portfolio.pdf",
+  "processingDate": "2025-05-12T12:41:19.107Z",
+  "sources": {
+    "docling": false,
+    "scan1": true,
+    "enhanced": true
+  },
+  "text": "This is basic text extracted without using an API key. It contains some financial information.",
+  "entities": [
+    {
+      "name": "Apple Inc.",
+      "isin": "US0378331005",
+      "ticker": "AAPL",
+      "quantity": 100,
+      "source": "scan1"
+    },
+    {
+      "name": "Microsoft Corporation",
+      "isin": "US5949181045",
+      "ticker": "MSFT",
+      "quantity": 50,
+      "source": "scan1"
+    },
+    {
+      "name": "Apple Inc.",
+      "isin": "US0378331005",
+      "ticker": "AAPL",
+      "quantity": 100,
+      "source": "enhanced"
+    },
+    {
+      "name": "Microsoft Corporation",
+      "isin": "US5949181045",
+      "ticker": "MSFT",
+      "quantity": 50,
+      "source": "enhanced"
+    }
+  ],
+  "securities": [
+    {
+      "name": "Apple Inc.",
+      "isin": "US0378331005",
+      "ticker": "AAPL",
+      "quantity": 100,
+      "source": "scan1"
+    },
+    {
+      "name": "Microsoft Corporation",
+      "isin": "US5949181045",
+      "ticker": "MSFT",
+      "quantity": 50,
+      "source": "scan1"
+    },
+    {
+      "name": "Apple Inc.",
+      "isin": "US0378331005",
+      "ticker": "AAPL",
+      "quantity": 100,
+      "source": "enhanced"
+    },
+    {
+      "name": "Microsoft Corporation",
+      "isin": "US5949181045",
+      "ticker": "MSFT",
+      "quantity": 50,
+      "source": "enhanced"
+    }
+  ],
+  "tables": [
+    {
+      "id": "table-1",
+      "title": "Portfolio Summary",
+      "headers": [
+        "Security",
+        "ISIN",
+        "Quantity"
+      ],
+      "rows": [
+        [
+          "Apple Inc.",
+          "US0378331005",
+          "100"
+        ],
+        [
+          "Microsoft Corporation",
+          "US5949181045",
+          "50"
+        ]
+      ],
+      "source": "scan1"
+    },
+    {
+      "id": "table-1",
+      "title": "Portfolio Summary",
+      "headers": [
+        "Security",
+        "ISIN",
+        "Quantity"
+      ],
+      "rows": [
+        [
+          "Apple Inc.",
+          "US0378331005",
+          "100"
+        ],
+        [
+          "Microsoft Corporation",
+          "US5949181045",
+          "50"
+        ]
+      ],
+      "source": "enhanced"
+    }
+  ],
+  "summary": {
+    "documentName": "portfolio.pdf",
+    "entityCounts": {
+      "unknown": 4
+    },
+    "tableCount": 2,
+    "totalValueFound": null,
+    "timestamp": "2025-05-12T12:41:19.107Z"
+  }
+}

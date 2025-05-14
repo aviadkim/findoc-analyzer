@@ -7,9 +7,18 @@
     "start": "node server.js",
     "dev": "nodemon server.js",
     "start-server": "node start-server.js",
-    "test": "node tests/run-tests.js",
+    "test": "jest",
+    "test:unit": "jest --testMatch='**/tests/unit/**/*.test.js'",
+    "test:integration": "jest --testMatch='**/tests/integration/**/*.test.js'",
+    "test:performance": "jest --testMatch='**/tests/performance/**/*.test.js'",
+    "test:plugins": "jest --testMatch='**/tests/**/plugins*.test.js'",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "test:ci": "jest --ci --coverage",
     "test:document": "node tests/test-document-processing.js",
-    "test:api": "node tests/test-api-endpoints.js"
+    "test:api": "node tests/test-api-endpoints.js",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.38.4",
@@ -33,9 +42,15 @@
     "xlsx": "^0.18.5"
   },
   "devDependencies": {
+    "eslint": "^8.54.0",
     "jest": "^29.7.0",
     "nodemon": "^3.0.1",
     "supertest": "^6.3.3"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "testTimeout": 10000,
+    "setupFilesAfterEnv": ["<rootDir>/tests/helpers/jest.setup.js"]
   },
   "engines": {
     "node": ">=18.0.0"

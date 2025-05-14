@@ -1,0 +1,21 @@
+Extracted Tables
+===============
+
+Table 1: Portfolio Holdings
+Type: portfolio
+
+Table 2: Asset Allocation
+Type: allocation
+
+Table 3: Performance
+Type: performance
+
+Table 4: Account Information
+Type: metadata
+
+Sample Table Headers:
+  - Name/Value
+  - Properties
+  - Confidence
+
+Sample Row Data:

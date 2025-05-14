@@ -1,0 +1,1 @@
+The visual-qa-test.js script will open a visible browser window and perform automated tests. It will walk through the entire application flow, checking all UI components and functionality. This is similar to what a QA developer would do manually.

@@ -1,0 +1,130 @@
+name: Deploy to Google App Engine
+
+on:
+  push:
+    branches:
+      - main
+      - master
+      - ui-components-only  # Add your current branch
+
+jobs:
+  deploy:
+    name: Deploy to Google App Engine
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci || npm install
+
+      - name: Set up Google Cloud SDK
+        uses: google-github-actions/setup-gcloud@v1
+        with:
+          project_id: findoc-deploy
+          service_account_key: ${{ secrets.GCP_SA_KEY }}
+          export_default_credentials: true
+
+      - name: Create necessary directories
+        run: |
+          mkdir -p public/css
+          mkdir -p public/js
+          mkdir -p public/images
+
+      - name: Create modern-ui.css if it doesn't exist
+        run: |
+          if [ ! -f "public/css/modern-ui.css" ]; then
+            cat > public/css/modern-ui.css << 'EOL'
+            /* FinDoc Analyzer - Modern UI CSS */
+            :root {
+              --primary-color: #3498db;
+              --secondary-color: #2c3e50;
+              --accent-color: #e74c3c;
+              --background-color: #f8f9fa;
+              --text-color: #333;
+              --border-radius: 8px;
+              --box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            }
+
+            body {
+              font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+              margin: 0;
+              padding: 0;
+              background-color: var(--background-color);
+              color: var(--text-color);
+            }
+
+            /* Modern App Layout */
+            .app-layout {
+              display: flex;
+              min-height: 100vh;
+            }
+
+            /* Modern Sidebar */
+            .sidebar {
+              width: 280px;
+              background-color: var(--secondary-color);
+              color: white;
+              display: flex;
+              flex-direction: column;
+              transition: all 0.3s ease;
+            }
+
+            /* Modern Header */
+            .header {
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              padding: 20px;
+              background-color: white;
+              box-shadow: var(--box-shadow);
+            }
+
+            /* Modern Login Page */
+            .login-page {
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              min-height: 100vh;
+              background-color: var(--background-color);
+            }
+
+            /* Modern Upload Page */
+            .upload-container {
+              display: grid;
+              grid-template-columns: 1fr;
+              gap: 20px;
+              max-width: 1200px;
+              margin: 0 auto;
+            }
+            EOL
+          fi
+
+      - name: Deploy to App Engine
+        id: deploy
+        uses: google-github-actions/deploy-appengine@v1
+        with:
+          project_id: findoc-deploy
+          deliverables: app.yaml
+          version: modern-ui-${{ github.sha }}
+          promote: true
+
+      - name: Display deployed URL
+        run: |
+          echo "Deployed to https://findoc-deploy.ey.r.appspot.com"
+          echo "Version: modern-ui-${{ github.sha }}"
+
+      - name: Run basic tests
+        run: |
+          echo "Running basic tests on deployed application..."
+          curl -s -o /dev/null -w "%{http_code}" https://findoc-deploy.ey.r.appspot.com/
+          curl -s -o /dev/null -w "%{http_code}" https://findoc-deploy.ey.r.appspot.com/login.html
+          curl -s -o /dev/null -w "%{http_code}" https://findoc-deploy.ey.r.appspot.com/upload.html
+          echo "Basic tests completed."

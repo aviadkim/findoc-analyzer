@@ -1,0 +1,52 @@
+[
+  {
+    "name": "Security with ISIN US02079K1079",
+    "isin": "US02079K1079",
+    "type": "unknown",
+    "quantity": 100,
+    "price": 315,
+    "value": 31500,
+    "percentage": 20,
+    "currency": "POR"
+  },
+  {
+    "name": "Securities:",
+    "isin": "US0378331005",
+    "type": "unknown",
+    "quantity": 100,
+    "price": 182.5,
+    "value": 18250,
+    "percentage": 20,
+    "currency": "POR"
+  },
+  {
+    "name": "Securities:",
+    "isin": "US5949181045",
+    "type": "unknown",
+    "quantity": 100,
+    "price": 182.5,
+    "value": 18250,
+    "percentage": 20,
+    "currency": "POR"
+  },
+  {
+    "name": "Securities:",
+    "isin": "US0231351067",
+    "type": "unknown",
+    "quantity": 100,
+    "price": 182.5,
+    "value": 18250,
+    "percentage": 20,
+    "currency": "POR"
+  },
+  {
+    "name": "Security with ISIN US88160R1014",
+    "isin": "US88160R1014",
+    "type": "unknown",
+    "quantity": 50,
+    "price": 175,
+    "value": 8750,
+    "percentage": 20,
+    "currency": "POR"
+  }
+]

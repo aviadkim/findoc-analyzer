@@ -1,0 +1,11 @@
+isin,name,type,quantity,price,value,currency,marketPrice,marketValue,priceChange,priceChangePercent,lastUpdated,dataProvider,id,symbol,description,sector,country,exchange
+"GB2863826955","Bank of America Corp.","Stock",823,252.72,207988.56,"ILS",257.85,212210.55,5.13,2.03,"2025-05-14T09:10:48.167Z","Yahoo Finance","sec-1","BANK",,"Financial Services","GB",
+"FR6218899209","Microsoft Corp.","Option",497,986.14,490111.58,"GBP",970.07,482124.79,-16.07,-1.63,"2025-05-14T09:10:48.167Z","Yahoo Finance","sec-2","MICROSOFT",,"Communication Services","FR",
+"FR1613768035","Visa Inc.","Option",620,343.49,212963.8,"EUR",356.34,220930.8,12.85,3.74,"2025-05-14T09:10:48.167Z","Yahoo Finance","sec-3","VISA",,"Technology","FR",
+"IL7874928738","Bank of America Corp.","Cash",963,66.08,63635.04,"EUR",67.2,64713.6,1.12,1.69,"2025-05-14T09:10:48.167Z","Yahoo Finance","sec-4","BANK",,"Healthcare","IL",
+"IL0556053706","Apple Inc.","Option",958,118.56,113580.48,"EUR",114.04,109250.32,-4.52,-3.81,"2025-05-14T09:10:48.167Z","Yahoo Finance","sec-5","APPLE",,"Consumer Cyclical","IL",
+"IL4511063978","Walt Disney Co.","Fund",212,810.49,171823.88,"USD",781.31,165637.72,-29.18,-3.6,"2025-05-14T09:10:48.167Z","Yahoo Finance","sec-6","WALT",,"Technology","IL",
+"DE1982503251","Visa Inc.","Bond",386,922.49,356081.14,"USD",900.72,347677.92,-21.77,-2.36,"2025-05-14T09:10:48.167Z","Yahoo Finance","sec-7","VISA",,"Technology","DE",
+"DE9585517357","JPMorgan Chase & Co.","Cash",324,997.19,323089.56,"ILS",1037.78,336240.72,40.59,4.07,"2025-05-14T09:10:48.167Z","Yahoo Finance","sec-8","JPMORGAN",,"Consumer Cyclical","DE",
+"FR7812788502","Visa Inc.","Option",587,537.09,315271.83,"USD",516.09,302944.83,-21,-3.91,"2025-05-14T09:10:48.167Z","Yahoo Finance","sec-9","VISA",,"Consumer Defensive","FR",
+"FR2142670445","Tesla Inc.","Option",540,233.62,126154.8,"ILS",224.25,121095,-9.37,-4.01,"2025-05-14T09:10:48.167Z","Yahoo Finance","sec-10","TESLA",,"Industrials","FR",

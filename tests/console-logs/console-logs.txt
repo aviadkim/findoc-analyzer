@@ -1,0 +1,219 @@
+Console Logs Check
+
+
+--- Home Page (https://backv2-app-brfi73d4ra-zf.a.run.app) ---
+
+[log] Initializing mock API...
+[log] Mock API initialized
+[log] Initializing authentication
+[log] Initializing agent manager
+[log] Mock API call: /api/agents
+[error] Error getting agent status: JSHandle@error
+[log] Current path: /
+[log] Active link set to: /
+[log] Router initialized
+[log] Handling route: /
+[log] Active link set to: /
+[log] Rendering dashboard
+
+Network Requests:
+https://backv2-app-brfi73d4ra-zf.a.run.app/css/styles.css (link) - 26.5ms
+https://backv2-app-brfi73d4ra-zf.a.run.app/js/mock-api.js (script) - 27.30000001192093ms
+https://backv2-app-brfi73d4ra-zf.a.run.app/js/notification.js (script) - 26.799999952316284ms
+https://backv2-app-brfi73d4ra-zf.a.run.app/js/auth.js (script) - 25.80000001192093ms
+https://backv2-app-brfi73d4ra-zf.a.run.app/js/agent-manager.js (script) - 33.30000001192093ms
+https://backv2-app-brfi73d4ra-zf.a.run.app/js/document-processor.js (script) - 38.5ms
+https://backv2-app-brfi73d4ra-zf.a.run.app/js/sidebar.js (script) - 24.600000023841858ms
+https://backv2-app-brfi73d4ra-zf.a.run.app/js/router.js (script) - 35.60000002384186ms
+https://backv2-app-brfi73d4ra-zf.a.run.app/favicon.ico (other) - 20.399999976158142ms
+
+Injected Scripts:
+https://backv2-app-brfi73d4ra-zf.a.run.app/js/mock-api.js
+https://backv2-app-brfi73d4ra-zf.a.run.app/js/notification.js
+https://backv2-app-brfi73d4ra-zf.a.run.app/js/auth.js
+https://backv2-app-brfi73d4ra-zf.a.run.app/js/agent-manager.js
+https://backv2-app-brfi73d4ra-zf.a.run.app/js/document-processor.js
+https://backv2-app-brfi73d4ra-zf.a.run.app/js/sidebar.js
+https://backv2-app-brfi73d4ra-zf.a.run.app/js/router.js
+
+--- Upload Page (https://backv2-app-brfi73d4ra-zf.a.run.app/upload) ---
+
+[log] Initializing mock API...
+[log] Mock API initialized
+[log] Initializing authentication
+[log] Initializing agent manager
+[log] Mock API call: /api/agents
+[error] Error getting agent status: JSHandle@error
+[log] Current path: /upload
+[log] Active link set to: /upload
+[log] Router initialized
+[log] Handling route: /upload
+[log] Active link set to: /upload
+[log] Rendering upload page
+
+Network Requests:
+https://backv2-app-brfi73d4ra-zf.a.run.app/css/styles.css (link) - 32.5ms
+https://backv2-app-brfi73d4ra-zf.a.run.app/js/mock-api.js (script) - 32.799999952316284ms
+https://backv2-app-brfi73d4ra-zf.a.run.app/js/notification.js (script) - 28.900000035762787ms
+https://backv2-app-brfi73d4ra-zf.a.run.app/js/auth.js (script) - 31.69999998807907ms
+https://backv2-app-brfi73d4ra-zf.a.run.app/js/agent-manager.js (script) - 32.39999997615814ms
+https://backv2-app-brfi73d4ra-zf.a.run.app/js/document-processor.js (script) - 30.80000001192093ms
+https://backv2-app-brfi73d4ra-zf.a.run.app/js/sidebar.js (script) - 30.30000001192093ms
+https://backv2-app-brfi73d4ra-zf.a.run.app/js/router.js (script) - 29.900000035762787ms
+https://backv2-app-brfi73d4ra-zf.a.run.app/favicon.ico (other) - 36.5ms
+
+Injected Scripts:
+https://backv2-app-brfi73d4ra-zf.a.run.app/js/mock-api.js
+https://backv2-app-brfi73d4ra-zf.a.run.app/js/notification.js
+https://backv2-app-brfi73d4ra-zf.a.run.app/js/auth.js
+https://backv2-app-brfi73d4ra-zf.a.run.app/js/agent-manager.js
+https://backv2-app-brfi73d4ra-zf.a.run.app/js/document-processor.js
+https://backv2-app-brfi73d4ra-zf.a.run.app/js/sidebar.js
+https://backv2-app-brfi73d4ra-zf.a.run.app/js/router.js
+
+--- Documents Page (https://backv2-app-brfi73d4ra-zf.a.run.app/documents-new) ---
+
+[log] Initializing mock API...
+[log] Mock API initialized
+[log] Initializing authentication
+[log] Initializing agent manager
+[log] Mock API call: /api/agents
+[error] Error getting agent status: JSHandle@error
+[log] Current path: /documents-new
+[log] Active link set to: /documents-new
+[log] Router initialized
+[log] Handling route: /documents-new
+[log] Active link set to: /documents-new
+[log] Rendering documents page
+[log] Mock API call: /api/documents
+
+Network Requests:
+https://backv2-app-brfi73d4ra-zf.a.run.app/css/styles.css (link) - 18.400000035762787ms
+https://backv2-app-brfi73d4ra-zf.a.run.app/js/mock-api.js (script) - 21.900000035762787ms
+https://backv2-app-brfi73d4ra-zf.a.run.app/js/notification.js (script) - 23.80000001192093ms
+https://backv2-app-brfi73d4ra-zf.a.run.app/js/auth.js (script) - 22.80000001192093ms
+https://backv2-app-brfi73d4ra-zf.a.run.app/js/agent-manager.js (script) - 23.600000023841858ms
+https://backv2-app-brfi73d4ra-zf.a.run.app/js/document-processor.js (script) - 32.80000001192093ms
+https://backv2-app-brfi73d4ra-zf.a.run.app/js/sidebar.js (script) - 25.600000023841858ms
+https://backv2-app-brfi73d4ra-zf.a.run.app/js/router.js (script) - 25.900000035762787ms
+https://backv2-app-brfi73d4ra-zf.a.run.app/favicon.ico (other) - 20ms
+
+Injected Scripts:
+https://backv2-app-brfi73d4ra-zf.a.run.app/js/mock-api.js
+https://backv2-app-brfi73d4ra-zf.a.run.app/js/notification.js
+https://backv2-app-brfi73d4ra-zf.a.run.app/js/auth.js
+https://backv2-app-brfi73d4ra-zf.a.run.app/js/agent-manager.js
+https://backv2-app-brfi73d4ra-zf.a.run.app/js/document-processor.js
+https://backv2-app-brfi73d4ra-zf.a.run.app/js/sidebar.js
+https://backv2-app-brfi73d4ra-zf.a.run.app/js/router.js
+
+--- Analytics Page (https://backv2-app-brfi73d4ra-zf.a.run.app/analytics-new) ---
+
+[log] Initializing mock API...
+[log] Mock API initialized
+[log] Initializing authentication
+[log] Initializing agent manager
+[log] Mock API call: /api/agents
+[error] Error getting agent status: JSHandle@error
+[log] Current path: /analytics-new
+[log] Active link set to: /analytics-new
+[log] Router initialized
+[log] Handling route: /analytics-new
+[log] Active link set to: /analytics-new
+[log] Rendering analytics page
+
+Network Requests:
+https://backv2-app-brfi73d4ra-zf.a.run.app/css/styles.css (link) - 29ms
+https://backv2-app-brfi73d4ra-zf.a.run.app/js/mock-api.js (script) - 27ms
+https://backv2-app-brfi73d4ra-zf.a.run.app/js/notification.js (script) - 21.5ms
+https://backv2-app-brfi73d4ra-zf.a.run.app/js/auth.js (script) - 28.899999976158142ms
+https://backv2-app-brfi73d4ra-zf.a.run.app/js/agent-manager.js (script) - 29.400000035762787ms
+https://backv2-app-brfi73d4ra-zf.a.run.app/js/document-processor.js (script) - 26.80000001192093ms
+https://backv2-app-brfi73d4ra-zf.a.run.app/js/sidebar.js (script) - 28.799999952316284ms
+https://backv2-app-brfi73d4ra-zf.a.run.app/js/router.js (script) - 26ms
+https://backv2-app-brfi73d4ra-zf.a.run.app/favicon.ico (other) - 22.400000035762787ms
+
+Injected Scripts:
+https://backv2-app-brfi73d4ra-zf.a.run.app/js/mock-api.js
+https://backv2-app-brfi73d4ra-zf.a.run.app/js/notification.js
+https://backv2-app-brfi73d4ra-zf.a.run.app/js/auth.js
+https://backv2-app-brfi73d4ra-zf.a.run.app/js/agent-manager.js
+https://backv2-app-brfi73d4ra-zf.a.run.app/js/document-processor.js
+https://backv2-app-brfi73d4ra-zf.a.run.app/js/sidebar.js
+https://backv2-app-brfi73d4ra-zf.a.run.app/js/router.js
+
+--- Document Details Page (https://backv2-app-brfi73d4ra-zf.a.run.app/document-details.html) ---
+
+[log] Initializing mock API...
+[log] Mock API initialized
+[log] Current path: /document-details.html
+[log] Active link set to: /documents-new
+[error] No document ID found
+[log] Initializing mock API...
+[log] Mock API initialized
+[log] Initializing authentication
+[log] Initializing agent manager
+[log] Mock API call: /api/agents
+[error] Error getting agent status: JSHandle@error
+[log] Current path: /documents-new
+[log] Active link set to: /documents-new
+[log] Router initialized
+[log] Handling route: /documents-new
+[log] Active link set to: /documents-new
+[log] Rendering documents page
+[log] Mock API call: /api/documents
+
+Network Requests:
+https://backv2-app-brfi73d4ra-zf.a.run.app/css/styles.css (link) - 31.900000035762787ms
+https://backv2-app-brfi73d4ra-zf.a.run.app/js/mock-api.js (script) - 31ms
+https://backv2-app-brfi73d4ra-zf.a.run.app/js/notification.js (script) - 32.39999997615814ms
+https://backv2-app-brfi73d4ra-zf.a.run.app/js/auth.js (script) - 32.89999997615814ms
+https://backv2-app-brfi73d4ra-zf.a.run.app/js/agent-manager.js (script) - 32.200000047683716ms
+https://backv2-app-brfi73d4ra-zf.a.run.app/js/document-processor.js (script) - 31.099999964237213ms
+https://backv2-app-brfi73d4ra-zf.a.run.app/js/sidebar.js (script) - 32.69999998807907ms
+https://backv2-app-brfi73d4ra-zf.a.run.app/js/router.js (script) - 31.19999998807907ms
+https://backv2-app-brfi73d4ra-zf.a.run.app/favicon.ico (other) - 19.80000001192093ms
+
+Injected Scripts:
+https://backv2-app-brfi73d4ra-zf.a.run.app/js/mock-api.js
+https://backv2-app-brfi73d4ra-zf.a.run.app/js/notification.js
+https://backv2-app-brfi73d4ra-zf.a.run.app/js/auth.js
+https://backv2-app-brfi73d4ra-zf.a.run.app/js/agent-manager.js
+https://backv2-app-brfi73d4ra-zf.a.run.app/js/document-processor.js
+https://backv2-app-brfi73d4ra-zf.a.run.app/js/sidebar.js
+https://backv2-app-brfi73d4ra-zf.a.run.app/js/router.js
+
+--- Test Page (https://backv2-app-brfi73d4ra-zf.a.run.app/test) ---
+
+[log] Initializing mock API...
+[log] Mock API initialized
+[log] Initializing authentication
+[log] Initializing agent manager
+[log] Mock API call: /api/agents
+[error] Error getting agent status: JSHandle@error
+[log] Current path: /test
+[log] Active link set to: /test
+[log] Router initialized
+[log] Handling route: /test
+[log] Active link set to: /test
+[log] Rendering test page
+
+Network Requests:
+https://backv2-app-brfi73d4ra-zf.a.run.app/css/styles.css (link) - 32.40000003576279ms
+https://backv2-app-brfi73d4ra-zf.a.run.app/js/mock-api.js (script) - 33.60000002384186ms
+https://backv2-app-brfi73d4ra-zf.a.run.app/js/notification.js (script) - 31.600000023841858ms
+https://backv2-app-brfi73d4ra-zf.a.run.app/js/auth.js (script) - 32.5ms
+https://backv2-app-brfi73d4ra-zf.a.run.app/js/agent-manager.js (script) - 31.80000001192093ms
+https://backv2-app-brfi73d4ra-zf.a.run.app/js/document-processor.js (script) - 32ms
+https://backv2-app-brfi73d4ra-zf.a.run.app/js/sidebar.js (script) - 32.30000001192093ms
+https://backv2-app-brfi73d4ra-zf.a.run.app/js/router.js (script) - 32.700000047683716ms
+https://backv2-app-brfi73d4ra-zf.a.run.app/favicon.ico (other) - 19.600000023841858ms
+
+Injected Scripts:
+https://backv2-app-brfi73d4ra-zf.a.run.app/js/mock-api.js
+https://backv2-app-brfi73d4ra-zf.a.run.app/js/notification.js
+https://backv2-app-brfi73d4ra-zf.a.run.app/js/auth.js
+https://backv2-app-brfi73d4ra-zf.a.run.app/js/agent-manager.js
+https://backv2-app-brfi73d4ra-zf.a.run.app/js/document-processor.js
+https://backv2-app-brfi73d4ra-zf.a.run.app/js/sidebar.js
+https://backv2-app-brfi73d4ra-zf.a.run.app/js/router.js

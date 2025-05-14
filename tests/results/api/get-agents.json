@@ -1,0 +1,27 @@
+[
+  {
+    "name": "Document Analyzer",
+    "status": "active",
+    "description": "Analyzes financial documents and extracts key information."
+  },
+  {
+    "name": "Table Understanding",
+    "status": "idle",
+    "description": "Extracts and analyzes tables from financial documents."
+  },
+  {
+    "name": "Securities Extractor",
+    "status": "error",
+    "description": "Extracts securities information from financial documents."
+  },
+  {
+    "name": "Financial Reasoner",
+    "status": "active",
+    "description": "Provides financial reasoning and insights based on the extracted data."
+  },
+  {
+    "name": "Bloomberg Agent",
+    "status": "idle",
+    "description": "Fetches real-time financial data from Bloomberg."
+  }
+]

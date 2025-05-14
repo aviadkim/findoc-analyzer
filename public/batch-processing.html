@@ -1,0 +1,1194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comprehensive Batch Processing</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            padding-top: 20px;
+            padding-bottom: 40px;
+        }
+        .job-card {
+            margin-bottom: 15px;
+            cursor: pointer;
+        }
+        .job-card:hover {
+            background-color: #f8f9fa;
+        }
+        .progress {
+            margin-top: 10px;
+            margin-bottom: 10px;
+            height: 20px;
+        }
+        .file-list {
+            max-height: 200px;
+            overflow-y: auto;
+        }
+        .nav-tabs {
+            margin-bottom: 15px;
+        }
+        .badge-priority-high {
+            background-color: #dc3545;
+        }
+        .badge-priority-medium {
+            background-color: #ffc107;
+            color: #212529;
+        }
+        .badge-priority-low {
+            background-color: #6c757d;
+        }
+        .stats-container {
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+        }
+        .status-badge {
+            font-size: 85%;
+            padding: 5px 8px;
+            border-radius: 12px;
+        }
+        .status-completed {
+            background-color: #28a745;
+            color: white;
+        }
+        .status-processing {
+            background-color: #17a2b8;
+            color: white;
+        }
+        .status-queued {
+            background-color: #6c757d;
+            color: white;
+        }
+        .status-failed {
+            background-color: #dc3545;
+            color: white;
+        }
+        .status-paused {
+            background-color: #fd7e14;
+            color: white;
+        }
+        .status-cancelled {
+            background-color: #6c757d;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="mb-4">Comprehensive Batch Processing</h1>
+
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="jobs-tab" data-bs-toggle="tab" data-bs-target="#jobs" type="button" role="tab">Jobs</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="upload-tab" data-bs-toggle="tab" data-bs-target="#upload" type="button" role="tab">Upload Files</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="from-docs-tab" data-bs-toggle="tab" data-bs-target="#from-docs" type="button" role="tab">From Documents</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="stats-tab" data-bs-toggle="tab" data-bs-target="#stats" type="button" role="tab">Statistics</button>
+            </li>
+        </ul>
+
+        <div class="tab-content" id="myTabContent">
+            <!-- Jobs Tab -->
+            <div class="tab-pane fade show active" id="jobs" role="tabpanel">
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <h3>Batch Jobs</h3>
+                    </div>
+                    <div class="col-md-6 text-end">
+                        <div class="btn-group" role="group">
+                            <button class="btn btn-primary btn-sm" onclick="refreshJobs()">Refresh</button>
+                            <button class="btn btn-danger btn-sm" onclick="cleanupJobs()">Cleanup Old Jobs</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stats-container mb-3">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <h5>Active Jobs</h5>
+                            <h2 id="stats-active-jobs">0</h2>
+                        </div>
+                        <div class="col-md-4">
+                            <h5>Queued Jobs</h5>
+                            <h2 id="stats-queued-jobs">0</h2>
+                        </div>
+                        <div class="col-md-4">
+                            <h5>Total Jobs</h5>
+                            <h2 id="stats-total-jobs">0</h2>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="jobs-list" class="row">
+                    <!-- Jobs will be loaded here -->
+                    <div class="text-center py-5">
+                        <div class="spinner-border" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                        <p class="mt-2">Loading jobs...</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Upload Files Tab -->
+            <div class="tab-pane fade" id="upload" role="tabpanel">
+                <h3>Upload Files for Batch Processing</h3>
+                <form id="upload-form" enctype="multipart/form-data">
+                    <div class="mb-3">
+                        <label for="fileInput" class="form-label">Select Files</label>
+                        <input class="form-control" type="file" id="fileInput" name="files" multiple>
+                        <div class="form-text">You can select multiple files (PDFs, Excel files).</div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="batchName" class="form-label">Batch Name</label>
+                        <input type="text" class="form-control" id="batchName" name="name" placeholder="My Batch Job">
+                    </div>
+                    <div class="mb-3">
+                        <label for="batchDescription" class="form-label">Description</label>
+                        <textarea class="form-control" id="batchDescription" name="description" rows="2"></textarea>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="batchPriority" class="form-label">Priority</label>
+                            <select class="form-select" id="batchPriority" name="priority">
+                                <option value="high">High</option>
+                                <option value="medium" selected>Medium</option>
+                                <option value="low">Low</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="documentType" class="form-label">Document Type</label>
+                            <select class="form-select" id="documentType" name="documentType">
+                                <option value="" selected>Auto-detect</option>
+                                <option value="pdf">PDF</option>
+                                <option value="excel">Excel</option>
+                                <option value="financial">Financial</option>
+                                <option value="portfolio">Portfolio</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Processing Options</label>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="extractText" name="extractText" checked>
+                            <label class="form-check-label" for="extractText">Extract Text</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="extractTables" name="extractTables" checked>
+                            <label class="form-check-label" for="extractTables">Extract Tables</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="extractSecurities" name="extractSecurities" checked>
+                            <label class="form-check-label" for="extractSecurities">Extract Securities</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="includeMarketData" name="includeMarketData" checked>
+                            <label class="form-check-label" for="includeMarketData">Include Market Data</label>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="tenantId" class="form-label">Tenant ID (Optional)</label>
+                        <input type="text" class="form-control" id="tenantId" name="tenantId">
+                    </div>
+                    <div class="mb-3">
+                        <label for="userId" class="form-label">User ID (Optional)</label>
+                        <input type="text" class="form-control" id="userId" name="userId">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Upload & Process</button>
+                </form>
+
+                <div id="upload-response" class="mt-4 d-none">
+                    <!-- Upload response will go here -->
+                </div>
+            </div>
+
+            <!-- From Documents Tab -->
+            <div class="tab-pane fade" id="from-docs" role="tabpanel">
+                <h3>Create Batch from Existing Documents</h3>
+                <form id="docs-form">
+                    <div class="mb-3">
+                        <label for="documentIds" class="form-label">Document IDs</label>
+                        <textarea class="form-control" id="documentIds" name="documentIds" rows="3" placeholder="Enter document IDs, one per line or comma separated"></textarea>
+                        <div class="form-text">Enter document IDs to include in the batch job.</div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="docsBatchName" class="form-label">Batch Name</label>
+                        <input type="text" class="form-control" id="docsBatchName" name="name" placeholder="My Documents Batch">
+                    </div>
+                    <div class="mb-3">
+                        <label for="docsBatchDescription" class="form-label">Description</label>
+                        <textarea class="form-control" id="docsBatchDescription" name="description" rows="2"></textarea>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="docsBatchPriority" class="form-label">Priority</label>
+                            <select class="form-select" id="docsBatchPriority" name="priority">
+                                <option value="high">High</option>
+                                <option value="medium" selected>Medium</option>
+                                <option value="low">Low</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="docsDocumentType" class="form-label">Document Type</label>
+                            <select class="form-select" id="docsDocumentType" name="documentType">
+                                <option value="" selected>Auto-detect</option>
+                                <option value="pdf">PDF</option>
+                                <option value="excel">Excel</option>
+                                <option value="financial">Financial</option>
+                                <option value="portfolio">Portfolio</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Processing Options</label>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="docsExtractText" name="extractText" checked>
+                            <label class="form-check-label" for="docsExtractText">Extract Text</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="docsExtractTables" name="extractTables" checked>
+                            <label class="form-check-label" for="docsExtractTables">Extract Tables</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="docsExtractSecurities" name="extractSecurities" checked>
+                            <label class="form-check-label" for="docsExtractSecurities">Extract Securities</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="docsIncludeMarketData" name="includeMarketData" checked>
+                            <label class="form-check-label" for="docsIncludeMarketData">Include Market Data</label>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="docsTenantId" class="form-label">Tenant ID (Optional)</label>
+                        <input type="text" class="form-control" id="docsTenantId" name="tenantId">
+                    </div>
+                    <div class="mb-3">
+                        <label for="docsUserId" class="form-label">User ID (Optional)</label>
+                        <input type="text" class="form-control" id="docsUserId" name="userId">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Create Batch Job</button>
+                </form>
+
+                <div id="docs-response" class="mt-4 d-none">
+                    <!-- Docs response will go here -->
+                </div>
+            </div>
+
+            <!-- Statistics Tab -->
+            <div class="tab-pane fade" id="stats" role="tabpanel">
+                <h3>System Statistics</h3>
+                <div class="stats-container">
+                    <div id="service-stats-container">
+                        <div class="text-center py-5">
+                            <div class="spinner-border" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                            <p class="mt-2">Loading statistics...</p>
+                        </div>
+                    </div>
+                </div>
+                <div id="batch-processing-container" class="mt-4">
+                    <h4>Batch Processing Status</h4>
+                    <div class="card">
+                        <div class="card-body">
+                            <div id="batch-processing-status">
+                                <p>No active batch processing jobs.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Job Details Modal -->
+        <div class="modal fade" id="jobDetailsModal" tabindex="-1">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Batch Job Details</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div id="modal-content">
+                            <div class="text-center py-5">
+                                <div class="spinner-border" role="status">
+                                    <span class="visually-hidden">Loading...</span>
+                                </div>
+                                <p class="mt-2">Loading job details...</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <div id="job-action-buttons" class="w-100">
+                            <!-- Job action buttons will be added here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // API endpoints
+        const API_BASE = '/api/batch/v2';
+
+        // Current selected job ID
+        let currentJobId = null;
+
+        // Auto-refresh timer
+        let refreshTimer = null;
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load jobs
+            refreshJobs();
+
+            // Load stats
+            refreshStats();
+
+            // Set up form submission handlers
+            setupForms();
+
+            // Start auto refresh for active jobs
+            startAutoRefresh();
+        });
+
+        // Setup form submissions
+        function setupForms() {
+            // Upload form
+            document.getElementById('upload-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+
+                const formData = new FormData(this);
+
+                // Add processing options
+                const processingOptions = {
+                    extractText: document.getElementById('extractText').checked,
+                    extractTables: document.getElementById('extractTables').checked,
+                    extractSecurities: document.getElementById('extractSecurities').checked,
+                    includeMarketData: document.getElementById('includeMarketData').checked
+                };
+                formData.append('processingOptions', JSON.stringify(processingOptions));
+
+                // Submit form
+                fetch(`${API_BASE}/upload-and-process`, {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    const responseDiv = document.getElementById('upload-response');
+                    responseDiv.classList.remove('d-none');
+
+                    if (data.success) {
+                        responseDiv.innerHTML = `
+                            <div class="alert alert-success">
+                                <h4 class="alert-heading">Batch Job Created!</h4>
+                                <p>Batch job ID: ${data.batchJob.id}</p>
+                                <p>Status: ${data.batchJob.status}</p>
+                                <p>Files: ${data.batchJob.totalFiles}</p>
+                                <hr>
+                                <p class="mb-0">
+                                    <a href="#" onclick="openJobDetails('${data.batchJob.id}'); return false;">View Job Details</a>
+                                </p>
+                            </div>
+                        `;
+
+                        // Refresh jobs
+                        refreshJobs();
+                    } else {
+                        responseDiv.innerHTML = `
+                            <div class="alert alert-danger">
+                                <h4 class="alert-heading">Error</h4>
+                                <p>${data.message}</p>
+                                <pre>${data.error || ''}</pre>
+                            </div>
+                        `;
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    document.getElementById('upload-response').innerHTML = `
+                        <div class="alert alert-danger">
+                            <h4 class="alert-heading">Error</h4>
+                            <p>An unexpected error occurred while creating the batch job.</p>
+                            <pre>${error.message}</pre>
+                        </div>
+                    `;
+                    document.getElementById('upload-response').classList.remove('d-none');
+                });
+            });
+
+            // Documents form
+            document.getElementById('docs-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+
+                // Get form data
+                const formData = new FormData(this);
+
+                // Process document IDs
+                const documentIdsText = document.getElementById('documentIds').value;
+                let documentIds = [];
+
+                if (documentIdsText.includes(',')) {
+                    documentIds = documentIdsText.split(',').map(id => id.trim()).filter(id => id);
+                } else {
+                    documentIds = documentIdsText.split('\n').map(id => id.trim()).filter(id => id);
+                }
+
+                if (documentIds.length === 0) {
+                    document.getElementById('docs-response').innerHTML = `
+                        <div class="alert alert-danger">
+                            <h4 class="alert-heading">Error</h4>
+                            <p>Please enter at least one document ID.</p>
+                        </div>
+                    `;
+                    document.getElementById('docs-response').classList.remove('d-none');
+                    return;
+                }
+
+                // Add processing options
+                const processingOptions = {
+                    extractText: document.getElementById('docsExtractText').checked,
+                    extractTables: document.getElementById('docsExtractTables').checked,
+                    extractSecurities: document.getElementById('docsExtractSecurities').checked,
+                    includeMarketData: document.getElementById('docsIncludeMarketData').checked
+                };
+
+                // Create request data
+                const requestData = {
+                    documentIds,
+                    name: document.getElementById('docsBatchName').value,
+                    description: document.getElementById('docsBatchDescription').value,
+                    priority: document.getElementById('docsBatchPriority').value,
+                    documentType: document.getElementById('docsDocumentType').value,
+                    tenantId: document.getElementById('docsTenantId').value,
+                    userId: document.getElementById('docsUserId').value,
+                    processingOptions
+                };
+
+                // Submit form
+                fetch(`${API_BASE}/create`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(requestData)
+                })
+                .then(response => response.json())
+                .then(data => {
+                    const responseDiv = document.getElementById('docs-response');
+                    responseDiv.classList.remove('d-none');
+
+                    if (data.success) {
+                        responseDiv.innerHTML = `
+                            <div class="alert alert-success">
+                                <h4 class="alert-heading">Batch Job Created!</h4>
+                                <p>Batch job ID: ${data.batchJob.id}</p>
+                                <p>Status: ${data.batchJob.status}</p>
+                                <p>Documents: ${data.batchJob.totalFiles}</p>
+                                <hr>
+                                <p class="mb-0">
+                                    <a href="#" onclick="openJobDetails('${data.batchJob.id}'); return false;">View Job Details</a>
+                                </p>
+                            </div>
+                        `;
+
+                        // Refresh jobs
+                        refreshJobs();
+                    } else {
+                        responseDiv.innerHTML = `
+                            <div class="alert alert-danger">
+                                <h4 class="alert-heading">Error</h4>
+                                <p>${data.message}</p>
+                                <pre>${data.error || ''}</pre>
+                            </div>
+                        `;
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    document.getElementById('docs-response').innerHTML = `
+                        <div class="alert alert-danger">
+                            <h4 class="alert-heading">Error</h4>
+                            <p>An unexpected error occurred while creating the batch job.</p>
+                            <pre>${error.message}</pre>
+                        </div>
+                    `;
+                    document.getElementById('docs-response').classList.remove('d-none');
+                });
+            });
+        }
+
+        // Refresh jobs list
+        function refreshJobs() {
+            fetch(`${API_BASE}/jobs`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // Update stats
+                        document.getElementById('stats-active-jobs').textContent = data.stats.activeJobs;
+                        document.getElementById('stats-queued-jobs').textContent = data.stats.queuedJobs;
+                        document.getElementById('stats-total-jobs').textContent = data.stats.totalJobs;
+
+                        // Render jobs
+                        renderJobs(data.batchJobs);
+                    } else {
+                        document.getElementById('jobs-list').innerHTML = `
+                            <div class="alert alert-danger">
+                                <h4 class="alert-heading">Error</h4>
+                                <p>${data.message}</p>
+                                <pre>${data.error || ''}</pre>
+                            </div>
+                        `;
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    document.getElementById('jobs-list').innerHTML = `
+                        <div class="alert alert-danger">
+                            <h4 class="alert-heading">Error</h4>
+                            <p>An unexpected error occurred while loading batch jobs.</p>
+                            <pre>${error.message}</pre>
+                        </div>
+                    `;
+                });
+        }
+
+        // Render jobs
+        function renderJobs(jobs) {
+            const jobsList = document.getElementById('jobs-list');
+
+            if (jobs.length === 0) {
+                jobsList.innerHTML = `
+                    <div class="col-12 text-center py-5">
+                        <p>No batch jobs found.</p>
+                        <button class="btn btn-primary" onclick="document.getElementById('upload-tab').click()">Create a Batch Job</button>
+                    </div>
+                `;
+                return;
+            }
+
+            // Sort jobs by creation date (newest first)
+            jobs.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
+            let html = '';
+
+            jobs.forEach(job => {
+                const priorityClass = `badge-priority-${job.priority}`;
+                const statusClass = `status-${job.status}`;
+
+                html += `
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card job-card" onclick="openJobDetails('${job.id}')">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <h5 class="card-title">${job.name || `Batch ${job.id.substr(0, 8)}`}</h5>
+                                    <span class="badge ${priorityClass}">${job.priority}</span>
+                                </div>
+                                <h6 class="card-subtitle mb-2 text-muted">ID: ${job.id.substr(0, 8)}...</h6>
+                                <p class="card-text">
+                                    ${job.description || 'No description provided.'}
+                                </p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span class="badge ${statusClass} status-badge">${job.status}</span>
+                                    <span class="text-muted small">${formatDate(job.createdAt)}</span>
+                                </div>
+                                <div class="progress">
+                                    <div class="progress-bar" style="width: ${job.progress}%" role="progressbar" aria-valuenow="${job.progress}" aria-valuemin="0" aria-valuemax="100">${job.progress}%</div>
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                    <small class="text-muted">Files: ${job.processedFiles} / ${job.totalFiles}</small>
+                                    <small class="text-muted">${job.failedFiles > 0 ? `Failed: ${job.failedFiles}` : ''}</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+
+            jobsList.innerHTML = html;
+        }
+
+        // Open job details
+        function openJobDetails(jobId) {
+            currentJobId = jobId;
+
+            // Show loading state
+            document.getElementById('modal-content').innerHTML = `
+                <div class="text-center py-5">
+                    <div class="spinner-border" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                    <p class="mt-2">Loading job details...</p>
+                </div>
+            `;
+
+            // Clear action buttons
+            document.getElementById('job-action-buttons').innerHTML = '';
+
+            // Show modal
+            const modal = new bootstrap.Modal(document.getElementById('jobDetailsModal'));
+            modal.show();
+
+            // Fetch job details
+            fetch(`${API_BASE}/jobs/${jobId}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        renderJobDetails(data.batchJob);
+                        renderJobActions(data.batchJob);
+                    } else {
+                        document.getElementById('modal-content').innerHTML = `
+                            <div class="alert alert-danger">
+                                <h4 class="alert-heading">Error</h4>
+                                <p>${data.message}</p>
+                                <pre>${data.error || ''}</pre>
+                            </div>
+                        `;
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    document.getElementById('modal-content').innerHTML = `
+                        <div class="alert alert-danger">
+                            <h4 class="alert-heading">Error</h4>
+                            <p>An unexpected error occurred while loading job details.</p>
+                            <pre>${error.message}</pre>
+                        </div>
+                    `;
+                });
+        }
+
+        // Render job details
+        function renderJobDetails(job) {
+            const priorityClass = `badge-priority-${job.priority}`;
+            const statusClass = `status-${job.status}`;
+
+            let filesHtml = '';
+            if (job.files && job.files.length > 0) {
+                filesHtml = '<div class="mt-4"><h5>Files</h5><div class="file-list"><table class="table table-sm table-striped"><thead><tr><th>Name</th><th>Status</th><th>Result</th></tr></thead><tbody>';
+
+                job.files.forEach(file => {
+                    const fileStatusClass = `status-${file.status}`;
+                    filesHtml += `
+                        <tr>
+                            <td>${file.name}</td>
+                            <td><span class="badge ${fileStatusClass} status-badge">${file.status}</span></td>
+                            <td>${file.error ? `<span class="text-danger">Error: ${file.error.message || file.error}</span>` : (file.result ? '<span class="text-success">✓ Processed</span>' : '')}</td>
+                        </tr>
+                    `;
+                });
+
+                filesHtml += '</tbody></table></div></div>';
+            }
+
+            let summaryHtml = '';
+            if (job.summary) {
+                summaryHtml = `
+                    <div class="mt-4">
+                        <h5>Summary</h5>
+                        <table class="table table-sm">
+                            <tbody>
+                                <tr>
+                                    <th>Success Rate</th>
+                                    <td>${job.summary.successRate}%</td>
+                                </tr>
+                                <tr>
+                                    <th>Processing Time</th>
+                                    <td>${job.summary.durationFormatted}</td>
+                                </tr>
+                                <tr>
+                                    <th>Processed Files</th>
+                                    <td>${job.summary.processedFiles} / ${job.summary.totalFiles}</td>
+                                </tr>
+                                <tr>
+                                    <th>Failed Files</th>
+                                    <td>${job.summary.failedFiles}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                `;
+            }
+
+            let processingOptionsHtml = '';
+            if (job.processingOptions) {
+                processingOptionsHtml = `
+                    <div class="mt-4">
+                        <h5>Processing Options</h5>
+                        <ul class="list-group">
+                            ${job.processingOptions.extractText !== false ? '<li class="list-group-item">Extract Text</li>' : ''}
+                            ${job.processingOptions.extractTables === true ? '<li class="list-group-item">Extract Tables</li>' : ''}
+                            ${job.processingOptions.extractSecurities === true ? '<li class="list-group-item">Extract Securities</li>' : ''}
+                            ${job.processingOptions.includeMarketData === true ? '<li class="list-group-item">Include Market Data</li>' : ''}
+                        </ul>
+                    </div>
+                `;
+            }
+
+            document.getElementById('modal-content').innerHTML = `
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h4>${job.name || `Batch ${job.id.substr(0, 8)}`}</h4>
+                    <span class="badge ${priorityClass}">${job.priority}</span>
+                </div>
+
+                <div class="mb-3">
+                    <span class="badge ${statusClass} status-badge">${job.status}</span>
+                    <small class="text-muted ms-2">ID: ${job.id}</small>
+                </div>
+
+                <div class="mb-3">
+                    <p>${job.description || 'No description provided.'}</p>
+                </div>
+
+                <div class="progress mb-3">
+                    <div class="progress-bar" style="width: ${job.progress}%" role="progressbar" aria-valuenow="${job.progress}" aria-valuemin="0" aria-valuemax="100">${job.progress}%</div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <p><strong>Created:</strong> ${formatDate(job.createdAt)}</p>
+                        <p><strong>Updated:</strong> ${formatDate(job.updatedAt)}</p>
+                    </div>
+                    <div class="col-md-6">
+                        <p><strong>Started:</strong> ${job.startedAt ? formatDate(job.startedAt) : 'Not started'}</p>
+                        <p><strong>Completed:</strong> ${job.completedAt ? formatDate(job.completedAt) : 'Not completed'}</p>
+                    </div>
+                </div>
+
+                ${summaryHtml}
+                ${processingOptionsHtml}
+                ${filesHtml}
+            `;
+        }
+
+        // Render job action buttons
+        function renderJobActions(job) {
+            const actionButtons = document.getElementById('job-action-buttons');
+
+            let buttonsHtml = `
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            `;
+
+            // Add action buttons based on job status
+            if (job.status === 'created') {
+                buttonsHtml += `
+                    <button type="button" class="btn btn-primary" onclick="queueJob('${job.id}')">Queue Job</button>
+                    <button type="button" class="btn btn-danger" onclick="cancelJob('${job.id}')">Cancel Job</button>
+                `;
+            } else if (job.status === 'queued') {
+                buttonsHtml += `
+                    <button type="button" class="btn btn-warning" onclick="pauseJob('${job.id}')">Pause Job</button>
+                    <button type="button" class="btn btn-danger" onclick="cancelJob('${job.id}')">Cancel Job</button>
+                `;
+            } else if (job.status === 'paused') {
+                buttonsHtml += `
+                    <button type="button" class="btn btn-primary" onclick="resumeJob('${job.id}')">Resume Job</button>
+                    <button type="button" class="btn btn-danger" onclick="cancelJob('${job.id}')">Cancel Job</button>
+                `;
+            } else if (job.status === 'processing') {
+                buttonsHtml += `
+                    <button type="button" class="btn btn-danger" onclick="cancelJob('${job.id}')">Cancel Job</button>
+                `;
+            } else if (job.status === 'completed' || job.status === 'failed' || job.status === 'cancelled') {
+                buttonsHtml += `
+                    <button type="button" class="btn btn-danger" onclick="deleteJob('${job.id}')">Delete Job</button>
+                `;
+            }
+
+            // Add refresh button
+            buttonsHtml += `
+                <button type="button" class="btn btn-info" onclick="refreshJobDetails('${job.id}')">Refresh</button>
+            `;
+
+            actionButtons.innerHTML = buttonsHtml;
+        }
+
+        // Refresh job details
+        function refreshJobDetails(jobId) {
+            fetch(`${API_BASE}/jobs/${jobId}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        renderJobDetails(data.batchJob);
+                        renderJobActions(data.batchJob);
+                    } else {
+                        document.getElementById('modal-content').innerHTML = `
+                            <div class="alert alert-danger">
+                                <h4 class="alert-heading">Error</h4>
+                                <p>${data.message}</p>
+                                <pre>${data.error || ''}</pre>
+                            </div>
+                        `;
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    document.getElementById('modal-content').innerHTML = `
+                        <div class="alert alert-danger">
+                            <h4 class="alert-heading">Error</h4>
+                            <p>An unexpected error occurred while refreshing job details.</p>
+                            <pre>${error.message}</pre>
+                        </div>
+                    `;
+                });
+        }
+
+        // Queue a job
+        function queueJob(jobId) {
+            fetch(`${API_BASE}/jobs/${jobId}/queue`, {
+                method: 'POST'
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        refreshJobDetails(jobId);
+                        refreshJobs();
+                    } else {
+                        alert(`Error: ${data.message}`);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert(`Error: ${error.message}`);
+                });
+        }
+
+        // Pause a job
+        function pauseJob(jobId) {
+            fetch(`${API_BASE}/jobs/${jobId}/pause`, {
+                method: 'POST'
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        refreshJobDetails(jobId);
+                        refreshJobs();
+                    } else {
+                        alert(`Error: ${data.message}`);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert(`Error: ${error.message}`);
+                });
+        }
+
+        // Resume a job
+        function resumeJob(jobId) {
+            fetch(`${API_BASE}/jobs/${jobId}/resume`, {
+                method: 'POST'
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        refreshJobDetails(jobId);
+                        refreshJobs();
+                    } else {
+                        alert(`Error: ${data.message}`);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert(`Error: ${error.message}`);
+                });
+        }
+
+        // Cancel a job
+        function cancelJob(jobId) {
+            if (!confirm('Are you sure you want to cancel this job?')) {
+                return;
+            }
+
+            fetch(`${API_BASE}/jobs/${jobId}/cancel`, {
+                method: 'POST'
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        refreshJobDetails(jobId);
+                        refreshJobs();
+                    } else {
+                        alert(`Error: ${data.message}`);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert(`Error: ${error.message}`);
+                });
+        }
+
+        // Delete a job
+        function deleteJob(jobId) {
+            if (!confirm('Are you sure you want to delete this job? This action cannot be undone.')) {
+                return;
+            }
+
+            fetch(`${API_BASE}/jobs/${jobId}`, {
+                method: 'DELETE'
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // Close modal
+                        bootstrap.Modal.getInstance(document.getElementById('jobDetailsModal')).hide();
+
+                        // Refresh jobs
+                        refreshJobs();
+                    } else {
+                        alert(`Error: ${data.message}`);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert(`Error: ${error.message}`);
+                });
+        }
+
+        // Clean up old jobs
+        function cleanupJobs() {
+            const maxAgeDays = prompt('Enter the maximum age in days for jobs to keep:', '30');
+
+            if (!maxAgeDays) {
+                return;
+            }
+
+            fetch(`${API_BASE}/cleanup`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    maxAgeDays: parseInt(maxAgeDays, 10)
+                })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert(data.message);
+                        refreshJobs();
+                    } else {
+                        alert(`Error: ${data.message}`);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert(`Error: ${error.message}`);
+                });
+        }
+
+        // Refresh statistics
+        function refreshStats() {
+            fetch(`${API_BASE}/stats`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        renderStats(data.stats);
+                    } else {
+                        document.getElementById('service-stats-container').innerHTML = `
+                            <div class="alert alert-danger">
+                                <h4 class="alert-heading">Error</h4>
+                                <p>${data.message}</p>
+                                <pre>${data.error || ''}</pre>
+                            </div>
+                        `;
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    document.getElementById('service-stats-container').innerHTML = `
+                        <div class="alert alert-danger">
+                            <h4 class="alert-heading">Error</h4>
+                            <p>An unexpected error occurred while loading statistics.</p>
+                            <pre>${error.message}</pre>
+                        </div>
+                    `;
+                });
+        }
+
+        // Render statistics
+        function renderStats(stats) {
+            const statsContainer = document.getElementById('service-stats-container');
+
+            statsContainer.innerHTML = `
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <h5 class="card-title">Jobs</h5>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <p class="text-muted mb-1">Total</p>
+                                        <h2>${stats.totalJobs}</h2>
+                                    </div>
+                                    <div class="col-6">
+                                        <p class="text-muted mb-1">Active</p>
+                                        <h2>${stats.activeJobs}</h2>
+                                    </div>
+                                </div>
+                                <div class="row mt-3">
+                                    <div class="col-6">
+                                        <p class="text-muted mb-1">Completed</p>
+                                        <h4>${stats.completedJobs}</h4>
+                                    </div>
+                                    <div class="col-6">
+                                        <p class="text-muted mb-1">Failed</p>
+                                        <h4>${stats.failedJobs}</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <h5 class="card-title">Files</h5>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <p class="text-muted mb-1">Total</p>
+                                        <h2>${stats.totalFiles}</h2>
+                                    </div>
+                                    <div class="col-6">
+                                        <p class="text-muted mb-1">Processed</p>
+                                        <h2>${stats.processedFiles}</h2>
+                                    </div>
+                                </div>
+                                <div class="row mt-3">
+                                    <div class="col-6">
+                                        <p class="text-muted mb-1">Success Rate</p>
+                                        <h4>${stats.successRate}%</h4>
+                                    </div>
+                                    <div class="col-6">
+                                        <p class="text-muted mb-1">Failed</p>
+                                        <h4>${stats.failedFiles}</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <h5 class="card-title">Queue</h5>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <p class="text-muted mb-1">Total</p>
+                                        <h2>${stats.queues.total}</h2>
+                                    </div>
+                                    <div class="col-6">
+                                        <p class="text-muted mb-1">High Priority</p>
+                                        <h4>${stats.queues.high}</h4>
+                                    </div>
+                                </div>
+                                <div class="row mt-3">
+                                    <div class="col-6">
+                                        <p class="text-muted mb-1">Medium Priority</p>
+                                        <h4>${stats.queues.medium}</h4>
+                                    </div>
+                                    <div class="col-6">
+                                        <p class="text-muted mb-1">Low Priority</p>
+                                        <h4>${stats.queues.low}</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <h5 class="card-title">System</h5>
+                                <table class="table table-sm">
+                                    <tbody>
+                                        <tr>
+                                            <th>Uptime</th>
+                                            <td>${stats.uptimeFormatted}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Started At</th>
+                                            <td>${formatDate(stats.startTime)}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Last Job Processed</th>
+                                            <td>${stats.lastJobTime ? formatDate(stats.lastJobTime) : 'N/A'}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Current Time</th>
+                                            <td>${formatDate(stats.currentTime)}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <h5 class="card-title">Performance</h5>
+                                <table class="table table-sm">
+                                    <tbody>
+                                        <tr>
+                                            <th>Job Success Rate</th>
+                                            <td>${stats.jobSuccessRate}%</td>
+                                        </tr>
+                                        <tr>
+                                            <th>File Success Rate</th>
+                                            <td>${stats.successRate}%</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Max Concurrent Jobs</th>
+                                            <td>${stats.maxConcurrentJobs || 3}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Start auto refresh for active jobs
+        function startAutoRefresh() {
+            // Clear existing timer
+            if (refreshTimer) {
+                clearInterval(refreshTimer);
+            }
+
+            // Set new timer to refresh jobs and stats every 10 seconds
+            refreshTimer = setInterval(() => {
+                refreshJobs();
+                refreshStats();
+
+                // Also refresh current job details if modal is open
+                if (currentJobId && document.getElementById('jobDetailsModal').classList.contains('show')) {
+                    refreshJobDetails(currentJobId);
+                }
+            }, 10000);
+        }
+
+        // Format date
+        function formatDate(dateString) {
+            if (!dateString) return 'N/A';
+
+            const date = new Date(dateString);
+            return date.toLocaleDateString() + ' ' + date.toLocaleTimeString();
+        }
+    </script>
+</body>
+</html>

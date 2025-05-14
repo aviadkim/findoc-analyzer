@@ -1,0 +1,13 @@
+[
+  {
+    "role": "user",
+    "content": "What is this document about?",
+    "timestamp": "2025-05-13T14:49:42.258Z"
+  },
+  {
+    "role": "assistant",
+    "content": "This is a unknown document titled \"Document doc-123.pdf\". It contains various financial information.",
+    "timestamp": "2025-05-13T14:49:42.258Z",
+    "provider": "rule-based"
+  }
+]

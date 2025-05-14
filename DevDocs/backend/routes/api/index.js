@@ -17,6 +17,10 @@ const queryRoutes = require('./query');
 const comparisonRoutes = require('./comparison');
 const exportRoutes = require('./export');
 const advisorRoutes = require('./advisor');
+const securitiesRoutes = require('./securities');
+const cacheRoutes = require('./cache');
+const pluginRoutes = require('./plugins');
+const batchRoutes = require('./batch');
 
 // Mount routes
 router.use('/auth', authRoutes);
@@ -28,6 +32,10 @@ router.use('/query', queryRoutes);
 router.use('/comparison', comparisonRoutes);
 router.use('/export', exportRoutes);
 router.use('/advisor', advisorRoutes);
+router.use('/securities', securitiesRoutes);
+router.use('/cache', cacheRoutes);
+router.use('/plugins', pluginRoutes);
+router.use('/batch', batchRoutes);
 
 // Add more routes as needed
 // router.use('/organizations', organizationRoutes);

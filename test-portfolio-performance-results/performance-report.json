@@ -1,0 +1,149 @@
+{
+  "title": "Portfolio Performance Report: Mock Portfolio",
+  "asOfDate": "2025-05-01T14:40:00.125Z",
+  "summary": {
+    "totalValue": 117450,
+    "currency": "USD",
+    "performance": {
+      "day": 0.009911530609480535,
+      "week": 0.039613221360333656,
+      "month": 0.01685497640243455,
+      "ytd": -0.1346232373448818,
+      "year": -0.25838791636214137
+    },
+    "topPerformer": {
+      "name": "Amazon.com Inc.",
+      "identifier": "US0231351067",
+      "performance": 0.09967672615654133,
+      "relativePerformance": 0.3580646425186827,
+      "percentOfPortfolio": 0.06
+    },
+    "worstPerformer": {
+      "name": "Tesla Inc.",
+      "identifier": "US88160R1014",
+      "performance": -0.33236300827451315,
+      "relativePerformance": -0.07397509191237178,
+      "percentOfPortfolio": 0.17
+    }
+  },
+  "sections": [
+    {
+      "title": "Performance Overview",
+      "content": "The portfolio has returned -25.84% over the past year, -13.46% year-to-date, and 1.69% over the past month."
+    },
+    {
+      "title": "Asset Allocation",
+      "content": "The portfolio is allocated across the following asset classes:",
+      "data": {
+        "Equity": 1.05
+      }
+    },
+    {
+      "title": "Sector Allocation",
+      "content": "The portfolio is allocated across the following sectors:",
+      "data": {
+        "Technology": 0.61,
+        "Consumer Discretionary": 0.23,
+        "Communication Services": 0.21
+      }
+    },
+    {
+      "title": "Risk Metrics",
+      "content": "The portfolio has a volatility of 3.37%, a Sharpe ratio of -7.67, and a maximum drawdown of -5.00%.",
+      "data": {
+        "volatility": 0.0337099528048691,
+        "sharpeRatio": -7.665033465274372,
+        "maxDrawdown": -0.05,
+        "beta": 1.0073575150048115,
+        "alpha": -0.25731338628202094
+      }
+    },
+    {
+      "title": "Benchmark Comparison",
+      "content": "The portfolio has underperformed the S&P 500 by 25.72% over the past year.",
+      "data": [
+        {
+          "name": "S&P 500",
+          "performance": {
+            "day": 0.028364153270850033,
+            "week": -0.03455184673938281,
+            "month": -0.01298512361721528,
+            "ytd": -0.0733246903150474,
+            "year": -0.0011781056568947734
+          },
+          "relativeDifference": {
+            "day": -0.018452622661369496,
+            "week": 0.07416506809971646,
+            "month": 0.02984010001964983,
+            "ytd": -0.061298547029834394,
+            "year": -0.2572098107052466
+          }
+        },
+        {
+          "name": "NASDAQ Composite",
+          "performance": {
+            "day": -0.010405946937327569,
+            "week": 0.05529129738787367,
+            "month": 0.047677256749623836,
+            "ytd": -0.13279970214883557,
+            "year": -0.023976749335019476
+          },
+          "relativeDifference": {
+            "day": 0.020317477546808106,
+            "week": -0.01567807602754001,
+            "month": -0.030822280347189285,
+            "ytd": -0.001823535196046222,
+            "year": -0.2344111670271219
+          }
+        }
+      ]
+    },
+    {
+      "title": "Outperforming Assets",
+      "content": "The following assets have outperformed the portfolio average:",
+      "data": [
+        {
+          "name": "Amazon.com Inc.",
+          "identifier": "US0231351067",
+          "performance": 0.09967672615654133,
+          "relativePerformance": 0.3580646425186827,
+          "percentOfPortfolio": 0.06
+        },
+        {
+          "name": "Apple Inc.",
+          "identifier": "US0378331005",
+          "performance": -0.18544128544395946,
+          "relativePerformance": 0.0729466309181819,
+          "percentOfPortfolio": 0.16
+        },
+        {
+          "name": "Meta Platforms Inc.",
+          "identifier": "US30303M1027",
+          "performance": -0.2322778627511781,
+          "relativePerformance": 0.026110053610963274,
+          "percentOfPortfolio": 0.21
+        }
+      ]
+    },
+    {
+      "title": "Underperforming Assets",
+      "content": "The following assets have underperformed the portfolio average:",
+      "data": [
+        {
+          "name": "Tesla Inc.",
+          "identifier": "US88160R1014",
+          "performance": -0.33236300827451315,
+          "relativePerformance": -0.07397509191237178,
+          "percentOfPortfolio": 0.17
+        },
+        {
+          "name": "Microsoft Corp.",
+          "identifier": "US5949181045",
+          "performance": -0.3163049944315395,
+          "relativePerformance": -0.05791707806939811,
+          "percentOfPortfolio": 0.45
+        }
+      ]
+    }
+  ]
+}

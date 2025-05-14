@@ -1,0 +1,3 @@
+Mock Excel export file
+Format: XLSX
+Data: {"Securities":[{"isin":"FR7825138719","name":"Alphabet Inc.","type":"ETF","quantity":288,"price":128.99,"value":37149.12,"currency":"ILS","marketPrice":123.78,"marketValue":35648.64,"priceChange":-5.21,"priceChangePercent":-4.04,"lastUpdated":"2025-05-13T20:31:13.073Z","dataProvider":"Yahoo Finance","id":"sec-1","symbol":"ALPHABET","sector":"Consumer Defensive","country":"FR"},{"isin":"US9326562333","name":"Johnson & Johnson","type":"Cash","quantity":131,"price":928.35,"value":121613.85,"currenc...

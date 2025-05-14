@@ -1,0 +1,30 @@
+runtime: nodejs18
+env: standard
+instance_class: F2
+
+entrypoint: node server-simple.js
+
+handlers:
+  # Serve static files
+  - url: /static
+    static_dir: public
+    secure: always
+
+  # Serve static files from root
+  - url: /(.*\.(js|css|png|jpg|jpeg|gif|ico|json|html))$
+    static_files: public/\1
+    upload: public/.*\.(js|css|png|jpg|jpeg|gif|ico|json|html)$
+    secure: always
+
+  # Serve all other requests with the app
+  - url: /.*
+    secure: always
+    script: auto
+
+env_variables:
+  NODE_ENV: "production"
+  PORT: "8080"
+  UPLOAD_FOLDER: "/tmp/uploads"
+  TEMP_FOLDER: "/tmp/temp"
+  RESULTS_FOLDER: "/tmp/results"
+  USE_MOCK_API: "true"

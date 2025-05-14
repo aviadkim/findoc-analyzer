@@ -1,453 +1,1112 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>FinDoc Analyzer Test Report</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      line-height: 1.6;
-      color: #333;
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 20px;
-    }
-    h1, h2, h3 {
-      color: #2c3e50;
-    }
-    .test-result {
-      margin-bottom: 40px;
-      padding: 20px;
-      background-color: #f8f9fa;
-      border-radius: 5px;
-      border-left: 5px solid #ddd;
-    }
-    .test-result.passed {
-      border-left-color: #28a745;
-    }
-    .test-result.failed {
-      border-left-color: #dc3545;
-    }
-    .test-result.pending {
-      border-left-color: #ffc107;
-    }
-    .screenshot {
-      max-width: 100%;
-      border: 1px solid #ddd;
-      border-radius: 5px;
-      margin-bottom: 20px;
-    }
-    .section {
-      margin-bottom: 20px;
-    }
-    .badge {
-      display: inline-block;
-      padding: 5px 10px;
-      border-radius: 3px;
-      margin-right: 10px;
-      margin-bottom: 10px;
-    }
-    .badge.passed {
-      background-color: #d4edda;
-      color: #155724;
-    }
-    .badge.failed {
-      background-color: #f8d7da;
-      color: #721c24;
-    }
-    .badge.pending {
-      background-color: #fff3cd;
-      color: #856404;
-    }
-    .badge.info {
-      background-color: #d1ecf1;
-      color: #0c5460;
-    }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-bottom: 20px;
-    }
-    th, td {
-      padding: 8px;
-      text-align: left;
-      border-bottom: 1px solid #ddd;
-    }
-    th {
-      background-color: #f2f2f2;
-    }
-    .progress-container {
-      width: 100%;
-      background-color: #f3f3f3;
-      border-radius: 4px;
-      margin-bottom: 10px;
-    }
-    .progress-bar {
-      height: 20px;
-      border-radius: 4px;
-      text-align: center;
-      line-height: 20px;
-      color: white;
-    }
-    .progress-bar.success {
-      background-color: #4caf50;
-    }
-    .progress-bar.warning {
-      background-color: #ff9800;
-    }
-    .progress-bar.danger {
-      background-color: #f44336;
-    }
-    .summary-card {
-      padding: 15px;
-      border-radius: 5px;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-      margin-bottom: 20px;
-      background-color: #f8d7da;
-      color: #721c24;
-    }
-    .error-details {
-      background-color: #f8f9fa;
-      border-radius: 5px;
-      padding: 15px;
-      margin-top: 10px;
-      border: 1px solid #ddd;
-      overflow-x: auto;
-    }
-    .error-message {
-      font-family: monospace;
-      white-space: pre-wrap;
-    }
-    .collapsible {
-      background-color: #f1f1f1;
-      color: #444;
-      cursor: pointer;
-      padding: 18px;
-      width: 100%;
-      border: none;
-      text-align: left;
-      outline: none;
-      font-size: 15px;
-      border-radius: 5px;
-      margin-bottom: 5px;
-    }
-    .active, .collapsible:hover {
-      background-color: #e8e8e8;
-    }
-    .collapsible:after {
-      content: '\002B';
-      color: #777;
-      font-weight: bold;
-      float: right;
-      margin-left: 5px;
-    }
-    .active:after {
-      content: "\2212";
-    }
-    .content {
-      padding: 0 18px;
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.2s ease-out;
-      background-color: white;
-      border-radius: 0 0 5px 5px;
-      margin-bottom: 10px;
-    }
-  </style>
-</head>
-<body>
-  <h1>FinDoc Analyzer Test Report</h1>
-  
-  <div class="section">
-    <h2>Summary</h2>
-    <div class="summary-card">
-      <h3>Test Results</h3>
-      <div class="progress-container">
-        <div class="progress-bar danger" style="width: 0%">
-          0%
+
+  <!DOCTYPE html>
+  <html>
+  <head>
+    <title>Puppeteer Test Results (100 Tests)</title>
+    <style>
+      body { font-family: Arial, sans-serif; margin: 20px; }
+      h1, h2, h3 { color: #333; }
+      .summary { background-color: #f5f5f5; padding: 15px; border-radius: 5px; margin-bottom: 20px; }
+      .category { margin-bottom: 30px; }
+      .test { margin-bottom: 10px; padding: 10px; border-radius: 5px; }
+      .passed { background-color: #e6ffe6; border-left: 5px solid #4CAF50; }
+      .failed { background-color: #ffebeb; border-left: 5px solid #f44336; }
+      .error { color: #f44336; margin-top: 5px; font-family: monospace; }
+      .screenshot { max-width: 300px; margin-top: 10px; cursor: pointer; border: 1px solid #ddd; }
+      .screenshot:hover { opacity: 0.8; }
+      .modal { display: none; position: fixed; z-index: 1; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.9); }
+      .modal-content { margin: auto; display: block; max-width: 90%; max-height: 90%; }
+      .close { position: absolute; top: 15px; right: 35px; color: #f1f1f1; font-size: 40px; font-weight: bold; cursor: pointer; }
+      .progress-bar { height: 20px; background-color: #f5f5f5; border-radius: 5px; margin-bottom: 10px; }
+      .progress { height: 100%; background-color: #4CAF50; border-radius: 5px; text-align: center; line-height: 20px; color: white; }
+      .progress.failed { background-color: #f44336; }
+      table { width: 100%; border-collapse: collapse; }
+      th, td { padding: 8px; text-align: left; border-bottom: 1px solid #ddd; }
+      th { background-color: #f2f2f2; }
+    </style>
+  </head>
+  <body>
+    <h1>Puppeteer Test Results</h1>
+
+    <div class="summary">
+      <h2>Summary</h2>
+      <div class="progress-bar">
+        <div class="progress" style="width: 51%;">
+          51%
         </div>
       </div>
-      <p>0 of 6 tests passed</p>
+      <p>Total Tests: <strong>100</strong></p>
+      <p>Passed: <strong style="color: #4CAF50;">51</strong></p>
+      <p>Failed: <strong style="color: #f44336;">49</strong></p>
+      <p>Test Run: <strong>5/14/2025, 3:29:08 PM</strong></p>
     </div>
-    
-    <h3>Tests</h3>
-    <ul>
-      
-        <li>
-          <a href="#Button Click Test">Button Click Test</a>
-          <span class="badge failed">failed</span>
-        </li>
-      
-        <li>
-          <a href="#Form Input Test">Form Input Test</a>
-          <span class="badge failed">failed</span>
-        </li>
-      
-        <li>
-          <a href="#Select Option Test">Select Option Test</a>
-          <span class="badge failed">failed</span>
-        </li>
-      
-        <li>
-          <a href="#Form Submission Test">Form Submission Test</a>
-          <span class="badge failed">failed</span>
-        </li>
-      
-        <li>
-          <a href="#Upload Page Interaction Test">Upload Page Interaction Test</a>
-          <span class="badge failed">failed</span>
-        </li>
-      
-        <li>
-          <a href="#Document Comparison Page Interaction Test">Document Comparison Page Interaction Test</a>
-          <span class="badge failed">failed</span>
-        </li>
-      
-    </ul>
-  </div>
-  
-  
-    <div id="Button Click Test" class="test-result failed">
-      <h2>Button Click Test <span class="badge failed">failed</span></h2>
-      <p>Duration: 1638ms</p>
-      
-      
-        <div class="section">
-          <h3>Screenshots</h3>
-          
-            <div>
-              <h4>Button Click Test-navigation.png</h4>
-              <img src="Button Click Test-navigation.png" alt="Button Click Test-navigation.png" class="screenshot">
-            </div>
-          
-        </div>
-      
-      
-      
-        <div class="section">
-          <h3>Error</h3>
-          <div class="error-details">
-            <p class="error-message">Rating buttons do not exist on feedback page</p>
-            <button class="collapsible">Stack Trace</button>
-            <div class="content">
-              <pre>Error: Rating buttons do not exist on feedback page
-    at test (C:\Users\aviad\OneDrive\Desktop\backv2-main\interactive-element-tests.js:22:15)
-    at async TestRunner.runTest (C:\Users\aviad\OneDrive\Desktop\backv2-main\puppeteer-test-framework.js:116:7)
-    at async runInteractiveElementTests (C:\Users\aviad\OneDrive\Desktop\backv2-main\interactive-element-tests.js:297:7)</pre>
-            </div>
-          </div>
-        </div>
-      
-      
-      
-      
-      
-    </div>
-  
-    <div id="Form Input Test" class="test-result failed">
-      <h2>Form Input Test <span class="badge failed">failed</span></h2>
-      <p>Duration: 1139ms</p>
-      
-      
-        <div class="section">
-          <h3>Screenshots</h3>
-          
-            <div>
-              <h4>Form Input Test-navigation.png</h4>
-              <img src="Form Input Test-navigation.png" alt="Form Input Test-navigation.png" class="screenshot">
-            </div>
-          
-        </div>
-      
-      
-      
-        <div class="section">
-          <h3>Error</h3>
-          <div class="error-details">
-            <p class="error-message">Name input does not exist on feedback page</p>
-            <button class="collapsible">Stack Trace</button>
-            <div class="content">
-              <pre>Error: Name input does not exist on feedback page
-    at test (C:\Users\aviad\OneDrive\Desktop\backv2-main\interactive-element-tests.js:70:15)
-    at async TestRunner.runTest (C:\Users\aviad\OneDrive\Desktop\backv2-main\puppeteer-test-framework.js:116:7)
-    at async runInteractiveElementTests (C:\Users\aviad\OneDrive\Desktop\backv2-main\interactive-element-tests.js:297:7)</pre>
-            </div>
-          </div>
-        </div>
-      
-      
-      
-      
-      
-    </div>
-  
-    <div id="Select Option Test" class="test-result failed">
-      <h2>Select Option Test <span class="badge failed">failed</span></h2>
-      <p>Duration: 1182ms</p>
-      
-      
-        <div class="section">
-          <h3>Screenshots</h3>
-          
-            <div>
-              <h4>Select Option Test-navigation.png</h4>
-              <img src="Select Option Test-navigation.png" alt="Select Option Test-navigation.png" class="screenshot">
-            </div>
-          
-        </div>
-      
-      
-      
-        <div class="section">
-          <h3>Error</h3>
-          <div class="error-details">
-            <p class="error-message">Feedback type select does not exist on feedback page</p>
-            <button class="collapsible">Stack Trace</button>
-            <div class="content">
-              <pre>Error: Feedback type select does not exist on feedback page
-    at test (C:\Users\aviad\OneDrive\Desktop\backv2-main\interactive-element-tests.js:124:15)
-    at async TestRunner.runTest (C:\Users\aviad\OneDrive\Desktop\backv2-main\puppeteer-test-framework.js:116:7)
-    at async runInteractiveElementTests (C:\Users\aviad\OneDrive\Desktop\backv2-main\interactive-element-tests.js:297:7)</pre>
-            </div>
-          </div>
-        </div>
-      
-      
-      
-      
-      
-    </div>
-  
-    <div id="Form Submission Test" class="test-result failed">
-      <h2>Form Submission Test <span class="badge failed">failed</span></h2>
-      <p>Duration: 31322ms</p>
-      
-      
-        <div class="section">
-          <h3>Screenshots</h3>
-          
-            <div>
-              <h4>Form Submission Test-navigation.png</h4>
-              <img src="Form Submission Test-navigation.png" alt="Form Submission Test-navigation.png" class="screenshot">
-            </div>
-          
-        </div>
-      
-      
-      
-        <div class="section">
-          <h3>Error</h3>
-          <div class="error-details">
-            <p class="error-message">Waiting for selector `#name` failed: Waiting failed: 30000ms exceeded</p>
-            <button class="collapsible">Stack Trace</button>
-            <div class="content">
-              <pre>TimeoutError: Waiting for selector `#name` failed: Waiting failed: 30000ms exceeded
-    at new WaitTask (C:\Users\aviad\OneDrive\Desktop\backv2-main\node_modules\puppeteer-core\lib\cjs\puppeteer\common\WaitTask.js:48:34)
-    at IsolatedWorld.waitForFunction (C:\Users\aviad\OneDrive\Desktop\backv2-main\node_modules\puppeteer-core\lib\cjs\puppeteer\api\Realm.js:25:26)
-    at CSSQueryHandler.waitFor (C:\Users\aviad\OneDrive\Desktop\backv2-main\node_modules\puppeteer-core\lib\cjs\puppeteer\common\QueryHandler.js:178:95)
-    at async CdpFrame.waitForSelector (C:\Users\aviad\OneDrive\Desktop\backv2-main\node_modules\puppeteer-core\lib\cjs\puppeteer\api\Frame.js:548:21)
-    at async CdpPage.waitForSelector (C:\Users\aviad\OneDrive\Desktop\backv2-main\node_modules\puppeteer-core\lib\cjs\puppeteer\api\Page.js:1378:20)</pre>
-            </div>
-          </div>
-        </div>
-      
-      
-      
-      
-      
-    </div>
-  
-    <div id="Upload Page Interaction Test" class="test-result failed">
-      <h2>Upload Page Interaction Test <span class="badge failed">failed</span></h2>
-      <p>Duration: 1218ms</p>
-      
-      
-        <div class="section">
-          <h3>Screenshots</h3>
-          
-            <div>
-              <h4>Upload Page Interaction Test-navigation.png</h4>
-              <img src="Upload Page Interaction Test-navigation.png" alt="Upload Page Interaction Test-navigation.png" class="screenshot">
-            </div>
-          
-        </div>
-      
-      
-      
-        <div class="section">
-          <h3>Error</h3>
-          <div class="error-details">
-            <p class="error-message">Upload area does not exist on upload page</p>
-            <button class="collapsible">Stack Trace</button>
-            <div class="content">
-              <pre>Error: Upload area does not exist on upload page
-    at test (C:\Users\aviad\OneDrive\Desktop\backv2-main\interactive-element-tests.js:200:15)
-    at async TestRunner.runTest (C:\Users\aviad\OneDrive\Desktop\backv2-main\puppeteer-test-framework.js:116:7)
-    at async runInteractiveElementTests (C:\Users\aviad\OneDrive\Desktop\backv2-main\interactive-element-tests.js:297:7)</pre>
-            </div>
-          </div>
-        </div>
-      
-      
-      
-      
-      
-    </div>
-  
-    <div id="Document Comparison Page Interaction Test" class="test-result failed">
-      <h2>Document Comparison Page Interaction Test <span class="badge failed">failed</span></h2>
-      <p>Duration: 1217ms</p>
-      
-      
-        <div class="section">
-          <h3>Screenshots</h3>
-          
-            <div>
-              <h4>Document Comparison Page Interaction Test-navigation.png</h4>
-              <img src="Document Comparison Page Interaction Test-navigation.png" alt="Document Comparison Page Interaction Test-navigation.png" class="screenshot">
-            </div>
-          
-        </div>
-      
-      
-      
-        <div class="section">
-          <h3>Error</h3>
-          <div class="error-details">
-            <p class="error-message">Document selection does not exist on document comparison page</p>
-            <button class="collapsible">Stack Trace</button>
-            <div class="content">
-              <pre>Error: Document selection does not exist on document comparison page
-    at test (C:\Users\aviad\OneDrive\Desktop\backv2-main\interactive-element-tests.js:253:15)
-    at async TestRunner.runTest (C:\Users\aviad\OneDrive\Desktop\backv2-main\puppeteer-test-framework.js:116:7)
-    at async runInteractiveElementTests (C:\Users\aviad\OneDrive\Desktop\backv2-main\interactive-element-tests.js:297:7)</pre>
-            </div>
-          </div>
-        </div>
-      
-      
-      
-      
-      
-    </div>
-  
-  
-  <script>
-    var coll = document.getElementsByClassName("collapsible");
-    var i;
 
-    for (i = 0; i < coll.length; i++) {
-      coll[i].addEventListener("click", function() {
-        this.classList.toggle("active");
-        var content = this.nextElementSibling;
-        if (content.style.maxHeight){
-          content.style.maxHeight = null;
-        } else {
-          content.style.maxHeight = content.scrollHeight + "px";
-        } 
-      });
-    }
-  </script>
-</body>
-</html>
+    <h2>Categories</h2>
+    <table>
+      <tr>
+        <th>Category</th>
+        <th>Total</th>
+        <th>Passed</th>
+        <th>Failed</th>
+        <th>Pass Rate</th>
+      </tr>
+      
+        <tr>
+          <td>Navigation</td>
+          <td>10</td>
+          <td>9</td>
+          <td>1</td>
+          <td>90%</td>
+        </tr>
+      
+        <tr>
+          <td>Authentication</td>
+          <td>10</td>
+          <td>8</td>
+          <td>2</td>
+          <td>80%</td>
+        </tr>
+      
+        <tr>
+          <td>Document List</td>
+          <td>10</td>
+          <td>2</td>
+          <td>8</td>
+          <td>20%</td>
+        </tr>
+      
+        <tr>
+          <td>Document Detail</td>
+          <td>10</td>
+          <td>3</td>
+          <td>7</td>
+          <td>30%</td>
+        </tr>
+      
+        <tr>
+          <td>Document Processing</td>
+          <td>10</td>
+          <td>2</td>
+          <td>8</td>
+          <td>20%</td>
+        </tr>
+      
+        <tr>
+          <td>Document Chat</td>
+          <td>10</td>
+          <td>6</td>
+          <td>4</td>
+          <td>60%</td>
+        </tr>
+      
+        <tr>
+          <td>Analytics</td>
+          <td>10</td>
+          <td>2</td>
+          <td>8</td>
+          <td>20%</td>
+        </tr>
+      
+        <tr>
+          <td>Upload</td>
+          <td>10</td>
+          <td>5</td>
+          <td>5</td>
+          <td>50%</td>
+        </tr>
+      
+        <tr>
+          <td>API</td>
+          <td>10</td>
+          <td>10</td>
+          <td>0</td>
+          <td>100%</td>
+        </tr>
+      
+        <tr>
+          <td>UI Components</td>
+          <td>10</td>
+          <td>4</td>
+          <td>6</td>
+          <td>40%</td>
+        </tr>
+      
+    </table>
+
+    
+      <div class="category">
+        <h2>Navigation</h2>
+        
+          <div class="test passed">
+            <h3>Homepage Load</h3>
+            <p><strong>Status:</strong> Passed</p>
+            
+            
+              <img src="../puppeteer-test-screenshots\nav-homepage-load.png" class="screenshot" onclick="openModal(this.src)">
+            
+          </div>
+        
+          <div class="test passed">
+            <h3>Documents Page Load</h3>
+            <p><strong>Status:</strong> Passed</p>
+            
+            
+              <img src="../puppeteer-test-screenshots\nav-documents-page-load.png" class="screenshot" onclick="openModal(this.src)">
+            
+          </div>
+        
+          <div class="test passed">
+            <h3>Analytics Page Load</h3>
+            <p><strong>Status:</strong> Passed</p>
+            
+            
+              <img src="../puppeteer-test-screenshots\nav-analytics-page-load.png" class="screenshot" onclick="openModal(this.src)">
+            
+          </div>
+        
+          <div class="test passed">
+            <h3>Upload Page Load</h3>
+            <p><strong>Status:</strong> Passed</p>
+            
+            
+              <img src="../puppeteer-test-screenshots\nav-upload-page-load.png" class="screenshot" onclick="openModal(this.src)">
+            
+          </div>
+        
+          <div class="test passed">
+            <h3>Document Chat Page Load</h3>
+            <p><strong>Status:</strong> Passed</p>
+            
+            
+              <img src="../puppeteer-test-screenshots\nav-document-chat-page-load.png" class="screenshot" onclick="openModal(this.src)">
+            
+          </div>
+        
+          <div class="test passed">
+            <h3>Login Page Load</h3>
+            <p><strong>Status:</strong> Passed</p>
+            
+            
+              <img src="../puppeteer-test-screenshots\nav-login-page-load.png" class="screenshot" onclick="openModal(this.src)">
+            
+          </div>
+        
+          <div class="test passed">
+            <h3>API Health Check</h3>
+            <p><strong>Status:</strong> Passed</p>
+            
+            
+              <img src="../puppeteer-test-screenshots\nav-api-health-check.png" class="screenshot" onclick="openModal(this.src)">
+            
+          </div>
+        
+          <div class="test passed">
+            <h3>Navigation - Home to Documents</h3>
+            <p><strong>Status:</strong> Passed</p>
+            
+            
+              <img src="../puppeteer-test-screenshots\nav-navigation---home-to-documents-after.png" class="screenshot" onclick="openModal(this.src)">
+            
+          </div>
+        
+          <div class="test passed">
+            <h3>Navigation - Documents to Analytics</h3>
+            <p><strong>Status:</strong> Passed</p>
+            
+            
+              <img src="../puppeteer-test-screenshots\nav-navigation---documents-to-analytics-after.png" class="screenshot" onclick="openModal(this.src)">
+            
+          </div>
+        
+          <div class="test failed">
+            <h3>Navigation - Sidebar Toggle</h3>
+            <p><strong>Status:</strong> Failed</p>
+            <p class="error"><strong>Error:</strong> Node is either not clickable or not an Element</p>
+            
+              <img src="../puppeteer-test-screenshots\nav-navigation---sidebar-toggle-error.png" class="screenshot" onclick="openModal(this.src)">
+            
+          </div>
+        
+      </div>
+    
+      <div class="category">
+        <h2>Authentication</h2>
+        
+          <div class="test passed">
+            <h3>Login Page Has Form</h3>
+            <p><strong>Status:</strong> Passed</p>
+            
+            
+              <img src="../puppeteer-test-screenshots\auth-login-page-has-form.png" class="screenshot" onclick="openModal(this.src)">
+            
+          </div>
+        
+          <div class="test passed">
+            <h3>Login Page Has Google Button</h3>
+            <p><strong>Status:</strong> Passed</p>
+            
+            
+              <img src="../puppeteer-test-screenshots\auth-login-page-has-google-button.png" class="screenshot" onclick="openModal(this.src)">
+            
+          </div>
+        
+          <div class="test passed">
+            <h3>Login Form Has Email Field</h3>
+            <p><strong>Status:</strong> Passed</p>
+            
+            
+              <img src="../puppeteer-test-screenshots\auth-login-form-has-email-field.png" class="screenshot" onclick="openModal(this.src)">
+            
+          </div>
+        
+          <div class="test passed">
+            <h3>Login Form Has Password Field</h3>
+            <p><strong>Status:</strong> Passed</p>
+            
+            
+              <img src="../puppeteer-test-screenshots\auth-login-form-has-password-field.png" class="screenshot" onclick="openModal(this.src)">
+            
+          </div>
+        
+          <div class="test passed">
+            <h3>Login Form Has Submit Button</h3>
+            <p><strong>Status:</strong> Passed</p>
+            
+            
+              <img src="../puppeteer-test-screenshots\auth-login-form-has-submit-button.png" class="screenshot" onclick="openModal(this.src)">
+            
+          </div>
+        
+          <div class="test passed">
+            <h3>Login Page Has Remember Me</h3>
+            <p><strong>Status:</strong> Passed</p>
+            
+            
+              <img src="../puppeteer-test-screenshots\auth-login-page-has-remember-me.png" class="screenshot" onclick="openModal(this.src)">
+            
+          </div>
+        
+          <div class="test failed">
+            <h3>Login Page Has Forgot Password</h3>
+            <p><strong>Status:</strong> Failed</p>
+            <p class="error"><strong>Error:</strong> Element a:contains("Forgot"), a:contains("forgot") not found</p>
+            
+              <img src="../puppeteer-test-screenshots\auth-login-page-has-forgot-password.png" class="screenshot" onclick="openModal(this.src)">
+            
+          </div>
+        
+          <div class="test failed">
+            <h3>Login Page Has Sign Up Link</h3>
+            <p><strong>Status:</strong> Failed</p>
+            <p class="error"><strong>Error:</strong> Element a:contains("Sign up"), a:contains("Register") not found</p>
+            
+              <img src="../puppeteer-test-screenshots\auth-login-page-has-sign-up-link.png" class="screenshot" onclick="openModal(this.src)">
+            
+          </div>
+        
+          <div class="test passed">
+            <h3>Login Page Has Logo</h3>
+            <p><strong>Status:</strong> Passed</p>
+            
+            
+              <img src="../puppeteer-test-screenshots\auth-login-page-has-logo.png" class="screenshot" onclick="openModal(this.src)">
+            
+          </div>
+        
+          <div class="test passed">
+            <h3>Login Page Has Title</h3>
+            <p><strong>Status:</strong> Passed</p>
+            
+            
+              <img src="../puppeteer-test-screenshots\auth-login-page-has-title.png" class="screenshot" onclick="openModal(this.src)">
+            
+          </div>
+        
+      </div>
+    
+      <div class="category">
+        <h2>Document List</h2>
+        
+          <div class="test failed">
+            <h3>Documents Page Has Document List</h3>
+            <p><strong>Status:</strong> Failed</p>
+            <p class="error"><strong>Error:</strong> Element .document-list, .documents-container not found</p>
+            
+              <img src="../puppeteer-test-screenshots\doclist-documents-page-has-document-list.png" class="screenshot" onclick="openModal(this.src)">
+            
+          </div>
+        
+          <div class="test passed">
+            <h3>Documents Page Has Document Cards</h3>
+            <p><strong>Status:</strong> Passed</p>
+            
+            
+              <img src="../puppeteer-test-screenshots\doclist-documents-page-has-document-cards.png" class="screenshot" onclick="openModal(this.src)">
+            
+          </div>
+        
+          <div class="test failed">
+            <h3>Documents Page Has Search Bar</h3>
+            <p><strong>Status:</strong> Failed</p>
+            <p class="error"><strong>Error:</strong> Element input[type="search"], input[placeholder*="search"], .search-input not found</p>
+            
+              <img src="../puppeteer-test-screenshots\doclist-documents-page-has-search-bar.png" class="screenshot" onclick="openModal(this.src)">
+            
+          </div>
+        
+          <div class="test failed">
+            <h3>Documents Page Has Filter Options</h3>
+            <p><strong>Status:</strong> Failed</p>
+            <p class="error"><strong>Error:</strong> Element .filter-options, .filters, select not found</p>
+            
+              <img src="../puppeteer-test-screenshots\doclist-documents-page-has-filter-options.png" class="screenshot" onclick="openModal(this.src)">
+            
+          </div>
+        
+          <div class="test failed">
+            <h3>Documents Page Has Sort Options</h3>
+            <p><strong>Status:</strong> Failed</p>
+            <p class="error"><strong>Error:</strong> Element .sort-options, .sort-by not found</p>
+            
+              <img src="../puppeteer-test-screenshots\doclist-documents-page-has-sort-options.png" class="screenshot" onclick="openModal(this.src)">
+            
+          </div>
+        
+          <div class="test passed">
+            <h3>Document Card Has Title</h3>
+            <p><strong>Status:</strong> Passed</p>
+            
+            
+              <img src="../puppeteer-test-screenshots\doclist-document-card-has-title.png" class="screenshot" onclick="openModal(this.src)">
+            
+          </div>
+        
+          <div class="test failed">
+            <h3>Document Card Has Date</h3>
+            <p><strong>Status:</strong> Failed</p>
+            <p class="error"><strong>Error:</strong> Element .document-card .document-date, .document-card .date not found</p>
+            
+              <img src="../puppeteer-test-screenshots\doclist-document-card-has-date.png" class="screenshot" onclick="openModal(this.src)">
+            
+          </div>
+        
+          <div class="test failed">
+            <h3>Document Card Has Type</h3>
+            <p><strong>Status:</strong> Failed</p>
+            <p class="error"><strong>Error:</strong> Element .document-card .document-type, .document-card .type not found</p>
+            
+              <img src="../puppeteer-test-screenshots\doclist-document-card-has-type.png" class="screenshot" onclick="openModal(this.src)">
+            
+          </div>
+        
+          <div class="test failed">
+            <h3>Document Card Has Status</h3>
+            <p><strong>Status:</strong> Failed</p>
+            <p class="error"><strong>Error:</strong> Element .document-card .document-status, .document-card .status not found</p>
+            
+              <img src="../puppeteer-test-screenshots\doclist-document-card-has-status.png" class="screenshot" onclick="openModal(this.src)">
+            
+          </div>
+        
+          <div class="test failed">
+            <h3>Document Card Is Clickable</h3>
+            <p><strong>Status:</strong> Failed</p>
+            <p class="error"><strong>Error:</strong> Element .document-card a, .document-card[onclick], .document-card button not found</p>
+            
+              <img src="../puppeteer-test-screenshots\doclist-document-card-is-clickable.png" class="screenshot" onclick="openModal(this.src)">
+            
+          </div>
+        
+      </div>
+    
+      <div class="category">
+        <h2>Document Detail</h2>
+        
+          <div class="test passed">
+            <h3>Document Detail Page Has Header</h3>
+            <p><strong>Status:</strong> Passed</p>
+            
+            
+              <img src="../puppeteer-test-screenshots\docdetail-document-detail-page-has-header.png" class="screenshot" onclick="openModal(this.src)">
+            
+          </div>
+        
+          <div class="test failed">
+            <h3>Document Detail Page Has Info Section</h3>
+            <p><strong>Status:</strong> Failed</p>
+            <p class="error"><strong>Error:</strong> Element .document-info, .info-section, .metadata not found</p>
+            
+              <img src="../puppeteer-test-screenshots\docdetail-document-detail-page-has-info-section.png" class="screenshot" onclick="openModal(this.src)">
+            
+          </div>
+        
+          <div class="test failed">
+            <h3>Document Detail Page Has Content Section</h3>
+            <p><strong>Status:</strong> Failed</p>
+            <p class="error"><strong>Error:</strong> Element .document-content, .content-section, .document-body not found</p>
+            
+              <img src="../puppeteer-test-screenshots\docdetail-document-detail-page-has-content-section.png" class="screenshot" onclick="openModal(this.src)">
+            
+          </div>
+        
+          <div class="test passed">
+            <h3>Document Detail Page Has Action Buttons</h3>
+            <p><strong>Status:</strong> Passed</p>
+            
+            
+              <img src="../puppeteer-test-screenshots\docdetail-document-detail-page-has-action-buttons.png" class="screenshot" onclick="openModal(this.src)">
+            
+          </div>
+        
+          <div class="test passed">
+            <h3>Document Detail Page Has Process Button</h3>
+            <p><strong>Status:</strong> Passed</p>
+            
+            
+              <img src="../puppeteer-test-screenshots\docdetail-document-detail-page-has-process-button.png" class="screenshot" onclick="openModal(this.src)">
+            
+          </div>
+        
+          <div class="test failed">
+            <h3>Document Detail Page Has Export Button</h3>
+            <p><strong>Status:</strong> Failed</p>
+            <p class="error"><strong>Error:</strong> Element button:contains("Export"), .export-btn not found</p>
+            
+              <img src="../puppeteer-test-screenshots\docdetail-document-detail-page-has-export-button.png" class="screenshot" onclick="openModal(this.src)">
+            
+          </div>
+        
+          <div class="test failed">
+            <h3>Document Detail Page Has Refresh Button</h3>
+            <p><strong>Status:</strong> Failed</p>
+            <p class="error"><strong>Error:</strong> Element #refresh-btn, button:contains("Refresh"), .refresh-btn not found</p>
+            
+              <img src="../puppeteer-test-screenshots\docdetail-document-detail-page-has-refresh-button.png" class="screenshot" onclick="openModal(this.src)">
+            
+          </div>
+        
+          <div class="test failed">
+            <h3>Document Detail Page Has Tables Section</h3>
+            <p><strong>Status:</strong> Failed</p>
+            <p class="error"><strong>Error:</strong> Element .tables-section, .tables, table not found</p>
+            
+              <img src="../puppeteer-test-screenshots\docdetail-document-detail-page-has-tables-section.png" class="screenshot" onclick="openModal(this.src)">
+            
+          </div>
+        
+          <div class="test failed">
+            <h3>Document Detail Page Has Securities Section</h3>
+            <p><strong>Status:</strong> Failed</p>
+            <p class="error"><strong>Error:</strong> Element .securities-section, .securities, .holdings not found</p>
+            
+              <img src="../puppeteer-test-screenshots\docdetail-document-detail-page-has-securities-section.png" class="screenshot" onclick="openModal(this.src)">
+            
+          </div>
+        
+          <div class="test failed">
+            <h3>Document Detail Page Has Metadata Section</h3>
+            <p><strong>Status:</strong> Failed</p>
+            <p class="error"><strong>Error:</strong> Element .metadata-section, .metadata, .document-metadata not found</p>
+            
+              <img src="../puppeteer-test-screenshots\docdetail-document-detail-page-has-metadata-section.png" class="screenshot" onclick="openModal(this.src)">
+            
+          </div>
+        
+      </div>
+    
+      <div class="category">
+        <h2>Document Processing</h2>
+        
+          <div class="test passed">
+            <h3>Process Button Exists</h3>
+            <p><strong>Status:</strong> Passed</p>
+            
+            
+              <img src="../puppeteer-test-screenshots\processing-process-button-exists.png" class="screenshot" onclick="openModal(this.src)">
+            
+          </div>
+        
+          <div class="test failed">
+            <h3>Reprocess Button Exists</h3>
+            <p><strong>Status:</strong> Failed</p>
+            <p class="error"><strong>Error:</strong> Element #reprocess-document-btn, button:contains("Reprocess"), .reprocess-btn not found</p>
+            
+              <img src="../puppeteer-test-screenshots\processing-reprocess-button-exists.png" class="screenshot" onclick="openModal(this.src)">
+            
+          </div>
+        
+          <div class="test failed">
+            <h3>Process Status Indicator Exists</h3>
+            <p><strong>Status:</strong> Failed</p>
+            <p class="error"><strong>Error:</strong> Element .status-indicator, .processing-status, .status not found</p>
+            
+              <img src="../puppeteer-test-screenshots\processing-process-status-indicator-exists.png" class="screenshot" onclick="openModal(this.src)">
+            
+          </div>
+        
+          <div class="test failed">
+            <h3>Document Tables Exist</h3>
+            <p><strong>Status:</strong> Failed</p>
+            <p class="error"><strong>Error:</strong> Element table, .table, .data-table not found</p>
+            
+              <img src="../puppeteer-test-screenshots\processing-document-tables-exist.png" class="screenshot" onclick="openModal(this.src)">
+            
+          </div>
+        
+          <div class="test failed">
+            <h3>Document Securities Exist</h3>
+            <p><strong>Status:</strong> Failed</p>
+            <p class="error"><strong>Error:</strong> Element .securities, .holdings, .securities-list not found</p>
+            
+              <img src="../puppeteer-test-screenshots\processing-document-securities-exist.png" class="screenshot" onclick="openModal(this.src)">
+            
+          </div>
+        
+          <div class="test failed">
+            <h3>Document Metadata Exists</h3>
+            <p><strong>Status:</strong> Failed</p>
+            <p class="error"><strong>Error:</strong> Element .metadata, .document-metadata, .meta-data not found</p>
+            
+              <img src="../puppeteer-test-screenshots\processing-document-metadata-exists.png" class="screenshot" onclick="openModal(this.src)">
+            
+          </div>
+        
+          <div class="test passed">
+            <h3>Document Processing API Endpoint</h3>
+            <p><strong>Status:</strong> Passed</p>
+            
+            
+              <img src="../puppeteer-test-screenshots\processing-document-processing-api-endpoint.png" class="screenshot" onclick="openModal(this.src)">
+            
+          </div>
+        
+          <div class="test failed">
+            <h3>Document Processing Progress Bar</h3>
+            <p><strong>Status:</strong> Failed</p>
+            <p class="error"><strong>Error:</strong> Element .progress-bar, .progress, progress not found</p>
+            
+              <img src="../puppeteer-test-screenshots\processing-document-processing-progress-bar.png" class="screenshot" onclick="openModal(this.src)">
+            
+          </div>
+        
+          <div class="test failed">
+            <h3>Document Processing Error Handling</h3>
+            <p><strong>Status:</strong> Failed</p>
+            <p class="error"><strong>Error:</strong> Element .error-message, .alert-danger, .error not found</p>
+            
+              <img src="../puppeteer-test-screenshots\processing-document-processing-error-handling.png" class="screenshot" onclick="openModal(this.src)">
+            
+          </div>
+        
+          <div class="test failed">
+            <h3>Document Processing Success Message</h3>
+            <p><strong>Status:</strong> Failed</p>
+            <p class="error"><strong>Error:</strong> Element .success-message, .alert-success, .success not found</p>
+            
+              <img src="../puppeteer-test-screenshots\processing-document-processing-success-message.png" class="screenshot" onclick="openModal(this.src)">
+            
+          </div>
+        
+      </div>
+    
+      <div class="category">
+        <h2>Document Chat</h2>
+        
+          <div class="test passed">
+            <h3>Chat Page Accessibility</h3>
+            <p><strong>Status:</strong> Passed</p>
+            
+            
+              <img src="../puppeteer-test-screenshots\chat-chat-page-accessibility.png" class="screenshot" onclick="openModal(this.src)">
+            
+          </div>
+        
+          <div class="test passed">
+            <h3>Chat Input Field</h3>
+            <p><strong>Status:</strong> Passed</p>
+            
+            
+              <img src="../puppeteer-test-screenshots\chat-chat-input-field.png" class="screenshot" onclick="openModal(this.src)">
+            
+          </div>
+        
+          <div class="test passed">
+            <h3>Chat Send Button</h3>
+            <p><strong>Status:</strong> Passed</p>
+            
+            
+              <img src="../puppeteer-test-screenshots\chat-chat-send-button.png" class="screenshot" onclick="openModal(this.src)">
+            
+          </div>
+        
+          <div class="test passed">
+            <h3>Document Selection Dropdown</h3>
+            <p><strong>Status:</strong> Passed</p>
+            
+            
+              <img src="../puppeteer-test-screenshots\chat-document-selection-dropdown.png" class="screenshot" onclick="openModal(this.src)">
+            
+          </div>
+        
+          <div class="test passed">
+            <h3>Chat Messages Container</h3>
+            <p><strong>Status:</strong> Passed</p>
+            
+            
+              <img src="../puppeteer-test-screenshots\chat-chat-messages-container.png" class="screenshot" onclick="openModal(this.src)">
+            
+          </div>
+        
+          <div class="test failed">
+            <h3>User Message Styling</h3>
+            <p><strong>Status:</strong> Failed</p>
+            <p class="error"><strong>Error:</strong> Element .user-message, .message.user, .message.outgoing not found</p>
+            
+              <img src="../puppeteer-test-screenshots\chat-user-message-styling.png" class="screenshot" onclick="openModal(this.src)">
+            
+          </div>
+        
+          <div class="test failed">
+            <h3>Bot Message Styling</h3>
+            <p><strong>Status:</strong> Failed</p>
+            <p class="error"><strong>Error:</strong> Element .bot-message, .message.bot, .message.incoming not found</p>
+            
+              <img src="../puppeteer-test-screenshots\chat-bot-message-styling.png" class="screenshot" onclick="openModal(this.src)">
+            
+          </div>
+        
+          <div class="test passed">
+            <h3>Chat Header</h3>
+            <p><strong>Status:</strong> Passed</p>
+            
+            
+              <img src="../puppeteer-test-screenshots\chat-chat-header.png" class="screenshot" onclick="openModal(this.src)">
+            
+          </div>
+        
+          <div class="test failed">
+            <h3>Loading Indicator</h3>
+            <p><strong>Status:</strong> Failed</p>
+            <p class="error"><strong>Error:</strong> Element .loading, .spinner, .loader not found</p>
+            
+              <img src="../puppeteer-test-screenshots\chat-loading-indicator.png" class="screenshot" onclick="openModal(this.src)">
+            
+          </div>
+        
+          <div class="test failed">
+            <h3>Error Message Display</h3>
+            <p><strong>Status:</strong> Failed</p>
+            <p class="error"><strong>Error:</strong> Element .error, .error-message, .alert-danger not found</p>
+            
+              <img src="../puppeteer-test-screenshots\chat-error-message-display.png" class="screenshot" onclick="openModal(this.src)">
+            
+          </div>
+        
+      </div>
+    
+      <div class="category">
+        <h2>Analytics</h2>
+        
+          <div class="test failed">
+            <h3>Analytics Page Accessibility</h3>
+            <p><strong>Status:</strong> Failed</p>
+            <p class="error"><strong>Error:</strong> Element .analytics-container, #analytics-container not found</p>
+            
+              <img src="../puppeteer-test-screenshots\analytics-analytics-page-accessibility.png" class="screenshot" onclick="openModal(this.src)">
+            
+          </div>
+        
+          <div class="test failed">
+            <h3>Charts Container</h3>
+            <p><strong>Status:</strong> Failed</p>
+            <p class="error"><strong>Error:</strong> Element .charts, .charts-container, #charts not found</p>
+            
+              <img src="../puppeteer-test-screenshots\analytics-charts-container.png" class="screenshot" onclick="openModal(this.src)">
+            
+          </div>
+        
+          <div class="test failed">
+            <h3>Document Type Distribution Chart</h3>
+            <p><strong>Status:</strong> Failed</p>
+            <p class="error"><strong>Error:</strong> Element .document-type-chart, #document-type-chart, .pie-chart not found</p>
+            
+              <img src="../puppeteer-test-screenshots\analytics-document-type-distribution-chart.png" class="screenshot" onclick="openModal(this.src)">
+            
+          </div>
+        
+          <div class="test failed">
+            <h3>Processing Time Chart</h3>
+            <p><strong>Status:</strong> Failed</p>
+            <p class="error"><strong>Error:</strong> Element .processing-time-chart, #processing-time-chart, .bar-chart not found</p>
+            
+              <img src="../puppeteer-test-screenshots\analytics-processing-time-chart.png" class="screenshot" onclick="openModal(this.src)">
+            
+          </div>
+        
+          <div class="test failed">
+            <h3>Securities Distribution Chart</h3>
+            <p><strong>Status:</strong> Failed</p>
+            <p class="error"><strong>Error:</strong> Element .securities-chart, #securities-chart, .distribution-chart not found</p>
+            
+              <img src="../puppeteer-test-screenshots\analytics-securities-distribution-chart.png" class="screenshot" onclick="openModal(this.src)">
+            
+          </div>
+        
+          <div class="test failed">
+            <h3>Date Range Selector</h3>
+            <p><strong>Status:</strong> Failed</p>
+            <p class="error"><strong>Error:</strong> Element .date-range, .date-picker, input[type="date"] not found</p>
+            
+              <img src="../puppeteer-test-screenshots\analytics-date-range-selector.png" class="screenshot" onclick="openModal(this.src)">
+            
+          </div>
+        
+          <div class="test failed">
+            <h3>Analytics Filters</h3>
+            <p><strong>Status:</strong> Failed</p>
+            <p class="error"><strong>Error:</strong> Element .filters, .filter-options, select not found</p>
+            
+              <img src="../puppeteer-test-screenshots\analytics-analytics-filters.png" class="screenshot" onclick="openModal(this.src)">
+            
+          </div>
+        
+          <div class="test passed">
+            <h3>Data Table</h3>
+            <p><strong>Status:</strong> Passed</p>
+            
+            
+              <img src="../puppeteer-test-screenshots\analytics-data-table.png" class="screenshot" onclick="openModal(this.src)">
+            
+          </div>
+        
+          <div class="test failed">
+            <h3>Export Analytics Button</h3>
+            <p><strong>Status:</strong> Failed</p>
+            <p class="error"><strong>Error:</strong> Element button:contains("Export"), .export-btn not found</p>
+            
+              <img src="../puppeteer-test-screenshots\analytics-export-analytics-button.png" class="screenshot" onclick="openModal(this.src)">
+            
+          </div>
+        
+          <div class="test passed">
+            <h3>Analytics Header</h3>
+            <p><strong>Status:</strong> Passed</p>
+            
+            
+              <img src="../puppeteer-test-screenshots\analytics-analytics-header.png" class="screenshot" onclick="openModal(this.src)">
+            
+          </div>
+        
+      </div>
+    
+      <div class="category">
+        <h2>Upload</h2>
+        
+          <div class="test failed">
+            <h3>Upload Page Accessibility</h3>
+            <p><strong>Status:</strong> Failed</p>
+            <p class="error"><strong>Error:</strong> Element .upload-container, #upload-container not found</p>
+            
+              <img src="../puppeteer-test-screenshots\upload-upload-page-accessibility.png" class="screenshot" onclick="openModal(this.src)">
+            
+          </div>
+        
+          <div class="test passed">
+            <h3>File Input Field</h3>
+            <p><strong>Status:</strong> Passed</p>
+            
+            
+              <img src="../puppeteer-test-screenshots\upload-file-input-field.png" class="screenshot" onclick="openModal(this.src)">
+            
+          </div>
+        
+          <div class="test passed">
+            <h3>Document Type Selector</h3>
+            <p><strong>Status:</strong> Passed</p>
+            
+            
+              <img src="../puppeteer-test-screenshots\upload-document-type-selector.png" class="screenshot" onclick="openModal(this.src)">
+            
+          </div>
+        
+          <div class="test passed">
+            <h3>Upload Button</h3>
+            <p><strong>Status:</strong> Passed</p>
+            
+            
+              <img src="../puppeteer-test-screenshots\upload-upload-button.png" class="screenshot" onclick="openModal(this.src)">
+            
+          </div>
+        
+          <div class="test failed">
+            <h3>Drag and Drop Area</h3>
+            <p><strong>Status:</strong> Failed</p>
+            <p class="error"><strong>Error:</strong> Element .drop-area, .drag-drop, .dropzone not found</p>
+            
+              <img src="../puppeteer-test-screenshots\upload-drag-and-drop-area.png" class="screenshot" onclick="openModal(this.src)">
+            
+          </div>
+        
+          <div class="test failed">
+            <h3>Upload Progress Bar</h3>
+            <p><strong>Status:</strong> Failed</p>
+            <p class="error"><strong>Error:</strong> Element .progress-bar, .progress, progress not found</p>
+            
+              <img src="../puppeteer-test-screenshots\upload-upload-progress-bar.png" class="screenshot" onclick="openModal(this.src)">
+            
+          </div>
+        
+          <div class="test passed">
+            <h3>File Name Display</h3>
+            <p><strong>Status:</strong> Passed</p>
+            
+            
+              <img src="../puppeteer-test-screenshots\upload-file-name-display.png" class="screenshot" onclick="openModal(this.src)">
+            
+          </div>
+        
+          <div class="test failed">
+            <h3>Upload Instructions</h3>
+            <p><strong>Status:</strong> Failed</p>
+            <p class="error"><strong>Error:</strong> Element .instructions, .upload-instructions, .help-text not found</p>
+            
+              <img src="../puppeteer-test-screenshots\upload-upload-instructions.png" class="screenshot" onclick="openModal(this.src)">
+            
+          </div>
+        
+          <div class="test passed">
+            <h3>Error Message Display</h3>
+            <p><strong>Status:</strong> Passed</p>
+            
+            
+              <img src="../puppeteer-test-screenshots\upload-error-message-display.png" class="screenshot" onclick="openModal(this.src)">
+            
+          </div>
+        
+          <div class="test failed">
+            <h3>Success Message Display</h3>
+            <p><strong>Status:</strong> Failed</p>
+            <p class="error"><strong>Error:</strong> Element .success, .success-message, .alert-success not found</p>
+            
+              <img src="../puppeteer-test-screenshots\upload-success-message-display.png" class="screenshot" onclick="openModal(this.src)">
+            
+          </div>
+        
+      </div>
+    
+      <div class="category">
+        <h2>API</h2>
+        
+          <div class="test passed">
+            <h3>API Health Endpoint</h3>
+            <p><strong>Status:</strong> Passed</p>
+            
+            
+              <img src="../puppeteer-test-screenshots\api-api-health-endpoint.png" class="screenshot" onclick="openModal(this.src)">
+            
+          </div>
+        
+          <div class="test passed">
+            <h3>Documents API Endpoint</h3>
+            <p><strong>Status:</strong> Passed</p>
+            
+            
+              <img src="../puppeteer-test-screenshots\api-documents-api-endpoint.png" class="screenshot" onclick="openModal(this.src)">
+            
+          </div>
+        
+          <div class="test passed">
+            <h3>Document Detail API Endpoint</h3>
+            <p><strong>Status:</strong> Passed</p>
+            
+            
+              <img src="../puppeteer-test-screenshots\api-document-detail-api-endpoint.png" class="screenshot" onclick="openModal(this.src)">
+            
+          </div>
+        
+          <div class="test passed">
+            <h3>Chat API Endpoint</h3>
+            <p><strong>Status:</strong> Passed</p>
+            
+            
+              <img src="../puppeteer-test-screenshots\api-chat-api-endpoint.png" class="screenshot" onclick="openModal(this.src)">
+            
+          </div>
+        
+          <div class="test passed">
+            <h3>Upload API Endpoint</h3>
+            <p><strong>Status:</strong> Passed</p>
+            
+            
+              <img src="../puppeteer-test-screenshots\api-upload-api-endpoint.png" class="screenshot" onclick="openModal(this.src)">
+            
+          </div>
+        
+          <div class="test passed">
+            <h3>Process API Endpoint</h3>
+            <p><strong>Status:</strong> Passed</p>
+            
+            
+              <img src="../puppeteer-test-screenshots\api-process-api-endpoint.png" class="screenshot" onclick="openModal(this.src)">
+            
+          </div>
+        
+          <div class="test passed">
+            <h3>Analytics API Endpoint</h3>
+            <p><strong>Status:</strong> Passed</p>
+            
+            
+              <img src="../puppeteer-test-screenshots\api-analytics-api-endpoint.png" class="screenshot" onclick="openModal(this.src)">
+            
+          </div>
+        
+          <div class="test passed">
+            <h3>Securities API Endpoint</h3>
+            <p><strong>Status:</strong> Passed</p>
+            
+            
+              <img src="../puppeteer-test-screenshots\api-securities-api-endpoint.png" class="screenshot" onclick="openModal(this.src)">
+            
+          </div>
+        
+          <div class="test passed">
+            <h3>Tables API Endpoint</h3>
+            <p><strong>Status:</strong> Passed</p>
+            
+            
+              <img src="../puppeteer-test-screenshots\api-tables-api-endpoint.png" class="screenshot" onclick="openModal(this.src)">
+            
+          </div>
+        
+          <div class="test passed">
+            <h3>API Documentation</h3>
+            <p><strong>Status:</strong> Passed</p>
+            
+            
+              <img src="../puppeteer-test-screenshots\api-api-documentation.png" class="screenshot" onclick="openModal(this.src)">
+            
+          </div>
+        
+      </div>
+    
+      <div class="category">
+        <h2>UI Components</h2>
+        
+          <div class="test failed">
+            <h3>Navigation Bar</h3>
+            <p><strong>Status:</strong> Failed</p>
+            <p class="error"><strong>Error:</strong> Element nav, .navbar, .navigation not found</p>
+            
+              <img src="../puppeteer-test-screenshots\ui-navigation-bar.png" class="screenshot" onclick="openModal(this.src)">
+            
+          </div>
+        
+          <div class="test passed">
+            <h3>Sidebar</h3>
+            <p><strong>Status:</strong> Passed</p>
+            
+            
+              <img src="../puppeteer-test-screenshots\ui-sidebar.png" class="screenshot" onclick="openModal(this.src)">
+            
+          </div>
+        
+          <div class="test failed">
+            <h3>Footer</h3>
+            <p><strong>Status:</strong> Failed</p>
+            <p class="error"><strong>Error:</strong> Element footer, .footer not found</p>
+            
+              <img src="../puppeteer-test-screenshots\ui-footer.png" class="screenshot" onclick="openModal(this.src)">
+            
+          </div>
+        
+          <div class="test failed">
+            <h3>Logo</h3>
+            <p><strong>Status:</strong> Failed</p>
+            <p class="error"><strong>Error:</strong> Element .logo, img[alt*="logo"], .brand not found</p>
+            
+              <img src="../puppeteer-test-screenshots\ui-logo.png" class="screenshot" onclick="openModal(this.src)">
+            
+          </div>
+        
+          <div class="test passed">
+            <h3>Primary Buttons</h3>
+            <p><strong>Status:</strong> Passed</p>
+            
+            
+              <img src="../puppeteer-test-screenshots\ui-primary-buttons.png" class="screenshot" onclick="openModal(this.src)">
+            
+          </div>
+        
+          <div class="test failed">
+            <h3>Secondary Buttons</h3>
+            <p><strong>Status:</strong> Failed</p>
+            <p class="error"><strong>Error:</strong> Element .btn-secondary, .secondary-button, button.secondary not found</p>
+            
+              <img src="../puppeteer-test-screenshots\ui-secondary-buttons.png" class="screenshot" onclick="openModal(this.src)">
+            
+          </div>
+        
+          <div class="test passed">
+            <h3>Input Fields</h3>
+            <p><strong>Status:</strong> Passed</p>
+            
+            
+              <img src="../puppeteer-test-screenshots\ui-input-fields.png" class="screenshot" onclick="openModal(this.src)">
+            
+          </div>
+        
+          <div class="test failed">
+            <h3>Dropdown Menus</h3>
+            <p><strong>Status:</strong> Failed</p>
+            <p class="error"><strong>Error:</strong> Element select, .dropdown, .select not found</p>
+            
+              <img src="../puppeteer-test-screenshots\ui-dropdown-menus.png" class="screenshot" onclick="openModal(this.src)">
+            
+          </div>
+        
+          <div class="test passed">
+            <h3>Alert Messages</h3>
+            <p><strong>Status:</strong> Passed</p>
+            
+            
+              <img src="../puppeteer-test-screenshots\ui-alert-messages.png" class="screenshot" onclick="openModal(this.src)">
+            
+          </div>
+        
+          <div class="test failed">
+            <h3>Modal Dialogs</h3>
+            <p><strong>Status:</strong> Failed</p>
+            <p class="error"><strong>Error:</strong> Element .modal, .dialog, .popup not found</p>
+            
+              <img src="../puppeteer-test-screenshots\ui-modal-dialogs.png" class="screenshot" onclick="openModal(this.src)">
+            
+          </div>
+        
+      </div>
+    
+
+    <div id="imageModal" class="modal">
+      <span class="close" onclick="closeModal()">&times;</span>
+      <img class="modal-content" id="modalImage">
+    </div>
+
+    <script>
+      function openModal(src) {
+        document.getElementById('imageModal').style.display = 'block';
+        document.getElementById('modalImage').src = src;
+      }
+
+      function closeModal() {
+        document.getElementById('imageModal').style.display = 'none';
+      }
+
+      // Close modal when clicking outside the image
+      window.onclick = function(event) {
+        if (event.target == document.getElementById('imageModal')) {
+          closeModal();
+        }
+      }
+    </script>
+  </body>
+  </html>
+  

@@ -1,0 +1,40 @@
+{
+  "fileName": "Document undefined.pdf",
+  "documentType": "unknown",
+  "uploadDate": "2025-05-12T15:07:52.637Z",
+  "processed": true,
+  "content": {
+    "text": "This is a generic document with ID undefined.",
+    "tables": [],
+    "metadata": {
+      "author": "Unknown",
+      "createdDate": "2025-05-12T15:07:52.637Z",
+      "modifiedDate": "2025-05-12T15:07:52.637Z",
+      "documentFormat": "PDF",
+      "keywords": "unknown"
+    }
+  },
+  "processingDate": "2025-05-12T15:34:10.049Z",
+  "processingResults": {
+    "status": "completed",
+    "processingTime": "3.7 seconds",
+    "agents": {
+      "Document Analyzer": {
+        "status": "completed",
+        "time": "1.2s"
+      },
+      "Table Understanding": {
+        "status": "completed",
+        "time": "0.8s"
+      },
+      "Securities Extractor": {
+        "status": "completed",
+        "time": "1.1s"
+      },
+      "Financial Reasoner": {
+        "status": "completed",
+        "time": "0.6s"
+      }
+    }
+  }
+}

@@ -1,0 +1,66 @@
+# Document Processor Dockerfile for FinDoc Analyzer
+FROM node:18-alpine AS builder
+
+# Set working directory
+WORKDIR /app
+
+# Install build dependencies and Python
+RUN apk add --no-cache python3 python3-dev py3-pip make g++ git
+
+# Copy package files
+COPY package*.json ./
+
+# Install Node.js dependencies
+RUN npm ci
+
+# Copy source code
+COPY . .
+
+# Install Python dependencies for document processing
+COPY requirements.txt ./
+RUN pip3 install --no-cache-dir -r requirements.txt
+
+# Production Stage
+FROM node:18-alpine
+
+# Set working directory
+WORKDIR /app
+
+# Install runtime dependencies
+RUN apk add --no-cache python3 py3-pip curl tini tesseract-ocr poppler-utils ghostscript
+
+# Set node environment
+ENV NODE_ENV=production
+
+# Create necessary directories and set permissions
+RUN mkdir -p /app/data/processing /app/logs /app/config && \
+    chown -R node:node /app
+
+# Copy from builder
+COPY --from=builder --chown=node:node /app/package*.json ./
+COPY --from=builder --chown=node:node /app/node_modules ./node_modules
+COPY --from=builder --chown=node:node /app/services/document-processing ./services/document-processing
+COPY --from=builder --chown=node:node /app/utils ./utils
+COPY --from=builder --chown=node:node /app/models ./models
+
+# Copy Python dependencies
+COPY --from=builder --chown=node:node /usr/lib/python3.9/site-packages /usr/lib/python3.9/site-packages
+
+# Copy the processor service entry point
+COPY --from=builder --chown=node:node /app/document-processor.js ./
+
+# Add healthcheck
+HEALTHCHECK --interval=30s --timeout=10s --start-period=30s --retries=3 \
+    CMD curl -f http://localhost:${PORT:-3200}/health || exit 1
+
+# Expose API port
+EXPOSE 3200
+
+# Use tini as entrypoint to manage signals and zombie processes
+ENTRYPOINT ["/sbin/tini", "--"]
+
+# Switch to non-root user (but use root for tesseract)
+# USER node
+
+# Start the document processor service
+CMD ["node", "document-processor.js"]

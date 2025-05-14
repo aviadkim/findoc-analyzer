@@ -1,0 +1,3 @@
+Mock Excel export file
+Format: XLSX
+Data: {"Securities":[{"isin":"FR7175040316","name":"Alphabet Inc.","type":"ETF","quantity":464,"price":374.72,"value":173870.08,"currency":"EUR","marketPrice":356.1,"marketValue":165230.4,"priceChange":-18.62,"priceChangePercent":-4.97,"lastUpdated":"2025-05-13T15:00:42.309Z","dataProvider":"Yahoo Finance","id":"sec-1","symbol":"ALPHABET","sector":"Financial Services","country":"FR"},{"isin":"DE8683047548","name":"Bank of America Corp.","type":"Fund","quantity":562,"price":457.33,"value":257019.46,"cu...

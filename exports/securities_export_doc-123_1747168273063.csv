@@ -1,0 +1,11 @@
+isin,name,type,quantity,price,value,currency,marketPrice,marketValue,priceChange,priceChangePercent,lastUpdated,dataProvider,id,symbol,description,sector,country,exchange
+"GB0805064169","UnitedHealth Group Inc.","ETF",986,884.15,871771.9,"USD",866.11,853984.46,-18.04,-2.04,"2025-05-13T20:31:13.063Z","Yahoo Finance","sec-1","UNITEDHEALTH",,"Energy","GB",
+"IL7767173983","Johnson & Johnson","Stock",317,157.85,50038.45,"GBP",163.58,51854.86,5.73,3.63,"2025-05-13T20:31:13.063Z","Yahoo Finance","sec-2","JOHNSON",,"Real Estate","IL",
+"FR4853764543","Visa Inc.","Stock",346,989.27,342287.42,"GBP",968.2,334997.2,-21.07,-2.13,"2025-05-13T20:31:13.063Z","Yahoo Finance","sec-3","VISA",,"Healthcare","FR",
+"FR0376406414","Home Depot Inc.","Option",521,990.13,515857.73,"ILS",965.87,503218.27,-24.26,-2.45,"2025-05-13T20:31:13.063Z","Yahoo Finance","sec-4","HOME",,"Technology","FR",
+"GB9117730142","Amazon.com Inc.","Option",441,675.72,297992.52,"ILS",674.17,297308.97,-1.55,-0.23,"2025-05-13T20:31:13.063Z","Yahoo Finance","sec-5","AMAZON.COM",,"Utilities","GB",
+"US4804345967","NVIDIA Corp.","Cash",182,784.65,142806.3,"ILS",774.61,140979.02,-10.04,-1.28,"2025-05-13T20:31:13.063Z","Yahoo Finance","sec-6","NVIDIA",,"Real Estate","US",
+"DE1444209069","Meta Platforms Inc.","Cash",36,491.85,17706.6,"EUR",480.05,17281.8,-11.8,-2.4,"2025-05-13T20:31:13.063Z","Yahoo Finance","sec-7","META",,"Utilities","DE",
+"IL1969417557","Visa Inc.","Option",478,571.17,273019.26,"USD",599.27,286451.06,28.1,4.92,"2025-05-13T20:31:13.063Z","Yahoo Finance","sec-8","VISA",,"Real Estate","IL",
+"GB1237589588","Procter & Gamble Co.","Option",732,502.82,368064.24,"ILS",523.23,383004.36,20.41,4.06,"2025-05-13T20:31:13.063Z","Yahoo Finance","sec-9","PROCTER",,"Financial Services","GB",
+"DE8375613310","Visa Inc.","Option",715,547.63,391555.45,"ILS",572.6,409409,24.97,4.56,"2025-05-13T20:31:13.063Z","Yahoo Finance","sec-10","VISA",,"Healthcare","DE",

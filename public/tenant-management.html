@@ -1,0 +1,1341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tenant Management</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            padding-top: 20px;
+            padding-bottom: 40px;
+        }
+        .tenant-card {
+            margin-bottom: 15px;
+            cursor: pointer;
+        }
+        .tenant-card:hover {
+            background-color: #f8f9fa;
+        }
+        .nav-tabs {
+            margin-bottom: 15px;
+        }
+        .badge-tier-enterprise {
+            background-color: #6610f2;
+            color: white;
+        }
+        .badge-tier-professional {
+            background-color: #007bff;
+            color: white;
+        }
+        .badge-tier-basic {
+            background-color: #17a2b8;
+            color: white;
+        }
+        .badge-tier-free {
+            background-color: #6c757d;
+            color: white;
+        }
+        .badge-status-active {
+            background-color: #28a745;
+            color: white;
+        }
+        .badge-status-inactive {
+            background-color: #dc3545;
+            color: white;
+        }
+        .badge-status-suspended {
+            background-color: #fd7e14;
+            color: white;
+        }
+        .badge-status-pending {
+            background-color: #ffc107;
+            color: #212529;
+        }
+        .badge-status-archived {
+            background-color: #6c757d;
+            color: white;
+        }
+        .stats-container {
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+        }
+        .progress {
+            height: 20px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="mb-4">Tenant Management</h1>
+        
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="tenants-tab" data-bs-toggle="tab" data-bs-target="#tenants" type="button" role="tab">Tenants</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="create-tab" data-bs-toggle="tab" data-bs-target="#create" type="button" role="tab">Create Tenant</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="api-keys-tab" data-bs-toggle="tab" data-bs-target="#api-keys" type="button" role="tab">API Keys</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="stats-tab" data-bs-toggle="tab" data-bs-target="#stats" type="button" role="tab">Statistics</button>
+            </li>
+        </ul>
+        
+        <div class="tab-content" id="myTabContent">
+            <!-- Tenants Tab -->
+            <div class="tab-pane fade show active" id="tenants" role="tabpanel">
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <h3>Tenant List</h3>
+                    </div>
+                    <div class="col-md-6 text-end">
+                        <button class="btn btn-primary btn-sm" onclick="refreshTenants()">Refresh</button>
+                    </div>
+                </div>
+                
+                <div class="row mb-3">
+                    <div class="col-md-4">
+                        <select class="form-select" id="filter-status" onchange="applyFilters()">
+                            <option value="">Filter by Status</option>
+                            <option value="active">Active</option>
+                            <option value="inactive">Inactive</option>
+                            <option value="suspended">Suspended</option>
+                            <option value="pending">Pending</option>
+                            <option value="archived">Archived</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <select class="form-select" id="filter-tier" onchange="applyFilters()">
+                            <option value="">Filter by Tier</option>
+                            <option value="enterprise">Enterprise</option>
+                            <option value="professional">Professional</option>
+                            <option value="basic">Basic</option>
+                            <option value="free">Free</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <input type="text" class="form-control" id="search" placeholder="Search..." oninput="applyFilters()">
+                    </div>
+                </div>
+                
+                <div id="tenants-list" class="row">
+                    <!-- Tenants will be loaded here -->
+                    <div class="text-center py-5">
+                        <div class="spinner-border" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                        <p class="mt-2">Loading tenants...</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Create Tenant Tab -->
+            <div class="tab-pane fade" id="create" role="tabpanel">
+                <h3>Create New Tenant</h3>
+                <form id="tenant-form">
+                    <div class="mb-3">
+                        <label for="tenantName" class="form-label">Tenant Name *</label>
+                        <input type="text" class="form-control" id="tenantName" name="name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="tenantId" class="form-label">Tenant ID</label>
+                        <input type="text" class="form-control" id="tenantId" name="id" placeholder="Auto-generated if empty">
+                        <div class="form-text">Leave empty for auto-generated ID. Use only letters, numbers, and hyphens.</div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="tenantTier" class="form-label">Tier *</label>
+                        <select class="form-select" id="tenantTier" name="tier" required>
+                            <option value="enterprise">Enterprise</option>
+                            <option value="professional">Professional</option>
+                            <option value="basic">Basic</option>
+                            <option value="free" selected>Free</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="tenantStatus" class="form-label">Status *</label>
+                        <select class="form-select" id="tenantStatus" name="status" required>
+                            <option value="active" selected>Active</option>
+                            <option value="inactive">Inactive</option>
+                            <option value="pending">Pending</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="tenantAdminEmail" class="form-label">Admin Email</label>
+                        <input type="email" class="form-control" id="tenantAdminEmail" name="adminEmail">
+                    </div>
+                    <div class="mb-3">
+                        <label for="tenantAdminUserId" class="form-label">Admin User ID</label>
+                        <input type="text" class="form-control" id="tenantAdminUserId" name="adminUserId">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Features</label>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="enableAdvancedAnalytics" name="enableAdvancedAnalytics" checked>
+                            <label class="form-check-label" for="enableAdvancedAnalytics">Enable Advanced Analytics</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="enableBatchProcessing" name="enableBatchProcessing" checked>
+                            <label class="form-check-label" for="enableBatchProcessing">Enable Batch Processing</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="enableMultiDocumentComparison" name="enableMultiDocumentComparison" checked>
+                            <label class="form-check-label" for="enableMultiDocumentComparison">Enable Multi-Document Comparison</label>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Create Tenant</button>
+                </form>
+                
+                <div id="create-response" class="mt-4 d-none">
+                    <!-- Create response will go here -->
+                </div>
+            </div>
+            
+            <!-- API Keys Tab -->
+            <div class="tab-pane fade" id="api-keys" role="tabpanel">
+                <h3>API Keys Management</h3>
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <select class="form-select" id="tenant-selector" onchange="loadApiKeys()">
+                            <option value="">Select Tenant</option>
+                            <!-- Tenant options will be loaded here -->
+                        </select>
+                    </div>
+                    <div class="col-md-6 text-end">
+                        <button class="btn btn-primary" onclick="showCreateApiKeyModal()" id="create-api-key-btn" disabled>Create API Key</button>
+                    </div>
+                </div>
+                
+                <div id="api-keys-list" class="mt-4">
+                    <div class="text-center py-5">
+                        <p>Select a tenant to view API keys</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Statistics Tab -->
+            <div class="tab-pane fade" id="stats" role="tabpanel">
+                <h3>Tenant Statistics</h3>
+                
+                <div class="stats-container">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <h5>Total Tenants</h5>
+                            <h2 id="total-tenants">0</h2>
+                        </div>
+                        <div class="col-md-3">
+                            <h5>Active Tenants</h5>
+                            <h2 id="active-tenants">0</h2>
+                        </div>
+                        <div class="col-md-3">
+                            <h5>Total Users</h5>
+                            <h2 id="total-users">0</h2>
+                        </div>
+                        <div class="col-md-3">
+                            <h5>Total Storage</h5>
+                            <h2 id="total-storage">0</h2>
+                        </div>
+                    </div>
+                </div>
+                
+                <h4 class="mt-4">Tenants by Tier</h4>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <h5 class="card-title">Enterprise</h5>
+                                <h3 id="enterprise-count">0</h3>
+                                <div class="progress">
+                                    <div class="progress-bar bg-purple" style="width: 0%" id="enterprise-bar"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <h5 class="card-title">Professional</h5>
+                                <h3 id="professional-count">0</h3>
+                                <div class="progress">
+                                    <div class="progress-bar bg-primary" style="width: 0%" id="professional-bar"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <h5 class="card-title">Basic</h5>
+                                <h3 id="basic-count">0</h3>
+                                <div class="progress">
+                                    <div class="progress-bar bg-info" style="width: 0%" id="basic-bar"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <h5 class="card-title">Free</h5>
+                                <h3 id="free-count">0</h3>
+                                <div class="progress">
+                                    <div class="progress-bar bg-secondary" style="width: 0%" id="free-bar"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <h4 class="mt-4">Tenants by Status</h4>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <h5 class="card-title">Active</h5>
+                                <h3 id="active-count">0</h3>
+                                <div class="progress">
+                                    <div class="progress-bar bg-success" style="width: 0%" id="active-bar"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <h5 class="card-title">Inactive</h5>
+                                <h3 id="inactive-count">0</h3>
+                                <div class="progress">
+                                    <div class="progress-bar bg-danger" style="width: 0%" id="inactive-bar"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <h5 class="card-title">Other</h5>
+                                <h3 id="other-status-count">0</h3>
+                                <div class="progress">
+                                    <div class="progress-bar bg-warning" style="width: 0%" id="other-status-bar"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Tenant Details Modal -->
+        <div class="modal fade" id="tenantDetailsModal" tabindex="-1">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Tenant Details</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div id="modal-content">
+                            <div class="text-center py-5">
+                                <div class="spinner-border" role="status">
+                                    <span class="visually-hidden">Loading...</span>
+                                </div>
+                                <p class="mt-2">Loading tenant details...</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <div id="tenant-action-buttons" class="w-100">
+                            <!-- Tenant action buttons will be added here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Create API Key Modal -->
+        <div class="modal fade" id="createApiKeyModal" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Create API Key</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="api-key-form">
+                            <div class="mb-3">
+                                <label for="keyName" class="form-label">API Key Name *</label>
+                                <input type="text" class="form-control" id="keyName" name="name" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="keyExpiry" class="form-label">Expiry (days)</label>
+                                <input type="number" class="form-control" id="keyExpiry" name="expiryDays" value="365" min="1" max="1825">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Permissions</label>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="permissionRead" name="permissionRead" checked>
+                                    <label class="form-check-label" for="permissionRead">Read</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="permissionWrite" name="permissionWrite" checked>
+                                    <label class="form-check-label" for="permissionWrite">Write</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="permissionProcess" name="permissionProcess" checked>
+                                    <label class="form-check-label" for="permissionProcess">Process</label>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-primary" onclick="createApiKey()">Create</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- API Key Created Modal -->
+        <div class="modal fade" id="apiKeyCreatedModal" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">API Key Created</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="alert alert-warning">
+                            <strong>Important!</strong> This is the only time you will see this API key. Please copy it now.
+                        </div>
+                        <div class="mb-3">
+                            <label for="apiKeyValue" class="form-label">API Key</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="apiKeyValue" readonly>
+                                <button class="btn btn-outline-secondary" type="button" onclick="copyApiKey()">Copy</button>
+                            </div>
+                        </div>
+                        <dl class="row">
+                            <dt class="col-sm-4">Name</dt>
+                            <dd class="col-sm-8" id="apiKeyName"></dd>
+                            
+                            <dt class="col-sm-4">Created</dt>
+                            <dd class="col-sm-8" id="apiKeyCreated"></dd>
+                            
+                            <dt class="col-sm-4">Expires</dt>
+                            <dd class="col-sm-8" id="apiKeyExpires"></dd>
+                            
+                            <dt class="col-sm-4">Permissions</dt>
+                            <dd class="col-sm-8" id="apiKeyPermissions"></dd>
+                        </dl>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Done</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // API endpoints
+        const API_BASE = '/api/tenants';
+        
+        // Current selected tenant ID
+        let currentTenantId = null;
+        let currentApiKeyTenantId = null;
+        
+        // Cached tenant data
+        let allTenants = [];
+        
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load tenants
+            refreshTenants();
+            
+            // Set up form submission handlers
+            setupForms();
+        });
+        
+        // Setup form submissions
+        function setupForms() {
+            // Tenant form
+            document.getElementById('tenant-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Get form data
+                const formData = new FormData(this);
+                const tenantData = {};
+                
+                // Convert form data to object
+                for (const [key, value] of formData.entries()) {
+                    tenantData[key] = value;
+                }
+                
+                // Add settings
+                tenantData.settings = {
+                    enableAdvancedAnalytics: document.getElementById('enableAdvancedAnalytics').checked,
+                    enableBatchProcessing: document.getElementById('enableBatchProcessing').checked,
+                    enableMultiDocumentComparison: document.getElementById('enableMultiDocumentComparison').checked,
+                    defaultLanguage: 'en'
+                };
+                
+                // Submit form
+                fetch(API_BASE, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(tenantData)
+                })
+                .then(response => response.json())
+                .then(data => {
+                    const responseDiv = document.getElementById('create-response');
+                    responseDiv.classList.remove('d-none');
+                    
+                    if (data.success) {
+                        responseDiv.innerHTML = `
+                            <div class="alert alert-success">
+                                <h4 class="alert-heading">Tenant Created!</h4>
+                                <p>Tenant ID: ${data.tenant.id}</p>
+                                <p>Name: ${data.tenant.name}</p>
+                                <p>Tier: ${data.tenant.tier}</p>
+                                <hr>
+                                <p class="mb-0">
+                                    <a href="#" onclick="openTenantDetails('${data.tenant.id}'); return false;">View Tenant Details</a>
+                                </p>
+                            </div>
+                        `;
+                        
+                        // Reset form
+                        document.getElementById('tenant-form').reset();
+                        
+                        // Refresh tenants
+                        refreshTenants();
+                    } else {
+                        responseDiv.innerHTML = `
+                            <div class="alert alert-danger">
+                                <h4 class="alert-heading">Error</h4>
+                                <p>${data.message}</p>
+                                <pre>${data.error || ''}</pre>
+                            </div>
+                        `;
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    document.getElementById('create-response').innerHTML = `
+                        <div class="alert alert-danger">
+                            <h4 class="alert-heading">Error</h4>
+                            <p>An unexpected error occurred while creating the tenant.</p>
+                            <pre>${error.message}</pre>
+                        </div>
+                    `;
+                    document.getElementById('create-response').classList.remove('d-none');
+                });
+            });
+        }
+        
+        // Refresh tenants
+        function refreshTenants() {
+            fetch(API_BASE)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // Cache tenants
+                        allTenants = data.tenants;
+                        
+                        // Render tenants
+                        renderTenants(data.tenants);
+                        
+                        // Update tenant selector in API Keys tab
+                        updateTenantSelector(data.tenants);
+                        
+                        // Update statistics
+                        updateStatistics(data.tenants);
+                    } else {
+                        document.getElementById('tenants-list').innerHTML = `
+                            <div class="alert alert-danger">
+                                <h4 class="alert-heading">Error</h4>
+                                <p>${data.message}</p>
+                                <pre>${data.error || ''}</pre>
+                            </div>
+                        `;
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    document.getElementById('tenants-list').innerHTML = `
+                        <div class="alert alert-danger">
+                            <h4 class="alert-heading">Error</h4>
+                            <p>An unexpected error occurred while loading tenants.</p>
+                            <pre>${error.message}</pre>
+                        </div>
+                    `;
+                });
+        }
+        
+        // Apply filters to tenants
+        function applyFilters() {
+            const statusFilter = document.getElementById('filter-status').value;
+            const tierFilter = document.getElementById('filter-tier').value;
+            const searchFilter = document.getElementById('search').value.toLowerCase();
+            
+            // Filter tenants
+            let filteredTenants = allTenants;
+            
+            if (statusFilter) {
+                filteredTenants = filteredTenants.filter(tenant => tenant.status === statusFilter);
+            }
+            
+            if (tierFilter) {
+                filteredTenants = filteredTenants.filter(tenant => tenant.tier === tierFilter);
+            }
+            
+            if (searchFilter) {
+                filteredTenants = filteredTenants.filter(tenant => 
+                    tenant.name.toLowerCase().includes(searchFilter) || 
+                    tenant.id.toLowerCase().includes(searchFilter) ||
+                    (tenant.adminEmail && tenant.adminEmail.toLowerCase().includes(searchFilter))
+                );
+            }
+            
+            // Render filtered tenants
+            renderTenants(filteredTenants);
+        }
+        
+        // Render tenants
+        function renderTenants(tenants) {
+            const tenantsList = document.getElementById('tenants-list');
+            
+            if (tenants.length === 0) {
+                tenantsList.innerHTML = `
+                    <div class="col-12 text-center py-5">
+                        <p>No tenants found.</p>
+                        <button class="btn btn-primary" onclick="document.getElementById('create-tab').click()">Create a Tenant</button>
+                    </div>
+                `;
+                return;
+            }
+            
+            let html = '';
+            
+            tenants.forEach(tenant => {
+                const tierClass = `badge-tier-${tenant.tier}`;
+                const statusClass = `badge-status-${tenant.status}`;
+                
+                html += `
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card tenant-card" onclick="openTenantDetails('${tenant.id}')">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <h5 class="card-title">${tenant.name}</h5>
+                                    <span class="badge ${tierClass}">${tenant.tier}</span>
+                                </div>
+                                <h6 class="card-subtitle mb-2 text-muted">ID: ${tenant.id}</h6>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span class="badge ${statusClass}">${tenant.status}</span>
+                                    <span class="text-muted small">${formatDate(tenant.createdAt)}</span>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <small class="text-muted">Users: ${tenant.usage.users}</small>
+                                    </div>
+                                    <div class="col-6">
+                                        <small class="text-muted">Documents: ${tenant.usage.docs}</small>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <small class="text-muted">Storage: ${formatBytes(tenant.usage.storage)}</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            tenantsList.innerHTML = html;
+        }
+        
+        // Update tenant selector in API Keys tab
+        function updateTenantSelector(tenants) {
+            const selector = document.getElementById('tenant-selector');
+            
+            // Clear existing options
+            selector.innerHTML = '<option value="">Select Tenant</option>';
+            
+            // Add tenant options
+            tenants.forEach(tenant => {
+                selector.innerHTML += `<option value="${tenant.id}">${tenant.name} (${tenant.id})</option>`;
+            });
+        }
+        
+        // Update statistics
+        function updateStatistics(tenants) {
+            // Total and active tenants
+            const totalTenants = tenants.length;
+            const activeTenants = tenants.filter(tenant => tenant.status === 'active').length;
+            
+            // Total users and storage
+            let totalUsers = 0;
+            let totalStorage = 0;
+            
+            tenants.forEach(tenant => {
+                totalUsers += tenant.usage.users;
+                totalStorage += tenant.usage.storage;
+            });
+            
+            // Set values
+            document.getElementById('total-tenants').textContent = totalTenants;
+            document.getElementById('active-tenants').textContent = activeTenants;
+            document.getElementById('total-users').textContent = totalUsers;
+            document.getElementById('total-storage').textContent = formatBytes(totalStorage);
+            
+            // Tenants by tier
+            const enterpriseCount = tenants.filter(tenant => tenant.tier === 'enterprise').length;
+            const professionalCount = tenants.filter(tenant => tenant.tier === 'professional').length;
+            const basicCount = tenants.filter(tenant => tenant.tier === 'basic').length;
+            const freeCount = tenants.filter(tenant => tenant.tier === 'free').length;
+            
+            // Set counts
+            document.getElementById('enterprise-count').textContent = enterpriseCount;
+            document.getElementById('professional-count').textContent = professionalCount;
+            document.getElementById('basic-count').textContent = basicCount;
+            document.getElementById('free-count').textContent = freeCount;
+            
+            // Set progress bars
+            if (totalTenants > 0) {
+                document.getElementById('enterprise-bar').style.width = `${(enterpriseCount / totalTenants) * 100}%`;
+                document.getElementById('professional-bar').style.width = `${(professionalCount / totalTenants) * 100}%`;
+                document.getElementById('basic-bar').style.width = `${(basicCount / totalTenants) * 100}%`;
+                document.getElementById('free-bar').style.width = `${(freeCount / totalTenants) * 100}%`;
+            }
+            
+            // Tenants by status
+            const activeCount = tenants.filter(tenant => tenant.status === 'active').length;
+            const inactiveCount = tenants.filter(tenant => tenant.status === 'inactive').length;
+            const otherStatusCount = totalTenants - activeCount - inactiveCount;
+            
+            // Set counts
+            document.getElementById('active-count').textContent = activeCount;
+            document.getElementById('inactive-count').textContent = inactiveCount;
+            document.getElementById('other-status-count').textContent = otherStatusCount;
+            
+            // Set progress bars
+            if (totalTenants > 0) {
+                document.getElementById('active-bar').style.width = `${(activeCount / totalTenants) * 100}%`;
+                document.getElementById('inactive-bar').style.width = `${(inactiveCount / totalTenants) * 100}%`;
+                document.getElementById('other-status-bar').style.width = `${(otherStatusCount / totalTenants) * 100}%`;
+            }
+        }
+        
+        // Open tenant details
+        function openTenantDetails(tenantId) {
+            currentTenantId = tenantId;
+            
+            // Show loading state
+            document.getElementById('modal-content').innerHTML = `
+                <div class="text-center py-5">
+                    <div class="spinner-border" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                    <p class="mt-2">Loading tenant details...</p>
+                </div>
+            `;
+            
+            // Clear action buttons
+            document.getElementById('tenant-action-buttons').innerHTML = '';
+            
+            // Show modal
+            const modal = new bootstrap.Modal(document.getElementById('tenantDetailsModal'));
+            modal.show();
+            
+            // Fetch tenant details
+            fetch(`${API_BASE}/${tenantId}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        renderTenantDetails(data.tenant);
+                        renderTenantActions(data.tenant);
+                    } else {
+                        document.getElementById('modal-content').innerHTML = `
+                            <div class="alert alert-danger">
+                                <h4 class="alert-heading">Error</h4>
+                                <p>${data.message}</p>
+                                <pre>${data.error || ''}</pre>
+                            </div>
+                        `;
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    document.getElementById('modal-content').innerHTML = `
+                        <div class="alert alert-danger">
+                            <h4 class="alert-heading">Error</h4>
+                            <p>An unexpected error occurred while loading tenant details.</p>
+                            <pre>${error.message}</pre>
+                        </div>
+                    `;
+                });
+        }
+        
+        // Render tenant details
+        function renderTenantDetails(tenant) {
+            const tierClass = `badge-tier-${tenant.tier}`;
+            const statusClass = `badge-status-${tenant.status}`;
+            
+            // Format tenant settings
+            let settingsHtml = '<table class="table table-sm">';
+            if (tenant.settings) {
+                for (const [key, value] of Object.entries(tenant.settings)) {
+                    settingsHtml += `
+                        <tr>
+                            <th>${formatSettingName(key)}</th>
+                            <td>${typeof value === 'boolean' ? (value ? 'Enabled' : 'Disabled') : value}</td>
+                        </tr>
+                    `;
+                }
+            }
+            settingsHtml += '</table>';
+            
+            // Format tenant limits
+            let limitsHtml = '<table class="table table-sm">';
+            if (tenant.limits) {
+                for (const [key, value] of Object.entries(tenant.limits)) {
+                    limitsHtml += `
+                        <tr>
+                            <th>${formatSettingName(key)}</th>
+                            <td>${key === 'maxStorage' ? formatBytes(value) : value}</td>
+                        </tr>
+                    `;
+                }
+            }
+            limitsHtml += '</table>';
+            
+            // Format tenant usage
+            let usageHtml = '<table class="table table-sm">';
+            if (tenant.usage) {
+                for (const [key, value] of Object.entries(tenant.usage)) {
+                    if (key !== 'apiCalls') {
+                        usageHtml += `
+                            <tr>
+                                <th>${formatSettingName(key)}</th>
+                                <td>${key === 'storage' ? formatBytes(value) : value}</td>
+                            </tr>
+                        `;
+                    }
+                }
+                
+                // Add API calls if available
+                if (tenant.usage.apiCalls) {
+                    usageHtml += `
+                        <tr>
+                            <th>API Calls (Total)</th>
+                            <td>${tenant.usage.apiCalls.total || 0}</td>
+                        </tr>
+                        <tr>
+                            <th>API Calls (Last Month)</th>
+                            <td>${tenant.usage.apiCalls.lastMonth || 0}</td>
+                        </tr>
+                    `;
+                }
+            }
+            usageHtml += '</table>';
+            
+            // Format tenant API keys
+            let apiKeysHtml = '';
+            if (tenant.apiKeys && tenant.apiKeys.length > 0) {
+                apiKeysHtml = '<h5 class="mt-4">API Keys</h5><table class="table table-sm"><thead><tr><th>Name</th><th>Created</th><th>Expires</th><th>Last Used</th></tr></thead><tbody>';
+                
+                tenant.apiKeys.forEach(key => {
+                    apiKeysHtml += `
+                        <tr>
+                            <td>${key.name}</td>
+                            <td>${formatDate(key.createdAt)}</td>
+                            <td>${formatDate(key.expiresAt)}</td>
+                            <td>${key.lastUsedAt ? formatDate(key.lastUsedAt) : 'Never'}</td>
+                        </tr>
+                    `;
+                });
+                
+                apiKeysHtml += '</tbody></table>';
+            }
+            
+            // Build HTML
+            const html = `
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h4>${tenant.name}</h4>
+                    <span class="badge ${tierClass}">${tenant.tier}</span>
+                </div>
+                
+                <div class="mb-3">
+                    <span class="badge ${statusClass}">${tenant.status}</span>
+                    <small class="text-muted ms-2">ID: ${tenant.id}</small>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-6">
+                        <p><strong>Created:</strong> ${formatDate(tenant.createdAt)}</p>
+                        <p><strong>Updated:</strong> ${formatDate(tenant.updatedAt)}</p>
+                    </div>
+                    <div class="col-md-6">
+                        <p><strong>Expires:</strong> ${formatDate(tenant.expiresAt)}</p>
+                        <p><strong>Admin:</strong> ${tenant.adminEmail || 'Not set'}</p>
+                    </div>
+                </div>
+                
+                <div class="row mt-4">
+                    <div class="col-md-6">
+                        <h5>Settings</h5>
+                        ${settingsHtml}
+                    </div>
+                    <div class="col-md-6">
+                        <h5>Usage</h5>
+                        ${usageHtml}
+                    </div>
+                </div>
+                
+                <div class="row mt-4">
+                    <div class="col-md-12">
+                        <h5>Limits</h5>
+                        ${limitsHtml}
+                    </div>
+                </div>
+                
+                ${apiKeysHtml}
+            `;
+            
+            document.getElementById('modal-content').innerHTML = html;
+        }
+        
+        // Render tenant action buttons
+        function renderTenantActions(tenant) {
+            const actionButtons = document.getElementById('tenant-action-buttons');
+            
+            let buttonsHtml = `
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            `;
+            
+            // Add action buttons based on tenant status
+            if (tenant.status === 'active') {
+                buttonsHtml += `
+                    <button type="button" class="btn btn-warning" onclick="updateTenantStatus('${tenant.id}', 'inactive')">Deactivate</button>
+                `;
+            } else if (tenant.status === 'inactive' || tenant.status === 'suspended') {
+                buttonsHtml += `
+                    <button type="button" class="btn btn-success" onclick="updateTenantStatus('${tenant.id}', 'active')">Activate</button>
+                `;
+            }
+            
+            // Add API key button
+            if (tenant.tier !== 'free') {
+                buttonsHtml += `
+                    <button type="button" class="btn btn-info" onclick="switchToApiKeysTab('${tenant.id}')">Manage API Keys</button>
+                `;
+            }
+            
+            // Add delete button (except for default tenant)
+            if (tenant.id !== 'default') {
+                buttonsHtml += `
+                    <button type="button" class="btn btn-danger" onclick="deleteTenant('${tenant.id}')">Delete Tenant</button>
+                `;
+            }
+            
+            // Add storage button
+            buttonsHtml += `
+                <button type="button" class="btn btn-primary" onclick="refreshTenantStorage('${tenant.id}')">Refresh Storage</button>
+            `;
+            
+            actionButtons.innerHTML = buttonsHtml;
+        }
+        
+        // Update tenant status
+        function updateTenantStatus(tenantId, status) {
+            if (!confirm(`Are you sure you want to change tenant status to ${status}?`)) {
+                return;
+            }
+            
+            fetch(`${API_BASE}/${tenantId}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    status
+                })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // Refresh tenant details
+                        renderTenantDetails(data.tenant);
+                        renderTenantActions(data.tenant);
+                        
+                        // Refresh tenants list
+                        refreshTenants();
+                    } else {
+                        alert(`Error: ${data.message}`);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert(`Error: ${error.message}`);
+                });
+        }
+        
+        // Delete tenant
+        function deleteTenant(tenantId) {
+            if (!confirm('Are you sure you want to delete this tenant? This action cannot be undone.')) {
+                return;
+            }
+            
+            fetch(`${API_BASE}/${tenantId}`, {
+                method: 'DELETE'
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // Close modal
+                        bootstrap.Modal.getInstance(document.getElementById('tenantDetailsModal')).hide();
+                        
+                        // Refresh tenants
+                        refreshTenants();
+                    } else {
+                        alert(`Error: ${data.message}`);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert(`Error: ${error.message}`);
+                });
+        }
+        
+        // Refresh tenant storage
+        function refreshTenantStorage(tenantId) {
+            fetch(`${API_BASE}/${tenantId}/storage`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // Refresh tenant details
+                        fetch(`${API_BASE}/${tenantId}`)
+                            .then(response => response.json())
+                            .then(tenantData => {
+                                if (tenantData.success) {
+                                    renderTenantDetails(tenantData.tenant);
+                                    renderTenantActions(tenantData.tenant);
+                                    
+                                    // Show storage info
+                                    alert(`Storage usage: ${data.storage.formattedUsage} / ${data.storage.formattedLimit} (${data.storage.percentage}%)`);
+                                    
+                                    // Refresh tenants list
+                                    refreshTenants();
+                                }
+                            });
+                    } else {
+                        alert(`Error: ${data.message}`);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert(`Error: ${error.message}`);
+                });
+        }
+        
+        // Switch to API Keys tab
+        function switchToApiKeysTab(tenantId) {
+            // Close tenant details modal
+            bootstrap.Modal.getInstance(document.getElementById('tenantDetailsModal')).hide();
+            
+            // Switch to API Keys tab
+            document.getElementById('api-keys-tab').click();
+            
+            // Select tenant
+            document.getElementById('tenant-selector').value = tenantId;
+            
+            // Load API keys
+            loadApiKeys();
+        }
+        
+        // Load API keys for tenant
+        function loadApiKeys() {
+            const tenantId = document.getElementById('tenant-selector').value;
+            
+            if (!tenantId) {
+                document.getElementById('api-keys-list').innerHTML = `
+                    <div class="text-center py-5">
+                        <p>Select a tenant to view API keys</p>
+                    </div>
+                `;
+                document.getElementById('create-api-key-btn').disabled = true;
+                return;
+            }
+            
+            // Set current API key tenant ID
+            currentApiKeyTenantId = tenantId;
+            
+            // Enable create button
+            document.getElementById('create-api-key-btn').disabled = false;
+            
+            // Show loading
+            document.getElementById('api-keys-list').innerHTML = `
+                <div class="text-center py-5">
+                    <div class="spinner-border" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                    <p class="mt-2">Loading API keys...</p>
+                </div>
+            `;
+            
+            // Fetch tenant details
+            fetch(`${API_BASE}/${tenantId}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        const tenant = data.tenant;
+                        
+                        // Check if tenant can have API keys
+                        if (tenant.tier === 'free') {
+                            document.getElementById('api-keys-list').innerHTML = `
+                                <div class="alert alert-warning">
+                                    <h4 class="alert-heading">API Keys Not Available</h4>
+                                    <p>Free tier tenants cannot have API keys. Upgrade to Basic, Professional, or Enterprise tier to use API keys.</p>
+                                </div>
+                            `;
+                            document.getElementById('create-api-key-btn').disabled = true;
+                            return;
+                        }
+                        
+                        // Check if tenant has API keys
+                        if (!tenant.apiKeys || tenant.apiKeys.length === 0) {
+                            document.getElementById('api-keys-list').innerHTML = `
+                                <div class="alert alert-info">
+                                    <h4 class="alert-heading">No API Keys</h4>
+                                    <p>This tenant does not have any API keys. Click the "Create API Key" button to create one.</p>
+                                </div>
+                            `;
+                            return;
+                        }
+                        
+                        // Render API keys
+                        let html = `
+                            <h4>API Keys for ${tenant.name}</h4>
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Created</th>
+                                        <th>Expires</th>
+                                        <th>Last Used</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                        `;
+                        
+                        tenant.apiKeys.forEach(key => {
+                            html += `
+                                <tr>
+                                    <td>${key.name}</td>
+                                    <td>${formatDate(key.createdAt)}</td>
+                                    <td>${formatDate(key.expiresAt)}</td>
+                                    <td>${key.lastUsedAt ? formatDate(key.lastUsedAt) : 'Never'}</td>
+                                    <td>
+                                        <button class="btn btn-sm btn-danger" onclick="deleteApiKey('${tenant.id}', '${key.id}')">Delete</button>
+                                    </td>
+                                </tr>
+                            `;
+                        });
+                        
+                        html += `
+                                </tbody>
+                            </table>
+                        `;
+                        
+                        document.getElementById('api-keys-list').innerHTML = html;
+                    } else {
+                        document.getElementById('api-keys-list').innerHTML = `
+                            <div class="alert alert-danger">
+                                <h4 class="alert-heading">Error</h4>
+                                <p>${data.message}</p>
+                                <pre>${data.error || ''}</pre>
+                            </div>
+                        `;
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    document.getElementById('api-keys-list').innerHTML = `
+                        <div class="alert alert-danger">
+                            <h4 class="alert-heading">Error</h4>
+                            <p>An unexpected error occurred while loading API keys.</p>
+                            <pre>${error.message}</pre>
+                        </div>
+                    `;
+                });
+        }
+        
+        // Show create API key modal
+        function showCreateApiKeyModal() {
+            // Reset form
+            document.getElementById('api-key-form').reset();
+            
+            // Show modal
+            const modal = new bootstrap.Modal(document.getElementById('createApiKeyModal'));
+            modal.show();
+        }
+        
+        // Create API key
+        function createApiKey() {
+            const tenantId = currentApiKeyTenantId;
+            
+            if (!tenantId) {
+                alert('Please select a tenant');
+                return;
+            }
+            
+            // Get form data
+            const keyName = document.getElementById('keyName').value;
+            const keyExpiryDays = parseInt(document.getElementById('keyExpiry').value);
+            
+            // Get permissions
+            const permissions = [];
+            if (document.getElementById('permissionRead').checked) permissions.push('read');
+            if (document.getElementById('permissionWrite').checked) permissions.push('write');
+            if (document.getElementById('permissionProcess').checked) permissions.push('process');
+            
+            // Validate
+            if (!keyName) {
+                alert('Please enter a name for the API key');
+                return;
+            }
+            
+            if (permissions.length === 0) {
+                alert('Please select at least one permission');
+                return;
+            }
+            
+            // Calculate expiry date
+            const expiryDate = new Date();
+            expiryDate.setDate(expiryDate.getDate() + keyExpiryDays);
+            
+            // Create API key
+            fetch(`${API_BASE}/${tenantId}/api-keys`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    name: keyName,
+                    expiresAt: expiryDate.toISOString(),
+                    permissions
+                })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // Hide create modal
+                        bootstrap.Modal.getInstance(document.getElementById('createApiKeyModal')).hide();
+                        
+                        // Show API key created modal
+                        document.getElementById('apiKeyValue').value = data.apiKey.key;
+                        document.getElementById('apiKeyName').textContent = data.apiKey.name;
+                        document.getElementById('apiKeyCreated').textContent = formatDate(data.apiKey.createdAt);
+                        document.getElementById('apiKeyExpires').textContent = formatDate(data.apiKey.expiresAt);
+                        document.getElementById('apiKeyPermissions').textContent = data.apiKey.permissions.join(', ');
+                        
+                        const createdModal = new bootstrap.Modal(document.getElementById('apiKeyCreatedModal'));
+                        createdModal.show();
+                        
+                        // Refresh API keys
+                        loadApiKeys();
+                    } else {
+                        alert(`Error: ${data.message}`);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert(`Error: ${error.message}`);
+                });
+        }
+        
+        // Copy API key to clipboard
+        function copyApiKey() {
+            const apiKeyInput = document.getElementById('apiKeyValue');
+            apiKeyInput.select();
+            document.execCommand('copy');
+            
+            // Show copied message
+            const copyButton = document.querySelector('#apiKeyCreatedModal button.btn-outline-secondary');
+            const originalText = copyButton.textContent;
+            copyButton.textContent = 'Copied!';
+            setTimeout(() => {
+                copyButton.textContent = originalText;
+            }, 2000);
+        }
+        
+        // Delete API key
+        function deleteApiKey(tenantId, keyId) {
+            if (!confirm('Are you sure you want to delete this API key? This action cannot be undone.')) {
+                return;
+            }
+            
+            fetch(`${API_BASE}/${tenantId}/api-keys/${keyId}`, {
+                method: 'DELETE'
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // Refresh API keys
+                        loadApiKeys();
+                    } else {
+                        alert(`Error: ${data.message}`);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert(`Error: ${error.message}`);
+                });
+        }
+        
+        // Format setting name
+        function formatSettingName(name) {
+            return name
+                .replace(/([A-Z])/g, ' $1') // Add space before capital letters
+                .replace(/^./, function(str) { return str.toUpperCase(); }) // Capitalize first letter
+                .replace(/([a-z])([A-Z])/g, '$1 $2') // Add space between lowercase and uppercase letters
+                .replace(/([a-zA-Z])(\d)/g, '$1 $2') // Add space between letters and numbers
+                .replace(/(\d)([a-zA-Z])/g, '$1 $2') // Add space between numbers and letters
+                .replace(/\b([A-Z]+)\b/g, match => match.toLowerCase()); // Convert all-caps words to lowercase
+        }
+        
+        // Format date
+        function formatDate(dateString) {
+            if (!dateString) return 'N/A';
+            
+            const date = new Date(dateString);
+            return date.toLocaleDateString() + ' ' + date.toLocaleTimeString();
+        }
+        
+        // Format bytes
+        function formatBytes(bytes, decimals = 2) {
+            if (bytes === 0) return '0 Bytes';
+            
+            const k = 1024;
+            const dm = decimals < 0 ? 0 : decimals;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB'];
+            
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
+        }
+    </script>
+</body>
+</html>

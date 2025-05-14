@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UI Injector</title>
+  <script src="/js/ui-components-deploy.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      margin: 0;
+      padding: 20px;
+      color: #333;
+    }
+    
+    h1, h2, h3 {
+      color: #444;
+    }
+    
+    .success {
+      color: #28a745;
+    }
+    
+    .error {
+      color: #dc3545;
+    }
+    
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    
+    .section {
+      margin-bottom: 30px;
+      padding: 20px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+    
+    .button {
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-right: 10px;
+      margin-bottom: 10px;
+    }
+    
+    .button:hover {
+      background-color: #0069d9;
+    }
+  </style>
+  <link rel="stylesheet" href="/css/ui-fixes.css">
+</head>
+<body>
+  <div class="container">
+    <h1>UI Injector</h1>
+    
+    <div class="section">
+      <h2>UI Components Status</h2>
+      
+      <div id="status">
+        <p>Checking UI components status...</p>
+      </div>
+      
+      <button class="button" onclick="checkUIComponents()">Check UI Components</button>
+    </div>
+    
+    <div class="section">
+      <h2>Navigation</h2>
+      
+      <p>Navigate to the following pages to test the UI components:</p>
+      
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/upload">Upload</a></li>
+        <li><a href="/test">Test</a></li>
+        <li><a href="/ui-components-test">UI Components Test</a></li>
+      </ul>
+    </div>
+    
+    <div class="section">
+      <h2>Bookmarklet</h2>
+      
+      <p>Drag this link to your bookmarks bar:</p>
+      
+      <a href="javascript:(function(){var script=document.createElement('script');script.src='/js/ui-components-deploy.js';script.async=true;document.head.appendChild(script);console.log('UI components injected successfully!');alert('UI components injected successfully!');})()" class="button">Inject UI Components</a>
+      
+      <p>Click the bookmarklet on any page to inject the UI components.</p>
+    </div>
+  </div>
+  
+  <script>
+    // Check UI components status
+    function checkUIComponents() {
+      const statusElement = document.getElementById('status');
+      statusElement.innerHTML = '<p>Checking UI components status...</p>';
+      
+      // Check if process button exists on upload page
+      const processButton = document.getElementById('process-document-btn');
+      const chatButton = document.getElementById('show-chat-btn');
+      const agentCards = document.querySelectorAll('.agent-card');
+      
+      let status = '<h3>UI Components Status:</h3>';
+      
+      // Check chat button
+      if (chatButton) {
+        status += '<p class="success">Chat Button: Found</p>';
+      } else {
+        status += '<p class="error">Chat Button: Not found</p>';
+      }
+      
+      // Check process button if on upload page
+      if (window.location.pathname.includes('/upload')) {
+        if (processButton) {
+          status += '<p class="success">Process Button: Found</p>';
+        } else {
+          status += '<p class="error">Process Button: Not found</p>';
+        }
+      } else {
+        status += '<p>Process Button: Not applicable (not on upload page)</p>';
+      }
+      
+      // Check agent cards if on test page
+      if (window.location.pathname.includes('/test')) {
+        if (agentCards.length > 0) {
+          status += `<p class="success">Agent Cards: Found (${agentCards.length})</p>`;
+        } else {
+          status += '<p class="error">Agent Cards: Not found</p>';
+        }
+      } else {
+        status += '<p>Agent Cards: Not applicable (not on test page)</p>';
+      }
+      
+      // Add overall status
+      if ((chatButton) && 
+          (!window.location.pathname.includes('/upload') || processButton) && 
+          (!window.location.pathname.includes('/test') || agentCards.length > 0)) {
+        status += '<p class="success">Overall Status: All applicable UI components found</p>';
+      } else {
+        status += '<p class="error">Overall Status: Some UI components are missing</p>';
+      }
+      
+      statusElement.innerHTML = status;
+    }
+    
+    // Check UI components status on page load
+    document.addEventListener('DOMContentLoaded', function() {
+      setTimeout(checkUIComponents, 1000);
+    });
+  </script>
+  <script src="/js/ui-fixes.js"></script>
+
+  <script src="/js/ui-fix.js"></script>
+</body>
+</html>

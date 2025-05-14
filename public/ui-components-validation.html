@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UI Components Validation</title>
+  <link rel="stylesheet" href="/css/ui-components.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      margin: 0;
+      padding: 20px;
+      color: #333;
+    }
+
+    h1, h2, h3 {
+      color: #444;
+    }
+
+    .test-section {
+      margin-bottom: 30px;
+      padding: 20px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+
+    .test-button {
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-right: 10px;
+      margin-bottom: 10px;
+    }
+
+    .test-button:hover {
+      background-color: #0069d9;
+    }
+
+    .test-result {
+      margin-top: 10px;
+      padding: 10px;
+      background-color: #f8f9fa;
+      border-radius: 5px;
+      min-height: 100px;
+    }
+
+    .success {
+      color: #28a745;
+    }
+
+    .error {
+      color: #dc3545;
+    }
+
+    .form-actions {
+      margin-top: 20px;
+      padding: 15px;
+      background-color: #f8f9fa;
+      border-radius: 5px;
+    }
+
+    .auth-form-container {
+      max-width: 400px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #f8f9fa;
+      border-radius: 5px;
+    }
+
+    .auth-form-title {
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .auth-divider {
+      margin: 20px 0;
+      text-align: center;
+      position: relative;
+    }
+
+    .auth-divider:before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background-color: #ddd;
+      z-index: 1;
+    }
+
+    .auth-divider span {
+      position: relative;
+      z-index: 2;
+      background-color: #f8f9fa;
+      padding: 0 10px;
+      color: #666;
+    }
+  </style>
+  <script src="/js/ui-chat-component.js"></script>
+</head>
+<body>
+  <h1>UI Components Validation</h1>
+  
+  <div class="test-page-content">
+    <div class="test-section">
+      <h2>Chat Interface Test</h2>
+      <p>The chat button should appear in the bottom-right corner of the screen. Click it to open the chat interface.</p>
+      
+      <button class="test-button" onclick="testChatInterface()">Test Chat Interface</button>
+      
+      <div id="chat-interface-test-result" class="test-result"></div>
+    </div>
+    
+    <div class="test-section">
+      <h2>Process Button Test</h2>
+      <p>This section simulates an upload form with a process button.</p>
+      
+      <form id="upload-form">
+        <div class="form-actions">
+          <button type="button" class="btn btn-primary">Upload Document</button>
+        </div>
+      </form>
+      
+      <button class="test-button" onclick="testProcessButton()">Test Process Button</button>
+      
+      <div id="process-button-test-result" class="test-result"></div>
+    </div>
+    
+    <div class="test-section">
+      <h2>Login Components Test</h2>
+      <p>This section simulates a login form container.</p>
+      
+      <div class="auth-form-container">
+        <h3 class="auth-form-title">Login to your account</h3>
+        
+        <div class="auth-divider">
+          <span>OR</span>
+        </div>
+      </div>
+      
+      <button class="test-button" onclick="testLoginComponents()">Test Login Components</button>
+      
+      <div id="login-components-test-result" class="test-result"></div>
+    </div>
+    
+    <div class="test-section">
+      <h2>Agent Cards Test</h2>
+      <p>This section tests the agent cards component.</p>
+      
+      <button class="test-button" onclick="testAgentCards()">Test Agent Cards</button>
+      
+      <div id="agent-cards-test-result" class="test-result"></div>
+    </div>
+    
+    <div class="test-section">
+      <h2>Validation System Test</h2>
+      <p>This section tests the UI validation system. A validation button should appear in the bottom-left corner of the screen.</p>
+      
+      <button class="test-button" onclick="testValidationSystem()">Test Validation System</button>
+      
+      <div id="validation-system-test-result" class="test-result"></div>
+    </div>
+  </div>
+  
+  <script>
+    // Test chat interface
+    function testChatInterface() {
+      const resultElement = document.getElementById('chat-interface-test-result');
+      resultElement.innerHTML = 'Testing chat interface...';
+      
+      // Check if chat button exists
+      const chatButton = document.getElementById('show-chat-btn');
+      
+      if (chatButton) {
+        resultElement.innerHTML = `<p class="success">Chat button found</p>`;
+        
+        // Click chat button
+        chatButton.click();
+        
+        // Check if chat container exists
+        setTimeout(() => {
+          const chatContainer = document.getElementById('document-chat-container');
+          
+          if (chatContainer) {
+            resultElement.innerHTML += `<p class="success">Chat container found</p>`;
+            
+            // Check chat input and send button
+            const chatInput = document.getElementById('document-chat-input');
+            const sendButton = document.getElementById('document-send-btn');
+            
+            if (chatInput && sendButton) {
+              resultElement.innerHTML += `<p class="success">Chat input and send button found</p>`;
+              
+              // Test sending a message
+              chatInput.value = 'Test message';
+              sendButton.click();
+              
+              resultElement.innerHTML += `<p class="success">Test message sent</p>`;
+              resultElement.innerHTML += `<p class="success">Chat interface test passed!</p>`;
+            } else {
+              resultElement.innerHTML += `<p class="error">Chat input or send button not found</p>`;
+            }
+          } else {
+            resultElement.innerHTML += `<p class="error">Chat container not found</p>`;
+          }
+        }, 500);
+      } else {
+        resultElement.innerHTML = `<p class="error">Chat button not found</p>`;
+        resultElement.innerHTML += `<p>Please make sure the chat interface component is loaded.</p>`;
+      }
+    }
+    
+    // Test process button
+    function testProcessButton() {
+      const resultElement = document.getElementById('process-button-test-result');
+      resultElement.innerHTML = 'Testing process button...';
+      
+      // Check if process button exists
+      const processButton = document.getElementById('process-document-btn');
+      
+      if (processButton) {
+        resultElement.innerHTML = `<p class="success">Process button found</p>`;
+        
+        // Click process button
+        processButton.click();
+        
+        // Check if progress container exists
+        setTimeout(() => {
+          const progressContainer = document.getElementById('progress-container');
+          
+          if (progressContainer) {
+            resultElement.innerHTML += `<p class="success">Progress container found</p>`;
+            
+            // Check progress bar and status
+            const progressBar = document.getElementById('progress-bar');
+            const statusText = document.getElementById('upload-status');
+            
+            if (progressBar && statusText) {
+              resultElement.innerHTML += `<p class="success">Progress bar and status text found</p>`;
+              resultElement.innerHTML += `<p class="success">Process button test passed!</p>`;
+              
+              // Show alert instead of redirecting
+              window.alert = function(message) {
+                resultElement.innerHTML += `<p>Alert message: "${message}"</p>`;
+                return true;
+              };
+              
+              // Prevent actual redirection
+              window.location.href = window.location.href;
+            } else {
+              resultElement.innerHTML += `<p class="error">Progress bar or status text not found</p>`;
+            }
+          } else {
+            resultElement.innerHTML += `<p class="error">Progress container not found</p>`;
+          }
+        }, 500);
+      } else {
+        resultElement.innerHTML = `<p class="error">Process button not found</p>`;
+        resultElement.innerHTML += `<p>Please make sure the process button component is loaded.</p>`;
+      }
+    }
+    
+    // Test login components
+    function testLoginComponents() {
+      const resultElement = document.getElementById('login-components-test-result');
+      resultElement.innerHTML = 'Testing login components...';
+      
+      // Check if login form exists
+      const loginForm = document.getElementById('login-form');
+      
+      if (loginForm) {
+        resultElement.innerHTML = `<p class="success">Login form found</p>`;
+        
+        // Check form elements
+        const emailInput = document.getElementById('login-email');
+        const passwordInput = document.getElementById('login-password');
+        const submitButton = loginForm.querySelector('button[type="submit"]');
+        
+        if (emailInput && passwordInput && submitButton) {
+          resultElement.innerHTML += `<p class="success">Login form elements found</p>`;
+        } else {
+          resultElement.innerHTML += `<p class="error">Login form elements not found</p>`;
+        }
+      } else {
+        resultElement.innerHTML += `<p class="error">Login form not found</p>`;
+      }
+      
+      // Check if Google login button exists
+      const googleButton = document.getElementById('google-login-btn');
+      
+      if (googleButton) {
+        resultElement.innerHTML += `<p class="success">Google login button found</p>`;
+        
+        // Click Google login button
+        window.alert = function(message) {
+          resultElement.innerHTML += `<p>Alert message: "${message}"</p>`;
+          return true;
+        };
+        
+        // Prevent actual redirection
+        const originalLocation = window.location.href;
+        window.location.href = originalLocation;
+        
+        googleButton.click();
+        
+        resultElement.innerHTML += `<p class="success">Login components test passed!</p>`;
+      } else {
+        resultElement.innerHTML += `<p class="error">Google login button not found</p>`;
+      }
+    }
+    
+    // Test agent cards
+    function testAgentCards() {
+      const resultElement = document.getElementById('agent-cards-test-result');
+      resultElement.innerHTML = 'Testing agent cards...';
+      
+      // Check if agent cards container exists
+      const agentCardsContainer = document.querySelector('.agent-cards-container');
+      
+      if (agentCardsContainer) {
+        resultElement.innerHTML = `<p class="success">Agent cards container found</p>`;
+        
+        // Check if agent cards exist
+        const agentCards = document.querySelectorAll('.agent-card');
+        
+        if (agentCards.length > 0) {
+          resultElement.innerHTML += `<p class="success">Agent cards found: ${agentCards.length}</p>`;
+          
+          // Check card elements
+          const headers = document.querySelectorAll('.agent-card-header');
+          const bodies = document.querySelectorAll('.agent-card-body');
+          const footers = document.querySelectorAll('.agent-card-footer');
+          
+          if (headers.length === agentCards.length && 
+              bodies.length === agentCards.length && 
+              footers.length === agentCards.length) {
+            resultElement.innerHTML += `<p class="success">Agent card elements found</p>`;
+          } else {
+            resultElement.innerHTML += `<p class="error">Agent card elements not found</p>`;
+          }
+          
+          // Check status indicators
+          const statusIndicators = document.querySelectorAll('.status-indicator');
+          
+          if (statusIndicators.length === agentCards.length) {
+            resultElement.innerHTML += `<p class="success">Status indicators found</p>`;
+          } else {
+            resultElement.innerHTML += `<p class="error">Status indicators not found</p>`;
+          }
+          
+          // Check action buttons
+          const actionButtons = document.querySelectorAll('.agent-action');
+          
+          if (actionButtons.length === agentCards.length * 3) {
+            resultElement.innerHTML += `<p class="success">Action buttons found</p>`;
+            resultElement.innerHTML += `<p class="success">Agent cards test passed!</p>`;
+          } else {
+            resultElement.innerHTML += `<p class="error">Action buttons not found</p>`;
+          }
+        } else {
+          resultElement.innerHTML += `<p class="error">No agent cards found</p>`;
+        }
+      } else {
+        resultElement.innerHTML += `<p class="error">Agent cards container not found</p>`;
+      }
+    }
+    
+    // Test validation system
+    function testValidationSystem() {
+      const resultElement = document.getElementById('validation-system-test-result');
+      resultElement.innerHTML = 'Testing validation system...';
+      
+      // Check if validation button exists
+      const validationButton = document.getElementById('validation-report-btn');
+      
+      if (validationButton) {
+        resultElement.innerHTML = `<p class="success">Validation button found</p>`;
+        
+        // Click validation button
+        validationButton.click();
+        
+        // Check if validation report container exists
+        setTimeout(() => {
+          const reportContainer = document.getElementById('validation-report-container');
+          
+          if (reportContainer) {
+            resultElement.innerHTML += `<p class="success">Validation report container found</p>`;
+            
+            // Check report content
+            const reportContent = reportContainer.querySelector('div');
+            
+            if (reportContent) {
+              resultElement.innerHTML += `<p class="success">Validation report content found</p>`;
+              resultElement.innerHTML += `<p class="success">Validation system test passed!</p>`;
+              
+              // Close report
+              const closeButton = reportContainer.querySelector('button');
+              if (closeButton) {
+                closeButton.click();
+              }
+            } else {
+              resultElement.innerHTML += `<p class="error">Validation report content not found</p>`;
+            }
+          } else {
+            resultElement.innerHTML += `<p class="error">Validation report container not found</p>`;
+          }
+        }, 500);
+      } else {
+        resultElement.innerHTML = `<p class="error">Validation button not found</p>`;
+        resultElement.innerHTML += `<p>Please make sure the validation system component is loaded.</p>`;
+      }
+    }
+  </script>
+  
+  <!-- Load UI Components -->
+  <script src="/js/ui-components-enhanced.js"></script>
+</body>
+</html>

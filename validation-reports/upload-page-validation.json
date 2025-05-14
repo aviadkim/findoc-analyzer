@@ -1,0 +1,120 @@
+{
+  "url": "https://backv2-app-brfi73d4ra-zf.a.run.app/upload",
+  "timestamp": "2025-05-11T08:24:36.339Z",
+  "totalExpectedElements": 22,
+  "foundElements": [
+    {
+      "element": "Process Document Button",
+      "selector": "#process-document-btn",
+      "location": "document detail page"
+    },
+    {
+      "element": "Document Chat Container",
+      "selector": "#document-chat-container",
+      "location": "document chat page"
+    },
+    {
+      "element": "Document Chat Input",
+      "selector": "#document-chat-input",
+      "location": "document chat page"
+    },
+    {
+      "element": "Document Chat Send Button",
+      "selector": "#document-send-btn",
+      "location": "document chat page"
+    },
+    {
+      "element": "Document Chat Messages",
+      "selector": "#document-chat-messages",
+      "location": "document chat page"
+    },
+    {
+      "element": "Login Form",
+      "selector": "#login-form",
+      "location": "login page"
+    },
+    {
+      "element": "Google Login Button",
+      "selector": "#google-login-btn",
+      "location": "login and signup pages"
+    },
+    {
+      "element": "User Navigation",
+      "selector": "#user-nav",
+      "location": "header"
+    },
+    {
+      "element": "Agent Notification",
+      "selector": "#agent-notification",
+      "location": "global"
+    },
+    {
+      "element": "Sidebar",
+      "selector": ".sidebar",
+      "location": "left side of page"
+    },
+    {
+      "element": "Main Content",
+      "selector": ".main-content",
+      "location": "right side of page"
+    },
+    {
+      "element": "Notification",
+      "selector": "#notification",
+      "location": "global"
+    }
+  ],
+  "missingElements": [
+    {
+      "element": "Reprocess Document Button",
+      "selector": "#reprocess-document-btn",
+      "expectedLocation": "document detail page"
+    },
+    {
+      "element": "Download Document Button",
+      "selector": "#download-document-btn",
+      "expectedLocation": "document detail page"
+    },
+    {
+      "element": "Processing Status Indicator",
+      "selector": "#processing-status",
+      "expectedLocation": "document detail page"
+    },
+    {
+      "element": "Processing Progress Bar",
+      "selector": "#processing-progress-bar",
+      "expectedLocation": "document detail page"
+    },
+    {
+      "element": "Document Selector",
+      "selector": "#document-select",
+      "expectedLocation": "document chat page"
+    },
+    {
+      "element": "Register Form",
+      "selector": "#register-form",
+      "expectedLocation": "signup page"
+    },
+    {
+      "element": "Auth Error Display",
+      "selector": "#auth-error",
+      "expectedLocation": "login and signup pages"
+    },
+    {
+      "element": "Agent Cards",
+      "selector": ".agent-card",
+      "expectedLocation": "test page"
+    },
+    {
+      "element": "Agent Status Indicators",
+      "selector": ".status-indicator",
+      "expectedLocation": "agent cards"
+    },
+    {
+      "element": "Agent Action Buttons",
+      "selector": ".agent-action",
+      "expectedLocation": "agent cards"
+    }
+  ],
+  "complete": false
+}

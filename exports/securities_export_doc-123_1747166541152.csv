@@ -1,0 +1,11 @@
+isin,name,type,quantity,price,value,currency,marketPrice,marketValue,priceChange,priceChangePercent,lastUpdated,dataProvider,id,symbol,description,sector,country,exchange
+"FR6954548361","Amazon.com Inc.","Option",158,940.01,148521.58,"GBP",928.92,146769.36,-11.09,-1.18,"2025-05-13T20:02:21.152Z","Yahoo Finance","sec-1","AMAZON.COM",,"Financial Services","FR",
+"GB3221598920","Microsoft Corp.","Cash",334,417.53,139455.02,"GBP",413.56,138129.04,-3.97,-0.95,"2025-05-13T20:02:21.152Z","Yahoo Finance","sec-2","MICROSOFT",,"Consumer Defensive","GB",
+"US1287163960","Procter & Gamble Co.","Fund",117,372.63,43597.71,"GBP",374.2,43781.4,1.57,0.42,"2025-05-13T20:02:21.152Z","Yahoo Finance","sec-3","PROCTER",,"Consumer Cyclical","US",
+"IL1796390476","Johnson & Johnson","Cash",214,329.94,70607.16,"EUR",345.15,73862.1,15.21,4.61,"2025-05-13T20:02:21.152Z","Yahoo Finance","sec-4","JOHNSON",,"Financial Services","IL",
+"US9421836733","UnitedHealth Group Inc.","Fund",33,25.78,850.74,"USD",25.6,844.8,-0.18,-0.69,"2025-05-13T20:02:21.152Z","Yahoo Finance","sec-5","UNITEDHEALTH",,"Energy","US",
+"US2451963479","Visa Inc.","ETF",622,901.65,560826.3,"EUR",899.13,559258.86,-2.52,-0.28,"2025-05-13T20:02:21.152Z","Yahoo Finance","sec-6","VISA",,"Financial Services","US",
+"JP3637355895","NVIDIA Corp.","Bond",45,762.18,34298.1,"USD",741.91,33385.95,-20.27,-2.66,"2025-05-13T20:02:21.152Z","Yahoo Finance","sec-7","NVIDIA",,"Communication Services","JP",
+"FR0132865641","Johnson & Johnson","Bond",464,480.96,223165.44,"EUR",501.74,232807.36,20.78,4.32,"2025-05-13T20:02:21.152Z","Yahoo Finance","sec-8","JOHNSON",,"Financial Services","FR",
+"GB0612550992","Mastercard Inc.","Bond",781,327.1,255465.1,"EUR",337.14,263306.34,10.04,3.07,"2025-05-13T20:02:21.152Z","Yahoo Finance","sec-9","MASTERCARD",,"Financial Services","GB",
+"DE2630457565","UnitedHealth Group Inc.","ETF",911,234.23,213383.53,"GBP",229.85,209393.35,-4.38,-1.87,"2025-05-13T20:02:21.152Z","Yahoo Finance","sec-10","UNITEDHEALTH",,"Industrials","DE",

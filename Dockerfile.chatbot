@@ -1,0 +1,66 @@
+# Chatbot Service Dockerfile for FinDoc Analyzer
+FROM node:18-alpine AS builder
+
+# Set working directory
+WORKDIR /app
+
+# Install build dependencies
+RUN apk add --no-cache python3 make g++ git
+
+# Copy package files
+COPY package*.json ./
+
+# Install dependencies (including development dependencies)
+RUN npm ci
+
+# Copy source code
+COPY . .
+
+# Build the service if using TypeScript
+# RUN npm run build:chatbot
+
+# Production Stage
+FROM node:18-alpine
+
+# Set working directory
+WORKDIR /app
+
+# Install runtime dependencies
+RUN apk add --no-cache curl tini
+
+# Set node environment
+ENV NODE_ENV=production
+
+# Create necessary directories and set permissions
+RUN mkdir -p /app/data/chat-cache /app/logs /app/config && \
+    chown -R node:node /app
+
+# Copy package files and node modules
+COPY --from=builder --chown=node:node /app/package*.json ./
+COPY --from=builder --chown=node:node /app/node_modules ./node_modules
+
+# Copy chatbot service files
+COPY --from=builder --chown=node:node /app/services/chatbot ./services/chatbot
+COPY --from=builder --chown=node:node /app/services/ai ./services/ai
+COPY --from=builder --chown=node:node /app/utils ./utils
+COPY --from=builder --chown=node:node /app/models ./models
+COPY --from=builder --chown=node:node /app/prompts ./prompts
+
+# Copy the chatbot service entry point
+COPY --from=builder --chown=node:node /app/chatbot-service.js ./
+
+# Add healthcheck
+HEALTHCHECK --interval=30s --timeout=10s --start-period=30s --retries=3 \
+    CMD curl -f http://localhost:${PORT:-3100}/health || exit 1
+
+# Expose API port
+EXPOSE 3100
+
+# Use tini as entrypoint to manage signals and zombie processes
+ENTRYPOINT ["/sbin/tini", "--"]
+
+# Switch to non-root user
+USER node
+
+# Start the chatbot service
+CMD ["node", "chatbot-service.js"]

@@ -1,0 +1,251 @@
+
+  <!DOCTYPE html>
+  <html>
+  <head>
+    <title>Deployment Test Results (13 Tests)</title>
+    <style>
+      body { font-family: Arial, sans-serif; margin: 20px; }
+      h1, h2, h3 { color: #333; }
+      .summary { background-color: #f5f5f5; padding: 15px; border-radius: 5px; margin-bottom: 20px; }
+      .category { margin-bottom: 30px; }
+      .test { margin-bottom: 10px; padding: 10px; border-radius: 5px; }
+      .passed { background-color: #e6ffe6; border-left: 5px solid #4CAF50; }
+      .failed { background-color: #ffebeb; border-left: 5px solid #f44336; }
+      .error { color: #f44336; margin-top: 5px; font-family: monospace; }
+      .screenshot { max-width: 300px; margin-top: 10px; cursor: pointer; border: 1px solid #ddd; }
+      .screenshot:hover { opacity: 0.8; }
+      .modal { display: none; position: fixed; z-index: 1; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.9); }
+      .modal-content { margin: auto; display: block; max-width: 90%; max-height: 90%; }
+      .close { position: absolute; top: 15px; right: 35px; color: #f1f1f1; font-size: 40px; font-weight: bold; cursor: pointer; }
+      .progress-bar { height: 20px; background-color: #f5f5f5; border-radius: 5px; margin-bottom: 10px; }
+      .progress { height: 100%; background-color: #4CAF50; border-radius: 5px; text-align: center; line-height: 20px; color: white; }
+      .progress.failed { background-color: #f44336; }
+      table { width: 100%; border-collapse: collapse; }
+      th, td { padding: 8px; text-align: left; border-bottom: 1px solid #ddd; }
+      th { background-color: #f2f2f2; }
+    </style>
+  </head>
+  <body>
+    <h1>Deployment Test Results</h1>
+    
+    <div class="summary">
+      <h2>Summary</h2>
+      <div class="progress-bar">
+        <div class="progress" style="width: 100%;">
+          100%
+        </div>
+      </div>
+      <p>Total Tests: <strong>13</strong></p>
+      <p>Passed: <strong style="color: #4CAF50;">13</strong></p>
+      <p>Failed: <strong style="color: #f44336;">0</strong></p>
+      <p>Test Run: <strong>5/14/2025, 3:00:34 PM</strong></p>
+    </div>
+    
+    <h2>Categories</h2>
+    <table>
+      <tr>
+        <th>Category</th>
+        <th>Total</th>
+        <th>Passed</th>
+        <th>Failed</th>
+        <th>Pass Rate</th>
+      </tr>
+      
+        <tr>
+          <td>Critical UI Components</td>
+          <td>5</td>
+          <td>5</td>
+          <td>0</td>
+          <td>100%</td>
+        </tr>
+      
+        <tr>
+          <td>Document Processing</td>
+          <td>2</td>
+          <td>2</td>
+          <td>0</td>
+          <td>100%</td>
+        </tr>
+      
+        <tr>
+          <td>Document Chat</td>
+          <td>4</td>
+          <td>4</td>
+          <td>0</td>
+          <td>100%</td>
+        </tr>
+      
+        <tr>
+          <td>API Endpoints</td>
+          <td>2</td>
+          <td>2</td>
+          <td>0</td>
+          <td>100%</td>
+        </tr>
+      
+    </table>
+    
+    
+      <div class="category">
+        <h2>Critical UI Components</h2>
+        
+          <div class="test passed">
+            <h3>Process Document Button</h3>
+            <p><strong>Status:</strong> Passed</p>
+            
+            
+              <img src="../deployment-test-screenshots\homepage.png" class="screenshot" onclick="openModal(this.src)">
+            
+          </div>
+        
+          <div class="test passed">
+            <h3>Document Chat Container</h3>
+            <p><strong>Status:</strong> Passed</p>
+            
+            
+              <img src="../deployment-test-screenshots\homepage.png" class="screenshot" onclick="openModal(this.src)">
+            
+          </div>
+        
+          <div class="test passed">
+            <h3>Document Chat Send Button</h3>
+            <p><strong>Status:</strong> Passed</p>
+            
+            
+              <img src="../deployment-test-screenshots\homepage.png" class="screenshot" onclick="openModal(this.src)">
+            
+          </div>
+        
+          <div class="test passed">
+            <h3>Login Form</h3>
+            <p><strong>Status:</strong> Passed</p>
+            
+            
+              <img src="../deployment-test-screenshots\homepage.png" class="screenshot" onclick="openModal(this.src)">
+            
+          </div>
+        
+          <div class="test passed">
+            <h3>Google Login Button</h3>
+            <p><strong>Status:</strong> Passed</p>
+            
+            
+              <img src="../deployment-test-screenshots\homepage.png" class="screenshot" onclick="openModal(this.src)">
+            
+          </div>
+        
+      </div>
+    
+      <div class="category">
+        <h2>Document Processing</h2>
+        
+          <div class="test passed">
+            <h3>Document Cards</h3>
+            <p><strong>Status:</strong> Passed</p>
+            
+            
+              <img src="../deployment-test-screenshots\documents-page.png" class="screenshot" onclick="openModal(this.src)">
+            
+          </div>
+        
+          <div class="test passed">
+            <h3>Process Button on Documents Page</h3>
+            <p><strong>Status:</strong> Passed</p>
+            
+            
+              <img src="../deployment-test-screenshots\documents-page.png" class="screenshot" onclick="openModal(this.src)">
+            
+          </div>
+        
+      </div>
+    
+      <div class="category">
+        <h2>Document Chat</h2>
+        
+          <div class="test passed">
+            <h3>Chat Container</h3>
+            <p><strong>Status:</strong> Passed</p>
+            
+            
+              <img src="../deployment-test-screenshots\document-chat-page.png" class="screenshot" onclick="openModal(this.src)">
+            
+          </div>
+        
+          <div class="test passed">
+            <h3>Chat Input</h3>
+            <p><strong>Status:</strong> Passed</p>
+            
+            
+              <img src="../deployment-test-screenshots\document-chat-page.png" class="screenshot" onclick="openModal(this.src)">
+            
+          </div>
+        
+          <div class="test passed">
+            <h3>Send Button</h3>
+            <p><strong>Status:</strong> Passed</p>
+            
+            
+              <img src="../deployment-test-screenshots\document-chat-page.png" class="screenshot" onclick="openModal(this.src)">
+            
+          </div>
+        
+          <div class="test passed">
+            <h3>Chat Messages Container</h3>
+            <p><strong>Status:</strong> Passed</p>
+            
+            
+              <img src="../deployment-test-screenshots\document-chat-page.png" class="screenshot" onclick="openModal(this.src)">
+            
+          </div>
+        
+      </div>
+    
+      <div class="category">
+        <h2>API Endpoints</h2>
+        
+          <div class="test passed">
+            <h3>API Health Endpoint</h3>
+            <p><strong>Status:</strong> Passed</p>
+            
+            
+              <img src="../deployment-test-screenshots\api-health.png" class="screenshot" onclick="openModal(this.src)">
+            
+          </div>
+        
+          <div class="test passed">
+            <h3>Documents API Endpoint</h3>
+            <p><strong>Status:</strong> Passed</p>
+            
+            
+              <img src="../deployment-test-screenshots\api-documents.png" class="screenshot" onclick="openModal(this.src)">
+            
+          </div>
+        
+      </div>
+    
+    
+    <div id="imageModal" class="modal">
+      <span class="close" onclick="closeModal()">&times;</span>
+      <img class="modal-content" id="modalImage">
+    </div>
+    
+    <script>
+      function openModal(src) {
+        document.getElementById('imageModal').style.display = 'block';
+        document.getElementById('modalImage').src = src;
+      }
+      
+      function closeModal() {
+        document.getElementById('imageModal').style.display = 'none';
+      }
+      
+      // Close modal when clicking outside the image
+      window.onclick = function(event) {
+        if (event.target == document.getElementById('imageModal')) {
+          closeModal();
+        }
+      }
+    </script>
+  </body>
+  </html>
+  

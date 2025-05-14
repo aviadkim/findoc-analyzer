@@ -1,0 +1,423 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UI Test Results</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    h1, h2, h3 {
+      color: #333;
+    }
+    .summary {
+      background-color: #f8f9fa;
+      padding: 20px;
+      border-radius: 5px;
+      margin-bottom: 30px;
+    }
+    .progress-bar {
+      height: 20px;
+      background-color: #e9ecef;
+      border-radius: 10px;
+      margin: 10px 0;
+      overflow: hidden;
+    }
+    .progress {
+      height: 100%;
+      text-align: center;
+      line-height: 20px;
+      color: white;
+      font-weight: bold;
+      background-color: #ff9800;
+      width: 83.33333333333334%;
+    }
+    .page-results {
+      background-color: #f8f9fa;
+      padding: 20px;
+      border-radius: 5px;
+      margin-bottom: 20px;
+    }
+    .component-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 10px;
+      margin-top: 10px;
+    }
+    .component-item {
+      padding: 10px;
+      border-radius: 5px;
+      display: flex;
+      align-items: center;
+    }
+    .component-item.found {
+      background-color: #e8f5e9;
+    }
+    .component-item.missing {
+      background-color: #ffebee;
+    }
+    .status-icon {
+      margin-right: 10px;
+      font-size: 18px;
+    }
+    .recommendations {
+      background-color: #fff8e1;
+      padding: 15px;
+      border-radius: 5px;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h1>FinDoc Analyzer UI Test Results</h1>
+  
+  <div class="summary">
+    <h2>Summary</h2>
+    <div class="progress-bar">
+      <div class="progress">83%</div>
+    </div>
+    <p><strong>Total components:</strong> 30</p>
+    <p><strong>Found components:</strong> 25</p>
+    <p><strong>Missing components:</strong> 5</p>
+    <p><strong>Pass rate:</strong> 83%</p>
+  </div>
+  
+  <h2>Page Results</h2>
+  
+  
+    <div class="page-results">
+      <h3>Dashboard Page (/)</h3>
+      <p><strong>Components:</strong> 4/4 (100%)</p>
+      
+      <div class="component-list">
+        
+          <div class="component-item found">
+            <span class="status-icon">✅</span>
+            <div>
+              <strong>Sidebar</strong>
+              <div><small>.sidebar</small></div>
+            </div>
+          </div>
+        
+          <div class="component-item found">
+            <span class="status-icon">✅</span>
+            <div>
+              <strong>Show Chat Button</strong>
+              <div><small>#show-chat-btn</small></div>
+            </div>
+          </div>
+        
+          <div class="component-item found">
+            <span class="status-icon">✅</span>
+            <div>
+              <strong>Document Chat Container</strong>
+              <div><small>#document-chat-container</small></div>
+            </div>
+          </div>
+        
+          <div class="component-item found">
+            <span class="status-icon">✅</span>
+            <div>
+              <strong>Recent Documents</strong>
+              <div><small>.recent-documents</small></div>
+            </div>
+          </div>
+        
+      </div>
+      
+      
+    </div>
+  
+    <div class="page-results">
+      <h3>Documents Page (/documents-new)</h3>
+      <p><strong>Components:</strong> 6/6 (100%)</p>
+      
+      <div class="component-list">
+        
+          <div class="component-item found">
+            <span class="status-icon">✅</span>
+            <div>
+              <strong>Sidebar</strong>
+              <div><small>.sidebar</small></div>
+            </div>
+          </div>
+        
+          <div class="component-item found">
+            <span class="status-icon">✅</span>
+            <div>
+              <strong>Show Chat Button</strong>
+              <div><small>#show-chat-btn</small></div>
+            </div>
+          </div>
+        
+          <div class="component-item found">
+            <span class="status-icon">✅</span>
+            <div>
+              <strong>Document Chat Container</strong>
+              <div><small>#document-chat-container</small></div>
+            </div>
+          </div>
+        
+          <div class="component-item found">
+            <span class="status-icon">✅</span>
+            <div>
+              <strong>Document List</strong>
+              <div><small>#document-list</small></div>
+            </div>
+          </div>
+        
+          <div class="component-item found">
+            <span class="status-icon">✅</span>
+            <div>
+              <strong>Document Item</strong>
+              <div><small>.document-item</small></div>
+            </div>
+          </div>
+        
+          <div class="component-item found">
+            <span class="status-icon">✅</span>
+            <div>
+              <strong>Document Actions</strong>
+              <div><small>.document-actions</small></div>
+            </div>
+          </div>
+        
+      </div>
+      
+      
+    </div>
+  
+    <div class="page-results">
+      <h3>Upload Page (/upload)</h3>
+      <p><strong>Components:</strong> 6/7 (86%)</p>
+      
+      <div class="component-list">
+        
+          <div class="component-item missing">
+            <span class="status-icon">❌</span>
+            <div>
+              <strong>Sidebar</strong>
+              <div><small>.sidebar</small></div>
+            </div>
+          </div>
+        
+          <div class="component-item found">
+            <span class="status-icon">✅</span>
+            <div>
+              <strong>Show Chat Button</strong>
+              <div><small>#show-chat-btn</small></div>
+            </div>
+          </div>
+        
+          <div class="component-item found">
+            <span class="status-icon">✅</span>
+            <div>
+              <strong>Document Chat Container</strong>
+              <div><small>#document-chat-container</small></div>
+            </div>
+          </div>
+        
+          <div class="component-item found">
+            <span class="status-icon">✅</span>
+            <div>
+              <strong>Upload Form</strong>
+              <div><small>form</small></div>
+            </div>
+          </div>
+        
+          <div class="component-item found">
+            <span class="status-icon">✅</span>
+            <div>
+              <strong>File Input</strong>
+              <div><small>input[type="file"]</small></div>
+            </div>
+          </div>
+        
+          <div class="component-item found">
+            <span class="status-icon">✅</span>
+            <div>
+              <strong>Process Document Button</strong>
+              <div><small>#process-document-btn</small></div>
+            </div>
+          </div>
+        
+          <div class="component-item found">
+            <span class="status-icon">✅</span>
+            <div>
+              <strong>Progress Container</strong>
+              <div><small>#progress-container</small></div>
+            </div>
+          </div>
+        
+      </div>
+      
+      
+        <div class="recommendations">
+          <h4>Recommendations</h4>
+          <ul>
+            
+                <li>Add the <strong>Sidebar</strong> component (selector: <code>.sidebar</code>)</li>
+              
+          </ul>
+        </div>
+      
+    </div>
+  
+    <div class="page-results">
+      <h3>Document Chat Page (/document-chat)</h3>
+      <p><strong>Components:</strong> 7/7 (100%)</p>
+      
+      <div class="component-list">
+        
+          <div class="component-item found">
+            <span class="status-icon">✅</span>
+            <div>
+              <strong>Sidebar</strong>
+              <div><small>.sidebar</small></div>
+            </div>
+          </div>
+        
+          <div class="component-item found">
+            <span class="status-icon">✅</span>
+            <div>
+              <strong>Show Chat Button</strong>
+              <div><small>#show-chat-btn</small></div>
+            </div>
+          </div>
+        
+          <div class="component-item found">
+            <span class="status-icon">✅</span>
+            <div>
+              <strong>Document Chat Container</strong>
+              <div><small>#document-chat-container</small></div>
+            </div>
+          </div>
+        
+          <div class="component-item found">
+            <span class="status-icon">✅</span>
+            <div>
+              <strong>Document Selector</strong>
+              <div><small>.document-selector</small></div>
+            </div>
+          </div>
+        
+          <div class="component-item found">
+            <span class="status-icon">✅</span>
+            <div>
+              <strong>Chat Messages</strong>
+              <div><small>.chat-messages</small></div>
+            </div>
+          </div>
+        
+          <div class="component-item found">
+            <span class="status-icon">✅</span>
+            <div>
+              <strong>Document Chat Input</strong>
+              <div><small>#document-chat-input, #question-input</small></div>
+            </div>
+          </div>
+        
+          <div class="component-item found">
+            <span class="status-icon">✅</span>
+            <div>
+              <strong>Document Chat Send Button</strong>
+              <div><small>#document-send-btn, #send-btn</small></div>
+            </div>
+          </div>
+        
+      </div>
+      
+      
+    </div>
+  
+    <div class="page-results">
+      <h3>Test Page (/test)</h3>
+      <p><strong>Components:</strong> 2/6 (33%)</p>
+      
+      <div class="component-list">
+        
+          <div class="component-item missing">
+            <span class="status-icon">❌</span>
+            <div>
+              <strong>Sidebar</strong>
+              <div><small>.sidebar</small></div>
+            </div>
+          </div>
+        
+          <div class="component-item found">
+            <span class="status-icon">✅</span>
+            <div>
+              <strong>Show Chat Button</strong>
+              <div><small>#show-chat-btn</small></div>
+            </div>
+          </div>
+        
+          <div class="component-item found">
+            <span class="status-icon">✅</span>
+            <div>
+              <strong>Document Chat Container</strong>
+              <div><small>#document-chat-container</small></div>
+            </div>
+          </div>
+        
+          <div class="component-item missing">
+            <span class="status-icon">❌</span>
+            <div>
+              <strong>Agent Card</strong>
+              <div><small>.agent-card</small></div>
+            </div>
+          </div>
+        
+          <div class="component-item missing">
+            <span class="status-icon">❌</span>
+            <div>
+              <strong>Agent Status Indicator</strong>
+              <div><small>.status-indicator</small></div>
+            </div>
+          </div>
+        
+          <div class="component-item missing">
+            <span class="status-icon">❌</span>
+            <div>
+              <strong>Agent Action Button</strong>
+              <div><small>.agent-action</small></div>
+            </div>
+          </div>
+        
+      </div>
+      
+      
+        <div class="recommendations">
+          <h4>Recommendations</h4>
+          <ul>
+            
+                <li>Add the <strong>Sidebar</strong> component (selector: <code>.sidebar</code>)</li>
+              
+                <li>Add the <strong>Agent Card</strong> component (selector: <code>.agent-card</code>)</li>
+              
+                <li>Add the <strong>Agent Status Indicator</strong> component (selector: <code>.status-indicator</code>)</li>
+              
+                <li>Add the <strong>Agent Action Button</strong> component (selector: <code>.agent-action</code>)</li>
+              
+          </ul>
+        </div>
+      
+    </div>
+  
+  
+  <h2>Next Steps</h2>
+  
+  <ol>
+    <li>Add the <code>ui-fix.js</code> script to all HTML pages to automatically fix missing components</li>
+    <li>Run the tests again to verify that all components are present</li>
+    <li>Deploy the fixed UI to both local and cloud environments</li>
+  </ol>
+</body>
+</html>
+  

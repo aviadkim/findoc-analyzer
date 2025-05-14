@@ -1,0 +1,152 @@
+{
+  "totalElements": 33,
+  "foundElements": 4,
+  "visibleElements": 2,
+  "missingElements": [
+    {
+      "url": "https://backv2-app-brfi73d4ra-zf.a.run.app/",
+      "selector": "#process-document-btn",
+      "description": "Process Document Button"
+    },
+    {
+      "url": "https://backv2-app-brfi73d4ra-zf.a.run.app/",
+      "selector": "#document-chat-container",
+      "description": "Document Chat Container"
+    },
+    {
+      "url": "https://backv2-app-brfi73d4ra-zf.a.run.app/",
+      "selector": "#document-send-btn",
+      "description": "Document Chat Send Button"
+    },
+    {
+      "url": "https://backv2-app-brfi73d4ra-zf.a.run.app/",
+      "selector": "#login-form",
+      "description": "Login Form"
+    },
+    {
+      "url": "https://backv2-app-brfi73d4ra-zf.a.run.app/",
+      "selector": "#google-login-btn",
+      "description": "Google Login Button"
+    },
+    {
+      "url": "https://backv2-app-brfi73d4ra-zf.a.run.app/documents-new",
+      "selector": "#process-document-btn",
+      "description": "Process Document Button"
+    },
+    {
+      "url": "https://backv2-app-brfi73d4ra-zf.a.run.app/documents-new",
+      "selector": "#document-chat-container",
+      "description": "Document Chat Container"
+    },
+    {
+      "url": "https://backv2-app-brfi73d4ra-zf.a.run.app/documents-new",
+      "selector": "#document-send-btn",
+      "description": "Document Chat Send Button"
+    },
+    {
+      "url": "https://backv2-app-brfi73d4ra-zf.a.run.app/documents-new",
+      "selector": "#login-form",
+      "description": "Login Form"
+    },
+    {
+      "url": "https://backv2-app-brfi73d4ra-zf.a.run.app/documents-new",
+      "selector": "#google-login-btn",
+      "description": "Google Login Button"
+    },
+    {
+      "url": "https://backv2-app-brfi73d4ra-zf.a.run.app/upload",
+      "selector": "#process-document-btn",
+      "description": "Process Document Button"
+    },
+    {
+      "url": "https://backv2-app-brfi73d4ra-zf.a.run.app/upload",
+      "selector": "#document-chat-container",
+      "description": "Document Chat Container"
+    },
+    {
+      "url": "https://backv2-app-brfi73d4ra-zf.a.run.app/upload",
+      "selector": "#document-send-btn",
+      "description": "Document Chat Send Button"
+    },
+    {
+      "url": "https://backv2-app-brfi73d4ra-zf.a.run.app/upload",
+      "selector": "#login-form",
+      "description": "Login Form"
+    },
+    {
+      "url": "https://backv2-app-brfi73d4ra-zf.a.run.app/upload",
+      "selector": "#google-login-btn",
+      "description": "Google Login Button"
+    },
+    {
+      "url": "https://backv2-app-brfi73d4ra-zf.a.run.app/document-chat",
+      "selector": "#process-document-btn",
+      "description": "Process Document Button"
+    },
+    {
+      "url": "https://backv2-app-brfi73d4ra-zf.a.run.app/document-chat",
+      "selector": "#login-form",
+      "description": "Login Form"
+    },
+    {
+      "url": "https://backv2-app-brfi73d4ra-zf.a.run.app/document-chat",
+      "selector": "#google-login-btn",
+      "description": "Google Login Button"
+    },
+    {
+      "url": "https://backv2-app-brfi73d4ra-zf.a.run.app/login",
+      "selector": "#process-document-btn",
+      "description": "Process Document Button"
+    },
+    {
+      "url": "https://backv2-app-brfi73d4ra-zf.a.run.app/login",
+      "selector": "#document-chat-container",
+      "description": "Document Chat Container"
+    },
+    {
+      "url": "https://backv2-app-brfi73d4ra-zf.a.run.app/login",
+      "selector": "#document-send-btn",
+      "description": "Document Chat Send Button"
+    },
+    {
+      "url": "https://backv2-app-brfi73d4ra-zf.a.run.app/test",
+      "selector": "#process-document-btn",
+      "description": "Process Document Button"
+    },
+    {
+      "url": "https://backv2-app-brfi73d4ra-zf.a.run.app/test",
+      "selector": "#document-chat-container",
+      "description": "Document Chat Container"
+    },
+    {
+      "url": "https://backv2-app-brfi73d4ra-zf.a.run.app/test",
+      "selector": "#document-send-btn",
+      "description": "Document Chat Send Button"
+    },
+    {
+      "url": "https://backv2-app-brfi73d4ra-zf.a.run.app/test",
+      "selector": "#login-form",
+      "description": "Login Form"
+    },
+    {
+      "url": "https://backv2-app-brfi73d4ra-zf.a.run.app/test",
+      "selector": "#google-login-btn",
+      "description": "Google Login Button"
+    },
+    {
+      "url": "https://backv2-app-brfi73d4ra-zf.a.run.app/test",
+      "selector": ".agent-card",
+      "description": "Agent Cards"
+    },
+    {
+      "url": "https://backv2-app-brfi73d4ra-zf.a.run.app/test",
+      "selector": ".status-indicator",
+      "description": "Agent Status Indicators"
+    },
+    {
+      "url": "https://backv2-app-brfi73d4ra-zf.a.run.app/test",
+      "selector": ".agent-action",
+      "description": "Agent Action Buttons"
+    }
+  ]
+}

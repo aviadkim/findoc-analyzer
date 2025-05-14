@@ -1,0 +1,33 @@
+{
+  "total": 5,
+  "passed": 5,
+  "failed": 0,
+  "skipped": 0,
+  "tests": [
+    {
+      "name": "Document chat test 1",
+      "status": "passed",
+      "duration": 6940
+    },
+    {
+      "name": "Document chat test 2",
+      "status": "passed",
+      "duration": 6680
+    },
+    {
+      "name": "Document chat test 3",
+      "status": "passed",
+      "duration": 6754
+    },
+    {
+      "name": "Document chat test 4",
+      "status": "passed",
+      "duration": 6607
+    },
+    {
+      "name": "Document chat test 5",
+      "status": "passed",
+      "duration": 6513
+    }
+  ]
+}

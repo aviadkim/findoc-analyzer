@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account Settings</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <style>
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        .section {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+        .section:last-child {
+            border-bottom: none;
+        }
+        .section-title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input[type="text"],
+        input[type="email"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #4caf50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .btn-secondary {
+            background-color: #6c757d;
+        }
+        .btn-secondary:hover {
+            background-color: #5a6268;
+        }
+        .btn-danger {
+            background-color: #dc3545;
+        }
+        .btn-danger:hover {
+            background-color: #c82333;
+        }
+        .alert {
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 4px;
+        }
+        .alert-success {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        .alert-danger {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+        .alert-warning {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+        .hidden {
+            display: none;
+        }
+        .security-status {
+            padding: 10px 15px;
+            border-radius: 4px;
+            display: inline-block;
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
+        .status-success {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        .status-warning {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+        .security-recommendation {
+            margin-top: 15px;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 4px;
+            border-left: 3px solid #17a2b8;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+        }
+        .modal-content {
+            background-color: white;
+            margin: 15% auto;
+            padding: 20px;
+            border-radius: 8px;
+            width: 80%;
+            max-width: 500px;
+        }
+        .close {
+            float: right;
+            cursor: pointer;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .close:hover {
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Account Settings</h1>
+            <a href="/" style="color: #4caf50; text-decoration: none;">Back to Dashboard</a>
+        </div>
+        
+        <div id="success-message" class="alert alert-success hidden"></div>
+        <div id="error-message" class="alert alert-danger hidden"></div>
+        
+        <div class="section">
+            <div class="section-title">
+                <h2>Profile Information</h2>
+                <button id="edit-profile-btn" class="btn-secondary">Edit</button>
+            </div>
+            <div id="profile-info">
+                <p><strong>Name:</strong> <span id="user-name">Loading...</span></p>
+                <p><strong>Email:</strong> <span id="user-email">Loading...</span></p>
+            </div>
+            <div id="profile-edit" class="hidden">
+                <form id="profile-form">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" name="name">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" disabled>
+                        <small style="color: #6c757d;">Email cannot be changed</small>
+                    </div>
+                    <button type="submit">Save Changes</button>
+                    <button type="button" id="cancel-profile-edit" class="btn-secondary">Cancel</button>
+                </form>
+            </div>
+        </div>
+        
+        <div class="section">
+            <div class="section-title">
+                <h2>Security</h2>
+            </div>
+            
+            <h3>Multi-Factor Authentication</h3>
+            <div id="mfa-status">
+                <div id="mfa-enabled" class="hidden">
+                    <div class="security-status status-success">
+                        <span>MFA is enabled</span> ✅
+                    </div>
+                    <p>Your account is protected with multi-factor authentication.</p>
+                    <button id="disable-mfa-btn" class="btn-danger">Disable MFA</button>
+                </div>
+                
+                <div id="mfa-disabled" class="hidden">
+                    <div class="security-status status-warning">
+                        <span>MFA is not enabled</span> ⚠️
+                    </div>
+                    <p>Protect your account with an additional layer of security.</p>
+                    <div class="security-recommendation">
+                        <strong>Recommendation:</strong> Enable multi-factor authentication to protect your account even if your password is compromised.
+                    </div>
+                    <button id="enable-mfa-btn">Enable MFA</button>
+                </div>
+            </div>
+            
+            <div style="margin-top: 30px;">
+                <h3>Password</h3>
+                <button id="change-password-btn">Change Password</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Disable MFA Modal -->
+    <div id="disable-mfa-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Disable Multi-Factor Authentication</h2>
+            <p>Are you sure you want to disable MFA? This will make your account less secure.</p>
+            <p>Please enter your password to confirm:</p>
+            <div class="form-group">
+                <input type="password" id="disable-mfa-password" placeholder="Enter your password">
+            </div>
+            <div id="disable-mfa-error" class="alert alert-danger hidden"></div>
+            <button id="confirm-disable-mfa" class="btn-danger">Disable MFA</button>
+            <button id="cancel-disable-mfa" class="btn-secondary">Cancel</button>
+        </div>
+    </div>
+    
+    <!-- Change Password Modal -->
+    <div id="change-password-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Change Password</h2>
+            <div class="form-group">
+                <label for="current-password">Current Password</label>
+                <input type="password" id="current-password">
+            </div>
+            <div class="form-group">
+                <label for="new-password">New Password</label>
+                <input type="password" id="new-password">
+                <small style="color: #6c757d;">Password must be at least 8 characters long</small>
+            </div>
+            <div class="form-group">
+                <label for="confirm-password">Confirm New Password</label>
+                <input type="password" id="confirm-password">
+            </div>
+            <div id="password-error" class="alert alert-danger hidden"></div>
+            <button id="submit-password-change">Change Password</button>
+            <button id="cancel-password-change" class="btn-secondary">Cancel</button>
+        </div>
+    </div>
+
+    <script>
+        // Check if user is authenticated
+        const sessionToken = localStorage.getItem('auth_token');
+        let currentUser = null;
+        
+        if (!sessionToken) {
+            window.location.href = '/login.html?redirect=account-settings.html';
+        } else {
+            // Load user data from localStorage (in a real app, we would verify with the server)
+            const userJson = localStorage.getItem('auth_user');
+            if (userJson) {
+                currentUser = JSON.parse(userJson);
+                displayUserInfo();
+            } else {
+                // Fetch user data from server (mock for this demo)
+                currentUser = {
+                    id: 'user-1',
+                    name: 'Test User',
+                    email: 'test@example.com',
+                    mfaEnabled: false
+                };
+                displayUserInfo();
+            }
+        }
+        
+        // Check URL parameters for success messages
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('mfa_setup') === 'success') {
+            showSuccess('Multi-factor authentication has been enabled successfully.');
+        }
+        
+        // Display user information
+        function displayUserInfo() {
+            // Display profile info
+            document.getElementById('user-name').textContent = currentUser.name;
+            document.getElementById('user-email').textContent = currentUser.email;
+            
+            // Fill edit form
+            document.getElementById('name').value = currentUser.name;
+            document.getElementById('email').value = currentUser.email;
+            
+            // Display MFA status
+            if (currentUser.mfaEnabled) {
+                document.getElementById('mfa-enabled').classList.remove('hidden');
+                document.getElementById('mfa-disabled').classList.add('hidden');
+            } else {
+                document.getElementById('mfa-enabled').classList.add('hidden');
+                document.getElementById('mfa-disabled').classList.remove('hidden');
+            }
+        }
+        
+        // Edit profile button
+        document.getElementById('edit-profile-btn').addEventListener('click', function() {
+            document.getElementById('profile-info').classList.add('hidden');
+            document.getElementById('profile-edit').classList.remove('hidden');
+            this.classList.add('hidden');
+        });
+        
+        // Cancel profile edit button
+        document.getElementById('cancel-profile-edit').addEventListener('click', function() {
+            document.getElementById('profile-info').classList.remove('hidden');
+            document.getElementById('profile-edit').classList.add('hidden');
+            document.getElementById('edit-profile-btn').classList.remove('hidden');
+            
+            // Reset form values
+            document.getElementById('name').value = currentUser.name;
+        });
+        
+        // Enable MFA button
+        document.getElementById('enable-mfa-btn').addEventListener('click', function() {
+            window.location.href = '/mfa-setup.html';
+        });
+        
+        // Disable MFA button
+        document.getElementById('disable-mfa-btn').addEventListener('click', function() {
+            document.getElementById('disable-mfa-modal').style.display = 'block';
+        });
+        
+        // Change password button
+        document.getElementById('change-password-btn').addEventListener('click', function() {
+            document.getElementById('change-password-modal').style.display = 'block';
+        });
+        
+        // Profile form submission
+        document.getElementById('profile-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('name').value.trim();
+            
+            if (!name) {
+                showError('Name is required');
+                return;
+            }
+            
+            try {
+                // In a real app, this would call an API
+                // For this demo, just update localStorage
+                currentUser.name = name;
+                localStorage.setItem('auth_user', JSON.stringify(currentUser));
+                
+                // Update display
+                document.getElementById('user-name').textContent = name;
+                
+                // Hide edit form
+                document.getElementById('profile-info').classList.remove('hidden');
+                document.getElementById('profile-edit').classList.add('hidden');
+                document.getElementById('edit-profile-btn').classList.remove('hidden');
+                
+                showSuccess('Profile updated successfully');
+            } catch (error) {
+                console.error('Error updating profile:', error);
+                showError('An error occurred while updating your profile');
+            }
+        });
+        
+        // Confirm disable MFA
+        document.getElementById('confirm-disable-mfa').addEventListener('click', async function() {
+            const password = document.getElementById('disable-mfa-password').value;
+            
+            if (!password) {
+                document.getElementById('disable-mfa-error').textContent = 'Password is required';
+                document.getElementById('disable-mfa-error').classList.remove('hidden');
+                return;
+            }
+            
+            try {
+                const response = await fetch('/api/auth/mfa/disable', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        sessionToken,
+                        password
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    // Update user info
+                    currentUser.mfaEnabled = false;
+                    localStorage.setItem('auth_user', JSON.stringify(currentUser));
+                    
+                    // Update display
+                    document.getElementById('mfa-enabled').classList.add('hidden');
+                    document.getElementById('mfa-disabled').classList.remove('hidden');
+                    
+                    // Close modal
+                    document.getElementById('disable-mfa-modal').style.display = 'none';
+                    
+                    // Show success message
+                    showSuccess('Multi-factor authentication has been disabled');
+                } else {
+                    document.getElementById('disable-mfa-error').textContent = data.message || 'Failed to disable MFA';
+                    document.getElementById('disable-mfa-error').classList.remove('hidden');
+                }
+            } catch (error) {
+                console.error('Error disabling MFA:', error);
+                document.getElementById('disable-mfa-error').textContent = 'An error occurred while disabling MFA';
+                document.getElementById('disable-mfa-error').classList.remove('hidden');
+            }
+        });
+        
+        // Cancel disable MFA
+        document.getElementById('cancel-disable-mfa').addEventListener('click', function() {
+            document.getElementById('disable-mfa-modal').style.display = 'none';
+            document.getElementById('disable-mfa-password').value = '';
+            document.getElementById('disable-mfa-error').classList.add('hidden');
+        });
+        
+        // Submit password change
+        document.getElementById('submit-password-change').addEventListener('click', async function() {
+            const currentPassword = document.getElementById('current-password').value;
+            const newPassword = document.getElementById('new-password').value;
+            const confirmPassword = document.getElementById('confirm-password').value;
+            
+            // Validate passwords
+            if (!currentPassword || !newPassword || !confirmPassword) {
+                document.getElementById('password-error').textContent = 'All fields are required';
+                document.getElementById('password-error').classList.remove('hidden');
+                return;
+            }
+            
+            if (newPassword.length < 8) {
+                document.getElementById('password-error').textContent = 'New password must be at least 8 characters long';
+                document.getElementById('password-error').classList.remove('hidden');
+                return;
+            }
+            
+            if (newPassword !== confirmPassword) {
+                document.getElementById('password-error').textContent = 'New passwords do not match';
+                document.getElementById('password-error').classList.remove('hidden');
+                return;
+            }
+            
+            try {
+                // For this demo, just simulate a successful password change
+                // In a real app, this would call an API
+                
+                // Close modal
+                document.getElementById('change-password-modal').style.display = 'none';
+                
+                // Reset form
+                document.getElementById('current-password').value = '';
+                document.getElementById('new-password').value = '';
+                document.getElementById('confirm-password').value = '';
+                document.getElementById('password-error').classList.add('hidden');
+                
+                // Show success message
+                showSuccess('Password changed successfully');
+            } catch (error) {
+                console.error('Error changing password:', error);
+                document.getElementById('password-error').textContent = 'An error occurred while changing your password';
+                document.getElementById('password-error').classList.remove('hidden');
+            }
+        });
+        
+        // Cancel password change
+        document.getElementById('cancel-password-change').addEventListener('click', function() {
+            document.getElementById('change-password-modal').style.display = 'none';
+            document.getElementById('current-password').value = '';
+            document.getElementById('new-password').value = '';
+            document.getElementById('confirm-password').value = '';
+            document.getElementById('password-error').classList.add('hidden');
+        });
+        
+        // Close modals when clicking the X or outside the modal
+        document.querySelectorAll('.close').forEach(closeBtn => {
+            closeBtn.addEventListener('click', function() {
+                this.closest('.modal').style.display = 'none';
+            });
+        });
+        
+        window.addEventListener('click', function(event) {
+            document.querySelectorAll('.modal').forEach(modal => {
+                if (event.target === modal) {
+                    modal.style.display = 'none';
+                }
+            });
+        });
+        
+        // Show success message
+        function showSuccess(message) {
+            const successElement = document.getElementById('success-message');
+            successElement.textContent = message;
+            successElement.classList.remove('hidden');
+            
+            // Hide error message if visible
+            document.getElementById('error-message').classList.add('hidden');
+            
+            // Scroll to top
+            window.scrollTo(0, 0);
+            
+            // Auto-hide after 5 seconds
+            setTimeout(() => {
+                successElement.classList.add('hidden');
+            }, 5000);
+        }
+        
+        // Show error message
+        function showError(message) {
+            const errorElement = document.getElementById('error-message');
+            errorElement.textContent = message;
+            errorElement.classList.remove('hidden');
+            
+            // Hide success message if visible
+            document.getElementById('success-message').classList.add('hidden');
+            
+            // Scroll to top
+            window.scrollTo(0, 0);
+            
+            // Auto-hide after 5 seconds
+            setTimeout(() => {
+                errorElement.classList.add('hidden');
+            }, 5000);
+        }
+    </script>
+</body>
+</html>

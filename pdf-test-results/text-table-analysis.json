@@ -1,0 +1,812 @@
+{
+  "pdfs": {
+    "financial-report.pdf": {
+      "standardTextLength": 0,
+      "mcpTextLength": 395,
+      "standardTableCount": 0,
+      "mcpTableCount": 0
+    },
+    "financial-report.pdf-ocr": {
+      "standardTextLength": 0,
+      "mcpTextLength": 395,
+      "standardTableCount": 0,
+      "mcpTableCount": 0
+    },
+    "messos.pdf": {
+      "standardTextLength": 31441,
+      "mcpTextLength": 31441,
+      "standardTableCount": 2,
+      "mcpTableCount": 0
+    },
+    "sample_portfolio.pdf": {
+      "standardTextLength": 2100,
+      "mcpTextLength": 2100,
+      "standardTableCount": 2,
+      "mcpTableCount": 0
+    },
+    "simple-financial-statement.pdf": {
+      "standardTextLength": 656,
+      "mcpTextLength": 656,
+      "standardTableCount": 1,
+      "mcpTableCount": 0
+    }
+  },
+  "tableCounts": {
+    "standard": 5,
+    "mcp": 0
+  },
+  "textStats": {
+    "financial-report.pdf": {
+      "standard": 0,
+      "mcp": 395,
+      "ratio": 0
+    },
+    "financial-report.pdf-ocr": {
+      "standard": 0,
+      "mcp": 395,
+      "ratio": 0
+    },
+    "messos.pdf": {
+      "standard": 31441,
+      "mcp": 31441,
+      "ratio": 1
+    },
+    "sample_portfolio.pdf": {
+      "standard": 2100,
+      "mcp": 2100,
+      "ratio": 1
+    },
+    "simple-financial-statement.pdf": {
+      "standard": 656,
+      "mcp": 656,
+      "ratio": 1
+    }
+  },
+  "samples": {
+    "messos.pdf-standard": {
+      "title": "Valuation",
+      "headers": [
+        "Swift",
+        "CBLUCH2280A",
+        "//",
+        "Clearing",
+        "8490",
+        "//",
+        "CHE-105.962.409",
+        "IVA"
+      ],
+      "rows": [
+        [
+          "Tel.",
+          "41 44 218 1",
+          "2",
+          "// Fax",
+          "41 4",
+          "21",
+          "1029 // info@c",
+          "rne"
+        ],
+        [
+          "Cornè",
+          "Banca SA",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "// Tö",
+          "istrasse27",
+          "//",
+          "Postfach",
+          "16 4",
+          "/",
+          "8027 Zürich_Sw",
+          "tze"
+        ],
+        [
+          "MESSO",
+          "ENTERPRISE",
+          "L",
+          "D.",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "36622",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "Clien",
+          "Number //",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "USD",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "Valua",
+          "ion currenc",
+          "/",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "Undef",
+          "ned",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "Inves",
+          "ment profil",
+          "/",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "Mediu",
+          "-high",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "Risk",
+          "rofile //",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "Index",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "MESSO",
+          "ENTERPRISE",
+          "L",
+          "D.",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "Valua",
+          "ion as of 2",
+          ".0",
+          ".2025",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "Clien",
+          "Number 366",
+          "23",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "aeoui",
+          "EOUIaeouiAE",
+          "UI",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "Print",
+          "date 01.03.",
+          "02",
+          "// Page",
+          "I",
+          "",
+          "",
+          ""
+        ],
+        [
+          "Swift",
+          "CBLUCH2280A",
+          "//",
+          "Clearing",
+          "8490",
+          "//",
+          "CHE-105.962.409",
+          "IVA"
+        ],
+        [
+          "Tel.",
+          "41 44 218 1",
+          "2",
+          "// Fax",
+          "41 4",
+          "21",
+          "1029 // info@c",
+          "rne"
+        ],
+        [
+          "Cornè",
+          "Banca SA",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "// Tö",
+          "istrasse27",
+          "//",
+          "Postfach",
+          "16 4",
+          "/",
+          "8027 Zürich_Sw",
+          "tze"
+        ],
+        [
+          "1Summ",
+          "ry",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "2Asse",
+          "Allocation",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "2Asse",
+          "s and Liabi",
+          "it",
+          "es Struc",
+          "ure",
+          "",
+          "",
+          ""
+        ],
+        [
+          "3Curr",
+          "ncy allocat",
+          "on",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "4Perf",
+          "rmance Over",
+          "ie",
+          "/Evoluti",
+          "n",
+          "",
+          "",
+          ""
+        ],
+        [
+          "5Asse",
+          "Listing",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "5Liqu",
+          "dity and li",
+          "bi",
+          "ities",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "6Bond",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "10Equ",
+          "ties",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "11Str",
+          "ctured prod",
+          "ct",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "14Oth",
+          "r assets",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "15Exp",
+          "cted Cash F",
+          "ow",
+          "(Overvi",
+          "w)",
+          "",
+          "",
+          ""
+        ],
+        [
+          "16Glo",
+          "sary",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "18Not",
+          "ces and oth",
+          "r",
+          "nformati",
+          "n",
+          "",
+          "",
+          ""
+        ],
+        [
+          "Summa",
+          "y",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "MESSO",
+          "ENTERPRISE",
+          "L",
+          "D.",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "Valua",
+          "ion as of 2",
+          ".0",
+          ".2025",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "Clien",
+          "Number 366",
+          "23",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "aeoui",
+          "EOUIaeouiAE",
+          "UI",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "Swift",
+          "CBLUCH2280A",
+          "//",
+          "Clearing",
+          "8490",
+          "//",
+          "CHE-105.962.409",
+          "IVA"
+        ],
+        [
+          "Tel.",
+          "41 44 218 1",
+          "2",
+          "// Fax",
+          "41 4",
+          "21",
+          "1029 // info@c",
+          "rne"
+        ],
+        [
+          "Cornè",
+          "Banca SA",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "// Tö",
+          "istrasse27",
+          "//",
+          "Postfach",
+          "16 4",
+          "/",
+          "8027 Zürich_Sw",
+          "tze"
+        ],
+        [
+          "Note",
+          "/ Blocked g",
+          "ar",
+          "ntees",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "Other",
+          "assets",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "Struc",
+          "ured produc",
+          "s",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "Equit",
+          "es",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "Liqui",
+          "ity",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "Bonds",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "Asset",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ]
+      ]
+    },
+    "sample_portfolio.pdf-standard": {
+      "title": "",
+      "headers": [
+        "Investment",
+        "Portfolio",
+        "Statement"
+      ],
+      "rows": [
+        [
+          "Date: June",
+          "30, 2023",
+          ""
+        ],
+        [
+          "Client: Jo",
+          "n Smith",
+          ""
+        ],
+        [
+          "Account Nu",
+          "ber: 1234",
+          "-678"
+        ],
+        [
+          "Portfolio",
+          "ummary",
+          ""
+        ],
+        [
+          "Descriptio",
+          "Amount",
+          ""
+        ],
+        [
+          "Total Valu",
+          "$1,250,00",
+          ".00"
+        ],
+        [
+          "Cash Balan",
+          "e$125,000",
+          "00"
+        ],
+        [
+          "Invested A",
+          "ount$1,12",
+          ",000.00"
+        ],
+        [
+          "Unrealized",
+          "Gain/Loss",
+          "$75,000.0"
+        ],
+        [
+          "Asset Allo",
+          "ation",
+          ""
+        ],
+        [
+          "Asset Clas",
+          "Allocatio",
+          "Value"
+        ],
+        [
+          "Equities60",
+          "$750,000.",
+          "0"
+        ],
+        [
+          "Fixed Inco",
+          "e30%$375,",
+          "00.00"
+        ],
+        [
+          "Cash10%$12",
+          ",000.00",
+          ""
+        ],
+        [
+          "Securities",
+          "Holdings",
+          ""
+        ],
+        [
+          "ISINSecuri",
+          "y",
+          ""
+        ],
+        [
+          "Name",
+          "",
+          ""
+        ],
+        [
+          "QuantityPr",
+          "ceValue%",
+          "f"
+        ]
+      ]
+    },
+    "simple-financial-statement.pdf-standard": {
+      "title": "",
+      "headers": [
+        "INVESTMENT",
+        "PORTFOLIO",
+        "STATEMENT"
+      ],
+      "rows": [
+        [
+          "Date: 31.0",
+          ".2024",
+          ""
+        ],
+        [
+          "Account Nu",
+          "ber: 8765",
+          "321"
+        ],
+        [
+          "Client: Ja",
+          "e Smith",
+          ""
+        ],
+        [
+          "PORTFOLIO",
+          "UMMARY",
+          ""
+        ],
+        [
+          "Total Valu",
+          ": USD 875",
+          "000.00"
+        ],
+        [
+          "Currency:",
+          "SD",
+          ""
+        ],
+        [
+          "Valuation",
+          "ate: 31.0",
+          ".2024"
+        ],
+        [
+          "ASSET ALLO",
+          "ATION",
+          ""
+        ],
+        [
+          "Asset Clas",
+          "Percentag",
+          ""
+        ],
+        [
+          "Equity55%",
+          "",
+          ""
+        ],
+        [
+          "Fixed Inco",
+          "e25%",
+          ""
+        ],
+        [
+          "Cash10%",
+          "",
+          ""
+        ],
+        [
+          "Alternativ",
+          "10%",
+          ""
+        ],
+        [
+          "SECURITIES",
+          "HOLDINGS",
+          ""
+        ],
+        [
+          "SecurityIS",
+          "NTypeQuan",
+          "ityPriceV"
+        ],
+        [
+          "APPLE INCU",
+          "037833100",
+          "Equity200"
+        ],
+        [
+          "MICROSOFT",
+          "ORPUS5949",
+          "81045Equi"
+        ],
+        [
+          "AMAZON.COM",
+          "INCUS0231",
+          "51067Equi"
+        ],
+        [
+          "NVIDIA COR",
+          "US67066G1",
+          "40Equity1"
+        ],
+        [
+          "US TREASUR",
+          "2.0% 15/",
+          "2/2050US9"
+        ]
+      ]
+    }
+  }
+}

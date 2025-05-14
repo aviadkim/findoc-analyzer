@@ -1,0 +1,15 @@
+{
+  "fileName": "with-headers-footers.pdf",
+  "fileType": ".pdf",
+  "processingDate": "2025-04-29T09:39:39.353Z",
+  "text": "\nHeader: Financial Report 2023\n\nMain content of the document.\n\nFooter: Page 1 of 1\n",
+  "tables": [],
+  "metadata": {
+    "pageCount": 1,
+    "author": "Unknown",
+    "creationDate": "2025-04-29T09:39:41.204Z",
+    "creator": "Unknown",
+    "producer": "Unknown",
+    "processingMethod": "fallback"
+  }
+}

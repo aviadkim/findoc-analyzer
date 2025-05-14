@@ -1,0 +1,16 @@
+{
+  "timestamp": "2025-05-12T10:39:07.844Z",
+  "pdfsProcessed": 4,
+  "tablesExtracted": {
+    "standard": 5,
+    "mcp": 0
+  },
+  "entitiesExtracted": 182,
+  "entityTypes": [
+    "company",
+    "security",
+    "currency",
+    "metric",
+    "isin"
+  ]
+}

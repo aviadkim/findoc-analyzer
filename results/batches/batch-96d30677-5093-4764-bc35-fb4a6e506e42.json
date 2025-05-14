@@ -1,0 +1,69 @@
+{
+  "id": "96d30677-5093-4764-bc35-fb4a6e506e42",
+  "name": "Test Batch Job",
+  "description": "Test batch job for API testing",
+  "status": "completed",
+  "priority": "medium",
+  "progress": 0,
+  "files": [
+    {
+      "id": "e4ad6089-0e5b-47f0-932f-79a02d5b5bf2",
+      "path": "/virtual/document/doc-123",
+      "name": "Document doc-123",
+      "documentId": "doc-123",
+      "documentType": "generic",
+      "status": "pending",
+      "retryCount": 1,
+      "error": {
+        "message": "Document doc-123 not found",
+        "timestamp": "2025-05-13T20:23:58.483Z",
+        "retryCount": 1
+      }
+    },
+    {
+      "id": "ddec34ef-fecd-4fb1-a90f-231f301968b5",
+      "path": "/virtual/document/doc-456",
+      "name": "Document doc-456",
+      "documentId": "doc-456",
+      "documentType": "generic",
+      "status": "pending",
+      "retryCount": 1,
+      "error": {
+        "message": "Document doc-456 not found",
+        "timestamp": "2025-05-13T20:23:58.500Z",
+        "retryCount": 1
+      }
+    }
+  ],
+  "totalFiles": 2,
+  "processedFiles": 0,
+  "failedFiles": 0,
+  "processingOptions": {
+    "extractText": true,
+    "extractTables": true,
+    "extractSecurities": true
+  },
+  "createdAt": "2025-05-13T20:23:58.062Z",
+  "updatedAt": "2025-05-13T20:23:58.502Z",
+  "startedAt": "2025-05-13T20:23:58.474Z",
+  "completedAt": "2025-05-13T20:23:58.502Z",
+  "summary": {
+    "status": "completed",
+    "totalFiles": 2,
+    "processedFiles": 0,
+    "failedFiles": 0,
+    "successRate": 0,
+    "duration": 28,
+    "durationFormatted": "28ms",
+    "startedAt": "2025-05-13T20:23:58.474Z",
+    "completedAt": "2025-05-13T20:23:58.502Z",
+    "documentTypes": {
+      "generic": 2
+    },
+    "processingOptions": {
+      "extractText": true,
+      "extractTables": true,
+      "extractSecurities": true
+    }
+  }
+}

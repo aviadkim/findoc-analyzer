@@ -1,0 +1,11 @@
+isin,name,type,quantity,price,value,currency,marketPrice,marketValue,priceChange,priceChangePercent,lastUpdated,dataProvider,id,symbol,description,sector,country,exchange
+"FR8170641062","UnitedHealth Group Inc.","Bond",433,735.73,318571.09,"EUR",709.32,307135.56,-26.41,-3.59,"2025-05-13T21:12:55.487Z","Yahoo Finance","sec-1","UNITEDHEALTH",,"Financial Services","FR",
+"GB6737770754","Procter & Gamble Co.","Bond",900,755.78,680202,"ILS",724.34,651906,-31.44,-4.16,"2025-05-13T21:12:55.487Z","Yahoo Finance","sec-2","PROCTER",,"Healthcare","GB",
+"FR2846147396","Home Depot Inc.","Bond",609,529.97,322751.73,"GBP",530.39,323007.51,0.42,0.08,"2025-05-13T21:12:55.487Z","Yahoo Finance","sec-3","HOME",,"Utilities","FR",
+"IL0745364379","Walt Disney Co.","Stock",757,972.48,736167.36,"ILS",939.03,710845.71,-33.45,-3.44,"2025-05-13T21:12:55.487Z","Yahoo Finance","sec-4","WALT",,"Technology","IL",
+"JP5372831784","Tesla Inc.","Stock",94,519.84,48864.96,"EUR",501.13,47106.22,-18.71,-3.6,"2025-05-13T21:12:55.487Z","Yahoo Finance","sec-5","TESLA",,"Communication Services","JP",
+"DE6783112140","Tesla Inc.","ETF",19,61.05,1159.95,"EUR",61.71,1172.49,0.66,1.08,"2025-05-13T21:12:55.487Z","Yahoo Finance","sec-6","TESLA",,"Healthcare","DE",
+"IL4064688800","NVIDIA Corp.","Cash",12,122.32,1467.84,"GBP",127.71,1532.52,5.39,4.41,"2025-05-13T21:12:55.487Z","Yahoo Finance","sec-7","NVIDIA",,"Industrials","IL",
+"JP8395833964","JPMorgan Chase & Co.","Bond",627,804.31,504302.37,"ILS",825.14,517362.78,20.83,2.59,"2025-05-13T21:12:55.487Z","Yahoo Finance","sec-8","JPMORGAN",,"Industrials","JP",
+"FR2321192313","Amazon.com Inc.","Stock",311,740.8,230388.8,"USD",709.54,220666.94,-31.26,-4.22,"2025-05-13T21:12:55.487Z","Yahoo Finance","sec-9","AMAZON.COM",,"Energy","FR",
+"JP8125087418","Apple Inc.","Stock",177,852.11,150823.47,"GBP",875.12,154896.24,23.01,2.7,"2025-05-13T21:12:55.487Z","Yahoo Finance","sec-10","APPLE",,"Financial Services","JP",

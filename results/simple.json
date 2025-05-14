@@ -1,0 +1,15 @@
+{
+  "fileName": "simple.pdf",
+  "fileType": ".pdf",
+  "processingDate": "2025-04-29T09:39:23.489Z",
+  "text": "This is a simple PDF document for testing text extraction.",
+  "tables": [],
+  "metadata": {
+    "pageCount": 1,
+    "author": "Unknown",
+    "creationDate": "2025-04-29T09:39:25.264Z",
+    "creator": "Unknown",
+    "producer": "Unknown",
+    "processingMethod": "fallback"
+  }
+}

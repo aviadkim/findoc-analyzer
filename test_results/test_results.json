@@ -1,68 +1,9 @@
-[
-  {
-    "success": false,
-    "error": "Upload failed with status code 404",
-    "pdf_file": "goldman_portfolio.pdf",
-    "processing_time": 0.30133914947509766
+{
+  "test_time": "2025-05-08T21:04:27.714488",
+  "tests": {
+    "financial_table_detector_agent": true,
+    "financial_data_analyzer_agent": true,
+    "document_merge_agent": true
   },
-  {
-    "success": false,
-    "error": "Upload failed with status code 404",
-    "pdf_file": "investment_statement.pdf",
-    "processing_time": 0.3025217056274414
-  },
-  {
-    "success": false,
-    "error": "Upload failed with status code 404",
-    "pdf_file": "portfolio_statement_1.pdf",
-    "processing_time": 0.3022735118865967
-  },
-  {
-    "success": false,
-    "error": "Upload failed with status code 404",
-    "pdf_file": "messos_portfolio.pdf",
-    "processing_time": 0.3044447898864746
-  },
-  {
-    "success": false,
-    "error": "Upload failed with status code 404",
-    "pdf_file": "portfolio_statement_4.pdf",
-    "processing_time": 0.14665508270263672
-  },
-  {
-    "success": false,
-    "error": "Upload failed with status code 404",
-    "pdf_file": "portfolio_statement_5.pdf",
-    "processing_time": 0.14586806297302246
-  },
-  {
-    "success": false,
-    "error": "Upload failed with status code 404",
-    "pdf_file": "portfolio_statement_3.pdf",
-    "processing_time": 0.15254831314086914
-  },
-  {
-    "success": false,
-    "error": "Upload failed with status code 404",
-    "pdf_file": "portfolio_statement_2.pdf",
-    "processing_time": 0.15535712242126465
-  },
-  {
-    "success": false,
-    "error": "Upload failed with status code 404",
-    "pdf_file": "simple_account_statement.pdf",
-    "processing_time": 0.13199806213378906
-  },
-  {
-    "success": false,
-    "error": "Upload failed with status code 404",
-    "pdf_file": "sample_investment_statement.pdf",
-    "processing_time": 0.14017200469970703
-  },
-  {
-    "success": false,
-    "error": "Upload failed with status code 404",
-    "pdf_file": "sample_portfolio.pdf",
-    "processing_time": 0.1408250331878662
-  }
-]
+  "success": true
+}

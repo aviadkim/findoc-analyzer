@@ -1,0 +1,40 @@
+[2025-04-30T20:45:38.251Z] Starting basic tests
+[2025-04-30T20:45:40.111Z] Test 1: Navigate to homepage
+[2025-04-30T20:45:40.979Z] Homepage loaded successfully
+[2025-04-30T20:45:40.980Z] Test 2: Check API health
+[2025-04-30T20:45:41.199Z] API health check: Passed
+[2025-04-30T20:45:41.199Z] Test 3: Navigate to documents page
+[2025-04-30T20:45:41.595Z] Documents page loaded successfully
+[2025-04-30T20:45:41.608Z] Test 4: Navigate to upload page
+[2025-04-30T20:45:41.830Z] Upload page loaded successfully
+[2025-04-30T20:45:41.830Z] Test 5: Navigate to document chat page
+[2025-04-30T20:45:42.052Z] Document chat page loaded successfully
+[2025-04-30T20:45:42.053Z] Test 6: Navigate to analytics page
+[2025-04-30T20:45:42.320Z] Analytics page loaded successfully
+[2025-04-30T20:45:42.324Z] Test 7: Check sidebar navigation
+[2025-04-30T20:45:42.745Z] Sidebar navigation to Documents page successful
+[2025-04-30T20:45:42.984Z] Sidebar navigation to Upload page successful
+[2025-04-30T20:46:12.996Z] Error in tests: page.click: Timeout 30000ms exceeded.
+Call log:
+[2m  - waiting for locator('text=Document Chat')[22m
+
+[2025-05-01T07:26:58.769Z] Starting basic tests
+[2025-05-01T07:27:00.511Z] Test 1: Navigate to homepage
+[2025-05-01T07:27:01.421Z] Homepage loaded successfully
+[2025-05-01T07:27:01.422Z] Test 2: Check API health
+[2025-05-01T07:27:01.633Z] API health check: Passed
+[2025-05-01T07:27:01.633Z] Test 3: Navigate to documents page
+[2025-05-01T07:27:01.878Z] Documents page loaded successfully
+[2025-05-01T07:27:01.879Z] Test 4: Navigate to upload page
+[2025-05-01T07:27:02.370Z] Upload page loaded successfully
+[2025-05-01T07:27:02.371Z] Test 5: Navigate to document chat page
+[2025-05-01T07:27:02.610Z] Document chat page loaded successfully
+[2025-05-01T07:27:02.611Z] Test 6: Navigate to analytics page
+[2025-05-01T07:27:02.823Z] Analytics page loaded successfully
+[2025-05-01T07:27:02.823Z] Test 7: Check sidebar navigation
+[2025-05-01T07:27:03.192Z] Sidebar navigation to Documents page successful
+[2025-05-01T07:27:03.420Z] Sidebar navigation to Upload page successful
+[2025-05-01T07:27:33.465Z] Error in tests: page.click: Timeout 30000ms exceeded.
+Call log:
+[2m  - waiting for locator('text=Document Chat')[22m
+

@@ -1,0 +1,15 @@
+{
+  "fileName": "with-tables.pdf",
+  "fileType": ".pdf",
+  "processingDate": "2025-04-29T09:39:37.512Z",
+  "text": "\nThis PDF contains a table:\n\nColumn 1 | Column 2 | Column 3\n---------|----------|----------\nValue 1  | Value 2  | Value 3\nValue 4  | Value 5  | Value 6\nValue 7  | Value 8  | Value 9\n",
+  "tables": [],
+  "metadata": {
+    "pageCount": 1,
+    "author": "Unknown",
+    "creationDate": "2025-04-29T09:39:39.350Z",
+    "creator": "Unknown",
+    "producer": "Unknown",
+    "processingMethod": "fallback"
+  }
+}

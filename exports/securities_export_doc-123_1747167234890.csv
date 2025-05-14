@@ -1,0 +1,11 @@
+isin,name,type,quantity,price,value,currency,marketPrice,marketValue,priceChange,priceChangePercent,lastUpdated,dataProvider,id,symbol,description,sector,country,exchange
+"DE8779073576","Home Depot Inc.","Cash",166,353.91,58749.06,"EUR",358.69,59542.54,4.78,1.35,"2025-05-13T20:13:54.890Z","Yahoo Finance","sec-1","HOME",,"Financial Services","DE",
+"DE2152176764","Johnson & Johnson","Stock",395,947.6,374302,"USD",913.2,360714,-34.4,-3.63,"2025-05-13T20:13:54.890Z","Yahoo Finance","sec-2","JOHNSON",,"Real Estate","DE",
+"DE8289355040","Alphabet Inc.","Fund",867,562.55,487730.85,"USD",538.47,466853.49,-24.08,-4.28,"2025-05-13T20:13:54.890Z","Yahoo Finance","sec-3","ALPHABET",,"Industrials","DE",
+"IL5895786115","Walt Disney Co.","Cash",643,114.52,73636.36,"USD",117.53,75571.79,3.01,2.63,"2025-05-13T20:13:54.890Z","Yahoo Finance","sec-4","WALT",,"Utilities","IL",
+"GB9180105963","Berkshire Hathaway Inc.","Fund",316,361.75,114313,"USD",377.92,119422.72,16.17,4.47,"2025-05-13T20:13:54.890Z","Yahoo Finance","sec-5","BERKSHIRE",,"Energy","GB",
+"IL6462883970","NVIDIA Corp.","Fund",410,944.99,387445.9,"GBP",905.21,371136.1,-39.78,-4.21,"2025-05-13T20:13:54.890Z","Yahoo Finance","sec-6","NVIDIA",,"Consumer Defensive","IL",
+"DE8779258059","Tesla Inc.","ETF",93,790.27,73495.11,"USD",799.04,74310.72,8.77,1.11,"2025-05-13T20:13:54.890Z","Yahoo Finance","sec-7","TESLA",,"Real Estate","DE",
+"DE4718811784","Procter & Gamble Co.","Stock",309,708.15,218818.35,"ILS",736.33,227525.97,28.18,3.98,"2025-05-13T20:13:54.890Z","Yahoo Finance","sec-8","PROCTER",,"Financial Services","DE",
+"US6294236796","Procter & Gamble Co.","Fund",97,374.49,36325.53,"GBP",387.78,37614.66,13.29,3.55,"2025-05-13T20:13:54.890Z","Yahoo Finance","sec-9","PROCTER",,"Technology","US",
+"FR8029775631","Meta Platforms Inc.","Cash",360,203.1,73116,"EUR",194.96,70185.6,-8.14,-4.01,"2025-05-13T20:13:54.890Z","Yahoo Finance","sec-10","META",,"Consumer Defensive","FR",

@@ -1,0 +1,41 @@
+{
+  "id": "doc-123",
+  "fileName": "Document doc-123.pdf",
+  "documentType": "unknown",
+  "uploadDate": "2025-05-13T13:20:58.753Z",
+  "processed": true,
+  "content": {
+    "text": "This is a generic document with ID doc-123.",
+    "tables": [],
+    "metadata": {
+      "author": "Unknown",
+      "createdDate": "2025-05-13T13:20:58.753Z",
+      "modifiedDate": "2025-05-13T13:20:58.753Z",
+      "documentFormat": "PDF",
+      "keywords": "unknown"
+    }
+  },
+  "processingDate": "2025-05-13T14:51:46.990Z",
+  "processingResults": {
+    "status": "completed",
+    "processingTime": "3.7 seconds",
+    "agents": {
+      "Document Analyzer": {
+        "status": "completed",
+        "time": "1.2s"
+      },
+      "Table Understanding": {
+        "status": "completed",
+        "time": "0.8s"
+      },
+      "Securities Extractor": {
+        "status": "completed",
+        "time": "1.1s"
+      },
+      "Financial Reasoner": {
+        "status": "completed",
+        "time": "0.6s"
+      }
+    }
+  }
+}

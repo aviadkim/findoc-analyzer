@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign Up - FinDoc Analyzer</title>
+  <link rel="stylesheet" href="/css/styles.css">
+  <script src="/js/mock-api.js"></script>
+  <script src="/js/sidebar.js"></script>
+  <style>
+    .auth-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: calc(100vh - 80px);
+      padding: 20px;
+    }
+
+    .auth-card {
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 450px;
+      padding: 30px;
+    }
+
+    .auth-header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .auth-header h1 {
+      font-size: 24px;
+      color: #2c3e50;
+      margin: 0;
+    }
+
+    .auth-header p {
+      color: #7f8c8d;
+      margin-top: 10px;
+    }
+
+    .auth-form .form-group {
+      margin-bottom: 20px;
+    }
+
+    .auth-form label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 500;
+      color: #2c3e50;
+    }
+
+    .auth-form input {
+      width: 100%;
+      padding: 10px 15px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 16px;
+    }
+
+    .auth-form input:focus {
+      border-color: #3498db;
+      outline: none;
+      box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+    }
+
+    .auth-form button {
+      width: 100%;
+      padding: 12px;
+      background-color: #3498db;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      font-size: 16px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+
+    .auth-form button:hover {
+      background-color: #2980b9;
+    }
+
+    .auth-divider {
+      display: flex;
+      align-items: center;
+      margin: 20px 0;
+    }
+
+    .auth-divider::before,
+    .auth-divider::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background-color: #ddd;
+    }
+
+    .auth-divider span {
+      padding: 0 15px;
+      color: #7f8c8d;
+    }
+
+    .social-login {
+      margin-bottom: 20px;
+    }
+
+    .google-login-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      padding: 12px;
+      background-color: white;
+      color: #333;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 16px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+
+    .google-login-btn:hover {
+      background-color: #f5f5f5;
+    }
+
+    .google-icon {
+      width: 18px;
+      height: 18px;
+      margin-right: 10px;
+    }
+
+    .auth-footer {
+      text-align: center;
+      margin-top: 20px;
+      color: #7f8c8d;
+    }
+
+    .auth-footer a {
+      color: #3498db;
+      text-decoration: none;
+    }
+
+    .auth-footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
+  <script src="/js/ui-chat-component.js"></script>
+</head>
+<body>
+  <div class="findoc-layout">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <a href="/" class="sidebar-logo">FinDoc Analyzer</a>
+      </div>
+      <ul class="sidebar-nav">
+        <li><a href="/"><span class="icon">🏠</span>Dashboard</a></li>
+        <li><a href="/documents-new"><span class="icon">📄</span>My Documents</a></li>
+        <li><a href="/analytics-new"><span class="icon">📊</span>Analytics</a></li>
+        <li><a href="/upload"><span class="icon">📤</span>Upload</a></li>
+        <li><a href="/document-comparison"><span class="icon">🔄</span>Document Comparison</a></li>
+        <li><a href="/feedback"><span class="icon">💬</span>Feedback</a></li>
+      </ul>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <div class="auth-container">
+        <div class="auth-card">
+          <div class="auth-header">
+            <h1>Create an Account</h1>
+            <p>Sign up to start analyzing your financial documents</p>
+          </div>
+
+          <form id="signup-form" class="auth-form signup-form">
+            <div class="form-group">
+              <label for="name">Full Name</label>
+              <input type="text" id="name" name="name" placeholder="Enter your full name" required>
+            </div>
+
+            <div class="form-group">
+              <label for="email">Email Address</label>
+              <input type="email" id="email" name="email" placeholder="Enter your email address" required>
+            </div>
+
+            <div class="form-group">
+              <label for="password">Password</label>
+              <input type="password" id="password" name="password" placeholder="Create a password" required>
+            </div>
+
+            <div class="form-group">
+              <label for="confirm-password">Confirm Password</label>
+              <input type="password" id="confirm-password" name="confirm-password" placeholder="Confirm your password" required>
+            </div>
+
+            <button type="submit">Sign Up</button>
+          </form>
+
+          <div class="auth-divider">
+            <span>or</span>
+          </div>
+
+          <div class="social-login">
+            <button id="google-login-btn" class="google-login-btn">
+              <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google" class="google-icon">
+              <span>Sign up with Google</span>
+            </button>
+          </div>
+
+          <div class="auth-footer">
+            Already have an account? <a href="/login">Log In</a>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="/js/auth.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const signupForm = document.getElementById('signup-form');
+
+      signupForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const name = document.getElementById('name').value;
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+        const confirmPassword = document.getElementById('confirm-password').value;
+
+        if (password !== confirmPassword) {
+          alert('Passwords do not match');
+          return;
+        }
+
+        // Simulate signup
+        console.log('Signing up with:', { name, email });
+
+        // Redirect to dashboard after successful signup
+        setTimeout(() => {
+          window.location.href = '/';
+        }, 1000);
+      });
+
+      const googleLoginBtn = document.getElementById('google-login-btn');
+      googleLoginBtn.addEventListener('click', function() {
+        console.log('Google signup clicked');
+
+        // Simulate Google signup
+        setTimeout(() => {
+          window.location.href = '/';
+        }, 1000);
+      });
+    });
+  </script>
+</body>
+</html>

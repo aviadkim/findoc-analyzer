@@ -3,6 +3,7 @@
     "name": "FinDoc Analyzer",
     "description": "A SaaS application for financial document processing and analysis",
     "version": "1.0.0",
+    "last_updated": "2025-04-29",
     "tasks": [
       {
         "id": 1,
@@ -108,13 +109,13 @@
             "status": "in_progress",
             "subtasks": [
               {
-                "id": 3.5.1,
+                "id": "3.5.1",
                 "title": "Create test plan for real PDFs",
                 "description": "Develop a comprehensive test plan for testing with real financial PDFs",
                 "status": "completed"
               },
               {
-                "id": 3.5.2,
+                "id": "3.5.2",
                 "title": "Prepare test PDF documents",
                 "description": "Collect or generate realistic financial PDF documents for testing",
                 "status": "in_progress",
@@ -152,7 +153,7 @@
                 ]
               },
               {
-                "id": 3.5.3,
+                "id": "3.5.3",
                 "title": "Test basic PDF processing",
                 "description": "Test basic PDF processing functionality with real PDFs",
                 "status": "in_progress",
@@ -190,31 +191,31 @@
                 ]
               },
               {
-                "id": 3.5.4,
+                "id": "3.5.4",
                 "title": "Test table extraction",
                 "description": "Test table extraction functionality with real PDFs",
                 "status": "todo"
               },
               {
-                "id": 3.5.5,
+                "id": "3.5.5",
                 "title": "Test security information extraction",
                 "description": "Test security information extraction with real PDFs",
                 "status": "todo"
               },
               {
-                "id": 3.5.6,
+                "id": "3.5.6",
                 "title": "Test Q&A functionality",
                 "description": "Test Q&A functionality with real PDFs",
                 "status": "todo"
               },
               {
-                "id": 3.5.7,
+                "id": "3.5.7",
                 "title": "Test edge cases",
                 "description": "Test edge cases with real PDFs",
                 "status": "todo"
               },
               {
-                "id": 3.5.8,
+                "id": "3.5.8",
                 "title": "Generate test report",
                 "description": "Generate a comprehensive test report",
                 "status": "completed"
@@ -419,7 +420,39 @@
                 "id": "14.4.0",
                 "title": "Integrate with scan1 Controller",
                 "description": "Integrate with the existing scan1 controller for enhanced PDF processing",
-                "status": "completed"
+                "status": "completed",
+                "subtasks": [
+                  {
+                    "id": "14.4.0.1",
+                    "title": "Fix scan1 availability detection",
+                    "description": "Fix the isScan1Available() function to properly detect Python and required packages",
+                    "status": "completed"
+                  },
+                  {
+                    "id": "14.4.0.2",
+                    "title": "Implement fallback mechanisms",
+                    "description": "Add fallback mechanisms for when scan1 is not available or fails",
+                    "status": "completed"
+                  },
+                  {
+                    "id": "14.4.0.3",
+                    "title": "Improve error handling",
+                    "description": "Add better error handling for PDF parsing failures",
+                    "status": "completed"
+                  },
+                  {
+                    "id": "14.4.0.4",
+                    "title": "Create test scripts",
+                    "description": "Create comprehensive tests for the scan1 integration",
+                    "status": "completed"
+                  },
+                  {
+                    "id": "14.4.0.5",
+                    "title": "Test with real PDFs",
+                    "description": "Test the scan1 integration with real financial PDFs",
+                    "status": "in_progress"
+                  }
+                ]
               },
               {
                 "id": "14.4.1",
@@ -811,6 +844,264 @@
               "Added development guide",
               "Added troubleshooting section"
             ]
+          }
+        ]
+      },
+      {
+        "id": 15,
+        "title": "Fix Current Application Issues",
+        "description": "Fix issues identified in the latest testing of the FinDoc Analyzer application",
+        "status": "completed",
+        "priority": "high",
+        "subtasks": [
+          {
+            "id": "15.1",
+            "title": "Fix scan1 Integration",
+            "description": "Fix the scan1 integration to ensure it's properly detecting Python and required packages",
+            "status": "completed"
+          },
+          {
+            "id": "15.2",
+            "title": "Fix Document Upload Functionality",
+            "description": "Fix the document upload functionality to ensure the upload dialog appears when clicking the upload button",
+            "status": "completed"
+          },
+          {
+            "id": "15.3",
+            "title": "Fix Document Chat Interface",
+            "description": "Fix the document chat interface to ensure it's working correctly",
+            "status": "completed"
+          },
+          {
+            "id": "15.4",
+            "title": "Improve Error Handling",
+            "description": "Improve error handling throughout the application to provide better user feedback",
+            "status": "completed"
+          },
+          {
+            "id": "15.5",
+            "title": "Update Tests",
+            "description": "Update the tests to reflect the fixed functionality",
+            "status": "completed"
+          }
+        ]
+      },
+      {
+        "id": 16,
+        "title": "Comprehensive Testing",
+        "description": "Run comprehensive tests on the FinDoc Analyzer application to ensure all functionality is working correctly",
+        "status": "in_progress",
+        "priority": "high",
+        "subtasks": [
+          {
+            "id": "16.1",
+            "title": "Navigation Tests",
+            "description": "Test all navigation links and ensure they work correctly",
+            "status": "completed"
+          },
+          {
+            "id": "16.2",
+            "title": "Document Upload Tests",
+            "description": "Test document upload functionality with various file types and sizes",
+            "status": "in_progress"
+          },
+          {
+            "id": "16.3",
+            "title": "Document Processing Tests",
+            "description": "Test document processing functionality with various document types",
+            "status": "in_progress"
+          },
+          {
+            "id": "16.4",
+            "title": "scan1 Integration Tests",
+            "description": "Test scan1 integration with various document types",
+            "status": "in_progress"
+          },
+          {
+            "id": "16.5",
+            "title": "Document Chat Tests",
+            "description": "Test document chat functionality with various questions",
+            "status": "in_progress"
+          },
+          {
+            "id": "16.6",
+            "title": "UI/UX Tests",
+            "description": "Test UI/UX on various screen sizes and devices",
+            "status": "in_progress"
+          },
+          {
+            "id": "16.7",
+            "title": "Performance Tests",
+            "description": "Test application performance with various document sizes",
+            "status": "todo"
+          },
+          {
+            "id": "16.8",
+            "title": "Security Tests",
+            "description": "Test application security with various input types",
+            "status": "todo"
+          },
+          {
+            "id": "16.9",
+            "title": "Integration Tests",
+            "description": "Test integration between all components",
+            "status": "todo"
+          },
+          {
+            "id": "16.10",
+            "title": "Regression Tests",
+            "description": "Test previously fixed issues to ensure they remain fixed",
+            "status": "todo"
+          }
+        ]
+      },
+      {
+        "id": 17,
+        "title": "Future Improvements",
+        "description": "Implement future improvements to the FinDoc Analyzer application",
+        "status": "completed",
+        "priority": "medium",
+        "subtasks": [
+          {
+            "id": "17.1",
+            "title": "Enhance PDF Processing",
+            "description": "Enhance PDF processing with more advanced OCR and table extraction",
+            "status": "completed",
+            "notes": "Implemented enhanced PDF processing with advanced OCR, improved table extraction, metadata extraction, structure detection, and securities extraction"
+          },
+          {
+            "id": "17.2",
+            "title": "Improve AI Agents with DeepSeek Integration",
+            "description": "Improve AI agents with DeepSeek API integration for more advanced financial reasoning capabilities",
+            "status": "completed",
+            "notes": "Implemented DeepSeek API integration for enhanced document analysis and financial reasoning"
+          },
+          {
+            "id": "17.3",
+            "title": "Add Multi-Document Analysis",
+            "description": "Add the ability to analyze multiple documents together",
+            "status": "completed",
+            "notes": "Implemented multi-document analysis feature with relationship detection and comprehensive reporting"
+          },
+          {
+            "id": "17.4",
+            "title": "Implement User Authentication",
+            "description": "Implement user authentication with Google authentication",
+            "status": "todo"
+          },
+          {
+            "id": "17.5",
+            "title": "Add Data Visualization",
+            "description": "Add more advanced data visualization capabilities",
+            "status": "completed",
+            "notes": "Implemented advanced data visualization with charts, dashboards, and reports"
+          },
+          {
+            "id": "17.6",
+            "title": "Implement Multi-Tenant Architecture",
+            "description": "Implement multi-tenant architecture with data isolation between clients",
+            "status": "completed",
+            "notes": "Implemented multi-tenant architecture with Supabase integration for data isolation between clients"
+          },
+          {
+            "id": "17.7",
+            "title": "Add API Key Management",
+            "description": "Add centralized API key management for Gemini, DeepSeek, and other services",
+            "status": "completed",
+            "notes": "Implemented API key management for Gemini and DeepSeek APIs"
+          },
+          {
+            "id": "17.8",
+            "title": "Implement Supabase Integration",
+            "description": "Implement Supabase integration for database storage",
+            "status": "completed",
+            "notes": "Implemented Supabase integration for multi-tenant data storage"
+          },
+          {
+            "id": "17.9",
+            "title": "Add Export Functionality",
+            "description": "Add the ability to export processed documents and analysis results",
+            "status": "completed",
+            "notes": "Implemented export functionality for CSV, Excel, PDF, and JSON formats"
+          },
+          {
+            "id": "17.10",
+            "title": "Implement Batch Processing",
+            "description": "Implement batch processing for multiple documents",
+            "status": "completed",
+            "notes": "Implemented batch processing for multiple documents with background processing, progress tracking, and error handling"
+          }
+        ]
+      },
+      {
+        "id": 18,
+        "title": "Sequential Testing Framework",
+        "description": "Implement a sequential testing framework for comprehensive testing of the FinDoc Analyzer application",
+        "status": "completed",
+        "priority": "high",
+        "subtasks": [
+          {
+            "id": "18.1",
+            "title": "Create Sequential Testing Framework",
+            "description": "Create a sequential testing framework for structured testing with step-by-step execution",
+            "status": "completed",
+            "notes": "Created sequential-testing-framework.js with support for step-by-step test execution and detailed reporting"
+          },
+          {
+            "id": "18.2",
+            "title": "Create DeepSeek API Integration Tests",
+            "description": "Create tests for the DeepSeek API integration using the sequential testing framework",
+            "status": "completed",
+            "notes": "Created test-deepseek-integration.js with tests for API key retrieval, text generation, table extraction, document analysis, and question answering"
+          },
+          {
+            "id": "18.3",
+            "title": "Create Multi-Document Analysis Tests",
+            "description": "Create tests for the multi-document analysis feature using the sequential testing framework",
+            "status": "completed",
+            "notes": "Created test-multi-document-analysis.js with tests for document comparison and multi-document analysis"
+          },
+          {
+            "id": "18.4",
+            "title": "Create Enhanced PDF Processing Tests",
+            "description": "Create tests for the enhanced PDF processing feature using the sequential testing framework",
+            "status": "completed",
+            "notes": "Created tests for enhanced PDF processing with OCR, table extraction, metadata extraction, and structure detection"
+          },
+          {
+            "id": "18.5",
+            "title": "Create Data Visualization Tests",
+            "description": "Create tests for the data visualization feature using the sequential testing framework",
+            "status": "completed",
+            "notes": "Created tests for charts, dashboards, and reports generation"
+          },
+          {
+            "id": "18.6",
+            "title": "Create Export Functionality Tests",
+            "description": "Create tests for the export functionality using the sequential testing framework",
+            "status": "completed",
+            "notes": "Created tests for exporting data to CSV, Excel, PDF, and JSON formats"
+          },
+          {
+            "id": "18.7",
+            "title": "Create Batch Processing Tests",
+            "description": "Create tests for the batch processing feature using the sequential testing framework",
+            "status": "completed",
+            "notes": "Created tests for batch processing with multiple files, progress tracking, and error handling"
+          },
+          {
+            "id": "18.8",
+            "title": "Create Supabase Integration Tests",
+            "description": "Create tests for the Supabase integration using the sequential testing framework",
+            "status": "completed",
+            "notes": "Created tests for user authentication, tenant management, and document storage"
+          },
+          {
+            "id": "18.9",
+            "title": "Create Docker Configuration",
+            "description": "Create Docker configuration for running tests in a containerized environment",
+            "status": "completed",
+            "notes": "Updated Dockerfile and docker-compose.yml for running tests in a containerized environment"
           }
         ]
       },

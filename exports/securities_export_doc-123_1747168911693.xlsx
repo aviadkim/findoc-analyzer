@@ -1,0 +1,3 @@
+Mock Excel export file
+Format: XLSX
+Data: {"Securities":[{"isin":"FR0530854112","name":"Tesla Inc.","type":"ETF","quantity":944,"price":293.17,"value":276752.48,"currency":"GBP","marketPrice":290.09,"marketValue":273844.96,"priceChange":-3.08,"priceChangePercent":-1.05,"lastUpdated":"2025-05-13T20:41:51.693Z","dataProvider":"Yahoo Finance","id":"sec-1","symbol":"TESLA","sector":"Healthcare","country":"FR"},{"isin":"JP1403977821","name":"Meta Platforms Inc.","type":"Cash","quantity":874,"price":519.61,"value":454139.14,"currency":"USD","...

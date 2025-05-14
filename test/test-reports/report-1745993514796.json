@@ -1,0 +1,23 @@
+{
+  "total": 3,
+  "passed": 3,
+  "failed": 0,
+  "skipped": 0,
+  "tests": [
+    {
+      "name": "Export test 1",
+      "status": "passed",
+      "duration": 8045
+    },
+    {
+      "name": "Export test 2",
+      "status": "passed",
+      "duration": 7404
+    },
+    {
+      "name": "Export test 3",
+      "status": "passed",
+      "duration": 7454
+    }
+  ]
+}

@@ -1,0 +1,101 @@
+{
+  "tests": [
+    {
+      "name": "Create tenant",
+      "status": "passed",
+      "duration": 7379,
+      "error": null
+    },
+    {
+      "name": "Get stock price",
+      "status": "passed",
+      "duration": 994,
+      "error": null
+    },
+    {
+      "name": "Get historical data",
+      "status": "passed",
+      "duration": 269,
+      "error": null
+    },
+    {
+      "name": "Generate chart",
+      "status": "passed",
+      "duration": 236,
+      "error": null
+    },
+    {
+      "name": "Answer price question",
+      "status": "passed",
+      "duration": 248,
+      "error": null
+    },
+    {
+      "name": "Upload document",
+      "status": "passed",
+      "duration": 36,
+      "error": null
+    },
+    {
+      "name": "Get document status",
+      "status": "passed",
+      "duration": 6377,
+      "error": null
+    },
+    {
+      "name": "Get document content",
+      "status": "passed",
+      "duration": 21,
+      "error": null
+    },
+    {
+      "name": "Get document metadata",
+      "status": "passed",
+      "duration": 19,
+      "error": null
+    },
+    {
+      "name": "Ask question about document",
+      "status": "passed",
+      "duration": 2033,
+      "error": null
+    },
+    {
+      "name": "Generate table from document",
+      "status": "passed",
+      "duration": 15,
+      "error": null
+    },
+    {
+      "name": "Generate chart from document",
+      "status": "passed",
+      "duration": 16,
+      "error": null
+    },
+    {
+      "name": "Export document as PDF",
+      "status": "passed",
+      "duration": 18,
+      "error": null
+    },
+    {
+      "name": "Export document as Excel",
+      "status": "passed",
+      "duration": 17,
+      "error": null
+    },
+    {
+      "name": "Check UI components",
+      "status": "passed",
+      "duration": 18,
+      "error": null
+    }
+  ],
+  "summary": {
+    "total": 15,
+    "passed": 15,
+    "failed": 0
+  },
+  "tenantId": "4d15d72a-71d3-4141-8c3c-515f444ca70e",
+  "documentId": "27744eee-45df-467b-8e29-b6656742ca71"
+}

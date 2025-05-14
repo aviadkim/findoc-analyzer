@@ -1,0 +1,38 @@
+{
+  "text": "",
+  "tables": [],
+  "metadata": {
+    "title": "simple-financial-statement.pdf",
+    "author": "Unknown",
+    "subject": "",
+    "keywords": "",
+    "creator": "pdf-lib (https://github.com/Hopding/pdf-lib)",
+    "producer": "pdf-lib (https://github.com/Hopding/pdf-lib)",
+    "pages": 1,
+    "creationDate": "",
+    "modificationDate": ""
+  },
+  "financialData": {
+    "portfolioInfo": {
+      "title": "",
+      "date": "",
+      "totalValue": null,
+      "currency": "USD",
+      "owner": "",
+      "manager": ""
+    },
+    "assetAllocation": {
+      "categories": [],
+      "total": 0
+    },
+    "securities": [],
+    "performance": {
+      "ytd": null,
+      "oneYear": null,
+      "threeYear": null,
+      "fiveYear": null,
+      "tenYear": null,
+      "sinceInception": null
+    }
+  }
+}

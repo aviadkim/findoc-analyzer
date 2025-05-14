@@ -1,0 +1,66 @@
+{
+  "document_type": "etrade",
+  "currency": "USD",
+  "securities": [
+    {
+      "ticker": "AAPL",
+      "isin": "US0378331005",
+      "description": "APPLE INC",
+      "nominal": 105,
+      "price": 142.56,
+      "value": 14968.80,
+      "currency": "USD",
+      "type": "equity"
+    },
+    {
+      "ticker": "MSFT",
+      "isin": "US5949181045",
+      "description": "MICROSOFT CORP",
+      "nominal": 55,
+      "price": 258.35,
+      "value": 14209.25,
+      "currency": "USD",
+      "type": "equity"
+    },
+    {
+      "ticker": "META",
+      "isin": "US30303M1027",
+      "description": "META PLATFORMS INC CLASS A",
+      "nominal": 40,
+      "price": 297.89,
+      "value": 11915.60,
+      "currency": "USD",
+      "type": "equity"
+    },
+    {
+      "ticker": "COST",
+      "isin": "US22160K1051",
+      "description": "COSTCO WHOLESALE CORP",
+      "nominal": 25,
+      "price": 563.32,
+      "value": 14083.00,
+      "currency": "USD",
+      "type": "equity"
+    },
+    {
+      "ticker": "IVV",
+      "isin": "US4642872000",
+      "description": "ISHARES CORE S&P 500 ETF",
+      "nominal": 35,
+      "price": 391.43,
+      "value": 13700.05,
+      "currency": "USD",
+      "type": "etf"
+    },
+    {
+      "ticker": "IEFA",
+      "isin": "US4642874610",
+      "description": "ISHARES CORE MSCI EAFE ETF",
+      "nominal": 120,
+      "price": 68.26,
+      "value": 8191.20,
+      "currency": "USD",
+      "type": "etf"
+    }
+  ]
+}

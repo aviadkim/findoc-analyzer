@@ -1,0 +1,44 @@
+{
+  "apiKeyManagement": {
+    "openrouter": false,
+    "gemini": false,
+    "deepseek": false,
+    "supabase": false
+  },
+  "agentStatus": {
+    "activeAgents": 0,
+    "totalAgents": 0,
+    "success": false
+  },
+  "documentProcessing": {
+    "documentId": "doc-1746353724564",
+    "success": false
+  },
+  "documentChat": {
+    "responses": [],
+    "success": false
+  },
+  "ui": {
+    "success": false,
+    "tests": [
+      {
+        "name": "Home Page",
+        "success": true
+      },
+      {
+        "name": "Document Selector",
+        "success": true
+      },
+      {
+        "name": "Document Chat Input",
+        "success": true
+      },
+      {
+        "name": "Document Chat Send Button",
+        "success": true
+      }
+    ],
+    "error": "Node is either not clickable or not an Element"
+  },
+  "timestamp": "2025-05-04T10:15:43.581Z"
+}

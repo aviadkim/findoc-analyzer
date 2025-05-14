@@ -1,0 +1,105 @@
+name: Integration Tests
+
+on:
+  push:
+    branches: [ main, develop, feature/* ]
+  pull_request:
+    branches: [ main, develop ]
+  workflow_dispatch:
+
+jobs:
+  integration-tests:
+    name: Document Processing Integration Tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    
+    services:
+      # Add any service containers needed for testing (e.g., database)
+      mongodb:
+        image: mongo:4.4
+        ports:
+          - 27017:27017
+      redis:
+        image: redis:6.2
+        ports:
+          - 6379:6379
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: 'npm'
+          
+      - name: Install Node.js dependencies
+        run: npm ci
+        
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+          cache: 'pip'
+          
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install -r DevDocs/backend/requirements.txt
+          pip install pytest pytest-cov pytest-xdist
+          
+      - name: Install PDF processing tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y poppler-utils tesseract-ocr tesseract-ocr-eng
+          
+      - name: Start backend server
+        run: |
+          cd DevDocs/backend
+          python app.py &
+          sleep 5
+          
+      - name: Run document processing integration tests
+        run: |
+          cd DevDocs
+          python -m pytest test_document_integration.py -v
+          python -m pytest test_document_merge.py -v
+          python -m pytest test_document_preprocessor.py -v
+          
+      - name: Run financial data extraction tests
+        run: |
+          cd DevDocs
+          python -m pytest test_financial_api.py -v
+          python -m pytest test_isin_extractor.py -v
+          python -m pytest test_financial_table_detector.py -v
+          
+      - name: Run end-to-end document flow tests
+        run: |
+          node DevDocs/backend/tests/test-document-processing.js
+          node DevDocs/backend/tests/test-document-integration.js
+          node DevDocs/backend/tests/test-api-endpoints.js
+          
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: integration-test-results
+          path: |
+            DevDocs/test-results/
+            DevDocs/backend/test-results/
+          retention-days: 7
+          
+      - name: Generate test coverage report
+        run: |
+          cd DevDocs
+          python -m pytest --cov=backend --cov-report=xml:integration-coverage.xml
+          
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          file: DevDocs/integration-coverage.xml
+          flags: integration
+          name: integration-coverage
+          fail_ci_if_error: false

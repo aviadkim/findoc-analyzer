@@ -1,0 +1,90 @@
+{
+  "status": "success",
+  "merged_document": {
+    "metadata": {
+      "document_type": "portfolio_statement",
+      "client_name": "John Smith",
+      "client_number": "12345",
+      "valuation_currency": "USD",
+      "document_date": "2025-01-15"
+    },
+    "financial_data": {
+      "portfolio": {
+        "securities": [
+          {
+            "description": "Apple Inc.",
+            "isin": "US0378331005",
+            "price": 150.25,
+            "quantity": 100,
+            "value": 15025.0,
+            "type": "Technology"
+          },
+          {
+            "description": "Microsoft Corp.",
+            "isin": "US5949181045",
+            "price": 300.5,
+            "quantity": 50,
+            "value": 15025.0,
+            "type": "Technology"
+          },
+          {
+            "description": "Amazon.com Inc.",
+            "isin": "US0231351067",
+            "price": 130.75,
+            "quantity": 25,
+            "value": 3268.75,
+            "type": "Retail"
+          }
+        ],
+        "summary": {
+          "total_value": 33318.75,
+          "total_securities": 3
+        }
+      }
+    },
+    "merge_date": "2025-05-08T21:04:27.724924",
+    "original_documents": 2,
+    "document_types": [
+      "portfolio_statement"
+    ]
+  },
+  "merged_data": {
+    "portfolio": {
+      "securities": [
+        {
+          "description": "Apple Inc.",
+          "isin": "US0378331005",
+          "price": 150.25,
+          "quantity": 100,
+          "value": 15025.0,
+          "type": "Technology"
+        },
+        {
+          "description": "Microsoft Corp.",
+          "isin": "US5949181045",
+          "price": 300.5,
+          "quantity": 50,
+          "value": 15025.0,
+          "type": "Technology"
+        },
+        {
+          "description": "Amazon.com Inc.",
+          "isin": "US0231351067",
+          "price": 130.75,
+          "quantity": 25,
+          "value": 3268.75,
+          "type": "Retail"
+        }
+      ],
+      "summary": {
+        "total_value": 33318.75,
+        "total_securities": 3
+      }
+    },
+    "asset_allocation": {},
+    "income_statement": {},
+    "balance_sheet": {},
+    "bank_statements": {},
+    "salary": {}
+  }
+}

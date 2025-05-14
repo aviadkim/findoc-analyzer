@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfolio Charts Demo | FinDoc Analyzer</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f8f9fa;
+      color: #333;
+    }
+
+    .header {
+      background-color: #4285F4;
+      color: white;
+      padding: 1rem;
+      text-align: center;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1rem;
+    }
+
+    .card {
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    h1, h2, h3 {
+      margin-top: 0;
+    }
+
+    .demo-controls {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+
+    .control-group {
+      margin-bottom: 16px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 500;
+    }
+
+    select, button {
+      padding: 8px 12px;
+      border-radius: 4px;
+      border: 1px solid #ddd;
+      background-color: white;
+      font-size: 14px;
+    }
+
+    button {
+      background-color: #4285F4;
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-weight: 500;
+    }
+
+    button:hover {
+      background-color: #3367d6;
+    }
+
+    .checkbox-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .checkbox-group input {
+      margin: 0;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        padding: 0.5rem;
+      }
+
+      .card {
+        padding: 1rem;
+      }
+    }
+
+    .dark-mode {
+      background-color: #1e272e;
+      color: #ecf0f1;
+    }
+
+    .dark-mode .card {
+      background-color: #2d3436;
+      color: #ecf0f1;
+    }
+
+    .dark-mode select,
+    .dark-mode input {
+      background-color: #2d3436;
+      color: #ecf0f1;
+      border-color: #4a5568;
+    }
+
+    .dark-mode-toggle {
+      position: fixed;
+      top: 16px;
+      right: 16px;
+      background-color: rgba(0, 0, 0, 0.1);
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      border: none;
+      font-size: 20px;
+    }
+
+    .dark-mode .dark-mode-toggle {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+  </style>
+</head>
+<body>
+  <button class="dark-mode-toggle" id="dark-mode-toggle">🌓</button>
+
+  <div class="header">
+    <h1>Portfolio Charts Demo</h1>
+  </div>
+
+  <div class="container">
+    <div class="card">
+      <h2>Portfolio Visualization</h2>
+      <p>This demo showcases interactive portfolio visualization charts using the PortfolioCharts component.</p>
+
+      <div class="demo-controls">
+        <div class="control-group">
+          <label for="portfolioSelect">Select Portfolio</label>
+          <select id="portfolioSelect">
+            <option value="default">Default Portfolio</option>
+            <option value="conservative">Conservative Portfolio</option>
+            <option value="aggressive">Aggressive Portfolio</option>
+            <option value="global">Global Portfolio</option>
+          </select>
+        </div>
+
+        <div class="control-group">
+          <label for="themeSelect">Theme</label>
+          <select id="themeSelect">
+            <option value="light">Light</option>
+            <option value="dark">Dark</option>
+          </select>
+        </div>
+
+        <div class="control-group">
+          <label>Options</label>
+          <div class="checkbox-group">
+            <input type="checkbox" id="includeESG" checked>
+            <label for="includeESG">Include ESG Metrics</label>
+          </div>
+          <div class="checkbox-group">
+            <input type="checkbox" id="includeRisk" checked>
+            <label for="includeRisk">Include Risk Metrics</label>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <label for="timeframeSelect">Timeframe</label>
+          <select id="timeframeSelect">
+            <option value="1m">1 Month</option>
+            <option value="3m">3 Months</option>
+            <option value="6m">6 Months</option>
+            <option value="1y" selected>1 Year</option>
+            <option value="3y">3 Years</option>
+            <option value="5y">5 Years</option>
+            <option value="max">Max</option>
+          </select>
+        </div>
+
+        <div class="control-group">
+          <label>&nbsp;</label>
+          <button id="refreshButton">Refresh Charts</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div id="portfolio-charts-container"></div>
+    </div>
+
+    <div class="card">
+      <h2>Portfolio Visualization Data</h2>
+      <div id="portfolio-visualization-container"></div>
+    </div>
+  </div>
+
+  <!-- Include the PortfolioCharts class -->
+  <script src="/components/PortfolioCharts.js"></script>
+
+  <script>
+    // Initialize portfolio charts
+    document.addEventListener('DOMContentLoaded', function() {
+      // Get UI elements
+      const portfolioSelect = document.getElementById('portfolioSelect');
+      const themeSelect = document.getElementById('themeSelect');
+      const timeframeSelect = document.getElementById('timeframeSelect');
+      const includeESGCheckbox = document.getElementById('includeESG');
+      const includeRiskCheckbox = document.getElementById('includeRisk');
+      const refreshButton = document.getElementById('refreshButton');
+      const darkModeToggle = document.getElementById('dark-mode-toggle');
+
+      // Check if dark mode is enabled in local storage
+      const isDarkMode = localStorage.getItem('darkMode') === 'true';
+      if (isDarkMode) {
+        document.body.classList.add('dark-mode');
+        themeSelect.value = 'dark';
+      }
+
+      // Create portfolio charts instance
+      const portfolioCharts = new PortfolioCharts({
+        containerId: 'portfolio-charts-container',
+        theme: isDarkMode ? 'dark' : 'light',
+        timeframe: timeframeSelect.value,
+        showTimeframeSelector: true,
+        showThemeToggle: true,
+        autoLoad: false
+      });
+
+      // Load initial data
+      loadChartData();
+
+      // Add event listeners
+      refreshButton.addEventListener('click', loadChartData);
+
+      // Dark mode toggle
+      darkModeToggle.addEventListener('click', function() {
+        document.body.classList.toggle('dark-mode');
+        const newDarkMode = document.body.classList.contains('dark-mode');
+        localStorage.setItem('darkMode', newDarkMode);
+        themeSelect.value = newDarkMode ? 'dark' : 'light';
+        portfolioCharts.setTheme(newDarkMode ? 'dark' : 'light');
+      });
+
+      // Theme select change
+      themeSelect.addEventListener('change', function() {
+        const isDark = themeSelect.value === 'dark';
+        if (isDark) {
+          document.body.classList.add('dark-mode');
+        } else {
+          document.body.classList.remove('dark-mode');
+        }
+        localStorage.setItem('darkMode', isDark);
+        portfolioCharts.setTheme(themeSelect.value);
+      });
+
+      // Load chart data function
+      function loadChartData() {
+        portfolioCharts.loadData(
+          portfolioSelect.value,
+          {
+            timeframe: timeframeSelect.value,
+            includeESG: includeESGCheckbox.checked,
+            includeRisk: includeRiskCheckbox.checked
+          }
+        );
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,194 @@
+[2025-05-01T07:57:29.572Z] [TEST] Starting comprehensive tests
+[2025-05-01T07:57:31.046Z] [TEST] Test 1: Basic Functionality
+[2025-05-01T07:57:31.047Z] [TEST] Test 1.1: Navigation
+[2025-05-01T07:57:31.809Z] [SCREENSHOT] Screenshot saved to C:\Users\aviad\OneDrive\Desktop\backv2-main\test-results-comprehensive\homepage.png
+[2025-05-01T07:57:31.810Z] [TEST] Test 1.2: API Health
+[2025-05-01T07:57:31.864Z] [TEST] API health check: Passed
+[2025-05-01T07:57:32.063Z] [SCREENSHOT] Screenshot saved to C:\Users\aviad\OneDrive\Desktop\backv2-main\test-results-comprehensive\api-health.png
+[2025-05-01T07:57:32.064Z] [TEST] Test 1.3: UI Rendering
+[2025-05-01T07:57:32.407Z] [SCREENSHOT] Screenshot saved to C:\Users\aviad\OneDrive\Desktop\backv2-main\test-results-comprehensive\documents-page.png
+[2025-05-01T07:57:33.074Z] [SCREENSHOT] Screenshot saved to C:\Users\aviad\OneDrive\Desktop\backv2-main\test-results-comprehensive\upload-page.png
+[2025-05-01T07:57:33.380Z] [SCREENSHOT] Screenshot saved to C:\Users\aviad\OneDrive\Desktop\backv2-main\test-results-comprehensive\document-chat-page.png
+[2025-05-01T07:57:33.381Z] [TEST] Test 2: Document Upload and Processing
+[2025-05-01T07:57:33.382Z] [TEST] Test 2.1: Messos Portfolio
+[2025-05-01T07:57:33.610Z] [SCREENSHOT] Screenshot saved to C:\Users\aviad\OneDrive\Desktop\backv2-main\test-results-comprehensive\upload-page-messos.png
+[2025-05-01T07:57:33.834Z] [SCREENSHOT] Screenshot saved to C:\Users\aviad\OneDrive\Desktop\backv2-main\test-results-comprehensive\file-selected-messos.png
+[2025-05-01T07:57:33.853Z] [UPLOAD] Selected document type: portfolio
+[2025-05-01T07:57:33.945Z] [UPLOAD] Selected a processing option
+[2025-05-01T07:57:34.109Z] [SCREENSHOT] Screenshot saved to C:\Users\aviad\OneDrive\Desktop\backv2-main\test-results-comprehensive\options-selected-messos.png
+[2025-05-01T07:57:34.159Z] [UPLOAD] Form submitted
+[2025-05-01T07:57:34.357Z] [SCREENSHOT] Screenshot saved to C:\Users\aviad\OneDrive\Desktop\backv2-main\test-results-comprehensive\form-submitted-messos.png
+[2025-05-01T07:57:34.367Z] [PROCESSING] Processing started
+[2025-05-01T07:57:39.323Z] [PROCESSING] Processing completed
+[2025-05-01T07:57:39.840Z] [SCREENSHOT] Screenshot saved to C:\Users\aviad\OneDrive\Desktop\backv2-main\test-results-comprehensive\processing-complete-messos.png
+[2025-05-01T07:57:39.861Z] [UPLOAD] Success message: 
+                        Document processed successfully!
+                        Document ID: doc-1746086254157
+                        Processing Time: 4.5 seconds
+                        Agents Used:
+                        
+                            Document Analyzer: completed
+                            Table Understanding: completed
+                            Securities Extractor: completed
+                            Financial Reasoner: completed
+                        
+                        Go to Document Chat to ask questions about this document.
+                    
+[2025-05-01T07:57:39.879Z] [UPLOAD] Document ID: doc-1746086254157
+[2025-05-01T07:57:39.880Z] [TEST] Messos Portfolio uploaded successfully with ID: doc-1746086254157
+[2025-05-01T07:57:39.881Z] [TEST] Test 3: Document Chat
+[2025-05-01T07:57:39.883Z] [TEST] Test 3.1: Basic Information Questions
+[2025-05-01T07:57:40.149Z] [SCREENSHOT] Screenshot saved to C:\Users\aviad\OneDrive\Desktop\backv2-main\test-results-comprehensive\document-chat-doc-1746086254157.png
+[2025-05-01T07:58:10.178Z] [WARNING] Document options did not load within the timeout period
+[2025-05-01T07:58:40.353Z] [ERROR] Document options still not loaded after refresh
+[2025-05-01T07:58:40.358Z] [CHAT] Added mock document options
+[2025-05-01T07:58:40.361Z] [CHAT] Available documents: [{"value":"","text":"-- Select a document --"},{"value":"doc-1","text":"Financial Report 2023.pdf"},{"value":"doc-2","text":"Messos Portfolio.pdf"}]
+[2025-05-01T07:59:10.414Z] [ERROR] Error selecting option doc-1746086254157 from #document-select: page.selectOption: Timeout 30000ms exceeded.
+Call log:
+[2m  - waiting for locator('#document-select')[22m
+[2m    - locator resolved to <select id="document-select">…</select>[22m
+[2m  - attempting select option action[22m
+[2m    2 × waiting for element to be visible and enabled[22m
+[2m      - did not find some options[22m
+[2m    - retrying select option action[22m
+[2m    - waiting 20ms[22m
+[2m    2 × waiting for element to be visible and enabled[22m
+[2m      - did not find some options[22m
+[2m    - retrying select option action[22m
+[2m      - waiting 100ms[22m
+[2m    58 × waiting for element to be visible and enabled[22m
+[2m       - did not find some options[22m
+[2m     - retrying select option action[22m
+[2m       - waiting 500ms[22m
+
+[2025-05-01T07:59:10.423Z] [CHAT] Selected document: doc-1746086254157
+[2025-05-01T07:59:10.662Z] [SCREENSHOT] Screenshot saved to C:\Users\aviad\OneDrive\Desktop\backv2-main\test-results-comprehensive\document-selected-doc-1746086254157.png
+[2025-05-01T07:59:10.684Z] [CHAT] Asking question 1: What is the total value of the portfolio?
+[2025-05-01T07:59:40.723Z] [ERROR] Error clicking element #send-btn: page.click: Timeout 30000ms exceeded.
+Call log:
+[2m  - waiting for locator('#send-btn')[22m
+[2m    - locator resolved to <button disabled id="send-btn" class="btn btn-primary">Send</button>[22m
+[2m  - attempting click action[22m
+[2m    2 × waiting for element to be visible, enabled and stable[22m
+[2m      - element is not enabled[22m
+[2m    - retrying click action[22m
+[2m    - waiting 20ms[22m
+[2m    2 × waiting for element to be visible, enabled and stable[22m
+[2m      - element is not enabled[22m
+[2m    - retrying click action[22m
+[2m      - waiting 100ms[22m
+[2m    56 × waiting for element to be visible, enabled and stable[22m
+[2m       - element is not enabled[22m
+[2m     - retrying click action[22m
+[2m       - waiting 500ms[22m
+
+[2025-05-01T07:59:40.724Z] [CHAT] Asked question: What is the total value of the portfolio?
+[2025-05-01T07:59:45.739Z] [ERROR] Error waiting for element .typing-indicator: page.waitForSelector: Timeout 5000ms exceeded.
+Call log:
+[2m  - waiting for locator('.typing-indicator') to be visible[22m
+
+[2025-05-01T07:59:45.752Z] [CHAT] Received response: 
+                  Hello! I'm your financial document assistant. Select a document and ask me questi...
+[2025-05-01T07:59:45.931Z] [SCREENSHOT] Screenshot saved to C:\Users\aviad\OneDrive\Desktop\backv2-main\test-results-comprehensive\question-1-doc-1746086254157.png
+[2025-05-01T07:59:47.942Z] [CHAT] Asking question 2: How many securities are in the portfolio?
+[2025-05-01T08:00:17.969Z] [ERROR] Error clicking element #send-btn: page.click: Timeout 30000ms exceeded.
+Call log:
+[2m  - waiting for locator('#send-btn')[22m
+[2m    - locator resolved to <button disabled id="send-btn" class="btn btn-primary">Send</button>[22m
+[2m  - attempting click action[22m
+[2m    2 × waiting for element to be visible, enabled and stable[22m
+[2m      - element is not enabled[22m
+[2m    - retrying click action[22m
+[2m    - waiting 20ms[22m
+[2m    2 × waiting for element to be visible, enabled and stable[22m
+[2m      - element is not enabled[22m
+[2m    - retrying click action[22m
+[2m      - waiting 100ms[22m
+[2m    37 × waiting for element to be visible, enabled and stable[22m
+[2m       - element is not enabled[22m
+[2m     - retrying click action[22m
+[2m       - waiting 500ms[22m
+[2m    - waiting for element to be visible, enabled and stable[22m
+
+[2025-05-01T08:00:17.972Z] [CHAT] Asked question: How many securities are in the portfolio?
+[2025-05-01T08:00:22.989Z] [ERROR] Error waiting for element .typing-indicator: page.waitForSelector: Timeout 5000ms exceeded.
+Call log:
+[2m  - waiting for locator('.typing-indicator') to be visible[22m
+
+[2025-05-01T08:00:23.000Z] [CHAT] Received response: 
+                  Hello! I'm your financial document assistant. Select a document and ask me questi...
+[2025-05-01T08:00:26.565Z] [SCREENSHOT] Screenshot saved to C:\Users\aviad\OneDrive\Desktop\backv2-main\test-results-comprehensive\question-2-doc-1746086254157.png
+[2025-05-01T08:00:28.576Z] [CHAT] Asking question 3: What is the document type?
+[2025-05-01T08:00:58.585Z] [ERROR] Error clicking element #send-btn: page.click: Timeout 30000ms exceeded.
+Call log:
+[2m  - waiting for locator('#send-btn')[22m
+[2m    - locator resolved to <button disabled id="send-btn" class="btn btn-primary">Send</button>[22m
+[2m  - attempting click action[22m
+[2m    2 × waiting for element to be visible, enabled and stable[22m
+[2m      - element is not enabled[22m
+[2m    - retrying click action[22m
+[2m    - waiting 20ms[22m
+[2m    2 × waiting for element to be visible, enabled and stable[22m
+[2m      - element is not enabled[22m
+[2m    - retrying click action[22m
+[2m      - waiting 100ms[22m
+[2m    10 × waiting for element to be visible, enabled and stable[22m
+[2m       - element is not enabled[22m
+[2m     - retrying click action[22m
+[2m       - waiting 500ms[22m
+[2m    - waiting for element to be visible, enabled and stable[22m
+
+[2025-05-01T08:00:58.588Z] [CHAT] Asked question: What is the document type?
+[2025-05-01T08:01:03.591Z] [ERROR] Error waiting for element .typing-indicator: page.waitForSelector: Timeout 5000ms exceeded.
+Call log:
+[2m  - waiting for locator('.typing-indicator') to be visible[22m
+
+[2025-05-01T08:01:03.601Z] [CHAT] Received response: 
+                  Hello! I'm your financial document assistant. Select a document and ask me questi...
+[2025-05-01T08:01:06.748Z] [SCREENSHOT] Screenshot saved to C:\Users\aviad\OneDrive\Desktop\backv2-main\test-results-comprehensive\question-3-doc-1746086254157.png
+[2025-05-01T08:01:08.768Z] [TEST] Test 3.2: Securities Questions
+[2025-05-01T08:01:38.959Z] [ERROR] Error in document chat: page.screenshot: Timeout 30000ms exceeded.
+Call log:
+[2m  - taking page screenshot[22m
+[2m  - waiting for fonts to load...[22m
+[2m  - fonts loaded[22m
+
+[2025-05-01T08:01:38.960Z] [TEST] Test 3.3: Performance Questions
+[2025-05-01T08:02:09.089Z] [ERROR] Error in document chat: page.screenshot: Timeout 30000ms exceeded.
+Call log:
+[2m  - taking page screenshot[22m
+[2m  - waiting for fonts to load...[22m
+[2m  - fonts loaded[22m
+
+[2025-05-01T08:02:09.091Z] [TEST] Test 3.4: Financial Analysis Questions
+[2025-05-01T08:02:39.279Z] [ERROR] Error in document chat: page.screenshot: Timeout 30000ms exceeded.
+Call log:
+[2m  - taking page screenshot[22m
+[2m  - waiting for fonts to load...[22m
+[2m  - fonts loaded[22m
+
+[2025-05-01T08:02:39.281Z] [TEST] Test 4: Report Generation
+[2025-05-01T08:02:39.283Z] [TEST] Test 4.1: Securities Report
+[2025-05-01T08:03:09.397Z] [ERROR] Error in report generation: page.screenshot: Timeout 30000ms exceeded.
+Call log:
+[2m  - taking page screenshot[22m
+[2m  - waiting for fonts to load...[22m
+[2m  - fonts loaded[22m
+
+[2025-05-01T08:03:09.398Z] [TEST] Test 4.2: Summary Report
+[2025-05-01T08:03:39.641Z] [ERROR] Error in report generation: page.screenshot: Timeout 30000ms exceeded.
+Call log:
+[2m  - taking page screenshot[22m
+[2m  - waiting for fonts to load...[22m
+[2m  - fonts loaded[22m
+
+[2025-05-01T08:03:39.642Z] [TEST] Test 4.3: Performance Report
+[2025-05-01T08:04:08.373Z] [ERROR] Error in report generation: page.screenshot: Target page, context or browser has been closed
+Call log:
+[2m  - taking page screenshot[22m
+[2m  - waiting for fonts to load...[22m
+[2m  - fonts loaded[22m
+
+[2025-05-01T08:04:08.374Z] [TEST] Generating test report
+[2025-05-01T08:04:08.378Z] [REPORT] HTML report generated at C:\Users\aviad\OneDrive\Desktop\backv2-main\test-results-comprehensive\test-report.html
+[2025-05-01T08:04:08.383Z] [TEST] Comprehensive tests completed

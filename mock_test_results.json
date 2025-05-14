@@ -1,0 +1,216 @@
+{
+  "basic_test": {
+    "timestamp": "2025-05-13T12:17:35.135744",
+    "test_name": "Basic Extractor Test",
+    "document_type": "messos",
+    "currency": "USD",
+    "portfolio_summary": {
+      "client_number": "366223",
+      "valuation_date": "28.02.2025",
+      "valuation_currency": "USD",
+      "total_value": "81148.60",
+      "performance": "4.2%"
+    },
+    "asset_allocation": {
+      "liquidity": {
+        "value": "0.00",
+        "percentage": "0.00%"
+      },
+      "bonds": {
+        "value": "21995.00",
+        "percentage": "27.11%"
+      },
+      "equities": {
+        "value": "59153.60",
+        "percentage": "72.89%"
+      },
+      "structured_products": null,
+      "other_assets": null
+    },
+    "securities": [
+      {
+        "isin": "US5949181045",
+        "description": "Microsoft Corporation",
+        "nominal": 100.0,
+        "price": 300.5,
+        "value": 30050.0,
+        "currency": "USD",
+        "type": "equity",
+        "weight": 37.03
+      },
+      {
+        "isin": "US0378331005",
+        "description": "Apple Inc.",
+        "nominal": 50.0,
+        "price": 180.95,
+        "value": 9047.5,
+        "currency": "USD",
+        "type": "equity",
+        "weight": 11.15
+      },
+      {
+        "isin": "US0231351067",
+        "description": "Amazon.com Inc.",
+        "nominal": 20.0,
+        "price": 130.0,
+        "value": 2600.0,
+        "currency": "USD",
+        "type": "equity",
+        "weight": 3.2
+      },
+      {
+        "isin": "US02079K3059",
+        "description": "Alphabet Inc.",
+        "nominal": 30.0,
+        "price": 138.75,
+        "value": 4162.5,
+        "currency": "USD",
+        "type": "equity",
+        "weight": 5.13
+      },
+      {
+        "isin": "US67066G1040",
+        "description": "NVIDIA Corporation",
+        "nominal": 15.0,
+        "price": 886.24,
+        "value": 13293.6,
+        "currency": "USD",
+        "type": "equity",
+        "weight": 16.38
+      },
+      {
+        "isin": "US91282CFS26",
+        "description": "US Treasury 2.5% 15.02.2026",
+        "nominal": 10000.0,
+        "price": 0.985,
+        "value": 9850.0,
+        "currency": "USD",
+        "type": "bond",
+        "weight": 12.14
+      },
+      {
+        "isin": "US037833AK68",
+        "description": "Apple Inc. 3.85% 05.05.2027",
+        "nominal": 5000.0,
+        "price": 0.962,
+        "value": 4810.0,
+        "currency": "USD",
+        "type": "bond",
+        "weight": 5.93
+      },
+      {
+        "isin": "US594918BB96",
+        "description": "Microsoft 3.3% 06.02.2028",
+        "nominal": 7500.0,
+        "price": 0.978,
+        "value": 7335.0,
+        "currency": "USD",
+        "type": "bond",
+        "weight": 9.04
+      }
+    ],
+    "stats": {
+      "total_securities": 8,
+      "complete_securities": 8,
+      "completion_rate": 100.0
+    }
+  },
+  "comprehensive_test": {
+    "timestamp": "2025-05-13T12:17:35.135753",
+    "test_name": "Comprehensive Test Suite",
+    "tests": [
+      {
+        "name": "test_initialization",
+        "status": "PASS",
+        "duration": 0.02
+      },
+      {
+        "name": "test_isin_validation",
+        "status": "PASS",
+        "duration": 0.05
+      },
+      {
+        "name": "test_security_name_lookup",
+        "status": "PASS",
+        "duration": 0.03
+      },
+      {
+        "name": "test_security_type_detection",
+        "status": "PASS",
+        "duration": 0.04
+      },
+      {
+        "name": "test_extract_from_messos_pdf",
+        "status": "PASS",
+        "duration": 1.25
+      },
+      {
+        "name": "test_security_values",
+        "status": "PASS",
+        "duration": 0.98
+      },
+      {
+        "name": "test_against_ground_truth",
+        "status": "PASS",
+        "duration": 1.18
+      },
+      {
+        "name": "test_currency_detection",
+        "status": "PASS",
+        "duration": 0.12
+      },
+      {
+        "name": "test_cross_validation",
+        "status": "PASS",
+        "duration": 0.35
+      },
+      {
+        "name": "test_performance",
+        "status": "PASS",
+        "duration": 3.85
+      }
+    ],
+    "summary": {
+      "total": 10,
+      "passed": 10,
+      "failed": 0,
+      "skipped": 0,
+      "total_duration": 7.87
+    }
+  },
+  "benchmark_results": {
+    "timestamp": "2025-05-13T12:17:35.135756",
+    "test_name": "Performance Benchmark",
+    "iterations": 3,
+    "original_vs_enhanced": {
+      "extraction_time": {
+        "original": 2.85,
+        "enhanced": 1.43,
+        "improvement": "49.8%"
+      },
+      "security_count": {
+        "original": 5.3,
+        "enhanced": 8.0,
+        "improvement": "50.9%"
+      },
+      "complete_securities": {
+        "original": 2.7,
+        "enhanced": 8.0,
+        "improvement": "196.3%"
+      },
+      "completion_rate": {
+        "original": "50.9%",
+        "enhanced": "100%",
+        "improvement": "96.5%"
+      }
+    },
+    "document_types": {
+      "messos": {
+        "security_count": 8,
+        "complete_securities": 8,
+        "completion_rate": "100%",
+        "extraction_time": 1.35
+      }
+    }
+  }
+}

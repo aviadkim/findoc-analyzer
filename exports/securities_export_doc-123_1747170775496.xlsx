@@ -1,0 +1,3 @@
+Mock Excel export file
+Format: XLSX
+Data: {"Securities":[{"isin":"DE8690358541","name":"Microsoft Corp.","type":"ETF","quantity":147,"price":847.84,"value":124632.48,"currency":"ILS","marketPrice":870.73,"marketValue":127997.31,"priceChange":22.89,"priceChangePercent":2.7,"lastUpdated":"2025-05-13T21:12:55.496Z","dataProvider":"Yahoo Finance","id":"sec-1","symbol":"MICROSOFT","sector":"Energy","country":"DE"},{"isin":"GB3611550817","name":"UnitedHealth Group Inc.","type":"Stock","quantity":420,"price":410.77,"value":172523.4,"currency":...

@@ -1,0 +1,38 @@
+{
+  "metadata": {
+    "date": "2025-05-08",
+    "account": "123456789",
+    "report_type": "portfolio_summary"
+  },
+  "securities": [
+    {
+      "name": "US Large Cap Fund",
+      "isin": "US1234567890",
+      "value": 50000,
+      "currency": "USD",
+      "weight": 0.5
+    },
+    {
+      "name": "Global Bond Fund",
+      "isin": "US0987654321",
+      "value": 30000,
+      "currency": "USD",
+      "weight": 0.3
+    },
+    {
+      "name": "Emerging Markets ETF",
+      "isin": "US5555555555",
+      "value": 20000,
+      "currency": "USD",
+      "weight": 0.2
+    }
+  ],
+  "summary": {
+    "total_value": 100000,
+    "currency": "USD",
+    "asset_allocation": {
+      "equity": 70,
+      "fixed_income": 30
+    }
+  }
+}

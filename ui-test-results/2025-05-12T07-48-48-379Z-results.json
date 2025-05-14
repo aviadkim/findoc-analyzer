@@ -1,0 +1,142 @@
+{
+  "summary": {
+    "totalTests": 23,
+    "passedTests": 17,
+    "failedTests": 6,
+    "startTime": "2025-05-12T07:48:48.379Z",
+    "endTime": "2025-05-12T07:48:48.447Z"
+  },
+  "pageResults": {
+    "Home": {
+      "url": "http://localhost:8080/",
+      "statusCode": 200,
+      "components": [
+        {
+          "name": "chatButton",
+          "selector": "#show-chat-btn",
+          "exists": false
+        },
+        {
+          "name": "processButton",
+          "selector": "#process-document-btn",
+          "exists": true
+        }
+      ]
+    },
+    "Upload": {
+      "url": "http://localhost:8080/upload.html",
+      "statusCode": 200,
+      "components": [
+        {
+          "name": "chatButton",
+          "selector": "#show-chat-btn",
+          "exists": true
+        },
+        {
+          "name": "processButton",
+          "selector": "#process-document-btn",
+          "exists": true
+        },
+        {
+          "name": "uploadButton",
+          "selector": "#upload-btn",
+          "exists": true
+        },
+        {
+          "name": "fileInput",
+          "selector": "#file-input",
+          "exists": true
+        }
+      ]
+    },
+    "Document Details": {
+      "url": "http://localhost:8080/document-details.html",
+      "statusCode": 200,
+      "components": [
+        {
+          "name": "chatButton",
+          "selector": "#show-chat-btn",
+          "exists": false
+        },
+        {
+          "name": "chatInput",
+          "selector": "#document-chat-input",
+          "exists": true
+        },
+        {
+          "name": "sendButton",
+          "selector": "#document-send-btn",
+          "exists": true
+        }
+      ]
+    },
+    "Documents": {
+      "url": "http://localhost:8080/documents-new.html",
+      "statusCode": 200,
+      "components": [
+        {
+          "name": "chatButton",
+          "selector": "#show-chat-btn",
+          "exists": false
+        },
+        {
+          "name": "processButton",
+          "selector": "#process-document-btn",
+          "exists": true
+        }
+      ]
+    },
+    "Test": {
+      "url": "http://localhost:8080/test.html",
+      "statusCode": 200,
+      "components": [
+        {
+          "name": "chatButton",
+          "selector": "#show-chat-btn",
+          "exists": false
+        },
+        {
+          "name": "processButton",
+          "selector": "#process-document-btn",
+          "exists": true
+        }
+      ]
+    }
+  },
+  "cssTests": {
+    "passed": [
+      "Process Button style (#process-document-btn: background-color)",
+      "Chat Button style (#show-chat-btn: position)",
+      "Chat Container style (#document-chat-container: position)",
+      "Progress Bar style (#progress-bar: width)",
+      "Chat Messages style (#document-chat-messages: height)"
+    ],
+    "failed": []
+  },
+  "jsTests": {
+    "passed": [
+      "Chat Send Function (send.*chat.*message)",
+      "Show Chat Function (show.*chat)",
+      "Progress Animation (progress.*bar.*width)"
+    ],
+    "failed": [
+      "Process Button Initialization (process.*button.*init)",
+      "Chat Interface Initialization (chat.*interface.*init)"
+    ]
+  },
+  "htmlTests": {
+    "passed": [
+      "Home page has Document Chat Container",
+      "Home page has Process Button",
+      "Upload page has Document Chat Container",
+      "Upload page has Process Button",
+      "Document Details page has Document Chat Container",
+      "Document Details page has Process Button",
+      "Documents page has Document Chat Container",
+      "Documents page has Process Button",
+      "Test page has Document Chat Container",
+      "Test page has Process Button"
+    ],
+    "failed": []
+  }
+}

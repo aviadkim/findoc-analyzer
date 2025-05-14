@@ -1,0 +1,3 @@
+Mock Excel export file
+Format: XLSX
+Data: {"Securities":[{"isin":"JP0914784140","name":"UnitedHealth Group Inc.","type":"Cash","quantity":226,"price":364.98,"value":82485.48,"currency":"GBP","marketPrice":354.51,"marketValue":80119.26,"priceChange":-10.47,"priceChangePercent":-2.87,"lastUpdated":"2025-05-13T21:15:49.040Z","dataProvider":"Yahoo Finance","id":"sec-1","symbol":"UNITEDHEALTH","sector":"Financial Services","country":"JP"},{"isin":"JP6532234869","name":"Johnson & Johnson","type":"Option","quantity":407,"price":311.86,"value":...

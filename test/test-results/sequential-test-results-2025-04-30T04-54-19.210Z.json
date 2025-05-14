@@ -1,0 +1,87 @@
+{
+  "totalTests": 3,
+  "passedTests": 3,
+  "failedTests": 0,
+  "skippedTests": 0,
+  "startTime": "2025-04-30T04:54:16.536Z",
+  "endTime": "2025-04-30T04:54:19.210Z",
+  "tests": [
+    {
+      "id": "PDF-01",
+      "status": "passed",
+      "error": null,
+      "steps": [
+        {
+          "status": "passed",
+          "error": null,
+          "number": 1,
+          "name": "Step 1",
+          "startTime": "2025-04-30T04:54:16.772Z",
+          "endTime": "2025-04-30T04:54:16.773Z",
+          "duration": 1,
+          "filePath": "C:\\Users\\aviad\\OneDrive\\Desktop\\backv2-main\\test\\test-files\\test-portfolio.pdf"
+        }
+      ]
+    },
+    {
+      "id": "PDF-02",
+      "status": "passed",
+      "error": null,
+      "steps": [
+        {
+          "status": "passed",
+          "error": null,
+          "number": 1,
+          "name": "Step 1",
+          "startTime": "2025-04-30T04:54:16.773Z",
+          "endTime": "2025-04-30T04:54:19.176Z",
+          "duration": 2403
+        },
+        {
+          "status": "passed",
+          "error": null,
+          "number": 2,
+          "name": "Step 2",
+          "startTime": "2025-04-30T04:54:19.176Z",
+          "endTime": "2025-04-30T04:54:19.179Z",
+          "duration": 3
+        }
+      ]
+    },
+    {
+      "id": "PDF-03",
+      "status": "passed",
+      "error": null,
+      "steps": [
+        {
+          "status": "passed",
+          "error": null,
+          "number": 1,
+          "name": "Step 1",
+          "startTime": "2025-04-30T04:54:19.181Z",
+          "endTime": "2025-04-30T04:54:19.184Z",
+          "duration": 3
+        },
+        {
+          "status": "passed",
+          "error": null,
+          "number": 2,
+          "name": "Step 2",
+          "startTime": "2025-04-30T04:54:19.184Z",
+          "endTime": "2025-04-30T04:54:19.208Z",
+          "duration": 24,
+          "batchId": "32fdda5c-8cff-494e-adfe-87280ccaaada"
+        },
+        {
+          "status": "passed",
+          "error": null,
+          "number": 3,
+          "name": "Step 3",
+          "startTime": "2025-04-30T04:54:19.208Z",
+          "endTime": "2025-04-30T04:54:19.209Z",
+          "duration": 1
+        }
+      ]
+    }
+  ]
+}

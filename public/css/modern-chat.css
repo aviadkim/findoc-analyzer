@@ -1,0 +1,381 @@
+/**
+ * FinDoc Analyzer - Modern Chat
+ * A modern chat component for the FinDoc Analyzer application
+ */
+
+/* Chat Container */
+#document-chat-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background-color: var(--bg-primary);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+}
+
+/* Chat Header */
+.chat-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--spacing-4) var(--spacing-6);
+  background-color: var(--bg-secondary);
+  border-bottom: 1px solid var(--border-light);
+}
+
+.chat-title {
+  display: flex;
+  align-items: center;
+  font-size: var(--text-lg);
+  font-weight: var(--font-semibold);
+  color: var(--text-primary);
+}
+
+.chat-title-icon {
+  margin-right: var(--spacing-2);
+  color: var(--primary);
+}
+
+.chat-actions {
+  display: flex;
+  gap: var(--spacing-2);
+}
+
+.chat-action {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  color: var(--text-tertiary);
+  background-color: transparent;
+  border: none;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition: all var(--transition-fast) var(--transition-ease);
+}
+
+.chat-action:hover {
+  color: var(--text-primary);
+  background-color: var(--neutral-100);
+}
+
+/* Chat Messages */
+.chat-messages {
+  flex: 1;
+  padding: var(--spacing-4);
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+}
+
+.chat-message {
+  display: flex;
+  gap: var(--spacing-3);
+  max-width: 85%;
+}
+
+.chat-message.user {
+  align-self: flex-end;
+  flex-direction: row-reverse;
+}
+
+.chat-message-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-full);
+  background-color: var(--primary);
+  color: var(--text-on-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: var(--font-bold);
+  font-size: var(--text-sm);
+  flex-shrink: 0;
+}
+
+.chat-message.user .chat-message-avatar {
+  background-color: var(--neutral-500);
+}
+
+.chat-message-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-1);
+}
+
+.chat-message-bubble {
+  padding: var(--spacing-3) var(--spacing-4);
+  background-color: var(--bg-secondary);
+  border-radius: var(--radius-lg);
+  border-top-left-radius: var(--radius-sm);
+  font-size: var(--text-sm);
+  color: var(--text-primary);
+  line-height: var(--leading-relaxed);
+}
+
+.chat-message.user .chat-message-bubble {
+  background-color: var(--primary);
+  color: var(--text-on-primary);
+  border-radius: var(--radius-lg);
+  border-top-right-radius: var(--radius-sm);
+}
+
+.chat-message-meta {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  font-size: var(--text-xs);
+  color: var(--text-tertiary);
+}
+
+.chat-message-time {
+  white-space: nowrap;
+}
+
+.chat-message-status {
+  display: flex;
+  align-items: center;
+}
+
+.chat-message-status-icon {
+  margin-right: var(--spacing-1);
+}
+
+/* Chat Input */
+.chat-input-container {
+  padding: var(--spacing-4);
+  border-top: 1px solid var(--border-light);
+  display: flex;
+  gap: var(--spacing-2);
+}
+
+.chat-input {
+  flex: 1;
+  padding: var(--spacing-3) var(--spacing-4);
+  font-size: var(--text-sm);
+  color: var(--text-primary);
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-full);
+  transition: border-color var(--transition-fast) var(--transition-ease),
+              box-shadow var(--transition-fast) var(--transition-ease);
+}
+
+.chat-input:focus {
+  border-color: var(--primary);
+  outline: 0;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.25);
+}
+
+#document-send-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-3);
+  color: var(--text-on-primary);
+  background-color: var(--primary);
+  border: none;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition: background-color var(--transition-fast) var(--transition-ease);
+}
+
+#document-send-btn:hover {
+  background-color: var(--primary-dark);
+}
+
+#document-send-btn:disabled {
+  background-color: var(--neutral-300);
+  cursor: not-allowed;
+}
+
+.chat-input-actions {
+  display: flex;
+  gap: var(--spacing-1);
+}
+
+.chat-input-action {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  color: var(--text-tertiary);
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition: all var(--transition-fast) var(--transition-ease);
+}
+
+.chat-input-action:hover {
+  color: var(--text-primary);
+  border-color: var(--border-medium);
+}
+
+/* Chat Empty State */
+.chat-empty-state {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-6);
+  text-align: center;
+}
+
+.chat-empty-icon {
+  font-size: var(--text-5xl);
+  color: var(--neutral-300);
+  margin-bottom: var(--spacing-4);
+}
+
+.chat-empty-title {
+  font-size: var(--text-xl);
+  font-weight: var(--font-semibold);
+  color: var(--text-primary);
+  margin-bottom: var(--spacing-2);
+}
+
+.chat-empty-text {
+  font-size: var(--text-base);
+  color: var(--text-secondary);
+  margin-bottom: var(--spacing-6);
+  max-width: 400px;
+}
+
+.chat-suggestion {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+  width: 100%;
+  max-width: 400px;
+}
+
+.chat-suggestion-button {
+  padding: var(--spacing-3) var(--spacing-4);
+  font-size: var(--text-sm);
+  color: var(--text-primary);
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  text-align: left;
+  cursor: pointer;
+  transition: all var(--transition-fast) var(--transition-ease);
+}
+
+.chat-suggestion-button:hover {
+  background-color: var(--neutral-100);
+  border-color: var(--border-medium);
+}
+
+/* Chat Loading */
+.chat-loading {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  padding: var(--spacing-3) var(--spacing-4);
+  background-color: var(--bg-secondary);
+  border-radius: var(--radius-lg);
+  border-top-left-radius: var(--radius-sm);
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  align-self: flex-start;
+  max-width: 85%;
+}
+
+.chat-loading-dots {
+  display: flex;
+  gap: 4px;
+}
+
+.chat-loading-dot {
+  width: 8px;
+  height: 8px;
+  background-color: var(--text-tertiary);
+  border-radius: var(--radius-full);
+  animation: pulse 1.5s infinite;
+}
+
+.chat-loading-dot:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.chat-loading-dot:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 0.4;
+    transform: scale(0.8);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Chat Floating Button */
+.chat-floating-button {
+  position: fixed;
+  bottom: var(--spacing-6);
+  right: var(--spacing-6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  background-color: var(--primary);
+  color: var(--text-on-primary);
+  border: none;
+  border-radius: var(--radius-full);
+  box-shadow: var(--shadow-lg);
+  cursor: pointer;
+  transition: all var(--transition-fast) var(--transition-ease);
+  z-index: var(--z-30);
+}
+
+.chat-floating-button:hover {
+  background-color: var(--primary-dark);
+  transform: translateY(-4px);
+}
+
+.chat-floating-icon {
+  font-size: var(--text-2xl);
+}
+
+/* Chat Floating Container */
+.chat-floating-container {
+  position: fixed;
+  bottom: var(--spacing-6);
+  right: var(--spacing-6);
+  width: 360px;
+  height: 480px;
+  background-color: var(--bg-primary);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-xl);
+  z-index: var(--z-30);
+  display: none;
+  overflow: hidden;
+}
+
+.chat-floating-container.visible {
+  display: flex;
+  flex-direction: column;
+  animation: slide-up 0.3s var(--transition-ease);
+}
+
+@keyframes slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

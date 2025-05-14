@@ -1,0 +1,11 @@
+isin,name,type,quantity,price,value,currency,marketPrice,marketValue,priceChange,priceChangePercent,lastUpdated,dataProvider,id,symbol,description,sector,country,exchange
+"FR8074101843","Johnson & Johnson","Cash",690,889.67,613872.3,"USD",933.26,643949.4,43.59,4.9,"2025-05-13T15:00:42.300Z","Yahoo Finance","sec-1","JOHNSON",,"Real Estate","FR",
+"IL9597943481","Home Depot Inc.","Option",958,80.41,77032.78,"USD",77.52,74264.16,-2.89,-3.59,"2025-05-13T15:00:42.300Z","Yahoo Finance","sec-2","HOME",,"Industrials","IL",
+"US0948664981","Visa Inc.","Cash",176,872.9,153630.4,"EUR",905.11,159299.36,32.21,3.69,"2025-05-13T15:00:42.300Z","Yahoo Finance","sec-3","VISA",,"Communication Services","US",
+"JP1595529298","Visa Inc.","Fund",796,788.13,627351.48,"EUR",784.5,624462,-3.63,-0.46,"2025-05-13T15:00:42.300Z","Yahoo Finance","sec-4","VISA",,"Technology","JP",
+"IL6632370765","Amazon.com Inc.","Cash",23,293.15,6742.45,"EUR",281.16,6466.68,-11.99,-4.09,"2025-05-13T15:00:42.300Z","Yahoo Finance","sec-5","AMAZON.COM",,"Energy","IL",
+"DE2393212180","Johnson & Johnson","Option",489,597.13,291996.57,"EUR",610.74,298651.86,13.61,2.28,"2025-05-13T15:00:42.300Z","Yahoo Finance","sec-6","JOHNSON",,"Utilities","DE",
+"GB2984361394","Mastercard Inc.","Option",230,242.28,55724.4,"EUR",246.88,56782.4,4.6,1.9,"2025-05-13T15:00:42.300Z","Yahoo Finance","sec-7","MASTERCARD",,"Communication Services","GB",
+"FR3048016740","UnitedHealth Group Inc.","Fund",980,847.94,830981.2,"EUR",828.52,811949.6,-19.42,-2.29,"2025-05-13T15:00:42.300Z","Yahoo Finance","sec-8","UNITEDHEALTH",,"Healthcare","FR",
+"JP4993926744","Visa Inc.","Option",98,891.62,87378.76,"USD",920.33,90192.34,28.71,3.22,"2025-05-13T15:00:42.300Z","Yahoo Finance","sec-9","VISA",,"Energy","JP",
+"IL4219141637","Alphabet Inc.","ETF",916,283.22,259429.52,"USD",277.1,253823.6,-6.12,-2.16,"2025-05-13T15:00:42.300Z","Yahoo Finance","sec-10","ALPHABET",,"Technology","IL",

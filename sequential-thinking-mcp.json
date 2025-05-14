@@ -1,0 +1,162 @@
+{
+  "name": "Sequential Thinking MCP",
+  "description": "A Model Context Protocol (MCP) server for breaking down complex tasks into smaller, more manageable subtasks.",
+  "version": "1.0.0",
+  "author": "Aviad Kim",
+  "license": "MIT",
+  "repository": "https://github.com/aviadkim/sequential-thinking-mcp",
+  "homepage": "https://github.com/aviadkim/sequential-thinking-mcp#readme",
+  "main": "sequential-thinking.js",
+  "scripts": {
+    "start": "node sequential-thinking.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5"
+  },
+  "config": {
+    "port": 3000,
+    "host": "localhost",
+    "apiPath": "/api/sequential-thinking",
+    "maxSubtasks": 10,
+    "maxDepth": 3
+  },
+  "tasks": [
+    {
+      "id": "pdf-processing",
+      "name": "PDF Processing",
+      "description": "Process PDF documents to extract text, tables, and metadata",
+      "subtasks": [
+        {
+          "id": "pdf-upload",
+          "name": "PDF Upload",
+          "description": "Upload PDF files to the server"
+        },
+        {
+          "id": "text-extraction",
+          "name": "Text Extraction",
+          "description": "Extract text from PDF files"
+        },
+        {
+          "id": "table-extraction",
+          "name": "Table Extraction",
+          "description": "Extract tables from PDF files"
+        },
+        {
+          "id": "metadata-extraction",
+          "name": "Metadata Extraction",
+          "description": "Extract metadata from PDF files"
+        },
+        {
+          "id": "securities-extraction",
+          "name": "Securities Extraction",
+          "description": "Extract securities information from PDF files"
+        }
+      ]
+    },
+    {
+      "id": "document-chat",
+      "name": "Document Chat",
+      "description": "Chat with documents using AI agents",
+      "subtasks": [
+        {
+          "id": "question-answering",
+          "name": "Question Answering",
+          "description": "Answer questions about documents"
+        },
+        {
+          "id": "document-summarization",
+          "name": "Document Summarization",
+          "description": "Summarize documents"
+        },
+        {
+          "id": "information-extraction",
+          "name": "Information Extraction",
+          "description": "Extract specific information from documents"
+        }
+      ]
+    },
+    {
+      "id": "data-visualization",
+      "name": "Data Visualization",
+      "description": "Visualize data from documents",
+      "subtasks": [
+        {
+          "id": "chart-generation",
+          "name": "Chart Generation",
+          "description": "Generate charts from document data"
+        },
+        {
+          "id": "dashboard-creation",
+          "name": "Dashboard Creation",
+          "description": "Create dashboards from document data"
+        },
+        {
+          "id": "report-generation",
+          "name": "Report Generation",
+          "description": "Generate reports from document data"
+        }
+      ]
+    },
+    {
+      "id": "export",
+      "name": "Export",
+      "description": "Export document data to various formats",
+      "subtasks": [
+        {
+          "id": "csv-export",
+          "name": "CSV Export",
+          "description": "Export document data to CSV format"
+        },
+        {
+          "id": "excel-export",
+          "name": "Excel Export",
+          "description": "Export document data to Excel format"
+        },
+        {
+          "id": "pdf-export",
+          "name": "PDF Export",
+          "description": "Export document data to PDF format"
+        },
+        {
+          "id": "json-export",
+          "name": "JSON Export",
+          "description": "Export document data to JSON format"
+        }
+      ]
+    },
+    {
+      "id": "testing",
+      "name": "Testing",
+      "description": "Test the FinDoc Analyzer application",
+      "subtasks": [
+        {
+          "id": "unit-testing",
+          "name": "Unit Testing",
+          "description": "Test individual functions and components"
+        },
+        {
+          "id": "integration-testing",
+          "name": "Integration Testing",
+          "description": "Test how components work together"
+        },
+        {
+          "id": "end-to-end-testing",
+          "name": "End-to-End Testing",
+          "description": "Test the entire application workflow"
+        },
+        {
+          "id": "performance-testing",
+          "name": "Performance Testing",
+          "description": "Test the performance of the application"
+        },
+        {
+          "id": "security-testing",
+          "name": "Security Testing",
+          "description": "Test the security of the application"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+Extracted Entities
+=================
+
+company: 6 entities
+security: 9 entities
+
+Sample Entities:
+
+Security: Apple Inc.
+  ISIN: US0378331005
+  Ticker: AAPL
+
+Security: Microsoft Corporation
+  ISIN: US5949181045
+  Ticker: MSFT
+
+Security: Amazon.com Inc.
+  ISIN: US0231351067
+  Ticker: AMZN
+
+Security: Alphabet Inc.
+  ISIN: US02079K1079
+  Ticker: GOOGL
+
+Security: Tesla Inc.
+  ISIN: US88160R1014
+  Ticker: TSLA
+

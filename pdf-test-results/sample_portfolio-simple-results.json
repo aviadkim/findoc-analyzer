@@ -1,0 +1,61 @@
+{
+  "filename": "sample_portfolio.pdf",
+  "timestamp": "2025-05-12T11:53:45.502Z",
+  "textLength": 2100,
+  "tableCount": 2,
+  "entityCount": 69,
+  "entityTypes": {
+    "company": 23,
+    "financialMetric": 1,
+    "currency": 45
+  },
+  "metadata": {
+    "title": "sample_portfolio.pdf",
+    "author": "Unknown",
+    "subject": "",
+    "keywords": "",
+    "creator": "PDFKit",
+    "producer": "PDFKit",
+    "pages": 23,
+    "creationDate": "",
+    "modificationDate": ""
+  },
+  "sampleText": "\n\nInvestment Portfolio Statement\nDate: June 30, 2023\nClient: John Smith\nAccount Number: 12345-678\nPortfolio Summary\nDescriptionAmount\nTotal Value$1,250,000.00\nCash Balance$125,000.00\nInvested Amount$1,125,000.00\nUnrealized Gain/Loss+$75,000.00 (+7.14%)\nAsset Allocation\nAsset ClassAllocationValue\nEquities60%$750,000.00\nFixed Income30%$375,000.00\nCash10%$125,000.00\nSecurities Holdings\nISINSecurity \nName\nQuantityPriceValue% of \nPortfolio\nUS03783\n31005\nApple Inc.100$180.00$18,000.0\n0\n1.44%\nUS59491\n8...",
+  "sampleEntities": [
+    {
+      "type": "company",
+      "name": "Fixed",
+      "confidence": 0.95,
+      "ticker": "TICKER",
+      "source": "https://example.com/company/fixed"
+    },
+    {
+      "type": "company",
+      "name": "Portfolio\nUS03783\n31005\nApple",
+      "confidence": 0.95,
+      "ticker": "TICKER",
+      "source": "https://example.com/company/portfolio-us"
+    },
+    {
+      "type": "company",
+      "name": "US59491\n81045\nMicrosoft",
+      "confidence": 0.95,
+      "ticker": "TICKER",
+      "source": "https://example.com/company/us"
+    },
+    {
+      "type": "company",
+      "name": "US02313\n51067\nAmazon.c\nom",
+      "confidence": 0.95,
+      "ticker": "TICKER",
+      "source": "https://example.com/company/us"
+    },
+    {
+      "type": "company",
+      "name": "US88160\nR1014\nTesla",
+      "confidence": 0.95,
+      "ticker": "TICKER",
+      "source": "https://example.com/company/us"
+    }
+  ]
+}

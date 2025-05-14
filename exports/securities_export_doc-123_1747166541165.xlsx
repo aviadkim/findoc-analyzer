@@ -1,0 +1,3 @@
+Mock Excel export file
+Format: XLSX
+Data: {"Securities":[{"isin":"JP9248512095","name":"JPMorgan Chase & Co.","type":"Option","quantity":762,"price":766.28,"value":583905.36,"currency":"USD","marketPrice":741.38,"marketValue":564931.56,"priceChange":-24.9,"priceChangePercent":-3.25,"lastUpdated":"2025-05-13T20:02:21.165Z","dataProvider":"Yahoo Finance","id":"sec-1","symbol":"JPMORGAN","sector":"Consumer Cyclical","country":"JP"},{"isin":"IL2381939740","name":"Home Depot Inc.","type":"Fund","quantity":175,"price":832.38,"value":145666.5,...

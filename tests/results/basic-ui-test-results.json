@@ -1,0 +1,33 @@
+{
+  "total": 5,
+  "passed": 4,
+  "failed": 1,
+  "components": {
+    "Navigation Bar": {
+      "exists": false,
+      "selector": "nav",
+      "page": "/"
+    },
+    "Document List": {
+      "exists": true,
+      "selector": "#document-list",
+      "page": "/documents-new"
+    },
+    "Upload Form": {
+      "exists": true,
+      "selector": "form[enctype=\"multipart/form-data\"]",
+      "page": "/upload"
+    },
+    "Chat Input": {
+      "exists": true,
+      "selector": "#document-chat-input",
+      "page": "/document-chat"
+    },
+    "Chat Send Button": {
+      "exists": true,
+      "selector": "#document-send-btn",
+      "page": "/document-chat"
+    }
+  },
+  "passRate": 80
+}

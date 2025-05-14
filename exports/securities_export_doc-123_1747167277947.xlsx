@@ -1,0 +1,3 @@
+Mock Excel export file
+Format: XLSX
+Data: {"Securities":[{"isin":"FR1280567294","name":"UnitedHealth Group Inc.","type":"Fund","quantity":348,"price":127.36,"value":44321.28,"currency":"GBP","marketPrice":123.7,"marketValue":43047.6,"priceChange":-3.66,"priceChangePercent":-2.87,"lastUpdated":"2025-05-13T20:14:37.946Z","dataProvider":"Yahoo Finance","id":"sec-1","symbol":"UNITEDHEALTH","sector":"Financial Services","country":"FR"},{"isin":"DE1281744965","name":"Alphabet Inc.","type":"Fund","quantity":603,"price":563.68,"value":339899.04...

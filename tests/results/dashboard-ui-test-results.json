@@ -1,0 +1,33 @@
+{
+  "page": "Dashboard",
+  "url": "https://backv2-app-brfi73d4ra-zf.a.run.app/",
+  "components": {
+    "Recent Documents Section": {
+      "exists": false,
+      "selector": ".recent-documents"
+    },
+    "Quick Upload Section": {
+      "exists": false,
+      "selector": ".quick-upload"
+    },
+    "Features Section": {
+      "exists": false,
+      "selector": ".features"
+    },
+    "Navigation Bar": {
+      "exists": false,
+      "selector": "nav"
+    },
+    "Footer": {
+      "exists": false,
+      "selector": "footer"
+    },
+    "Chat Button": {
+      "exists": true,
+      "selector": "#show-chat-btn"
+    }
+  },
+  "total": 6,
+  "found": 1,
+  "missing": 5
+}

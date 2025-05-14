@@ -1,0 +1,24 @@
+[
+  {
+    "documentName": "sample_portfolio.pdf",
+    "uploadSuccess": true,
+    "agentSelection": true,
+    "processingStarted": true,
+    "processingCompleted": false,
+    "dataExtracted": {
+      "securities": true,
+      "tables": true,
+      "isins": true
+    },
+    "errors": [],
+    "screenshots": [
+      "C:\\Users\\aviad\\OneDrive\\Desktop\\backv2-main\\test-screenshots-agents\\sample_portfolio.pdf-01-upload-page.png",
+      "C:\\Users\\aviad\\OneDrive\\Desktop\\backv2-main\\test-screenshots-agents\\sample_portfolio.pdf-02-file-selected.png",
+      "C:\\Users\\aviad\\OneDrive\\Desktop\\backv2-main\\test-screenshots-agents\\sample_portfolio.pdf-05-form-submitted.png",
+      "C:\\Users\\aviad\\OneDrive\\Desktop\\backv2-main\\test-screenshots-agents\\sample_portfolio.pdf-06-processing-started.png",
+      "C:\\Users\\aviad\\OneDrive\\Desktop\\backv2-main\\test-screenshots-agents\\sample_portfolio.pdf-07-processing-complete.png",
+      "C:\\Users\\aviad\\OneDrive\\Desktop\\backv2-main\\test-screenshots-agents\\sample_portfolio.pdf-08-document-chat.png",
+      "C:\\Users\\aviad\\OneDrive\\Desktop\\backv2-main\\test-screenshots-agents\\sample_portfolio.pdf-09-document-selected.png"
+    ]
+  }
+]

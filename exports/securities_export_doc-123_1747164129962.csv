@@ -1,0 +1,11 @@
+isin,name,type,quantity,price,value,currency,marketPrice,marketValue,priceChange,priceChangePercent,lastUpdated,dataProvider,id,symbol,description,sector,country,exchange
+"US9222171780","Tesla Inc.","Option",747,653.41,488097.27,"EUR",633.68,473358.96,-19.73,-3.02,"2025-05-13T19:22:09.962Z","Yahoo Finance","sec-1","TESLA",,"Industrials","US",
+"FR2639832290","Verizon Communications Inc.","Option",860,809.82,696445.2,"USD",786.17,676106.2,-23.65,-2.92,"2025-05-13T19:22:09.962Z","Yahoo Finance","sec-2","VERIZON",,"Technology","FR",
+"JP5647516203","Walt Disney Co.","Fund",899,598.77,538294.23,"GBP",571.71,513967.29,-27.06,-4.52,"2025-05-13T19:22:09.962Z","Yahoo Finance","sec-3","WALT",,"Energy","JP",
+"DE1300987345","Microsoft Corp.","Cash",630,134.39,84665.7,"GBP",137.16,86410.8,2.77,2.06,"2025-05-13T19:22:09.962Z","Yahoo Finance","sec-4","MICROSOFT",,"Technology","DE",
+"FR1765565629","Tesla Inc.","Option",462,838.48,387377.76,"ILS",850.97,393148.14,12.49,1.49,"2025-05-13T19:22:09.962Z","Yahoo Finance","sec-5","TESLA",,"Financial Services","FR",
+"US1952913408","Visa Inc.","Fund",858,882.19,756919.02,"ILS",860.93,738677.94,-21.26,-2.41,"2025-05-13T19:22:09.962Z","Yahoo Finance","sec-6","VISA",,"Utilities","US",
+"DE1391878109","Procter & Gamble Co.","Stock",579,218.76,126662.04,"ILS",218.58,126557.82,-0.18,-0.08,"2025-05-13T19:22:09.962Z","Yahoo Finance","sec-7","PROCTER",,"Utilities","DE",
+"US5921973693","UnitedHealth Group Inc.","Bond",446,56.32,25118.72,"EUR",55.37,24695.02,-0.95,-1.68,"2025-05-13T19:22:09.962Z","Yahoo Finance","sec-8","UNITEDHEALTH",,"Technology","US",
+"FR9059530022","UnitedHealth Group Inc.","Bond",779,106.37,82862.23,"EUR",104.52,81421.08,-1.85,-1.74,"2025-05-13T19:22:09.962Z","Yahoo Finance","sec-9","UNITEDHEALTH",,"Real Estate","FR",
+"JP4284530832","UnitedHealth Group Inc.","Cash",250,813.82,203455,"EUR",810.08,202520,-3.74,-0.46,"2025-05-13T19:22:09.962Z","Yahoo Finance","sec-10","UNITEDHEALTH",,"Healthcare","JP",

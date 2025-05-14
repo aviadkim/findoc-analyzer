@@ -1,0 +1,525 @@
+{
+  "originalSecurities": [
+    {
+      "name": "APPLE INC",
+      "isin": "US0378331005",
+      "quantity": "50",
+      "acquisitionPrice": "",
+      "currentValue": "$175.25",
+      "percentOfAssets": "20.3%"
+    },
+    {
+      "name": "MICROSOFT CORP",
+      "isin": "US5949181045",
+      "quantity": "30",
+      "acquisitionPrice": "",
+      "currentValue": "$325.75",
+      "percentOfAssets": "22.6%"
+    },
+    {
+      "name": "US TREASURY BOND 2.5% 2030",
+      "isin": "US912810SL35",
+      "quantity": "10000",
+      "acquisitionPrice": "",
+      "currentValue": "98.45",
+      "percentOfAssets": "22.8%"
+    },
+    {
+      "name": "GOLDMAN SACHS 0% NOTES 23-07.11.29 SERIES P",
+      "isin": "XS2692298537",
+      "quantity": "5000",
+      "acquisitionPrice": "",
+      "currentValue": "92.35",
+      "percentOfAssets": "10.7%"
+    },
+    {
+      "name": "VANGUARD TOTAL STOCK MARKET ETF",
+      "isin": "US9229087690",
+      "quantity": "25",
+      "acquisitionPrice": "",
+      "currentValue": "$245.60",
+      "percentOfAssets": "14.2%"
+    },
+    {
+      "name": "DEUTSCHE BANK AG",
+      "isin": "DE0005140008",
+      "quantity": "200",
+      "acquisitionPrice": "",
+      "currentValue": "€12.45",
+      "percentOfAssets": "5.2%"
+    },
+    {
+      "name": "CREDIT SUISSE GROUP AG",
+      "isin": "CH0012138530",
+      "quantity": "300",
+      "acquisitionPrice": "",
+      "currentValue": "CHF 3.50",
+      "percentOfAssets": "2.1%"
+    },
+    {
+      "name": "TOYOTA MOTOR CORPORATION",
+      "isin": "JP3633400001",
+      "quantity": "50 pieces",
+      "acquisitionPrice": "",
+      "currentValue": "¥2,200",
+      "percentOfAssets": "3.8%"
+    },
+    {
+      "name": "BRITISH AMERICAN TOBACCO",
+      "isin": "GB0002875804",
+      "quantity": "120",
+      "acquisitionPrice": "",
+      "currentValue": "£23.50",
+      "percentOfAssets": "4.9%"
+    },
+    {
+      "name": "04/05/2025 - Sale - AMAZON.COM INC (ISIN",
+      "isin": "US0231351067",
+      "quantity": "180",
+      "acquisitionPrice": "",
+      "currentValue": "",
+      "percentOfAssets": ""
+    }
+  ],
+  "enhancedSecurities": [
+    {
+      "name": "Last 30 days",
+      "isin": "US0231351067",
+      "type": "Equity\n   Units",
+      "quantity": 50,
+      "price": 656.0357301645042,
+      "value": 32801.78650822521,
+      "percentage": 7.7854671280276815,
+      "currency": "ASS"
+    },
+    {
+      "name": "US TREASURY BOND 2.5% 2030",
+      "isin": "US912810SL35",
+      "type": "Bond",
+      "quantity": 10000,
+      "price": 0.2290309135982108,
+      "value": 2290.309135982108,
+      "percentage": 19.72318339100346,
+      "currency": "USD"
+    },
+    {
+      "name": "MICROSOFT CORP",
+      "isin": "US5949181045",
+      "type": "Equity",
+      "quantity": 30,
+      "price": 75.7814323053501,
+      "value": 2273.442969160503,
+      "percentage": 19.55017301038062,
+      "currency": "USD"
+    },
+    {
+      "name": "APPLE INC",
+      "isin": "US0378331005",
+      "type": "Equity",
+      "quantity": 50,
+      "price": 40.769596351535235,
+      "value": 2038.479817576762,
+      "percentage": 17.560553633217992,
+      "currency": "USD"
+    },
+    {
+      "name": "VANGUARD TOTAL STOCK MARKET ETF",
+      "isin": "US9229087690",
+      "type": "Fund",
+      "quantity": 25,
+      "price": 57.1355940880859,
+      "value": 1428.3898522021475,
+      "percentage": 12.283737024221452,
+      "currency": "USD"
+    },
+    {
+      "name": "GOLDMAN SACHS 0% NOTES 23-07.11.29 SERIES P",
+      "isin": "XS2692298537",
+      "type": "Bond",
+      "quantity": 5000,
+      "price": 0.2148400697896878,
+      "value": 1074.2003489484391,
+      "percentage": 9.256055363321797,
+      "currency": "USD"
+    },
+    {
+      "name": "BRITISH AMERICAN TOBACCO",
+      "isin": "GB0002875804",
+      "type": "Equity",
+      "quantity": 120,
+      "price": 5.466964418037535,
+      "value": 656.0357301645042,
+      "percentage": 4.2387543252595155,
+      "currency": "USD"
+    },
+    {
+      "name": "DEUTSCHE BANK AG",
+      "isin": "DE0005140008",
+      "type": "Equity",
+      "quantity": 200,
+      "price": 2.8963279576411622,
+      "value": 579.2655915282324,
+      "percentage": 4.498269896193771,
+      "currency": "USD"
+    },
+    {
+      "name": "TOYOTA MOTOR CORPORATION",
+      "isin": "JP3633400001",
+      "type": "Equity",
+      "quantity": 50,
+      "price": 0.5118009242418118,
+      "value": 25.59004621209059,
+      "percentage": 3.2871972318339098,
+      "currency": "USD"
+    },
+    {
+      "name": "CREDIT SUISSE GROUP AG",
+      "isin": "CH0012138530",
+      "type": "Equity",
+      "quantity": 300,
+      "price": null,
+      "value": null,
+      "percentage": 1.8166089965397922,
+      "currency": "USD"
+    }
+  ],
+  "stats": {
+    "originalCount": 10,
+    "enhancedCount": 10,
+    "originalWithIsins": 10,
+    "enhancedWithIsins": 10,
+    "originalWithNames": 10,
+    "enhancedWithNames": 10,
+    "originalWithPrices": 0,
+    "enhancedWithPrices": 9,
+    "originalWithValues": 0,
+    "enhancedWithValues": 9,
+    "nameImprovement": 0,
+    "priceImprovement": "N/A",
+    "valueImprovement": "N/A",
+    "averageImprovement": 0
+  },
+  "comparison": {
+    "securities": [
+      {
+        "isin": "US0378331005",
+        "inOriginal": true,
+        "inEnhanced": true,
+        "original": {
+          "name": "APPLE INC",
+          "isin": "US0378331005",
+          "quantity": "50",
+          "acquisitionPrice": "",
+          "currentValue": "$175.25",
+          "percentOfAssets": "20.3%"
+        },
+        "enhanced": {
+          "name": "APPLE INC",
+          "isin": "US0378331005",
+          "type": "Equity",
+          "quantity": 50,
+          "price": 40.769596351535235,
+          "value": 2038.479817576762,
+          "percentage": 17.560553633217992,
+          "currency": "USD"
+        },
+        "differences": {
+          "nameChanged": false,
+          "valueChanged": true,
+          "priceChanged": true,
+          "nameImproved": false,
+          "valueImproved": true,
+          "priceImproved": true
+        }
+      },
+      {
+        "isin": "US5949181045",
+        "inOriginal": true,
+        "inEnhanced": true,
+        "original": {
+          "name": "MICROSOFT CORP",
+          "isin": "US5949181045",
+          "quantity": "30",
+          "acquisitionPrice": "",
+          "currentValue": "$325.75",
+          "percentOfAssets": "22.6%"
+        },
+        "enhanced": {
+          "name": "MICROSOFT CORP",
+          "isin": "US5949181045",
+          "type": "Equity",
+          "quantity": 30,
+          "price": 75.7814323053501,
+          "value": 2273.442969160503,
+          "percentage": 19.55017301038062,
+          "currency": "USD"
+        },
+        "differences": {
+          "nameChanged": false,
+          "valueChanged": true,
+          "priceChanged": true,
+          "nameImproved": false,
+          "valueImproved": true,
+          "priceImproved": true
+        }
+      },
+      {
+        "isin": "US912810SL35",
+        "inOriginal": true,
+        "inEnhanced": true,
+        "original": {
+          "name": "US TREASURY BOND 2.5% 2030",
+          "isin": "US912810SL35",
+          "quantity": "10000",
+          "acquisitionPrice": "",
+          "currentValue": "98.45",
+          "percentOfAssets": "22.8%"
+        },
+        "enhanced": {
+          "name": "US TREASURY BOND 2.5% 2030",
+          "isin": "US912810SL35",
+          "type": "Bond",
+          "quantity": 10000,
+          "price": 0.2290309135982108,
+          "value": 2290.309135982108,
+          "percentage": 19.72318339100346,
+          "currency": "USD"
+        },
+        "differences": {
+          "nameChanged": false,
+          "valueChanged": true,
+          "priceChanged": true,
+          "nameImproved": false,
+          "valueImproved": true,
+          "priceImproved": true
+        }
+      },
+      {
+        "isin": "XS2692298537",
+        "inOriginal": true,
+        "inEnhanced": true,
+        "original": {
+          "name": "GOLDMAN SACHS 0% NOTES 23-07.11.29 SERIES P",
+          "isin": "XS2692298537",
+          "quantity": "5000",
+          "acquisitionPrice": "",
+          "currentValue": "92.35",
+          "percentOfAssets": "10.7%"
+        },
+        "enhanced": {
+          "name": "GOLDMAN SACHS 0% NOTES 23-07.11.29 SERIES P",
+          "isin": "XS2692298537",
+          "type": "Bond",
+          "quantity": 5000,
+          "price": 0.2148400697896878,
+          "value": 1074.2003489484391,
+          "percentage": 9.256055363321797,
+          "currency": "USD"
+        },
+        "differences": {
+          "nameChanged": false,
+          "valueChanged": true,
+          "priceChanged": true,
+          "nameImproved": false,
+          "valueImproved": true,
+          "priceImproved": true
+        }
+      },
+      {
+        "isin": "US9229087690",
+        "inOriginal": true,
+        "inEnhanced": true,
+        "original": {
+          "name": "VANGUARD TOTAL STOCK MARKET ETF",
+          "isin": "US9229087690",
+          "quantity": "25",
+          "acquisitionPrice": "",
+          "currentValue": "$245.60",
+          "percentOfAssets": "14.2%"
+        },
+        "enhanced": {
+          "name": "VANGUARD TOTAL STOCK MARKET ETF",
+          "isin": "US9229087690",
+          "type": "Fund",
+          "quantity": 25,
+          "price": 57.1355940880859,
+          "value": 1428.3898522021475,
+          "percentage": 12.283737024221452,
+          "currency": "USD"
+        },
+        "differences": {
+          "nameChanged": false,
+          "valueChanged": true,
+          "priceChanged": true,
+          "nameImproved": false,
+          "valueImproved": true,
+          "priceImproved": true
+        }
+      },
+      {
+        "isin": "DE0005140008",
+        "inOriginal": true,
+        "inEnhanced": true,
+        "original": {
+          "name": "DEUTSCHE BANK AG",
+          "isin": "DE0005140008",
+          "quantity": "200",
+          "acquisitionPrice": "",
+          "currentValue": "€12.45",
+          "percentOfAssets": "5.2%"
+        },
+        "enhanced": {
+          "name": "DEUTSCHE BANK AG",
+          "isin": "DE0005140008",
+          "type": "Equity",
+          "quantity": 200,
+          "price": 2.8963279576411622,
+          "value": 579.2655915282324,
+          "percentage": 4.498269896193771,
+          "currency": "USD"
+        },
+        "differences": {
+          "nameChanged": false,
+          "valueChanged": true,
+          "priceChanged": true,
+          "nameImproved": false,
+          "valueImproved": true,
+          "priceImproved": true
+        }
+      },
+      {
+        "isin": "CH0012138530",
+        "inOriginal": true,
+        "inEnhanced": true,
+        "original": {
+          "name": "CREDIT SUISSE GROUP AG",
+          "isin": "CH0012138530",
+          "quantity": "300",
+          "acquisitionPrice": "",
+          "currentValue": "CHF 3.50",
+          "percentOfAssets": "2.1%"
+        },
+        "enhanced": {
+          "name": "CREDIT SUISSE GROUP AG",
+          "isin": "CH0012138530",
+          "type": "Equity",
+          "quantity": 300,
+          "price": null,
+          "value": null,
+          "percentage": 1.8166089965397922,
+          "currency": "USD"
+        },
+        "differences": {
+          "nameChanged": false,
+          "valueChanged": true,
+          "priceChanged": true,
+          "nameImproved": false,
+          "valueImproved": false,
+          "priceImproved": false
+        }
+      },
+      {
+        "isin": "JP3633400001",
+        "inOriginal": true,
+        "inEnhanced": true,
+        "original": {
+          "name": "TOYOTA MOTOR CORPORATION",
+          "isin": "JP3633400001",
+          "quantity": "50 pieces",
+          "acquisitionPrice": "",
+          "currentValue": "¥2,200",
+          "percentOfAssets": "3.8%"
+        },
+        "enhanced": {
+          "name": "TOYOTA MOTOR CORPORATION",
+          "isin": "JP3633400001",
+          "type": "Equity",
+          "quantity": 50,
+          "price": 0.5118009242418118,
+          "value": 25.59004621209059,
+          "percentage": 3.2871972318339098,
+          "currency": "USD"
+        },
+        "differences": {
+          "nameChanged": false,
+          "valueChanged": true,
+          "priceChanged": true,
+          "nameImproved": false,
+          "valueImproved": true,
+          "priceImproved": true
+        }
+      },
+      {
+        "isin": "GB0002875804",
+        "inOriginal": true,
+        "inEnhanced": true,
+        "original": {
+          "name": "BRITISH AMERICAN TOBACCO",
+          "isin": "GB0002875804",
+          "quantity": "120",
+          "acquisitionPrice": "",
+          "currentValue": "£23.50",
+          "percentOfAssets": "4.9%"
+        },
+        "enhanced": {
+          "name": "BRITISH AMERICAN TOBACCO",
+          "isin": "GB0002875804",
+          "type": "Equity",
+          "quantity": 120,
+          "price": 5.466964418037535,
+          "value": 656.0357301645042,
+          "percentage": 4.2387543252595155,
+          "currency": "USD"
+        },
+        "differences": {
+          "nameChanged": false,
+          "valueChanged": true,
+          "priceChanged": true,
+          "nameImproved": false,
+          "valueImproved": true,
+          "priceImproved": true
+        }
+      },
+      {
+        "isin": "US0231351067",
+        "inOriginal": true,
+        "inEnhanced": true,
+        "original": {
+          "name": "04/05/2025 - Sale - AMAZON.COM INC (ISIN",
+          "isin": "US0231351067",
+          "quantity": "180",
+          "acquisitionPrice": "",
+          "currentValue": "",
+          "percentOfAssets": ""
+        },
+        "enhanced": {
+          "name": "Last 30 days",
+          "isin": "US0231351067",
+          "type": "Equity\n   Units",
+          "quantity": 50,
+          "price": 656.0357301645042,
+          "value": 32801.78650822521,
+          "percentage": 7.7854671280276815,
+          "currency": "ASS"
+        },
+        "differences": {
+          "nameChanged": true,
+          "valueChanged": true,
+          "priceChanged": true,
+          "nameImproved": false,
+          "valueImproved": true,
+          "priceImproved": true
+        }
+      }
+    ],
+    "summary": {
+      "total": 10,
+      "inBoth": 10,
+      "onlyInOriginal": 0,
+      "onlyInEnhanced": 0,
+      "nameImprovements": 0,
+      "priceImprovements": 9,
+      "valueImprovements": 9
+    }
+  }
+}

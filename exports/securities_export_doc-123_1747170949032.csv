@@ -1,0 +1,11 @@
+isin,name,type,quantity,price,value,currency,marketPrice,marketValue,priceChange,priceChangePercent,lastUpdated,dataProvider,id,symbol,description,sector,country,exchange
+"FR7972475260","Meta Platforms Inc.","Bond",41,164.54,6746.14,"EUR",163.12,6687.92,-1.42,-0.86,"2025-05-13T21:15:49.032Z","Yahoo Finance","sec-1","META",,"Energy","FR",
+"FR9970296343","Alphabet Inc.","Option",419,600.33,251538.27,"GBP",604.83,253423.77,4.5,0.75,"2025-05-13T21:15:49.032Z","Yahoo Finance","sec-2","ALPHABET",,"Energy","FR",
+"GB0890440677","Procter & Gamble Co.","Fund",222,66.96,14865.12,"USD",66.16,14687.52,-0.8,-1.2,"2025-05-13T21:15:49.032Z","Yahoo Finance","sec-3","PROCTER",,"Industrials","GB",
+"DE4822285318","Microsoft Corp.","Bond",724,294.46,213189.04,"ILS",289.22,209395.28,-5.24,-1.78,"2025-05-13T21:15:49.032Z","Yahoo Finance","sec-4","MICROSOFT",,"Technology","DE",
+"US2283332980","UnitedHealth Group Inc.","Stock",760,279.61,212503.6,"USD",287.3,218348,7.69,2.75,"2025-05-13T21:15:49.032Z","Yahoo Finance","sec-5","UNITEDHEALTH",,"Energy","US",
+"GB8756225968","Berkshire Hathaway Inc.","Stock",555,388.09,215389.95,"ILS",402.02,223121.1,13.93,3.59,"2025-05-13T21:15:49.032Z","Yahoo Finance","sec-6","BERKSHIRE",,"Consumer Defensive","GB",
+"JP5489520737","Home Depot Inc.","Fund",837,819.6,686005.2,"GBP",813.78,681133.86,-5.82,-0.71,"2025-05-13T21:15:49.032Z","Yahoo Finance","sec-7","HOME",,"Industrials","JP",
+"IL2531929355","Visa Inc.","Cash",753,132.3,99621.9,"ILS",136.44,102739.32,4.14,3.13,"2025-05-13T21:15:49.032Z","Yahoo Finance","sec-8","VISA",,"Consumer Defensive","IL",
+"US2009189344","Microsoft Corp.","Cash",421,354.64,149303.44,"USD",341.59,143809.39,-13.05,-3.68,"2025-05-13T21:15:49.032Z","Yahoo Finance","sec-9","MICROSOFT",,"Financial Services","US",
+"DE8615895645","Alphabet Inc.","Cash",630,97.01,61116.3,"GBP",99.05,62401.5,2.04,2.1,"2025-05-13T21:15:49.032Z","Yahoo Finance","sec-10","ALPHABET",,"Utilities","DE",
