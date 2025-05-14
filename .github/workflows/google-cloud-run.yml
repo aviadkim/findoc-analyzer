@@ -6,8 +6,8 @@ on:
       - main
 
 env:
-  PROJECT_ID: github-456508
-  SERVICE_NAME: backv2
+  PROJECT_ID: findoc-deploy
+  SERVICE_NAME: backv2-app
   REGION: me-west1
 
 jobs:
@@ -34,8 +34,18 @@ jobs:
 
     - name: Build and push container
       run: |
+        # Create a .dockerignore file to exclude unnecessary files
+        echo "node_modules" > .dockerignore
+        echo ".git" >> .dockerignore
+        echo "npm-debug.log" >> .dockerignore
+
+        # Build the Docker image with all necessary files
         docker build -t gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE_NAME }}:${{ github.sha }} .
+        docker tag gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE_NAME }}:${{ github.sha }} gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE_NAME }}:latest
+
+        # Push both tags to Google Container Registry
         docker push gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE_NAME }}:${{ github.sha }}
+        docker push gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE_NAME }}:latest
 
     - name: Deploy to Cloud Run
       run: |
@@ -44,4 +54,8 @@ jobs:
           --platform managed \
           --region ${{ env.REGION }} \
           --allow-unauthenticated \
-          --set-secrets="OPENROUTER_API_KEY=openrouter-api-key:latest"
+          --memory=2Gi \
+          --cpu=1 \
+          --timeout=300s \
+          --set-env-vars="NODE_ENV=production,USE_MOCK_API=false,API_URL=https://backv2-app-brfi73d4ra-zf.a.run.app,STORAGE_BUCKET=backv2-documents" \
+          --set-secrets="OPENROUTER_API_KEY=openrouter-api-key:latest,GEMINI_API_KEY=gemini-api-key:latest,DEEPSEEK_API_KEY=deepseek-api-key:latest,SUPABASE_KEY=supabase-key:latest,SUPABASE_SERVICE_KEY=supabase-service-key:latest"
