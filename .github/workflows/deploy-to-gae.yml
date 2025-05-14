@@ -1,0 +1,78 @@
+name: Deploy to Google App Engine
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@v1
+        with:
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
+          service_account_key: ${{ secrets.GCP_SA_KEY }}
+          export_default_credentials: true
+
+      - name: Deploy to App Engine
+        run: |
+          # Copy server-enhanced.js to server.js
+          cp server-enhanced.js server.js
+          
+          # Create necessary directories if they don't exist
+          mkdir -p public/css
+          mkdir -p public/js
+          
+          # Verify critical files exist
+          echo "Verifying critical files..."
+          if [ ! -f "server.js" ]; then
+            echo "Error: server.js not found"
+            exit 1
+          fi
+          if [ ! -f "app.yaml" ]; then
+            echo "Error: app.yaml not found"
+            exit 1
+          fi
+          if [ ! -f "middleware/enhanced-simple-injector.js" ]; then
+            echo "Error: middleware/enhanced-simple-injector.js not found"
+            exit 1
+          fi
+          if [ ! -f "middleware/ui-components-validator.js" ]; then
+            echo "Error: middleware/ui-components-validator.js not found"
+            exit 1
+          fi
+          
+          # Deploy to App Engine
+          echo "Deploying to App Engine..."
+          gcloud app deploy app.yaml --quiet
+          
+          # Get the deployed URL
+          DEPLOYED_URL=$(gcloud app describe --format="value(defaultHostname)")
+          echo "Deployed to: https://$DEPLOYED_URL"
+          
+          # Verify deployment
+          echo "Verifying deployment..."
+          curl -s "https://$DEPLOYED_URL/api/health" | grep "FinDoc Analyzer API is running"
+          
+          if [ $? -eq 0 ]; then
+            echo "Deployment verification successful!"
+          else
+            echo "Deployment verification failed!"
+            exit 1
+          fi

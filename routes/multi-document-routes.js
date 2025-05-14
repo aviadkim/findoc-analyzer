@@ -1,129 +1,68 @@
 /**
  * Multi-Document Routes
- * Routes for multi-document analysis
+ * This module provides routes for multi-document operations
  */
 
 const express = require('express');
 const router = express.Router();
 
-/**
- * Compare documents
- * Method: POST
- * Route: /api/multi-document/compare
- */
-router.post('/compare', (req, res) => {
-  const { documentIds } = req.body;
+// Get all multi-document operations
+router.get('/', (req, res) => {
+  // Mock multi-document operations
+  res.json([
+    {
+      id: 'op-1',
+      name: 'Portfolio Comparison',
+      documents: ['doc-1', 'doc-2'],
+      createdDate: '2023-12-31T12:00:00Z',
+      status: 'completed'
+    },
+    {
+      id: 'op-2',
+      name: 'Tax Analysis',
+      documents: ['doc-3'],
+      createdDate: '2023-12-15T10:30:00Z',
+      status: 'completed'
+    }
+  ]);
+});
 
-  if (!documentIds || !Array.isArray(documentIds) || documentIds.length < 2) {
-    return res.status(400).json({
-      success: false,
-      message: 'At least two document IDs are required'
-    });
-  }
+// Create multi-document operation
+router.post('/', (req, res) => {
+  // Mock multi-document operation creation
+  res.json({
+    id: 'op-' + Date.now(),
+    name: req.body.name || 'Unnamed Operation',
+    documents: req.body.documents || [],
+    createdDate: new Date().toISOString(),
+    status: 'pending'
+  });
+});
 
-  // Mock comparison results
-  const results = {
-    comparison: {
-      documentIds,
-      timestamp: new Date().toISOString(),
-      similarities: {
-        textSimilarity: 0.68,
-        structureSimilarity: 0.75,
-        contentSimilarity: 0.72
-      },
-      differences: [
+// Get multi-document operation by ID
+router.get('/:id', (req, res) => {
+  // Mock multi-document operation
+  res.json({
+    id: req.params.id,
+    name: req.params.id === 'op-1' ? 'Portfolio Comparison' : 'Tax Analysis',
+    documents: req.params.id === 'op-1' ? ['doc-1', 'doc-2'] : ['doc-3'],
+    createdDate: new Date().toISOString(),
+    status: 'completed',
+    results: {
+      summary: 'This is a summary of the multi-document operation.',
+      tables: [
         {
-          type: 'text',
-          doc1: { position: 'paragraph 3', content: 'Sample content from document 1' },
-          doc2: { position: 'paragraph 3', content: 'Modified content in document 2' }
-        },
-        {
-          type: 'table',
-          doc1: { position: 'table 2', content: 'Table with 5 rows' },
-          doc2: { position: 'table 2', content: 'Table with 6 rows (added new row)' }
+          id: 'table-1',
+          title: 'Comparison Table',
+          headers: ['Metric', 'Document 1', 'Document 2', 'Difference'],
+          rows: [
+            ['Total Value', '$1,000,000', '$1,250,000', '+$250,000'],
+            ['Annual Return', '7.5%', '8.5%', '+1.0%'],
+            ['Risk Level', 'Low', 'Moderate', 'Higher']
+          ]
         }
-      ],
-      summary: 'Documents are 72% similar with key differences in paragraph 3 and table 2.'
+      ]
     }
-  };
-
-  res.json({
-    success: true,
-    results
-  });
-});
-
-/**
- * Merge documents
- * Method: POST
- * Route: /api/multi-document/merge
- */
-router.post('/merge', (req, res) => {
-  const { documentIds, mergeOptions } = req.body;
-
-  if (!documentIds || !Array.isArray(documentIds) || documentIds.length < 2) {
-    return res.status(400).json({
-      success: false,
-      message: 'At least two document IDs are required'
-    });
-  }
-
-  // Mock merge results
-  const results = {
-    mergedDocument: {
-      id: `merged-${Date.now()}`,
-      name: 'Merged Document',
-      sourceDocuments: documentIds,
-      mergedAt: new Date().toISOString(),
-      options: mergeOptions || { strategy: 'latest' }
-    }
-  };
-
-  res.json({
-    success: true,
-    results
-  });
-});
-
-/**
- * Analyze document set
- * Method: POST
- * Route: /api/multi-document/analyze
- */
-router.post('/analyze', (req, res) => {
-  const { documentIds, analysisType } = req.body;
-
-  if (!documentIds || !Array.isArray(documentIds)) {
-    return res.status(400).json({
-      success: false,
-      message: 'Document IDs array is required'
-    });
-  }
-
-  // Mock analysis results
-  const results = {
-    analysis: {
-      type: analysisType || 'general',
-      documentIds,
-      timestamp: new Date().toISOString(),
-      results: {
-        summary: 'This is a summary of the document set analysis.',
-        keyFindings: [
-          'Key finding 1 from document analysis',
-          'Key finding 2 from document analysis',
-          'Key finding 3 from document analysis'
-        ],
-        recommendations: [
-          'Recommendation 1 based on analysis',
-          'Recommendation 2 based on analysis'
-        ]
-      }
-    }
-  };
-
-  res.json({
-    success: true,
-    results
   });
 });
 

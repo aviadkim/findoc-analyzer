@@ -1,141 +1,73 @@
 /**
  * Supabase Routes
- * Routes for Supabase integration
+ * This module provides routes for Supabase operations
  */
 
 const express = require('express');
 const router = express.Router();
 
-/**
- * Get Supabase status
- * Method: GET
- * Route: /api/supabase/status
- */
+// Get Supabase status
 router.get('/status', (req, res) => {
-  // Mock status
-  const status = {
+  res.json({
+    status: 'ok',
     connected: true,
-    project: 'findoc-analyzer',
-    tables: ['users', 'documents', 'processing', 'analytics']
-  };
-
-  res.json({
-    success: true,
-    status
+    message: 'Supabase connection is active'
   });
 });
 
-/**
- * Save document to Supabase
- * Method: POST
- * Route: /api/supabase/save
- */
-router.post('/save', (req, res) => {
-  const { collection, data } = req.body;
-
-  if (!collection) {
-    return res.status(400).json({
-      success: false,
-      message: 'Collection name is required'
-    });
-  }
-
-  if (!data) {
-    return res.status(400).json({
-      success: false,
-      message: 'Data is required'
-    });
-  }
-
-  // Mock save result
-  const result = {
-    id: `${collection}-${Date.now()}`,
-    createdAt: new Date().toISOString(),
-    collection
-  };
-
-  res.json({
-    success: true,
-    result
-  });
-});
-
-/**
- * Get document from Supabase
- * Method: GET
- * Route: /api/supabase/:collection/:id
- */
-router.get('/:collection/:id', (req, res) => {
-  const { collection, id } = req.params;
-
-  // Mock get result
-  const result = {
-    id,
-    collection,
-    createdAt: new Date(Date.now() - 86400000).toISOString(),
-    updatedAt: new Date().toISOString(),
-    data: {
-      name: `Sample ${collection} item`,
-      description: 'This is a sample item for testing',
-      properties: {
-        key1: 'value1',
-        key2: 'value2'
-      }
+// Get user documents
+router.get('/documents', (req, res) => {
+  // Mock user documents from Supabase
+  res.json([
+    {
+      id: 'doc-1',
+      fileName: 'Financial Report 2023.pdf',
+      documentType: 'financial',
+      uploadDate: '2023-12-31T12:00:00Z',
+      processed: true,
+      userId: 'user-1'
+    },
+    {
+      id: 'doc-2',
+      fileName: 'Investment Portfolio.pdf',
+      documentType: 'portfolio',
+      uploadDate: '2023-12-15T10:30:00Z',
+      processed: true,
+      userId: 'user-1'
+    },
+    {
+      id: 'doc-3',
+      fileName: 'Tax Documents 2023.pdf',
+      documentType: 'tax',
+      uploadDate: '2023-11-20T14:45:00Z',
+      processed: true,
+      userId: 'user-1'
     }
-  };
+  ]);
+});
 
+// Get user profile
+router.get('/profile', (req, res) => {
+  // Mock user profile from Supabase
   res.json({
-    success: true,
-    result
+    id: 'user-1',
+    email: 'user@example.com',
+    name: 'John Doe',
+    createdAt: '2023-01-01T00:00:00Z',
+    lastLogin: '2023-12-31T12:00:00Z'
   });
 });
 
-/**
- * Update document in Supabase
- * Method: PUT
- * Route: /api/supabase/:collection/:id
- */
-router.put('/:collection/:id', (req, res) => {
-  const { collection, id } = req.params;
-  const { data } = req.body;
-
-  if (!data) {
-    return res.status(400).json({
-      success: false,
-      message: 'Data is required'
-    });
-  }
-
-  // Mock update result
-  const result = {
-    id,
-    collection,
+// Update user profile
+router.post('/profile', (req, res) => {
+  // Mock user profile update
+  res.json({
+    id: 'user-1',
+    email: req.body.email || 'user@example.com',
+    name: req.body.name || 'John Doe',
+    createdAt: '2023-01-01T00:00:00Z',
+    lastLogin: new Date().toISOString(),
     updatedAt: new Date().toISOString()
-  };
-
-  res.json({
-    success: true,
-    result
-  });
-});
-
-/**
- * Delete document from Supabase
- * Method: DELETE
- * Route: /api/supabase/:collection/:id
- */
-router.delete('/:collection/:id', (req, res) => {
-  const { collection, id } = req.params;
-
-  // Mock delete result
-  res.json({
-    success: true,
-    message: `Item ${id} deleted from ${collection}`,
-    deleted: {
-      id,
-      collection,
-      deletedAt: new Date().toISOString()
-    }
   });
 });
 
