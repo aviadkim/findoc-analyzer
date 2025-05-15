@@ -7,21 +7,15 @@
 const path = require('path');
 const fs = require('fs');
 
-// Create log directory if it doesn't exist
-const logDir = path.join(__dirname, '..', 'logs');
-if (!fs.existsSync(logDir)) {
-  fs.mkdirSync(logDir, { recursive: true });
-}
-
-// Log file path
-const apiErrorLogPath = path.join(logDir, 'api-errors.log');
+// We'll use the logger utility instead of direct file operations
+// This will handle the log directory creation and error handling
 
 // Import utilities
 const logger = require('../utils/logger');
-const { 
-  createUserErrorResponseFromError, 
-  createUserErrorResponse, 
-  getErrorCodeFromError 
+const {
+  createUserErrorResponseFromError,
+  createUserErrorResponse,
+  getErrorCodeFromError
 } = require('../utils/user-messages');
 
 /**
@@ -57,12 +51,12 @@ function formatErrorResponse(err, includeStack = false) {
       status: err.status || 500
     }
   };
-  
+
   // Include stack trace in development environment
   if (includeStack && process.env.NODE_ENV !== 'production' && err.stack) {
     errorResponse.error.stack = err.stack;
   }
-  
+
   return errorResponse;
 }
 
@@ -77,7 +71,7 @@ function apiErrorHandler(err, req, res, next) {
   // Default status code and message
   const statusCode = err.status || err.statusCode || 500;
   const message = err.message || 'Internal Server Error';
-  
+
   // Create error data for logging
   const errorData = {
     timestamp: new Date().toISOString(),
@@ -93,27 +87,27 @@ function apiErrorHandler(err, req, res, next) {
     userId: req.user?.id || 'anonymous',
     stack: err.stack
   };
-  
+
   // Log error using our logger utility
   logger.error(`API Error: ${statusCode} ${message}`, errorData);
-  
+
   // Determine if we should include stack trace
   const includeStack = process.env.NODE_ENV !== 'production';
-  
+
   // Format error response
   const errorResponse = formatErrorResponse(err, includeStack);
-  
+
   // Create a user-friendly error response
   const userErrorResponse = createUserErrorResponseFromError(err, {
     resource: err.resource,  // For NotFoundError
     maxSize: err.maxSize,    // For FILE_TOO_LARGE errors
     errorId: errorData.timestamp // For reference ID
   });
-  
+
   // Add status code and reference ID for all error responses
   userErrorResponse.error.status = statusCode;
   userErrorResponse.error.id = errorData.timestamp;
-  
+
   // Send the error response
   res.status(statusCode).json(userErrorResponse);
 }

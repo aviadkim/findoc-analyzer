@@ -35,8 +35,14 @@ const LOG_LEVEL = process.env.LOG_LEVEL || DEFAULT_LOG_LEVEL;
 const LOG_DIR = process.env.LOG_DIR || path.join(__dirname, '..', 'logs');
 
 // Create log directory if it doesn't exist
-if (!fs.existsSync(LOG_DIR)) {
-  fs.mkdirSync(LOG_DIR, { recursive: true });
+try {
+  if (!fs.existsSync(LOG_DIR)) {
+    fs.mkdirSync(LOG_DIR, { recursive: true });
+  }
+} catch (error) {
+  console.warn(`Unable to create log directory: ${error.message}`);
+  // Use a directory that should be writable in Google Cloud
+  process.env.LOG_DIR = '/tmp';
 }
 
 // Log file paths
@@ -82,17 +88,24 @@ function formatLogMessage(level, message, meta = {}) {
  */
 function writeToLogFile(filePath, message) {
   try {
+    // In Google Cloud environment, we might not have permission to write to files
+    // Check if we're in Google Cloud environment
+    if (process.env.GAE_APPLICATION) {
+      // Just log to console in Google Cloud
+      return;
+    }
+
     // Check if file exists and is too large
     if (fs.existsSync(filePath)) {
       const stats = fs.statSync(filePath);
-      
+
       // Rotate log file if it's too large
       if (stats.size > MAX_LOG_SIZE) {
         const backupPath = `${filePath}.${Date.now()}.bak`;
         fs.renameSync(filePath, backupPath);
       }
     }
-    
+
     // Append to log file
     fs.appendFileSync(filePath, message);
   } catch (error) {
@@ -110,10 +123,10 @@ function log(level, message, meta = {}) {
   if (!isLoggingEnabled(level)) {
     return;
   }
-  
+
   // Format log message
   const formattedMessage = formatLogMessage(level, message, meta);
-  
+
   // Write to console
   switch (level) {
     case LOG_LEVELS.ERROR:
@@ -132,10 +145,10 @@ function log(level, message, meta = {}) {
     default:
       console.log(formattedMessage);
   }
-  
+
   // Write to specific log file
   writeToLogFile(LOG_FILES[level], formattedMessage);
-  
+
   // Write to combined log file (all.log)
   writeToLogFile(path.join(LOG_DIR, 'all.log'), formattedMessage);
 }
@@ -201,9 +214,9 @@ function logApiRequest(req, res, responseTime) {
     userId: req.user?.id || 'anonymous',
     userAgent: req.headers['user-agent']
   };
-  
+
   const message = `${req.method} ${req.url} ${res.statusCode} ${responseTime}ms`;
-  
+
   // Write to API log file
   writeToLogFile(LOG_FILES.API, formatLogMessage('API', message, meta));
 }
@@ -216,13 +229,13 @@ function logApiRequest(req, res, responseTime) {
  */
 function accessLogger(req, res, next) {
   const startTime = Date.now();
-  
+
   // When response is finished, log the request
   res.on('finish', () => {
     const responseTime = Date.now() - startTime;
     logApiRequest(req, res, responseTime);
   });
-  
+
   next();
 }
 
@@ -239,7 +252,7 @@ function logError(err, meta = {}) {
     stack: err.stack,
     ...meta
   };
-  
+
   // Log error
   error(err.message, errorDetails);
 }
