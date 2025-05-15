@@ -1,0 +1,45 @@
+name: Deploy to Google App Engine
+
+on:
+  push:
+    branches: [main, ui-components-only, feature/user-feedback-analytics]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Update server to use enhanced middleware
+        run: |
+          cp server-enhanced.js server.js
+          echo "Updated server.js to use enhanced middleware"
+
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@v1
+        with:
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
+          service_account_key: ${{ secrets.GCP_SA_KEY }}
+          export_default_credentials: true
+
+      - name: Deploy to App Engine
+        run: |
+          echo "Deploying to Google App Engine..."
+          gcloud app deploy app.yaml --quiet
+
+      - name: Post-deployment verification
+        run: |
+          echo "Deployment completed successfully."
+          echo "App is now available at: https://${{ secrets.GCP_PROJECT_ID }}.appspot.com"

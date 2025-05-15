@@ -124,32 +124,172 @@ body {
 "@ | Out-File -FilePath "public/css/modern-ui.css" -Encoding utf8
 }
 
-# Deploy to Google App Engine
-Write-Host "${BLUE}Deploying to Google App Engine...${NC}"
+# Verify Cloud SDK and authentication
+Write-Host "${BLUE}Verifying Google Cloud SDK and authentication...${NC}"
 try {
-    gcloud app deploy app.yaml --quiet --project=$PROJECT_ID --version=$VERSION
-    if ($LASTEXITCODE -ne 0) {
-        throw "Deployment failed"
+    $gcloudAuth = gcloud auth list --format="value(account)" 2>&1
+    if ([string]::IsNullOrEmpty($gcloudAuth) -or $LASTEXITCODE -ne 0) {
+        Write-Host "${YELLOW}Not authenticated with gcloud. Please log in...${NC}"
+        gcloud auth login
+        if ($LASTEXITCODE -ne 0) {
+            throw "Authentication failed. Please run 'gcloud auth login' manually."
+        }
+    } else {
+        Write-Host "${GREEN}Authenticated as: $gcloudAuth${NC}"
     }
-    Write-Host "${GREEN}Deployment initiated successfully!${NC}"
 }
 catch {
-    Write-Host "${RED}Error: Deployment failed.${NC}"
+    Write-Host "${RED}Error: Failed to verify authentication - $_${NC}"
     exit 1
 }
 
-# Verify deployment
-Write-Host "${BLUE}Waiting for deployment to complete...${NC}"
-Start-Sleep -Seconds 60
+# Verify project access
+Write-Host "${BLUE}Verifying project access...${NC}"
+try {
+    gcloud projects describe $PROJECT_ID --format="value(name)" | Out-Null
+    if ($LASTEXITCODE -ne 0) {
+        throw "Unable to access project $PROJECT_ID"
+    }
+    Write-Host "${GREEN}Project access verified${NC}"
+}
+catch {
+    Write-Host "${RED}Error: $_ ${NC}"
+    Write-Host "${YELLOW}Please verify the project exists and you have necessary permissions.${NC}"
+    exit 1
+}
+
+# Check if App Engine API is enabled
+Write-Host "${BLUE}Checking if App Engine API is enabled...${NC}"
+$apiEnabled = $false
+try {
+    $apiCheck = gcloud services list --enabled --project=$PROJECT_ID --filter="name:appengine.googleapis.com" --format="value(name)"
+    $apiEnabled = -not [string]::IsNullOrEmpty($apiCheck)
+}
+catch {
+    $apiEnabled = $false
+}
+
+if (-not $apiEnabled) {
+    Write-Host "${YELLOW}App Engine API not enabled. Enabling...${NC}"
+    try {
+        gcloud services enable appengine.googleapis.com --project=$PROJECT_ID
+        if ($LASTEXITCODE -ne 0) {
+            throw "Failed to enable App Engine API"
+        }
+        Write-Host "${GREEN}App Engine API enabled successfully${NC}"
+    }
+    catch {
+        Write-Host "${RED}Error: $_${NC}"
+        Write-Host "${YELLOW}Please enable the App Engine API manually in the Google Cloud Console.${NC}"
+        exit 1
+    }
+}
+
+# Deploy to Google App Engine
+Write-Host "${BLUE}Deploying to Google App Engine...${NC}"
+$startTime = Get-Date
+
+# Create a deployment log file
+$timestamp = Get-Date -Format "yyyyMMdd-HHmmss"
+$logFile = "deploy-log-$timestamp.txt"
+"Deployment started at $(Get-Date)" | Out-File -FilePath $logFile -Append
+
+try {
+    # Run deployment as a background job with progress indicator
+    $deployJob = Start-Job -ScriptBlock {
+        param($PROJECT_ID, $VERSION, $logFile)
+        
+        $output = gcloud app deploy app.yaml --quiet --project=$PROJECT_ID --version=$VERSION 2>&1
+        $exitCode = $LASTEXITCODE
+        
+        # Log the output
+        $output | Out-File -FilePath $logFile -Append
+        
+        return @{
+            ExitCode = $exitCode
+            Output = $output
+        }
+    } -ArgumentList $PROJECT_ID, $VERSION, $logFile
+    
+    # Show a spinner while waiting
+    $spinner = @('|', '/', '-', '\')
+    $spinnerPos = 0
+    
+    Write-Host -NoNewline "Deploying "
+    while ($deployJob.State -eq "Running") {
+        Write-Host -NoNewline $spinner[$spinnerPos]
+        Start-Sleep -Milliseconds 300
+        Write-Host -NoNewline "`b"
+        
+        $spinnerPos = ($spinnerPos + 1) % 4
+        
+        # After 10 seconds, show elapsed time
+        $elapsedTime = (Get-Date) - $startTime
+        if ($elapsedTime.TotalSeconds -gt 10) {
+            $elapsedFormatted = "{0:mm\:ss}" -f $elapsedTime
+            Write-Host -NoNewline " [Elapsed: $elapsedFormatted]`r"
+        }
+    }
+    
+    # Get the results
+    $deployResult = Receive-Job -Job $deployJob
+    Remove-Job -Job $deployJob
+    
+    if ($deployResult.ExitCode -ne 0) {
+        "Deployment failed at $(Get-Date)" | Out-File -FilePath $logFile -Append
+        throw "Deployment failed with exit code $($deployResult.ExitCode). Check the log file: $logFile"
+    }
+    
+    $endTime = Get-Date
+    $duration = $endTime - $startTime
+    $durationFormatted = "{0:mm\:ss}" -f $duration
+    
+    Write-Host "`n${GREEN}Deployment completed successfully in $durationFormatted!${NC}"
+    "Deployment completed successfully at $(Get-Date)" | Out-File -FilePath $logFile -Append
+    "Deployment duration: $durationFormatted" | Out-File -FilePath $logFile -Append
+}
+catch {
+    Write-Host "${RED}Error: Deployment failed - $_${NC}"
+    "Deployment error: $_" | Out-File -FilePath $logFile -Append
+    
+    # Show how to view logs
+    Write-Host "${YELLOW}You can view application logs with:${NC}"
+    Write-Host "gcloud app logs tail --project=$PROJECT_ID"
+    Write-Host "${YELLOW}Check deployment log file:${NC} $logFile"
+    exit 1
+}
 
 # Get the deployed URL
 $appUrl = "https://$PROJECT_ID.ey.r.appspot.com"
 Write-Host "${GREEN}Deployment completed!${NC}"
 Write-Host "${BLUE}Your application is available at:${NC} $appUrl"
 
+# Verify application is accessible
+Write-Host "${BLUE}Verifying application availability...${NC}"
+try {
+    $request = [System.Net.WebRequest]::Create($appUrl)
+    $request.Timeout = 30000 # 30 seconds
+    $response = $request.GetResponse()
+    $httpStatus = [int]$response.StatusCode
+    $response.Close()
+    
+    if ($httpStatus -eq 200 -or $httpStatus -eq 302) {
+        Write-Host "${GREEN}Application is responding correctly (HTTP Status: $httpStatus)${NC}"
+    } else {
+        Write-Host "${YELLOW}Application returned unexpected status code: $httpStatus. It may still be starting up.${NC}"
+    }
+} catch {
+    Write-Host "${YELLOW}Warning: Unable to verify application availability. The application may still be starting up.${NC}"
+    Write-Host "${YELLOW}Error details: $_${NC}"
+}
+
 # Open the application in the default browser
 Write-Host "${BLUE}Opening the application in the default browser...${NC}"
-Start-Process $appUrl
+try {
+    Start-Process $appUrl
+} catch {
+    Write-Host "${YELLOW}Unable to open browser automatically. Please visit:${NC} $appUrl"
+}
 
 Write-Host "${YELLOW}====================================================${NC}"
 Write-Host "${GREEN}Modern UI Deployment Completed!${NC}"
