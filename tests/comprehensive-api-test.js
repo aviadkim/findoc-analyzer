@@ -11,36 +11,37 @@ const path = require('path');
 const config = {
   // Base URL for the API
   baseUrl: 'https://findoc-deploy.ey.r.appspot.com',
-  
+
   // API endpoints to test
   endpoints: {
     // Health endpoints
     health: '/api/health',
-    
+
     // API key endpoints
     getSecret: '/api/keys/gcp/secrets/get',
     validateApiKey: '/api/keys/validate',
     getAllApiKeys: '/api/keys/all',
-    
+    getEnvironment: '/api/keys/environment',
+
     // Document endpoints
     getDocuments: '/api/documents',
     getDocument: '/api/documents/doc-1',
     processDocument: '/api/documents/doc-1/process',
-    
+
     // Authentication endpoints
     googleAuth: '/auth/google',
     googleCallback: '/auth/google/callback',
-    
+
     // Chat endpoints
     documentChat: '/api/document-chat'
   },
-  
+
   // Test timeout
   timeout: 30000,
-  
+
   // Output file
   outputFile: 'comprehensive-api-test-results.json',
-  
+
   // Test API key
   apiKey: 'test-api-key'
 };
@@ -56,26 +57,26 @@ const testResults = {
 // Main test function
 async function runTests() {
   console.log('Starting comprehensive API tests...');
-  
+
   try {
     // Test health endpoint
     await testHealthEndpoint();
-    
+
     // Test API key endpoints
     await testApiKeyEndpoints();
-    
+
     // Test document endpoints
     await testDocumentEndpoints();
-    
+
     // Test authentication
     await testAuthentication();
-    
+
     // Test chat endpoints
     await testChatEndpoints();
-    
+
     // Log test results
     logTestResults();
-    
+
     // Save test results
     saveTestResults();
   } catch (error) {
@@ -84,7 +85,7 @@ async function runTests() {
       test: 'Test execution',
       error: error.message
     });
-    
+
     // Save test results
     saveTestResults();
   }
@@ -93,12 +94,12 @@ async function runTests() {
 // Test health endpoint
 async function testHealthEndpoint() {
   console.log('Testing health endpoint...');
-  
+
   try {
     const response = await axios.get(`${config.baseUrl}${config.endpoints.health}`, {
       timeout: config.timeout
     });
-    
+
     if (response.status === 200 && response.data.status === 'ok') {
       testResults.passed.push({
         test: 'Health Endpoint',
@@ -124,21 +125,56 @@ async function testHealthEndpoint() {
 // Test API key endpoints
 async function testApiKeyEndpoints() {
   console.log('Testing API key endpoints...');
-  
+
+  // Test get environment endpoint
+  await testGetEnvironmentEndpoint();
+
   // Test get secret endpoint
   await testGetSecretEndpoint();
-  
+
   // Test validate API key endpoint
   await testValidateApiKeyEndpoint();
-  
+
   // Test get all API keys endpoint
   await testGetAllApiKeysEndpoint();
+}
+
+// Test get environment endpoint
+async function testGetEnvironmentEndpoint() {
+  console.log('Testing get environment endpoint...');
+
+  try {
+    const response = await axios.get(`${config.baseUrl}${config.endpoints.getEnvironment}`, {
+      timeout: config.timeout
+    });
+
+    if (response.status === 200 && response.data.isGoogleCloud !== undefined) {
+      testResults.passed.push({
+        test: 'Get Environment Endpoint',
+        message: 'Get environment endpoint is working correctly'
+      });
+      console.log('✅ Get environment endpoint is working correctly');
+      console.log('Environment information:', JSON.stringify(response.data, null, 2));
+    } else {
+      testResults.failed.push({
+        test: 'Get Environment Endpoint',
+        error: `Get environment endpoint returned unexpected response: ${JSON.stringify(response.data)}`
+      });
+      console.log('❌ Get environment endpoint returned unexpected response');
+    }
+  } catch (error) {
+    testResults.failed.push({
+      test: 'Get Environment Endpoint',
+      error: `Error testing get environment endpoint: ${error.message}`
+    });
+    console.log('❌ Error testing get environment endpoint:', error.message);
+  }
 }
 
 // Test get secret endpoint
 async function testGetSecretEndpoint() {
   console.log('Testing get secret endpoint...');
-  
+
   try {
     // First, test without authentication
     console.log('Testing get secret endpoint without authentication...');
@@ -146,7 +182,7 @@ async function testGetSecretEndpoint() {
       timeout: config.timeout,
       validateStatus: status => status < 500 // Accept 4xx responses
     });
-    
+
     if (responseWithoutAuth.status === 401 || responseWithoutAuth.status === 403) {
       testResults.passed.push({
         test: 'Get Secret Endpoint - Without Authentication',
@@ -160,7 +196,7 @@ async function testGetSecretEndpoint() {
       });
       console.log('⚠️ Get secret endpoint returned unexpected status without authentication:', responseWithoutAuth.status);
     }
-    
+
     // Now, test with authentication
     console.log('Testing get secret endpoint with authentication...');
     const response = await axios.get(`${config.baseUrl}${config.endpoints.getSecret}?name=test-secret`, {
@@ -170,7 +206,7 @@ async function testGetSecretEndpoint() {
         'x-api-key': config.apiKey
       }
     });
-    
+
     if (response.status === 200) {
       testResults.passed.push({
         test: 'Get Secret Endpoint - With Authentication',
@@ -196,7 +232,7 @@ async function testGetSecretEndpoint() {
 // Test validate API key endpoint
 async function testValidateApiKeyEndpoint() {
   console.log('Testing validate API key endpoint...');
-  
+
   try {
     // First, test without authentication
     console.log('Testing validate API key endpoint without authentication...');
@@ -207,7 +243,7 @@ async function testValidateApiKeyEndpoint() {
       timeout: config.timeout,
       validateStatus: status => status < 500 // Accept 4xx responses
     });
-    
+
     if (responseWithoutAuth.status === 401 || responseWithoutAuth.status === 403) {
       testResults.passed.push({
         test: 'Validate API Key Endpoint - Without Authentication',
@@ -221,7 +257,7 @@ async function testValidateApiKeyEndpoint() {
       });
       console.log('⚠️ Validate API key endpoint returned unexpected status without authentication:', responseWithoutAuth.status);
     }
-    
+
     // Now, test with authentication
     console.log('Testing validate API key endpoint with authentication...');
     const response = await axios.post(`${config.baseUrl}${config.endpoints.validateApiKey}`, {
@@ -234,7 +270,7 @@ async function testValidateApiKeyEndpoint() {
         'x-api-key': config.apiKey
       }
     });
-    
+
     if (response.status === 200) {
       testResults.passed.push({
         test: 'Validate API Key Endpoint - With Authentication',
@@ -260,7 +296,7 @@ async function testValidateApiKeyEndpoint() {
 // Test get all API keys endpoint
 async function testGetAllApiKeysEndpoint() {
   console.log('Testing get all API keys endpoint...');
-  
+
   try {
     // First, test without authentication
     console.log('Testing get all API keys endpoint without authentication...');
@@ -268,7 +304,7 @@ async function testGetAllApiKeysEndpoint() {
       timeout: config.timeout,
       validateStatus: status => status < 500 // Accept 4xx responses
     });
-    
+
     if (responseWithoutAuth.status === 401 || responseWithoutAuth.status === 403) {
       testResults.passed.push({
         test: 'Get All API Keys Endpoint - Without Authentication',
@@ -282,7 +318,7 @@ async function testGetAllApiKeysEndpoint() {
       });
       console.log('⚠️ Get all API keys endpoint returned unexpected status without authentication:', responseWithoutAuth.status);
     }
-    
+
     // Now, test with authentication
     console.log('Testing get all API keys endpoint with authentication...');
     const response = await axios.get(`${config.baseUrl}${config.endpoints.getAllApiKeys}`, {
@@ -292,7 +328,7 @@ async function testGetAllApiKeysEndpoint() {
         'x-api-key': config.apiKey
       }
     });
-    
+
     if (response.status === 200) {
       testResults.passed.push({
         test: 'Get All API Keys Endpoint - With Authentication',
@@ -318,13 +354,13 @@ async function testGetAllApiKeysEndpoint() {
 // Test document endpoints
 async function testDocumentEndpoints() {
   console.log('Testing document endpoints...');
-  
+
   // Test get documents endpoint
   await testGetDocumentsEndpoint();
-  
+
   // Test get document endpoint
   await testGetDocumentEndpoint();
-  
+
   // Test process document endpoint
   await testProcessDocumentEndpoint();
 }
@@ -332,13 +368,13 @@ async function testDocumentEndpoints() {
 // Test get documents endpoint
 async function testGetDocumentsEndpoint() {
   console.log('Testing get documents endpoint...');
-  
+
   try {
     const response = await axios.get(`${config.baseUrl}${config.endpoints.getDocuments}`, {
       timeout: config.timeout,
       validateStatus: status => status < 500 // Accept 4xx responses
     });
-    
+
     if (response.status === 200 && Array.isArray(response.data)) {
       testResults.passed.push({
         test: 'Get Documents Endpoint',
@@ -364,13 +400,13 @@ async function testGetDocumentsEndpoint() {
 // Test get document endpoint
 async function testGetDocumentEndpoint() {
   console.log('Testing get document endpoint...');
-  
+
   try {
     const response = await axios.get(`${config.baseUrl}${config.endpoints.getDocument}`, {
       timeout: config.timeout,
       validateStatus: status => status < 500 // Accept 4xx responses
     });
-    
+
     if (response.status === 200 && response.data.id) {
       testResults.passed.push({
         test: 'Get Document Endpoint',
@@ -396,7 +432,7 @@ async function testGetDocumentEndpoint() {
 // Test process document endpoint
 async function testProcessDocumentEndpoint() {
   console.log('Testing process document endpoint...');
-  
+
   try {
     const response = await axios.post(`${config.baseUrl}${config.endpoints.processDocument}`, {
       userId: 'user-1'
@@ -404,7 +440,7 @@ async function testProcessDocumentEndpoint() {
       timeout: config.timeout,
       validateStatus: status => status < 500 // Accept 4xx responses
     });
-    
+
     if (response.status === 200) {
       testResults.passed.push({
         test: 'Process Document Endpoint',
@@ -430,7 +466,7 @@ async function testProcessDocumentEndpoint() {
 // Test authentication
 async function testAuthentication() {
   console.log('Testing authentication...');
-  
+
   // Test Google authentication
   await testGoogleAuthentication();
 }
@@ -438,14 +474,14 @@ async function testAuthentication() {
 // Test Google authentication
 async function testGoogleAuthentication() {
   console.log('Testing Google authentication...');
-  
+
   try {
     const response = await axios.get(`${config.baseUrl}${config.endpoints.googleAuth}`, {
       timeout: config.timeout,
       validateStatus: status => status < 500, // Accept 4xx responses
       maxRedirects: 0 // Don't follow redirects
     });
-    
+
     if (response.status === 302) {
       testResults.passed.push({
         test: 'Google Authentication',
@@ -479,7 +515,7 @@ async function testGoogleAuthentication() {
 // Test chat endpoints
 async function testChatEndpoints() {
   console.log('Testing chat endpoints...');
-  
+
   // Test document chat endpoint
   await testDocumentChatEndpoint();
 }
@@ -487,13 +523,13 @@ async function testChatEndpoints() {
 // Test document chat endpoint
 async function testDocumentChatEndpoint() {
   console.log('Testing document chat endpoint...');
-  
+
   try {
     const response = await axios.get(`${config.baseUrl}${config.endpoints.documentChat}?documentId=doc-1&message=What%20is%20the%20revenue?`, {
       timeout: config.timeout,
       validateStatus: status => status < 500 // Accept 4xx responses
     });
-    
+
     if (response.status === 200 && response.data.response) {
       testResults.passed.push({
         test: 'Document Chat Endpoint',
@@ -522,21 +558,21 @@ function logTestResults() {
   console.log(`Passed: ${testResults.passed.length}`);
   console.log(`Failed: ${testResults.failed.length}`);
   console.log(`Warnings: ${testResults.warnings.length}`);
-  
+
   if (testResults.passed.length > 0) {
     console.log('\nPassed Tests:');
     testResults.passed.forEach(result => {
       console.log(`✅ ${result.test}: ${result.message}`);
     });
   }
-  
+
   if (testResults.failed.length > 0) {
     console.log('\nFailed Tests:');
     testResults.failed.forEach(result => {
       console.log(`❌ ${result.test}: ${result.error}`);
     });
   }
-  
+
   if (testResults.warnings.length > 0) {
     console.log('\nWarnings:');
     testResults.warnings.forEach(result => {
@@ -552,7 +588,7 @@ function saveTestResults() {
     JSON.stringify(testResults, null, 2),
     'utf8'
   );
-  
+
   console.log(`\nTest results saved to ${config.outputFile}`);
 }
 

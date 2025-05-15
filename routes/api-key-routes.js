@@ -10,9 +10,9 @@ const apiKeyService = require('../services/api-key-service');
 const authService = require('../services/auth-service');
 
 // Import error utilities
-const { 
-  asyncHandler, 
-  NotFoundError, 
+const {
+  asyncHandler,
+  NotFoundError,
   ValidationError,
   AuthError,
   createSuccessResponse,
@@ -136,6 +136,38 @@ router.post('/validate', authService.authenticateRequest, async (req, res) => {
     });
   } catch (error) {
     console.error('Error validating API key:', error);
+    return res.status(500).json({
+      error: 'Internal server error',
+      message: error.message
+    });
+  }
+});
+
+/**
+ * Get environment information
+ * @route GET /api/keys/environment
+ * @returns {Object} - Environment information
+ */
+router.get('/environment', async (req, res) => {
+  try {
+    // Get environment information
+    const environment = {
+      isGoogleCloud: process.env.GAE_APPLICATION ? true : false,
+      nodeEnv: process.env.NODE_ENV || 'development',
+      availableSecrets: [
+        'openrouter-api-key',
+        'gemini-api-key',
+        'deepseek-api-key',
+        'supabase-key',
+        'supabase-service-key',
+        'supabase-url'
+      ]
+    };
+
+    // Return the environment information
+    return res.json(environment);
+  } catch (error) {
+    console.error('Error getting environment information:', error);
     return res.status(500).json({
       error: 'Internal server error',
       message: error.message

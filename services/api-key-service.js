@@ -1,17 +1,30 @@
 /**
  * API Key Service
  * This service handles API key management for the FinDoc Analyzer application
+ *
+ * IMPORTANT: This is a mock implementation for testing purposes.
+ * In a production environment, this would be replaced with a secure API key management system.
  */
 
-// Mock secrets for testing
-const mockSecrets = {
-  'openrouter-api-key': 'mock-openrouter-api-key',
-  'gemini-api-key': 'mock-gemini-api-key',
-  'deepseek-api-key': 'mock-deepseek-api-key',
-  'supabase-key': 'mock-supabase-key',
-  'supabase-service-key': 'mock-supabase-service-key',
-  'supabase-url': 'https://dnjnsotemnfrjlotgved.supabase.co'
+// Environment-based API key configuration
+const getEnvironmentConfig = () => {
+  // Check if we're in Google Cloud environment
+  const isGoogleCloud = process.env.GAE_APPLICATION ? true : false;
+
+  // Use environment variables if available, otherwise use mock values
+  return {
+    'openrouter-api-key': process.env.OPENROUTER_API_KEY || 'mock-openrouter-api-key',
+    'gemini-api-key': process.env.GEMINI_API_KEY || 'mock-gemini-api-key',
+    'deepseek-api-key': process.env.DEEPSEEK_API_KEY || 'mock-deepseek-api-key',
+    'supabase-key': process.env.SUPABASE_KEY || 'mock-supabase-key',
+    'supabase-service-key': process.env.SUPABASE_SERVICE_KEY || 'mock-supabase-service-key',
+    'supabase-url': process.env.SUPABASE_URL || 'https://dnjnsotemnfrjlotgved.supabase.co',
+    'environment': isGoogleCloud ? 'google-cloud' : 'local'
+  };
 };
+
+// Mock secrets for testing
+const mockSecrets = getEnvironmentConfig();
 
 /**
  * API Key Service
