@@ -31,12 +31,22 @@ fs.mkdirSync(resultsDir, { recursive: true });
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Auth routes
+app.get('/auth/google', (req, res) => {
+  // Proper Google Auth endpoint should redirect to Google with a 302 (temporary redirect)
+  res.redirect(302, 'https://accounts.google.com/o/oauth2/v2/auth?client_id=mock-client-id&redirect_uri=http://localhost:8080/auth/google/callback&response_type=code&scope=email%20profile');
+});
+
 app.get('/auth/google/callback', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'auth', 'google', 'callback.html'));
 });
 
-// Import simple injector middleware
+// Import middlewares
 const simpleInjectorMiddleware = require('./middleware/simple-injector');
+const { apiErrorHandler, notFoundHandler } = require('./middleware/error-handler');
+const { accessLogger } = require('./utils/logger');
+
+// Use access logger middleware
+app.use(accessLogger);
 
 // Use simple injector middleware
 app.use(simpleInjectorMiddleware);
@@ -45,6 +55,11 @@ app.use(simpleInjectorMiddleware);
 app.get('/api/health', (req, res) => {
   res.json({ status: 'ok', message: 'FinDoc Analyzer API is running' });
 });
+
+// API key routes
+const apiKeyRoutes = require('./routes/api-key-routes');
+app.use('/api/keys', apiKeyRoutes);
+console.log('Successfully imported API Key routes');
 
 // Import scan1Controller
 let scan1Controller;
@@ -464,6 +479,13 @@ app.post('/api/documents/:id/questions', (req, res) => {
   });
 });
 
+// API error handling (must be after all routes and before catch-all route)
+// Not Found handler for API routes
+app.use('/api', notFoundHandler());
+
+// Global API error handler
+app.use('/api', apiErrorHandler);
+
 // Catch-all route to serve the frontend
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
@@ -472,5 +494,6 @@ app.get('*', (req, res) => {
 // Start the server
 app.listen(port, () => {
   console.log(`FinDoc Analyzer server running on port ${port}`);
-  console.log(`Environment: ${process.env.NODE_ENV}`);
+  console.log(`Environment: ${process.env.NODE_ENV || 'development'}`);
+  console.log(`API error logging enabled: ${path.join(path.dirname(__dirname), 'logs', 'api-errors.log')}`);
 });

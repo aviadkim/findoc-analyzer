@@ -26,7 +26,7 @@ function generateGoogleAuthUrl() {
     // For testing purposes, just return a mock URL
     // In a real implementation, this would generate a proper Google OAuth URL
     const mockUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${googleConfig.clientId}&redirect_uri=${encodeURIComponent(googleConfig.redirectUri)}&response_type=code&scope=email%20profile&state=${Date.now()}`;
-    
+
     console.log('Generated Google OAuth URL (mock):', mockUrl);
     return mockUrl;
   } catch (error) {
@@ -43,20 +43,20 @@ function generateGoogleAuthUrl() {
 async function handleGoogleCallback(code) {
   try {
     console.log('Processing Google OAuth callback with code:', code);
-    
+
     // For testing purposes, just return mock user data
     // In a real implementation, this would exchange the code for tokens
     // and fetch the user's Google profile
-    
+
     const mockUser = {
       id: 'google-user-' + Date.now(),
       email: 'google-user@example.com',
       name: 'Google User',
       authProvider: 'google'
     };
-    
+
     const sessionToken = 'google-session-' + Date.now();
-    
+
     return {
       user: mockUser,
       sessionToken,
@@ -93,19 +93,19 @@ function verifyJwtToken(token) {
   try {
     // For testing purposes, just return a mock payload
     // In a real implementation, this would verify and decode the JWT token
-    
+
     if (!token) {
       throw new Error('Token is required');
     }
-    
+
     if (!token.startsWith('jwt-')) {
       throw new Error('Invalid token format');
     }
-    
+
     // Extract user ID from token (mock implementation)
     const parts = token.split('-');
     const userId = parts[2];
-    
+
     return {
       userId,
       exp: Date.now() + 24 * 60 * 60 * 1000 // 24 hours from now
@@ -124,7 +124,7 @@ function verifyJwtToken(token) {
 async function resetPassword(email) {
   try {
     console.log('Password reset requested for:', email);
-    
+
     // For testing purposes, just return success
     // In a real implementation, this would send a password reset email
     return true;
@@ -143,12 +143,12 @@ async function resetPassword(email) {
 async function sendPasswordResetEmail(email, resetToken) {
   try {
     console.log(`Sending password reset email to ${email} with token ${resetToken}`);
-    
+
     // For testing purposes, just log the email contents
     // In a real implementation, this would use a mail service like SendGrid, Mailgun, etc.
-    
+
     const resetLink = `http://localhost:8080/reset-password?token=${resetToken}`;
-    
+
     console.log('========== MOCK EMAIL ==========');
     console.log(`To: ${email}`);
     console.log('Subject: Reset your password');
@@ -165,7 +165,7 @@ async function sendPasswordResetEmail(email, resetToken) {
     console.log('Regards,');
     console.log('The Financial Document Analysis Team');
     console.log('================================');
-    
+
     return true;
   } catch (error) {
     console.error('Error sending password reset email:', error);
@@ -182,10 +182,10 @@ async function sendPasswordResetEmail(email, resetToken) {
 async function completePasswordReset(token, newPassword) {
   try {
     console.log(`Completing password reset with token ${token}`);
-    
+
     // For testing purposes, just log the action
     // In a real implementation, this would validate the token and change the password
-    
+
     return true;
   } catch (error) {
     console.error('Error completing password reset:', error);
@@ -228,10 +228,10 @@ function generateMfaSecret() {
 async function sendMfaCode(userId, contact, method = 'sms') {
   try {
     console.log(`Sending MFA code to user ${userId} via ${method}`);
-    
+
     // Generate verification code
     const code = generateMfaCode();
-    
+
     if (method === 'sms') {
       console.log(`[MOCK SMS] Sending verification code ${code} to ${contact}`);
       // In a real implementation, this would use Twilio or another SMS service
@@ -254,7 +254,7 @@ async function sendMfaCode(userId, contact, method = 'sms') {
       console.log('The Financial Document Analysis Team');
       console.log('====================================');
     }
-    
+
     return code;
   } catch (error) {
     console.error('Error sending MFA code:', error);
@@ -273,11 +273,11 @@ function generateQrCodeUrl(secret, email) {
   // For testing purposes, just return a mock URL for demonstration
   const appName = encodeURIComponent('FinDoc Analyzer');
   const encodedEmail = encodeURIComponent(email);
-  
+
   // Generate an otpauth URL for the QR code
   // Format: otpauth://totp/APP_NAME:EMAIL?secret=SECRET&issuer=APP_NAME
   const otpauthUrl = `otpauth://totp/${appName}:${encodedEmail}?secret=${secret}&issuer=${appName}`;
-  
+
   // In a real app, we would convert this to a QR code image
   // For testing, we'll just use a fake QR code service URL
   return `https://api.qrserver.com/v1/create-qr-code/?data=${encodeURIComponent(otpauthUrl)}&size=200x200`;
@@ -294,15 +294,106 @@ function verifyTotpCode(secret, code) {
     // In a real implementation, this would use a library like speakeasy to verify the TOTP code
     // For testing purposes, just verify that the code is 6 digits and consider it valid
     const isValid = /^\d{6}$/.test(code);
-    
+
     // For testing, log the "verification" process
     console.log(`Verifying TOTP code: ${code} against secret: ${secret}`);
     console.log(`[MOCK TOTP] Code is ${isValid ? 'valid' : 'invalid'}`);
-    
+
     return isValid;
   } catch (error) {
     console.error('Error verifying TOTP code:', error);
     throw error;
+  }
+}
+
+/**
+ * Validate API key
+ * @param {string} apiKey - The API key to validate
+ * @returns {Promise<boolean>} - Whether the API key is valid
+ */
+async function validateApiKey(apiKey) {
+  try {
+    // For testing purposes, accept any API key
+    // In a real implementation, this would validate the API key against a database
+    return true;
+  } catch (error) {
+    console.error('Error validating API key:', error);
+    return false;
+  }
+}
+
+/**
+ * Authenticate request middleware
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ * @param {Function} next - Express next function
+ */
+function authenticateRequest(req, res, next) {
+  try {
+    // Get the API key from the request headers
+    const apiKey = req.headers['x-api-key'];
+
+    // Get the authorization header
+    const authHeader = req.headers.authorization;
+
+    // Check if the API key or authorization header is provided
+    if (!apiKey && !authHeader) {
+      return res.status(401).json({
+        error: 'Unauthorized',
+        message: 'API key or authorization header is required'
+      });
+    }
+
+    // If API key is provided, validate it
+    if (apiKey) {
+      validateApiKey(apiKey)
+        .then(valid => {
+          if (valid) {
+            next();
+          } else {
+            res.status(401).json({
+              error: 'Unauthorized',
+              message: 'Invalid API key'
+            });
+          }
+        })
+        .catch(error => {
+          console.error('Error validating API key:', error);
+          res.status(500).json({
+            error: 'Internal server error',
+            message: 'Error validating API key'
+          });
+        });
+      return;
+    }
+
+    // If authorization header is provided, validate it
+    if (authHeader) {
+      // Get the token from the authorization header
+      const token = authHeader.split(' ')[1];
+
+      // Verify the token
+      try {
+        const decoded = verifyJwtToken(token);
+
+        // Add the decoded token to the request
+        req.user = decoded;
+
+        next();
+      } catch (error) {
+        res.status(401).json({
+          error: 'Unauthorized',
+          message: 'Invalid token'
+        });
+      }
+      return;
+    }
+  } catch (error) {
+    console.error('Error authenticating request:', error);
+    res.status(500).json({
+      error: 'Internal server error',
+      message: 'Error authenticating request'
+    });
   }
 }
 
@@ -319,5 +410,7 @@ module.exports = {
   generateMfaSecret,
   sendMfaCode,
   generateQrCodeUrl,
-  verifyTotpCode
+  verifyTotpCode,
+  validateApiKey,
+  authenticateRequest
 };
