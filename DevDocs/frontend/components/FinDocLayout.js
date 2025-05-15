@@ -15,6 +15,7 @@ function FinDocLayout({ children }) {
     { name: 'Upload Documents', path: '/upload', icon: 'upload' },
     { name: 'My Documents', path: '/documents-new', icon: 'file' },
     { name: 'Analytics', path: '/analytics-new', icon: 'chart-bar' },
+    { name: 'Analytics Dashboard', path: '/analytics-dashboard', icon: 'chart-line' },
     { name: 'Portfolio', path: '/portfolio', icon: 'chart-pie' },
     { name: 'Document Comparison', path: '/document-comparison', icon: 'git-compare' },
     { name: 'Agents', path: '/agents', icon: 'robot' },
@@ -120,9 +121,9 @@ function FinDocLayout({ children }) {
         )}
 
         {/* Upload Dialog */}
-        <UploadDialog 
-          isOpen={isUploadDialogOpen} 
-          onClose={() => setIsUploadDialogOpen(false)} 
+        <UploadDialog
+          isOpen={isUploadDialogOpen}
+          onClose={() => setIsUploadDialogOpen(false)}
         />
 
         {/* Page content */}
@@ -455,6 +456,7 @@ function FinDocLayout({ children }) {
         .icon-upload:before { content: '\f093'; }
         .icon-file:before { content: '\f15b'; }
         .icon-chart-bar:before { content: '\f080'; }
+        .icon-chart-line:before { content: '\f201'; }
         .icon-chart-pie:before { content: '\f200'; }
         .icon-robot:before { content: '\f544'; }
         .icon-cog:before { content: '\f013'; }

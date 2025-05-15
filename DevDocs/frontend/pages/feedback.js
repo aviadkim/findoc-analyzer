@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import FinDocLayout from '../components/FinDocLayout';
 import { FiSend, FiCheckCircle, FiAlertCircle } from 'react-icons/fi';
+import UserFeedbackForm from '../components/UserFeedbackForm';
+import axios from 'axios';
 
 export default function FeedbackPage() {
   const [formData, setFormData] = useState({
@@ -11,10 +13,11 @@ export default function FeedbackPage() {
     message: '',
     page: 'dashboard'
   });
-  
+
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState(null); // null, 'success', 'error'
-  
+  const [showLegacyForm, setShowLegacyForm] = useState(false); // Toggle between old and new form
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({
@@ -22,25 +25,34 @@ export default function FeedbackPage() {
       [name]: value
     }));
   };
-  
+
   const handleRatingChange = (rating) => {
     setFormData(prev => ({
       ...prev,
       rating
     }));
   };
-  
+
   const handleSubmit = (e) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
-    // Simulate API call
-    setTimeout(() => {
-      // Simulate successful submission
-      console.log('Feedback submitted:', formData);
+
+    // Use the real API endpoint instead of setTimeout
+    axios.post('/api/feedback', {
+      feedbackType: formData.feedbackType,
+      rating: formData.rating,
+      comments: formData.message,
+      email: formData.email,
+      allowContact: !!formData.email,
+      feedbackCategories: [formData.page],
+      timestamp: new Date().toISOString(),
+      userAgent: navigator.userAgent,
+      userId: 'anonymous' // Replace with actual user ID when available
+    })
+    .then(response => {
+      console.log('Feedback submitted:', response.data);
       setSubmitStatus('success');
-      setIsSubmitting(false);
-      
+
       // Reset form after 3 seconds
       setTimeout(() => {
         setSubmitStatus(null);
@@ -53,9 +65,21 @@ export default function FeedbackPage() {
           page: 'dashboard'
         });
       }, 3000);
-    }, 1500);
+    })
+    .catch(error => {
+      console.error('Error submitting feedback:', error);
+      setSubmitStatus('error');
+    })
+    .finally(() => {
+      setIsSubmitting(false);
+    });
   };
-  
+
+  const handleNewFormSubmitSuccess = (data) => {
+    console.log('Feedback submitted successfully:', data);
+    // The UserFeedbackForm component handles its own success state
+  };
+
   return (
     <FinDocLayout>
       <div className="feedback-page">
@@ -64,8 +88,30 @@ export default function FeedbackPage() {
           We value your feedback! Please let us know what you think about the FinDoc Analyzer application.
           Your input helps us improve the user experience.
         </p>
-        
-        {submitStatus === 'success' ? (
+
+        <div className="form-toggle">
+          <button
+            className={`toggle-btn ${!showLegacyForm ? 'active' : ''}`}
+            onClick={() => setShowLegacyForm(false)}
+          >
+            New Form
+          </button>
+          <button
+            className={`toggle-btn ${showLegacyForm ? 'active' : ''}`}
+            onClick={() => setShowLegacyForm(true)}
+          >
+            Legacy Form
+          </button>
+        </div>
+
+        {!showLegacyForm ? (
+          <div className="new-form-container">
+            <UserFeedbackForm
+              onSubmitSuccess={handleNewFormSubmitSuccess}
+              onCancel={() => setShowLegacyForm(true)}
+            />
+          </div>
+        ) : submitStatus === 'success' ? (
           <div className="success-message">
             <FiCheckCircle size={48} />
             <h2>Thank You!</h2>
@@ -91,7 +137,7 @@ export default function FeedbackPage() {
                 required
               />
             </div>
-            
+
             <div className="form-group">
               <label htmlFor="email">Email</label>
               <input
@@ -104,7 +150,7 @@ export default function FeedbackPage() {
                 required
               />
             </div>
-            
+
             <div className="form-group">
               <label htmlFor="feedbackType">Feedback Type</label>
               <select
@@ -121,7 +167,7 @@ export default function FeedbackPage() {
                 <option value="performance">Performance Issue</option>
               </select>
             </div>
-            
+
             <div className="form-group">
               <label htmlFor="page">Page</label>
               <select
@@ -139,7 +185,7 @@ export default function FeedbackPage() {
                 <option value="other">Other</option>
               </select>
             </div>
-            
+
             <div className="form-group">
               <label>Rating</label>
               <div className="rating-container">
@@ -155,7 +201,7 @@ export default function FeedbackPage() {
                 ))}
               </div>
             </div>
-            
+
             <div className="form-group">
               <label htmlFor="message">Feedback</label>
               <textarea
@@ -168,9 +214,9 @@ export default function FeedbackPage() {
                 required
               ></textarea>
             </div>
-            
-            <button 
-              type="submit" 
+
+            <button
+              type="submit"
               className="submit-btn"
               disabled={isSubmitting}
             >
@@ -189,25 +235,57 @@ export default function FeedbackPage() {
           </form>
         )}
       </div>
-      
+
       <style jsx>{`
         .feedback-page {
           padding: 20px;
           max-width: 800px;
           margin: 0 auto;
         }
-        
+
         .page-title {
           font-size: 1.75rem;
           color: #2d3748;
           margin: 0 0 10px 0;
         }
-        
+
         .page-description {
           color: #718096;
+          margin-bottom: 20px;
+        }
+
+        .form-toggle {
+          display: flex;
+          margin-bottom: 20px;
+          border-radius: 6px;
+          overflow: hidden;
+          border: 1px solid #e2e8f0;
+          width: fit-content;
+        }
+
+        .toggle-btn {
+          padding: 10px 20px;
+          background-color: white;
+          border: none;
+          color: #4a5568;
+          font-weight: 500;
+          cursor: pointer;
+          transition: all 0.2s;
+        }
+
+        .toggle-btn:first-child {
+          border-right: 1px solid #e2e8f0;
+        }
+
+        .toggle-btn.active {
+          background-color: #3498db;
+          color: white;
+        }
+
+        .new-form-container {
           margin-bottom: 30px;
         }
-        
+
         .feedback-form {
           background-color: white;
           border-radius: 8px;
@@ -215,18 +293,18 @@ export default function FeedbackPage() {
           padding: 30px;
           border: 1px solid #e2e8f0;
         }
-        
+
         .form-group {
           margin-bottom: 20px;
         }
-        
+
         label {
           display: block;
           margin-bottom: 5px;
           font-weight: 500;
           color: #4a5568;
         }
-        
+
         input, select, textarea {
           width: 100%;
           padding: 10px;
@@ -234,18 +312,18 @@ export default function FeedbackPage() {
           border-radius: 4px;
           font-size: 1rem;
         }
-        
+
         input:focus, select:focus, textarea:focus {
           outline: none;
           border-color: #3498db;
           box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
         }
-        
+
         .rating-container {
           display: flex;
           gap: 10px;
         }
-        
+
         .rating-btn {
           width: 40px;
           height: 40px;
@@ -257,17 +335,17 @@ export default function FeedbackPage() {
           cursor: pointer;
           transition: all 0.2s;
         }
-        
+
         .rating-btn:hover {
           background-color: #f7fafc;
         }
-        
+
         .rating-btn.active {
           background-color: #3498db;
           color: white;
           border-color: #3498db;
         }
-        
+
         .submit-btn {
           display: flex;
           align-items: center;
@@ -283,16 +361,16 @@ export default function FeedbackPage() {
           cursor: pointer;
           transition: all 0.2s;
         }
-        
+
         .submit-btn:hover {
           background-color: #2980b9;
         }
-        
+
         .submit-btn:disabled {
           background-color: #a0aec0;
           cursor: not-allowed;
         }
-        
+
         .spinner {
           width: 20px;
           height: 20px;
@@ -301,12 +379,12 @@ export default function FeedbackPage() {
           border-top-color: white;
           animation: spin 1s linear infinite;
         }
-        
+
         @keyframes spin {
           0% { transform: rotate(0deg); }
           100% { transform: rotate(360deg); }
         }
-        
+
         .success-message, .error-message {
           background-color: white;
           border-radius: 8px;
@@ -315,30 +393,30 @@ export default function FeedbackPage() {
           border: 1px solid #e2e8f0;
           text-align: center;
         }
-        
+
         .success-message {
           border-top: 4px solid #48bb78;
         }
-        
+
         .error-message {
           border-top: 4px solid #f56565;
         }
-        
+
         .success-message svg {
           color: #48bb78;
           margin-bottom: 15px;
         }
-        
+
         .error-message svg {
           color: #f56565;
           margin-bottom: 15px;
         }
-        
+
         .success-message h2, .error-message h2 {
           margin: 0 0 10px 0;
           font-size: 1.5rem;
         }
-        
+
         .success-message p, .error-message p {
           margin: 0;
           color: #718096;
