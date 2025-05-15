@@ -34,6 +34,8 @@
     "test:console-logs": "node tests/check-console-logs.js",
     "test:pdf-processor": "node test-document-processor.js",
     "test:market-data": "node test-market-data-integration.js",
+    "test:financial-pdf": "node tests/financial-pdf-processing-test.js",
+    "install:python-deps": "node install-python-deps.js",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "lint:fix": "eslint . --ext .js,.jsx,.ts,.tsx --fix",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",

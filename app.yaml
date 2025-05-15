@@ -1,6 +1,15 @@
-runtime: nodejs18
+﻿runtime: nodejs20
 env: standard
 instance_class: F2
+
+# Include Python runtime for scan1Controller
+runtime_config:
+  operating_system: "ubuntu22"
+  runtime_version: "20.0.0"
+
+# Install Python dependencies
+build_env_variables:
+  GOOGLE_NODE_RUN_SCRIPTS: "npm run install:python-deps"
 
 handlers:
   # Serve static files from /css
@@ -48,12 +57,15 @@ env_variables:
   RESULTS_FOLDER: "/tmp/results"
   SUPABASE_URL: "https://dnjnsotemnfrjlotgved.supabase.co"
   USE_MOCK_API: "false"
-  PYTHONPATH: "/usr/local/lib/python3/site-packages"
+  PYTHONPATH: "/usr/local/lib/python3/site-packages:/usr/local/lib/python3.9/site-packages:/usr/local/lib/python3.10/site-packages:/usr/local/lib/python3.11/site-packages"
   STORAGE_BUCKET: "backv2-documents"
   ENABLE_UPLOAD_FORM: "true"
   ENABLE_CHAT_INTERFACE: "true"
   ENABLE_ANALYTICS: "true"
   ENABLE_EXPORT: "true"
+  ENABLE_SCAN1: "true"
+  SCAN1_API_BASE_URL: "https://api.findoc-scan1.com/v1"
+  SCAN1_ENHANCED_PROCESSING: "true"
 
 includes:
   - secret.yaml
