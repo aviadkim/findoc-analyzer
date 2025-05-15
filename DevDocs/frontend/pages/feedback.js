@@ -1,427 +1,179 @@
-import React, { useState } from 'react';
+/**
+ * Feedback Page
+ *
+ * Main page for user feedback submission and history.
+ */
+
+import React, { useState, useEffect } from 'react';
+import {
+  Box,
+  Container,
+  Heading,
+  Text,
+  Tabs,
+  TabList,
+  TabPanels,
+  Tab,
+  TabPanel,
+  Divider,
+  useToast,
+  Grid,
+  GridItem,
+  Alert,
+  AlertIcon,
+  Button,
+  Link
+} from '@chakra-ui/react';
+import Layout from '../components/Layout';
 import FinDocLayout from '../components/FinDocLayout';
-import { FiSend, FiCheckCircle, FiAlertCircle } from 'react-icons/fi';
-import UserFeedbackForm from '../components/UserFeedbackForm';
-import axios from 'axios';
+import FeedbackForm from '../components/feedback/FeedbackForm';
+import FeedbackHistory from '../components/feedback/FeedbackHistory';
+import { trackPageView } from '../services/analyticsService';
+import { useRouter } from 'next/router';
+import NextLink from 'next/link';
 
-export default function FeedbackPage() {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    feedbackType: 'general',
-    rating: 3,
-    message: '',
-    page: 'dashboard'
-  });
+const FeedbackPage = () => {
+  const [tabIndex, setTabIndex] = useState(0);
+  const [isAdmin, setIsAdmin] = useState(false);
+  const toast = useToast();
+  const router = useRouter();
 
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState(null); // null, 'success', 'error'
-  const [showLegacyForm, setShowLegacyForm] = useState(false); // Toggle between old and new form
+  // Track page view
+  useEffect(() => {
+    trackPageView('feedback');
+    
+    // Check if user is admin
+    const checkAdminStatus = async () => {
+      try {
+        const response = await fetch('/api/auth/me');
+        const result = await response.json();
+        
+        if (response.ok && result.data?.user?.role === 'admin') {
+          setIsAdmin(true);
+        }
+      } catch (error) {
+        console.error('Error checking admin status:', error);
+      }
+    };
+    
+    checkAdminStatus();
+  }, []);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
-  };
-
-  const handleRatingChange = (rating) => {
-    setFormData(prev => ({
-      ...prev,
-      rating
-    }));
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-
-    // Use the real API endpoint instead of setTimeout
-    axios.post('/api/feedback', {
-      feedbackType: formData.feedbackType,
-      rating: formData.rating,
-      comments: formData.message,
-      email: formData.email,
-      allowContact: !!formData.email,
-      feedbackCategories: [formData.page],
-      timestamp: new Date().toISOString(),
-      userAgent: navigator.userAgent,
-      userId: 'anonymous' // Replace with actual user ID when available
-    })
-    .then(response => {
-      console.log('Feedback submitted:', response.data);
-      setSubmitStatus('success');
-
-      // Reset form after 3 seconds
-      setTimeout(() => {
-        setSubmitStatus(null);
-        setFormData({
-          name: '',
-          email: '',
-          feedbackType: 'general',
-          rating: 3,
-          message: '',
-          page: 'dashboard'
-        });
-      }, 3000);
-    })
-    .catch(error => {
-      console.error('Error submitting feedback:', error);
-      setSubmitStatus('error');
-    })
-    .finally(() => {
-      setIsSubmitting(false);
+  const handleSubmitSuccess = () => {
+    // Switch to history tab after successful submission
+    setTabIndex(1);
+    
+    toast({
+      title: 'Feedback Submitted',
+      description: 'Thank you for your feedback! We\'ll review it soon.',
+      status: 'success',
+      duration: 5000,
+      isClosable: true
     });
-  };
-
-  const handleNewFormSubmitSuccess = (data) => {
-    console.log('Feedback submitted successfully:', data);
-    // The UserFeedbackForm component handles its own success state
   };
 
   return (
     <FinDocLayout>
-      <div className="feedback-page">
-        <h1 className="page-title">Feedback</h1>
-        <p className="page-description">
-          We value your feedback! Please let us know what you think about the FinDoc Analyzer application.
-          Your input helps us improve the user experience.
-        </p>
+      <Container maxW="container.xl" py={8}>
+        <Box mb={8} textAlign="center">
+          <Heading size="xl">Feedback</Heading>
+          <Text mt={2} color="gray.600">
+            We value your input and use it to improve our services
+          </Text>
+        </Box>
 
-        <div className="form-toggle">
-          <button
-            className={`toggle-btn ${!showLegacyForm ? 'active' : ''}`}
-            onClick={() => setShowLegacyForm(false)}
-          >
-            New Form
-          </button>
-          <button
-            className={`toggle-btn ${showLegacyForm ? 'active' : ''}`}
-            onClick={() => setShowLegacyForm(true)}
-          >
-            Legacy Form
-          </button>
-        </div>
-
-        {!showLegacyForm ? (
-          <div className="new-form-container">
-            <UserFeedbackForm
-              onSubmitSuccess={handleNewFormSubmitSuccess}
-              onCancel={() => setShowLegacyForm(true)}
-            />
-          </div>
-        ) : submitStatus === 'success' ? (
-          <div className="success-message">
-            <FiCheckCircle size={48} />
-            <h2>Thank You!</h2>
-            <p>Your feedback has been submitted successfully.</p>
-          </div>
-        ) : submitStatus === 'error' ? (
-          <div className="error-message">
-            <FiAlertCircle size={48} />
-            <h2>Submission Error</h2>
-            <p>There was an error submitting your feedback. Please try again later.</p>
-          </div>
-        ) : (
-          <form className="feedback-form" onSubmit={handleSubmit}>
-            <div className="form-group">
-              <label htmlFor="name">Name</label>
-              <input
-                type="text"
-                id="name"
-                name="name"
-                value={formData.name}
-                onChange={handleChange}
-                placeholder="Your name"
-                required
-              />
-            </div>
-
-            <div className="form-group">
-              <label htmlFor="email">Email</label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-                placeholder="Your email address"
-                required
-              />
-            </div>
-
-            <div className="form-group">
-              <label htmlFor="feedbackType">Feedback Type</label>
-              <select
-                id="feedbackType"
-                name="feedbackType"
-                value={formData.feedbackType}
-                onChange={handleChange}
-                required
+        {isAdmin && (
+          <Box mb={6}>
+            <Alert status="info" borderRadius="md">
+              <AlertIcon />
+              <Box flex="1">
+                <Text fontWeight="bold">Admin Access Available</Text>
+                <Text>You have access to the admin feedback dashboard.</Text>
+              </Box>
+              <Button 
+                size="sm" 
+                colorScheme="blue" 
+                onClick={() => router.push('/admin/feedback')}
               >
-                <option value="general">General Feedback</option>
-                <option value="bug">Bug Report</option>
-                <option value="feature">Feature Request</option>
-                <option value="ui">UI/UX Feedback</option>
-                <option value="performance">Performance Issue</option>
-              </select>
-            </div>
-
-            <div className="form-group">
-              <label htmlFor="page">Page</label>
-              <select
-                id="page"
-                name="page"
-                value={formData.page}
-                onChange={handleChange}
-                required
-              >
-                <option value="dashboard">Dashboard</option>
-                <option value="documents">Documents</option>
-                <option value="analytics">Analytics</option>
-                <option value="upload">Upload</option>
-                <option value="chat">Document Chat</option>
-                <option value="other">Other</option>
-              </select>
-            </div>
-
-            <div className="form-group">
-              <label>Rating</label>
-              <div className="rating-container">
-                {[1, 2, 3, 4, 5].map((rating) => (
-                  <button
-                    key={rating}
-                    type="button"
-                    className={`rating-btn ${formData.rating >= rating ? 'active' : ''}`}
-                    onClick={() => handleRatingChange(rating)}
-                  >
-                    {rating}
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            <div className="form-group">
-              <label htmlFor="message">Feedback</label>
-              <textarea
-                id="message"
-                name="message"
-                value={formData.message}
-                onChange={handleChange}
-                placeholder="Please provide your feedback here..."
-                rows="5"
-                required
-              ></textarea>
-            </div>
-
-            <button
-              type="submit"
-              className="submit-btn"
-              disabled={isSubmitting}
-            >
-              {isSubmitting ? (
-                <>
-                  <span className="spinner"></span>
-                  Submitting...
-                </>
-              ) : (
-                <>
-                  <FiSend />
-                  Submit Feedback
-                </>
-              )}
-            </button>
-          </form>
+                Go to Admin Dashboard
+              </Button>
+            </Alert>
+          </Box>
         )}
-      </div>
 
-      <style jsx>{`
-        .feedback-page {
-          padding: 20px;
-          max-width: 800px;
-          margin: 0 auto;
-        }
+        <Divider mb={8} />
 
-        .page-title {
-          font-size: 1.75rem;
-          color: #2d3748;
-          margin: 0 0 10px 0;
-        }
+        <Grid templateColumns={{ base: '1fr', lg: 'repeat(12, 1fr)' }} gap={8}>
+          <GridItem colSpan={{ base: 12, lg: 7 }}>
+            <Tabs 
+              isLazy 
+              colorScheme="blue" 
+              index={tabIndex} 
+              onChange={(index) => setTabIndex(index)}
+            >
+              <TabList mb={4}>
+                <Tab>Submit Feedback</Tab>
+                <Tab>Your History</Tab>
+              </TabList>
 
-        .page-description {
-          color: #718096;
-          margin-bottom: 20px;
-        }
+              <TabPanels>
+                <TabPanel px={0}>
+                  <FeedbackForm onSubmitSuccess={handleSubmitSuccess} />
+                </TabPanel>
+                
+                <TabPanel px={0}>
+                  <FeedbackHistory />
+                </TabPanel>
+              </TabPanels>
+            </Tabs>
+          </GridItem>
 
-        .form-toggle {
-          display: flex;
-          margin-bottom: 20px;
-          border-radius: 6px;
-          overflow: hidden;
-          border: 1px solid #e2e8f0;
-          width: fit-content;
-        }
-
-        .toggle-btn {
-          padding: 10px 20px;
-          background-color: white;
-          border: none;
-          color: #4a5568;
-          font-weight: 500;
-          cursor: pointer;
-          transition: all 0.2s;
-        }
-
-        .toggle-btn:first-child {
-          border-right: 1px solid #e2e8f0;
-        }
-
-        .toggle-btn.active {
-          background-color: #3498db;
-          color: white;
-        }
-
-        .new-form-container {
-          margin-bottom: 30px;
-        }
-
-        .feedback-form {
-          background-color: white;
-          border-radius: 8px;
-          box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-          padding: 30px;
-          border: 1px solid #e2e8f0;
-        }
-
-        .form-group {
-          margin-bottom: 20px;
-        }
-
-        label {
-          display: block;
-          margin-bottom: 5px;
-          font-weight: 500;
-          color: #4a5568;
-        }
-
-        input, select, textarea {
-          width: 100%;
-          padding: 10px;
-          border: 1px solid #e2e8f0;
-          border-radius: 4px;
-          font-size: 1rem;
-        }
-
-        input:focus, select:focus, textarea:focus {
-          outline: none;
-          border-color: #3498db;
-          box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
-        }
-
-        .rating-container {
-          display: flex;
-          gap: 10px;
-        }
-
-        .rating-btn {
-          width: 40px;
-          height: 40px;
-          border-radius: 50%;
-          border: 1px solid #e2e8f0;
-          background-color: white;
-          color: #718096;
-          font-weight: 600;
-          cursor: pointer;
-          transition: all 0.2s;
-        }
-
-        .rating-btn:hover {
-          background-color: #f7fafc;
-        }
-
-        .rating-btn.active {
-          background-color: #3498db;
-          color: white;
-          border-color: #3498db;
-        }
-
-        .submit-btn {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          gap: 10px;
-          padding: 12px 20px;
-          background-color: #3498db;
-          color: white;
-          border: none;
-          border-radius: 4px;
-          font-size: 1rem;
-          font-weight: 500;
-          cursor: pointer;
-          transition: all 0.2s;
-        }
-
-        .submit-btn:hover {
-          background-color: #2980b9;
-        }
-
-        .submit-btn:disabled {
-          background-color: #a0aec0;
-          cursor: not-allowed;
-        }
-
-        .spinner {
-          width: 20px;
-          height: 20px;
-          border: 2px solid rgba(255, 255, 255, 0.3);
-          border-radius: 50%;
-          border-top-color: white;
-          animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-          0% { transform: rotate(0deg); }
-          100% { transform: rotate(360deg); }
-        }
-
-        .success-message, .error-message {
-          background-color: white;
-          border-radius: 8px;
-          box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-          padding: 30px;
-          border: 1px solid #e2e8f0;
-          text-align: center;
-        }
-
-        .success-message {
-          border-top: 4px solid #48bb78;
-        }
-
-        .error-message {
-          border-top: 4px solid #f56565;
-        }
-
-        .success-message svg {
-          color: #48bb78;
-          margin-bottom: 15px;
-        }
-
-        .error-message svg {
-          color: #f56565;
-          margin-bottom: 15px;
-        }
-
-        .success-message h2, .error-message h2 {
-          margin: 0 0 10px 0;
-          font-size: 1.5rem;
-        }
-
-        .success-message p, .error-message p {
-          margin: 0;
-          color: #718096;
-        }
-      `}</style>
+          <GridItem colSpan={{ base: 12, lg: 5 }}>
+            <Box p={6} borderWidth="1px" borderRadius="md" bg="blue.50">
+              <Heading size="md" mb={4}>
+                Why Your Feedback Matters
+              </Heading>
+              
+              <Text mb={4}>
+                Your feedback helps us understand what's working well and what we
+                can improve. Here's how we use your feedback:
+              </Text>
+              
+              <Box as="ul" pl={5} spacing={2}>
+                <Box as="li" pb={2}>
+                  <Text>
+                    <strong>Feature Requests:</strong> We review all feature requests
+                    to identify the most valuable additions to our platform.
+                  </Text>
+                </Box>
+                
+                <Box as="li" pb={2}>
+                  <Text>
+                    <strong>Bug Reports:</strong> Reporting bugs helps us resolve
+                    issues quickly and improve stability.
+                  </Text>
+                </Box>
+                
+                <Box as="li" pb={2}>
+                  <Text>
+                    <strong>Usability Feedback:</strong> Your insights on user experience
+                    help us make the platform more intuitive and easier to use.
+                  </Text>
+                </Box>
+                
+                <Box as="li">
+                  <Text>
+                    <strong>General Feedback:</strong> Any comments or suggestions
+                    help us understand your needs and expectations better.
+                  </Text>
+                </Box>
+              </Box>
+            </Box>
+          </GridItem>
+        </Grid>
+      </Container>
     </FinDocLayout>
   );
-}
+};
+
+export default FeedbackPage;

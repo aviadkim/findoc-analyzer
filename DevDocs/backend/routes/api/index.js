@@ -21,6 +21,7 @@ const securitiesRoutes = require('./securities');
 const cacheRoutes = require('./cache');
 const pluginRoutes = require('./plugins');
 const batchRoutes = require('./batch');
+const feedbackRoutes = require('./feedback');
 
 // Mount routes
 router.use('/auth', authRoutes);
@@ -36,6 +37,7 @@ router.use('/securities', securitiesRoutes);
 router.use('/cache', cacheRoutes);
 router.use('/plugins', pluginRoutes);
 router.use('/batch', batchRoutes);
+router.use('/feedback', feedbackRoutes);
 
 // Add more routes as needed
 // router.use('/organizations', organizationRoutes);
