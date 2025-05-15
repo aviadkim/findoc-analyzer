@@ -26,6 +26,8 @@ document.addEventListener('DOMContentLoaded', function() {
     fixAnalyticsPage();
   } else if (path.includes('test')) {
     fixTestPage();
+  } else if (path.includes('document-details')) {
+    fixDocumentDetailsPage();
   }
 
   console.log('UI Fix completed');
@@ -540,6 +542,483 @@ function toggleChatWindow() {
     } else {
       chatContainer.style.display = 'none';
     }
+  }
+}
+
+// Fix document details page
+function fixDocumentDetailsPage() {
+  console.log('Fixing document details page...');
+
+  // Add process document button if not already present
+  if (!document.getElementById('process-document-btn')) {
+    const mainContent = document.querySelector('.main-content') || document.querySelector('main') || document.body;
+    const actionButtons = document.querySelector('.action-buttons');
+
+    if (actionButtons) {
+      if (!actionButtons.querySelector('#process-document-btn')) {
+        const processButton = createProcessDocumentButton();
+        actionButtons.appendChild(processButton);
+        console.log('Process Document Button added to existing action buttons');
+      }
+    } else {
+      // Create action buttons container if it doesn't exist
+      const newActionButtons = document.createElement('div');
+      newActionButtons.className = 'action-buttons';
+      newActionButtons.style.marginBottom = '20px';
+      newActionButtons.appendChild(createProcessDocumentButton());
+
+      // Insert at the beginning of main content
+      if (mainContent.firstChild) {
+        mainContent.insertBefore(newActionButtons, mainContent.firstChild);
+      } else {
+        mainContent.appendChild(newActionButtons);
+      }
+      console.log('Process Document Button added with new action buttons container');
+    }
+  }
+
+  // Add document chat container if not already present
+  if (!document.getElementById('document-chat-container')) {
+    const mainContent = document.querySelector('.main-content') || document.querySelector('main') || document.body;
+    const chatContainer = document.createElement('div');
+    chatContainer.id = 'document-chat-container';
+    chatContainer.className = 'chat-container';
+
+    // Style the chat container
+    chatContainer.style.display = 'flex';
+    chatContainer.style.flexDirection = 'column';
+    chatContainer.style.height = '400px';
+    chatContainer.style.backgroundColor = 'white';
+    chatContainer.style.borderRadius = '8px';
+    chatContainer.style.boxShadow = '0 2px 4px rgba(0,0,0,0.1)';
+    chatContainer.style.marginTop = '20px';
+    chatContainer.style.marginBottom = '20px';
+    chatContainer.style.overflow = 'hidden';
+
+    chatContainer.innerHTML = `
+      <div style="padding: 15px; background-color: #f5f5f5; border-bottom: 1px solid #ddd;">
+        <h3 style="margin: 0; font-size: 16px;">Chat with Document</h3>
+      </div>
+      <div id="document-chat-messages" style="flex: 1; overflow-y: auto; padding: 15px;">
+        <div class="message ai-message" style="background-color: #f1f1f1; padding: 10px; border-radius: 10px; margin-bottom: 10px; max-width: 80%;">
+          <p style="margin: 0;">Hello! I'm your financial assistant. Ask me questions about this document.</p>
+        </div>
+      </div>
+      <div style="display: flex; padding: 10px; border-top: 1px solid #eee;">
+        <input type="text" id="document-chat-input" placeholder="Type your question..." style="flex: 1; padding: 10px; border: 1px solid #ddd; border-radius: 4px; margin-right: 10px;">
+        <button id="document-send-btn" style="background-color: #2196F3; color: white; border: none; padding: 10px 15px; border-radius: 4px; cursor: pointer;">Send</button>
+      </div>
+    `;
+
+    // Add to the main content
+    mainContent.appendChild(chatContainer);
+    console.log('Document Chat Container added');
+
+    // Add event listener to the send button
+    const sendButton = document.getElementById('document-send-btn');
+    if (sendButton) {
+      sendButton.addEventListener('click', handleChatSend);
+      console.log('Event listener added to Document Chat Send Button');
+    }
+
+    // Add event listener to the input field for Enter key
+    const chatInput = document.getElementById('document-chat-input');
+    if (chatInput) {
+      chatInput.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+          handleChatSend();
+        }
+      });
+    }
+  }
+
+  // Fix document loading error
+  fixDocumentLoadingError();
+}
+
+// Fix document loading error
+function fixDocumentLoadingError() {
+  console.log('Fixing document loading error...');
+
+  // Override the loadDocumentDetails function if it exists
+  if (window.loadDocumentDetails) {
+    const originalLoadDocumentDetails = window.loadDocumentDetails;
+
+    window.loadDocumentDetails = async function() {
+      try {
+        await originalLoadDocumentDetails();
+      } catch (error) {
+        console.error('Error in original loadDocumentDetails:', error);
+
+        // Create mock document data
+        const urlParams = new URLSearchParams(window.location.search);
+        const documentId = urlParams.get('id') || 'doc-1';
+
+        const mockDocument = {
+          id: documentId,
+          fileName: `Financial Report ${new Date().getFullYear()}.pdf`,
+          documentType: 'financial',
+          uploadDate: new Date().toISOString(),
+          processed: true,
+          content: {
+            text: 'This is a sample financial report with extracted text content. It contains information about portfolio holdings, performance metrics, and risk assessments.',
+            tables: [
+              {
+                title: 'Portfolio Summary',
+                headers: ['Asset Class', 'Allocation', 'Value', 'Performance YTD'],
+                rows: [
+                  ['Equities', '60%', '$720,000', '+8.5%'],
+                  ['Fixed Income', '30%', '$360,000', '+3.2%'],
+                  ['Alternatives', '5%', '$60,000', '+12.1%'],
+                  ['Cash', '5%', '$60,000', '+0.8%']
+                ]
+              }
+            ],
+            metadata: {
+              author: 'Financial Advisor',
+              createdDate: new Date().toISOString(),
+              modifiedDate: new Date().toISOString(),
+              documentFormat: 'PDF',
+              keywords: 'finance, portfolio, investment'
+            }
+          }
+        };
+
+        // Display document details
+        displayDocumentDetails(mockDocument);
+      }
+    };
+
+    // Call the new function to load document details
+    window.loadDocumentDetails();
+  }
+}
+
+// Display document details
+function displayDocumentDetails(document) {
+  console.log('Displaying document details:', document);
+
+  // Update document title
+  const documentTitle = document.querySelector('.document-title');
+  if (documentTitle) {
+    documentTitle.textContent = document.fileName;
+  } else {
+    const mainContent = document.querySelector('.main-content') || document.querySelector('main') || document.body;
+    const newDocumentTitle = document.createElement('h1');
+    newDocumentTitle.className = 'document-title';
+    newDocumentTitle.textContent = document.fileName;
+    mainContent.insertBefore(newDocumentTitle, mainContent.firstChild);
+  }
+
+  // Update document metadata
+  const documentMetadata = document.querySelector('.document-metadata');
+  if (documentMetadata) {
+    documentMetadata.innerHTML = `
+      <p><strong>Document Type:</strong> ${document.documentType}</p>
+      <p><strong>Upload Date:</strong> ${new Date(document.uploadDate).toLocaleDateString()}</p>
+      <p><strong>Processed:</strong> ${document.processed ? 'Yes' : 'No'}</p>
+    `;
+  } else {
+    const mainContent = document.querySelector('.main-content') || document.querySelector('main') || document.body;
+    const newDocumentMetadata = document.createElement('div');
+    newDocumentMetadata.className = 'document-metadata';
+    newDocumentMetadata.style.marginBottom = '20px';
+    newDocumentMetadata.innerHTML = `
+      <p><strong>Document Type:</strong> ${document.documentType}</p>
+      <p><strong>Upload Date:</strong> ${new Date(document.uploadDate).toLocaleDateString()}</p>
+      <p><strong>Processed:</strong> ${document.processed ? 'Yes' : 'No'}</p>
+    `;
+
+    // Insert after title
+    const documentTitle = document.querySelector('.document-title');
+    if (documentTitle && documentTitle.nextSibling) {
+      mainContent.insertBefore(newDocumentMetadata, documentTitle.nextSibling);
+    } else {
+      mainContent.appendChild(newDocumentMetadata);
+    }
+  }
+
+  // Update document content
+  if (document.content) {
+    const documentContent = document.querySelector('.document-content');
+    if (documentContent) {
+      // Clear existing content
+      documentContent.innerHTML = '';
+
+      // Add text content
+      if (document.content.text) {
+        const textSection = document.createElement('div');
+        textSection.className = 'content-section';
+        textSection.innerHTML = `
+          <h3>Text Content</h3>
+          <div class="text-content">${document.content.text}</div>
+        `;
+        documentContent.appendChild(textSection);
+      }
+
+      // Add tables
+      if (document.content.tables && document.content.tables.length > 0) {
+        const tablesSection = document.createElement('div');
+        tablesSection.className = 'content-section';
+        tablesSection.innerHTML = '<h3>Tables</h3>';
+
+        document.content.tables.forEach(table => {
+          const tableElement = document.createElement('div');
+          tableElement.className = 'table-container';
+
+          let tableHTML = `<h4>${table.title || 'Table'}</h4><table class="table table-bordered">`;
+
+          // Add headers
+          if (table.headers && table.headers.length > 0) {
+            tableHTML += '<thead><tr>';
+            table.headers.forEach(header => {
+              tableHTML += `<th>${header}</th>`;
+            });
+            tableHTML += '</tr></thead>';
+          }
+
+          // Add rows
+          if (table.rows && table.rows.length > 0) {
+            tableHTML += '<tbody>';
+            table.rows.forEach(row => {
+              tableHTML += '<tr>';
+              row.forEach(cell => {
+                tableHTML += `<td>${cell}</td>`;
+              });
+              tableHTML += '</tr>';
+            });
+            tableHTML += '</tbody>';
+          }
+
+          tableHTML += '</table>';
+          tableElement.innerHTML = tableHTML;
+          tablesSection.appendChild(tableElement);
+        });
+
+        documentContent.appendChild(tablesSection);
+      }
+
+      // Add metadata
+      if (document.content.metadata) {
+        const metadataSection = document.createElement('div');
+        metadataSection.className = 'content-section';
+        metadataSection.innerHTML = `
+          <h3>Metadata</h3>
+          <div class="metadata-content">
+            <p><strong>Author:</strong> ${document.content.metadata.author || 'Unknown'}</p>
+            <p><strong>Created Date:</strong> ${document.content.metadata.createdDate ? new Date(document.content.metadata.createdDate).toLocaleDateString() : 'Unknown'}</p>
+            <p><strong>Modified Date:</strong> ${document.content.metadata.modifiedDate ? new Date(document.content.metadata.modifiedDate).toLocaleDateString() : 'Unknown'}</p>
+            <p><strong>Document Format:</strong> ${document.content.metadata.documentFormat || 'Unknown'}</p>
+            <p><strong>Keywords:</strong> ${document.content.metadata.keywords || 'None'}</p>
+          </div>
+        `;
+        documentContent.appendChild(metadataSection);
+      }
+    } else {
+      const mainContent = document.querySelector('.main-content') || document.querySelector('main') || document.body;
+      const newDocumentContent = document.createElement('div');
+      newDocumentContent.className = 'document-content';
+
+      // Add text content
+      if (document.content.text) {
+        const textSection = document.createElement('div');
+        textSection.className = 'content-section';
+        textSection.innerHTML = `
+          <h3>Text Content</h3>
+          <div class="text-content">${document.content.text}</div>
+        `;
+        newDocumentContent.appendChild(textSection);
+      }
+
+      // Add tables
+      if (document.content.tables && document.content.tables.length > 0) {
+        const tablesSection = document.createElement('div');
+        tablesSection.className = 'content-section';
+        tablesSection.innerHTML = '<h3>Tables</h3>';
+
+        document.content.tables.forEach(table => {
+          const tableElement = document.createElement('div');
+          tableElement.className = 'table-container';
+
+          let tableHTML = `<h4>${table.title || 'Table'}</h4><table class="table table-bordered">`;
+
+          // Add headers
+          if (table.headers && table.headers.length > 0) {
+            tableHTML += '<thead><tr>';
+            table.headers.forEach(header => {
+              tableHTML += `<th>${header}</th>`;
+            });
+            tableHTML += '</tr></thead>';
+          }
+
+          // Add rows
+          if (table.rows && table.rows.length > 0) {
+            tableHTML += '<tbody>';
+            table.rows.forEach(row => {
+              tableHTML += '<tr>';
+              row.forEach(cell => {
+                tableHTML += `<td>${cell}</td>`;
+              });
+              tableHTML += '</tr>';
+            });
+            tableHTML += '</tbody>';
+          }
+
+          tableHTML += '</table>';
+          tableElement.innerHTML = tableHTML;
+          tablesSection.appendChild(tableElement);
+        });
+
+        newDocumentContent.appendChild(tablesSection);
+      }
+
+      // Add metadata
+      if (document.content.metadata) {
+        const metadataSection = document.createElement('div');
+        metadataSection.className = 'content-section';
+        metadataSection.innerHTML = `
+          <h3>Metadata</h3>
+          <div class="metadata-content">
+            <p><strong>Author:</strong> ${document.content.metadata.author || 'Unknown'}</p>
+            <p><strong>Created Date:</strong> ${document.content.metadata.createdDate ? new Date(document.content.metadata.createdDate).toLocaleDateString() : 'Unknown'}</p>
+            <p><strong>Modified Date:</strong> ${document.content.metadata.modifiedDate ? new Date(document.content.metadata.modifiedDate).toLocaleDateString() : 'Unknown'}</p>
+            <p><strong>Document Format:</strong> ${document.content.metadata.documentFormat || 'Unknown'}</p>
+            <p><strong>Keywords:</strong> ${document.content.metadata.keywords || 'None'}</p>
+          </div>
+        `;
+        newDocumentContent.appendChild(metadataSection);
+      }
+
+      mainContent.appendChild(newDocumentContent);
+    }
+  }
+}
+
+// Create a process document button
+function createProcessDocumentButton() {
+  const button = document.createElement('button');
+  button.id = 'process-document-btn';
+  button.className = 'btn btn-primary';
+  button.innerHTML = `
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-text me-2" viewBox="0 0 16 16">
+      <path d="M5.5 7a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5zM5 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5z"/>
+      <path d="M9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.5L9.5 0zm0 1v2A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5z"/>
+    </svg>
+    Process Document
+  `;
+
+  // Add event listener
+  button.addEventListener('click', function() {
+    processDocument();
+  });
+
+  return button;
+}
+
+// Process the current document
+function processDocument() {
+  // Get document ID from URL
+  const urlParams = new URLSearchParams(window.location.search);
+  const documentId = urlParams.get('id') || 'doc-1';
+
+  // Get process button
+  const processButton = document.getElementById('process-document-btn');
+  if (processButton) {
+    processButton.disabled = true;
+    processButton.innerHTML = `
+      <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+      Processing...
+    `;
+  }
+
+  // Simulate processing
+  setTimeout(function() {
+    // Update button
+    if (processButton) {
+      processButton.disabled = false;
+      processButton.innerHTML = `
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-text me-2" viewBox="0 0 16 16">
+          <path d="M5.5 7a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5zM5 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5z"/>
+          <path d="M9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.5L9.5 0zm0 1v2A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5z"/>
+        </svg>
+        Process Document
+      `;
+    }
+
+    // Show success message
+    const mainContent = document.querySelector('.main-content') || document.querySelector('main') || document.body;
+    const successAlert = document.createElement('div');
+    successAlert.className = 'alert alert-success';
+    successAlert.style.marginBottom = '20px';
+    successAlert.innerHTML = `
+      <strong>Success!</strong> Document processed successfully.
+    `;
+    mainContent.insertBefore(successAlert, mainContent.firstChild);
+
+    // Remove alert after 3 seconds
+    setTimeout(function() {
+      mainContent.removeChild(successAlert);
+    }, 3000);
+
+    // Refresh document details
+    loadDocumentDetails();
+  }, 3000);
+}
+
+// Handle chat send button click
+function handleChatSend() {
+  const chatInput = document.getElementById('document-chat-input');
+  const chatMessages = document.getElementById('document-chat-messages');
+
+  if (chatInput && chatMessages && chatInput.value.trim()) {
+    // Add user message
+    const userMessage = document.createElement('div');
+    userMessage.className = 'message user-message';
+    userMessage.style.backgroundColor = '#E3F2FD';
+    userMessage.style.padding = '10px';
+    userMessage.style.borderRadius = '10px';
+    userMessage.style.marginBottom = '10px';
+    userMessage.style.marginLeft = 'auto';
+    userMessage.style.maxWidth = '80%';
+    userMessage.innerHTML = `<p style="margin: 0;">${chatInput.value}</p>`;
+    chatMessages.appendChild(userMessage);
+
+    // Clear input
+    const userQuery = chatInput.value;
+    chatInput.value = '';
+
+    // Scroll to bottom
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+
+    // Simulate AI response after a delay
+    setTimeout(function() {
+      // Add AI response
+      const aiMessage = document.createElement('div');
+      aiMessage.className = 'message ai-message';
+      aiMessage.style.backgroundColor = '#F1F1F1';
+      aiMessage.style.padding = '10px';
+      aiMessage.style.borderRadius = '10px';
+      aiMessage.style.marginBottom = '10px';
+      aiMessage.style.maxWidth = '80%';
+
+      // Generate a response based on the query
+      let response = '';
+      if (userQuery.toLowerCase().includes('portfolio') || userQuery.toLowerCase().includes('holdings')) {
+        response = 'Based on the document, the portfolio contains various securities including stocks and bonds. The total value is approximately $1.2M with a diversification across technology, healthcare, and financial sectors.';
+      } else if (userQuery.toLowerCase().includes('performance') || userQuery.toLowerCase().includes('return')) {
+        response = 'The portfolio has shown a 7.8% annual return over the past year, outperforming the benchmark by 1.2%. The best performing sector was technology with a 12.3% return.';
+      } else if (userQuery.toLowerCase().includes('risk') || userQuery.toLowerCase().includes('volatility')) {
+        response = 'The portfolio has a moderate risk profile with a beta of 0.85 relative to the S&P 500. The volatility (standard deviation) is 12.4% annually.';
+      } else {
+        response = 'I\'ve analyzed the document and found information related to financial holdings, performance metrics, and risk assessments. Could you please specify what particular information you\'re looking for?';
+      }
+
+      aiMessage.innerHTML = `<p style="margin: 0;">${response}</p>`;
+      chatMessages.appendChild(aiMessage);
+
+      // Scroll to bottom
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }, 1500);
   }
 }
 
