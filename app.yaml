@@ -9,7 +9,7 @@ runtime_config:
 
 # Install Python dependencies
 build_env_variables:
-  GOOGLE_NODE_RUN_SCRIPTS: "npm run install:python-deps"
+  GOOGLE_NODE_RUN_SCRIPTS: "install:python-deps"
 
 handlers:
   # Serve static files from /css
