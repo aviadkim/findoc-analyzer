@@ -2,15 +2,6 @@
 env: standard
 instance_class: F2
 
-# Include Python runtime for scan1Controller
-runtime_config:
-  operating_system: "ubuntu22"
-  runtime_version: "20.0.0"
-
-# Install Python dependencies
-build_env_variables:
-  GOOGLE_NODE_RUN_SCRIPTS: "install:python-deps"
-
 handlers:
   # Serve static files from /css
   - url: /css
