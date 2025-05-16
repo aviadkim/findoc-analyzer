@@ -14,6 +14,7 @@ function FinDocLayout({ children }) {
     { name: 'Dashboard', path: '/', icon: 'home' },
     { name: 'Upload Documents', path: '/upload', icon: 'upload' },
     { name: 'My Documents', path: '/documents-new', icon: 'file' },
+    { name: 'Financial Document Processor', path: '/financial-document-processor', icon: 'file-text' },
     { name: 'Analytics', path: '/analytics-new', icon: 'chart-bar' },
     { name: 'Analytics Dashboard', path: '/analytics-dashboard', icon: 'chart-line' },
     { name: 'Portfolio', path: '/portfolio', icon: 'chart-pie' },
@@ -455,6 +456,7 @@ function FinDocLayout({ children }) {
         .icon-home:before { content: '\f015'; }
         .icon-upload:before { content: '\f093'; }
         .icon-file:before { content: '\f15b'; }
+        .icon-file-text:before { content: '\f15c'; }
         .icon-chart-bar:before { content: '\f080'; }
         .icon-chart-line:before { content: '\f201'; }
         .icon-chart-pie:before { content: '\f200'; }

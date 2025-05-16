@@ -1,0 +1,154 @@
+# Use a Python base image
+FROM python:3.9-slim
+
+# Set working directory
+WORKDIR /app
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    tesseract-ocr \
+    tesseract-ocr-eng \
+    tesseract-ocr-deu \
+    tesseract-ocr-fra \
+    poppler-utils \
+    libgl1-mesa-glx \
+    libglib2.0-0 \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
+# Copy requirements file
+COPY requirements.txt .
+
+# Install Python dependencies
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy the enhanced_processing directory
+COPY DevDocs/backend/enhanced_processing /app/enhanced_processing
+
+# Create directories for uploads and results
+RUN mkdir -p /app/uploads /app/results
+
+# Create a server script for the Financial Document Processor
+RUN echo 'import os\n\
+import sys\n\
+import json\n\
+import logging\n\
+from flask import Flask, request, jsonify\n\
+from werkzeug.utils import secure_filename\n\
+from enhanced_processing.financial_document_processor import FinancialDocumentProcessor\n\
+\n\
+# Configure logging\n\
+logging.basicConfig(\n\
+    level=logging.INFO,\n\
+    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s"\n\
+)\n\
+logger = logging.getLogger(__name__)\n\
+\n\
+# Create Flask app\n\
+app = Flask(__name__)\n\
+\n\
+# Configure upload folder\n\
+UPLOAD_FOLDER = os.environ.get("UPLOAD_FOLDER", "/app/uploads")\n\
+RESULTS_FOLDER = os.environ.get("RESULTS_FOLDER", "/app/results")\n\
+os.makedirs(UPLOAD_FOLDER, exist_ok=True)\n\
+os.makedirs(RESULTS_FOLDER, exist_ok=True)\n\
+\n\
+@app.route("/health", methods=["GET"])\n\
+def health():\n\
+    return jsonify({"status": "ok"})\n\
+\n\
+@app.route("/process", methods=["POST"])\n\
+def process():\n\
+    try:\n\
+        # Check if file is provided\n\
+        if "file" not in request.files:\n\
+            return jsonify({"error": "No file provided"}), 400\n\
+        \n\
+        file = request.files["file"]\n\
+        \n\
+        # Check if file is empty\n\
+        if file.filename == "":\n\
+            return jsonify({"error": "Empty file provided"}), 400\n\
+        \n\
+        # Check if file is a PDF\n\
+        if not file.filename.lower().endswith(".pdf"):\n\
+            return jsonify({"error": "Only PDF files are supported"}), 400\n\
+        \n\
+        # Get options\n\
+        options = {}\n\
+        if "options" in request.form:\n\
+            options = json.loads(request.form["options"])\n\
+        \n\
+        # Create configuration\n\
+        config = {\n\
+            "languages": options.get("languages", ["eng"]),\n\
+            "extract_tables": options.get("extractTables", True),\n\
+            "extract_securities": options.get("extractSecurities", True),\n\
+            "extract_metrics": options.get("extractMetrics", True),\n\
+            "output_format": options.get("outputFormat", "json"),\n\
+            "temp_dir": os.path.join(UPLOAD_FOLDER, "temp")\n\
+        }\n\
+        \n\
+        # Save the file\n\
+        filename = secure_filename(file.filename)\n\
+        file_path = os.path.join(UPLOAD_FOLDER, filename)\n\
+        file.save(file_path)\n\
+        \n\
+        # Create document output directory\n\
+        document_output_dir = os.path.join(\n\
+            RESULTS_FOLDER,\n\
+            os.path.splitext(filename)[0]\n\
+        )\n\
+        os.makedirs(document_output_dir, exist_ok=True)\n\
+        \n\
+        # Process the document\n\
+        processor = FinancialDocumentProcessor(config)\n\
+        results = processor.process(file_path, document_output_dir)\n\
+        \n\
+        # Create response\n\
+        response = {\n\
+            "filename": filename,\n\
+            "file_path": file_path,\n\
+            "output_dir": document_output_dir,\n\
+            "processing_time": results["processing_time"],\n\
+            "text_length": results["text_result"].get("char_count", 0) if "text_result" in results else 0,\n\
+            "word_count": results["text_result"].get("word_count", 0) if "text_result" in results else 0,\n\
+            "page_count": results["text_result"].get("page_count", 0) if "text_result" in results else 0,\n\
+            "security_count": results["securities_result"].get("security_count", 0) if "securities_result" in results else 0,\n\
+            "table_count": results["table_result"].get("table_count", 0) if "table_result" in results else 0\n\
+        }\n\
+        \n\
+        # Add metrics if available\n\
+        if "metrics_result" in results:\n\
+            response["metrics"] = results["metrics_result"]\n\
+        \n\
+        # Add securities if available and requested\n\
+        if "securities_result" in results and options.get("includeSecurities", False):\n\
+            response["securities"] = results["securities_result"].get("securities", [])\n\
+        \n\
+        # Add tables if available and requested\n\
+        if "table_result" in results and options.get("includeTables", False):\n\
+            response["tables"] = results["table_result"].get("tables", [])\n\
+        \n\
+        # Add text if requested\n\
+        if options.get("includeText", False):\n\
+            response["text"] = results["text_result"].get("text", "") if "text_result" in results else ""\n\
+        \n\
+        return jsonify(response), 200\n\
+    \n\
+    except Exception as e:\n\
+        logger.error(f"Error processing document: {e}")\n\
+        import traceback\n\
+        logger.error(traceback.format_exc())\n\
+        return jsonify({"error": str(e), "traceback": traceback.format_exc()}), 500\n\
+\n\
+if __name__ == "__main__":\n\
+    port = int(os.environ.get("PORT", 24126))\n\
+    app.run(host="0.0.0.0", port=port, debug=True)\n\
+' > /app/enhanced_processing/financial_document_processor_server.py
+
+# Expose the port
+EXPOSE 24126
+
+# Set the entrypoint
+CMD ["python", "-m", "enhanced_processing.financial_document_processor_server"]

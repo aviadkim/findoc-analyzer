@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Financial Document Processor Test</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background-color: #f5f5f5;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      background-color: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+      color: #333;
+      margin-top: 0;
+    }
+    .upload-section {
+      margin-bottom: 20px;
+      padding: 20px;
+      border: 2px dashed #ccc;
+      border-radius: 8px;
+      text-align: center;
+    }
+    .options-section {
+      margin-bottom: 20px;
+      padding: 20px;
+      border: 1px solid #eee;
+      border-radius: 8px;
+    }
+    .results-section {
+      margin-top: 20px;
+    }
+    .tab-container {
+      margin-top: 20px;
+    }
+    .tab-buttons {
+      display: flex;
+      border-bottom: 1px solid #ccc;
+    }
+    .tab-button {
+      padding: 10px 20px;
+      background-color: #f1f1f1;
+      border: none;
+      cursor: pointer;
+      margin-right: 5px;
+      border-radius: 5px 5px 0 0;
+    }
+    .tab-button.active {
+      background-color: white;
+      border: 1px solid #ccc;
+      border-bottom: none;
+    }
+    .tab-content {
+      display: none;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-top: none;
+    }
+    .tab-content.active {
+      display: block;
+    }
+    .button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    .button:hover {
+      background-color: #45a049;
+    }
+    .button:disabled {
+      background-color: #cccccc;
+      cursor: not-allowed;
+    }
+    .progress-bar {
+      width: 100%;
+      background-color: #f1f1f1;
+      border-radius: 4px;
+      margin-top: 10px;
+    }
+    .progress {
+      width: 0%;
+      height: 20px;
+      background-color: #4CAF50;
+      border-radius: 4px;
+      transition: width 0.3s;
+    }
+    .checkbox-group {
+      margin-bottom: 10px;
+    }
+    .checkbox-label {
+      margin-right: 20px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: left;
+    }
+    th {
+      background-color: #f2f2f2;
+    }
+    tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+    .card {
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      padding: 15px;
+      margin-bottom: 15px;
+    }
+    .card-header {
+      font-weight: bold;
+      margin-bottom: 10px;
+      font-size: 18px;
+    }
+    .loading {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border: 3px solid rgba(0, 0, 0, 0.3);
+      border-radius: 50%;
+      border-top-color: #000;
+      animation: spin 1s ease-in-out infinite;
+      margin-left: 10px;
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Financial Document Processor</h1>
+    <p>Upload and process financial documents to extract text, tables, securities, and financial metrics.</p>
+    
+    <div class="upload-section">
+      <h2>Upload Document</h2>
+      <input type="file" id="file-input" accept=".pdf" style="display: none;">
+      <button class="button" id="upload-button">Select PDF</button>
+      <p id="file-name">No file selected</p>
+    </div>
+    
+    <div class="options-section">
+      <h2>Processing Options</h2>
+      <div class="checkbox-group">
+        <label class="checkbox-label">
+          <input type="checkbox" id="extract-tables" checked>
+          Extract Tables
+        </label>
+        <label class="checkbox-label">
+          <input type="checkbox" id="extract-securities" checked>
+          Extract Securities (ISINs)
+        </label>
+        <label class="checkbox-label">
+          <input type="checkbox" id="extract-metrics" checked>
+          Extract Financial Metrics
+        </label>
+      </div>
+      <div>
+        <label for="languages">Languages (comma-separated):</label>
+        <input type="text" id="languages" value="eng" style="width: 100%; padding: 8px; margin-top: 5px;">
+      </div>
+    </div>
+    
+    <button class="button" id="process-button" disabled>Process Document</button>
+    
+    <div id="progress-container" style="display: none; margin-top: 20px;">
+      <p>Processing document... <span id="progress-percentage">0%</span></p>
+      <div class="progress-bar">
+        <div class="progress" id="progress-bar"></div>
+      </div>
+    </div>
+    
+    <div id="results-container" class="results-section" style="display: none;">
+      <h2>Processing Results</h2>
+      
+      <div class="card">
+        <div class="card-header">Summary</div>
+        <div id="summary-content">
+          <table>
+            <tr>
+              <th>Processing Time</th>
+              <td id="processing-time">-</td>
+            </tr>
+            <tr>
+              <th>Pages</th>
+              <td id="page-count">-</td>
+            </tr>
+            <tr>
+              <th>Securities</th>
+              <td id="security-count">-</td>
+            </tr>
+            <tr>
+              <th>Tables</th>
+              <td id="table-count">-</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+      
+      <div class="tab-container">
+        <div class="tab-buttons">
+          <button class="tab-button active" data-tab="text-tab">Text</button>
+          <button class="tab-button" data-tab="securities-tab">Securities</button>
+          <button class="tab-button" data-tab="metrics-tab">Metrics</button>
+        </div>
+        
+        <div id="text-tab" class="tab-content active">
+          <h3>Extracted Text</h3>
+          <div style="max-height: 400px; overflow-y: auto; border: 1px solid #ddd; padding: 10px;">
+            <pre id="extracted-text">Loading text...</pre>
+          </div>
+        </div>
+        
+        <div id="securities-tab" class="tab-content">
+          <h3>Extracted Securities (ISINs)</h3>
+          <table id="securities-table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>ISIN</th>
+                <th>Context</th>
+              </tr>
+            </thead>
+            <tbody id="securities-body">
+              <tr>
+                <td colspan="3">Loading securities...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        
+        <div id="metrics-tab" class="tab-content">
+          <h3>Financial Metrics</h3>
+          <div id="metrics-content">
+            <div class="card">
+              <div class="card-header">Text Quality</div>
+              <div id="text-quality">-</div>
+            </div>
+            <div class="card">
+              <div class="card-header">Securities Quality</div>
+              <div id="securities-quality">-</div>
+            </div>
+            <div class="card">
+              <div class="card-header">Overall Score</div>
+              <div id="overall-score">-</div>
+            </div>
+            <table>
+              <tr>
+                <th>Word Count</th>
+                <td id="word-count">-</td>
+              </tr>
+              <tr>
+                <th>Financial Terms</th>
+                <td id="financial-terms">-</td>
+              </tr>
+              <tr>
+                <th>Term Density</th>
+                <td id="term-density">-</td>
+              </tr>
+              <tr>
+                <th>Securities Count</th>
+                <td id="metrics-security-count">-</td>
+              </tr>
+              <tr>
+                <th>Grade</th>
+                <td id="grade">-</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Elements
+      const fileInput = document.getElementById('file-input');
+      const uploadButton = document.getElementById('upload-button');
+      const fileName = document.getElementById('file-name');
+      const processButton = document.getElementById('process-button');
+      const progressContainer = document.getElementById('progress-container');
+      const progressBar = document.getElementById('progress-bar');
+      const progressPercentage = document.getElementById('progress-percentage');
+      const resultsContainer = document.getElementById('results-container');
+      
+      // Tab elements
+      const tabButtons = document.querySelectorAll('.tab-button');
+      const tabContents = document.querySelectorAll('.tab-content');
+      
+      // Upload button click
+      uploadButton.addEventListener('click', function() {
+        fileInput.click();
+      });
+      
+      // File input change
+      fileInput.addEventListener('change', function() {
+        if (fileInput.files.length > 0) {
+          fileName.textContent = fileInput.files[0].name;
+          processButton.disabled = false;
+        } else {
+          fileName.textContent = 'No file selected';
+          processButton.disabled = true;
+        }
+      });
+      
+      // Process button click
+      processButton.addEventListener('click', function() {
+        // Show progress
+        progressContainer.style.display = 'block';
+        processButton.disabled = true;
+        
+        // Simulate processing
+        let progress = 0;
+        const interval = setInterval(function() {
+          progress += 5;
+          progressBar.style.width = progress + '%';
+          progressPercentage.textContent = progress + '%';
+          
+          if (progress >= 100) {
+            clearInterval(interval);
+            // Show results
+            showResults();
+          }
+        }, 200);
+      });
+      
+      // Tab switching
+      tabButtons.forEach(button => {
+        button.addEventListener('click', function() {
+          // Remove active class from all buttons and contents
+          tabButtons.forEach(btn => btn.classList.remove('active'));
+          tabContents.forEach(content => content.classList.remove('active'));
+          
+          // Add active class to clicked button and corresponding content
+          button.classList.add('active');
+          const tabId = button.getAttribute('data-tab');
+          document.getElementById(tabId).classList.add('active');
+        });
+      });
+      
+      // Function to show results
+      function showResults() {
+        resultsContainer.style.display = 'block';
+        
+        // Set summary values
+        document.getElementById('processing-time').textContent = '3.45 seconds';
+        document.getElementById('page-count').textContent = '20';
+        document.getElementById('security-count').textContent = '40';
+        document.getElementById('table-count').textContent = '12';
+        
+        // Set extracted text
+        document.getElementById('extracted-text').textContent = 'This is a sample text extracted from the document. It contains financial information and securities like XS2530201644, XS2588105036, and XS2665592833.';
+        
+        // Set securities
+        const securitiesBody = document.getElementById('securities-body');
+        securitiesBody.innerHTML = '';
+        
+        const securities = [
+          { isin: 'XS2530201644', context: '...bond with ISIN XS2530201644 has a yield of 3.45%...' },
+          { isin: 'XS2588105036', context: '...security XS2588105036 represents 5.2% of the portfolio...' },
+          { isin: 'XS2665592833', context: '...bond XS2665592833 has a maturity date of 2028-06-15...' }
+        ];
+        
+        securities.forEach((security, index) => {
+          const row = document.createElement('tr');
+          row.innerHTML = `
+            <td>${index + 1}</td>
+            <td>${security.isin}</td>
+            <td>${security.context}</td>
+          `;
+          securitiesBody.appendChild(row);
+        });
+        
+        // Set metrics
+        document.getElementById('text-quality').textContent = '95.8/100';
+        document.getElementById('securities-quality').textContent = '100.0/100';
+        document.getElementById('overall-score').textContent = '97.06/100';
+        document.getElementById('word-count').textContent = '5842';
+        document.getElementById('financial-terms').textContent = '156';
+        document.getElementById('term-density').textContent = '0.0267';
+        document.getElementById('metrics-security-count').textContent = '40';
+        document.getElementById('grade').textContent = 'A';
+      }
+    });
+  </script>
+</body>
+</html>

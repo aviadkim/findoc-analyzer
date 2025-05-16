@@ -1,5 +1,6 @@
-version: '3'
+version: '3.8'
 services:
+  # Main FinDoc Analyzer service
   findoc-analyzer:
     build: .
     ports:
@@ -7,5 +8,32 @@ services:
     volumes:
       - ./uploads:/app/uploads
       - ./results:/app/results
+      - ./DevDocs/backend:/app/DevDocs/backend
+      - ./DevDocs/frontend:/app/DevDocs/frontend
     environment:
       - NODE_ENV=production
+    networks:
+      - findoc-network
+
+  # Financial Document Processor service
+  financial-document-processor:
+    build:
+      context: .
+      dockerfile: Dockerfile.ocr
+    ports:
+      - "24126:24126"
+    volumes:
+      - ./DevDocs/backend/enhanced_processing:/app/enhanced_processing
+      - ./uploads:/app/uploads
+      - ./results:/app/results
+    environment:
+      - PORT=24126
+    command: python -m enhanced_processing.financial_document_processor_server
+    networks:
+      - findoc-network
+    depends_on:
+      - findoc-analyzer
+
+networks:
+  findoc-network:
+    driver: bridge
