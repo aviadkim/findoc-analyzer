@@ -57,6 +57,12 @@ env_variables:
   ENABLE_SCAN1: "true"
   SCAN1_API_BASE_URL: "https://api.findoc-scan1.com/v1"
   SCAN1_ENHANCED_PROCESSING: "true"
+  ENABLE_FINANCIAL_DOCUMENT_PROCESSOR: "true"
+  FINANCIAL_DOCUMENT_PROCESSOR_CACHE_ENABLED: "true"
+  FINANCIAL_DOCUMENT_PROCESSOR_CACHE_DIR: "/tmp/financial_document_processor_cache"
+  FINANCIAL_DOCUMENT_PROCESSOR_BATCH_SIZE: "10"
+  NLTK_DATA: "/tmp/nltk_data"
+  SPACY_MODEL_DIR: "/tmp/spacy_models"
 
 includes:
   - secret.yaml

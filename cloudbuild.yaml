@@ -1,11 +1,51 @@
 # Google Cloud Build configuration
 steps:
   # Install dependencies
-  - name: 'gcr.io/cloud-builders/npm'
-    args: ['install']
+  - name: "gcr.io/cloud-builders/npm"
+    args: ["install"]
+    id: "npm-install"
+
+  # Install Python dependencies
+  - name: "python:3.9"
+    entrypoint: "pip"
+    args: ["install", "-r", "requirements.txt"]
+    id: "install-python-deps"
+
+  # Download NLTK data
+  - name: "python:3.9"
+    entrypoint: "python"
+    args:
+      [
+        "-c",
+        'import nltk; nltk.download("punkt"); nltk.download("averaged_perceptron_tagger"); nltk.download("maxent_ne_chunker"); nltk.download("words")',
+      ]
+    env:
+      - "NLTK_DATA=/workspace/nltk_data"
+    id: "download-nltk-data"
+
+  # Create directories for Financial Document Processor
+  - name: "gcr.io/cloud-builders/gcloud"
+    entrypoint: "bash"
+    args:
+      - "-c"
+      - |
+        mkdir -p /tmp/financial_document_processor_cache
+        mkdir -p /tmp/nltk_data
+        cp -r /workspace/nltk_data/* /tmp/nltk_data/ || true
+    id: "create-directories"
 
   # Deploy to App Engine
-  - name: 'gcr.io/cloud-builders/gcloud'
-    args: ['app', 'deploy', 'app.yaml', '--quiet', '--project=findoc-deploy']
+  - name: "gcr.io/cloud-builders/gcloud"
+    args: ["app", "deploy", "app.yaml", "--quiet", "--project=findoc-deploy"]
+    id: "deploy-app"
 
-timeout: '1800s'
+  # Verify deployment
+  - name: "gcr.io/cloud-builders/curl"
+    args: ["-s", "https://findoc-deploy.ey.r.appspot.com/api/health"]
+    id: "verify-deployment"
+
+timeout: "1800s"
+
+options:
+  machineType: "N1_HIGHCPU_8"
+  diskSizeGb: "100"

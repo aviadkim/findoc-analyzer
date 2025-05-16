@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Financial Document Processor - FinDoc Analyzer</title>
+  <link rel="stylesheet" href="/css/modern-ui.css">
+  <link rel="stylesheet" href="/css/modern-components.css">
+  <link rel="stylesheet" href="/css/modern-layout.css">
+  <link rel="stylesheet" href="/css/modern-document-list.css">
+  <link rel="stylesheet" href="/css/modern-document-details.css">
+  <style>
+    .processor-container {
+      padding: 20px;
+      background-color: #f8f9fa;
+      border-radius: 8px;
+      margin-bottom: 20px;
+    }
+    
+    .upload-section {
+      border: 2px dashed #ccc;
+      padding: 30px;
+      text-align: center;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      background-color: #fff;
+    }
+    
+    .upload-section.drag-over {
+      border-color: #007bff;
+      background-color: rgba(0, 123, 255, 0.05);
+    }
+    
+    .options-section {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+    }
+    
+    .results-section {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+    }
+    
+    .tab-container {
+      margin-top: 20px;
+    }
+    
+    .tab-buttons {
+      display: flex;
+      border-bottom: 1px solid #dee2e6;
+      margin-bottom: 15px;
+    }
+    
+    .tab-button {
+      padding: 10px 15px;
+      background-color: transparent;
+      border: none;
+      border-bottom: 2px solid transparent;
+      cursor: pointer;
+      font-weight: 500;
+      color: #6c757d;
+    }
+    
+    .tab-button.active {
+      color: #007bff;
+      border-bottom-color: #007bff;
+    }
+    
+    .tab-content {
+      display: none;
+    }
+    
+    .tab-content.active {
+      display: block;
+    }
+    
+    .security-card {
+      border: 1px solid #dee2e6;
+      border-radius: 8px;
+      padding: 15px;
+      margin-bottom: 15px;
+      background-color: #fff;
+    }
+    
+    .security-card h3 {
+      margin-top: 0;
+      color: #343a40;
+    }
+    
+    .security-details {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 10px;
+      margin-top: 10px;
+    }
+    
+    .security-detail {
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .security-detail-label {
+      font-size: 12px;
+      color: #6c757d;
+    }
+    
+    .security-detail-value {
+      font-weight: 500;
+      color: #343a40;
+    }
+    
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 15px;
+    }
+    
+    .metric-card {
+      background-color: #f8f9fa;
+      border-radius: 8px;
+      padding: 15px;
+      text-align: center;
+    }
+    
+    .metric-value {
+      font-size: 24px;
+      font-weight: 700;
+      color: #007bff;
+      margin: 10px 0;
+    }
+    
+    .metric-label {
+      font-size: 14px;
+      color: #6c757d;
+    }
+    
+    .progress-container {
+      width: 100%;
+      background-color: #e9ecef;
+      border-radius: 4px;
+      margin-top: 10px;
+    }
+    
+    .progress-bar {
+      height: 8px;
+      border-radius: 4px;
+      background-color: #007bff;
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+    
+    .file-info {
+      display: flex;
+      align-items: center;
+      margin-top: 10px;
+    }
+    
+    .file-icon {
+      font-size: 24px;
+      margin-right: 10px;
+      color: #6c757d;
+    }
+    
+    .file-details {
+      flex: 1;
+    }
+    
+    .file-name {
+      font-weight: 500;
+      color: #343a40;
+    }
+    
+    .file-size {
+      font-size: 12px;
+      color: #6c757d;
+    }
+    
+    .processing-status {
+      font-size: 14px;
+      margin-top: 10px;
+      color: #6c757d;
+    }
+    
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="app-container">
+    <div class="sidebar">
+      <div class="sidebar-header">
+        <h1>FinDoc Analyzer</h1>
+      </div>
+      <nav class="sidebar-nav">
+        <ul>
+          <li><a href="/"><i class="icon-dashboard"></i> Dashboard</a></li>
+          <li><a href="/documents-new"><i class="icon-documents"></i> Documents</a></li>
+          <li><a href="/analytics-new"><i class="icon-analytics"></i> Analytics</a></li>
+          <li><a href="/document-comparison"><i class="icon-compare"></i> Compare</a></li>
+          <li><a href="/document-chat"><i class="icon-chat"></i> Document Chat</a></li>
+          <li><a href="/upload"><i class="icon-upload"></i> Upload</a></li>
+          <li class="active"><a href="/financial-document-processor"><i class="icon-processor"></i> Financial Processor</a></li>
+          <li><a href="/feedback"><i class="icon-feedback"></i> Feedback</a></li>
+        </ul>
+      </nav>
+    </div>
+    
+    <div class="main-content">
+      <header class="main-header">
+        <h1>Financial Document Processor</h1>
+        <div class="user-nav" id="user-nav">
+          <span class="user-name">John Doe</span>
+          <button class="logout-button">Logout</button>
+        </div>
+      </header>
+      
+      <div class="content-container">
+        <div class="processor-container">
+          <h2>Process Financial Documents</h2>
+          <p>Upload a financial document to extract securities, prices, quantities, and other financial data.</p>
+          
+          <div class="upload-section" id="upload-section">
+            <i class="icon-upload" style="font-size: 48px; color: #6c757d;"></i>
+            <h3>Drag & Drop PDF File Here</h3>
+            <p>or</p>
+            <input type="file" id="file-input" accept=".pdf" style="display: none;">
+            <button class="primary-button" id="browse-button">Browse Files</button>
+            
+            <div class="file-info hidden" id="file-info">
+              <div class="file-icon">📄</div>
+              <div class="file-details">
+                <div class="file-name" id="file-name"></div>
+                <div class="file-size" id="file-size"></div>
+              </div>
+            </div>
+            
+            <div class="progress-container hidden" id="progress-container">
+              <div class="progress-bar" id="progress-bar"></div>
+            </div>
+            
+            <div class="processing-status hidden" id="processing-status"></div>
+          </div>
+          
+          <div class="options-section">
+            <h3>Processing Options</h3>
+            <div class="options-grid">
+              <div class="option-item">
+                <input type="checkbox" id="extract-tables" checked>
+                <label for="extract-tables">Extract Tables</label>
+              </div>
+              <div class="option-item">
+                <input type="checkbox" id="extract-securities" checked>
+                <label for="extract-securities">Extract Securities</label>
+              </div>
+              <div class="option-item">
+                <input type="checkbox" id="extract-metrics" checked>
+                <label for="extract-metrics">Extract Metrics</label>
+              </div>
+              <div class="option-item">
+                <input type="checkbox" id="include-text" checked>
+                <label for="include-text">Include Text</label>
+              </div>
+              <div class="option-item">
+                <input type="checkbox" id="include-securities" checked>
+                <label for="include-securities">Include Securities</label>
+              </div>
+              <div class="option-item">
+                <input type="checkbox" id="include-tables" checked>
+                <label for="include-tables">Include Tables</label>
+              </div>
+            </div>
+            
+            <button class="primary-button" id="process-button" disabled>Process Document</button>
+          </div>
+          
+          <div class="results-section hidden" id="results-section">
+            <h3>Processing Results</h3>
+            
+            <div class="tab-container">
+              <div class="tab-buttons">
+                <button class="tab-button active" data-tab="securities">Securities</button>
+                <button class="tab-button" data-tab="metrics">Metrics</button>
+                <button class="tab-button" data-tab="text">Text</button>
+                <button class="tab-button" data-tab="tables">Tables</button>
+              </div>
+              
+              <div class="tab-content active" id="securities-tab">
+                <div id="securities-container"></div>
+              </div>
+              
+              <div class="tab-content" id="metrics-tab">
+                <div class="metrics-grid" id="metrics-container"></div>
+              </div>
+              
+              <div class="tab-content" id="text-tab">
+                <pre id="text-container" style="white-space: pre-wrap; max-height: 500px; overflow-y: auto; background-color: #f8f9fa; padding: 15px; border-radius: 8px;"></pre>
+              </div>
+              
+              <div class="tab-content" id="tables-tab">
+                <div id="tables-container"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Elements
+      const uploadSection = document.getElementById('upload-section');
+      const fileInput = document.getElementById('file-input');
+      const browseButton = document.getElementById('browse-button');
+      const fileInfo = document.getElementById('file-info');
+      const fileName = document.getElementById('file-name');
+      const fileSize = document.getElementById('file-size');
+      const progressContainer = document.getElementById('progress-container');
+      const progressBar = document.getElementById('progress-bar');
+      const processingStatus = document.getElementById('processing-status');
+      const processButton = document.getElementById('process-button');
+      const resultsSection = document.getElementById('results-section');
+      const securitiesContainer = document.getElementById('securities-container');
+      const metricsContainer = document.getElementById('metrics-container');
+      const textContainer = document.getElementById('text-container');
+      const tablesContainer = document.getElementById('tables-container');
+      
+      // Tab switching
+      const tabButtons = document.querySelectorAll('.tab-button');
+      const tabContents = document.querySelectorAll('.tab-content');
+      
+      tabButtons.forEach(button => {
+        button.addEventListener('click', () => {
+          const tabName = button.getAttribute('data-tab');
+          
+          // Update active tab button
+          tabButtons.forEach(btn => btn.classList.remove('active'));
+          button.classList.add('active');
+          
+          // Update active tab content
+          tabContents.forEach(content => content.classList.remove('active'));
+          document.getElementById(`${tabName}-tab`).classList.add('active');
+        });
+      });
+      
+      // File selection via browse button
+      browseButton.addEventListener('click', () => {
+        fileInput.click();
+      });
+      
+      // File selection handler
+      fileInput.addEventListener('change', handleFileSelection);
+      
+      // Drag and drop handlers
+      uploadSection.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        uploadSection.classList.add('drag-over');
+      });
+      
+      uploadSection.addEventListener('dragleave', () => {
+        uploadSection.classList.remove('drag-over');
+      });
+      
+      uploadSection.addEventListener('drop', (e) => {
+        e.preventDefault();
+        uploadSection.classList.remove('drag-over');
+        
+        if (e.dataTransfer.files.length > 0) {
+          fileInput.files = e.dataTransfer.files;
+          handleFileSelection();
+        }
+      });
+      
+      // Process button handler
+      processButton.addEventListener('click', processDocument);
+      
+      // Handle file selection
+      function handleFileSelection() {
+        if (fileInput.files.length > 0) {
+          const file = fileInput.files[0];
+          
+          // Check if file is PDF
+          if (file.type !== 'application/pdf') {
+            alert('Please select a PDF file.');
+            fileInput.value = '';
+            return;
+          }
+          
+          // Display file info
+          fileName.textContent = file.name;
+          fileSize.textContent = formatFileSize(file.size);
+          fileInfo.classList.remove('hidden');
+          
+          // Enable process button
+          processButton.disabled = false;
+        }
+      }
+      
+      // Process document
+      function processDocument() {
+        if (fileInput.files.length === 0) {
+          return;
+        }
+        
+        const file = fileInput.files[0];
+        const formData = new FormData();
+        formData.append('file', file);
+        
+        // Add options
+        const options = {
+          languages: ['eng'],
+          extractTables: document.getElementById('extract-tables').checked,
+          extractSecurities: document.getElementById('extract-securities').checked,
+          extractMetrics: document.getElementById('extract-metrics').checked,
+          includeText: document.getElementById('include-text').checked,
+          includeSecurities: document.getElementById('include-securities').checked,
+          includeTables: document.getElementById('include-tables').checked
+        };
+        
+        formData.append('options', JSON.stringify(options));
+        
+        // Show progress
+        progressContainer.classList.remove('hidden');
+        processingStatus.classList.remove('hidden');
+        processingStatus.textContent = 'Processing document...';
+        processButton.disabled = true;
+        
+        // Simulate progress (in a real app, this would be updated based on server events)
+        let progress = 0;
+        const progressInterval = setInterval(() => {
+          progress += 5;
+          if (progress > 90) {
+            clearInterval(progressInterval);
+          }
+          progressBar.style.width = `${progress}%`;
+        }, 300);
+        
+        // Send request to server
+        fetch('/api/financial/process-document', {
+          method: 'POST',
+          body: formData
+        })
+        .then(response => {
+          if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+          }
+          return response.json();
+        })
+        .then(data => {
+          // Clear progress interval
+          clearInterval(progressInterval);
+          progressBar.style.width = '100%';
+          processingStatus.textContent = 'Processing complete!';
+          
+          // Display results
+          displayResults(data);
+        })
+        .catch(error => {
+          clearInterval(progressInterval);
+          progressBar.style.width = '0%';
+          processingStatus.textContent = `Error: ${error.message}`;
+          console.error('Error processing document:', error);
+        });
+      }
+      
+      // Display results
+      function displayResults(data) {
+        resultsSection.classList.remove('hidden');
+        
+        // Display securities
+        if (data.results.securities_result && data.results.securities_result.securities) {
+          displaySecurities(data.results.securities_result.securities);
+        }
+        
+        // Display metrics
+        if (data.results.metrics_result) {
+          displayMetrics(data.results.metrics_result);
+        }
+        
+        // Display text
+        if (data.results.text_result && data.results.text_result.text) {
+          textContainer.textContent = data.results.text_result.text;
+        }
+        
+        // Display tables
+        if (data.results.table_result && data.results.table_result.tables) {
+          displayTables(data.results.table_result.tables);
+        }
+      }
+      
+      // Display securities
+      function displaySecurities(securities) {
+        securitiesContainer.innerHTML = '';
+        
+        if (securities.length === 0) {
+          securitiesContainer.innerHTML = '<p>No securities found in the document.</p>';
+          return;
+        }
+        
+        securities.forEach(security => {
+          const securityCard = document.createElement('div');
+          securityCard.className = 'security-card';
+          
+          const securityName = security.name || 'Unknown Security';
+          const securityIsin = security.isin || 'Unknown ISIN';
+          
+          securityCard.innerHTML = `
+            <h3>${securityName}</h3>
+            <div class="security-details">
+              <div class="security-detail">
+                <span class="security-detail-label">ISIN</span>
+                <span class="security-detail-value">${securityIsin}</span>
+              </div>
+              ${security.security_type ? `
+                <div class="security-detail">
+                  <span class="security-detail-label">Type</span>
+                  <span class="security-detail-value">${security.security_type}</span>
+                </div>
+              ` : ''}
+              ${security.price ? `
+                <div class="security-detail">
+                  <span class="security-detail-label">Price</span>
+                  <span class="security-detail-value">${security.price.value} ${security.price.currency || ''}</span>
+                </div>
+              ` : ''}
+              ${security.quantity ? `
+                <div class="security-detail">
+                  <span class="security-detail-label">Quantity</span>
+                  <span class="security-detail-value">${security.quantity}</span>
+                </div>
+              ` : ''}
+              ${security.currency ? `
+                <div class="security-detail">
+                  <span class="security-detail-label">Currency</span>
+                  <span class="security-detail-value">${security.currency}</span>
+                </div>
+              ` : ''}
+            </div>
+          `;
+          
+          securitiesContainer.appendChild(securityCard);
+        });
+      }
+      
+      // Display metrics
+      function displayMetrics(metrics) {
+        metricsContainer.innerHTML = '';
+        
+        const metricItems = [
+          { label: 'Word Count', value: metrics.word_count || 0 },
+          { label: 'Financial Terms', value: metrics.financial_terms_count || 0 },
+          { label: 'Term Density', value: (metrics.term_density || 0).toFixed(4) },
+          { label: 'Securities Count', value: metrics.securities_count || 0 },
+          { label: 'Text Quality', value: `${(metrics.text_quality_score || 0).toFixed(2)}/100` },
+          { label: 'Securities Quality', value: `${(metrics.securities_quality_score || 0).toFixed(2)}/100` },
+          { label: 'Overall Score', value: `${(metrics.overall_score || 0).toFixed(2)}/100` },
+          { label: 'Grade', value: metrics.grade || 'N/A' }
+        ];
+        
+        metricItems.forEach(item => {
+          const metricCard = document.createElement('div');
+          metricCard.className = 'metric-card';
+          
+          metricCard.innerHTML = `
+            <div class="metric-label">${item.label}</div>
+            <div class="metric-value">${item.value}</div>
+          `;
+          
+          metricsContainer.appendChild(metricCard);
+        });
+      }
+      
+      // Display tables
+      function displayTables(tables) {
+        tablesContainer.innerHTML = '';
+        
+        if (tables.length === 0) {
+          tablesContainer.innerHTML = '<p>No tables found in the document.</p>';
+          return;
+        }
+        
+        tables.forEach((table, index) => {
+          const tableContainer = document.createElement('div');
+          tableContainer.className = 'table-container';
+          tableContainer.style.marginBottom = '20px';
+          
+          tableContainer.innerHTML = `
+            <h3>Table ${index + 1}</h3>
+            ${table.html || '<p>Table HTML not available</p>'}
+          `;
+          
+          tablesContainer.appendChild(tableContainer);
+        });
+      }
+      
+      // Format file size
+      function formatFileSize(bytes) {
+        if (bytes === 0) return '0 Bytes';
+        
+        const k = 1024;
+        const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+        const i = Math.floor(Math.log(bytes) / Math.log(k));
+        
+        return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+      }
+    });
+  </script>
+</body>
+</html>

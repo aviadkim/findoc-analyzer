@@ -162,6 +162,17 @@ app.use('/api/export', exportRoutes);
 const batchProcessingRoutes = require('./routes/batch-processing-routes');
 app.use('/api/batch', batchProcessingRoutes);
 
+// Financial Document Processor routes
+if (process.env.ENABLE_FINANCIAL_DOCUMENT_PROCESSOR === 'true') {
+  try {
+    const financialDocumentProcessorRoutes = require('./routes/api/financial/index');
+    app.use('/api/financial', financialDocumentProcessorRoutes);
+    console.log('Successfully imported Financial Document Processor routes');
+  } catch (error) {
+    console.warn('Error importing Financial Document Processor routes:', error.message);
+  }
+}
+
 // Chat API routes
 const chatApiRoutes = require('./routes/chat-api-routes');
 app.use('/api', chatApiRoutes);
@@ -225,6 +236,10 @@ app.get('/test', (req, res) => {
 
 app.get('/simple-test', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'simple-test.html'));
+});
+
+app.get('/financial-document-processor', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'financial-document-processor.html'));
 });
 
 app.get('/ui-components-test', (req, res) => {

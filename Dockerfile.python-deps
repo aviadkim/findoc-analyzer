@@ -1,0 +1,37 @@
+FROM python:3.9-slim
+
+WORKDIR /app
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    libpoppler-cpp-dev \
+    pkg-config \
+    python3-dev \
+    ghostscript \
+    tesseract-ocr \
+    libtesseract-dev \
+    libleptonica-dev \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
+# Copy requirements file
+COPY requirements.txt .
+
+# Install Python dependencies
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Create directories for NLTK data and spaCy models
+RUN mkdir -p /root/nltk_data
+RUN mkdir -p /root/.cache/spacy
+
+# Set environment variables
+ENV PYTHONPATH=/app
+ENV NLTK_DATA=/root/nltk_data
+
+# Create a volume for NLTK data
+VOLUME /root/nltk_data
+VOLUME /root/.cache/spacy
+
+# Default command
+CMD ["python", "-c", "import nltk; print('Python dependencies container is ready')"]
