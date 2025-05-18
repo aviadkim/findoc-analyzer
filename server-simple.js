@@ -443,11 +443,16 @@ app.post('/api/chat', async (req, res) => {
   const { documentId, message } = req.body;
 
   try {
+    // Log the incoming chat request
+    console.log(`Chat request received for document ${documentId}: ${message.substring(0, 50)}...`);
+
     // Try to use agent manager first
     try {
+      console.log('Attempting to use agent manager for chat');
       const result = await agentManager.askQuestion(documentId, message);
 
       if (result.success) {
+        console.log(`Agent manager successfully answered question in ${result.processingTime}s`);
         return res.json({
           documentId,
           message,
@@ -456,6 +461,9 @@ app.post('/api/chat', async (req, res) => {
           source: 'agent-manager',
           processingTime: result.processingTime
         });
+      } else {
+        console.warn('Agent manager failed to answer question:', result.error);
+        // Continue to try other methods
       }
     } catch (error) {
       console.error('Error using agent manager for chat:', error);

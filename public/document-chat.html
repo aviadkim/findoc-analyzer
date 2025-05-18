@@ -506,6 +506,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
   <link rel="stylesheet" href="/css/ui-fixes.css">
+  <link rel="stylesheet" href="/css/critical-ui-components.css">
 </head>
 <body>
   <div class="findoc-layout">
@@ -927,6 +928,7 @@ document.addEventListener('DOMContentLoaded', function() {
       try {
         // Try to get answer from the API
         let answer = '';
+        let data = null;
 
         try {
           console.log(`Sending question about document ${selectedDocument.id}: ${question}`);
@@ -944,12 +946,20 @@ document.addEventListener('DOMContentLoaded', function() {
           });
 
           if (response.ok) {
-            const data = await response.json();
+            data = await response.json();
             answer = data.response;
             console.log(`Received answer from API: ${answer.substring(0, 100)}...`);
+            console.log(`API response source: ${data.source}`);
           } else {
-            const errorData = await response.json();
-            throw new Error(`API error: ${errorData.error || response.statusText}`);
+            console.error(`API error status: ${response.status}`);
+            const errorText = await response.text();
+            console.error(`API error response: ${errorText}`);
+            try {
+              const errorData = JSON.parse(errorText);
+              throw new Error(`API error: ${errorData.error || response.statusText}`);
+            } catch (jsonError) {
+              throw new Error(`API error: ${response.statusText}`);
+            }
           }
         } catch (error) {
           console.warn('Error getting answer from API:', error);
@@ -1120,6 +1130,18 @@ document.addEventListener('DOMContentLoaded', function() {
         aiMessageElement.className = 'message ai-message';
         aiMessageElement.innerHTML = formattedAnswer;
         chatMessages.appendChild(aiMessageElement);
+        
+        // Add a small note about the response source (only visible during dev)
+        if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+          const sourceInfo = document.createElement('div');
+          sourceInfo.className = 'source-info';
+          sourceInfo.style.fontSize = '10px';
+          sourceInfo.style.color = '#888';
+          sourceInfo.style.marginTop = '5px';
+          sourceInfo.style.textAlign = 'right';
+          sourceInfo.textContent = `Response source: ${data.source || 'mock'}`;
+          aiMessageElement.appendChild(sourceInfo);
+        }
 
         // Scroll to bottom
         chatMessages.scrollTop = chatMessages.scrollHeight;
