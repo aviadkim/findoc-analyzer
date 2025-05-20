@@ -1,0 +1,60 @@
+# Optimized Dockerfile for Google Cloud Run deployment
+# Combines main app and Augment service in a single container
+
+# ===== STAGE 1: Build dependencies =====
+FROM node:16-slim AS build-deps
+
+# Set working directory
+WORKDIR /app
+
+# Copy only package files for dependency installation
+COPY package*.json ./
+
+# Install all dependencies including Augment service dependencies
+RUN npm ci 
+RUN npm install node-fetch@2.6.7 --save
+
+# ===== STAGE 2: Create production application =====
+FROM node:16-slim 
+
+WORKDIR /app
+
+# Copy production dependencies
+COPY --from=build-deps /app/node_modules ./node_modules
+
+# Copy application code
+COPY server.js ./
+COPY augment-service-fixed.js ./augment-service.js
+COPY api-key-manager.js ./
+COPY agent-manager.js ./
+
+# Copy public directory if it exists
+COPY public/ ./public/
+
+# Create necessary directories with proper permissions
+RUN mkdir -p /app/logs /app/data /app/cache /app/uploads /app/temp /app/results /app/config && \
+    chmod -R 755 /app/logs /app/data /app/cache /app/uploads /app/temp /app/results /app/config
+
+# Create a default augment configuration
+RUN echo '{"augment":{"enabled":true,"services":{"document-processing":{"port":8080,"memory":"512Mi"},"chat-service":{"port":8080,"memory":"512Mi","models":["claude-3-opus"]},"api-gateway":{"port":8080,"memory":"512Mi","external":true}}}}' > /app/config/augment.json
+
+# Environment variables optimized for Cloud Run
+ENV NODE_ENV=production
+ENV PORT=8080
+ENV MCP_ENABLED=true
+ENV AUGMENT_ENABLED=true
+
+# Expose the port expected by Cloud Run
+EXPOSE 8080
+
+# Health check for Cloud Run
+HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
+  CMD node -e "require('http').get('http://localhost:' + process.env.PORT + '/api/health', res => res.statusCode === 200 ? process.exit(0) : process.exit(1))" || exit 1
+
+# Create a dedicated non-root user for running the application
+RUN groupadd -r appuser && useradd -r -g appuser appuser
+RUN chown -R appuser:appuser /app
+USER appuser
+
+# Start the server (which will also initialize the Augment service)
+CMD ["node", "server.js"]
