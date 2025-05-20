@@ -59,6 +59,13 @@ jobs:
         with:
           credentials_json: ${{ secrets.GCP_SA_KEY }}
 
+      - name: Diagnostic - Verify GCP Authentication
+        run: |
+          echo "Project ID: ${{ env.PROJECT_ID }}"
+          gcloud auth list
+          gcloud projects describe ${{ env.PROJECT_ID }} || echo "Failed to describe project"
+          gcloud container images list --repository=gcr.io/${{ env.PROJECT_ID }} || echo "Failed to list container images"
+
       - name: Set up Cloud SDK
         uses: google-github-actions/setup-gcloud@v1
         with:

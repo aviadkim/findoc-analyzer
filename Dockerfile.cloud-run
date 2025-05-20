@@ -1,5 +1,6 @@
 # Optimized Dockerfile for Google Cloud Run deployment
 # Combines main app and Augment service in a single container
+# Updated with diagnostic information for GitHub Actions deployment
 
 # ===== STAGE 1: Build dependencies =====
 FROM node:16-slim AS build-deps
@@ -11,11 +12,11 @@ WORKDIR /app
 COPY package*.json ./
 
 # Install all dependencies including Augment service dependencies
-RUN npm ci 
+RUN npm ci
 RUN npm install node-fetch@2.6.7 --save
 
 # ===== STAGE 2: Create production application =====
-FROM node:16-slim 
+FROM node:16-slim
 
 WORKDIR /app
 
@@ -33,7 +34,7 @@ COPY public/ ./public/
 
 # Create necessary directories with proper permissions
 RUN mkdir -p /app/logs /app/data /app/cache /app/uploads /app/temp /app/results /app/config && \
-    chmod -R 755 /app/logs /app/data /app/cache /app/uploads /app/temp /app/results /app/config
+  chmod -R 755 /app/logs /app/data /app/cache /app/uploads /app/temp /app/results /app/config
 
 # Create a default augment configuration
 RUN echo '{"augment":{"enabled":true,"services":{"document-processing":{"port":8080,"memory":"512Mi"},"chat-service":{"port":8080,"memory":"512Mi","models":["claude-3-opus"]},"api-gateway":{"port":8080,"memory":"512Mi","external":true}}}}' > /app/config/augment.json
