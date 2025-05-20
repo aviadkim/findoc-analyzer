@@ -2,16 +2,24 @@ const express = require('express');
 const cors = require('cors');
 const path = require('path');
 const fs = require('fs');
+const axios = require('axios');
+const uuid = require('uuid').v4;
+const multer = require('multer');
+const apiKeyManager = require('./api-key-manager');
+const agentManager = require('./agent-manager');
 
-// Load environment variables (if available)
-try {
-  require('dotenv').config();
-} catch (error) {
-  console.log('dotenv not available, continuing without it');
-}
-
+// Create Express app
 const app = express();
 const port = process.env.PORT || 8080;
+
+// Enhanced startup logging
+console.log(`FinDoc Analyzer starting with ENV:
+- NODE_ENV: ${process.env.NODE_ENV || 'not set'}
+- PORT: ${process.env.PORT || '8080 (default)'}
+- MCP_ENABLED: ${process.env.MCP_ENABLED || 'not set'}
+- AUGMENT_ENABLED: ${process.env.AUGMENT_ENABLED || 'not set'}
+- Working directory: ${process.cwd()}
+`);
 
 // Configure middleware
 app.use(cors());
@@ -23,492 +31,747 @@ const uploadDir = process.env.UPLOAD_FOLDER || path.join(__dirname, 'uploads');
 const tempDir = process.env.TEMP_FOLDER || path.join(__dirname, 'temp');
 const resultsDir = process.env.RESULTS_FOLDER || path.join(__dirname, 'results');
 
-fs.mkdirSync(uploadDir, { recursive: true });
-fs.mkdirSync(tempDir, { recursive: true });
-fs.mkdirSync(resultsDir, { recursive: true });
+try {
+  fs.mkdirSync(uploadDir, { recursive: true });
+  fs.mkdirSync(tempDir, { recursive: true });
+  fs.mkdirSync(resultsDir, { recursive: true });
+  console.log('Created directories:', { uploadDir, tempDir, resultsDir });
+} catch (error) {
+  console.error('Error creating directories:', error);
+}
+
+// Configure multer storage for file uploads
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, uploadDir);
+  },
+  filename: function (req, file, cb) {
+    const uniquePrefix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+    cb(null, uniquePrefix + '-' + file.originalname);
+  }
+});
+
+const upload = multer({
+  storage: storage,
+  limits: {
+    fileSize: 50 * 1024 * 1024, // 50MB max file size
+  },
+  fileFilter: function (req, file, cb) {
+    // Accept PDFs, Excel files, and images
+    if (
+      file.mimetype === 'application/pdf' ||
+      file.mimetype === 'application/vnd.ms-excel' ||
+      file.mimetype === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' ||
+      file.mimetype.startsWith('image/')
+    ) {
+      cb(null, true);
+    } else {
+      cb(new Error('Only PDF, Excel, and image files are allowed!'), false);
+    }
+  }
+});
 
 // Serve static files
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Auth routes
-app.get('/auth/google', (req, res) => {
-  // Proper Google Auth endpoint should redirect to Google with a 302 (temporary redirect)
-  res.redirect(302, 'https://accounts.google.com/o/oauth2/v2/auth?client_id=mock-client-id&redirect_uri=http://localhost:8080/auth/google/callback&response_type=code&scope=email%20profile');
-});
-
-app.get('/auth/google/callback', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'auth', 'google', 'callback.html'));
-});
-
-// Import middlewares
-const simpleInjectorMiddleware = require('./middleware/simple-injector');
-const { apiErrorHandler, notFoundHandler } = require('./middleware/error-handler');
-const { accessLogger } = require('./utils/logger');
-
-// Use access logger middleware
-app.use(accessLogger);
-
-// Use simple injector middleware
-app.use(simpleInjectorMiddleware);
-
-// API routes
+// API health check route for Cloud Run
 app.get('/api/health', (req, res) => {
-  res.json({ status: 'ok', message: 'FinDoc Analyzer API is running' });
-});
-
-// API key routes
-const apiKeyRoutes = require('./routes/api-key-routes');
-app.use('/api/keys', apiKeyRoutes);
-console.log('Successfully imported API Key routes');
-
-// Import scan1Controller
-let scan1Controller;
-try {
-  scan1Controller = require('./backv2-github/DevDocs/findoc-app-engine-v2/src/api/controllers/scan1Controller');
-  console.log('Successfully imported scan1Controller');
-} catch (error) {
-  console.warn('Error importing scan1Controller:', error.message);
-  console.log('Trying alternative path...');
-
-  try {
-    scan1Controller = require('./src/api/controllers/scan1Controller');
-    console.log('Successfully imported scan1Controller from alternative path');
-  } catch (altError) {
-    console.warn('Error importing scan1Controller from alternative path:', altError.message);
-
-    // Create a mock scan1Controller
-    console.log('Creating mock scan1Controller');
-    scan1Controller = {
-      processDocumentWithScan1: (req, res) => {
-        res.status(500).json({
-          success: false,
-          error: 'scan1Controller not available',
-          message: 'The scan1Controller module could not be loaded'
-        });
-      },
-      getScan1Status: (req, res) => {
-        res.status(200).json({
-          success: true,
-          scan1Available: false,
-          message: 'scan1Controller not available',
-          error: 'The scan1Controller module could not be loaded'
-        });
-      },
-      verifyGeminiApiKey: (req, res) => {
-        res.status(500).json({
-          success: false,
-          error: 'scan1Controller not available',
-          message: 'The scan1Controller module could not be loaded'
-        });
-      },
-      isScan1Available: async () => {
-        return false;
-      }
-    };
-  }
-}
-
-const {
-  processDocumentWithScan1,
-  getScan1Status,
-  verifyGeminiApiKey
-} = scan1Controller;
-
-// Document processing routes
-const documentProcessingRoutes = require('./routes/document-processing-routes');
-app.use('/api/documents', documentProcessingRoutes);
-
-// Document chat API route
-app.get('/api/document-chat', (req, res) => {
-  const documentId = req.query.documentId;
-  const message = req.query.message;
-
-  console.log(`Document chat request: documentId=${documentId}, message=${message}`);
-
-  // Mock response
-  res.json({
-    success: true,
-    documentId,
-    message,
-    response: 'I found the following information in the document: The document contains financial information for Apple Inc. (ISIN: US0378331005) and Microsoft Corporation (ISIN: US5949181045).'
-  });
-});
-
-// DeepSeek API routes
-const deepSeekRoutes = require('./routes/deepseek-routes');
-app.use('/api/deepseek', deepSeekRoutes);
-
-// Multi-document analysis routes
-const multiDocumentRoutes = require('./routes/multi-document-routes');
-app.use('/api/multi-document', multiDocumentRoutes);
-
-// Supabase integration routes
-const supabaseRoutes = require('./routes/supabase-routes');
-app.use('/api/supabase', supabaseRoutes);
-
-// Enhanced PDF processing routes
-const enhancedPdfRoutes = require('./routes/enhanced-pdf-routes');
-app.use('/api/enhanced-pdf', enhancedPdfRoutes);
-
-// Advanced data visualization routes
-const dataVisualizationRoutes = require('./routes/data-visualization-routes');
-app.use('/api/visualization', dataVisualizationRoutes);
-
-// Export routes
-const exportRoutes = require('./routes/export-routes');
-app.use('/api/export', exportRoutes);
-
-// Batch processing routes
-const batchProcessingRoutes = require('./routes/batch-processing-routes');
-app.use('/api/batch', batchProcessingRoutes);
-
-// Financial Document Processor routes
-if (process.env.ENABLE_FINANCIAL_DOCUMENT_PROCESSOR === 'true') {
-  try {
-    const financialDocumentProcessorRoutes = require('./routes/api/financial/index');
-    app.use('/api/financial', financialDocumentProcessorRoutes);
-    console.log('Successfully imported Financial Document Processor routes');
-  } catch (error) {
-    console.warn('Error importing Financial Document Processor routes:', error.message);
-  }
-}
-
-// Chat API routes
-const chatApiRoutes = require('./routes/chat-api-routes');
-app.use('/api', chatApiRoutes);
-console.log('Successfully imported Chat API routes');
-
-// Process API routes
-const processApiRoutes = require('./routes/process-api-routes');
-app.use('/api', processApiRoutes);
-console.log('Successfully imported Process API routes');
-
-// Agents API routes
-const agentsApiRoutes = require('./routes/agents-api-routes');
-app.use('/api', agentsApiRoutes);
-console.log('Successfully imported Agents API routes');
-
-// Direct scan1 routes
-app.post('/api/scan1/:id', processDocumentWithScan1);
-app.get('/api/scan1/status', getScan1Status);
-app.post('/api/scan1/verify-gemini-key', verifyGeminiApiKey);
-
-// Add proper routes for all pages
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
-});
-
-app.get('/documents-new', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'documents-new.html'));
-});
-
-app.get('/upload', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'upload-form.html'));
-});
-
-app.get('/chat', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'document-chat.html'));
-});
-
-app.get('/document-details.html', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'document-details.html'));
-});
-
-app.get('/analytics-new', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'analytics-new.html'));
-});
-
-app.get('/document-comparison', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'document-comparison.html'));
-});
-
-app.get('/document-chat', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'document-chat.html'));
-});
-
-app.get('/feedback', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'feedback.html'));
-});
-
-app.get('/test', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'test.html'));
-});
-
-app.get('/simple-test', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'simple-test.html'));
-});
-
-app.get('/financial-document-processor', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'financial-document-processor.html'));
-});
-
-app.get('/ui-components-test', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'ui-components-test.html'));
-});
-
-app.get('/html-injector-bookmarklet', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'html-injector-bookmarklet.html'));
-});
-
-app.get('/ui-injector', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'ui-injector.html'));
-});
-
-// Add a health check endpoint
-app.get('/api/health', (req, res) => {
+  console.log('Health check requested from:', req.ip);
   res.json({
     status: 'ok',
     message: 'FinDoc Analyzer API is running',
     environment: process.env.NODE_ENV || 'development',
-    timestamp: new Date().toISOString()
+    timestamp: new Date().toISOString(),
+    port: process.env.PORT || '8080',
+    mcp_enabled: process.env.MCP_ENABLED === 'true',
+    augment_enabled: process.env.AUGMENT_ENABLED === 'true'
   });
 });
 
-// Add mock API endpoints
-app.post('/api/documents', (req, res) => {
-  // Mock document creation
-  res.json({
-    id: 'doc-' + Date.now(),
-    fileName: req.body.fileName || 'Unnamed Document',
-    documentType: req.body.documentType || 'other',
-    uploadDate: new Date().toISOString(),
-    processed: false
-  });
+// API key management endpoints
+app.get('/api/config/api-keys', async (req, res) => {
+  try {
+    // Test all API keys
+    const testResults = await apiKeyManager.testAllApiKeys();
+
+    // Return API key status (not the actual keys for security)
+    res.json({
+      openrouter: {
+        configured: apiKeyManager.hasValidApiKey('openrouter'),
+        valid: testResults.openrouter
+      },
+      gemini: {
+        configured: apiKeyManager.hasValidApiKey('gemini'),
+        valid: testResults.gemini
+      },
+      deepseek: {
+        configured: apiKeyManager.hasValidApiKey('deepseek'),
+        valid: testResults.deepseek
+      },
+      supabase: {
+        configured: apiKeyManager.hasValidApiKey('supabase'),
+        valid: testResults.supabase
+      }
+    });
+  } catch (error) {
+    console.error('Error getting API key status:', error);
+    res.status(500).json({
+      error: 'Error getting API key status'
+    });
+  }
 });
 
-app.get('/api/documents', (req, res) => {
-  // Mock document list
-  res.json([
-    {
-      id: 'doc-1',
-      fileName: 'Financial Report 2023.pdf',
-      documentType: 'financial',
-      uploadDate: '2023-12-31T12:00:00Z',
-      processed: true
-    },
-    {
-      id: 'doc-2',
-      fileName: 'Investment Portfolio.pdf',
-      documentType: 'portfolio',
-      uploadDate: '2023-12-15T10:30:00Z',
-      processed: true
-    },
-    {
-      id: 'doc-3',
-      fileName: 'Tax Documents 2023.pdf',
-      documentType: 'tax',
-      uploadDate: '2023-11-20T14:45:00Z',
-      processed: true
+app.post('/api/config/api-keys', (req, res) => {
+  try {
+    const { service, key } = req.body;
+
+    // Validate input
+    if (!service || !key) {
+      return res.status(400).json({
+        error: 'Service and key are required'
+      });
     }
-  ]);
+
+    // Validate service
+    if (!['openrouter', 'gemini', 'deepseek', 'supabase'].includes(service)) {
+      return res.status(400).json({
+        error: 'Invalid service'
+      });
+    }
+
+    // Set API key
+    const success = apiKeyManager.setApiKey(service, key);
+
+    if (success) {
+      res.json({
+        success: true,
+        message: `API key for ${service} updated successfully`
+      });
+    } else {
+      res.status(500).json({
+        error: `Error updating API key for ${service}`
+      });
+    }
+  } catch (error) {
+    console.error('Error updating API key:', error);
+    res.status(500).json({
+      error: 'Error updating API key'
+    });
+  }
 });
 
-app.post('/api/documents/process', (req, res) => {
-  // Mock document processing
-  res.json({
-    id: req.body.documentId,
+// In-memory storage for document processing status
+const documentProcessingStatus = new Map();
+
+// In-memory database for users and documents
+const users = [
+  {
+    id: '1',
+    name: 'Demo User',
+    email: 'demo@example.com',
+    password: 'password', // In a real app, this would be hashed
+    role: 'user'
+  },
+  {
+    id: '2',
+    name: 'Admin User',
+    email: 'admin@example.com',
+    password: 'admin123', // In a real app, this would be hashed
+    role: 'admin'
+  }
+];
+
+// Mock document database (expanded from original)
+const documents = [
+  {
+    id: 'doc-1',
+    userId: '1',
+    fileName: 'Financial Report 2023.pdf',
+    documentType: 'financial',
+    uploadDate: '2023-12-31T12:00:00Z',
     processed: true,
-    processingDate: new Date().toISOString()
+    metadata: {
+      pageCount: 15,
+      hasSecurities: true,
+      hasTables: true
+    }
+  },
+  {
+    id: 'doc-2',
+    userId: '1',
+    fileName: 'Investment Portfolio.pdf',
+    documentType: 'portfolio',
+    uploadDate: '2023-12-15T10:30:00Z',
+    processed: true,
+    metadata: {
+      pageCount: 8,
+      hasSecurities: true,
+      hasTables: true,
+      securities: [
+        { isin: 'US0378331005', name: 'Apple Inc.', quantity: 100, value: 18000 },
+        { isin: 'US5949181045', name: 'Microsoft Corp.', quantity: 150, value: 51000 },
+        { isin: 'US0231351067', name: 'Amazon.com Inc.', quantity: 50, value: 6500 }
+      ]
+    }
+  },
+  {
+    id: 'doc-3',
+    userId: '1',
+    fileName: 'Tax Documents 2023.pdf',
+    documentType: 'tax',
+    uploadDate: '2023-11-20T14:45:00Z',
+    processed: true,
+    metadata: {
+      pageCount: 12,
+      hasSecurities: false,
+      hasTables: true
+    }
+  },
+  {
+    id: 'doc-4',
+    userId: '1',
+    fileName: 'Messos Portfolio.pdf',
+    documentType: 'portfolio',
+    uploadDate: '2023-12-01T09:15:00Z',
+    processed: true,
+    metadata: {
+      pageCount: 10,
+      hasSecurities: true,
+      hasTables: true,
+      securities: [
+        { isin: 'FR0000121014', name: 'LVMH', quantity: 1200, value: 900000 },
+        { isin: 'DE0007236101', name: 'Siemens', quantity: 2500, value: 375000 },
+        { isin: 'DE0007164600', name: 'SAP', quantity: 3000, value: 375000 },
+        { isin: 'DE0005557508', name: 'Deutsche Telekom', quantity: 10000, value: 200000 },
+        { isin: 'DE0008404005', name: 'Allianz', quantity: 800, value: 176000 }
+      ]
+    }
+  }
+];
+
+// Simple middleware to check if the user is authenticated
+function isAuthenticated(req, res, next) {
+  const authHeader = req.headers.authorization;
+
+  if (!authHeader || !authHeader.startsWith('Bearer ')) {
+    return res.status(401).json({ error: 'Unauthorized' });
+  }
+
+  const token = authHeader.split(' ')[1];
+
+  // In a real app, you would verify the token
+  // For this demo, we'll just check if it's one of our known tokens
+  const validTokens = ['demo_token', 'google_token', 'admin_token'];
+
+  if (!validTokens.includes(token)) {
+    return res.status(401).json({ error: 'Invalid token' });
+  }
+
+  // Set user based on token (simplistic approach)
+  if (token === 'demo_token') {
+    req.user = users.find(u => u.email === 'demo@example.com');
+  } else if (token === 'admin_token') {
+    req.user = users.find(u => u.email === 'admin@example.com');
+  } else {
+    req.user = {
+      id: '3',
+      name: 'Google User',
+      email: 'google@example.com',
+      role: 'user'
+    };
+  }
+
+  next();
+}
+
+// Authentication routes
+app.post('/api/auth/login', (req, res) => {
+  const { email, password } = req.body;
+
+  // Find user
+  const user = users.find(u => u.email === email && u.password === password);
+
+  if (!user) {
+    return res.status(401).json({ error: 'Invalid email or password' });
+  }
+
+  // In a real app, you would generate a JWT token
+  const token = user.email === 'admin@example.com' ? 'admin_token' : 'demo_token';
+
+  // Return user data and token
+  const userData = { ...user };
+  delete userData.password;
+
+  res.json({
+    user: userData,
+    token
   });
 });
 
-app.get('/api/documents/:id', (req, res) => {
-  // Mock document retrieval
+app.post('/api/auth/register', (req, res) => {
+  const { name, email, password } = req.body;
+
+  // Check if user already exists
+  if (users.find(u => u.email === email)) {
+    return res.status(400).json({ error: 'Email already in use' });
+  }
+
+  // Create new user
+  const newUser = {
+    id: (users.length + 1).toString(),
+    name,
+    email,
+    password,
+    role: 'user'
+  };
+
+  users.push(newUser);
+
+  // Return user data and token
+  const userData = { ...newUser };
+  delete userData.password;
+
+  res.json({
+    user: userData,
+    token: 'demo_token'
+  });
+});
+
+app.get('/api/auth/me', isAuthenticated, (req, res) => {
+  const userData = { ...req.user };
+  delete userData.password;
+
+  res.json({
+    user: userData
+  });
+});
+
+// Document API routes
+app.get('/api/documents', isAuthenticated, (req, res) => {
+  // Return documents for the authenticated user
+  const userDocuments = documents.filter(doc => doc.userId === req.user.id || req.user.role === 'admin');
+
+  res.json({
+    documents: userDocuments
+  });
+});
+
+app.get('/api/documents/:id', isAuthenticated, (req, res) => {
   const documentId = req.params.id;
 
-  // Mock document content based on ID
-  let documentContent = null;
+  // Find document
+  const document = documents.find(doc => doc.id === documentId);
 
-  if (documentId === 'doc-1') {
-    documentContent = {
-      text: `Financial Report 2023
+  if (!document) {
+    return res.status(404).json({ error: 'Document not found' });
+  }
 
-Company: ABC Corporation
-Date: December 31, 2023
-
-Executive Summary
-
-This financial report presents the financial performance of ABC Corporation for the fiscal year 2023.
-
-Financial Highlights:
-- Total Revenue: $10,500,000
-- Operating Expenses: $7,200,000
-- Net Profit: $3,300,000
-- Profit Margin: 31.4%
-
-Balance Sheet Summary:
-- Total Assets: $25,000,000
-- Total Liabilities: $12,000,000
-- Shareholders' Equity: $13,000,000`,
-      tables: [
-        {
-          id: 'table-1',
-          title: 'Investment Portfolio',
-          headers: ['Security', 'ISIN', 'Quantity', 'Acquisition Price', 'Current Value', '% of Assets'],
-          rows: [
-            ['Apple Inc.', 'US0378331005', '1,000', '$150.00', '$175.00', '7.0%'],
-            ['Microsoft', 'US5949181045', '800', '$250.00', '$300.00', '9.6%'],
-            ['Amazon', 'US0231351067', '500', '$120.00', '$140.00', '2.8%'],
-            ['Tesla', 'US88160R1014', '300', '$200.00', '$180.00', '2.2%'],
-            ['Google', 'US02079K1079', '200', '$1,200.00', '$1,300.00', '10.4%']
-          ]
-        }
-      ],
-      metadata: {
-        author: 'John Smith',
-        createdDate: 'December 31, 2023',
-        modifiedDate: 'January 15, 2024',
-        documentFormat: 'PDF 1.7',
-        keywords: 'financial, report, 2023, ABC Corporation'
-      }
-    };
-  } else if (documentId === 'doc-2') {
-    documentContent = {
-      text: `Investment Portfolio
-
-Account: ABC123456
-Date: December 15, 2023
-
-Portfolio Summary
-
-This document presents the current investment portfolio for account ABC123456.
-
-Portfolio Highlights:
-- Total Value: $1,250,000
-- Annual Return: 8.5%
-- Risk Level: Moderate
-- Asset Allocation: 60% Stocks, 30% Bonds, 10% Cash`,
-      tables: [
-        {
-          id: 'table-1',
-          title: 'Asset Allocation',
-          headers: ['Asset Class', 'Allocation', 'Value'],
-          rows: [
-            ['Stocks', '60%', '$750,000'],
-            ['Bonds', '30%', '$375,000'],
-            ['Cash', '10%', '$125,000']
-          ]
-        }
-      ],
-      metadata: {
-        author: 'Jane Doe',
-        createdDate: 'December 15, 2023',
-        modifiedDate: 'December 15, 2023',
-        documentFormat: 'PDF 1.7',
-        keywords: 'investment, portfolio, stocks, bonds, cash'
-      }
-    };
-  } else if (documentId === 'doc-3') {
-    documentContent = {
-      text: `Tax Documents 2023
-
-Taxpayer: John Doe
-Tax ID: XXX-XX-1234
-Date: November 20, 2023
-
-Tax Summary
-
-This document contains tax information for the fiscal year 2023.
-
-Tax Highlights:
-- Total Income: $120,000
-- Total Deductions: $25,000
-- Taxable Income: $95,000
-- Tax Due: $23,750`,
-      tables: [
-        {
-          id: 'table-1',
-          title: 'Income Sources',
-          headers: ['Source', 'Amount'],
-          rows: [
-            ['Salary', '$100,000'],
-            ['Dividends', '$15,000'],
-            ['Interest', '$5,000']
-          ]
-        }
-      ],
-      metadata: {
-        author: 'Tax Department',
-        createdDate: 'November 20, 2023',
-        modifiedDate: 'November 20, 2023',
-        documentFormat: 'PDF 1.7',
-        keywords: 'tax, 2023, income, deductions'
-      }
-    };
-  } else {
-    // For any other document ID, create generic content
-    documentContent = {
-      text: `Sample Document
-
-This is a sample document with ID ${documentId}.`,
-      tables: [],
-      metadata: {
-        author: 'Unknown',
-        createdDate: new Date().toISOString(),
-        modifiedDate: new Date().toISOString(),
-        documentFormat: 'PDF',
-        keywords: 'sample, document'
-      }
-    };
+  // Check if user has access to document
+  if (document.userId !== req.user.id && req.user.role !== 'admin') {
+    return res.status(403).json({ error: 'Access denied' });
   }
 
   res.json({
-    id: documentId,
-    fileName: documentId === 'doc-1' ? 'Financial Report 2023.pdf' :
-              documentId === 'doc-2' ? 'Investment Portfolio.pdf' :
-              documentId === 'doc-3' ? 'Tax Documents 2023.pdf' :
-              'Document ' + documentId + '.pdf',
-    documentType: documentId === 'doc-1' ? 'financial' :
-                  documentId === 'doc-2' ? 'portfolio' :
-                  documentId === 'doc-3' ? 'tax' :
-                  'other',
-    uploadDate: new Date().toISOString(),
-    processed: true,
-    content: documentContent
+    document
   });
 });
 
-app.post('/api/documents/:id/questions', (req, res) => {
-  // Mock Q&A
-  const question = req.body.question || '';
-  let answer = 'I don\'t know the answer to that question.';
+// Document upload and processing
+app.post('/api/documents/upload', isAuthenticated, upload.single('file'), async (req, res) => {
+  try {
+    if (!req.file) {
+      return res.status(400).json({ error: 'No file uploaded' });
+    }
 
-  if (question.toLowerCase().includes('revenue')) {
-    answer = 'The total revenue is $10,500,000.';
-  } else if (question.toLowerCase().includes('profit')) {
-    answer = 'The net profit is $3,300,000 with a profit margin of 31.4%.';
-  } else if (question.toLowerCase().includes('asset')) {
-    answer = 'The total assets are $25,000,000.';
-  } else if (question.toLowerCase().includes('liabilit')) {
-    answer = 'The total liabilities are $12,000,000.';
-  } else if (question.toLowerCase().includes('equity')) {
-    answer = 'The shareholders\' equity is $13,000,000.';
-  } else if (question.toLowerCase().includes('apple') || question.toLowerCase().includes('microsoft') || question.toLowerCase().includes('amazon') || question.toLowerCase().includes('tesla') || question.toLowerCase().includes('google')) {
-    answer = 'The investment portfolio includes holdings in Apple Inc., Microsoft, Amazon, Tesla, and Google. Would you like specific details about any of these securities?';
+    // Create document record
+    const documentId = 'doc-' + uuid();
+    const document = {
+      id: documentId,
+      userId: req.user.id,
+      fileName: req.file.originalname,
+      filePath: req.file.path,
+      documentType: req.body.documentType || 'unknown',
+      uploadDate: new Date().toISOString(),
+      processed: false,
+      metadata: {
+        fileSize: req.file.size,
+        mimeType: req.file.mimetype
+      }
+    };
+
+    // Add to documents array
+    documents.push(document);
+
+    // Start processing in background (don't wait for it to complete)
+    processDocument(document);
+
+    res.json({
+      success: true,
+      document: {
+        id: document.id,
+        fileName: document.fileName,
+        uploadDate: document.uploadDate,
+        status: 'processing'
+      }
+    });
+  } catch (error) {
+    console.error('Error uploading document:', error);
+    res.status(500).json({
+      error: 'Error uploading document',
+      message: error.message
+    });
+  }
+});
+
+app.get('/api/documents/:id/status', isAuthenticated, (req, res) => {
+  const documentId = req.params.id;
+
+  // Find document
+  const document = documents.find(doc => doc.id === documentId);
+
+  if (!document) {
+    return res.status(404).json({ error: 'Document not found' });
+  }
+
+  // Check if user has access to document
+  if (document.userId !== req.user.id && req.user.role !== 'admin') {
+    return res.status(403).json({ error: 'Access denied' });
+  }
+
+  // Get processing status
+  const status = documentProcessingStatus.get(documentId) || {
+    id: documentId,
+    processed: document.processed,
+    status: document.processed ? 'completed' : 'pending',
+    progress: document.processed ? 100 : 0
+  };
+
+  res.json({
+    status
+  });
+});
+
+// Document processing endpoint
+app.post('/api/documents/:id/process', isAuthenticated, async (req, res) => {
+  const documentId = req.params.id;
+
+  // Find document
+  const document = documents.find(doc => doc.id === documentId);
+
+  if (!document) {
+    return res.status(404).json({ error: 'Document not found' });
+  }
+
+  // Check if user has access to document
+  if (document.userId !== req.user.id && req.user.role !== 'admin') {
+    return res.status(403).json({ error: 'Access denied' });
+  }
+
+  // Start processing in background
+  processDocument(document);
+
+  res.json({
+    success: true,
+    message: 'Document processing started',
+    documentId
+  });
+});
+
+// Document chat endpoint
+app.post('/api/documents/:id/chat', isAuthenticated, async (req, res) => {
+  const documentId = req.params.id;
+  const { message } = req.body;
+
+  if (!message) {
+    return res.status(400).json({ error: 'Message is required' });
+  }
+
+  // Find document
+  const document = documents.find(doc => doc.id === documentId);
+
+  if (!document) {
+    return res.status(404).json({ error: 'Document not found' });
+  }
+
+  // Check if user has access to document
+  if (document.userId !== req.user.id && req.user.role !== 'admin') {
+    return res.status(403).json({ error: 'Access denied' });
+  }
+
+  // Check if document is processed
+  if (!document.processed) {
+    return res.status(400).json({
+      error: 'Document is not processed yet',
+      documentId,
+      status: documentProcessingStatus.get(documentId)?.status || 'pending'
+    });
+  }
+
+  // Check if MCP is enabled
+  if (process.env.MCP_ENABLED === 'true') {
+    try {
+      console.log('Attempting to use MCP for chat');
+      const mcpGatewayUrl = process.env.MCP_API_GATEWAY_URL || 'http://api-gateway-mcp:3003';
+
+      const response = await axios.post(
+        `${mcpGatewayUrl}/document-chat`,
+        { documentId, message }
+      );
+
+      if (response.data) {
+        console.log(`MCP successfully processed chat request`);
+        return res.json({
+          ...response.data,
+          timestamp: new Date().toISOString(),
+          source: 'mcp-service'
+        });
+      }
+    } catch (error) {
+      console.error('Error using MCP for chat:', error);
+      // Fall back to agent manager
+    }
+  }
+
+  // Try to use agent manager as fallback
+  try {
+    console.log('Attempting to use agent manager for chat');
+    const result = await agentManager.askQuestion(documentId, message);
+
+    if (result.success) {
+      console.log(`Agent manager successfully answered question in ${result.processingTime}s`);
+      return res.json({
+        documentId,
+        message,
+        response: result.answer,
+        timestamp: new Date().toISOString(),
+        source: 'agent-manager',
+        processingTime: result.processingTime
+      });
+    }
+  } catch (error) {
+    console.error('Error using agent manager for chat:', error);
+  }
+
+  // Simple fallback response based on document content
+  let response = '';
+
+  if (message.toLowerCase().includes('securities') || message.toLowerCase().includes('stocks')) {
+    response = 'The document contains the following securities:\n\n';
+
+    if (document.metadata && document.metadata.securities) {
+      document.metadata.securities.forEach((security, index) => {
+        response += `${index + 1}. ${security.name} (ISIN: ${security.isin}) - ${security.quantity} shares valued at $${security.value}\n`;
+      });
+    } else {
+      response += 'No securities information found in this document.';
+    }
+  } else if (message.toLowerCase().includes('summary') || message.toLowerCase().includes('overview')) {
+    response = `Document Summary for "${document.fileName}":\n`;
+    response += `- Type: ${document.documentType}\n`;
+    response += `- Uploaded: ${new Date(document.uploadDate).toLocaleDateString()}\n`;
+
+    if (document.metadata) {
+      if (document.metadata.pageCount) {
+        response += `- Pages: ${document.metadata.pageCount}\n`;
+      }
+      if (document.metadata.hasSecurities) {
+        response += '- Contains securities information\n';
+      }
+      if (document.metadata.hasTables) {
+        response += '- Contains tables with financial data\n';
+      }
+    }
+  } else {
+    response = `I've analyzed "${document.fileName}" and can answer questions about its contents. What would you like to know specifically about this document?`;
   }
 
   res.json({
-    question,
-    answer,
+    documentId,
+    message,
+    response,
+    timestamp: new Date().toISOString(),
+    source: 'fallback'
+  });
+});
+
+// Feedback routes
+app.post('/api/feedback', isAuthenticated, async (req, res) => {
+  const { type, content, context, rating } = req.body;
+
+  if (!type || !content) {
+    return res.status(400).json({ error: 'Type and content are required' });
+  }
+
+  console.log('Received feedback:', {
+    userId: req.user.id,
+    userName: req.user.name,
+    type,
+    content,
+    context,
+    rating,
     timestamp: new Date().toISOString()
   });
+
+  res.json({
+    success: true,
+    message: 'Feedback submitted successfully',
+    feedbackId: uuid()
+  });
 });
 
-// API error handling (must be after all routes and before catch-all route)
-// Not Found handler for API routes
-app.use('/api', notFoundHandler());
+// Catch-all route to handle 404s for API routes
+app.all('/api/*', (req, res) => {
+  res.status(404).json({
+    error: 'API endpoint not found',
+    path: req.path
+  });
+});
 
-// Global API error handler
-app.use('/api', apiErrorHandler);
-
-// Catch-all route to serve the frontend
+// Catch-all route to serve the main HTML for client-side routing
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
-// Start the server
-app.listen(port, () => {
-  console.log(`FinDoc Analyzer server running on port ${port}`);
+// Start server with enhanced error handling
+const server = app.listen(port, () => {
+  console.log(`✅ FinDoc Analyzer server successfully started and listening on port ${port}`);
   console.log(`Environment: ${process.env.NODE_ENV || 'development'}`);
-  console.log(`API error logging enabled: ${path.join(path.dirname(__dirname), 'logs', 'api-errors.log')}`);
+  console.log(`MCP Enabled: ${process.env.MCP_ENABLED === 'true' ? 'Yes' : 'No'}`);
+  console.log(`Augment Enabled: ${process.env.AUGMENT_ENABLED === 'true' ? 'Yes' : 'No'}`);
+  console.log(`Server URL: http://localhost:${port}`);
+
+  // Create a health check file that Cloud Run can use to verify the server is running
+  try {
+    fs.writeFileSync(path.join(__dirname, 'server-running.txt'), `Server started at ${new Date().toISOString()}`);
+    console.log('Created server-running.txt health check file');
+  } catch (error) {
+    console.warn('Could not create health check file:', error.message);
+  }
 });
+
+// Handle server errors
+server.on('error', (error) => {
+  console.error('❌ SERVER ERROR:', error);
+
+  if (error.code === 'EADDRINUSE') {
+    console.error(`Port ${port} is already in use. Please choose a different port or stop the other process.`);
+  } else if (error.code === 'EACCES') {
+    console.error(`Port ${port} requires elevated privileges. Please run with sudo or choose a port > 1024.`);
+  }
+
+  // Exit with error code
+  process.exit(1);
+});
+
+// Handle process termination
+process.on('SIGTERM', () => {
+  console.log('SIGTERM received, shutting down gracefully');
+  server.close(() => {
+    console.log('Server closed');
+    process.exit(0);
+  });
+
+  // Force close after 10s
+  setTimeout(() => {
+    console.error('Could not close connections in time, forcefully shutting down');
+    process.exit(1);
+  }, 10000);
+});
+
+// Document processing function
+async function processDocument(document) {
+  console.log(`Starting processing for document ${document.id}: ${document.fileName}`);
+
+  // Update status to processing
+  documentProcessingStatus.set(document.id, {
+    id: document.id,
+    processed: false,
+    status: 'processing',
+    progress: 0,
+    startTime: new Date().toISOString(),
+    agents: {
+      'Document Analyzer': { status: 'pending', time: null },
+      'Table Understanding': { status: 'pending', time: null },
+      'Securities Extractor': { status: 'pending', time: null },
+      'Financial Reasoner': { status: 'pending', time: null }
+    }
+  });
+
+  // Simulate Document Analyzer agent
+  await new Promise(resolve => setTimeout(resolve, 1000));
+  const status = documentProcessingStatus.get(document.id);
+  status.progress = 20;
+  status.agents['Document Analyzer'] = {
+    status: 'completed',
+    time: '1.2 seconds'
+  };
+  documentProcessingStatus.set(document.id, status);
+  console.log(`Document Analyzer completed for ${document.id}`);
+
+  // Simulate Table Understanding agent
+  await new Promise(resolve => setTimeout(resolve, 1500));
+  status.progress = 40;
+  status.agents['Table Understanding'] = {
+    status: 'completed',
+    time: '1.5 seconds'
+  };
+  documentProcessingStatus.set(document.id, status);
+  console.log(`Table Understanding completed for ${document.id}`);
+
+  // Simulate Securities Extractor agent
+  await new Promise(resolve => setTimeout(resolve, 1200));
+  status.progress = 70;
+  status.agents['Securities Extractor'] = {
+    status: 'completed',
+    time: '1.2 seconds'
+  };
+  documentProcessingStatus.set(document.id, status);
+  console.log(`Securities Extractor completed for ${document.id}`);
+
+  // Simulate Financial Reasoner agent
+  await new Promise(resolve => setTimeout(resolve, 800));
+  status.progress = 100;
+  status.agents['Financial Reasoner'] = {
+    status: 'completed',
+    time: '0.8 seconds'
+  };
+  documentProcessingStatus.set(document.id, status);
+  console.log(`Financial Reasoner completed for ${document.id}`);
+
+  // Calculate processing time
+  const startTime = new Date(status.startTime);
+  const endTime = new Date();
+  const processingTimeMs = endTime - startTime;
+  const processingTime = (processingTimeMs / 1000).toFixed(1) + ' seconds';
+
+  // Update document with mock results
+  const updatedDocument = documents.find(d => d.id === document.id);
+
+  if (updatedDocument) {
+    updatedDocument.processed = true;
+    updatedDocument.metadata = {
+      ...updatedDocument.metadata,
+      pageCount: Math.floor(Math.random() * 20) + 5,
+      hasSecurities: Math.random() > 0.3,
+      hasTables: Math.random() > 0.2,
+      securities: [
+        { isin: 'US0378331005', name: 'Apple Inc.', quantity: Math.floor(Math.random() * 200) + 50, value: Math.floor(Math.random() * 50000) + 10000 },
+        { isin: 'US5949181045', name: 'Microsoft Corp.', quantity: Math.floor(Math.random() * 300) + 100, value: Math.floor(Math.random() * 100000) + 30000 },
+        { isin: 'US0231351067', name: 'Amazon.com Inc.', quantity: Math.floor(Math.random() * 100) + 30, value: Math.floor(Math.random() * 40000) + 5000 }
+      ]
+    };
+  }
+
+  // Update status to completed
+  status.processed = true;
+  status.status = 'completed';
+  status.progress = 100;
+  status.endTime = endTime.toISOString();
+  status.processingTime = processingTime;
+  documentProcessingStatus.set(document.id, status);
+
+  console.log(`Document processing completed for ${document.id} in ${processingTime}`);
+}
+
+// Export for testing
+module.exports = app;
