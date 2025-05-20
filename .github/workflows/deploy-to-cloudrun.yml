@@ -6,6 +6,7 @@ on:
       - main
       - github-actions-setup
       - cloud-run-optimization
+      - docker-optimization
   workflow_dispatch:
     inputs:
       environment:
@@ -52,6 +53,13 @@ jobs:
         run: |
           echo "Building Docker image with Dockerfile.fixed..."
           docker build -t gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE_NAME }}:${{ github.sha }} -f Dockerfile.fixed .
+
+          # Get image size for metrics
+          echo "Measuring optimized image size..."
+          IMAGE_SIZE=$(docker images gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE_NAME }}:${{ github.sha }} --format "{{.Size}}")
+          echo "Optimized image size: $IMAGE_SIZE"
+          echo "IMAGE_SIZE=$IMAGE_SIZE" >> $GITHUB_ENV
+
           echo "Pushing Docker image to GCR..."
           docker push gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE_NAME }}:${{ github.sha }}
           echo "Image pushed successfully: gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE_NAME }}:${{ github.sha }}"
@@ -88,3 +96,5 @@ jobs:
           echo "* **Region:** ${{ env.REGION }}" >> $GITHUB_STEP_SUMMARY
           echo "* **URL:** ${{ steps.deploy.outputs.url }}" >> $GITHUB_STEP_SUMMARY
           echo "* **Commit:** ${{ github.sha }}" >> $GITHUB_STEP_SUMMARY
+          echo "* **Image Size:** ${{ env.IMAGE_SIZE }}" >> $GITHUB_STEP_SUMMARY
+          echo "* **Optimization:** Multi-stage Docker build with slim Node.js image" >> $GITHUB_STEP_SUMMARY
