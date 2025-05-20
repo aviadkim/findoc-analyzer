@@ -5,16 +5,17 @@ on:
     branches:
       - main
       - feature/user-feedback-analytics
+      - github-actions-setup
     paths-ignore:
-      - '**.md'
-      - 'docs/**'
-      - '.github/ISSUE_TEMPLATE/**'
+      - "**.md"
+      - "docs/**"
+      - ".github/ISSUE_TEMPLATE/**"
   workflow_dispatch:
     inputs:
       environment:
-        description: 'Deployment environment'
+        description: "Deployment environment"
         required: true
-        default: 'development'
+        default: "development"
         type: choice
         options:
           - development
@@ -22,122 +23,122 @@ on:
           - production
 
 env:
-  PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}  # Your Google Cloud project ID
-  SERVICE_NAME: findoc-analyzer            # Name for the Cloud Run service
-  REGION: europe-west3                      # Google Cloud region
+  PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }} # Your Google Cloud project ID
+  SERVICE_NAME: findoc-analyzer # Name for the Cloud Run service
+  REGION: europe-west3 # Google Cloud region
 
 jobs:
   deploy:
     name: Build and Deploy
     runs-on: ubuntu-latest
-    
+
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
-      with:
-        fetch-depth: 0  # Fetch all history for proper versioning
-    
-    - name: Set up Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: '16'
-        cache: 'npm'
-    
-    - name: Install dependencies
-      run: npm ci
-    
-    - name: Run tests
-      run: npm test || echo "No tests found, continuing deployment"
-    
-    - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@v2
-    
-    - name: Google Auth
-      id: auth
-      uses: google-github-actions/auth@v1
-      with:
-        credentials_json: ${{ secrets.GCP_SA_KEY }}
-    
-    - name: Set up Cloud SDK
-      uses: google-github-actions/setup-gcloud@v1
-      with:
-        project_id: ${{ env.PROJECT_ID }}
-    
-    - name: Authorize Docker push
-      run: gcloud auth configure-docker
-    
-    - name: Generate build ID
-      id: build-id
-      run: |
-        echo "BUILD_ID=${GITHUB_SHA::8}-$(date +%Y%m%d-%H%M%S)" >> $GITHUB_ENV
-        echo "TIMESTAMP=$(date +%Y-%m-%d_%H-%M-%S)" >> $GITHUB_ENV
-    
-    - name: Build and push Docker image
-      uses: docker/build-push-action@v4
-      with:
-        context: .
-        file: Dockerfile.cloud-run
-        push: true
-        tags: |
-          gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE_NAME }}:${{ github.sha }}
-          gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE_NAME }}:latest
-        cache-from: type=gha
-        cache-to: type=gha,mode=max
-        build-args: |
-          NODE_ENV=production
-          BUILD_ID=${{ env.BUILD_ID }}
-    
-    - name: Deploy to Cloud Run
-      id: deploy
-      uses: google-github-actions/deploy-cloudrun@v1
-      with:
-        service: ${{ env.SERVICE_NAME }}
-        image: gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE_NAME }}:${{ github.sha }}
-        region: ${{ env.REGION }}
-        flags: |
-          --allow-unauthenticated
-          --memory=1Gi
-          --cpu=1
-          --timeout=300s
-          --max-instances=5
-          --min-instances=1
-          --port=8080
-          --set-env-vars=NODE_ENV=production,MCP_ENABLED=true,AUGMENT_ENABLED=true,BUILD_ID=${{ env.BUILD_ID }},DEPLOY_TIMESTAMP=${{ env.TIMESTAMP }}
-    
-    - name: Show Output
-      run: echo ${{ steps.deploy.outputs.url }}
-    
-    - name: Create deployment tag
-      run: |
-        git config --global user.name "GitHub Actions"
-        git config --global user.email "actions@github.com"
-        git tag deploy-${{ env.BUILD_ID }}
-        git push origin deploy-${{ env.BUILD_ID }}
-    
-    - name: Verify deployment
-      run: |
-        echo "Deployed to: ${{ steps.deploy.outputs.url }}"
-        echo "Checking deployment health..."
-        curl -s -o /dev/null -w "%{http_code}" ${{ steps.deploy.outputs.url }}/api/health || echo "Health check endpoint not available, deployment may still be in progress"
-    
-    - name: Create deployment summary
-      run: |
-        echo "## Deployment Summary" >> $GITHUB_STEP_SUMMARY
-        echo "* **Service:** ${{ env.SERVICE_NAME }}" >> $GITHUB_STEP_SUMMARY
-        echo "* **Region:** ${{ env.REGION }}" >> $GITHUB_STEP_SUMMARY
-        echo "* **URL:** ${{ steps.deploy.outputs.url }}" >> $GITHUB_STEP_SUMMARY
-        echo "* **Build ID:** ${{ env.BUILD_ID }}" >> $GITHUB_STEP_SUMMARY
-        echo "* **Timestamp:** ${{ env.TIMESTAMP }}" >> $GITHUB_STEP_SUMMARY
-        echo "* **Commit:** ${{ github.sha }}" >> $GITHUB_STEP_SUMMARY
-    
-    - name: Notify on success
-      if: success()
-      run: |
-        echo "Deployment successful! 🚀"
-        echo "Service URL: ${{ steps.deploy.outputs.url }}"
-    
-    - name: Notify on failure
-      if: failure()
-      run: |
-        echo "Deployment failed! ❌"
-        echo "Check the logs for more information."
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0 # Fetch all history for proper versioning
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "16"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run tests
+        run: npm test || echo "No tests found, continuing deployment"
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Google Auth
+        id: auth
+        uses: google-github-actions/auth@v1
+        with:
+          credentials_json: ${{ secrets.GCP_SA_KEY }}
+
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@v1
+        with:
+          project_id: ${{ env.PROJECT_ID }}
+
+      - name: Authorize Docker push
+        run: gcloud auth configure-docker
+
+      - name: Generate build ID
+        id: build-id
+        run: |
+          echo "BUILD_ID=${GITHUB_SHA::8}-$(date +%Y%m%d-%H%M%S)" >> $GITHUB_ENV
+          echo "TIMESTAMP=$(date +%Y-%m-%d_%H-%M-%S)" >> $GITHUB_ENV
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          file: Dockerfile.cloud-run
+          push: true
+          tags: |
+            gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE_NAME }}:${{ github.sha }}
+            gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE_NAME }}:latest
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          build-args: |
+            NODE_ENV=production
+            BUILD_ID=${{ env.BUILD_ID }}
+
+      - name: Deploy to Cloud Run
+        id: deploy
+        uses: google-github-actions/deploy-cloudrun@v1
+        with:
+          service: ${{ env.SERVICE_NAME }}
+          image: gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE_NAME }}:${{ github.sha }}
+          region: ${{ env.REGION }}
+          flags: |
+            --allow-unauthenticated
+            --memory=1Gi
+            --cpu=1
+            --timeout=300s
+            --max-instances=5
+            --min-instances=1
+            --port=8080
+            --set-env-vars=NODE_ENV=production,MCP_ENABLED=true,AUGMENT_ENABLED=true,BUILD_ID=${{ env.BUILD_ID }},DEPLOY_TIMESTAMP=${{ env.TIMESTAMP }}
+
+      - name: Show Output
+        run: echo ${{ steps.deploy.outputs.url }}
+
+      - name: Create deployment tag
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+          git tag deploy-${{ env.BUILD_ID }}
+          git push origin deploy-${{ env.BUILD_ID }}
+
+      - name: Verify deployment
+        run: |
+          echo "Deployed to: ${{ steps.deploy.outputs.url }}"
+          echo "Checking deployment health..."
+          curl -s -o /dev/null -w "%{http_code}" ${{ steps.deploy.outputs.url }}/api/health || echo "Health check endpoint not available, deployment may still be in progress"
+
+      - name: Create deployment summary
+        run: |
+          echo "## Deployment Summary" >> $GITHUB_STEP_SUMMARY
+          echo "* **Service:** ${{ env.SERVICE_NAME }}" >> $GITHUB_STEP_SUMMARY
+          echo "* **Region:** ${{ env.REGION }}" >> $GITHUB_STEP_SUMMARY
+          echo "* **URL:** ${{ steps.deploy.outputs.url }}" >> $GITHUB_STEP_SUMMARY
+          echo "* **Build ID:** ${{ env.BUILD_ID }}" >> $GITHUB_STEP_SUMMARY
+          echo "* **Timestamp:** ${{ env.TIMESTAMP }}" >> $GITHUB_STEP_SUMMARY
+          echo "* **Commit:** ${{ github.sha }}" >> $GITHUB_STEP_SUMMARY
+
+      - name: Notify on success
+        if: success()
+        run: |
+          echo "Deployment successful! 🚀"
+          echo "Service URL: ${{ steps.deploy.outputs.url }}"
+
+      - name: Notify on failure
+        if: failure()
+        run: |
+          echo "Deployment failed! ❌"
+          echo "Check the logs for more information."
