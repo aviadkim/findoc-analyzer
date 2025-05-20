@@ -1,0 +1,77 @@
+# FinDoc Analyzer - Cloud Optimized Dockerfile with Augment Integration
+# Multi-stage build for minimizing image size and optimizing for Google Cloud
+
+# ===== STAGE 1: Build dependencies =====
+FROM node:18-slim AS build-deps
+
+# Set working directory
+WORKDIR /app
+
+# Copy package files for dependency installation
+COPY package*.json ./
+
+# Install all required dependencies
+RUN npm install
+RUN npm install multer express cors axios uuid
+
+# ===== STAGE 2: Create production application =====
+FROM node:18-slim AS builder
+
+WORKDIR /app
+
+# Copy production dependencies from the build-deps stage
+COPY --from=build-deps /app/node_modules ./node_modules
+
+# Copy essential application files
+COPY server.js ./
+COPY start.sh ./
+COPY agent-manager.js ./
+COPY api-key-manager.js ./
+COPY public ./public
+
+# Create essential directories
+RUN mkdir -p uploads temp results config logs
+
+# ===== STAGE 3: Final image =====
+FROM node:18-slim AS runtime
+
+# Set working directory
+WORKDIR /app
+
+# Install only runtime system dependencies
+RUN apt-get update && apt-get install -y \
+  curl \
+  && rm -rf /var/lib/apt/lists/*
+
+# Copy built application from builder stage
+COPY --from=builder /app ./
+
+# Set environment variables
+ENV NODE_ENV=production
+ENV PORT=8080
+ENV MCP_ENABLED=true
+ENV MCP_API_GATEWAY_URL=http://api-gateway-mcp:3003
+ENV AUGMENT_ENABLED=true
+
+# Create default augment configuration
+RUN echo '{"augment":{"enabled":true,"services":["document-processing","chat-service","api-gateway"]}}' > ./config/augment.json
+
+# Make start script executable
+RUN chmod +x /app/start.sh
+
+# Expose the application port
+EXPOSE 8080
+
+# Set permissions for app directories
+RUN chmod -R 755 /app/uploads /app/temp /app/results /app/config /app/logs
+
+# Run as non-root user for security
+RUN chown -R node:node /app
+USER node
+
+# Health check
+HEALTHCHECK --interval=5s --timeout=3s --start-period=10s --retries=3 \
+  CMD curl -f http://localhost:8080/api/health || exit 1
+
+# Start the application using the startup script
+CMD ["/app/start.sh"]
