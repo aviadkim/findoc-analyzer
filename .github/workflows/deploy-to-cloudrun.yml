@@ -5,6 +5,7 @@ on:
     branches:
       - main
       - github-actions-setup
+      - cloud-run-optimization
   workflow_dispatch:
     inputs:
       environment:
