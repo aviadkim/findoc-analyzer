@@ -1,0 +1,89 @@
+name: Deploy to Cloud Run
+
+on:
+  push:
+    branches:
+      - main
+      - github-actions-setup
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: "Deployment environment"
+        required: true
+        default: "development"
+        type: choice
+        options:
+          - development
+          - staging
+          - production
+
+env:
+  PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
+  SERVICE_NAME: findoc-analyzer
+  REGION: europe-west3
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@v1
+        with:
+          project_id: ${{ env.PROJECT_ID }}
+          service_account_key: ${{ secrets.GCP_SA_KEY }}
+          export_default_credentials: true
+
+      - name: Diagnostic - Verify GCP Authentication
+        run: |
+          echo "Project ID: ${{ env.PROJECT_ID }}"
+          gcloud auth list
+          gcloud projects describe ${{ env.PROJECT_ID }} || echo "Failed to describe project"
+          gcloud container images list --repository=gcr.io/${{ env.PROJECT_ID }} || echo "Failed to list container images"
+
+      - name: Authenticate Docker to GCR
+        run: gcloud auth configure-docker
+
+      - name: Build and push Docker image
+        run: |
+          echo "Building Docker image with Dockerfile.fixed..."
+          docker build -t gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE_NAME }}:${{ github.sha }} -f Dockerfile.fixed .
+          echo "Pushing Docker image to GCR..."
+          docker push gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE_NAME }}:${{ github.sha }}
+          echo "Image pushed successfully: gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE_NAME }}:${{ github.sha }}"
+
+      - name: Deploy to Cloud Run
+        id: deploy
+        uses: google-github-actions/deploy-cloudrun@v1
+        with:
+          service: ${{ env.SERVICE_NAME }}
+          image: gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE_NAME }}:${{ github.sha }}
+          region: ${{ env.REGION }}
+          env_vars: |
+            NODE_ENV=production
+            MCP_ENABLED=true
+            AUGMENT_ENABLED=true
+          memory: 1Gi
+          cpu: 1
+          timeout: 300
+          flags: --port=8080 --allow-unauthenticated
+
+      - name: Show deployment URL
+        run: echo "Service URL ${{ steps.deploy.outputs.url }}"
+
+      - name: Verify deployment
+        run: |
+          echo "Deployed to: ${{ steps.deploy.outputs.url }}"
+          echo "Checking deployment health..."
+          curl -s -o /dev/null -w "%{http_code}" ${{ steps.deploy.outputs.url }}/api/health || echo "Health check endpoint not available, deployment may still be in progress"
+
+      - name: Create deployment summary
+        run: |
+          echo "## Deployment Summary" >> $GITHUB_STEP_SUMMARY
+          echo "* **Service:** ${{ env.SERVICE_NAME }}" >> $GITHUB_STEP_SUMMARY
+          echo "* **Region:** ${{ env.REGION }}" >> $GITHUB_STEP_SUMMARY
+          echo "* **URL:** ${{ steps.deploy.outputs.url }}" >> $GITHUB_STEP_SUMMARY
+          echo "* **Commit:** ${{ github.sha }}" >> $GITHUB_STEP_SUMMARY
