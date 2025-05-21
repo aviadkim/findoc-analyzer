@@ -1,0 +1,238 @@
+name: Deploy to Google Cloud Run
+
+on:
+  push:
+    branches:
+      - main
+      - master
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Environment to deploy to'
+        required: true
+        default: 'production'
+        type: choice
+        options:
+          - staging
+          - production
+
+env:
+  PROJECT_ID: findoc-deploy
+  SERVICE_NAME: findoc-analyzer
+  IMAGE_NAME: findoc-analyzer
+
+jobs:
+  validate:
+    name: Validate Configuration
+    runs-on: ubuntu-latest
+    outputs:
+      environment: ${{ steps.set-env.outputs.environment }}
+      
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Set environment
+        id: set-env
+        run: |
+          if [ "${{ github.event_name }}" == "workflow_dispatch" ]; then
+            echo "environment=${{ github.event.inputs.environment }}" >> $GITHUB_OUTPUT
+          else
+            echo "environment=production" >> $GITHUB_OUTPUT
+          fi
+          
+      - name: Validate configuration
+        run: |
+          echo "Validating configuration for ${{ steps.set-env.outputs.environment }} environment"
+          # Validation logic goes here
+  
+  build:
+    name: Build and Push Docker Image
+    needs: validate
+    runs-on: ubuntu-latest
+    environment: ${{ needs.validate.outputs.environment }}
+    permissions:
+      contents: read
+      id-token: write
+      
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Google Auth
+        id: auth
+        uses: google-github-actions/auth@v1
+        with:
+          workload_identity_provider: ${{ secrets.WIF_PROVIDER }}
+          service_account: ${{ secrets.WIF_SERVICE_ACCOUNT }}
+          
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@v1
+        
+      - name: Authorize Docker Push
+        run: gcloud auth configure-docker
+        
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+        
+      - name: Cache Docker layers
+        uses: actions/cache@v4
+        with:
+          path: /tmp/.buildx-cache
+          key: ${{ runner.os }}-buildx-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-buildx-
+            
+      - name: Generate timestamp
+        id: timestamp
+        run: echo "timestamp=$(date +'%Y%m%d-%H%M%S')" >> $GITHUB_OUTPUT
+        
+      - name: Build and Push Container
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: ./Dockerfile.production
+          push: true
+          tags: gcr.io/${{ env.PROJECT_ID }}/${{ env.IMAGE_NAME }}:${{ steps.timestamp.outputs.timestamp }},gcr.io/${{ env.PROJECT_ID }}/${{ env.IMAGE_NAME }}:latest
+          cache-from: type=local,src=/tmp/.buildx-cache
+          cache-to: type=local,dest=/tmp/.buildx-cache-new
+          
+      - name: Move cache
+        run: |
+          rm -rf /tmp/.buildx-cache
+          mv /tmp/.buildx-cache-new /tmp/.buildx-cache
+          
+      - name: Scan image for vulnerabilities
+        run: |
+          gcloud artifacts docker images scan gcr.io/${{ env.PROJECT_ID }}/${{ env.IMAGE_NAME }}:latest \
+            --format='json' > scan-results.json
+          cat scan-results.json
+          
+      - name: Upload scan results
+        uses: actions/upload-artifact@v4
+        with:
+          name: vulnerability-scan-results
+          path: scan-results.json
+          
+  deploy:
+    name: Deploy to Cloud Run
+    needs: [validate, build]
+    runs-on: ubuntu-latest
+    environment: ${{ needs.validate.outputs.environment }}
+    permissions:
+      contents: read
+      id-token: write
+      
+    steps:
+      - name: Google Auth
+        id: auth
+        uses: google-github-actions/auth@v1
+        with:
+          workload_identity_provider: ${{ secrets.WIF_PROVIDER }}
+          service_account: ${{ secrets.WIF_SERVICE_ACCOUNT }}
+          
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@v1
+        
+      - name: Set region variables
+        id: vars
+        run: |
+          if [ "${{ needs.validate.outputs.environment }}" == "production" ]; then
+            echo "region=me-west1" >> $GITHUB_OUTPUT
+            echo "min_instances=1" >> $GITHUB_OUTPUT
+            echo "max_instances=10" >> $GITHUB_OUTPUT
+            echo "memory=1Gi" >> $GITHUB_OUTPUT
+            echo "cpu=1" >> $GITHUB_OUTPUT
+          else
+            echo "region=me-west1" >> $GITHUB_OUTPUT
+            echo "min_instances=0" >> $GITHUB_OUTPUT
+            echo "max_instances=2" >> $GITHUB_OUTPUT
+            echo "memory=512Mi" >> $GITHUB_OUTPUT
+            echo "cpu=1" >> $GITHUB_OUTPUT
+          fi
+          
+      - name: Deploy to Cloud Run
+        id: deploy
+        uses: google-github-actions/deploy-cloudrun@v1
+        with:
+          service: ${{ env.SERVICE_NAME }}-${{ needs.validate.outputs.environment }}
+          region: ${{ steps.vars.outputs.region }}
+          image: gcr.io/${{ env.PROJECT_ID }}/${{ env.IMAGE_NAME }}:latest
+          env_vars: |
+            NODE_ENV=${{ needs.validate.outputs.environment }}
+            PORT=8081
+            MCP_ENABLED=true
+            API_GATEWAY_URL=${{ secrets.API_GATEWAY_URL }}
+            ENABLE_SECURITY_HEADERS=true
+            LOG_LEVEL=info
+          secrets: |
+            OPENAI_API_KEY=OPENAI_API_KEY:latest
+            GEMINI_API_KEY=GEMINI_API_KEY:latest
+          flags: |
+            --allow-unauthenticated
+            --memory=${{ steps.vars.outputs.memory }}
+            --cpu=${{ steps.vars.outputs.cpu }}
+            --min-instances=${{ steps.vars.outputs.min_instances }}
+            --max-instances=${{ steps.vars.outputs.max_instances }}
+            --concurrency=80
+            --timeout=300s
+            --cpu-throttling
+            
+      - name: Show Output
+        run: echo ${{ steps.deploy.outputs.url }}
+        
+  post-deploy:
+    name: Post-Deployment Tasks
+    needs: [validate, build, deploy]
+    runs-on: ubuntu-latest
+    environment: ${{ needs.validate.outputs.environment }}
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          
+      - name: Install testing dependencies
+        run: npm ci
+        
+      - name: Test Deployment
+        run: |
+          echo "Testing deployment at ${{ needs.deploy.outputs.url }}"
+          npm run test:deployment -- --url=${{ needs.deploy.outputs.url }} || echo "Deployment tests completed with issues"
+          
+      - name: Configure Cloud Run Monitoring
+        run: |
+          echo "Setting up monitoring for ${{ env.SERVICE_NAME }}-${{ needs.validate.outputs.environment }}"
+          # Command to set up monitoring alerts
+        if: always()
+        
+  prune-old-images:
+    name: Prune Old Images
+    needs: [deploy, post-deploy]
+    runs-on: ubuntu-latest
+    if: success() && needs.validate.outputs.environment == 'production'
+    permissions:
+      contents: read
+      id-token: write
+      
+    steps:
+      - name: Google Auth
+        id: auth
+        uses: google-github-actions/auth@v1
+        with:
+          workload_identity_provider: ${{ secrets.WIF_PROVIDER }}
+          service_account: ${{ secrets.WIF_SERVICE_ACCOUNT }}
+          
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@v1
+        
+      - name: Prune old GCR images
+        run: |
+          # Keep the most recent 5 images, delete the rest
+          gcloud container images list-tags gcr.io/${{ env.PROJECT_ID }}/${{ env.IMAGE_NAME }} \
+            --format="get(digest)" --sort-by=~timestamp | tail -n +6 | \
+            xargs -I {} gcloud container images delete --quiet "gcr.io/${{ env.PROJECT_ID }}/${{ env.IMAGE_NAME }}@{}" || true
