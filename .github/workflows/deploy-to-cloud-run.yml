@@ -54,6 +54,7 @@ jobs:
         env_vars: |
           NODE_ENV=production
           PORT=8080
+          JWT_SECRET=${{ secrets.JWT_SECRET }}
         
     - name: Show Output
       run: echo ${{ steps.deploy.outputs.url }}
