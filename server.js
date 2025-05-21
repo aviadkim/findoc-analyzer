@@ -10,7 +10,7 @@ const agentManager = require('./agent-manager');
 
 // Create Express app
 const app = express();
-const port = process.env.PORT || 8080;
+const port = process.env.PORT || 8081;
 
 // Enhanced startup logging
 console.log(`FinDoc Analyzer starting with ENV:
@@ -627,9 +627,38 @@ app.all('/api/*', (req, res) => {
   });
 });
 
-// Catch-all route to serve the main HTML for client-side routing
+// Route mapping for specific UI pages
+const uiRoutes = {
+  '/': 'index.html',
+  '/login': 'login.html',
+  '/signup': 'signup.html',
+  '/upload': 'upload.html',
+  '/documents': 'documents-new.html',
+  '/document-chat': 'document-chat.html',
+  '/analytics': 'analytics-new.html',
+  '/feedback': 'feedback.html',
+  '/comparison': 'document-comparison.html',
+  '/admin': 'admin-dashboard.html'
+};
+
+// Handle specific UI routes
+app.get(Object.keys(uiRoutes), (req, res) => {
+  const htmlFile = uiRoutes[req.path];
+  res.sendFile(path.join(__dirname, 'public', htmlFile));
+});
+
+// Catch-all route for unmapped paths - serve index as fallback
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+  // Check if the requested path exists as a file in public
+  const requestedFile = path.join(__dirname, 'public', req.path);
+  
+  if (fs.existsSync(requestedFile) && fs.statSync(requestedFile).isFile()) {
+    // If the file exists, serve it directly
+    res.sendFile(requestedFile);
+  } else {
+    // Otherwise, serve the index as fallback
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+  }
 });
 
 // Start server with enhanced error handling
