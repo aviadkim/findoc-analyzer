@@ -36,6 +36,17 @@ FinDoc Analyzer helps financial professionals and individuals extract meaningful
 - **Local Authentication**: Simplified authentication for local development
 - **Comprehensive Testing**: Automated testing for all features
 
+### QA Improvements (July 2024)
+
+- **Fixed Google Authentication**: Resolved issues with Gmail login functionality
+- **Process Button Fix**: Added missing "Process" button on document pages
+- **UI/UX Enhancements**: Fixed numerous UI/UX bugs throughout the application
+- **Responsive Design Improvements**: Enhanced mobile and tablet experience
+- **Chat Interface Fix**: Implemented fully functional document chat interface
+- **Comprehensive QA Framework**: Added systematic testing for all features
+- **Debug Tools**: Added debug panel for easier troubleshooting
+- **Styling Consistency**: Applied consistent styling throughout the application
+
 ## Quick Start
 
 ### Prerequisites
@@ -47,22 +58,26 @@ FinDoc Analyzer helps financial professionals and individuals extract meaningful
 ### Installation
 
 1. Clone the repository:
+
    ```bash
    git clone https://github.com/yourusername/findoc-analyzer.git
    cd findoc-analyzer
    ```
 
 2. Install dependencies:
+
    ```bash
    npm install
    ```
 
 3. Install Python dependencies:
+
    ```bash
    pip install -r DevDocs/backend/requirements.txt
    ```
 
 4. Start the development server:
+
    ```bash
    # Run the backend server
    node server.js
@@ -76,6 +91,7 @@ FinDoc Analyzer helps financial professionals and individuals extract meaningful
 ### Using Docker
 
 1. Build and run using Docker:
+
    ```bash
    docker-compose up
    ```
@@ -83,6 +99,38 @@ FinDoc Analyzer helps financial professionals and individuals extract meaningful
 2. Open http://localhost:8080 in your browser.
 
 ## Running Tests
+
+### End-to-End Tests with Playwright
+
+We've implemented comprehensive end-to-end tests using Playwright that validate the entire application workflow, including document processing, chatbot interaction, and UI responsiveness.
+
+```bash
+# Run the end-to-end test suite (Linux/Mac)
+chmod +x run-findoc-analyzer-tests.sh
+./run-findoc-analyzer-tests.sh
+
+# Run the end-to-end test suite (Windows)
+.\run-findoc-analyzer-tests.bat
+
+# Run against different environments
+TEST_ENV=production ./run-findoc-analyzer-tests.sh
+TEST_ENV=staging ./run-findoc-analyzer-tests.sh
+```
+
+The Playwright tests include:
+
+- Home page navigation and validation
+- Document upload and processing
+- Document chat interaction
+- Securities extraction and visualization
+- Document comparison functionality
+- User feedback submission
+- Responsive design on different screen sizes
+- Basic accessibility validation
+
+Test results and screenshots are saved in the `test-results` directory, and an HTML report is generated in the `playwright-report` directory.
+
+### Individual Test Categories
 
 ```bash
 # Run all tests
@@ -112,17 +160,20 @@ $env:DEPLOYMENT_URL="https://your-deployed-app-url.com" node ui-validation.js
 ### Local Development Setup
 
 1. Clone the repository:
+
    ```bash
    git clone <repository-url>
    cd findoc-analyzer
    ```
 
 2. Install dependencies:
+
    ```bash
    npm install
    ```
 
 3. Create a `.env` file with required API keys:
+
    ```
    API_KEY_GEMINI=your_gemini_api_key
    API_KEY_OPENAI=your_openai_api_key
@@ -131,6 +182,7 @@ $env:DEPLOYMENT_URL="https://your-deployed-app-url.com" node ui-validation.js
    ```
 
 4. Start the development server:
+
    ```bash
    npm start
    ```
@@ -146,6 +198,7 @@ $env:DEPLOYMENT_URL="https://your-deployed-app-url.com" node ui-validation.js
 #### Option 1: Google App Engine Deployment
 
 1. Set up your Google Cloud environment:
+
    ```bash
    # Install Google Cloud SDK if not already installed
    # https://cloud.google.com/sdk/docs/install
@@ -158,6 +211,7 @@ $env:DEPLOYMENT_URL="https://your-deployed-app-url.com" node ui-validation.js
    ```
 
 2. Update API keys in Secret Manager (replace with your actual keys):
+
    ```bash
    echo "your_gemini_api_key" | gcloud secrets versions add gemini-api-key --data-file=-
    echo "your_openai_api_key" | gcloud secrets versions add openai-api-key --data-file=-
@@ -166,6 +220,7 @@ $env:DEPLOYMENT_URL="https://your-deployed-app-url.com" node ui-validation.js
    ```
 
 3. Deploy to Google App Engine using the provided script:
+
    ```bash
    # On Windows
    .\deploy-to-gae.ps1
@@ -183,6 +238,7 @@ $env:DEPLOYMENT_URL="https://your-deployed-app-url.com" node ui-validation.js
 #### Option 2: Google Cloud Run Deployment
 
 1. Set up your Google Cloud environment:
+
    ```bash
    # Login to Google Cloud
    gcloud auth login
@@ -194,6 +250,7 @@ $env:DEPLOYMENT_URL="https://your-deployed-app-url.com" node ui-validation.js
 2. Update API keys in Secret Manager (same as above)
 
 3. Deploy to Google Cloud Run using the provided script:
+
    ```bash
    # On Windows
    .\deploy-to-cloud-run.ps1
@@ -211,6 +268,7 @@ $env:DEPLOYMENT_URL="https://your-deployed-app-url.com" node ui-validation.js
 #### Option 3: Automated CI/CD with GitHub Actions
 
 1. Set up GitHub repository secrets:
+
    - `GCP_PROJECT_ID`: Your Google Cloud project ID
    - `GCP_SA_KEY`: Your Google Cloud service account key (JSON)
    - `GEMINI_API_KEY`: Your Gemini API key
@@ -219,6 +277,7 @@ $env:DEPLOYMENT_URL="https://your-deployed-app-url.com" node ui-validation.js
    - `SUPABASE_SERVICE_KEY`: Your Supabase service key
 
 2. Push to GitHub to trigger deployment:
+
    ```bash
    git push origin main     # Deploys to staging
    git push origin develop  # Deploys to development
@@ -229,6 +288,7 @@ $env:DEPLOYMENT_URL="https://your-deployed-app-url.com" node ui-validation.js
 ### Docker Deployment
 
 1. Build the Docker image:
+
    ```bash
    docker build -t findoc-analyzer:latest .
    ```
@@ -296,6 +356,7 @@ findoc-analyzer/
 - [API Documentation](./DevDocs/API_DOCUMENTATION.md)
 - [User Guide](./DevDocs/USER_GUIDE.md)
 - [Developer Guide](./DevDocs/DEVELOPER_GUIDE.md)
+- [QA Report](./QA_REPORT.md) - Comprehensive QA review and fixes
 
 ## Financial Agents (12 Total)
 
