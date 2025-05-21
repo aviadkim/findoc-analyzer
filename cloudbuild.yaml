@@ -1,51 +1,324 @@
-# Google Cloud Build configuration
+# Google Cloud Build configuration for FinDoc Analyzer
+# This file configures how the application is built and deployed on Google Cloud Platform
+
+timeout: 1800s # 30 minutes total build time
+
+substitutions:
+  _SERVICE_NAME: findoc-analyzer # Default service name
+  _REGION: us-central1 # Default region
+  _ENVIRONMENT: dev # Default environment (dev, staging, or production)
+
+options:
+  substitutionOption: "ALLOW_LOOSE"
+  dynamic_substitutions: true
+  machineType: "E2_HIGHCPU_8"
+  diskSizeGb: 200
+
 steps:
-  # Install dependencies
-  - name: "gcr.io/cloud-builders/npm"
-    args: ["install"]
-    id: "npm-install"
-
-  # Install Python dependencies
-  - name: "python:3.9"
-    entrypoint: "pip"
-    args: ["install", "-r", "requirements.txt"]
-    id: "install-python-deps"
-
-  # Download NLTK data
-  - name: "python:3.9"
-    entrypoint: "python"
+  # Build the main application container
+  - name: "gcr.io/cloud-builders/docker"
+    id: "build-main-app"
     args:
       [
-        "-c",
-        'import nltk; nltk.download("punkt"); nltk.download("averaged_perceptron_tagger"); nltk.download("maxent_ne_chunker"); nltk.download("words")',
+        "build",
+        "-t",
+        "gcr.io/$PROJECT_ID/${_SERVICE_NAME}:$COMMIT_SHA",
+        "-t",
+        "gcr.io/$PROJECT_ID/${_SERVICE_NAME}:latest",
+        "-f",
+        "Dockerfile",
+        ".",
       ]
-    env:
-      - "NLTK_DATA=/workspace/nltk_data"
-    id: "download-nltk-data"
+    timeout: 600s
 
-  # Create directories for Financial Document Processor
-  - name: "gcr.io/cloud-builders/gcloud"
+  # Build the document processor container
+  - name: "gcr.io/cloud-builders/docker"
+    id: "build-document-processor"
+    args:
+      [
+        "build",
+        "-t",
+        "gcr.io/$PROJECT_ID/${_SERVICE_NAME}-document-processor:$COMMIT_SHA",
+        "-t",
+        "gcr.io/$PROJECT_ID/${_SERVICE_NAME}-document-processor:latest",
+        "-f",
+        "Dockerfile.document-processor",
+        ".",
+      ]
+    timeout: 300s
+
+  # Build the chat service container
+  - name: "gcr.io/cloud-builders/docker"
+    id: "build-chat-service"
+    args:
+      [
+        "build",
+        "-t",
+        "gcr.io/$PROJECT_ID/${_SERVICE_NAME}-chat-service:$COMMIT_SHA",
+        "-t",
+        "gcr.io/$PROJECT_ID/${_SERVICE_NAME}-chat-service:latest",
+        "-f",
+        "Dockerfile.chat-service",
+        ".",
+      ]
+    timeout: 300s
+
+  # Build the API gateway container
+  - name: "gcr.io/cloud-builders/docker"
+    id: "build-api-gateway"
+    args:
+      [
+        "build",
+        "-t",
+        "gcr.io/$PROJECT_ID/${_SERVICE_NAME}-api-gateway:$COMMIT_SHA",
+        "-t",
+        "gcr.io/$PROJECT_ID/${_SERVICE_NAME}-api-gateway:latest",
+        "-f",
+        "Dockerfile.api-gateway",
+        ".",
+      ]
+    timeout: 300s
+
+  # Build the testing service container
+  - name: "gcr.io/cloud-builders/docker"
+    id: "build-testing-service"
+    args:
+      [
+        "build",
+        "-t",
+        "gcr.io/$PROJECT_ID/${_SERVICE_NAME}-testing:$COMMIT_SHA",
+        "-f",
+        "Dockerfile.testing",
+        ".",
+      ]
+    timeout: 300s
+
+  # Run tests in a testing container
+  - name: "gcr.io/cloud-builders/docker"
+    id: "run-tests"
+    args:
+      [
+        "run",
+        "--network=cloudbuild",
+        "gcr.io/$PROJECT_ID/${_SERVICE_NAME}-testing:$COMMIT_SHA",
+      ]
+    timeout: 600s
+
+  # Deploy the main application to Cloud Run
+  - name: "gcr.io/google.com/cloudsdktool/cloud-sdk"
+    id: "deploy-main-app"
+    entrypoint: "gcloud"
+    args:
+      [
+        "run",
+        "deploy",
+        "${_SERVICE_NAME}",
+        "--image",
+        "gcr.io/$PROJECT_ID/${_SERVICE_NAME}:$COMMIT_SHA",
+        "--platform",
+        "managed",
+        "--region",
+        "${_REGION}",
+        "--allow-unauthenticated",
+        "--set-env-vars",
+        "NODE_ENV=${_ENVIRONMENT},PORT=8081,MCP_ENABLED=true,AUGMENT_ENABLED=true",
+        "--memory",
+        "2Gi",
+        "--cpu",
+        "1",
+        "--concurrency",
+        "80",
+        "--max-instances",
+        "10",
+      ]
+    timeout: 300s
+
+  # Deploy the document processor to Cloud Run
+  - name: "gcr.io/google.com/cloudsdktool/cloud-sdk"
+    id: "deploy-document-processor"
+    entrypoint: "gcloud"
+    args:
+      [
+        "run",
+        "deploy",
+        "${_SERVICE_NAME}-document-processor",
+        "--image",
+        "gcr.io/$PROJECT_ID/${_SERVICE_NAME}-document-processor:$COMMIT_SHA",
+        "--platform",
+        "managed",
+        "--region",
+        "${_REGION}",
+        "--allow-unauthenticated",
+        "--set-env-vars",
+        "NODE_ENV=${_ENVIRONMENT},PORT=3001,MCP_SERVICE_NAME=document-processor",
+        "--memory",
+        "2Gi",
+        "--cpu",
+        "1",
+      ]
+    timeout: 300s
+
+  # Deploy the chat service to Cloud Run
+  - name: "gcr.io/google.com/cloudsdktool/cloud-sdk"
+    id: "deploy-chat-service"
+    entrypoint: "gcloud"
+    args:
+      [
+        "run",
+        "deploy",
+        "${_SERVICE_NAME}-chat-service",
+        "--image",
+        "gcr.io/$PROJECT_ID/${_SERVICE_NAME}-chat-service:$COMMIT_SHA",
+        "--platform",
+        "managed",
+        "--region",
+        "${_REGION}",
+        "--allow-unauthenticated",
+        "--set-env-vars",
+        "NODE_ENV=${_ENVIRONMENT},PORT=3002,MCP_SERVICE_NAME=chat-service",
+        "--memory",
+        "2Gi",
+        "--cpu",
+        "1",
+      ]
+    timeout: 300s
+
+  # Get deployed document processor URL
+  - name: "gcr.io/google.com/cloudsdktool/cloud-sdk"
+    id: "get-document-processor-url"
     entrypoint: "bash"
     args:
       - "-c"
       - |
-        mkdir -p /tmp/financial_document_processor_cache
-        mkdir -p /tmp/nltk_data
-        cp -r /workspace/nltk_data/* /tmp/nltk_data/ || true
-    id: "create-directories"
+        DOCUMENT_PROCESSOR_URL=$(gcloud run services describe ${_SERVICE_NAME}-document-processor --platform managed --region ${_REGION} --format='value(status.url)')
+        echo "Document Processor URL: $DOCUMENT_PROCESSOR_URL"
+        echo "DOCUMENT_PROCESSOR_URL=$DOCUMENT_PROCESSOR_URL" >> /workspace/env_vars.txt
 
-  # Deploy to App Engine
-  - name: "gcr.io/cloud-builders/gcloud"
-    args: ["app", "deploy", "app.yaml", "--quiet", "--project=findoc-deploy"]
-    id: "deploy-app"
+  # Get deployed chat service URL
+  - name: "gcr.io/google.com/cloudsdktool/cloud-sdk"
+    id: "get-chat-service-url"
+    entrypoint: "bash"
+    args:
+      - "-c"
+      - |
+        CHAT_SERVICE_URL=$(gcloud run services describe ${_SERVICE_NAME}-chat-service --platform managed --region ${_REGION} --format='value(status.url)')
+        echo "Chat Service URL: $CHAT_SERVICE_URL"
+        echo "CHAT_SERVICE_URL=$CHAT_SERVICE_URL" >> /workspace/env_vars.txt
 
-  # Verify deployment
-  - name: "gcr.io/cloud-builders/curl"
-    args: ["-s", "https://findoc-deploy.ey.r.appspot.com/api/health"]
+  # Deploy the API gateway to Cloud Run with correct service URLs
+  - name: "gcr.io/google.com/cloudsdktool/cloud-sdk"
+    id: "deploy-api-gateway"
+    entrypoint: "bash"
+    args:
+      - "-c"
+      - |
+        source /workspace/env_vars.txt
+        gcloud run deploy ${_SERVICE_NAME}-api-gateway \
+          --image gcr.io/$PROJECT_ID/${_SERVICE_NAME}-api-gateway:$COMMIT_SHA \
+          --platform managed \
+          --region ${_REGION} \
+          --allow-unauthenticated \
+          --set-env-vars="NODE_ENV=${_ENVIRONMENT},PORT=3003,MCP_SERVICE_NAME=api-gateway,MCP_DOCUMENT_PROCESSOR_URL=$DOCUMENT_PROCESSOR_URL,MCP_CHAT_SERVICE_URL=$CHAT_SERVICE_URL" \
+          --memory 1Gi \
+          --cpu 1
+    timeout: 300s
+
+  # Update main app with API Gateway URL
+  - name: "gcr.io/google.com/cloudsdktool/cloud-sdk"
+    id: "update-main-app-config"
+    entrypoint: "bash"
+    args:
+      - "-c"
+      - |
+        API_GATEWAY_URL=$(gcloud run services describe ${_SERVICE_NAME}-api-gateway --platform managed --region ${_REGION} --format='value(status.url)')
+        echo "API Gateway URL: $API_GATEWAY_URL"
+
+        gcloud run services update ${_SERVICE_NAME} \
+          --platform managed \
+          --region ${_REGION} \
+          --set-env-vars="MCP_API_GATEWAY_URL=$API_GATEWAY_URL"
+    timeout: 300s
+
+  # Run post-deployment verification
+  - name: "gcr.io/google.com/cloudsdktool/cloud-sdk"
     id: "verify-deployment"
+    entrypoint: "bash"
+    args:
+      - "-c"
+      - |
+        SERVICE_URL=$(gcloud run services describe ${_SERVICE_NAME} --platform managed --region ${_REGION} --format='value(status.url)')
+        echo "Verifying deployment at $SERVICE_URL"
 
-timeout: "1800s"
+        # Wait for service to be available
+        for i in {1..30}; do
+          HTTP_STATUS=$(curl -s -o /dev/null -w "%{http_code}" $SERVICE_URL/api/health || echo "error")
+          if [ "$HTTP_STATUS" = "200" ]; then
+            echo "Service is up and running!"
+            break
+          else
+            echo "Service not ready yet (status: $HTTP_STATUS), waiting..."
+            sleep 10
+          fi
 
-options:
-  machineType: "N1_HIGHCPU_8"
-  diskSizeGb: "100"
+          if [ $i -eq 30 ]; then
+            echo "Service did not respond in time"
+            exit 1
+          fi
+        done
+
+        echo "Deployment verified successfully!"
+    timeout: 300s
+
+  # Build the Brightdata MCP monitoring container
+  - name: "gcr.io/cloud-builders/docker"
+    id: "build-brightdata-mcp"
+    args:
+      [
+        "build",
+        "-t",
+        "gcr.io/$PROJECT_ID/${_SERVICE_NAME}-brightdata-mcp:$COMMIT_SHA",
+        "-t",
+        "gcr.io/$PROJECT_ID/${_SERVICE_NAME}-brightdata-mcp:latest",
+        "-f",
+        "Dockerfile.brightdata-mcp",
+        ".",
+      ]
+    timeout: 300s
+
+  # Deploy the Brightdata MCP monitoring service to Cloud Run
+  - name: "gcr.io/google.com/cloudsdktool/cloud-sdk"
+    id: "deploy-brightdata-mcp"
+    entrypoint: "gcloud"
+    args:
+      [
+        "run",
+        "deploy",
+        "${_SERVICE_NAME}-brightdata-mcp",
+        "--image",
+        "gcr.io/$PROJECT_ID/${_SERVICE_NAME}-brightdata-mcp:$COMMIT_SHA",
+        "--platform",
+        "managed",
+        "--region",
+        "${_REGION}",
+        "--allow-unauthenticated",
+        "--set-env-vars",
+        'NODE_ENV=${_ENVIRONMENT},PORT=3004,MCP_SERVICE_NAME=brightdata-mcp,BRIGHTDATA_API_KEY=${_BRIGHTDATA_API_KEY},MAIN_SERVICE_URL=$(gcloud run services describe ${_SERVICE_NAME} --platform managed --region ${_REGION} --format="value(status.url)")',
+        "--memory",
+        "1Gi",
+        "--cpu",
+        "1",
+      ]
+    timeout: 300s
+
+# Images to push to Container Registry
+images:
+  - "gcr.io/$PROJECT_ID/${_SERVICE_NAME}:$COMMIT_SHA"
+  - "gcr.io/$PROJECT_ID/${_SERVICE_NAME}:latest"
+  - "gcr.io/$PROJECT_ID/${_SERVICE_NAME}-document-processor:$COMMIT_SHA"
+  - "gcr.io/$PROJECT_ID/${_SERVICE_NAME}-document-processor:latest"
+  - "gcr.io/$PROJECT_ID/${_SERVICE_NAME}-chat-service:$COMMIT_SHA"
+  - "gcr.io/$PROJECT_ID/${_SERVICE_NAME}-chat-service:latest"
+  - "gcr.io/$PROJECT_ID/${_SERVICE_NAME}-api-gateway:$COMMIT_SHA"
+  - "gcr.io/$PROJECT_ID/${_SERVICE_NAME}-api-gateway:latest"
+  - "gcr.io/$PROJECT_ID/${_SERVICE_NAME}-brightdata-mcp:$COMMIT_SHA"
+  - "gcr.io/$PROJECT_ID/${_SERVICE_NAME}-brightdata-mcp:latest"
