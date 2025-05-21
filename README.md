@@ -33,12 +33,13 @@ FinDoc Analyzer helps financial professionals and individuals extract meaningful
 - **Enhanced UI**: Modern, responsive UI with improved user experience
 - **Document Comparison Tool**: Compare multiple financial documents side-by-side
 - **Export Functionality**: Export document data in various formats (CSV, Excel, PDF, JSON)
-- **Local Authentication**: Simplified authentication for local development
+- **Robust JWT Authentication**: Secure JWT-based authentication system with Google OAuth integration
 - **Comprehensive Testing**: Automated testing for all features
 
 ### QA Improvements (July 2024)
 
-- **Fixed Google Authentication**: Resolved issues with Gmail login functionality
+- **Fixed Google Authentication**: Improved Google Auth integration with proper JWT token handling
+- **Secure Authentication System**: Implemented JWT-based authentication with proper token management
 - **Process Button Fix**: Added missing "Process" button on document pages
 - **UI/UX Enhancements**: Fixed numerous UI/UX bugs throughout the application
 - **Responsive Design Improvements**: Enhanced mobile and tablet experience
@@ -179,6 +180,7 @@ $env:DEPLOYMENT_URL="https://your-deployed-app-url.com" node ui-validation.js
    API_KEY_OPENAI=your_openai_api_key
    API_KEY_OPENROUTER=your_openrouter_api_key
    API_KEY_ANTHROPIC=your_anthropic_api_key
+   JWT_SECRET=your_jwt_secret
    ```
 
 4. Start the development server:
@@ -217,6 +219,7 @@ $env:DEPLOYMENT_URL="https://your-deployed-app-url.com" node ui-validation.js
    echo "your_openai_api_key" | gcloud secrets versions add openai-api-key --data-file=-
    echo "your_openrouter_api_key" | gcloud secrets versions add openrouter-api-key --data-file=-
    echo "your_anthropic_api_key" | gcloud secrets versions add anthropic-api-key --data-file=-
+   echo "your_jwt_secret_key" | gcloud secrets versions add jwt-secret-key --data-file=-
    ```
 
 3. Deploy to Google App Engine using the provided script:
@@ -265,7 +268,25 @@ $env:DEPLOYMENT_URL="https://your-deployed-app-url.com" node ui-validation.js
    https://findoc-analyzer-[PROJECT-ID].a.run.app
    ```
 
-#### Option 3: Automated CI/CD with GitHub Actions
+#### Option 3: Authentication-Focused Deployment
+
+For a deployment that only updates the authentication system, use the specialized deployment script:
+
+```bash
+# Deploy the authentication enhancements
+./deploy-to-google-cloud.sh
+```
+
+Or use the Cloud Build configuration:
+
+```bash
+gcloud builds submit --config cloudbuild.auth.yaml \
+  --substitutions=_JWT_SECRET=your-jwt-secret-here
+```
+
+For more details, see [AUTH_DEPLOYMENT_GUIDE.md](./AUTH_DEPLOYMENT_GUIDE.md).
+
+#### Option 4: Automated CI/CD with GitHub Actions
 
 1. Set up GitHub repository secrets:
 
@@ -275,6 +296,7 @@ $env:DEPLOYMENT_URL="https://your-deployed-app-url.com" node ui-validation.js
    - `DEEPSEEK_API_KEY`: Your DeepSeek API key
    - `SUPABASE_KEY`: Your Supabase key
    - `SUPABASE_SERVICE_KEY`: Your Supabase service key
+   - `JWT_SECRET_KEY`: Your JWT secret key
 
 2. Push to GitHub to trigger deployment:
 
@@ -300,6 +322,7 @@ $env:DEPLOYMENT_URL="https://your-deployed-app-url.com" node ui-validation.js
      -e API_KEY_OPENAI=your_openai_api_key \
      -e API_KEY_OPENROUTER=your_openrouter_api_key \
      -e API_KEY_ANTHROPIC=your_anthropic_api_key \
+     -e JWT_SECRET=your_jwt_secret \
      findoc-analyzer:latest
    ```
 
@@ -326,6 +349,7 @@ findoc-analyzer/
 ├── routes/                   # API routes
 ├── middleware/               # Express middleware
 ├── tests/                    # Test suites
+├── auth/                     # Authentication system
 └── uploads/                  # Uploaded files directory
 ```
 
@@ -334,6 +358,7 @@ findoc-analyzer/
 - **Frontend**: Next.js with React, Tailwind CSS for styling
 - **Backend**: Flask API with Python for document processing, Node.js with Express for web server
 - **Database**: Supabase (PostgreSQL) for data storage
+- **Authentication**: JWT-based authentication system with support for Google OAuth
 - **Financial Analysis**: Python-based agents for document processing
 - **Visualization**: Chart.js, React-ChartJS-2 for interactive visualizations
 - **AI Integration**: Multiple AI models integrated:
@@ -353,6 +378,7 @@ findoc-analyzer/
 - [Implementation Plan](./DevDocs/IMPLEMENTATION_PLAN.md)
 - [Implementation Report](./DevDocs/IMPLEMENTATION_REPORT.md)
 - [Enhanced Visualizations Guide](./DevDocs/docs/ENHANCED_VISUALIZATIONS_GUIDE.md)
+- [Authentication Deployment Guide](./AUTH_DEPLOYMENT_GUIDE.md)
 - [API Documentation](./DevDocs/API_DOCUMENTATION.md)
 - [User Guide](./DevDocs/USER_GUIDE.md)
 - [Developer Guide](./DevDocs/DEVELOPER_GUIDE.md)
@@ -396,6 +422,20 @@ curl -X POST http://localhost:8080/api/keys/gemini \
   -H "Content-Type: application/json" \
   -d '{"apiKey": "your-api-key", "tenantId": "optional-tenant-id"}'
 ```
+
+## Authentication System
+
+FinDoc Analyzer features a robust JWT-based authentication system:
+
+- **User Registration**: New users can sign up with email and password
+- **User Login**: Existing users can log in securely
+- **JWT Tokens**: Secure authentication using JWT tokens
+- **Token Storage**: Tokens are securely stored in localStorage
+- **Google Authentication**: Integration with Google OAuth (currently mocked)
+- **Role-Based Access**: Different permissions based on user role
+- **Tenant Isolation**: Multi-tenant support with data isolation
+
+For more details on the authentication system, see [AUTH_DEPLOYMENT_GUIDE.md](./AUTH_DEPLOYMENT_GUIDE.md).
 
 ## Contributing
 
