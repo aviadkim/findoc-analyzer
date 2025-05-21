@@ -92,30 +92,38 @@
         submitButton.disabled = true;
         submitButton.innerHTML = '<span class="login-form-submit-icon">⏳</span> Signing In...';
 
-        // Mock login for demo purposes
-        setTimeout(() => {
-          if (email === 'demo@example.com' && password === 'password') {
-            // Store user info in localStorage
-            const user = {
-              id: '123',
-              name: 'Demo User',
-              email: 'demo@example.com'
-            };
-
-            localStorage.setItem('auth_token', 'demo_token');
-            localStorage.setItem('auth_user', JSON.stringify(user));
-
-            // Redirect to dashboard
-            window.location.href = '/';
-          } else {
-            // Reset button state
-            submitButton.disabled = false;
-            submitButton.innerHTML = '<span class="login-form-submit-icon">🔒</span> Sign In';
-
-            // Show error
-            showAuthError('Invalid email or password');
+        // Use the actual API endpoint to log in
+        fetch('/api/auth/login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ email, password })
+        })
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Login failed');
           }
-        }, 1500);
+          return response.json();
+        })
+        .then(data => {
+          // Store authentication data
+          localStorage.setItem('authToken', data.token);
+          localStorage.setItem('currentUser', JSON.stringify(data.user));
+
+          // Redirect to dashboard
+          window.location.href = '/';
+        })
+        .catch(error => {
+          console.error('Login error:', error);
+          
+          // Reset button state
+          submitButton.disabled = false;
+          submitButton.innerHTML = '<span class="login-form-submit-icon">🔒</span> Sign In';
+
+          // Show error
+          showAuthError('Invalid email or password');
+        });
       });
 
       // Handle Google login
@@ -133,47 +141,50 @@
       googleButton.disabled = true;
       googleButton.innerHTML = '<span class="google-login-icon">G</span> Signing in with Google...';
 
-      // Create OAuth URL
-      const clientId = '1234567890-abcdefghijklmnopqrstuvwxyz.apps.googleusercontent.com'; // Replace with your actual client ID
-      const redirectUri = window.location.origin + '/auth/google/callback';
-      const scope = 'email profile';
-      const responseType = 'token';
-      const state = generateRandomString(16);
-
-      // Store state in localStorage for verification
-      localStorage.setItem('auth_state', state);
-
-      // Simulate OAuth redirect
-      setTimeout(() => {
-        // For demo purposes, we'll just redirect to the dashboard
-        // In a real app, this would redirect to Google OAuth
-
-        // Store mock user info
-        const user = {
-          id: '456',
-          name: 'Google User',
-          email: 'google@example.com'
-        };
-
-        localStorage.setItem('auth_token', 'google_token');
-        localStorage.setItem('auth_user', JSON.stringify(user));
-
+      // In a real implementation, we would call the Google OAuth endpoint
+      // For now, use the existing mock Google login
+      fetch('/api/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ email: 'google@example.com', password: 'google_password' })
+      })
+      .then(response => {
+        if (!response.ok) {
+          // If our mock fails, use a fallback
+          const user = {
+            id: '3',
+            name: 'Google User',
+            email: 'google@example.com',
+            role: 'user'
+          };
+          localStorage.setItem('authToken', 'google_token');
+          localStorage.setItem('currentUser', JSON.stringify(user));
+          window.location.href = '/';
+          return;
+        }
+        return response.json();
+      })
+      .then(data => {
+        if (data) {
+          // Store authentication data
+          localStorage.setItem('authToken', data.token);
+          localStorage.setItem('currentUser', JSON.stringify(data.user));
+        }
         // Redirect to dashboard
         window.location.href = '/';
-      }, 1500);
-    }
+      })
+      .catch(error => {
+        console.error('Google login error:', error);
+        
+        // Reset button state
+        googleButton.disabled = false;
+        googleButton.innerHTML = '<span class="google-login-icon">G</span> Sign in with Google';
 
-    // Generate random string for state parameter
-    function generateRandomString(length) {
-      const charset = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-      let result = '';
-
-      for (let i = 0; i < length; i++) {
-        const randomIndex = Math.floor(Math.random() * charset.length);
-        result += charset[randomIndex];
-      }
-
-      return result;
+        // Show error
+        showAuthError('Google login failed');
+      });
     }
 
     // Show auth error
