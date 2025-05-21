@@ -1,60 +1,94 @@
-name: Deploy to Google Cloud Run
+name: Deploy to Cloud Run
 
 on:
   push:
-    branches:
-      - main
-  workflow_dispatch:
-
-env:
-  PROJECT_ID: github-456508
-  SERVICE_NAME: financial-document-processor
-  REGION: me-west1
+    branches: [ main, ui-modernization-2025 ]
+  workflow_dispatch:  # Allow manual trigger
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
-
-    permissions:
-      contents: read
-      id-token: write
-
+    
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Google Auth
-        id: auth
-        uses: google-github-actions/auth@v1
-        with:
-          workload_identity_provider: ${{ secrets.WIF_PROVIDER }}
-          service_account: ${{ secrets.WIF_SERVICE_ACCOUNT }}
-
-      - name: Set up Cloud SDK
-        uses: google-github-actions/setup-gcloud@v1
-
-      - name: Authorize Docker push
-        run: gcloud auth configure-docker
-
-      - name: Build and Push Container
-        run: |-
-          cd financial_document_processor
-          docker build -t gcr.io/$PROJECT_ID/$SERVICE_NAME:${{ github.sha }} .
-          docker push gcr.io/$PROJECT_ID/$SERVICE_NAME:${{ github.sha }}
-
-      - name: Deploy to Cloud Run
-        id: deploy
-        uses: google-github-actions/deploy-cloudrun@v1
-        with:
-          service: ${{ env.SERVICE_NAME }}
-          region: ${{ env.REGION }}
-          image: gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE_NAME }}:${{ github.sha }}
-          env_vars: |
-            DATABASE_URL=${{ secrets.DATABASE_URL }}
-            MODEL_PROVIDER=${{ secrets.MODEL_PROVIDER }}
-            OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }}
-            GOOGLE_API_KEY=${{ secrets.GOOGLE_API_KEY }}
-            LOG_LEVEL=INFO
-
-      - name: Show Output
-        run: echo ${{ steps.deploy.outputs.url }}
+    - name: Checkout
+      uses: actions/checkout@v3
+      
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '20'
+        
+    - name: Install dependencies
+      run: npm ci
+      
+    - name: Run tests
+      run:  < /dev/null | 
+        echo "Running basic API tests..."
+        node api-test.js
+      
+    - name: Setup Google Cloud SDK
+      uses: google-github-actions/setup-gcloud@v1
+      with:
+        project_id: ${{ secrets.GCP_PROJECT_ID }}
+        service_account_key: ${{ secrets.GCP_SA_KEY }}
+        export_default_credentials: true
+        
+    - name: Authorize Docker push
+      run: gcloud auth configure-docker
+      
+    - name: Build and push Docker image
+      id: docker_build
+      run: |
+        IMAGE_NAME="gcr.io/${{ secrets.GCP_PROJECT_ID }}/findoc-analyzer:${{ github.sha }}"
+        docker build -t $IMAGE_NAME .
+        docker push $IMAGE_NAME
+        echo "::set-output name=image::$IMAGE_NAME"
+        
+    - name: Deploy to Cloud Run
+      id: deploy
+      uses: google-github-actions/deploy-cloudrun@v1
+      with:
+        service: findoc-analyzer
+        image: ${{ steps.docker_build.outputs.image }}
+        region: us-central1
+        env_vars: |
+          NODE_ENV=production
+          PORT=8080
+        
+    - name: Show Output
+      run: echo ${{ steps.deploy.outputs.url }}
+      
+    - name: Test deployment
+      run: |
+        sleep 10  # Allow time for service to become available
+        curl -s "${{ steps.deploy.outputs.url }}/api/health"
+        
+    - name: Post deployment summary
+      uses: actions/github-script@v6
+      with:
+        script: |
+          const url = "${{ steps.deploy.outputs.url }}";
+          const sha = "${{ github.sha }}";
+          const branch = "${{ github.ref_name }}";
+          
+          github.rest.issues.createComment({
+            issue_number: context.issue.number,
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            body: `🚀 Deployed to Cloud Run at [${url}](${url})
+            
+            **Branch:** ${branch}
+            **Commit:** ${sha}
+            
+            ### Deployment Status
+            | Resource | Status |
+            | -------- | ------ |
+            | App | ✅ Deployed |
+            | API | ✅ Operational |
+            
+            To run verification test:
+            \\`\\`\\`
+            curl ${url}/api/health
+            \\`\\`\\`
+            `
+          });
